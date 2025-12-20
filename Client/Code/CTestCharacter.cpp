@@ -26,13 +26,14 @@ HRESULT CTestCharacter::Ready_GameObject()
 	m_pAnimationCom->Change_Animation(0);
 	m_pAnimationCom->PlayFromStart();
 
+	m_pTransformCom->m_vScale = { 300,300,1 };
 	return S_OK;
 }
 
 _int CTestCharacter::Update_GameObject(const _float& fTimeDelta)
 {
 	int iExit = CCharacter::Update_GameObject(fTimeDelta);
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 	return iExit;
 }
 

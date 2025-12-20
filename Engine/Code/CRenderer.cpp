@@ -1,4 +1,5 @@
 #include "CRenderer.h"
+#include "CRenderStateGuard.h"
 
 IMPLEMENT_SINGLETON(CRenderer)
 
@@ -25,6 +26,7 @@ void CRenderer::Render_GameObject(LPDIRECT3DDEVICE9& pGraphicDev)
 	Render_Priority(pGraphicDev);
 	Render_NonAlpha(pGraphicDev);
 	Render_Alpha(pGraphicDev);
+	Render_Alpha_UI(pGraphicDev);
 	Render_UI(pGraphicDev);
 
 	Clear_RenderGroup();
@@ -53,35 +55,59 @@ void CRenderer::Render_NonAlpha(LPDIRECT3DDEVICE9& pGraphicDev)
 
 void CRenderer::Render_Alpha(LPDIRECT3DDEVICE9& pGraphicDev)
 {
+	CRenderStateGuard cGuard(pGraphicDev);
 	pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
-
 	pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 	
 	pGraphicDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	pGraphicDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
-	//pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-	//
-	//pGraphicDev->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
-	//pGraphicDev->SetRenderState(D3DRS_ALPHAREF, 0xc0);
+	/*
+	//알파테스트 
+	pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+	pGraphicDev->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+	pGraphicDev->SetRenderState(D3DRS_ALPHAREF, 0xc0);
+	*/
 
 	m_RenderGroup[RENDER_ALPHA].sort([](CGameObject* pDst, CGameObject* pSrc)->bool
 		{
 			return pDst->Get_ViewZ() > pSrc->Get_ViewZ();
 		});
 
-
 	for (auto& pObj : m_RenderGroup[RENDER_ALPHA])
 		pObj->Render_GameObject();
 
-	//pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
-	pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+}
 
-	pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+void CRenderer::Render_Alpha_UI(LPDIRECT3DDEVICE9& pGraphicDev)
+{
+	CRenderStateGuard cGuard(pGraphicDev);
+	pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+	pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+
+	_matrix mat, View;
+	D3DXMatrixIdentity(&View);
+	pGraphicDev->SetTransform(D3DTS_VIEW, &View);
+
+	D3DXMatrixOrthoLH(&mat, WINCX, WINCY, 0.f, 1.f);
+	pGraphicDev->SetTransform(D3DTS_PROJECTION, &mat);
+
+	//UI는 Z값이 동일하므로 넣은 순으로 랜더
+	for (auto& pObj : m_RenderGroup[RENDER_ALPHA_UI])
+		pObj->Render_GameObject();
 }
 
 void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
 {
+	CRenderStateGuard cGuard(pGraphicDev);
+
+	_matrix mat, View;
+	D3DXMatrixIdentity(&View);
+	pGraphicDev->SetTransform(D3DTS_VIEW, &View);
+
+	D3DXMatrixOrthoLH(&mat, WINCX, WINCY, 0.f, 1.f);
+	pGraphicDev->SetTransform(D3DTS_PROJECTION, &mat);
+	
 	for (auto& pObj : m_RenderGroup[RENDER_UI])
 		pObj->Render_GameObject();
 }

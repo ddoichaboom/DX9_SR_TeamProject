@@ -106,6 +106,9 @@
     <Filter Include="02. ComponentEX\02. Texture\02. Texture">
       <UniqueIdentifier>{0b761f59-e341-49bb-b144-9aaa0e2eb2e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="98. RenderStateGuard">
+      <UniqueIdentifier>{f474c147-7e18-4145-9a37-6672ccc7ccdd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -213,6 +216,9 @@
     <ClInclude Include="..\Header\CTexture.h">
       <Filter>02. ComponentEX\02. Texture\02. Texture</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CRenderStateGuard.h">
+      <Filter>98. RenderStateGuard</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -301,6 +307,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CCubeTexture.cpp">
       <Filter>02. ComponentEX\02. Texture\01. CubeTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CRenderStateGuard.cpp">
+      <Filter>98. RenderStateGuard</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
