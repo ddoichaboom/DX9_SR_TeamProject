@@ -1,0 +1,259 @@
+폴더 PATH의 목록입니다.
+볼륨 일련 번호는 869E-1BD6입니다.
+D:.
+│  Copy.bat
+│  make_structure.bat
+│  SR_Proj.sln
+│  structure.txt
+│  
+├─Base
+│      CBase.h
+│      CBase.inl
+│      
+├─Client
+│  ├─Bin
+│  │  │  Client.exe
+│  │  │  Client.exp
+│  │  │  Client.lib
+│  │  │  Client.pdb
+│  │  │  Engine.dll
+│  │  │  
+│  │  └─Resource
+│  │      └─Texture
+│  │          ├─Player
+│  │          └─Test
+│  │                  White_Idle.png
+│  │                  
+│  ├─Code
+│  │      CCharacter.cpp
+│  │      CMainApp.cpp
+│  │      CPlayer.cpp
+│  │      CStage.cpp
+│  │      CTestCharacter.cpp
+│  │      CTestStage.cpp
+│  │      
+│  ├─Header
+│  │      CCharacter.h
+│  │      CMainApp.h
+│  │      CPlayer.h
+│  │      CStage.h
+│  │      CTestCharacter.h
+│  │      CTestStage.h
+│  │      
+│  └─Include
+│      │  Client.cpp
+│      │  Client.h
+│      │  Client.ico
+│      │  Client.rc
+│      │  Client.vcxproj
+│      │  Client.vcxproj.filters
+│      │  Client.vcxproj.user
+│      │  framework.h
+│      │  pch.cpp
+│      │  pch.h
+│      │  Resource.h
+│      │  small.ico
+│      │  targetver.h
+│      │  
+│      └─x64
+│          └─Debug
+│              │  CCharacter.obj
+│              │  Client.exe.recipe
+│              │  Client.ilk
+│              │  Client.log
+│              │  Client.obj
+│              │  Client.pch
+│              │  Client.res
+│              │  CMainApp.obj
+│              │  CPlayer.obj
+│              │  CPlayerTestStage.obj
+│              │  CStage.obj
+│              │  CTestCharacter.obj
+│              │  CTestStage.obj
+│              │  pch.obj
+│              │  vc143.idb
+│              │  vc143.pdb
+│              │  
+│              └─Client.tlog
+│                      CL.command.1.tlog
+│                      Cl.items.tlog
+│                      CL.read.1.tlog
+│                      CL.write.1.tlog
+│                      Client.lastbuildstate
+│                      link.command.1.tlog
+│                      link.read.1.tlog
+│                      link.secondary.1.tlog
+│                      link.write.1.tlog
+│                      rc.command.1.tlog
+│                      rc.read.1.tlog
+│                      rc.write.1.tlog
+│                      
+├─Engine
+│  ├─Bin
+│  │      Engine.dll
+│  │      Engine.exp
+│  │      Engine.lib
+│  │      Engine.pdb
+│  │      
+│  ├─Code
+│  │      CAnimation.cpp
+│  │      CBaseTexture.cpp
+│  │      CCamera.cpp
+│  │      CComponent.cpp
+│  │      CCubeTex.cpp
+│  │      CCubeTexture.cpp
+│  │      CDInputMgr.cpp
+│  │      CFont.cpp
+│  │      CFontMgr.cpp
+│  │      CFrame.cpp
+│  │      CFrameMgr.cpp
+│  │      CGameObject.cpp
+│  │      CGraphicDev.cpp
+│  │      CLayer.cpp
+│  │      CLight.cpp
+│  │      CLightMgr.cpp
+│  │      CManagement.cpp
+│  │      CPipeline.cpp
+│  │      CProtoMgr.cpp
+│  │      CRcCol.cpp
+│  │      CRcTex.cpp
+│  │      CRenderer.cpp
+│  │      CScene.cpp
+│  │      CTerrainTex.cpp
+│  │      CTexture.cpp
+│  │      CTimer.cpp
+│  │      CTimerMgr.cpp
+│  │      CTransform.cpp
+│  │      CVIBuffer.cpp
+│  │      
+│  ├─Header
+│  │      CAnimation.h
+│  │      CBaseTexture.h
+│  │      CCamera.h
+│  │      CComponent.h
+│  │      CCubeTex.h
+│  │      CCubeTexture.h
+│  │      CDInputMgr.h
+│  │      CFont.h
+│  │      CFontMgr.h
+│  │      CFrame.h
+│  │      CFrameMgr.h
+│  │      CGameObject.h
+│  │      CGraphicDev.h
+│  │      CLayer.h
+│  │      CLight.h
+│  │      CLightMgr.h
+│  │      CManagement.h
+│  │      CPipeline.h
+│  │      CProtoMgr.h
+│  │      CRcCol.h
+│  │      CRcTex.h
+│  │      CRenderer.h
+│  │      CScene.h
+│  │      CTerrainTex.h
+│  │      CTexture.h
+│  │      CTimer.h
+│  │      CTimerMgr.h
+│  │      CTransform.h
+│  │      CVIBuffer.h
+│  │      Engine_Define.h
+│  │      Engine_Enum.h
+│  │      Engine_Function.h
+│  │      Engine_Macro.h
+│  │      Engine_Struct.h
+│  │      Engine_Typedef.h
+│  │      
+│  └─Include
+│      │  Engine.vcxproj
+│      │  Engine.vcxproj.filters
+│      │  Engine.vcxproj.user
+│      │  
+│      └─x64
+│          └─Debug
+│              │  CAnimation.obj
+│              │  CBaseTexture.obj
+│              │  CCamera.obj
+│              │  CComponent.obj
+│              │  CCubeTex.obj
+│              │  CCubeTexture.obj
+│              │  CDInputMgr.obj
+│              │  CFont.obj
+│              │  CFontMgr.obj
+│              │  CFrame.obj
+│              │  CFrameMgr.obj
+│              │  CGameObject.obj
+│              │  CGraphicDev.obj
+│              │  CLayer.obj
+│              │  CLight.obj
+│              │  CLightMgr.obj
+│              │  CManagement.obj
+│              │  CPipeline.obj
+│              │  CProtoMgr.obj
+│              │  CRcCol.obj
+│              │  CRcTex.obj
+│              │  CRenderer.obj
+│              │  CScene.obj
+│              │  CTerrainTex.obj
+│              │  CTexture.obj
+│              │  CTimer.obj
+│              │  CTimerMgr.obj
+│              │  CTransform.obj
+│              │  CVIBuffer.obj
+│              │  Engine.dll.recipe
+│              │  Engine.ilk
+│              │  Engine.log
+│              │  vc143.idb
+│              │  vc143.pdb
+│              │  
+│              └─Engine.tlog
+│                      CL.command.1.tlog
+│                      Cl.items.tlog
+│                      CL.read.1.tlog
+│                      CL.write.1.tlog
+│                      Engine.lastbuildstate
+│                      link.command.1.tlog
+│                      link.read.1.tlog
+│                      link.secondary.1.tlog
+│                      link.write.1.tlog
+│                      
+└─Reference
+    ├─Header
+    │      CAnimation.h
+    │      CBaseTexture.h
+    │      CCamera.h
+    │      CComponent.h
+    │      CCubeTex.h
+    │      CCubeTexture.h
+    │      CDInputMgr.h
+    │      CFont.h
+    │      CFontMgr.h
+    │      CFrame.h
+    │      CFrameMgr.h
+    │      CGameObject.h
+    │      CGraphicDev.h
+    │      CLayer.h
+    │      CLight.h
+    │      CLightMgr.h
+    │      CManagement.h
+    │      CPipeline.h
+    │      CProtoMgr.h
+    │      CRcCol.h
+    │      CRcTex.h
+    │      CRenderer.h
+    │      CScene.h
+    │      CTerrainTex.h
+    │      CTexture.h
+    │      CTimer.h
+    │      CTimerMgr.h
+    │      CTransform.h
+    │      CVIBuffer.h
+    │      Engine_Define.h
+    │      Engine_Enum.h
+    │      Engine_Function.h
+    │      Engine_Macro.h
+    │      Engine_Struct.h
+    │      Engine_Typedef.h
+    │      
+    └─Library
+            Engine.lib
+            

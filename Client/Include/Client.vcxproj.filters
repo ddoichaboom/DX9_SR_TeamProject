@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="00. MainApp">
+      <UniqueIdentifier>{c4a5d2d4-8ba4-41ba-b39d-b3c57606384d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene">
+      <UniqueIdentifier>{785484d4-4b02-4e46-a061-3098ce72bd33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject">
+      <UniqueIdentifier>{9d376134-9237-4e52-b6e1-74678947fe33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\01. Stage">
+      <UniqueIdentifier>{c6063628-20e0-49ad-b456-57ec3a28790a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\01. Stage\00. TestStage">
+      <UniqueIdentifier>{1d8c4842-5146-4708-b742-7cf82b1003ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character">
+      <UniqueIdentifier>{ed4446a1-1899-4f4f-a815-58c6378adbba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\00. Player">
+      <UniqueIdentifier>{61f971e4-45ff-4ad5-ab96-92c4f9a6ed8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\99. TestCharacter">
+      <UniqueIdentifier>{6f673fc3-69e7-4d07-9b32-3112f3926e97}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Client.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMainApp.h">
+      <Filter>00. MainApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CStage.h">
+      <Filter>01. Scene\01. Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCharacter.h">
+      <Filter>02. GameObject\00. Character</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPlayer.h">
+      <Filter>02. GameObject\00. Character\00. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTestCharacter.h">
+      <Filter>02. GameObject\00. Character\99. TestCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTestStage.h">
+      <Filter>01. Scene\01. Stage\00. TestStage</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Client.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMainApp.cpp">
+      <Filter>00. MainApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CStage.cpp">
+      <Filter>01. Scene\01. Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCharacter.cpp">
+      <Filter>02. GameObject\00. Character</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPlayer.cpp">
+      <Filter>02. GameObject\00. Character\00. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTestCharacter.cpp">
+      <Filter>02. GameObject\00. Character\99. TestCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTestStage.cpp">
+      <Filter>01. Scene\01. Stage\00. TestStage</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Client.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Client.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
