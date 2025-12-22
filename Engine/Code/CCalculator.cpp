@@ -13,6 +13,7 @@ CCalculator::CCalculator(const CCalculator& rhs)
 
 CCalculator::~CCalculator()
 {
+
 }
 
 void CCalculator::GetRay(HWND hWnd, _vec3* pOutRayWorldPos, _vec3* pOutRayWorldDir)
@@ -40,12 +41,13 @@ void CCalculator::GetRay(HWND hWnd, _vec3* pOutRayWorldPos, _vec3* pOutRayWorldD
     m_pGraphicDev->GetTransform(D3DTS_VIEW, &matView);
     D3DXMatrixInverse(&matView, 0, &matView);
 
-    _vec3       vRayPos{ 0.f, 0.f,0.f };       
-    _vec3       vRayDir = vMousePos - vRayPos; 
+    _vec3       vRayPos{ 0.f, 0.f,0.f };
+    _vec3       vRayDir = vMousePos - vRayPos;
 
     //월드 스페이스로 변환 
     D3DXVec3TransformCoord(&vRayPos, &vRayPos, &matView);
     D3DXVec3TransformNormal(&vRayDir, &vRayDir, &matView);
+    D3DXVec3Normalize(&vRayDir, &vRayDir);
 
     *pOutRayWorldPos = vRayPos;
     *pOutRayWorldDir = vRayDir;
@@ -53,36 +55,61 @@ void CCalculator::GetRay(HWND hWnd, _vec3* pOutRayWorldPos, _vec3* pOutRayWorldD
 
 bool CCalculator::Check_PickedCollider(HWND hWnd, CCollider* pCollider)
 {
+    const float eps = 1e-6f;
     _vec3 vRayPos, vRayDir;
     GetRay(hWnd, &vRayPos, &vRayDir);
 
     _matrix mat = pCollider->GetWorldMatrix();
+
     D3DXMatrixInverse(&mat, NULL, &mat);
     D3DXVec3TransformCoord(&vRayPos, &vRayPos, &mat);
-    D3DXVec3TransformCoord(&vRayDir, &vRayDir, &mat);
+    D3DXVec3TransformNormal(&vRayDir, &vRayDir, &mat);
     D3DXVec3Normalize(&vRayDir, &vRayDir);
 
-    //_vec3* pos = pCollider->GetVtx();
     _vec3 minPoint = { -1.f, -1.f, -1.f };
     _vec3 maxPoint = { 1.f, 1.f, 1.f };
 
-    float rMin, rMax;
-
-    float tMinx = (minPoint.x - vRayPos.x) / vRayDir.x;
-    float tMaxx = (maxPoint.x - vRayPos.x) / vRayDir.x;
-
-    if (tMinx > tMaxx) swap(tMinx, tMaxx);
-
-    float tMiny = (minPoint.y - vRayPos.y) / vRayDir.y;
-    float tMaxy = (maxPoint.y - vRayPos.y) / vRayDir.y;
-
-    if (tMiny > tMaxy) swap(tMiny, tMaxy);
+    float rMin = FLT_MIN, rMax = FLT_MAX;
+    float tMinx = FLT_MIN, tMaxx = FLT_MAX,
+        tMiny = FLT_MIN, tMaxy = FLT_MAX, tMinz = FLT_MIN, tMaxz = FLT_MAX;
 
 
-    float tMinz = (minPoint.z - vRayPos.z) / vRayDir.z;
-    float tMaxz = (maxPoint.z - vRayPos.z) / vRayDir.z;
+    if (fabsf(vRayDir.x) >= eps)
+    {
+        tMinx = (minPoint.x - vRayPos.x) / vRayDir.x;
+        tMaxx = (maxPoint.x - vRayPos.x) / vRayDir.x;
 
-    if (tMinz > tMaxz) swap(tMinz, tMaxz);
+        if (tMinx > tMaxx) swap(tMinx, tMaxx);
+    }
+    else
+    {
+        //축과 거의 평행할때 시작점이 축과 같은 경우에만 true 
+        return (vRayPos.x >= minPoint.x && vRayPos.x <= maxPoint.x);
+    }
+
+    if (fabsf(vRayDir.y) >= eps)
+    {
+        tMiny = (minPoint.y - vRayPos.y) / vRayDir.y;
+        tMaxy = (maxPoint.y - vRayPos.y) / vRayDir.y;
+
+        if (tMiny > tMaxy) swap(tMiny, tMaxy);
+    }
+    else
+    {
+        return (vRayPos.y >= minPoint.y && vRayPos.y <= maxPoint.y);
+    }
+
+    if (fabsf(vRayDir.z) >= eps)
+    {
+        tMinz = (minPoint.z - vRayPos.z) / vRayDir.z;
+        tMaxz = (maxPoint.z - vRayPos.z) / vRayDir.z;
+
+        if (tMinz > tMaxz) swap(tMinz, tMaxz);
+    }
+    else
+    {
+        return (vRayPos.z >= minPoint.z && vRayPos.z <= maxPoint.z);
+    }
 
     rMin = max(tMinx, max(tMiny, tMinz));
     rMax = min(tMaxx, min(tMaxy, tMaxz));

@@ -36,7 +36,7 @@ public:
 
 	void		Rotation(ROTATION eType, const _float& fAngle)
 	{
-		*(((_float*)&m_vAngle) + eType) += fAngle;
+		*(((_float*)&m_vAngle) + eType) += fAngle;		
 	}
 
 	_matrix* Get_World() { return &m_matWorld; }

@@ -166,17 +166,12 @@ call Copy.bat</Command>
     <ClInclude Include="..\Header\CRenderStateGuard.h" />
     <ClInclude Include="..\Header\CScene.h" />
     <ClInclude Include="..\Header\CTerrainTex.h" />
+    <ClInclude Include="..\Header\CTerrainTexture.h" />
     <ClInclude Include="..\Header\CTexture.h" />
     <ClInclude Include="..\Header\CTimer.h" />
     <ClInclude Include="..\Header\CTimerMgr.h" />
     <ClInclude Include="..\Header\CTransform.h" />
     <ClInclude Include="..\Header\CVIBuffer.h" />
-    <ClInclude Include="..\Header\Engine_Define.h" />
-    <ClInclude Include="..\Header\Engine_Enum.h" />
-    <ClInclude Include="..\Header\Engine_Function.h" />
-    <ClInclude Include="..\Header\Engine_Macro.h" />
-    <ClInclude Include="..\Header\Engine_Struct.h" />
-    <ClInclude Include="..\Header\Engine_Typedef.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CAnimation.cpp" />
@@ -207,6 +202,7 @@ call Copy.bat</Command>
     <ClCompile Include="..\Code\CRenderStateGuard.cpp" />
     <ClCompile Include="..\Code\CScene.cpp" />
     <ClCompile Include="..\Code\CTerrainTex.cpp" />
+    <ClCompile Include="..\Code\CTerrainTexture.cpp" />
     <ClCompile Include="..\Code\CTexture.cpp" />
     <ClCompile Include="..\Code\CTimer.cpp" />
     <ClCompile Include="..\Code\CTimerMgr.cpp" />

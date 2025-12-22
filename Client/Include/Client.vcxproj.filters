@@ -49,14 +49,17 @@
     <Filter Include="02. GameObject\00. Character\00. Player\00.PlayerPart">
       <UniqueIdentifier>{cf450763-5c16-4250-ac61-ec419d054642}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\00. Character\00. Player\00.PlayerPart\01.LeftPart">
+    <Filter Include="02. GameObject\00. Character\00. Player\01.LeftPart">
       <UniqueIdentifier>{bf548432-2e54-4f4e-ac05-29dd683ecd33}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\00. Character\00. Player\00.PlayerPart\02.RightPart">
+    <Filter Include="02. GameObject\00. Character\00. Player\02.RightPart">
       <UniqueIdentifier>{b68af5c4-154f-4b95-8796-870c103beea9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\00. Character\00. Player\00.PlayerPart\03.Middle">
+    <Filter Include="02. GameObject\00. Character\00. Player\03.Middle">
       <UniqueIdentifier>{9d79274d-fc6b-4d57-a086-a0665d9464ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="999.Sample">
+      <UniqueIdentifier>{2e65fa5f-8f0b-41cf-8d9f-e4fe5969eb48}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -84,9 +87,6 @@
     <ClInclude Include="..\Header\CCharacter.h">
       <Filter>02. GameObject\00. Character</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CPlayer.h">
-      <Filter>02. GameObject\00. Character\00. Player</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CTestCharacter.h">
       <Filter>02. GameObject\00. Character\99. TestCharacter</Filter>
     </ClInclude>
@@ -102,14 +102,26 @@
     <ClInclude Include="..\Header\CFirstCamera.h">
       <Filter>02. GameObject\01. FirstCamera</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CLeftHand.h">
-      <Filter>02. GameObject\00. Character\00. Player\00.PlayerPart\01.LeftPart</Filter>
+    <ClInclude Include="..\Header\CPlayer.h">
+      <Filter>02. GameObject\00. Character\00. Player</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CRightHand.h">
-      <Filter>02. GameObject\00. Character\00. Player\00.PlayerPart\02.RightPart</Filter>
+    <ClInclude Include="..\Header\CLeftPart.h">
+      <Filter>02. GameObject\00. Character\00. Player\01.LeftPart</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CMiddlePart.h">
-      <Filter>02. GameObject\00. Character\00. Player\00.PlayerPart\03.Middle</Filter>
+      <Filter>02. GameObject\00. Character\00. Player\03.Middle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPlayerPart.h">
+      <Filter>02. GameObject\00. Character\00. Player\00.PlayerPart</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CRightPart.h">
+      <Filter>02. GameObject\00. Character\00. Player\02.RightPart</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSkyBox.h">
+      <Filter>999.Sample</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTerrain.h">
+      <Filter>999.Sample</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -128,9 +140,6 @@
     <ClCompile Include="..\Code\CCharacter.cpp">
       <Filter>02. GameObject\00. Character</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CPlayer.cpp">
-      <Filter>02. GameObject\00. Character\00. Player</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CTestCharacter.cpp">
       <Filter>02. GameObject\00. Character\99. TestCharacter</Filter>
     </ClCompile>
@@ -146,14 +155,26 @@
     <ClCompile Include="..\Code\CFirstCamera.cpp">
       <Filter>02. GameObject\01. FirstCamera</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CLeftHand.cpp">
-      <Filter>02. GameObject\00. Character\00. Player\00.PlayerPart\01.LeftPart</Filter>
+    <ClCompile Include="..\Code\CPlayer.cpp">
+      <Filter>02. GameObject\00. Character\00. Player</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CRightHand.cpp">
-      <Filter>02. GameObject\00. Character\00. Player\00.PlayerPart\02.RightPart</Filter>
+    <ClCompile Include="..\Code\CLeftPart.cpp">
+      <Filter>02. GameObject\00. Character\00. Player\01.LeftPart</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CMiddlePart.cpp">
-      <Filter>02. GameObject\00. Character\00. Player\00.PlayerPart\03.Middle</Filter>
+      <Filter>02. GameObject\00. Character\00. Player\03.Middle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPlayerPart.cpp">
+      <Filter>02. GameObject\00. Character\00. Player\00.PlayerPart</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CRightPart.cpp">
+      <Filter>02. GameObject\00. Character\00. Player\02.RightPart</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSkyBox.cpp">
+      <Filter>999.Sample</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTerrain.cpp">
+      <Filter>999.Sample</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

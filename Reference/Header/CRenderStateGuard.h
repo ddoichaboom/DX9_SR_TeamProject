@@ -28,7 +28,7 @@ public:
         m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matOldView);
         m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matOldProj);
         m_pGraphicDev->SetRenderState(D3DRS_ZENABLE, m_dwOldZE);
-        m_pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, m_dwOldZW);
+        m_pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, m_dwOldZW);        
         m_pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, m_dwOldAlpha);
         Safe_Release(m_pGraphicDev);
     }

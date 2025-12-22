@@ -64,6 +64,10 @@ private:
 	_bool		m_bCheck;
 
 
+	_float		m_fPitch;
+	_float		m_fYaw;
+
+
 	// Transform 추가해보자
 };
 

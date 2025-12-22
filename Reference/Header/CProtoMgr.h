@@ -12,6 +12,11 @@
 #include "CCubeTexture.h"
 #include "CCalculator.h"
 
+
+
+// Sample
+#include "CTerrainTexture.h"
+
 BEGIN(Engine)
 
 class ENGINE_DLL CProtoMgr :  public CBase

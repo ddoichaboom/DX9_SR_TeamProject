@@ -42,20 +42,20 @@ HRESULT CTerrainTex::Ready_Buffer(const _ulong& dwCntX,
 
 	// 높이맵 이미지 불러오기
 
-	//m_hFile = CreateFile(L"../Bin/Resource/Texture/Terrain/Height.bmp",
-	//	GENERIC_READ, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
-	//
-	//if (INVALID_HANDLE_VALUE == m_hFile)
-	//	return E_FAIL;
+	m_hFile = CreateFile(L"../Bin/Resource/Texture/Terrain/Height.bmp",
+		GENERIC_READ, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
 
-	//_ulong dwByte(0);
-	//
-	//ReadFile(m_hFile, &m_fH, sizeof(BITMAPFILEHEADER), &dwByte, NULL);
-	//ReadFile(m_hFile, &m_iH, sizeof(BITMAPINFOHEADER), &dwByte, NULL);
-	//
-	//_ulong* pPixel = new _ulong[m_iH.biWidth * m_iH.biHeight];
-	//
-	//ReadFile(m_hFile, pPixel, sizeof(_ulong) * m_iH.biWidth * m_iH.biHeight, &dwByte, NULL);
+	if (INVALID_HANDLE_VALUE == m_hFile)
+		return E_FAIL;
+
+	_ulong dwByte(0);
+
+	ReadFile(m_hFile, &m_fH, sizeof(BITMAPFILEHEADER), &dwByte, NULL);
+	ReadFile(m_hFile, &m_iH, sizeof(BITMAPINFOHEADER), &dwByte, NULL);
+
+	_ulong* pPixel = new _ulong[m_iH.biWidth * m_iH.biHeight];
+
+	ReadFile(m_hFile, pPixel, sizeof(_ulong) * m_iH.biWidth * m_iH.biHeight, &dwByte, NULL);
 
 	VTXTEX* pVertex = NULL;
 
@@ -74,8 +74,7 @@ HRESULT CTerrainTex::Ready_Buffer(const _ulong& dwCntX,
 			pVertex[dwIndex].vPosition = 
 			{ 
 			  _float(j * dwVtxItv), 
-			  0.f,
-			  //_float(pPixel[dwIndex] & 0x000000ff) / 20.f,
+			  _float(pPixel[dwIndex] & 0x000000ff) / 20.f,
 			  _float(i * dwVtxItv) 
 			};
 			pVertex[dwIndex].vTexUV = { ((_float)j / (dwCntX - 1)) * 20.f , 
@@ -89,7 +88,7 @@ HRESULT CTerrainTex::Ready_Buffer(const _ulong& dwCntX,
 	}
 
 
-	//Safe_Delete_Array(pPixel);
+	Safe_Delete_Array(pPixel);
 	CloseHandle(m_hFile);
 
 	_vec3	vNormal, vDst, vSrc;

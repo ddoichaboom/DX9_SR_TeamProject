@@ -8,7 +8,7 @@ namespace Engine
 }
 
 class CWhiteMan :
-    public CMonster
+	public CMonster
 {
 protected:
 	explicit		CWhiteMan(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -27,8 +27,15 @@ protected:
 protected:
 	virtual void	Free();
 	void			OnCollision(CollisionInfo info);
+
 public:
 	static CWhiteMan* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+
+protected:
+	void UpdateState();
+	//void Trace();
+
+
 
 protected:
 	CCollider* m_pCollider;
