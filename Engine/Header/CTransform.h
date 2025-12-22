@@ -23,6 +23,12 @@ public:
 		m_vInfo[INFO_POS] = { _fX, _fY, _fZ };
 	}
 
+	void		Set_Pos(_vec3 _pos)
+	{
+		m_vInfo[INFO_POS] = _pos;
+	}
+
+
 	void		Move_Pos(const _vec3* pDir, const _float& fTimeDelta, const _float& fSpeed)
 	{
 		m_vInfo[INFO_POS] += *pDir * fTimeDelta * fSpeed;

@@ -84,6 +84,13 @@ namespace Engine
 		_vec2 vUVoffset;
 	} AnimationDesc;
 
+	//Ãæµ¹ 
+	class CGameObject;
+	typedef struct tagCollisionInfo
+	{
+		CGameObject* pTarget;
+		_vec3 vDiff;
+	} CollisionInfo;
 }
 
 

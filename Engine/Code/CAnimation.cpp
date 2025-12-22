@@ -113,7 +113,7 @@ HRESULT CAnimation::Ready_Animation(CTexture* _pTextureComp, AnimationSource _An
 _int CAnimation::Update_Component(const _float& fTimeDelta)
 {
 	if (m_pCurAnimation->vMaxIdx ==_vec2(0,0)) return 0; // 한 장 
-	if (!m_pCurAnimation || !m_bPlaying) return 0 ;
+	if (!m_pCurAnimation || !m_bPlaying || m_bEnd) return 0 ;
 
 	m_fTime += fTimeDelta;
 
@@ -131,7 +131,6 @@ _int CAnimation::Update_Component(const _float& fTimeDelta)
 			else
 			{
 				m_bEnd = true;
-				Stop();
 			}
 		}
 		else
@@ -217,17 +216,12 @@ void CAnimation::ChangeNextAnimation()
 	Change_Animation(iter->first);
 }
 
-
-
 void CAnimation::Change_Animation(const _uint _state)
 {
 	if (m_mapAnimation.find(_state) == m_mapAnimation.end()) return;
 	m_pCurAnimation = m_mapAnimation[_state];
-	m_vFrameIdx = { 0,0 };
-	m_fTime = 0.f;
-
+	PlayFromStart();
 	D3DXMatrixScaling(&m_UVMatrix, m_pCurAnimation->vUVoffset.x, m_pCurAnimation->vUVoffset.y, 1.0f);
-
 	//TODO : 리소스 테스트용. 지우기
 	currentState = _state;
 }

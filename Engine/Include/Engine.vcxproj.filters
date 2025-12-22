@@ -109,6 +109,12 @@
     <Filter Include="98. RenderStateGuard">
       <UniqueIdentifier>{f474c147-7e18-4145-9a37-6672ccc7ccdd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. ComponentEX\00. VIBuffer\04. CubeCol">
+      <UniqueIdentifier>{5c5ceaf4-5b8b-4e7e-a037-2a79ae394b10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Structure\03. GameObject\Collider">
+      <UniqueIdentifier>{bcfc9548-6574-41ca-a66f-a5c1663f9f5d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -219,6 +225,15 @@
     <ClInclude Include="..\Header\CRenderStateGuard.h">
       <Filter>98. RenderStateGuard</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CCollider.h">
+      <Filter>01. Structure\03. GameObject\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCubeCol.h">
+      <Filter>02. ComponentEX\00. VIBuffer\04. CubeCol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCalculator.h">
+      <Filter>02. ComponentEX\04. Calculator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -310,6 +325,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\CRenderStateGuard.cpp">
       <Filter>98. RenderStateGuard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCollider.cpp">
+      <Filter>01. Structure\03. GameObject\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCubeCol.cpp">
+      <Filter>02. ComponentEX\00. VIBuffer\04. CubeCol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCalculator.cpp">
+      <Filter>02. ComponentEX\04. Calculator</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

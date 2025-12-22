@@ -141,7 +141,10 @@ call Copy.bat</Command>
     <ClInclude Include="..\Header\CAnimation.h" />
     <ClInclude Include="..\Header\CBaseTexture.h" />
     <ClInclude Include="..\Header\CCamera.h" />
+    <ClInclude Include="..\Header\CCollider.h" />
+    <ClInclude Include="..\Header\CCalculator.h" />
     <ClInclude Include="..\Header\CComponent.h" />
+    <ClInclude Include="..\Header\CCubeCol.h" />
     <ClInclude Include="..\Header\CCubeTex.h" />
     <ClInclude Include="..\Header\CCubeTexture.h" />
     <ClInclude Include="..\Header\CDInputMgr.h" />
@@ -179,7 +182,10 @@ call Copy.bat</Command>
     <ClCompile Include="..\Code\CAnimation.cpp" />
     <ClCompile Include="..\Code\CBaseTexture.cpp" />
     <ClCompile Include="..\Code\CCamera.cpp" />
+    <ClCompile Include="..\Code\CCollider.cpp" />
+    <ClCompile Include="..\Code\CCalculator.cpp" />
     <ClCompile Include="..\Code\CComponent.cpp" />
+    <ClCompile Include="..\Code\CCubeCol.cpp" />
     <ClCompile Include="..\Code\CCubeTex.cpp" />
     <ClCompile Include="..\Code\CCubeTexture.cpp" />
     <ClCompile Include="..\Code\CDInputMgr.cpp" />

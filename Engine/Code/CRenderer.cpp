@@ -28,6 +28,7 @@ void CRenderer::Render_GameObject(LPDIRECT3DDEVICE9& pGraphicDev)
 	Render_Alpha(pGraphicDev);
 	Render_Alpha_UI(pGraphicDev);
 	Render_UI(pGraphicDev);
+	Render_DEBUG(pGraphicDev);
 
 	Clear_RenderGroup();
 }
@@ -110,6 +111,27 @@ void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
 	
 	for (auto& pObj : m_RenderGroup[RENDER_UI])
 		pObj->Render_GameObject();
+}
+
+void CRenderer::Render_DEBUG(LPDIRECT3DDEVICE9& pGraphicDev)
+{
+	pGraphicDev->SetTexture(0, nullptr);
+
+	//디퓨즈 색을 쓰기 
+	pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
+	pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_DIFFUSE);
+
+	pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+
+	for (auto& pObj : m_RenderGroup[RENDER_DEBUG])
+		pObj->Render_GameObject();
+
+	pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+
+	//텍스쳐 색을 쓰기
+	pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
+	pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+
 }
 
 void CRenderer::Free()

@@ -2,6 +2,8 @@
 #include "CTestStage.h"
 #include "CProtoMgr.h"
 #include "CTestCharacter.h"
+#include "CWhiteMan.h"
+
 
 CTestStage::CTestStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
 {
@@ -23,7 +25,7 @@ HRESULT CTestStage::Ready_Scene()
 		return E_FAIL;
 
 	_matrix View, Proj;
-	_vec3 eye = { 0,0,-2.f };
+	_vec3 eye = { 0,20,-30.f };
 	_vec3 at = { 0,0,1 };
 	_vec3 up = { 0,1,0 };
 
@@ -74,6 +76,12 @@ HRESULT CTestStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 	if (FAILED(pLayer->Add_GameObject(L"TestCharacter", pGameObject)))
 		return E_FAIL;
 
+	pGameObject = CWhiteMan::Create(m_pGraphicDev);
+
+	if (FAILED(pLayer->Add_GameObject(L"WhiteMan", pGameObject)))
+		return E_FAIL;
+
+
 	m_mapLayer.insert({ pLayerTag , pLayer });
 
 	return S_OK;
@@ -88,42 +96,51 @@ HRESULT CTestStage::Ready_Prototype()
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Transform", Engine::CTransform::Create(m_pGraphicDev))))
 		return E_FAIL;
 
-	//상태값 = 이 컴포넌트를 소유하는 오브젝트의 상태 (Idle, Attack...) 
-	//상태값, 경로 
-	//vector<TextureSource> vTextureSource =
-	//{
-	//	{ 0, L"../Bin/Resource/Texture/Test/White_Idle.png" },
-	//	{ 1, L"../Bin/Resource/Texture/Test/White_Copy.png" },
-	//	{ 2, L"../Bin/Resource/Texture/Test/White_Copy_DDS.dds" }
-	//};
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Calculator", Engine::CCalculator::Create(m_pGraphicDev))))
+		return E_FAIL;
+
+
+	vector<TextureSource> vWhiteManSource =
+	{
+		{ 0, L"../Bin/Resource/Texture/Test/white_Idle_1024.png" }
+		,{ 2, L"../Bin/Resource/Texture/Test/white_Aiming_1024.png" }
+		,{ 3, L"../Bin/Resource/Texture/Test/white_AttackIdle_1024.png" }
+		,{ 4, L"../Bin/Resource/Texture/Test/white_Attack_1024.png" }
+		,{ 5, L"../Bin/Resource/Texture/Test/white_Attack2_1024.png" }
+		,{ 6, L"../Bin/Resource/Texture/Test/white_Walk_1024.png" }
+		,{ 7, L"../Bin/Resource/Texture/Test/white_Hit_1024.png" }
+		,{ 8, L"../Bin/Resource/Texture/Test/white_DeadBack_512.png" }
+	};
 
 	vector<TextureSource> vTextureSource =
 	{
-		{ 0, L"../Bin/Resource/Texture/Player/Player_Left_IDLE.png" },
+		{ 0, L"../Bin/Resource/Texture/Player/Pika.png" }
 	};
 
-
-	//Player_Left_IDLE.png
 	CTexture* pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, vTextureSource);
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TestTexture", pCom_Texture)))
+		if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TestTexture", pCom_Texture)))
+			return E_FAIL;
+
+	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, vWhiteManSource);
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WhiteManTexture", pCom_Texture)))
 		return E_FAIL;
 
-	//상태값, 마지막 행 번호,  마지막 열 번호, 프레임이 끝나는 열 번호, 루프 유무, 플레이 속도 = 0.12f
-	AnimationSource vAnimSource = { 0,0,3,3, true, 0.11f};
-	//vector<AnimationSource> vAnimSource =
-	//{
-	//	{ 0,1,5,5, true, 0.11f},
-	//	{ 1,1,5,5, true, 0.11f},
-	//	{ 2,1,5,5, true, 0.11f},
-	//};
+	vector<AnimationSource> vAnimSource =
+	{
+		{ 0,1,5,5, true, 0.13f}		//IDLE
+		,{ 2,1,4,3, false, 0.11f}	//Aiming
+		,{ 3,1,3,2, true, 0.11f}	//AttackStart
+		,{ 4,1,5,5, true, 0.11f}	//Attack1
+		,{ 5,1,4,3, true, 0.09f}	//Attack2
+		,{ 6,1,6,5, true, 0.11f}	//Walk
+		,{ 7,1,3,2, true, 0.11f}	//Hit
+		,{ 8,6,3,2, true, 0.11f}	//DeadBack
+	};
 
-	//vector<AnimationSource> vAnimSource =
-	//{
-	//	{ 0,0,3,3, true, 0.11f}
-	//};
+	//if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TestAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, vAnimSource))))
+	//	return E_FAIL;
 
-
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TestAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, vAnimSource))))
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WhiteManAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, vAnimSource))))
 		return E_FAIL;
 
 	return S_OK;

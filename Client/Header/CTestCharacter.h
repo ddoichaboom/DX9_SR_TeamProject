@@ -4,6 +4,7 @@
 namespace Engine
 {
 	class CAnimation;
+	class CTexture;
 }
 
 class CTestCharacter :
@@ -31,6 +32,9 @@ protected:
 
 protected:
 	Engine::CAnimation* m_pAnimationCom;
+	Engine::CTexture* m_pTextureCom;
+	//TODO : Enter 중복 방지 테스트 변수 추가
+	bool m_bEnter = false;
 
 };
 

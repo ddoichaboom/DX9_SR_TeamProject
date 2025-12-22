@@ -17,8 +17,10 @@ CTexture::CTexture(const CTexture& rhs)
 
 CTexture::~CTexture()
 {
+
 }
 
+//TODO : 밉맵레벨 수정
 HRESULT CTexture::Ready_Texture(vector<TextureSource>& _vData)
 {
 	for (auto& data : _vData)
@@ -33,7 +35,7 @@ HRESULT CTexture::Ready_Texture(vector<TextureSource>& _vData)
 				m_pGraphicDev, data.path,
 				D3DX_DEFAULT_NONPOW2, // mipmap용으로 2의거듭제곱으로 반올림하지 말기 (하드웨어가 지원하면 적용됨) 
 				D3DX_DEFAULT_NONPOW2,
-				5,// 밉맵레벨 
+				1,// 밉맵레벨 
 				0, // 정적 usage
 				D3DFMT_UNKNOWN,
 				D3DPOOL_MANAGED,

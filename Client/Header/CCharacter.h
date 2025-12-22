@@ -6,6 +6,7 @@ namespace Engine
 	class CRcTex;
 	class CTransform;
 	class CTexture;
+	class CCollider;
 }
 
 class CCharacter :
@@ -28,11 +29,13 @@ protected:
 
 protected:
 	void				Free() override;
+	static vector<TextureSource> m_vTextureSources;
+	static vector<AnimationSource> m_vAnimSources;
 
 protected:
 	Engine::CRcTex*		m_pBufferCom;
 	Engine::CTransform* m_pTransformCom;
 	Engine::CTexture*	m_pTextureCom;
-
+	Engine::CCollider*	 m_pCollider;
 };
 

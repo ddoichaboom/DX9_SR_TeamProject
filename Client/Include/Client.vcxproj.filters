@@ -37,6 +37,12 @@
     <Filter Include="02. GameObject\00. Character\99. TestCharacter">
       <UniqueIdentifier>{6f673fc3-69e7-4d07-9b32-3112f3926e97}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\00. Character\01. Monster">
+      <UniqueIdentifier>{423088a2-c28e-4185-8b6a-4a5ffac47710}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\01. Monster\00. WhiteMan">
+      <UniqueIdentifier>{f4845fe8-8c7a-48cc-920e-37c3d716115b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -72,6 +78,12 @@
     <ClInclude Include="..\Header\CTestStage.h">
       <Filter>01. Scene\01. Stage\00. TestStage</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CMonster.h">
+      <Filter>02. GameObject\00. Character\01. Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CWhiteMan.h">
+      <Filter>02. GameObject\00. Character\01. Monster\00. WhiteMan</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -97,6 +109,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTestStage.cpp">
       <Filter>01. Scene\01. Stage\00. TestStage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMonster.cpp">
+      <Filter>02. GameObject\00. Character\01. Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CWhiteMan.cpp">
+      <Filter>02. GameObject\00. Character\01. Monster\00. WhiteMan</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -3,12 +3,15 @@
 #include "CProtoMgr.h"
 
 CCharacter::CCharacter(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CGameObject(pGraphicDev), m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
+	: CGameObject(pGraphicDev)
+	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr),
+	m_pCollider(nullptr)
 {
 }
 
 CCharacter::CCharacter(const CCharacter& rhs)
-	: CGameObject(rhs)
+	: CGameObject(rhs), m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr),
+	m_pCollider(nullptr)
 {
 }
 

@@ -3,12 +3,14 @@
 #include "CTransform.h"
 #include "CRcCol.h"
 #include "CRcTex.h"
+#include "CCubeCol.h"
 #include "CTerrainTex.h"
 #include "CCubeTex.h"
 
 #include "CTexture.h"
 #include "CAnimation.h"
 #include "CCubeTexture.h"
+#include "CCalculator.h"
 
 BEGIN(Engine)
 
