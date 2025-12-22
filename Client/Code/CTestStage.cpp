@@ -133,7 +133,7 @@ HRESULT CTestStage::Ready_Prototype()
 		,{ 4,1,5,5, true, 0.11f}	//Attack1
 		,{ 5,1,4,3, true, 0.09f}	//Attack2
 		,{ 6,1,6,5, true, 0.11f}	//Walk
-		,{ 7,1,3,2, true, 0.11f}	//Hit
+		,{ 7,1,3,2, false, 0.11f}	//Hit
 		,{ 8,6,3,2, true, 0.11f}	//DeadBack
 	};
 

@@ -12,6 +12,7 @@ CCollider::CCollider(LPDIRECT3DDEVICE9 pGraphicDev)
 
 CCollider::~CCollider()
 {
+
 }
 
 HRESULT CCollider::Ready_Collider(CTransform* _prtTransComp)
