@@ -43,6 +43,21 @@
     <Filter Include="02. GameObject\00. Character\01. Monster\00. WhiteMan">
       <UniqueIdentifier>{f4845fe8-8c7a-48cc-920e-37c3d716115b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\01. FirstCamera">
+      <UniqueIdentifier>{efed9df2-eb76-47cf-9fd6-cc2919cf7728}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\00. Player\00.PlayerPart">
+      <UniqueIdentifier>{cf450763-5c16-4250-ac61-ec419d054642}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\00. Player\00.PlayerPart\01.LeftPart">
+      <UniqueIdentifier>{bf548432-2e54-4f4e-ac05-29dd683ecd33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\00. Player\00.PlayerPart\02.RightPart">
+      <UniqueIdentifier>{b68af5c4-154f-4b95-8796-870c103beea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\00. Player\00.PlayerPart\03.Middle">
+      <UniqueIdentifier>{9d79274d-fc6b-4d57-a086-a0665d9464ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -84,6 +99,18 @@
     <ClInclude Include="..\Header\CWhiteMan.h">
       <Filter>02. GameObject\00. Character\01. Monster\00. WhiteMan</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CFirstCamera.h">
+      <Filter>02. GameObject\01. FirstCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CLeftHand.h">
+      <Filter>02. GameObject\00. Character\00. Player\00.PlayerPart\01.LeftPart</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CRightHand.h">
+      <Filter>02. GameObject\00. Character\00. Player\00.PlayerPart\02.RightPart</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMiddlePart.h">
+      <Filter>02. GameObject\00. Character\00. Player\00.PlayerPart\03.Middle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -115,6 +142,18 @@
     </ClCompile>
     <ClCompile Include="..\Code\CWhiteMan.cpp">
       <Filter>02. GameObject\00. Character\01. Monster\00. WhiteMan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFirstCamera.cpp">
+      <Filter>02. GameObject\01. FirstCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLeftHand.cpp">
+      <Filter>02. GameObject\00. Character\00. Player\00.PlayerPart\01.LeftPart</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CRightHand.cpp">
+      <Filter>02. GameObject\00. Character\00. Player\00.PlayerPart\02.RightPart</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMiddlePart.cpp">
+      <Filter>02. GameObject\00. Character\00. Player\00.PlayerPart\03.Middle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

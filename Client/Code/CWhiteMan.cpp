@@ -19,7 +19,7 @@ CWhiteMan::CWhiteMan(const CWhiteMan& rhs)
 
 CWhiteMan::~CWhiteMan()
 {
-	m_pAnimationCom->Change_Animation(0);
+	
 }
 
 HRESULT CWhiteMan::Ready_GameObject()

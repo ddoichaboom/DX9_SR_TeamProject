@@ -143,9 +143,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CCharacter.h" />
+    <ClInclude Include="..\Header\CFirstCamera.h" />
+    <ClInclude Include="..\Header\CLeftHand.h" />
     <ClInclude Include="..\Header\CMainApp.h" />
+    <ClInclude Include="..\Header\CMiddlePart.h" />
     <ClInclude Include="..\Header\CMonster.h" />
     <ClInclude Include="..\Header\CPlayer.h" />
+    <ClInclude Include="..\Header\CRightHand.h" />
     <ClInclude Include="..\Header\CTestStage.h" />
     <ClInclude Include="..\Header\CStage.h" />
     <ClInclude Include="..\Header\CTestCharacter.h" />
@@ -158,8 +162,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CCharacter.cpp" />
+    <ClCompile Include="..\Code\CFirstCamera.cpp" />
+    <ClCompile Include="..\Code\CLeftHand.cpp" />
+    <ClCompile Include="..\Code\CMiddlePart.cpp" />
     <ClCompile Include="..\Code\CMonster.cpp" />
     <ClCompile Include="..\Code\CPlayer.cpp" />
+    <ClCompile Include="..\Code\CRightHand.cpp" />
     <ClCompile Include="..\Code\CTestStage.cpp" />
     <ClCompile Include="..\Code\CStage.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
