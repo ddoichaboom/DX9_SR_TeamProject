@@ -34,6 +34,33 @@ _int CMonster::Update_GameObject(const _float& fTimeDelta)
 
 void CMonster::LateUpdate_GameObject(const _float& fTimeDelta)
 {
+	_matrix matWorld, matView, matBill, matScale, matScaleInverse;
+
+	matWorld = *m_pTransformCom->Get_World();
+
+	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matView);
+	D3DXMatrixIdentity(&matBill);
+	matBill._11 = matView._11;
+	matBill._13 = matView._13;
+	matBill._31 = matView._31;
+	matBill._33 = matView._33;
+	D3DXMatrixInverse(&matBill, 0, &matBill);
+
+
+
+	D3DXMatrixScaling(&matScale, m_pTransformCom->m_vScale.x, m_pTransformCom->m_vScale.y, m_pTransformCom->m_vScale.z);
+
+	D3DXMatrixInverse(&matScaleInverse, 0, &matScale);
+
+	matWorld = matScaleInverse * matWorld;
+
+	matWorld = matScale * matBill * matWorld;
+
+	m_pTransformCom->Set_World(&matWorld);
+
+	_vec3		vPos;
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+
 	CCharacter::LateUpdate_GameObject(fTimeDelta);
 }
 

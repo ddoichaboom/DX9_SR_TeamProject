@@ -19,11 +19,7 @@ CWhiteMan::CWhiteMan(const CWhiteMan& rhs)
 
 CWhiteMan::~CWhiteMan()
 {
-<<<<<<< HEAD
-
-=======
-	
->>>>>>> cc12076dc986a2f9fb257bc0ce720ff6c495325b
+	m_pAnimationCom->Change_Animation(0);
 }
 
 HRESULT CWhiteMan::Ready_GameObject()
@@ -39,8 +35,7 @@ HRESULT CWhiteMan::Ready_GameObject()
 
 	if (!m_pCollider) return E_FAIL;
 
-	ChangeState(MS_IDLE);
-	//m_pAnimationCom->Change_Animation(m_EState);
+	m_pAnimationCom->Change_Animation(MS_IDLE);
 	m_pTransformCom->m_vScale = { 5,13,1 };
 	m_pTransformCom->Set_Pos(0, 0, 20.f);
 
@@ -65,8 +60,6 @@ _int CWhiteMan::Update_GameObject(const _float& fTimeDelta)
 		bool result = m_pCalculatorCom->Check_PickedCollider(g_hWnd, m_pCollider);
 		if (result) m_pCollider->Collision(info);
 	}
-
-	UpdateState();
 
 	return iExit;
 }
@@ -114,9 +107,6 @@ HRESULT CWhiteMan::Add_Component()
 
 void CWhiteMan::ChangeState(MONSTER_STATE nextState)
 {
-	if (nextState == m_EState) return;
-	m_EState = nextState;
-	m_pAnimationCom->Change_Animation(m_EState);
 }
 
 void CWhiteMan::Free()
@@ -127,7 +117,7 @@ void CWhiteMan::Free()
 
 void CWhiteMan::OnCollision(CollisionInfo info)
 {
-	ChangeState(MS_HIT);
+	m_pTransformCom->m_vScale.x = 10.f;
 }
 
 CWhiteMan* CWhiteMan::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -142,16 +132,5 @@ CWhiteMan* CWhiteMan::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	}
 
 	return pWhite;
-}
-
-void CWhiteMan::UpdateState()
-{
-	if (m_EState == MS_HIT)
-	{
-		if (m_pAnimationCom->IsEnd())
-		{
-			ChangeState(MS_ATTACK);
-		}
-	}
 }
 

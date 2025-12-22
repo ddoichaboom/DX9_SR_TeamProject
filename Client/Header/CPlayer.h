@@ -1,8 +1,12 @@
 #pragma once
 #include "CCharacter.h"
 
+class CLeftHand;
+class CRightHand;
+class CMiddlePart;
+
 class CPlayer :
-    public CCharacter
+	public CCharacter
 {
 protected:
 	explicit		CPlayer(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -19,10 +23,21 @@ protected:
 	HRESULT			Add_Component() override;
 	void			Key_Input(const _float& fTimeDelta);
 
+private:
+	HRESULT			Add_PlayerPart();
+
 public:
 	static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 protected:
 	virtual void Free();
+
+private:
+	CLeftHand* m_pLeftHand;
+	CRightHand* m_pRightHand;
+	CMiddlePart* m_pMiddlePart;
+
+
+	_bool		m_bCheck;
 };
 

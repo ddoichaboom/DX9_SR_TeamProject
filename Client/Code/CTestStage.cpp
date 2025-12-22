@@ -4,6 +4,9 @@
 #include "CTestCharacter.h"
 #include "CWhiteMan.h"
 
+#include "CPlayer.h"
+#include "CFirstCamera.h"
+
 
 CTestStage::CTestStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
 {
@@ -23,23 +26,6 @@ HRESULT CTestStage::Ready_Scene()
 
 	if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer")))
 		return E_FAIL;
-
-	_matrix View, Proj;
-	_vec3 eye = { 0,20,-30.f };
-	_vec3 at = { 0,0,1 };
-	_vec3 up = { 0,1,0 };
-
-	_float fFov = D3DXToRadian(60.f);
-	_float fAspect = (_float)WINCX / WINCY;
-	_float fNear = 0.1f;
-	_float fFar = 1000.f;
-
-
-	D3DXMatrixLookAtLH(&View, &eye, &at, &up);
-	m_pGraphicDev->SetTransform(D3DTS_VIEW, &View);
-
-	D3DXMatrixPerspectiveFovLH(&Proj, fFov, fAspect, fNear, fFar);
-	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &Proj);
 
 	return S_OK;
 }
@@ -61,6 +47,30 @@ void CTestStage::Render_Scene()
 
 HRESULT CTestStage::Ready_Environment_Layer(const _tchar* pLayerTag)
 {
+	CLayer* pLayer = CLayer::Create();
+	if (nullptr == pLayer)
+		return E_FAIL;
+
+	_matrix View, Proj;
+	_vec3 vEye = { 0,0,-30.f };
+	_vec3 vAt = { 0,0,1 };
+	_vec3 vUp = { 0,1,0 };
+
+	_float fFov = D3DXToRadian(60.f);
+	_float fAspect = (_float)WINCX / WINCY;
+	_float fNear = 0.1f;
+	_float fFar = 1000.f;
+
+	CGameObject* pGameObject = nullptr;
+	pGameObject = CFirstCamera::Create(m_pGraphicDev, &vEye, &vAt, &vUp);
+	if (nullptr == pGameObject)
+		return E_FAIL;
+
+	if (FAILED(pLayer->Add_GameObject(L"Camera", pGameObject)))
+		return E_FAIL;
+
+	m_mapLayer.insert({ pLayerTag , pLayer });
+
     return S_OK;
 }
 
@@ -71,6 +81,12 @@ HRESULT CTestStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 		return E_FAIL;
 
 	CGameObject* pGameObject = nullptr;
+
+	pGameObject = CPlayer::Create(m_pGraphicDev);
+
+	if (FAILED(pLayer->Add_GameObject(L"Player", pGameObject)))
+		return E_FAIL;
+
 	pGameObject = CTestCharacter::Create(m_pGraphicDev);
 
 	if (FAILED(pLayer->Add_GameObject(L"TestCharacter", pGameObject)))
@@ -142,6 +158,90 @@ HRESULT CTestStage::Ready_Prototype()
 
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WhiteManAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, vAnimSource))))
 		return E_FAIL;
+
+#pragma region Left
+
+	vector<TextureSource> vLeftTextureSource =
+	{
+		{ 0, L"../Bin/Resource/Texture/Player/Left_Hand_Idle.png" },
+		{ 1, L"../Bin/Resource/Texture/Player/Left_Hand_Reload_P.png" },
+		{ 2, L"../Bin/Resource/Texture/Player/Left_Hand_Reload_S.png" }
+
+	};
+
+	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, vLeftTextureSource);
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_LeftTexture", pCom_Texture)))
+		return E_FAIL;
+
+	//상태값, 마지막 행 번호,  마지막 열 번호, 프레임이 끝나는 열 번호, 루프 유무, 플레이 속도 = 0.12f	
+	vector<AnimationSource> vLeftAnimSource =
+	{
+		{ 0,1,3,3, true, 0.11f},
+		{ 1,0,3,3, false, 0.11f},
+		{ 2,0,3,3, false, 0.11f},
+	};
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_LeftAnimation", 
+		Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, vLeftAnimSource))))
+		return E_FAIL;
+#pragma endregion
+
+
+#pragma region PLAYER_RIGHT_HAND
+
+	vector<TextureSource> vRightTextureSource =
+	{
+		{ 0, L"../Bin/Resource/Texture/Player/Right_Hand_Idle_P.png" },
+		{ 1, L"../Bin/Resource/Texture/Player/Right_Hand_Shot_P.png" },
+		{ 2, L"../Bin/Resource/Texture/Player/Right_Hand_Reload_P.png" }
+
+	};
+
+	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, vRightTextureSource);
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RightTexture", pCom_Texture)))
+		return E_FAIL;
+
+	//상태값, 마지막 행 번호,  마지막 열 번호, 프레임이 끝나는 열 번호, 루프 유무, 플레이 속도 = 0.12f	
+	vector<AnimationSource> vRightAnimSource =
+	{
+		{ 0,0,3,3, true, 0.11f},
+		{ 1,0,5,5, false, 0.02f},
+		{ 2,1,6,6, false, 0.02f},
+	};
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RightAnimation", 
+		Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, vRightAnimSource))))
+		return E_FAIL;
+
+#pragma endregion
+
+
+#pragma region Middle_Part
+
+	vector<TextureSource> vMiddleTextureSource =
+	{
+		{ 0, L"../Bin/Resource/Texture/Player/Middle_Kick.png" },
+		{ 1, L"../Bin/Resource/Texture/Player/Middle_Soda.png" },
+
+	};
+
+	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, vMiddleTextureSource);
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_MiddleTexture", pCom_Texture)))
+		return E_FAIL;
+
+	//상태값, 마지막 행 번호,  마지막 열 번호, 프레임이 끝나는 열 번호, 루프 유무, 플레이 속도 = 0.12f	
+	vector<AnimationSource> vMiddleAnimSource =
+	{
+		{ 0,0,3,3, false, 0.08f},
+		{ 1,0,6,6, false, 0.05f}
+	};
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_MiddleAnimation", 
+		Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, vMiddleAnimSource))))
+		return E_FAIL;
+
+
+#pragma endregion
 
 	return S_OK;
 }
