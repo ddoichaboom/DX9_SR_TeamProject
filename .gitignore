@@ -28,7 +28,6 @@
 *.lai
 *.la
 *.a
-*.lib
 
 # Executables
 *.exe
@@ -91,8 +90,6 @@ x86/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/
-[Bb]in/
-[Oo]bj/
 [Ll]og/
 [Ll]ogs/
 
@@ -452,7 +449,15 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
+# --- include these folders even if ignored above ---
+!Bin/
+!Bin/**
+
+!Reference/
+!Reference/**
+
+
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
 
-# End of https://www.toptal.com/developers/gitignore/api/windows,visualstudio,c++
+# End of https://www.toptal.com/developers/gitignore/api/windows,visualstudio,c++\\
