@@ -19,11 +19,7 @@ CWhiteMan::CWhiteMan(const CWhiteMan& rhs)
 
 CWhiteMan::~CWhiteMan()
 {
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> cc12076dc986a2f9fb257bc0ce720ff6c495325b
 }
 
 HRESULT CWhiteMan::Ready_GameObject()
