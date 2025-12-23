@@ -8,7 +8,7 @@ namespace Engine
 }
 
 class CWhiteMan :
-    public CMonster
+	public CMonster
 {
 protected:
 	explicit		CWhiteMan(LPDIRECT3DDEVICE9 pGraphicDev);

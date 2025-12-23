@@ -5,27 +5,105 @@
 #include "CDInputMgr.h"
 
 #include "CManagement.h"
-#include "CLeftHand.h"
-#include "CRightHand.h"
+
+#include "CPlayerPart.h"
+#include "CLeftPart.h"
+#include "CRightPart.h"
 #include "CMiddlePart.h"
+
 
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCharacter(pGraphicDev)
-	, m_pLeftHand(nullptr), m_pRightHand(nullptr), m_pMiddlePart(nullptr)
-	, m_bCheck(false)
+	, m_pLeftPart(nullptr), m_pRightPart(nullptr), m_pMiddlePart(nullptr)
+	, m_bCheck(false), m_eNowState(PLAYER_UNACTIVE), m_eWeaponState(WS_PISTOL)
 {
 }
 
 CPlayer::CPlayer(const CPlayer& rhs)
 	: CCharacter(rhs)
-	, m_pLeftHand(nullptr), m_pRightHand(nullptr), m_pMiddlePart(nullptr)
-	, m_bCheck(false)
+	, m_pLeftPart(nullptr), m_pRightPart(nullptr), m_pMiddlePart(nullptr)
+	, m_bCheck(false), m_eNowState(PLAYER_UNACTIVE), m_eWeaponState(WS_PISTOL)
 {
 }
 
 CPlayer::~CPlayer()
 {
+}
+
+void CPlayer::Change_State(PLAYER_STATE eState)
+{
+	m_eNowState = eState;
+
+	switch (eState)
+	{
+	case CPlayer::PLAYER_IDLE:
+		m_pLeftPart->Change_State(CLeftPart::LS_IDLE);
+		m_pMiddlePart->Change_State(CMiddlePart::MS_UNACTIVE);
+
+		if(m_eWeaponState == WS_PISTOL)
+			m_pRightPart->Change_State(CRightPart::RS_IDLE_PISTOL);
+		else if(m_eWeaponState == WS_SHOTGUN)
+			m_pRightPart->Change_State(CRightPart::RS_IDLE_SHOTGUN);
+		
+		break;
+	case CPlayer::PLAYER_ATTACK:
+		m_pLeftPart->Change_State(CLeftPart::LS_IDLE);
+		m_pMiddlePart->Change_State(CMiddlePart::MS_UNACTIVE);
+
+		if (m_eWeaponState == WS_PISTOL)
+			m_pRightPart->Change_State(CRightPart::RS_ATTACK_PISTOL);
+		else if (m_eWeaponState == WS_SHOTGUN)
+			m_pRightPart->Change_State(CRightPart::RS_ATTACK_SHOTGUN);
+		break;
+	case CPlayer::PLAYER_RELOAD:
+		
+		m_pMiddlePart->Change_State(CMiddlePart::MS_UNACTIVE);
+
+		if (m_eWeaponState == WS_PISTOL)
+		{
+			m_pLeftPart->Change_State(CLeftPart::LS_RELOAD_PISTOL);
+			m_pRightPart->Change_State(CRightPart::RS_RELOAD_PISTOL);
+		}			
+		else if (m_eWeaponState == WS_SHOTGUN)
+		{
+			m_pLeftPart->Change_State(CLeftPart::LS_RELOAD_SHOTGUN);
+			m_pRightPart->Change_State(CRightPart::RS_RELOAD_SHOTGUN);
+		}
+			
+		break;
+	case CPlayer::PLAYER_KICK:
+
+		m_pLeftPart->Change_State(CLeftPart::LS_IDLE);
+		m_pMiddlePart->Change_State(CMiddlePart::MS_KICK);
+		if (m_eWeaponState == WS_PISTOL)
+			m_pRightPart->Change_State(CRightPart::RS_IDLE_PISTOL);
+		else if (m_eWeaponState == WS_SHOTGUN)
+			m_pRightPart->Change_State(CRightPart::RS_IDLE_SHOTGUN);
+		break;
+
+	case CPlayer::PLAYER_DRINK:
+		m_pLeftPart->Change_State(CLeftPart::LS_UNACTIVE);
+		m_pMiddlePart->Change_State(CMiddlePart::MS_SODA);
+		if (m_eWeaponState == WS_PISTOL)
+			m_pRightPart->Change_State(CRightPart::RS_IDLE_PISTOL);
+		else if (m_eWeaponState == WS_SHOTGUN)
+			m_pRightPart->Change_State(CRightPart::RS_IDLE_SHOTGUN);
+		break;
+	case CPlayer::PLAYER_SLIDE:
+
+		break;
+	default:
+		break;
+	}
+}
+
+void CPlayer::Set_WeaponState(WEAPON_STATE eState)
+{
+	
+	m_pLeftPart->Set_WeaponState(eState);
+	m_pRightPart->Set_WeaponState(eState);
+	m_pMiddlePart->Set_WeaponState(eState);
 }
 
 HRESULT CPlayer::Ready_GameObject()
@@ -35,7 +113,7 @@ HRESULT CPlayer::Ready_GameObject()
 
 	if (FAILED(Add_PlayerPart()))
 		return E_FAIL;
-
+	Change_State(PLAYER_IDLE);
 	m_pTransformCom->m_vScale = { 6.f, 6.f, 1.f };
 
 	return S_OK;
@@ -45,10 +123,13 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
 	int iExit = CCharacter::Update_GameObject(fTimeDelta);
 
-
-	m_pLeftHand->Update_GameObject(fTimeDelta);
-	m_pRightHand->Update_GameObject(fTimeDelta);
 	m_pMiddlePart->Update_GameObject(fTimeDelta);
+	m_pRightPart->Update_GameObject(fTimeDelta);
+	m_pLeftPart->Update_GameObject(fTimeDelta);
+	
+	
+
+	Check_AnimationState();
 
 	return iExit;
 }
@@ -59,11 +140,9 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 
 	CCharacter::LateUpdate_GameObject(fTimeDelta);
 
-
-	m_pLeftHand->LateUpdate_GameObject(fTimeDelta);
-	m_pRightHand->LateUpdate_GameObject(fTimeDelta);
 	m_pMiddlePart->LateUpdate_GameObject(fTimeDelta);
-
+	m_pRightPart->LateUpdate_GameObject(fTimeDelta);
+	m_pLeftPart->LateUpdate_GameObject(fTimeDelta);
 }
 
 void CPlayer::Render_GameObject()
@@ -94,70 +173,91 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 	// 앞으로 이동
 	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_W) & 0x80)
 	{
-		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vLookExCludeY, &vLookExCludeY), fTimeDelta, 10.f);
+		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vLookExCludeY, &vLookExCludeY), fTimeDelta, 20.f);
 
 	}
 
 	// 왼쪽 이동
 	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_A) & 0x80)
 	{
-		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vRight, &vRight), fTimeDelta, -10.f);
+		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vRight, &vRight), fTimeDelta, -20.f);
 
 	}
 
 	// 뒤로 이동
 	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_S) & 0x80)
 	{
-		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vLookExCludeY, &vLookExCludeY), fTimeDelta, -10.f);
+		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vLookExCludeY, &vLookExCludeY), fTimeDelta, -20.f);
 	}
 
 	// 오른쪽 이동
 	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_D) & 0x80)
 	{
-		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vRight, &vRight), fTimeDelta, 10.f);
+		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vRight, &vRight), fTimeDelta, 20.f);
+	}
+
+
+	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_SPACE) & 0x80)
+	{
+		if (m_eNowState != PLAYER_KICK)
+		{
+			Change_State(PLAYER_KICK);
+		}
+
+	}
+
+	// 장전
+	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_R) & 0x80)
+	{
+		Change_State(PLAYER_RELOAD);
+
 	}
 
 
 	// 공격 
 	if (CDInputMgr::GetInstance()->Get_DIMouseState(DIM_LB) & 0x80)
 	{
-
+		Change_State(PLAYER_ATTACK);
 	}
 
 
 	// 대쉬 
-	if (CDInputMgr::GetInstance()->Get_DIMouseState(DIM_LB) & 0x80)
+	if (CDInputMgr::GetInstance()->Get_DIMouseState(DIM_RB) & 0x80)
 	{
-
+		Change_State(PLAYER_DRINK);
 	}
 
 }
 
 HRESULT CPlayer::Add_PlayerPart()
 {
-	//Left
-	m_pLeftHand = CLeftHand::Create(m_pGraphicDev);
-
-	if (nullptr == m_pLeftHand)
-		return E_FAIL;
-
-	//Right
-
-	m_pRightHand = CRightHand::Create(m_pGraphicDev);
-
-	if (nullptr == m_pRightHand)
-		return E_FAIL;
-
-
-	//Middle
 
 	m_pMiddlePart = CMiddlePart::Create(m_pGraphicDev);
 
 	if (nullptr == m_pMiddlePart)
 		return E_FAIL;
 
+	m_pRightPart = CRightPart::Create(m_pGraphicDev);
+
+	if (nullptr == m_pRightPart)
+		return E_FAIL;
+
+
+	m_pLeftPart = CLeftPart::Create(m_pGraphicDev);
+
+	if (nullptr == m_pLeftPart)
+		return E_FAIL;
+	
 
 	return S_OK;
+}
+
+void CPlayer::Check_AnimationState()
+{
+	if ( (m_eNowState == PLAYER_DRINK || m_eNowState == PLAYER_KICK) && m_pMiddlePart->IsAnimationEnd())
+	{
+		Change_State(PLAYER_IDLE);
+	}
 }
 
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -176,8 +276,8 @@ CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CPlayer::Free()
 {
-	Safe_Release(m_pLeftHand);
-	Safe_Release(m_pRightHand);
+	Safe_Release(m_pLeftPart);
+	Safe_Release(m_pRightPart);
 	Safe_Release(m_pMiddlePart);
 
 	CCharacter::Free();

@@ -25,9 +25,9 @@ CWhiteMan::~CWhiteMan()
 HRESULT CWhiteMan::Ready_GameObject()
 {
 	if (FAILED(Add_Component())) return E_FAIL;
-	
+
 	m_pCollider = CCollider::Create(m_pGraphicDev, m_pTransformCom);
-	m_pCollider->Set_Scale(_vec3(0.8,1.0,1.5));
+	m_pCollider->Set_Scale(_vec3(0.8, 1.0, 1.5));
 	m_pCollider->BindFuncToCollision([&](CollisionInfo info)
 		{
 			OnCollision(info);

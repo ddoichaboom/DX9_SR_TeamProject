@@ -8,11 +8,15 @@
 
 CFirstCamera::CFirstCamera(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCamera(pGraphicDev), m_bFix(true), m_bCheck(true)
+	,	m_fPitch(0.f), m_fYaw(0.f)
+	
 {
+	
 }
 
 CFirstCamera::CFirstCamera(const CFirstCamera& rhs)
 	: CCamera(rhs), m_bFix(true), m_bCheck(true)
+	, m_fPitch(0.f), m_fYaw(0.f)
 {
 }
 
@@ -97,8 +101,8 @@ void CFirstCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 	{
 		Mouse_Fix();
 		Mouse_Move();
-	}
 
+	}
 }
 
 HRESULT CFirstCamera::Add_Component()
@@ -147,15 +151,24 @@ void CFirstCamera::Key_Input(const _float& fTimeDelta)
 void CFirstCamera::Mouse_Move()
 {
 	_long	dwMouseMove(0);
-
 	if (dwMouseMove = CDInputMgr::GetInstance()->Get_DIMouseMove(DIMS_Y))
 	{
-		m_pTransformCom->Rotation(ROT_X, D3DXToRadian(dwMouseMove * 5.f));	
+		m_pTransformCom->m_vAngle.x += D3DXToDegree(dwMouseMove * 0.005f);
+
+		if (m_pTransformCom->m_vAngle.x > 50.f)
+			m_pTransformCom->m_vAngle.x = 50.f;
+		if (m_pTransformCom->m_vAngle.x < -50.f)
+			m_pTransformCom->m_vAngle.x = -50.f;
 	}
 
 	if (dwMouseMove = CDInputMgr::GetInstance()->Get_DIMouseMove(DIMS_X))
-	{		
-		m_pTransformCom->Rotation(ROT_Y, D3DXToRadian(dwMouseMove * 5.f));		
+	{				
+		m_pTransformCom->m_vAngle.y += D3DXToDegree(dwMouseMove * 0.005f);
+
+		if (m_pTransformCom->m_vAngle.y > 360.f)
+			m_pTransformCom->m_vAngle.y = 0.f;
+		if (m_pTransformCom->m_vAngle.y < -360.f)
+			m_pTransformCom->m_vAngle.y = 0.f;		
 	}
 }
 

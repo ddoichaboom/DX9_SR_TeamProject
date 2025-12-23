@@ -36,7 +36,7 @@ public:
 
 	void		Rotation(ROTATION eType, const _float& fAngle)
 	{
-		*(((_float*)&m_vAngle) + eType) += fAngle;
+		*(((_float*)&m_vAngle) + eType) += fAngle;		
 	}
 
 	_matrix* Get_World() { return &m_matWorld; }
@@ -55,7 +55,22 @@ public:
 	void			Chase_Target(const _vec3* pTargetPos, const _float& fTimeDelta, const _float& fSpeed);
 	_matrix*		Compute_LookAtTarget(const _vec3* pTargetPos);
 
+public:
+	_vec3* Get_Info(INFO eType) { return &m_vInfo[eType]; }
 
+	// Angle 
+	_vec3		Get_Angle() const { return m_vAngle; }
+	void		Set_Angle(_float fX, _float fY, _float fZ)
+	{
+		m_vAngle = { fX, fY, fZ };
+	}
+
+	// Scale
+	_vec3		Get_Scale() const { return m_vScale; }
+	void		Set_Scale(_float fX, _float fY, _float fZ)
+	{
+		m_vScale = { fX, fY, fZ };
+	}
 
 public:
 	_vec3		m_vInfo[INFO_END];

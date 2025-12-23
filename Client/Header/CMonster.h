@@ -9,7 +9,7 @@ namespace Engine
 class CMonster : public CCharacter
 {
 protected:
-	enum MONSTER_STATE{ MS_IDLE =0, MS_TRACE = 1,MS_FOUND=2, MS_ATTACK =5, Walk =6, MS_HIT =7, MS_DEAD=8 , MS_END};
+	enum MONSTER_STATE { MS_IDLE = 0, MS_TRACE = 1, MS_FOUND = 2, MS_ATTACK = 5, Walk = 6, MS_HIT = 7, MS_DEAD = 8, MS_END };
 
 protected:
 	explicit		CMonster(LPDIRECT3DDEVICE9 pGraphicDev);

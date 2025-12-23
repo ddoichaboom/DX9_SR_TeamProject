@@ -7,6 +7,8 @@
 #include "CPlayer.h"
 #include "CFirstCamera.h"
 
+#include "CTerrain.h"
+#include "CTerrainTex.h"
 
 CTestStage::CTestStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
 {
@@ -52,8 +54,8 @@ HRESULT CTestStage::Ready_Environment_Layer(const _tchar* pLayerTag)
 		return E_FAIL;
 
 	_matrix View, Proj;
-	_vec3 vEye = { 0,0,-30.f };
-	_vec3 vAt = { 0,0,1 };
+	_vec3 vEye = { 0,0,0.f };
+	_vec3 vAt = { 0,0.f,1.f };
 	_vec3 vUp = { 0,1,0 };
 
 	_float fFov = D3DXToRadian(60.f);
@@ -81,6 +83,15 @@ HRESULT CTestStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 		return E_FAIL;
 
 	CGameObject* pGameObject = nullptr;
+
+
+	pGameObject = CTerrain::Create(m_pGraphicDev);
+
+	if (nullptr == pGameObject)
+		return E_FAIL;
+
+	if (FAILED(pLayer->Add_GameObject(L"Terrain", pGameObject)))
+		return E_FAIL;
 
 	pGameObject = CPlayer::Create(m_pGraphicDev);
 
@@ -114,6 +125,27 @@ HRESULT CTestStage::Ready_Prototype()
 
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Calculator", Engine::CCalculator::Create(m_pGraphicDev))))
 		return E_FAIL;
+
+
+#pragma region SAMPLE
+	// SAMPLE
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TerrainTex", Engine::CTerrainTex::Create(m_pGraphicDev, VTXCNTX, VTXCNTZ, VTXITV))))
+		return E_FAIL;
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_CubeTex", Engine::CCubeTex::Create(m_pGraphicDev))))
+		return E_FAIL;
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TerrainTexture", Engine::CTerrainTexture::Create(m_pGraphicDev, TEX_NORMAL, L"../Bin/Resource/Texture/Terrain/Grass_%d.tga", 2))))
+		return E_FAIL;
+
+	//if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TerrainTexture", Engine::CTexture::Create(m_pGraphicDev, TEX_NORMAL, L"../Bin/Resource/Texture/Terrain/Grass_%d.tga", 2))))
+	//	return E_FAIL;
+	//
+	//if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SkyTexture", Engine::CTexture::Create(m_pGraphicDev, TEX_CUBE, L"../Bin/Resource/Texture/SkyBox/burger%d.dds", 4))))
+	//	return E_FAIL;
+#pragma endregion
+
+	
 
 
 	vector<TextureSource> vWhiteManSource =

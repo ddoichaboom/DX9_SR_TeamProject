@@ -41,8 +41,8 @@ void CCalculator::GetRay(HWND hWnd, _vec3* pOutRayWorldPos, _vec3* pOutRayWorldD
     m_pGraphicDev->GetTransform(D3DTS_VIEW, &matView);
     D3DXMatrixInverse(&matView, 0, &matView);
 
-    _vec3       vRayPos{ 0.f, 0.f,0.f };       
-    _vec3       vRayDir = vMousePos - vRayPos; 
+    _vec3       vRayPos{ 0.f, 0.f,0.f };
+    _vec3       vRayDir = vMousePos - vRayPos;
 
     //월드 스페이스로 변환 
     D3DXVec3TransformCoord(&vRayPos, &vRayPos, &matView);
@@ -71,7 +71,7 @@ bool CCalculator::Check_PickedCollider(HWND hWnd, CCollider* pCollider)
 
     float rMin = FLT_MIN, rMax = FLT_MAX;
     float tMinx = FLT_MIN, tMaxx = FLT_MAX,
-        tMiny = FLT_MIN, tMaxy= FLT_MAX, tMinz = FLT_MIN, tMaxz= FLT_MAX;
+        tMiny = FLT_MIN, tMaxy = FLT_MAX, tMinz = FLT_MIN, tMaxz = FLT_MAX;
 
 
     if (fabsf(vRayDir.x) >= eps)
