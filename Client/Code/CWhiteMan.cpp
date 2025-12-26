@@ -91,8 +91,11 @@ HRESULT CWhiteMan::Ready_GameObject()
 	CreateStateData();
 	ChangeState(MS_IDLE);
 
+	//콜라이더 생성 + 바인딩 
 	m_pCollider = CCollider::Create(m_pGraphicDev, m_pTransformCom);
 	m_pCollider->Set_Scale(_vec3(0.8, 1.0, 1.5));
+	//콜라이더가 충돌되면 호출될 함수 바인딩. CollisionInfo는 충돌 정보 
+	//웬만하면 아래처럼 람다로 넣기
 	m_pCollider->BindFuncToCollision([&](CollisionInfo info)
 		{
 			OnCollision(info);

@@ -10,7 +10,7 @@ class CMonster : public CCharacter
 {
 protected:
 	enum MONSTER_STATE : _byte { MS_IDLE = 0, MS_TRACE = 1, MS_FOUND = 2, MS_ATTACK = 5, MS_WALK = 6, MS_HIT = 7, MS_DEAD = 8, MS_END };
-	enum MONSTER_STATE_SUB : _byte { SUB_STATE, SUB_BEGIN, SUB_END, MON_SUB_END };
+	enum MONSTER_STATE_SUB : _byte { SUB_NONE, SUB_BEGIN, SUB_END, MON_SUB_END };
 	//Sub를 쓰지않을 때 = Sub가 0일 때
 	static _uint GetStateID(MONSTER_STATE _state, MONSTER_STATE_SUB _subState)
 	{

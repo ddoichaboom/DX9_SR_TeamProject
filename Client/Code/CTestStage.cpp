@@ -146,7 +146,7 @@ HRESULT CTestStage::Ready_Prototype()
 	//if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SkyTexture", Engine::CTexture::Create(m_pGraphicDev, TEX_CUBE, L"../Bin/Resource/Texture/SkyBox/burger%d.dds", 4))))
 	//	return E_FAIL;
 #pragma endregion
-
+	//TODO : WhiteMan Texture,Animation 수정된 부분 ! CWhiteMan으로 벡터 옮겨짐 
 	vector<TextureSource> vTextureSource =
 	{
 		{ 0, L"../Bin/Resource/Texture/Player/Pika.png" }

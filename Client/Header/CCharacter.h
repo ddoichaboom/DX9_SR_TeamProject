@@ -27,8 +27,6 @@ public:
 protected:
 	virtual HRESULT		Add_Component();
 	//void				Set_OnTerrain();
-	//State 세팅 설정 
-	virtual void		CreateStates() {};
 
 protected:
 	void				Free() override;
