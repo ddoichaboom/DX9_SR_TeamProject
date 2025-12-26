@@ -69,9 +69,9 @@ bool CCalculator::Check_PickedCollider(HWND hWnd, CCollider* pCollider)
     _vec3 minPoint = { -1.f, -1.f, -1.f };
     _vec3 maxPoint = { 1.f, 1.f, 1.f };
 
-    float rMin = FLT_MIN, rMax = FLT_MAX;
-    float tMinx = FLT_MIN, tMaxx = FLT_MAX,
-        tMiny = FLT_MIN, tMaxy = FLT_MAX, tMinz = FLT_MIN, tMaxz = FLT_MAX;
+    float rMin = -FLT_MIN, rMax = FLT_MAX;
+    float tMinx = -FLT_MIN, tMaxx = FLT_MAX,
+        tMiny = -FLT_MIN, tMaxy = FLT_MAX, tMinz = -FLT_MIN, tMaxz = FLT_MAX;
 
 
     if (fabsf(vRayDir.x) >= eps)
@@ -83,8 +83,7 @@ bool CCalculator::Check_PickedCollider(HWND hWnd, CCollider* pCollider)
     }
     else
     {
-        //축과 거의 평행할때 시작점이 축과 같은 경우에만 true 
-        return (vRayPos.x >= minPoint.x && vRayPos.x <= maxPoint.x);
+        if (vRayPos.x < minPoint.x || vRayPos.x > maxPoint.x) return false;
     }
 
     if (fabsf(vRayDir.y) >= eps)
@@ -96,7 +95,7 @@ bool CCalculator::Check_PickedCollider(HWND hWnd, CCollider* pCollider)
     }
     else
     {
-        return (vRayPos.y >= minPoint.y && vRayPos.y <= maxPoint.y);
+        if (vRayPos.y < minPoint.y || vRayPos.y > maxPoint.y) return false;
     }
 
     if (fabsf(vRayDir.z) >= eps)
@@ -108,7 +107,8 @@ bool CCalculator::Check_PickedCollider(HWND hWnd, CCollider* pCollider)
     }
     else
     {
-        return (vRayPos.z >= minPoint.z && vRayPos.z <= maxPoint.z);
+        if (vRayPos.z < minPoint.z || vRayPos.z > maxPoint.z)
+            return false;
     }
 
     rMin = max(tMinx, max(tMiny, tMinz));
@@ -131,6 +131,5 @@ CComponent* CCalculator::Clone()
 
 void CCalculator::Free()
 {
-    Safe_Release(m_pGraphicDev);
     CComponent::Free();
 }

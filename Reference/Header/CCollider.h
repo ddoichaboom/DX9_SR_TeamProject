@@ -36,6 +36,8 @@ public:
 	_vec3				Get_Scale();
 
 	//상대적인 위치 
+	//콜라이더의 월드 변환이 내 Transform * 부모 Transform 으로 진행되는데 
+	//아래는 내 Transform을 변경하는 함수 
 	void				Set_RelativePos(_vec3 _pos);
 	_vec3				Get_RelativePos();
 

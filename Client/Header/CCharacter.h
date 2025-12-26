@@ -7,6 +7,7 @@ namespace Engine
 	class CTransform;
 	class CTexture;
 	class CCollider;
+	class CStateComponent;
 }
 
 class CCharacter :
@@ -26,16 +27,21 @@ public:
 protected:
 	virtual HRESULT		Add_Component();
 	//void				Set_OnTerrain();
+	//State 세팅 설정 
+	virtual void		CreateStates() {};
 
 protected:
 	void				Free() override;
-	static vector<TextureSource> m_vTextureSources;
-	static vector<AnimationSource> m_vAnimSources;
 
 protected:
 	Engine::CRcTex*		m_pBufferCom;
 	Engine::CTransform* m_pTransformCom;
 	Engine::CTexture*	m_pTextureCom;
 	Engine::CCollider*	 m_pCollider;
+
+	Engine::CStateComponent* m_pStateCom;
+	
+protected:
+	float m_fTime;
 };
 

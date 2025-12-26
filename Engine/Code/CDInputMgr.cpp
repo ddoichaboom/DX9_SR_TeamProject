@@ -5,11 +5,65 @@ IMPLEMENT_SINGLETON(CDInputMgr)
 Engine::CDInputMgr::CDInputMgr(void)
 {
 	ZeroMemory(m_byKeyState, sizeof(m_byKeyState));
+	ZeroMemory(m_byPrevKeyState, sizeof(m_byPrevKeyState));
+	ZeroMemory(&m_tPrevMouseState, sizeof(m_tPrevMouseState));
+	ZeroMemory(&m_tMouseState, sizeof(m_tMouseState));
 }
 
 Engine::CDInputMgr::~CDInputMgr(void)
 {
 	Free();
+}
+
+bool CDInputMgr::Key_Down(_ubyte byKeyID)
+{
+	if (!(m_byPrevKeyState[byKeyID] & 0x80) && (m_byKeyState[byKeyID] & 0x80))
+	{
+		return true;
+	}
+	return false;
+}
+
+bool CDInputMgr::Key_Pressing(_ubyte byKeyID)
+{
+	if (m_byKeyState[byKeyID] & 0x80) return true;
+	return false;
+}
+
+bool CDInputMgr::Key_Up(_ubyte byKeyID)
+{
+	if ((m_byPrevKeyState[byKeyID] & 0x80) && !(m_byKeyState[byKeyID] & 0x80))
+	{
+		return true;
+	}
+	return false;
+}
+
+bool CDInputMgr::Mouse_Down(MOUSEKEYSTATE eMouse)
+{
+	if (!(m_tPrevMouseState.rgbButtons[eMouse] & 0x80) && (m_tMouseState.rgbButtons[eMouse] & 0x80))
+	{
+		return true;
+	}
+	return false;
+}
+
+bool CDInputMgr::Mouse_Pressing(MOUSEKEYSTATE eMouse)
+{
+	if (m_tMouseState.rgbButtons[eMouse] & 0x80)
+	{
+		return true;
+	}
+	return false;
+}
+
+bool CDInputMgr::Mouse_Up(MOUSEKEYSTATE eMouse)
+{
+	if ((m_tPrevMouseState.rgbButtons[eMouse] & 0x80) && !(m_tMouseState.rgbButtons[eMouse] & 0x80))
+	{
+		return true;
+	}
+	return false;
 }
 
 HRESULT Engine::CDInputMgr::Ready_InputDev(HINSTANCE hInst, HWND hWnd)
@@ -57,6 +111,10 @@ HRESULT Engine::CDInputMgr::Ready_InputDev(HINSTANCE hInst, HWND hWnd)
 
 void Engine::CDInputMgr::Update_InputDev(void)
 {
+	//이전 프레임의 키보드,마우스값 저장 
+	memcpy(m_byPrevKeyState, m_byKeyState, sizeof(m_byPrevKeyState));
+	memcpy(&m_tPrevMouseState, &m_tMouseState, sizeof(DIMOUSESTATE));
+
 	m_pKeyBoard->GetDeviceState(256, m_byKeyState);
 	m_pMouse->GetDeviceState(sizeof(m_tMouseState), &m_tMouseState);
 }

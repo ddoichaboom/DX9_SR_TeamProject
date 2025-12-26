@@ -84,6 +84,7 @@ _vec3 CCollider::Get_Scale()
 	return m_pTransformCom->m_vScale;
 }
 
+
 void CCollider::Set_RelativePos(_vec3 _pos)
 {
 	m_pTransformCom->Set_Pos(_pos);

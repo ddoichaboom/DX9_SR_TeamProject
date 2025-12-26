@@ -126,6 +126,8 @@ HRESULT CTestStage::Ready_Prototype()
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Calculator", Engine::CCalculator::Create(m_pGraphicDev))))
 		return E_FAIL;
 
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_StateComponent", Engine::CStateComponent::Create(m_pGraphicDev))))
+		return E_FAIL;
 
 #pragma region SAMPLE
 	// SAMPLE
@@ -145,21 +147,6 @@ HRESULT CTestStage::Ready_Prototype()
 	//	return E_FAIL;
 #pragma endregion
 
-	
-
-
-	vector<TextureSource> vWhiteManSource =
-	{
-		{ 0, L"../Bin/Resource/Texture/Test/white_Idle_1024.png" }
-		,{ 2, L"../Bin/Resource/Texture/Test/white_Aiming_1024.png" }
-		,{ 3, L"../Bin/Resource/Texture/Test/white_AttackIdle_1024.png" }
-		,{ 4, L"../Bin/Resource/Texture/Test/white_Attack_1024.png" }
-		,{ 5, L"../Bin/Resource/Texture/Test/white_Attack2_1024.png" }
-		,{ 6, L"../Bin/Resource/Texture/Test/white_Walk_1024.png" }
-		,{ 7, L"../Bin/Resource/Texture/Test/white_Hit_1024.png" }
-		,{ 8, L"../Bin/Resource/Texture/Test/white_DeadBack_512.png" }
-	};
-
 	vector<TextureSource> vTextureSource =
 	{
 		{ 0, L"../Bin/Resource/Texture/Player/Pika.png" }
@@ -169,26 +156,12 @@ HRESULT CTestStage::Ready_Prototype()
 		if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TestTexture", pCom_Texture)))
 			return E_FAIL;
 
-	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, vWhiteManSource);
+	//TODO : 아래와 같이 벡터 직접 넣는대신 정적 멤버 함수로 대체하기 
+	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CWhiteMan::GetTextureSources());
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WhiteManTexture", pCom_Texture)))
 		return E_FAIL;
 
-	vector<AnimationSource> vAnimSource =
-	{
-		{ 0,1,5,5, true, 0.13f}		//IDLE
-		,{ 2,1,4,3, false, 0.11f}	//Aiming
-		,{ 3,1,3,2, true, 0.11f}	//AttackStart
-		,{ 4,1,5,5, true, 0.11f}	//Attack1
-		,{ 5,1,4,3, true, 0.09f}	//Attack2
-		,{ 6,1,6,5, true, 0.11f}	//Walk
-		,{ 7,1,3,2, false, 0.11f}	//Hit
-		,{ 8,6,3,2, true, 0.11f}	//DeadBack
-	};
-
-	//if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TestAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, vAnimSource))))
-	//	return E_FAIL;
-
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WhiteManAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, vAnimSource))))
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WhiteManAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CWhiteMan::GetAnimSources()))))
 		return E_FAIL;
 
 #pragma region Left

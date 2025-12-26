@@ -115,6 +115,18 @@
     <Filter Include="03. Sample">
       <UniqueIdentifier>{89673f18-d4c0-49a0-81c4-8509888aaac9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. ComponentEX\05. StateComponent">
+      <UniqueIdentifier>{98d48432-1500-4096-9cbf-8db63af2219f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. ComponentEX\05. StateComponent\00. State">
+      <UniqueIdentifier>{d82adde1-6eb2-43e6-a0eb-a0b1a8035206}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Manager\09. DataMgr">
+      <UniqueIdentifier>{13d53cb3-b97c-48f3-a262-2b51c7d223c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99. Header">
+      <UniqueIdentifier>{47f29021-3c5e-45e3-9768-a538d81ff438}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -219,6 +231,33 @@
     <ClInclude Include="..\Header\CTerrainTexture.h">
       <Filter>03. Sample</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CStateComponent.h">
+      <Filter>02. ComponentEX\05. StateComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CState.h">
+      <Filter>02. ComponentEX\05. StateComponent\00. State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDataMgr.h">
+      <Filter>00. Manager\09. DataMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Engine_Define.h">
+      <Filter>99. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Engine_Enum.h">
+      <Filter>99. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Engine_Function.h">
+      <Filter>99. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Engine_Macro.h">
+      <Filter>99. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Engine_Struct.h">
+      <Filter>99. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Engine_Typedef.h">
+      <Filter>99. Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -322,6 +361,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTerrainTexture.cpp">
       <Filter>03. Sample</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CStateComponent.cpp">
+      <Filter>02. ComponentEX\05. StateComponent</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

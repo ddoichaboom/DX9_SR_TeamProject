@@ -11,7 +11,7 @@
 #include "CAnimation.h"
 #include "CCubeTexture.h"
 #include "CCalculator.h"
-
+#include "CStateComponent.h"
 
 
 // Sample
