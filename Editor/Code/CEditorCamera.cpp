@@ -43,11 +43,11 @@ HRESULT CEditorCamera::Ready_GameObject()
 _int CEditorCamera::Update_GameObject(const _float& fTimeDelta)
 {
     // 1번 키 : FREE Camera 모드
-    if (Engine::CDInputMgr::GetInstance()->Get_DIKeyState(DIK_1) & 0x80)
+    if (Engine::CDInputMgr::GetInstance()->Key_Down(DIK_1))
         m_eMode = MODE_FREE;
 
     // 2번 키 : FPS Camera 모드
-    if (Engine::CDInputMgr::GetInstance()->Get_DIKeyState(DIK_2) & 0x80)
+    if (Engine::CDInputMgr::GetInstance()->Key_Down(DIK_2))
         m_eMode = MODE_FPS;
 
     Update_FreeCamera(fTimeDelta);
@@ -83,38 +83,38 @@ void CEditorCamera::Update_FreeCamera(const _float& fTimeDelta)
 
     // 속도 (Shift: 2배)
     _float fSpeed = m_fSpeed;
-    if (Engine::CDInputMgr::GetInstance()->Get_DIKeyState(DIK_LSHIFT) & 0x80)
+    if (Engine::CDInputMgr::GetInstance()->Key_Pressing(DIK_LSHIFT))
         fSpeed *= 2.f;
 
     // WASD 이동
-    if (Engine::CDInputMgr::GetInstance()->Get_DIKeyState(DIK_W) & 0x80)
+    if (Engine::CDInputMgr::GetInstance()->Key_Pressing(DIK_W))
     {
         m_vEye += vLook * fSpeed * fTimeDelta;
         m_vAt += vLook * fSpeed * fTimeDelta;
     }
-    if (Engine::CDInputMgr::GetInstance()->Get_DIKeyState(DIK_S) & 0x80)
+    if (Engine::CDInputMgr::GetInstance()->Key_Pressing(DIK_S))
     {
         m_vEye -= vLook * fSpeed * fTimeDelta;
         m_vAt -= vLook * fSpeed * fTimeDelta;
     }
-    if (Engine::CDInputMgr::GetInstance()->Get_DIKeyState(DIK_A) & 0x80)
+    if (Engine::CDInputMgr::GetInstance()->Key_Pressing(DIK_A))
     {
         m_vEye += vRight * fSpeed * fTimeDelta;
         m_vAt += vRight * fSpeed * fTimeDelta;
     }
-    if (Engine::CDInputMgr::GetInstance()->Get_DIKeyState(DIK_D) & 0x80)
+    if (Engine::CDInputMgr::GetInstance()->Key_Pressing(DIK_D))
     {
         m_vEye -= vRight * fSpeed * fTimeDelta;
         m_vAt -= vRight * fSpeed * fTimeDelta;
     }
 
     // QE 상하 이동
-    if (Engine::CDInputMgr::GetInstance()->Get_DIKeyState(DIK_Q) & 0x80)
+    if (Engine::CDInputMgr::GetInstance()->Key_Pressing(DIK_Q))
     {
         m_vEye.y += fSpeed * fTimeDelta;
         m_vAt.y += fSpeed * fTimeDelta;
     }
-    if (Engine::CDInputMgr::GetInstance()->Get_DIKeyState(DIK_E) & 0x80)
+    if (Engine::CDInputMgr::GetInstance()->Key_Pressing(DIK_E))
     {
         m_vEye.y -= fSpeed * fTimeDelta;
         m_vAt.y -= fSpeed * fTimeDelta;
@@ -123,7 +123,7 @@ void CEditorCamera::Update_FreeCamera(const _float& fTimeDelta)
 
 void CEditorCamera::Update_Mouse()
 {
-    if (GetAsyncKeyState(VK_RBUTTON) & 0x8000)
+    if (Engine::CDInputMgr::GetInstance()->Mouse_Pressing(DIM_RB))
     {
         if (!m_bRightButton)
         {

@@ -25,6 +25,8 @@
 #include <algorithm>
 #include <fstream>
 
+#define IMGUI_DEFINE_MATH_OPERATORS
+
 // ImGui 헤더
 #include "imgui.h"
 #include "imgui_impl_dx9.h"

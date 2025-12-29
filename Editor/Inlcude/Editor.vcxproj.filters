@@ -79,6 +79,9 @@
     <Filter Include="02. Tool\01. TextureManager">
       <UniqueIdentifier>{47365ea3-ba40-4cd3-b6f6-a06bf6c8301f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ImGuizmo">
+      <UniqueIdentifier>{517d3bde-d627-4f5e-b81b-afd4f46b814b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -165,8 +168,23 @@
     <ClInclude Include="..\Header\json.hpp">
       <Filter>06. Resource</Filter>
     </ClInclude>
-    <ClInclude Include="..\ImGui\ImGuizmo.h">
-      <Filter>ImGui</Filter>
+    <ClInclude Include="..\ImGuizmo\GraphEditor.h">
+      <Filter>ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGuizmo\ImCurveEdit.h">
+      <Filter>ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGuizmo\ImGradient.h">
+      <Filter>ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGuizmo\ImGuizmo.h">
+      <Filter>ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGuizmo\ImSequencer.h">
+      <Filter>ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGuizmo\ImZoomSlider.h">
+      <Filter>ImGuizmo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -239,8 +257,20 @@
     <ClCompile Include="..\Code\CFileIO.cpp">
       <Filter>02. Tool\00. FileIO</Filter>
     </ClCompile>
-    <ClCompile Include="..\ImGui\ImGuizmo.cpp">
-      <Filter>ImGui</Filter>
+    <ClCompile Include="..\ImGuizmo\GraphEditor.cpp">
+      <Filter>ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGuizmo\ImCurveEdit.cpp">
+      <Filter>ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGuizmo\ImGradient.cpp">
+      <Filter>ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGuizmo\ImGuizmo.cpp">
+      <Filter>ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGuizmo\ImSequencer.cpp">
+      <Filter>ImGuizmo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
