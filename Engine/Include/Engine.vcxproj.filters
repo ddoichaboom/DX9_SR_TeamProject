@@ -109,9 +109,6 @@
     <Filter Include="02. ComponentEX\00. VIBuffer\04. CubeCol">
       <UniqueIdentifier>{5c5ceaf4-5b8b-4e7e-a037-2a79ae394b10}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Structure\03. GameObject\Collider">
-      <UniqueIdentifier>{bcfc9548-6574-41ca-a66f-a5c1663f9f5d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Sample">
       <UniqueIdentifier>{89673f18-d4c0-49a0-81c4-8509888aaac9}</UniqueIdentifier>
     </Filter>
@@ -126,6 +123,12 @@
     </Filter>
     <Filter Include="99. Header">
       <UniqueIdentifier>{47f29021-3c5e-45e3-9768-a538d81ff438}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. ComponentEX\06. Collision">
+      <UniqueIdentifier>{fd1c92ec-d6ce-420b-a011-32247ee5f47e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. ComponentEX\06. Collision\Collider">
+      <UniqueIdentifier>{bcfc9548-6574-41ca-a66f-a5c1663f9f5d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -220,7 +223,7 @@
       <Filter>98. RenderStateGuard</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CCollider.h">
-      <Filter>01. Structure\03. GameObject\Collider</Filter>
+      <Filter>02. ComponentEX\06. Collision\Collider</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CCubeCol.h">
       <Filter>02. ComponentEX\00. VIBuffer\04. CubeCol</Filter>
@@ -257,6 +260,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\Engine_Typedef.h">
       <Filter>99. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCollision.h">
+      <Filter>02. ComponentEX\06. Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -351,7 +357,7 @@
       <Filter>98. RenderStateGuard</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CCollider.cpp">
-      <Filter>01. Structure\03. GameObject\Collider</Filter>
+      <Filter>02. ComponentEX\06. Collision\Collider</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CCubeCol.cpp">
       <Filter>02. ComponentEX\00. VIBuffer\04. CubeCol</Filter>
@@ -364,6 +370,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CStateComponent.cpp">
       <Filter>02. ComponentEX\05. StateComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCollision.cpp">
+      <Filter>02. ComponentEX\06. Collision</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

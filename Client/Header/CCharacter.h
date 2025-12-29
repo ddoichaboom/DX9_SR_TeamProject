@@ -6,7 +6,6 @@ namespace Engine
 	class CRcTex;
 	class CTransform;
 	class CTexture;
-	class CCollider;
 	class CStateComponent;
 }
 
@@ -35,8 +34,6 @@ protected:
 	Engine::CRcTex*		m_pBufferCom;
 	Engine::CTransform* m_pTransformCom;
 	Engine::CTexture*	m_pTextureCom;
-	Engine::CCollider*	 m_pCollider;
-
 	Engine::CStateComponent* m_pStateCom;
 	
 protected:

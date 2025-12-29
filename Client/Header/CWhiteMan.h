@@ -3,7 +3,7 @@
 
 namespace Engine
 {
-	class CCollider;
+	class CCollision;
 	class CCalculator;
 }
 
@@ -55,7 +55,7 @@ protected:
 	void Hit();
 
 protected:
-	CCollider* m_pCollider;
+	CCollision* m_pCollisionCom;
 	CCalculator* m_pCalculatorCom;
 
 	static vector<TextureSource> m_vTextureSource;

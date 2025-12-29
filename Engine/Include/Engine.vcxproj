@@ -140,6 +140,7 @@ call Copy.bat</Command>
   <ItemGroup>
     <ClInclude Include="..\Header\CAnimation.h" />
     <ClInclude Include="..\Header\CBaseTexture.h" />
+    <ClInclude Include="..\Header\CCollision.h" />
     <ClInclude Include="..\Header\CCamera.h" />
     <ClInclude Include="..\Header\CCollider.h" />
     <ClInclude Include="..\Header\CCalculator.h" />
@@ -185,6 +186,7 @@ call Copy.bat</Command>
   <ItemGroup>
     <ClCompile Include="..\Code\CAnimation.cpp" />
     <ClCompile Include="..\Code\CBaseTexture.cpp" />
+    <ClCompile Include="..\Code\CCollision.cpp" />
     <ClCompile Include="..\Code\CCamera.cpp" />
     <ClCompile Include="..\Code\CCollider.cpp" />
     <ClCompile Include="..\Code\CCalculator.cpp" />

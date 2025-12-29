@@ -43,7 +43,11 @@ public:
 	HRESULT Ready_InputDev(HINSTANCE hInst, HWND hWnd);
 	void	Update_InputDev(void);
 
+public:
+	bool	GetDebugState();
 private:
+	const _ubyte			m_byDebugKey = DIK_G;
+	_bool					m_bDebug = true;
 	LPDIRECTINPUT8			m_pInputSDK = nullptr;
 
 private:

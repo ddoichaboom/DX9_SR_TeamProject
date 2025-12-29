@@ -2,9 +2,7 @@
 #include "CWhiteMan.h"
 #include "CProtoMgr.h"
 #include "CRenderer.h"
-#include "CCollider.h"
 #include "CDInputMgr.h"
-#include "CCalculator.h"
 #include "CDataMgr.h"
 #include "CStateComponent.h"
 
@@ -34,12 +32,12 @@ vector<AnimationSource> CWhiteMan::m_vAnimSource =
 };
 
 CWhiteMan::CWhiteMan(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CMonster(pGraphicDev), m_pCollider(nullptr)
+	:CMonster(pGraphicDev)
 {
 }
 
 CWhiteMan::CWhiteMan(const CWhiteMan& rhs)
-	:CMonster(rhs), m_pCollider(nullptr)
+	:CMonster(rhs)
 {
 }
 
@@ -91,20 +89,23 @@ HRESULT CWhiteMan::Ready_GameObject()
 	CreateStateData();
 	ChangeState(MS_IDLE);
 
-	//콜라이더 생성 + 바인딩 
-	m_pCollider = CCollider::Create(m_pGraphicDev, m_pTransformCom);
-	m_pCollider->Set_Scale(_vec3(0.8, 1.0, 1.5));
-	//콜라이더가 충돌되면 호출될 함수 바인딩. CollisionInfo는 충돌 정보 
+	m_pTransformCom->m_vScale = { 5,13,1 };
+	m_pTransformCom->Set_Pos(0, 0, 20.f);
+
+	//콜라이더 생성 방법 
+	m_pCollisionCom->CreateCollider(m_pTransformCom);
+
+	CCollider* m_pCollider = m_pCollisionCom->GetCollider();
+	if (!m_pCollider) return E_FAIL;
+
+	m_pCollider->Set_Scale(_vec3(4,11,4));
+	//콜라이더가 충돌되면 호출될 함수를 바인딩하기. CollisionInfo는 충돌 정보 
 	//웬만하면 아래처럼 람다로 넣기
 	m_pCollider->BindFuncToCollision([&](CollisionInfo info)
 		{
 			OnCollision(info);
 		});
 
-	if (!m_pCollider) return E_FAIL;
-
-	m_pTransformCom->m_vScale = { 5,13,1 };
-	m_pTransformCom->Set_Pos(0, 0, 20.f);
 
 	return S_OK;
 }
@@ -114,19 +115,15 @@ _int CWhiteMan::Update_GameObject(const _float& fTimeDelta)
 	int iExit = CMonster::Update_GameObject(fTimeDelta);
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
 
-	m_pCollider->Update_GameObject(fTimeDelta);
-
 	_vec3 info;
 	m_pTransformCom->Get_Info(INFO_POS, &info);
 	Compute_ViewZ(&info);
 
 	//TEST
 	//TODO : 플레이어에 공격 구현되면 지우기 
-	if (CDInputMgr::GetInstance()->Get_DIMouseState(DIM_LB) & 0x80)
+	if (CDInputMgr::GetInstance()->Mouse_Down(DIM_LB))
 	{
-		CollisionInfo info;
-		bool result = m_pCalculatorCom->Check_PickedCollider(g_hWnd, m_pCollider);
-		if (result) m_pCollider->Collision(info);
+		m_pCollisionCom->Collision_Mouse(g_hWnd);
 	}
 
 	return iExit;
@@ -135,14 +132,12 @@ _int CWhiteMan::Update_GameObject(const _float& fTimeDelta)
 void CWhiteMan::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CMonster::LateUpdate_GameObject(fTimeDelta);
-	m_pCollider->LateUpdate_GameObject(fTimeDelta);
 
 }
 
 void CWhiteMan::Render_GameObject()
 {
 	CMonster::Render_GameObject();
-	m_pCollider->Render_GameObject();
 }
 
 HRESULT CWhiteMan::Add_Component()
@@ -160,13 +155,13 @@ HRESULT CWhiteMan::Add_Component()
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Animation", pComponent });
 
 	//Calculator
-	pComponent = m_pCalculatorCom = dynamic_cast<Engine::CCalculator*>
-		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Calculator"));
+	pComponent = m_pCollisionCom = dynamic_cast<Engine::CCollision*>
+		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Collision"));
 
 	if (nullptr == pComponent)
 		return E_FAIL;
 
-	m_mapComponent[ID_STATIC].insert({ L"Com_Calculator", pComponent });
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collision", pComponent });
 
 	//StateComponent
 	pComponent = m_pStateCom = dynamic_cast<Engine::CStateComponent*>
@@ -194,7 +189,6 @@ void CWhiteMan::ChangeState(MONSTER_STATE nextState)
 
 void CWhiteMan::Free()
 {
-	Safe_Release(m_pCollider);
 	CMonster::Free();
 }
 

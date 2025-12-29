@@ -37,7 +37,10 @@ _int CCollider::Update_GameObject(const _float& fTimeDelta)
 void CCollider::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
-	m_matWorld = (*m_pTransformCom->Get_World()) * (*m_pPrtTransformCom->Get_World());
+	//m_matWorld = (*m_pTransformCom->Get_World()) * (*m_pPrtTransformCom->Get_World());
+	m_matWorld = (*m_pTransformCom->Get_World());
+	//위치값만 적용
+	memcpy(m_matWorld.m[3], m_pPrtTransformCom->Get_World()->m[3], sizeof(_vec3));
 }
 
 void CCollider::Render_GameObject()

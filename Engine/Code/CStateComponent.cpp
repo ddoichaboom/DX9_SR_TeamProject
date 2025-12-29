@@ -39,6 +39,7 @@ _int CStateComponent::Update_Component(const _float& fTimeDelta)
 {
 	if (!m_pCurState || !m_pOwner) return 0;
 	m_pCurState->Update(m_pOwner);
+	return 0;
 }
 
 CStateComponent* CStateComponent::Create(LPDIRECT3DDEVICE9 pGraphicDev)

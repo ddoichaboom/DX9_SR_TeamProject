@@ -12,7 +12,7 @@
 #include "CCubeTexture.h"
 #include "CCalculator.h"
 #include "CStateComponent.h"
-
+#include "CCollision.h"
 
 // Sample
 #include "CTerrainTexture.h"

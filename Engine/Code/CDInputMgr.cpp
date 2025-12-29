@@ -117,6 +117,17 @@ void Engine::CDInputMgr::Update_InputDev(void)
 
 	m_pKeyBoard->GetDeviceState(256, m_byKeyState);
 	m_pMouse->GetDeviceState(sizeof(m_tMouseState), &m_tMouseState);
+
+	if (Key_Down(m_byDebugKey))
+	{	
+		m_bDebug = !m_bDebug;
+	}
+
+}
+
+bool CDInputMgr::GetDebugState()
+{
+	return m_bDebug;
 }
 
 void Engine::CDInputMgr::Free(void)

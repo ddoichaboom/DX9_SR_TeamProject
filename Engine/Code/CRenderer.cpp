@@ -1,5 +1,6 @@
 #include "CRenderer.h"
 #include "CRenderStateGuard.h"
+#include "CDInputMgr.h"
 
 IMPLEMENT_SINGLETON(CRenderer)
 
@@ -28,7 +29,8 @@ void CRenderer::Render_GameObject(LPDIRECT3DDEVICE9& pGraphicDev)
 	Render_Alpha(pGraphicDev);
 	Render_Alpha_UI(pGraphicDev);
 	Render_UI(pGraphicDev);
-	Render_DEBUG(pGraphicDev);
+	//F1 누르면 디버그 상태 
+	if(CDInputMgr::GetInstance()->GetDebugState()) Render_DEBUG(pGraphicDev);
 
 	Clear_RenderGroup();
 }
