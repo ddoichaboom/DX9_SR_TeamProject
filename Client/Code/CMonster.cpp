@@ -76,6 +76,18 @@ void CMonster::Render_GameObject()
 HRESULT CMonster::Add_Component()
 {
 	if (FAILED(CCharacter::Add_Component())) return E_FAIL;
+	Engine::CComponent* pComponent = nullptr;
+
+	// Animation
+	pComponent = m_pAnimationCom = dynamic_cast<Engine::CAnimation*>
+		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_WhiteManAnimation"));
+
+	if (nullptr == pComponent)
+		return E_FAIL;
+
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Animation", pComponent });
+
+
 	return S_OK;
 }
 

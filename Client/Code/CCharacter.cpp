@@ -5,13 +5,13 @@
 CCharacter::CCharacter(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr),
-	m_pStateCom(nullptr), m_fTime(0.f)
+	m_pStateCom(nullptr), m_pCollisionCom(nullptr), m_fTime(0.f)
 {
 }
 
 CCharacter::CCharacter(const CCharacter& rhs)
 	: CGameObject(rhs), m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr),
-	 m_pStateCom(nullptr), m_fTime(0.f)
+	 m_pStateCom(nullptr), m_pCollisionCom(nullptr), m_fTime(0.f)
 {
 }
 
@@ -57,6 +57,26 @@ HRESULT CCharacter::Add_Component()
 
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
+	//Collision
+	pComponent = m_pCollisionCom = dynamic_cast<Engine::CCollision*>
+		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Collision"));
+
+	if (nullptr == pComponent)
+		return E_FAIL;
+
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collision", pComponent });
+
+	//StateComponent
+	pComponent = m_pStateCom = dynamic_cast<Engine::CStateComponent*>
+		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_StateComponent"));
+
+	//Owner 지정해주기!! 
+	m_pStateCom->SetOnwer(this);
+
+	if (nullptr == pComponent)
+		return E_FAIL;
+
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_StateComponent", pComponent });
 
 	return S_OK;
 }

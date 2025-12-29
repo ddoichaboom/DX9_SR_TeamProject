@@ -30,12 +30,12 @@ vector<AnimationSource> CWhiteMan::m_vAnimSource =
 };
 
 CWhiteMan::CWhiteMan(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CMonster(pGraphicDev), m_pCollisionCom(nullptr)
+	:CMonster(pGraphicDev)
 {
 }
 
 CWhiteMan::CWhiteMan(const CWhiteMan& rhs)
-	:CMonster(rhs), m_pCollisionCom(nullptr)
+	:CMonster(rhs)
 {
 }
 
@@ -144,37 +144,6 @@ HRESULT CWhiteMan::Add_Component()
 	if (FAILED(CMonster::Add_Component())) return E_FAIL;
 	Engine::CComponent* pComponent = nullptr;
 
-	// Animation
-	pComponent = m_pAnimationCom = dynamic_cast<Engine::CAnimation*>
-		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_WhiteManAnimation"));
-
-	if (nullptr == pComponent)
-		return E_FAIL;
-
-	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Animation", pComponent });
-
-	//Calculator
-	pComponent = m_pCollisionCom = dynamic_cast<Engine::CCollision*>
-		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Collision"));
-
-	if (nullptr == pComponent)
-		return E_FAIL;
-
-	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collision", pComponent });
-
-	//StateComponent
-	pComponent = m_pStateCom = dynamic_cast<Engine::CStateComponent*>
-		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_StateComponent"));
-
-	//Owner 지정해주기!! 
-	m_pStateCom->SetOnwer(this);
-
-	if (nullptr == pComponent)
-		return E_FAIL;
-
-	m_mapComponent[ID_DYNAMIC].insert({ L"Com_StateComponent", pComponent });
-
-
 	return S_OK;
 }
 
@@ -188,7 +157,6 @@ void CWhiteMan::ChangeState(_uint nextStateID)
 void CWhiteMan::Free()
 {
 	CMonster::Free();
-	CDataMgr<CWhiteMan>::GetInstance()->DestroyInstance();
 }
 
 void CWhiteMan::OnCollision(CollisionInfo info)

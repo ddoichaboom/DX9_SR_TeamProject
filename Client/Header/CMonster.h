@@ -29,8 +29,6 @@ protected:
 	void			Render_GameObject() override;
 
 protected:
-	virtual void	ChangeState(_uint nextStateID) PURE;
-
 	HRESULT			Add_Component() override;
 protected:
 	virtual void	Free();

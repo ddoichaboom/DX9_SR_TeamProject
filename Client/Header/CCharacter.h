@@ -7,6 +7,7 @@ namespace Engine
 	class CTransform;
 	class CTexture;
 	class CStateComponent;
+	class CCollision;
 }
 
 class CCharacter :
@@ -29,13 +30,15 @@ protected:
 
 protected:
 	void				Free() override;
+	virtual void		ChangeState(_uint nextStateID) {};
 
 protected:
 	Engine::CRcTex*		m_pBufferCom;
 	Engine::CTransform* m_pTransformCom;
 	Engine::CTexture*	m_pTextureCom;
 	Engine::CStateComponent* m_pStateCom;
-	
+	Engine::CCollision* m_pCollisionCom;
+
 protected:
 	float m_fTime;
 };

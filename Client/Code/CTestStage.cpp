@@ -267,5 +267,7 @@ CTestStage* CTestStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CTestStage::Free()
 {
+	CDataMgr<CWhiteMan>::GetInstance()->DestroyInstance();
+	CDataMgr<CPlayer>::GetInstance()->DestroyInstance();
 	CScene::Free();
 }
