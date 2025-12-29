@@ -1,6 +1,8 @@
 폴더 PATH의 목록입니다.
-볼륨 일련 번호는 869E-1BD6입니다.
-D:.
+볼륨 일련 번호는 181E-6BE0입니다.
+C:.
+│  .gitignore
+│  CLAUDE.md
 │  Copy.bat
 │  make_structure.bat
 │  SR_Proj.sln
@@ -21,24 +23,75 @@ D:.
 │  │  └─Resource
 │  │      └─Texture
 │  │          ├─Player
+│  │          │      Left_Hand_Idle.png
+│  │          │      Left_Hand_Reload_P.png
+│  │          │      Left_Hand_Reload_S.png
+│  │          │      Middle_Kick.png
+│  │          │      Middle_Soda.png
+│  │          │      pika.png
+│  │          │      Right_Hand_Idle_P.png
+│  │          │      Right_Hand_Reload_P.png
+│  │          │      Right_Hand_Shot_P.png
+│  │          │      
+│  │          ├─Terrain
+│  │          │      Aura0.tga
+│  │          │      GrassRock_0.tga
+│  │          │      GrassRock_1.tga
+│  │          │      Grass_0.tga
+│  │          │      Grass_1.tga
+│  │          │      Height.bmp
+│  │          │      Height1.bmp
+│  │          │      Height2.bmp
+│  │          │      TempHeight.bmp
+│  │          │      Terrain0.png
+│  │          │      Tile0.jpg
+│  │          │      
 │  │          └─Test
-│  │                  White_Idle.png
+│  │                  white_Aiming_1024.png
+│  │                  white_Attack2_1024.png
+│  │                  white_AttackIdle_1024.png
+│  │                  white_Attack_1024.png
+│  │                  white_DeadBack_512.png
+│  │                  white_Hit_1024.png
+│  │                  white_Idle_1024.png
+│  │                  white_Idle_512.png
+│  │                  white_Walk_1024.png
 │  │                  
 │  ├─Code
 │  │      CCharacter.cpp
+│  │      CCubeTex.cpp
+│  │      CFirstCamera.cpp
+│  │      CLeftPart.cpp
 │  │      CMainApp.cpp
+│  │      CMiddlePart.cpp
+│  │      CMonster.cpp
 │  │      CPlayer.cpp
+│  │      CPlayerPart.cpp
+│  │      CRightPart.cpp
+│  │      CSkyBox.cpp
 │  │      CStage.cpp
+│  │      CTerrain.cpp
+│  │      CTerrainTex.cpp
 │  │      CTestCharacter.cpp
 │  │      CTestStage.cpp
+│  │      CWhiteMan.cpp
 │  │      
 │  ├─Header
 │  │      CCharacter.h
+│  │      CFirstCamera.h
+│  │      CLeftPart.h
 │  │      CMainApp.h
+│  │      CMiddlePart.h
+│  │      CMonster.h
 │  │      CPlayer.h
+│  │      CPlayerPart.h
+│  │      CRightPart.h
+│  │      CSkyBox.h
 │  │      CStage.h
+│  │      CTerrain.h
 │  │      CTestCharacter.h
 │  │      CTestStage.h
+│  │      CWhiteMan.h
 │  │      
 │  └─Include
 │      │  Client.cpp
@@ -58,18 +111,28 @@ D:.
 │      └─x64
 │          └─Debug
 │              │  CCharacter.obj
+│              │  CFirstCamera.obj
+│              │  CLeftPart.obj
+│              │  Client.Build.CppClean.log
 │              │  Client.exe.recipe
 │              │  Client.ilk
 │              │  Client.log
 │              │  Client.obj
 │              │  Client.pch
 │              │  Client.res
+│              │  Client.vcxproj.FileListAbsolute.txt
 │              │  CMainApp.obj
+│              │  CMiddlePart.obj
+│              │  CMonster.obj
 │              │  CPlayer.obj
-│              │  CPlayerTestStage.obj
+│              │  CPlayerPart.obj
+│              │  CRightPart.obj
+│              │  CSkyBox.obj
 │              │  CStage.obj
+│              │  CTerrain.obj
 │              │  CTestCharacter.obj
 │              │  CTestStage.obj
+│              │  CWhiteMan.obj
 │              │  pch.obj
 │              │  vc143.idb
 │              │  vc143.pdb
@@ -88,6 +151,131 @@ D:.
 │                      rc.read.1.tlog
 │                      rc.write.1.tlog
 │                      
+├─Editor
+│  ├─Bin
+│  │  │  Editor.exe
+│  │  │  Editor.exp
+│  │  │  Editor.lib
+│  │  │  Editor.pdb
+│  │  │  Engine.dll
+│  │  │  
+│  │  └─Temp
+│  │      └─Debug
+│  │          │  CEditorApp.obj
+│  │          │  CEditorCamera.obj
+│  │          │  CEditorCube.obj
+│  │          │  CEditorObject.obj
+│  │          │  CEditorScene.obj
+│  │          │  CEditorTile.obj
+│  │          │  CFileIO.obj
+│  │          │  CGrid.obj
+│  │          │  CHierarchy.obj
+│  │          │  CInspector.obj
+│  │          │  CMainMenuBar.obj
+│  │          │  CMousePicker.obj
+│  │          │  CSelectionMgr.obj
+│  │          │  CToolBar.obj
+│  │          │  Editor.Build.CppClean.log
+│  │          │  Editor.exe.recipe
+│  │          │  Editor.ilk
+│  │          │  Editor.log
+│  │          │  Editor.obj
+│  │          │  Editor.pch
+│  │          │  Editor.res
+│  │          │  Editor.vcxproj.FileListAbsolute.txt
+│  │          │  imgui.obj
+│  │          │  imgui_demo.obj
+│  │          │  imgui_draw.obj
+│  │          │  imgui_impl_dx9.obj
+│  │          │  imgui_impl_win32.obj
+│  │          │  imgui_tables.obj
+│  │          │  imgui_widgets.obj
+│  │          │  pch.obj
+│  │          │  vc143.idb
+│  │          │  vc143.pdb
+│  │          │  
+│  │          └─Editor.tlog
+│  │                  CL.command.1.tlog
+│  │                  Cl.items.tlog
+│  │                  CL.read.1.tlog
+│  │                  CL.write.1.tlog
+│  │                  Editor.lastbuildstate
+│  │                  link.command.1.tlog
+│  │                  link.read.1.tlog
+│  │                  link.secondary.1.tlog
+│  │                  link.write.1.tlog
+│  │                  rc.command.1.tlog
+│  │                  rc.read.1.tlog
+│  │                  rc.write.1.tlog
+│  │                  
+│  ├─Code
+│  │      CEditorApp.cpp
+│  │      CEditorCamera.cpp
+│  │      CEditorCube.cpp
+│  │      CEditorObject.cpp
+│  │      CEditorScene.cpp
+│  │      CEditorTile.cpp
+│  │      CFileIO.cpp
+│  │      CGrid.cpp
+│  │      CHierarchy.cpp
+│  │      CInspector.cpp
+│  │      CMainMenuBar.cpp
+│  │      CMousePicker.cpp
+│  │      CSelectionMgr.cpp
+│  │      CToolBar.cpp
+│  │      
+│  ├─Header
+│  │      CEditorApp.h
+│  │      CEditorCamera.h
+│  │      CEditorCube.h
+│  │      CEditorObject.h
+│  │      CEditorScene.h
+│  │      CEditorTile.h
+│  │      CFileIO.h
+│  │      CGrid.h
+│  │      CHierarchy.h
+│  │      CInspector.h
+│  │      CMainMenuBar.h
+│  │      CMousePicker.h
+│  │      CSelectionMgr.h
+│  │      CToolBar.h
+│  │      json.hpp
+│  │      
+│  ├─ImGui
+│  │      imconfig.h
+│  │      imgui.cpp
+│  │      imgui.h
+│  │      ImGuizmo.cpp
+│  │      ImGuizmo.h
+│  │      imgui_demo.cpp
+│  │      imgui_draw.cpp
+│  │      imgui_impl_dx9.cpp
+│  │      imgui_impl_dx9.h
+│  │      imgui_impl_win32.cpp
+│  │      imgui_impl_win32.h
+│  │      imgui_internal.h
+│  │      imgui_tables.cpp
+│  │      imgui_widgets.cpp
+│  │      imstb_rectpack.h
+│  │      imstb_textedit.h
+│  │      imstb_truetype.h
+│  │      
+│  └─Inlcude
+│          Editor.cpp
+│          Editor.h
+│          Editor.ico
+│          Editor.rc
+│          Editor.vcxproj
+│          Editor.vcxproj.filters
+│          Editor.vcxproj.user
+│          framework.h
+│          imgui.ini
+│          pch.cpp
+│          pch.h
+│          Resource.h
+│          small.ico
+│          targetver.h
+│          
 ├─Engine
 │  ├─Bin
 │  │      Engine.dll
@@ -98,8 +286,11 @@ D:.
 │  ├─Code
 │  │      CAnimation.cpp
 │  │      CBaseTexture.cpp
+│  │      CCalculator.cpp
 │  │      CCamera.cpp
+│  │      CCollider.cpp
 │  │      CComponent.cpp
+│  │      CCubeCol.cpp
 │  │      CCubeTex.cpp
 │  │      CCubeTexture.cpp
 │  │      CDInputMgr.cpp
@@ -118,8 +309,10 @@ D:.
 │  │      CRcCol.cpp
 │  │      CRcTex.cpp
 │  │      CRenderer.cpp
+│  │      CRenderStateGuard.cpp
 │  │      CScene.cpp
 │  │      CTerrainTex.cpp
+│  │      CTerrainTexture.cpp
 │  │      CTexture.cpp
 │  │      CTimer.cpp
 │  │      CTimerMgr.cpp
@@ -129,8 +322,11 @@ D:.
 │  ├─Header
 │  │      CAnimation.h
 │  │      CBaseTexture.h
+│  │      CCalculator.h
 │  │      CCamera.h
+│  │      CCollider.h
 │  │      CComponent.h
+│  │      CCubeCol.h
 │  │      CCubeTex.h
 │  │      CCubeTexture.h
 │  │      CDInputMgr.h
@@ -149,8 +345,10 @@ D:.
 │  │      CRcCol.h
 │  │      CRcTex.h
 │  │      CRenderer.h
+│  │      CRenderStateGuard.h
 │  │      CScene.h
 │  │      CTerrainTex.h
+│  │      CTerrainTexture.h
 │  │      CTexture.h
 │  │      CTimer.h
 │  │      CTimerMgr.h
@@ -172,8 +370,11 @@ D:.
 │          └─Debug
 │              │  CAnimation.obj
 │              │  CBaseTexture.obj
+│              │  CCalculator.obj
 │              │  CCamera.obj
+│              │  CCollider.obj
 │              │  CComponent.obj
+│              │  CCubeCol.obj
 │              │  CCubeTex.obj
 │              │  CCubeTexture.obj
 │              │  CDInputMgr.obj
@@ -192,16 +393,20 @@ D:.
 │              │  CRcCol.obj
 │              │  CRcTex.obj
 │              │  CRenderer.obj
+│              │  CRenderStateGuard.obj
 │              │  CScene.obj
 │              │  CTerrainTex.obj
+│              │  CTerrainTexture.obj
 │              │  CTexture.obj
 │              │  CTimer.obj
 │              │  CTimerMgr.obj
 │              │  CTransform.obj
 │              │  CVIBuffer.obj
+│              │  Engine.Build.CppClean.log
 │              │  Engine.dll.recipe
 │              │  Engine.ilk
 │              │  Engine.log
+│              │  Engine.vcxproj.FileListAbsolute.txt
 │              │  vc143.idb
 │              │  vc143.pdb
 │              │  
@@ -216,44 +421,67 @@ D:.
 │                      link.secondary.1.tlog
 │                      link.write.1.tlog
 │                      
-└─Reference
-    ├─Header
-    │      CAnimation.h
-    │      CBaseTexture.h
-    │      CCamera.h
-    │      CComponent.h
-    │      CCubeTex.h
-    │      CCubeTexture.h
-    │      CDInputMgr.h
-    │      CFont.h
-    │      CFontMgr.h
-    │      CFrame.h
-    │      CFrameMgr.h
-    │      CGameObject.h
-    │      CGraphicDev.h
-    │      CLayer.h
-    │      CLight.h
-    │      CLightMgr.h
-    │      CManagement.h
-    │      CPipeline.h
-    │      CProtoMgr.h
-    │      CRcCol.h
-    │      CRcTex.h
-    │      CRenderer.h
-    │      CScene.h
-    │      CTerrainTex.h
-    │      CTexture.h
-    │      CTimer.h
-    │      CTimerMgr.h
-    │      CTransform.h
-    │      CVIBuffer.h
-    │      Engine_Define.h
-    │      Engine_Enum.h
-    │      Engine_Function.h
-    │      Engine_Macro.h
-    │      Engine_Struct.h
-    │      Engine_Typedef.h
-    │      
-    └─Library
-            Engine.lib
-            
+├─Map
+│      imgui.ini
+│      test.json
+│      
+├─Reference
+│  ├─Header
+│  │      CAnimation.h
+│  │      CBaseTexture.h
+│  │      CCalculator.h
+│  │      CCamera.h
+│  │      CCollider.h
+│  │      CComponent.h
+│  │      CCubeCol.h
+│  │      CCubeTex.h
+│  │      CCubeTexture.h
+│  │      CDInputMgr.h
+│  │      CFont.h
+│  │      CFontMgr.h
+│  │      CFrame.h
+│  │      CFrameMgr.h
+│  │      CGameObject.h
+│  │      CGraphicDev.h
+│  │      CLayer.h
+│  │      CLight.h
+│  │      CLightMgr.h
+│  │      CManagement.h
+│  │      CPipeline.h
+│  │      CProtoMgr.h
+│  │      CRcCol.h
+│  │      CRcTex.h
+│  │      CRenderer.h
+│  │      CRenderStateGuard.h
+│  │      CScene.h
+│  │      CTerrainTex.h
+│  │      CTerrainTexture.h
+│  │      CTexture.h
+│  │      CTimer.h
+│  │      CTimerMgr.h
+│  │      CTransform.h
+│  │      CVIBuffer.h
+│  │      Engine_Define.h
+│  │      Engine_Enum.h
+│  │      Engine_Function.h
+│  │      Engine_Macro.h
+│  │      Engine_Struct.h
+│  │      Engine_Typedef.h
+│  │      json.hpp
+│  │      
+│  └─Library
+│          Engine.lib
+│          
+└─명세서
+        Editor_MapEditor_개발계획.md
+        Editor_Phase5_Picking과텍스처_구현가이드_v3.md
+        Editor_Phase5_완료보고_2025-12-26.md
+        Editor_Phase6.5_ImGuizmo_구현가이드.md
+        Editor_Phase6_파일저장로드_구현가이드.md
+        Editor_Phase6_파일저장로드_구현가이드_JSON.md
+        Editor_Phase7_텍스처시스템_구현가이드.md
+        Editor_전체_개발계획_v2.md
+        Editor_전체_개발계획_v3.md
+        Editor_진행상황_2025-12-26.md
+        Editor_진행상황_2025-12-27.md
+        

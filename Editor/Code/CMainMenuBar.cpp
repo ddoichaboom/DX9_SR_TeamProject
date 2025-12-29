@@ -1,8 +1,11 @@
 #include "pch.h"
 #include "CMainMenuBar.h"
+#include "CEditorScene.h"
+#include "CFileIO.h"
 
 CMainMenuBar::CMainMenuBar()
     : m_bShowAbout(false)
+    , m_pScene(nullptr)
 {
 }
 
@@ -48,20 +51,93 @@ void CMainMenuBar::Render_FileMenu()
 {
     if (ImGui::BeginMenu("File"))
     {
+        // New Map
         if (ImGui::MenuItem("New", "Ctrl+N"))
         {
-            // Phase 3에서는 메시지만
-            MessageBox(nullptr, L"New Map (Not Implemented)", L"Info", MB_OK);
+            if (!m_pScene)
+            {
+                MessageBox(nullptr, L"Scene is not Set", L"Error", MB_OK);
+            }
+            else
+            {
+                _int result = MessageBox(nullptr,
+                                        L"Clear current Map?",
+                                        L"New Map",
+                                        MB_OKCANCEL | MB_ICONQUESTION);
+
+                if (IDOK == result)
+                {
+                    m_pScene->Clear_AllObjects();
+                    MessageBox(nullptr, L"Map Cleared", L"New Map", MB_OK);
+                }
+            }
         }
 
-        if (ImGui::MenuItem("Open", "Ctrl+O"))
-        {
-            MessageBox(nullptr, L"Open Map (Not Implemented)", L"Info", MB_OK);
-        }
+        ImGui::Separator();
 
+        // Save Map
         if (ImGui::MenuItem("Save", "Ctrl+S"))
         {
-            MessageBox(nullptr, L"Save Map (Not Implemented)", L"Info", MB_OK);
+            if (!m_pScene)
+            {
+                MessageBox(nullptr, L"Scene is not Set", L"Error", MB_OK);
+            }
+            else
+            {
+                wchar_t wszPath[MAX_PATH] = L"";
+
+                OPENFILENAME ofn;
+                ZeroMemory(&ofn, sizeof(ofn));
+                ofn.lStructSize = sizeof(ofn);
+                ofn.hwndOwner = g_hWnd;
+                ofn.lpstrFilter = L"JSON Map Files (*.json)\0*.json\0All Files (*.*)\0*.*\0";
+                ofn.lpstrFile = wszPath;
+                ofn.nMaxFile = MAX_PATH;
+                ofn.lpstrDefExt = L"json";
+                ofn.lpstrTitle = L"Save Map";
+                ofn.Flags = OFN_OVERWRITEPROMPT;
+
+                if (GetSaveFileName(&ofn))
+                {
+                    if (FAILED(CFileIO::GetInstance()->Save_MapData(wszPath, m_pScene)))
+                    {
+                        MessageBox(nullptr, L"Failed to save map", L"Error", MB_OK | MB_ICONERROR);
+                    }
+                }
+            }
+        }
+
+        // Open Map
+        if (ImGui::MenuItem("Open", "Ctrl+O"))
+        {
+            if (!m_pScene)
+            {
+                MessageBox(nullptr, L"Scene is not set", L"Error", MB_OK);
+            }
+            else
+            {
+                wchar_t wszPath[MAX_PATH] = L"";
+
+                OPENFILENAME ofn;
+                ZeroMemory(&ofn, sizeof(ofn));
+                ofn.lStructSize = sizeof(ofn);
+                ofn.hwndOwner = g_hWnd;
+                ofn.lpstrFilter = L"JSON Map Files (*.json)\0*.json\0All Files (*.*)\0*.*\0";
+                ofn.lpstrFile = wszPath;
+                ofn.nMaxFile = MAX_PATH;
+                ofn.lpstrTitle = L"Open Map";
+                ofn.Flags = OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST;
+
+                if (GetOpenFileName(&ofn))
+                {
+                    LPDIRECT3DDEVICE9 pGraphicDev = m_pScene->Get_GraphicDev();
+
+                    if (FAILED(CFileIO::GetInstance()->Load_MapData(wszPath, m_pScene, pGraphicDev)))
+                    {
+                        MessageBox(nullptr, L"Failed to load map", L"Error", MB_OK | MB_ICONERROR);
+                    }
+                }
+            }
         }
 
         ImGui::Separator();

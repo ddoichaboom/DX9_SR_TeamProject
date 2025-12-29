@@ -52,14 +52,14 @@ private:
 private:
 	LPDIRECT3DDEVICE9			m_pGraphicDev;
 
-	CEditorCamera* m_pCamera;
-	CGrid* m_pGrid;
+	CEditorCamera*				m_pCamera;
+	CGrid*						m_pGrid;
 	list<CEditorObject*>		m_ObjectList;
-	CToolBar* m_pToolBar;
+	CToolBar*					m_pToolBar;
 	_bool						m_bPrevMouseLeft;
-	CMousePicker* m_pMousePicker;
-	CSelectionMgr* m_pSelectionMgr;
-	CHierarchy* m_pHierarchy;
+	CMousePicker*				m_pMousePicker;
+	CSelectionMgr*				m_pSelectionMgr;
+	CHierarchy*					m_pHierarchy;
 
 
 public:

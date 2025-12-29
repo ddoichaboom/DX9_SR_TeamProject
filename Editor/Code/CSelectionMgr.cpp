@@ -33,12 +33,28 @@ CEditorObject* CSelectionMgr::Pick_Object(const _vec3& vRayPos, const _vec3& vRa
 
     for (auto& pObj : objectList)
     {
-        // AABB 계산
-        _vec3 vMin = pObj->Get_Min();
-        _vec3 vMax = pObj->Get_Max();
+        // 오브젝트의 월드 행렬 가져오기
+        const _matrix* pWorldMatrix = pObj->Get_WorldMatrix();
+
+        if (!pWorldMatrix)
+            continue;
+        
+        // 월드 행렬의 역행렬 계산
+        _matrix matInvWorld;
+        D3DXMatrixInverse(&matInvWorld, nullptr, pWorldMatrix);
+
+        // World Ray를 Local Ray로 변환
+        _vec3 vLocalRayPos, vLocalRayDir;
+        D3DXVec3TransformCoord(&vLocalRayPos, &vRayPos, &matInvWorld);
+        D3DXVec3TransformNormal(&vLocalRayDir, &vRayDir, &matInvWorld);
+        D3DXVec3Normalize(&vLocalRayDir, &vLocalRayDir);
+
+        // 로컬 AABB (고정 값)
+        _vec3 vLocalMin(-1.f, -1.f, -1.f);
+        _vec3 vLocalMax(1.f, 1.f, 1.f);
 
         _float fDist = 0.f;
-        if (Intersect_RayAABB(vRayPos, vRayDir, vMin, vMax, &fDist))
+        if (Intersect_RayAABB(vLocalRayPos, vLocalRayDir, vLocalMin, vLocalMax, &fDist))
         {
             if (fDist < fMinDist)
             {
@@ -46,6 +62,7 @@ CEditorObject* CSelectionMgr::Pick_Object(const _vec3& vRayPos, const _vec3& vRa
                 pPickedObject = pObj;
             }
         }
+
     }
 
     return pPickedObject;
@@ -63,17 +80,34 @@ void CSelectionMgr::Pick_Objects_All(const _vec3& vRayPos,
 
     for (auto& pObj : ObjectList)
     {
-        _vec3 vMin = pObj->Get_Min();
-        _vec3 vMax = pObj->Get_Max();
+        // 오브젝트의 월드 행렬 가져오기
+        const _matrix* pWorldMatrix = pObj->Get_WorldMatrix();
+
+        if (!pWorldMatrix)
+            continue;
+
+        // 월드 행렬의 역행렬 계산
+        _matrix matInvWorld;
+        D3DXMatrixInverse(&matInvWorld, nullptr, pWorldMatrix);
+
+        // World Ray를 Local Ray로 변환
+        _vec3 vLocalRayPos, vLocalRayDir;
+        D3DXVec3TransformCoord(&vLocalRayPos, &vRayPos, &matInvWorld);
+        D3DXVec3TransformNormal(&vLocalRayDir, &vRayDir, &matInvWorld);
+        D3DXVec3Normalize(&vLocalRayDir, &vLocalRayDir);
+
+        // 로컬 AABB (고정값)
+        _vec3 vLocalMin(-1.f, -1.f, -1.f);
+        _vec3 vLocalMax(1.f, 1.f, 1.f);
 
         _float fDist = 0.f;
-        if (Intersect_RayAABB(vRayPos, vRayDir, vMin, vMax, &fDist))
+        if (Intersect_RayAABB(vLocalRayPos, vLocalRayDir, vLocalMin, vLocalMax, &fDist))
         {
             distObjPairs.push_back(make_pair(fDist, pObj));
         }
     }
 
-    // 거리 순 정렬 ( 가까운 순서 )
+    // 거리 순 정렬 (가까운 순서)
     sort(distObjPairs.begin(), distObjPairs.end(),
         [](const pair<_float, CEditorObject*>& a, const pair<_float, CEditorObject*>& b)
         {

@@ -49,12 +49,6 @@
     <Filter Include="01. UI\03. Inspector">
       <UniqueIdentifier>{5993b022-36a0-43a6-a12c-030f5749913b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Tool\00. MapEditor">
-      <UniqueIdentifier>{c3a52ff4-9a90-4c93-b292-5331b079f570}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Tool\01. FileIO">
-      <UniqueIdentifier>{b875c117-49c3-43c1-a7ee-4db0940b9d3c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Scene\00. EditorScene">
       <UniqueIdentifier>{10508fc0-eae7-468d-9005-aa7f858c65e1}</UniqueIdentifier>
     </Filter>
@@ -79,8 +73,11 @@
     <Filter Include="05. Picking\01. SelectionManager">
       <UniqueIdentifier>{f34ddef7-18d8-4eb6-a1b8-eb1197276225}</UniqueIdentifier>
     </Filter>
-    <Filter Include="06. Resource\00. TextureManager">
-      <UniqueIdentifier>{87bbb3a8-cf0e-4da6-9575-6c3ac2406fb9}</UniqueIdentifier>
+    <Filter Include="02. Tool\00. FileIO">
+      <UniqueIdentifier>{b875c117-49c3-43c1-a7ee-4db0940b9d3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Tool\01. TextureManager">
+      <UniqueIdentifier>{47365ea3-ba40-4cd3-b6f6-a06bf6c8301f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +159,15 @@
     <ClInclude Include="..\Header\CSelectionMgr.h">
       <Filter>05. Picking\01. SelectionManager</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CFileIO.h">
+      <Filter>02. Tool\00. FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\json.hpp">
+      <Filter>06. Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGui\ImGuizmo.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -229,6 +235,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CSelectionMgr.cpp">
       <Filter>05. Picking\01. SelectionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFileIO.cpp">
+      <Filter>02. Tool\00. FileIO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGui\ImGuizmo.cpp">
+      <Filter>ImGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

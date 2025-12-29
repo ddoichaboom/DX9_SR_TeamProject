@@ -130,8 +130,22 @@ void CEditorScene::Remove_Object(CEditorObject* pObject)
 
 void CEditorScene::Clear_AllObjects()
 {
-    for_each(m_ObjectList.begin(), m_ObjectList.end(), CDeleteObj());
+    // 선택 해제
+    Set_SelectedObject(nullptr);
+
+    // 모든 오브젝트 Release
+    for (auto& pObj : m_ObjectList)
+    {
+        Safe_Release(pObj);
+    }
+
     m_ObjectList.clear();
+
+    // Hierarchy 동기화
+    if (m_pHierarchy)
+    {
+        m_pHierarchy->Sync_Selection(nullptr);
+    }
 }
 
 void CEditorScene::Set_SelectedObject(CEditorObject* pObj)

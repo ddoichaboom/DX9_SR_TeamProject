@@ -13,6 +13,7 @@
 #include "CToolBar.h"
 #include "CHierarchy.h"
 #include "CInspector.h"
+#include <CFileIO.h>
 
 
 CEditorApp::CEditorApp()
@@ -251,6 +252,8 @@ HRESULT CEditorApp::Ready_Scene()
         return E_FAIL;
     }
 
+    m_pMainMenuBar->Set_Scene(m_pCurrentScene);
+
     // 2. Tool Bar
     m_pToolBar = CToolBar::Create(m_pCurrentScene->Get_Camera(), m_pCurrentScene->Get_Grid());
     if (nullptr == m_pToolBar)
@@ -321,6 +324,8 @@ void CEditorApp::Free()
     Safe_Release(m_pGraphicDev);
     Safe_Release(m_pDeviceClass);
 
+    CFileIO::DestroyInstance();
+    
     // 6. ΩÃ±€≈Ê ¡§∏Æ
     Engine::CDInputMgr::DestroyInstance();
     Engine::CRenderer::DestroyInstance();

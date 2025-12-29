@@ -41,97 +41,6 @@ void CEditorObject::LateUpdate_GameObject(const _float& fTimeDelta)
         Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
-_vec3 CEditorObject::Get_Min()
-{
-    if (!m_pTransformCom)
-        return _vec3(0.f, 0.f, 0.f);
-
-    // 1. 버퍼의 로컬 정점 ( 단위 크기: -1 ~ +1)
-    //      버퍼는 -1 ~ +1 범위 이므로, AABB 계산을 위해 8개 정점 정의
-    _vec3 vLocalCorners[8] =
-    {
-        _vec3(-1.f, -1.f, -1.f),
-        _vec3(1.f, -1.f, -1.f),
-        _vec3(-1.f, 1.f, -1.f),
-        _vec3(1.f, 1.f, -1.f),
-        _vec3(-1.f, -1.f, 1.f),
-        _vec3(1.f, -1.f, 1.f),
-        _vec3(-1.f, 1.f, 1.f),
-        _vec3(1.f, 1.f, 1.f)
-    };
-
-    // 2. 월드 변환 행렬 가져오기
-    const _matrix* pWorldMatrix = m_pTransformCom->Get_World();
-
-    // 3. 모든 정점을 월드 공간으로 변환하고 Min 찾기
-    _vec3 vMin(FLT_MAX, FLT_MAX, FLT_MAX);
-
-    for (int i = 0; i < 8; ++i)
-    {
-        _vec3 vWorldCorner;
-        D3DXVec3TransformCoord(&vWorldCorner, &vLocalCorners[i], pWorldMatrix);
-
-        vMin.x = min(vMin.x, vWorldCorner.x);
-        vMin.y = min(vMin.y, vWorldCorner.y);
-        vMin.z = min(vMin.z, vWorldCorner.z);
-    }
-
-    return vMin;
-}
-
-//_vec3 CEditorObject::Get_Min()
-//{
-//    _vec3   vPos = Get_Position();
-//    _vec3   vSacle = Get_Scale();
-//
-//    return vPos - vSacle * 0.5f;
-//}
-
-_vec3 CEditorObject::Get_Max()
-{
-    if (!m_pTransformCom)
-        return _vec3(0.f, 0.f, 0.f);
-
-    // 1. 버퍼의 로컬 정점 (단위 크기: -1 ~ +1)
-    _vec3 vLocalCorners[8] =
-    {
-        _vec3(-1.f, -1.f, -1.f),
-        _vec3(+1.f, -1.f, -1.f),
-        _vec3(-1.f, +1.f, -1.f),
-        _vec3(+1.f, +1.f, -1.f),
-        _vec3(-1.f, -1.f, +1.f),
-        _vec3(+1.f, -1.f, +1.f),
-        _vec3(-1.f, +1.f, +1.f),
-        _vec3(+1.f, +1.f, +1.f)
-    };
-
-    // 2. 월드 변환 행렬 가져오기 (이미 Scale 포함!)
-    const _matrix* pWorldMatrix = m_pTransformCom->Get_World();
-
-    // 3. 모든 정점을 월드 공간으로 변환하고 Max 찾기
-    _vec3 vMax(-FLT_MAX, -FLT_MAX, -FLT_MAX);
-
-    for (int i = 0; i < 8; ++i)
-    {
-        _vec3 vWorldCorner;
-        D3DXVec3TransformCoord(&vWorldCorner, &vLocalCorners[i], pWorldMatrix);
-
-        vMax.x = max(vMax.x, vWorldCorner.x);
-        vMax.y = max(vMax.y, vWorldCorner.y);
-        vMax.z = max(vMax.z, vWorldCorner.z);
-    }
-
-    return vMax;
-}
-
-//_vec3 CEditorObject::Get_Max()
-//{
-//    _vec3   vPos = Get_Position();
-//    _vec3   vSacle = Get_Scale();
-//
-//    return vPos + vSacle * 0.5f;
-//}
-
 // Transform Setter
 void CEditorObject::Set_Position(_vec3 vPos)
 {
@@ -198,6 +107,14 @@ void CEditorObject::Set_Texture(Engine::CTexture* pTexture)
 
     if (m_pTextureCom)
         m_pTextureCom->AddRef();
+}
+
+const _matrix* CEditorObject::Get_WorldMatrix() const
+{
+    if (m_pTransformCom)
+        return m_pTransformCom->Get_World();
+
+    return nullptr;
 }
 
 void CEditorObject::Free()
