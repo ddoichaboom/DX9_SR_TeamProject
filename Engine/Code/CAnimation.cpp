@@ -3,21 +3,22 @@
 
 
 CAnimation::CAnimation()
-	: m_pCurAnimation(nullptr), m_vFrameIdx{0,0}, m_bPlaying(false), m_bEnd(false), m_fTime(0.f)
+	: m_pCurAnimation(nullptr), m_iCurState(-1), m_vFrameIdx{0,0}, m_bPlaying(false), 
+	m_bEnd(false), m_fTime(0.f), m_bCanEnd(true)
 {
 	D3DXMatrixIdentity(&m_UVMatrix);
 }
 
 CAnimation::CAnimation(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CComponent(pGraphicDev), m_pCurAnimation(nullptr), 
-	m_vFrameIdx{ 0,0 }, m_bPlaying(false), m_bEnd(false),m_fTime(0.f)
+	:CComponent(pGraphicDev), m_pCurAnimation(nullptr), m_iCurState(-1),
+	m_vFrameIdx{ 0,0 }, m_bPlaying(false), m_bEnd(false),m_fTime(0.f), m_bCanEnd(true)
 {
 	D3DXMatrixIdentity(&m_UVMatrix);
 }
 
 CAnimation::CAnimation(const CAnimation& rhs)
-	:CComponent(rhs), m_pCurAnimation(rhs.m_pCurAnimation), 
-	m_vFrameIdx{ 0,0 }, m_bPlaying(false), m_bEnd(false), m_fTime(0.f)
+	:CComponent(rhs), m_pCurAnimation(rhs.m_pCurAnimation), m_iCurState(-1),
+	m_vFrameIdx{ 0,0 }, m_bPlaying(false), m_bEnd(false), m_fTime(0.f), m_bCanEnd(true)
 {
 	//TODO : 얕은 복사 주의
 	m_mapAnimation.insert(rhs.m_mapAnimation.begin(), rhs.m_mapAnimation.end());
@@ -82,6 +83,11 @@ AnimationDesc* CAnimation::MakeAnimationDesc(CTexture* _pTextureComp, AnimationS
 	texture->GetLevelDesc(0, &desc);
 
 	animDesc->vUVoffset = { cutWitdh / desc.Width, cutHeight / desc.Height };
+	//전체 프레임 크기. 이것을 기준으로 현재의 Ratio를 계산함 
+	animDesc->fTotalFrame = animDesc->fEndFrameCol * animDesc->vMaxIdx.y;
+	//애니메이션이 종료 가능한 Ratio 비율 
+	animDesc->fEndRatio = AnimSource.fEndRatio;
+
 	return animDesc;
 }
 
@@ -112,8 +118,8 @@ HRESULT CAnimation::Ready_Animation(CTexture* _pTextureComp, AnimationSource _An
 //순서 주의 x = x 축 y = y축  
 _int CAnimation::Update_Component(const _float& fTimeDelta)
 {
-	if (m_pCurAnimation->vMaxIdx ==_vec2(0,0)) return 0; // 한 장 
 	if (!m_pCurAnimation || !m_bPlaying || m_bEnd) return 0 ;
+	if (m_pCurAnimation->vMaxIdx ==_vec2(0,0)) return 0; // 한 장 
 
 	m_fTime += fTimeDelta;
 
@@ -142,6 +148,10 @@ _int CAnimation::Update_Component(const _float& fTimeDelta)
 				m_vFrameIdx.y += 1.f;
 				//마지막 행 검사는 위의 End인덱스 체크에서 수행됨 
 			}
+			
+			_float curRatio = (m_vFrameIdx.x * m_vFrameIdx.y) / m_pCurAnimation->fTotalFrame;
+			if (curRatio >= m_pCurAnimation->fEndRatio) m_bCanEnd = true;
+			else m_bCanEnd = false;
 		}
 
 	}
@@ -206,24 +216,24 @@ CComponent* CAnimation::Clone()
 	return new CAnimation(*this);
 }
 
-void CAnimation::ChangeNextAnimation()
+//animDesc 의 ratio는 디폴트가 0
+//ratio를 따로 설정하지않으면 항상 바로 전환되고, 
+//설정을 했다면 설정한 ratio이상 진행되어야 전환됨 
+//Hit같이 일정 애니메이션 이상 플레이 되어야 넘어가는 것은 ratio 설정하기 
+void CAnimation::Update_State(_uint State)
 {
-	auto iter = m_mapAnimation.find(currentState);
-	if (iter == m_mapAnimation.end()) return;
-
-	iter = next(iter);
-	if (iter == m_mapAnimation.end()) iter = m_mapAnimation.begin();
-	Change_Animation(iter->first);
+	if(CanEnd()) Change_Animation(State);
 }
 
 void CAnimation::Change_Animation(const _uint _state)
 {
+	if (m_iCurState == _state) return;
 	if (m_mapAnimation.find(_state) == m_mapAnimation.end()) return;
-	m_pCurAnimation = m_mapAnimation[_state];
+	m_iCurState = _state;
+	m_pCurAnimation = m_mapAnimation[m_iCurState];
 	PlayFromStart();
 	D3DXMatrixScaling(&m_UVMatrix, m_pCurAnimation->vUVoffset.x, m_pCurAnimation->vUVoffset.y, 1.0f);
-	//TODO : 리소스 테스트용. 지우기
-	currentState = _state;
+
 }
 
 void CAnimation::PlayFromStart()
@@ -231,6 +241,7 @@ void CAnimation::PlayFromStart()
 	m_vFrameIdx = { 0,0 };
 	m_bPlaying = true;
 	m_bEnd = false;
+	m_bCanEnd = false;
 	m_fTime = 0.f;
 }
 void CAnimation::Play()

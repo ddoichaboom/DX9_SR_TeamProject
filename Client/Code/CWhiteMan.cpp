@@ -3,8 +3,6 @@
 #include "CProtoMgr.h"
 #include "CRenderer.h"
 #include "CDInputMgr.h"
-#include "CDataMgr.h"
-#include "CStateComponent.h"
 
 //-------------------------------------------------------------------------
 // Texture , Animation Data
@@ -23,21 +21,21 @@ vector<TextureSource> CWhiteMan::m_vTextureSource =
 vector<AnimationSource> CWhiteMan::m_vAnimSource =
 {
 	{  MS_IDLE ,1,5,5, true, 0.13f}		//IDLE
-	,{ MS_FOUND,1,4,3, false, 0.11f}	//Aiming
-	,{ GetStateID(MS_ATTACK, SUB_BEGIN),1,3,2, true, 0.11f}	//AttackStart
+	,{ MS_FOUND,1,4,3, false, 0.11f, 1.f}	//Aiming
+	,{ GetStateID(MS_ATTACK, SUB_BEGIN),1,3,2, true, 0.11f,0.9f}	//AttackStart
 	,{ MS_ATTACK,1,4,3, true, 0.09f}	//Attack2
 	,{ MS_WALK,1,6,5, true, 0.11f}	//Walk
-	,{ MS_HIT,1,3,2, false, 0.11f}	//Hit
-	,{ MS_DEAD,6,3,2, true, 0.11f}	//DeadBack
+	,{ MS_HIT,1,3,2, false, 0.11f,0.9f}	//Hit
+	,{ MS_DEAD,6,3,2, true, 0.11f,1.f}	//DeadBack
 };
 
 CWhiteMan::CWhiteMan(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CMonster(pGraphicDev)
+	:CMonster(pGraphicDev), m_pCollisionCom(nullptr)
 {
 }
 
 CWhiteMan::CWhiteMan(const CWhiteMan& rhs)
-	:CMonster(rhs)
+	:CMonster(rhs), m_pCollisionCom(nullptr)
 {
 }
 
@@ -132,7 +130,8 @@ _int CWhiteMan::Update_GameObject(const _float& fTimeDelta)
 void CWhiteMan::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CMonster::LateUpdate_GameObject(fTimeDelta);
-
+	//현재 상태에 맞는 애니메이션으로 자동 전환
+	m_pAnimationCom->Update_State(m_pStateCom->GetCurrentStateID());
 }
 
 void CWhiteMan::Render_GameObject()
@@ -179,17 +178,17 @@ HRESULT CWhiteMan::Add_Component()
 	return S_OK;
 }
 
-void CWhiteMan::ChangeState(MONSTER_STATE nextState)
+void CWhiteMan::ChangeState(_uint nextStateID)
 {
-	CState<CWhiteMan>* state = CDataMgr<CWhiteMan>::GetInstance()->GetState(nextState);
-	m_pStateCom->ChangeState(state);
-	//State를 측정할 변수가 필요하면 m_fTime 쓰기 
-	//m_fTime = 0.f;
+	//템플릿 멤버함수! 주의 ! 
+	m_pStateCom->ChangeState<CWhiteMan>(nextStateID);
+	//추가로 처리해야 할 작업이 있을까봐 따로 함수로 구현
 }
 
 void CWhiteMan::Free()
 {
 	CMonster::Free();
+	CDataMgr<CWhiteMan>::GetInstance()->DestroyInstance();
 }
 
 void CWhiteMan::OnCollision(CollisionInfo info)
@@ -199,12 +198,10 @@ void CWhiteMan::OnCollision(CollisionInfo info)
 
 void CWhiteMan::Begin_Idle()
 {
-	m_pAnimationCom->Change_Animation(MS_IDLE);
 }
 
 void CWhiteMan::Begin_Attack()
 {
-	m_pAnimationCom->Change_Animation(MS_ATTACK);
 }
 
 void CWhiteMan::Attack()
@@ -218,14 +215,9 @@ void CWhiteMan::End_Attack()
 
 void CWhiteMan::Begin_Hit()
 {
-	m_pAnimationCom->Change_Animation(MS_HIT);
 }
 
 void CWhiteMan::Hit()
 {
-	if (m_pAnimationCom->IsEnd())
-	{
-		ChangeState(MS_ATTACK);
-	}
-
+	ChangeState(MS_ATTACK);
 }

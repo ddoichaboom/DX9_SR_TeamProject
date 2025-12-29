@@ -29,7 +29,7 @@ protected:
 	void			Render_GameObject() override;
 
 protected:
-	virtual void	ChangeState(MONSTER_STATE nextState) PURE;
+	virtual void	ChangeState(_uint nextStateID) PURE;
 
 	HRESULT			Add_Component() override;
 protected:

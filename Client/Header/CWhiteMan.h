@@ -36,7 +36,7 @@ protected:
 	void			Render_GameObject() override;
 
 protected:
-	void			ChangeState(MONSTER_STATE nextState) override;
+	void			ChangeState(_uint nextStateID) override;
 	HRESULT			Add_Component() override;
 
 protected:
@@ -56,10 +56,12 @@ protected:
 
 protected:
 	CCollision* m_pCollisionCom;
-	CCalculator* m_pCalculatorCom;
+	//CCalculator* m_pCalculatorCom;
 
 	static vector<TextureSource> m_vTextureSource;
 	static vector<AnimationSource> m_vAnimSource;
+
+
 
 };
 

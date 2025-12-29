@@ -22,7 +22,7 @@ public:
 private:
 	static CDataMgr* m_pInstance;
 
-public:
+public:                            
 	static CDataMgr* GetInstance()
 	{
 		if (m_pInstance == NULL)

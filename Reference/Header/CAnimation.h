@@ -32,15 +32,17 @@ public:
 	static CAnimation* Create(LPDIRECT3DDEVICE9 pGraphicDev, CTexture* _pTextureComp, AnimationSource _AnimSource);
 	virtual CComponent* Clone();
 
-	//리소스 확인용 Test 함수 
 public:
-	void ChangeNextAnimation();
-	_uint currentState = 0;
+	//매 프레임마다 현재 상태를 전달하면 상태값에 맞는 애니메이션으로 전환
+	//+ Ratio설정에 따라 바로 전환이 안되게 막음 
+	//오브젝트에서 매 프레임마다 호출하기! 
+	void Update_State(_uint State);
 
 public:
 	void Change_Animation(const _uint _state);
 	bool IsPlaying() { return m_bPlaying; }
 	bool IsEnd() { return m_bEnd; }
+	bool CanEnd() { return m_bCanEnd; }
 	void Play();
 	void PlayFromStart();
 	void Pause();
@@ -51,11 +53,14 @@ private:
 	AnimationDesc* m_pCurAnimation;
 	_matrix m_UVMatrix;
 
-	//현재 애니메이션 텍스쳐의 특정 프레임의 인덱스 
+	_uint m_iCurState;
+	//현재 플레이 되고있는 애니메이션의 프레임 인덱스
 	_vec2 m_vFrameIdx;
 	_bool m_bPlaying;
 	_bool m_bEnd;
 	_float m_fTime;
+	_bool m_bCanEnd;
+
 
 };
 

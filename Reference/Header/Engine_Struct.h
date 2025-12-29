@@ -72,6 +72,7 @@ namespace Engine
 		_float fEndFrameCol; // 마지막 프레임의 열 번호 (이미지 배열이 꽉 차있지않은 경우를 고려함) 
 		_bool  bLoop;
 		_float fPlayTime = 0.12f;
+		_float fEndRatio = 0.f;
 	} AnimationSource;
 
 	typedef struct tagAnimationDesc
@@ -82,6 +83,8 @@ namespace Engine
 		_vec2 vMaxIdx;
 		_float fEndFrameCol;
 		_vec2 vUVoffset;
+		_float fTotalFrame;
+		_float fEndRatio = 0.f;
 	} AnimationDesc;
 
 	//충돌 

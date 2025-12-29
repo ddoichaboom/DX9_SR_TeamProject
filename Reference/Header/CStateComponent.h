@@ -1,6 +1,7 @@
 #pragma once
 #include "CComponent.h"
 #include "CState.h"
+#include "CDataMgr.h"
 
 BEGIN(Engine)
 class CGameObject; 
@@ -20,14 +21,34 @@ public:
 
 public:
 	void SetOnwer(CGameObject* _owner);
-	void ChangeState(CBaseState* _nextState);
 	CBaseState* GetCurrentState() { return m_pCurState; };
+	_uint GetCurrentStateID() { return m_iCurStateID; };
+
+public:
+	template<typename T>
+	void ChangeState(_uint _nextStateID)
+	{
+		if (_nextStateID == m_iCurStateID || !m_pOwner) return;
+
+		CBaseState* state = CDataMgr<T>::GetInstance()->GetState(_nextStateID);
+		if (!state) return;
+
+		if (m_pCurState)
+		{
+			m_pCurState->End(m_pOwner);
+		}
+		m_pCurState = state;
+		m_pCurState->Begin(m_pOwner);
+		m_iCurStateID = _nextStateID;
+	}
+
 private:
 	virtual void Free();
 
 private:
 	CGameObject* m_pOwner;
 	CBaseState* m_pCurState;
+	_uint m_iCurStateID;
 };
 
 END

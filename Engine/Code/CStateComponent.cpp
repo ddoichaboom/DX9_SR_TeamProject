@@ -1,14 +1,15 @@
 #include "CStateComponent.h"
 #include "CState.h"
 #include "CGameObject.h"
+#include "CDataMgr.h"
 
 CStateComponent::CStateComponent(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CComponent(pGraphicDev), m_pCurState(nullptr), m_pOwner(nullptr)
+	:CComponent(pGraphicDev), m_pCurState(nullptr), m_pOwner(nullptr), m_iCurStateID(0)
 {
 }
 
 CStateComponent::CStateComponent(const CStateComponent& rhs)
-	:CComponent(rhs), m_pCurState(nullptr), m_pOwner(nullptr)
+	:CComponent(rhs), m_pCurState(nullptr), m_pOwner(nullptr), m_iCurStateID(0)
 {
 }
 
@@ -20,18 +21,6 @@ void CStateComponent::SetOnwer(CGameObject* _owner)
 {
 	if (m_pOwner) return;
 	m_pOwner = _owner;
-	m_pOwner->AddRef();
-}
-
-void CStateComponent::ChangeState(CBaseState* _nextState)
-{
-	if (!m_pOwner || !_nextState || m_pCurState == _nextState) return;
-	if (m_pCurState)
-	{
-		m_pCurState->End(m_pOwner);
-	}
-	m_pCurState = _nextState;
-	m_pCurState->Begin(m_pOwner);
 }
 
 
@@ -55,6 +44,5 @@ CComponent* CStateComponent::Clone()
 
 void CStateComponent::Free()
 {
-	if(m_pOwner) m_pOwner->Release();
 	CComponent::Free();
 }

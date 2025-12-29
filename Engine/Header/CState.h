@@ -24,7 +24,7 @@ public:
 	// 생성자에서 함수포인터와 바인딩 
 	CState(void (T::*_BeginFunc)(), void (T::*_UpdateFunc)(), void (T::*_EndFunc)())
 		: BeginFunc(_BeginFunc), UpdateFunc(_UpdateFunc), EndFunc(_EndFunc)	{}
-	~CState() {}
+	virtual ~CState() {}
 
 public:
 	void Begin(CGameObject* _owner) override
