@@ -1,0 +1,146 @@
+#include "pch.h"
+#include "CEditorFloor.h"
+#include "CRenderer.h"
+
+#include "CProtoMgr.h"
+#include "CTransform.h"
+#include "CRcTex.h"
+
+CEditorFloor::CEditorFloor(LPDIRECT3DDEVICE9 pGraphicDev)
+    : CEditorObject(pGraphicDev)
+{
+}
+
+CEditorFloor::~CEditorFloor()
+{
+}
+
+HRESULT CEditorFloor::Ready_GameObject()
+{
+    FAILED_CHECK_RETURN(CEditorObject::Ready_GameObject(), E_FAIL);
+    FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
+
+    // 기본 이름
+    m_wstrName = L"Floor";
+
+    return S_OK;
+}
+
+_int CEditorFloor::Update_GameObject(const _float& fTimeDelta)
+{
+    CEditorObject::Update_GameObject(fTimeDelta);
+
+    // Renderer에 추가
+    Engine::CRenderer::GetInstance()->Add_RenderGroup(Engine::RENDER_NONALPHA, this);
+
+    return 0;
+}
+
+void CEditorFloor::LateUpdate_GameObject(const _float& fTimeDelta)
+{
+    CEditorObject::LateUpdate_GameObject(fTimeDelta);
+}
+
+void CEditorFloor::Render_GameObject()
+{
+    m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
+
+    // 텍스처 설정 (기본 흰색)
+    if (nullptr == m_pTextureCom)
+    {
+        m_pGraphicDev->SetTexture(0, nullptr);
+    }
+    else
+    {
+        m_pTextureCom->Set_Texture(0);
+    }
+
+    // 선택 상태 표시
+    if (m_bSelected)
+    {
+        // 선택됨: 노란색 (모든 타입 공통)
+        m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG2);
+        m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_TFACTOR);
+        m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 0));  // 노란색
+    }
+    else
+    {
+        // 미선택: 연한 갈색 (바닥 느낌)
+        m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG2);
+        m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_TFACTOR);
+        m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 200, 180, 150));  // 연한 갈색
+    }
+
+    m_pBufferCom->Render_Buffer();
+
+    // 렌더 상태 복원
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+}
+
+HRESULT CEditorFloor::Add_Component()
+{
+    Engine::CComponent* pComponent = nullptr;
+
+    // Transform
+    pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>(
+        Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
+    NULL_CHECK_RETURN(pComponent, E_FAIL);
+    m_mapComponent[Engine::ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
+
+    // Buffer ( RcTex - Tile과 동일 )
+    pComponent = m_pBufferCom = dynamic_cast<Engine::CVIBuffer*>(
+        Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_RcTex"));
+    NULL_CHECK_RETURN(pComponent, E_FAIL);
+    m_mapComponent[Engine::ID_STATIC].insert({ L"Com_Buffer", pComponent });
+
+    return S_OK;
+}
+
+CEditorFloor* CEditorFloor::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
+{
+    CEditorFloor* pInstance = new CEditorFloor(pGraphicDev);
+
+    if (FAILED(pInstance->Ready_GameObject()))
+    {
+        Safe_Release(pInstance);
+        MSG_BOX("CEditorFloor Create Failed");
+        return nullptr;
+    }
+
+    // 위치 설정
+    pInstance->Set_Position(vPos);
+
+    // 기본 크기
+    pInstance->Set_Scale(_vec3(1.f, 1.f, 1.f));
+
+    // 기본 회전: XZ 평면 (바닥)
+    pInstance->Set_Rotation(_vec3(-90.f, 0.f, 0.f));
+
+    return pInstance;
+}
+
+CEditorFloor* CEditorFloor::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale)
+{
+    CEditorFloor* pInstance = new CEditorFloor(pGraphicDev);
+
+    if (FAILED(pInstance->Ready_GameObject()))
+    {
+        Safe_Release(pInstance);
+        MSG_BOX("CEditorFloor Create Failed");
+        return nullptr;
+    }
+
+    // Transform 전체 지정 (맵 로드 시 사용)
+    pInstance->Set_Scale(vScale);
+    pInstance->Set_Rotation(vRot);
+    pInstance->Set_Position(vPos);
+
+    return pInstance;
+}
+
+void CEditorFloor::Free()
+{
+    CEditorObject::Free();
+}

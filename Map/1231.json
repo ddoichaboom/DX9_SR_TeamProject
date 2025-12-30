@@ -1,0 +1,597 @@
+{
+  "objectCount": 30,
+  "objects": [
+    {
+      "name": "Floor",
+      "position": [
+        -2.388796091079712,
+        9.5367431640625e-07,
+        5.799020767211914
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        -2.97686505317688,
+        0.0,
+        11.328938484191895
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        -8.176302909851074,
+        0.0,
+        10.837043762207031
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        3.8039534091949463,
+        0.0,
+        7.990241050720215
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        -6.059482097625732,
+        9.5367431640625e-07,
+        2.6460790634155273
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        -7.240133762359619,
+        0.0,
+        18.355205535888672
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        7.430788040161133,
+        10.0,
+        15.921426773071289
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        2.8948521614074707,
+        10.0,
+        25.077533721923828
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        -9.77363109588623,
+        10.0,
+        27.518203735351563
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        -16.875886917114258,
+        10.0,
+        27.755327224731445
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        -14.71413516998291,
+        10.0,
+        13.12252140045166
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Cube",
+      "position": [
+        18.642616271972656,
+        1.0,
+        10.861255645751953
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Cube"
+    },
+    {
+      "name": "Cube",
+      "position": [
+        5.672382354736328,
+        1.0,
+        18.85898208618164
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Cube"
+    },
+    {
+      "name": "Cube",
+      "position": [
+        -0.8229811787605286,
+        1.0,
+        25.42266845703125
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Cube"
+    },
+    {
+      "name": "Cube",
+      "position": [
+        -11.056886672973633,
+        1.0,
+        32.034114837646484
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Cube"
+    },
+    {
+      "name": "Cube",
+      "position": [
+        -15.07136344909668,
+        1.0,
+        20.112030029296875
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Cube"
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -22.171005249023438,
+        3.0,
+        1.4041414260864258
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -14.446382522583008,
+        3.0,
+        3.462169647216797
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -22.243213653564453,
+        3.0,
+        14.451652526855469
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        9.538796424865723,
+        3.0,
+        6.720123291015625
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        16.907474517822266,
+        2.999998092651367,
+        -4.779233932495117
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -30.54212188720703,
+        3.0,
+        11.24549674987793
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -42.16693878173828,
+        3.0,
+        25.70482635498047
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "monsterKey": "",
+      "name": "PlayerSpawn",
+      "position": [
+        4.876041412353516,
+        0.5000019073486328,
+        0.8058948516845703
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "spawnType": "Player",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "DefaultMonster",
+      "name": "MonsterSpawn",
+      "position": [
+        16.84402847290039,
+        0.5,
+        23.743240356445313
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "DefaultMonster",
+      "name": "MonsterSpawn",
+      "position": [
+        8.438535690307617,
+        0.5,
+        29.69800567626953
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "DefaultMonster",
+      "name": "MonsterSpawn",
+      "position": [
+        2.481339454650879,
+        0.5,
+        37.0315055847168
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "DefaultMonster",
+      "name": "MonsterSpawn",
+      "position": [
+        -3.0398075580596924,
+        0.5,
+        38.401180267333984
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "DefaultMonster",
+      "name": "MonsterSpawn",
+      "position": [
+        -15.012310981750488,
+        0.5,
+        37.17237854003906
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "DefaultMonster",
+      "name": "MonsterSpawn",
+      "position": [
+        -18.53990936279297,
+        0.5,
+        30.772235870361328
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    }
+  ],
+  "version": 2
+}

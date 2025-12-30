@@ -16,8 +16,11 @@
 #include "CFileIO.h"
 #include "CEditorScene.h"
 #include "CEditorObject.h"
-#include "CEditorTile.h"
 #include "CEditorCube.h"
+#include "CEditorFloor.h"
+#include "CEditorCeiling.h"
+#include "CEditorSpawnPoint.h"
+#include "CEditorWall.h"
 
 using namespace std;
 using namespace Engine;
@@ -73,7 +76,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
         json jMap;
 
         // 2. 버전 정보
-        jMap["version"] = FILE_VERSION;
+        jMap["version"] = FILE_VERSION;  // v2
 
         // 3. 오브젝트 배열
         json jObjects = json::array();
@@ -85,12 +88,46 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
             json jObj;
 
             // 타입 판별 및 저장
-            if (dynamic_cast<CEditorTile*>(pObj))
-                jObj["type"] = "Tile";
+            if (dynamic_cast<CEditorFloor*>(pObj))
+            {
+                jObj["type"] = "Floor";
+            }
+            else if (dynamic_cast<CEditorCeiling*>(pObj))
+            {
+                jObj["type"] = "Ceiling";
+            }
             else if (dynamic_cast<CEditorCube*>(pObj))
+            {
                 jObj["type"] = "Cube";
+            }
+            else if (dynamic_cast<CEditorWall*>(pObj))
+            {
+                jObj["type"] = "Wall";
+
+                // Wall 전용 필드: 방향
+                CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj);
+                jObj["wallDirection"] = static_cast<_int>(pWall->Get_WallDirection());
+            }
+            else if (dynamic_cast<CEditorSpawnPoint*>(pObj))
+            {
+                jObj["type"] = "SpawnPoint";
+
+                // SpawnPoint 전용 필드
+                CEditorSpawnPoint* pSpawn = dynamic_cast<CEditorSpawnPoint*>(pObj);
+
+                // 스폰 타입 (문자열로 저장)
+                if (pSpawn->Get_SpawnType() == SPAWN_PLAYER)
+                    jObj["spawnType"] = "Player";
+                else if (pSpawn->Get_SpawnType() == SPAWN_MONSTER)
+                    jObj["spawnType"] = "Monster";
+
+                // 몬스터 키 (옵션, 빈 문자열 가능)
+                jObj["monsterKey"] = pSpawn->Get_MonsterKey();
+            }
             else
-                continue; // 알 수 없는 타입 - 스킵
+            {
+                continue;  // 알 수 없는 타입 - 건너뜀
+            }
 
             // Transform 데이터
             _vec3 vPos = pObj->Get_Position();
@@ -104,13 +141,6 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
             // 이름
             jObj["name"] = WStringToString(pObj->Get_Name());
 
-            // Phase 7에서 추가 예정:
-            // Engine::CTexture* pTexture = pObj->Get_Texture();
-            // if (pTexture)
-            // {
-            //     jObj["texture"] = WStringToString(textureKey);
-            // }
-
             // 배열에 추가
             jObjects.push_back(jObj);
         }
@@ -118,7 +148,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
         jMap["objects"] = jObjects;
         jMap["objectCount"] = jObjects.size();
 
-        // 4. 파일로 저장 (예쁘게 포맷팅)
+        // 4. 파일로 저장 (들여쓰기 적용)
         std::ofstream file(wstrPath);
         if (!file.is_open())
         {
@@ -126,20 +156,19 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
             return E_FAIL;
         }
 
-        file << jMap.dump(2); // indent=2 (탭 대신 스페이스 2개)
+        file << jMap.dump(2);  // indent=2
         file.close();
 
         // 5. 성공 메시지
         wchar_t wszMsg[256];
-        swprintf_s(wszMsg, L"Map saved successfully!\n%d objects saved.",
-            (int)jObjects.size());
+        swprintf_s(wszMsg, L"Map saved successfully! (v%d)\n%d objects saved.",
+            FILE_VERSION, (int)jObjects.size());
         MessageBox(nullptr, wszMsg, L"Save Map", MB_OK);
 
         return S_OK;
     }
     catch (const json::exception& e)
     {
-        // JSON 에러
         char szError[512];
         sprintf_s(szError, "JSON Error: %s", e.what());
         MessageBoxA(nullptr, szError, "Save Error", MB_OK | MB_ICONERROR);
@@ -179,9 +208,14 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
 
         // 3. 버전 확인
         _uint iVersion = jMap["version"];
-        if (iVersion != FILE_VERSION)
+
+        // v1, v2 모두 지원 (하위 호환성)
+        if (iVersion < 1 || iVersion > FILE_VERSION)
         {
-            MSG_BOX("Incompatible file version");
+            wchar_t wszError[256];
+            swprintf_s(wszError, L"Unsupported file version: %d\nCurrent version: %d",
+                iVersion, FILE_VERSION);
+            MessageBox(nullptr, wszError, L"Load Error", MB_OK | MB_ICONERROR);
             return E_FAIL;
         }
 
@@ -196,7 +230,7 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
             // 타입 읽기
             string strType = jObj["type"];
 
-            // Transform 읽기 (Create 호출 전에 먼저 읽어야 함!)
+            // Transform 읽기
             _vec3 vPos, vRot, vScale;
 
             vPos.x = jObj["position"][0];
@@ -211,32 +245,62 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
             vScale.y = jObj["scale"][1];
             vScale.z = jObj["scale"][2];
 
-            // 오브젝트 생성 (vPos 전달!)
+            // 오브젝트 생성
             CEditorObject* pObj = nullptr;
 
             if (strType == "Tile")
-                pObj = CEditorTile::Create(pGraphicDev, vPos);
+            {
+                // v1 하위 호환성: Tile → Floor로 변환
+                pObj = CEditorFloor::Create(pGraphicDev, vPos, vRot, vScale);
+            }
+            else if (strType == "Floor")
+            {
+                pObj = CEditorFloor::Create(pGraphicDev, vPos, vRot, vScale);
+            }
+            else if (strType == "Ceiling")
+            {
+                pObj = CEditorCeiling::Create(pGraphicDev, vPos, vRot, vScale);
+            }
             else if (strType == "Cube")
-                pObj = CEditorCube::Create(pGraphicDev, vPos);
+            {
+                pObj = CEditorCube::Create(pGraphicDev, vPos, vRot, vScale);
+            }
+            else if (strType == "Wall")
+            {
+                // Wall 방향 읽기
+                int iWallDir = jObj["wallDirection"];
+                WALL_DIR eDir = static_cast<WALL_DIR>(iWallDir);
+
+                pObj = CEditorWall::Create(pGraphicDev, vPos, vRot, vScale, eDir);
+            }
+            else if (strType == "SpawnPoint")
+            {
+                // 스폰 타입 읽기
+                string strSpawnType = jObj["spawnType"];
+                SPAWN_TYPE eSpawnType = SPAWN_PLAYER;
+
+                if (strSpawnType == "Player")
+                    eSpawnType = SPAWN_PLAYER;
+                else if (strSpawnType == "Monster")
+                    eSpawnType = SPAWN_MONSTER;
+
+                // 몬스터 키 읽기 (옵션)
+                string strMonsterKey = "";
+                if (jObj.contains("monsterKey"))
+                {
+                    strMonsterKey = jObj["monsterKey"];
+                }
+
+                pObj = CEditorSpawnPoint::Create(pGraphicDev, vPos, vRot, vScale,
+                    eSpawnType, strMonsterKey);
+            }
 
             if (!pObj)
                 continue;
 
-            // 나머지 Transform 설정
-            pObj->Set_Rotation(vRot);
-            pObj->Set_Scale(vScale);
-
             // 이름 읽기
             string strName = jObj["name"];
             pObj->Set_Name(StringToWString(strName));
-
-            // Phase 7에서 추가 예정:
-            // if (jObj.contains("texture"))
-            // {
-            //     string strTexKey = jObj["texture"];
-            //     Engine::CTexture* pTexture = CTextureManager::GetInstance()->Get_Texture(StringToWString(strTexKey));
-            //     pObj->Set_Texture(pTexture);
-            // }
 
             // Scene에 추가
             pScene->Add_Object(pObj);
@@ -246,15 +310,14 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
 
         // 6. 성공 메시지
         wchar_t wszMsg[256];
-        swprintf_s(wszMsg, L"Map loaded successfully!\n%d objects loaded.",
-            (int)jObjects.size());
+        swprintf_s(wszMsg, L"Map loaded successfully! (v%d)\n%d objects loaded.",
+            iVersion, (int)jObjects.size());
         MessageBox(nullptr, wszMsg, L"Load Map", MB_OK);
 
         return S_OK;
     }
     catch (const json::exception& e)
     {
-        // JSON 파싱 에러
         char szError[512];
         sprintf_s(szError, "JSON Parse Error: %s", e.what());
         MessageBoxA(nullptr, szError, "Load Error", MB_OK | MB_ICONERROR);

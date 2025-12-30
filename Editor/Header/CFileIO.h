@@ -18,8 +18,11 @@ using json = nlohmann::json;
 // 오브젝트 타입 열거형
 enum OBJECT_TYPE
 {
-	OBJ_TILE,
-	OBJ_CUBE,
+	OBJ_FLOOR,       // 바닥 (Tile 대체)
+	OBJ_CEILING,     // 천장 
+	OBJ_CUBE,        // 오브젝트
+	OBJ_WALL,        // 벽 
+	OBJ_SPAWNPOINT,  // 스폰 지점 
 	OBJ_END
 };
 
@@ -48,7 +51,7 @@ private:
 	wstring StringToWString(const string& str);
 
 private:
-	static const _uint FILE_VERSION = 1;
+	static const _uint FILE_VERSION = 2;
 
 private:
 	virtual	void	Free() override;

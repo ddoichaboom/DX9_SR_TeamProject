@@ -82,6 +82,18 @@
     <Filter Include="ImGuizmo">
       <UniqueIdentifier>{517d3bde-d627-4f5e-b81b-afd4f46b814b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Object\03. EditorWall">
+      <UniqueIdentifier>{133ccb1c-3f7f-4c86-82b2-0b8d157a91d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\04. EditorFloor">
+      <UniqueIdentifier>{a873db56-0294-4243-963a-b75252bd9816}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\05. EditorCeiling">
+      <UniqueIdentifier>{be18d714-f7ba-40ca-be74-1a8e53c8c127}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\06. EditorSpawnPoint">
+      <UniqueIdentifier>{db2d9c86-d796-442e-986c-8fee47e714ae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -168,23 +180,20 @@
     <ClInclude Include="..\Header\json.hpp">
       <Filter>06. Resource</Filter>
     </ClInclude>
-    <ClInclude Include="..\ImGuizmo\GraphEditor.h">
-      <Filter>ImGuizmo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ImGuizmo\ImCurveEdit.h">
-      <Filter>ImGuizmo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ImGuizmo\ImGradient.h">
-      <Filter>ImGuizmo</Filter>
-    </ClInclude>
     <ClInclude Include="..\ImGuizmo\ImGuizmo.h">
       <Filter>ImGuizmo</Filter>
     </ClInclude>
-    <ClInclude Include="..\ImGuizmo\ImSequencer.h">
-      <Filter>ImGuizmo</Filter>
+    <ClInclude Include="..\Header\CEditorWall.h">
+      <Filter>04. Object\03. EditorWall</Filter>
     </ClInclude>
-    <ClInclude Include="..\ImGuizmo\ImZoomSlider.h">
-      <Filter>ImGuizmo</Filter>
+    <ClInclude Include="..\Header\CEditorFloor.h">
+      <Filter>04. Object\04. EditorFloor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEditorCeiling.h">
+      <Filter>04. Object\05. EditorCeiling</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEditorSpawnPoint.h">
+      <Filter>04. Object\06. EditorSpawnPoint</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -257,20 +266,20 @@
     <ClCompile Include="..\Code\CFileIO.cpp">
       <Filter>02. Tool\00. FileIO</Filter>
     </ClCompile>
-    <ClCompile Include="..\ImGuizmo\GraphEditor.cpp">
-      <Filter>ImGuizmo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ImGuizmo\ImCurveEdit.cpp">
-      <Filter>ImGuizmo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ImGuizmo\ImGradient.cpp">
-      <Filter>ImGuizmo</Filter>
-    </ClCompile>
     <ClCompile Include="..\ImGuizmo\ImGuizmo.cpp">
       <Filter>ImGuizmo</Filter>
     </ClCompile>
-    <ClCompile Include="..\ImGuizmo\ImSequencer.cpp">
-      <Filter>ImGuizmo</Filter>
+    <ClCompile Include="..\Code\CEditorWall.cpp">
+      <Filter>04. Object\03. EditorWall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorFloor.cpp">
+      <Filter>04. Object\04. EditorFloor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorCeiling.cpp">
+      <Filter>04. Object\05. EditorCeiling</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorSpawnPoint.cpp">
+      <Filter>04. Object\06. EditorSpawnPoint</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

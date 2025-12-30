@@ -45,9 +45,16 @@ void CToolBar::Render_ToolBar()
 
     ImGui::SameLine();
 
-    if (ImGui::RadioButton("Place Tile", m_eEditorMode == MODE_PLACE_TILE))
+    if (ImGui::RadioButton("Place Floor", m_eEditorMode == MODE_PLACE_FLOOR))
     {
-        m_eEditorMode = MODE_PLACE_TILE;
+        m_eEditorMode = MODE_PLACE_FLOOR;
+    }
+
+    ImGui::SameLine();
+
+    if (ImGui::RadioButton("Place Ceiling", m_eEditorMode == MODE_PLACE_CEILING))
+    {
+        m_eEditorMode = MODE_PLACE_CEILING;
     }
 
     ImGui::SameLine();
@@ -57,13 +64,37 @@ void CToolBar::Render_ToolBar()
         m_eEditorMode = MODE_PLACE_CUBE;
     }
 
+    // 줄 바꿈
+    if (ImGui::RadioButton("Place Wall", m_eEditorMode == MODE_PLACE_WALL))
+    {
+        m_eEditorMode = MODE_PLACE_WALL;
+    }
+
+    ImGui::SameLine();
+
+    if (ImGui::RadioButton("Spawn Player", m_eEditorMode == MODE_PLACE_SPAWN_PLAYER))
+    {
+        m_eEditorMode = MODE_PLACE_SPAWN_PLAYER;
+    }
+
+    ImGui::SameLine();
+
+    if (ImGui::RadioButton("Spawn Monster", m_eEditorMode == MODE_PLACE_SPAWN_MONSTER))
+    {
+        m_eEditorMode = MODE_PLACE_SPAWN_MONSTER;
+    }
+
     // 현재 모드 표시
     const char* szModeName = "";
     switch (m_eEditorMode)
     {
-    case MODE_SELECT: szModeName = "Select"; break;
-    case MODE_PLACE_TILE: szModeName = "Place Tile"; break;
-    case MODE_PLACE_CUBE: szModeName = "Place Cube"; break;
+    case MODE_SELECT:               szModeName = "Select"; break;
+    case MODE_PLACE_FLOOR:          szModeName = "Place Floor"; break;
+    case MODE_PLACE_CEILING:        szModeName = "Place Ceiling"; break;
+    case MODE_PLACE_CUBE:           szModeName = "Place Cube"; break;
+    case MODE_PLACE_WALL:           szModeName = "Place Wall"; break;
+    case MODE_PLACE_SPAWN_PLAYER:   szModeName = "Spawn Player"; break;
+    case MODE_PLACE_SPAWN_MONSTER:  szModeName = "Spawn Monster"; break;
     }
 
     ImGui::Text("Current: %s", szModeName);

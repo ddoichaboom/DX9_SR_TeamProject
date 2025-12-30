@@ -151,10 +151,14 @@
   <ItemGroup>
     <ClInclude Include="..\Header\CEditorApp.h" />
     <ClInclude Include="..\Header\CEditorCamera.h" />
+    <ClInclude Include="..\Header\CEditorCeiling.h" />
     <ClInclude Include="..\Header\CEditorCube.h" />
+    <ClInclude Include="..\Header\CEditorFloor.h" />
     <ClInclude Include="..\Header\CEditorObject.h" />
     <ClInclude Include="..\Header\CEditorScene.h" />
+    <ClInclude Include="..\Header\CEditorSpawnPoint.h" />
     <ClInclude Include="..\Header\CEditorTile.h" />
+    <ClInclude Include="..\Header\CEditorWall.h" />
     <ClInclude Include="..\Header\CFileIO.h" />
     <ClInclude Include="..\Header\CGrid.h" />
     <ClInclude Include="..\Header\CHierarchy.h" />
@@ -187,10 +191,14 @@
   <ItemGroup>
     <ClCompile Include="..\Code\CEditorApp.cpp" />
     <ClCompile Include="..\Code\CEditorCamera.cpp" />
+    <ClCompile Include="..\Code\CEditorCeiling.cpp" />
     <ClCompile Include="..\Code\CEditorCube.cpp" />
+    <ClCompile Include="..\Code\CEditorFloor.cpp" />
     <ClCompile Include="..\Code\CEditorObject.cpp" />
     <ClCompile Include="..\Code\CEditorScene.cpp" />
+    <ClCompile Include="..\Code\CEditorSpawnPoint.cpp" />
     <ClCompile Include="..\Code\CEditorTile.cpp" />
+    <ClCompile Include="..\Code\CEditorWall.cpp" />
     <ClCompile Include="..\Code\CFileIO.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>

@@ -5,8 +5,11 @@
 #include "CEditorCamera.h"
 #include "CGrid.h"
 #include "CEditorObject.h"
-#include "CEditorTile.h"
+#include "CEditorFloor.h"
 #include "CEditorCube.h"
+#include "CEditorCeiling.h"
+#include "CEditorWall.h"
+#include "CEditorSpawnPoint.h"
 #include "CToolBar.h"
 #include "CMousePicker.h"
 #include "CSelectionMgr.h"
@@ -243,14 +246,32 @@ void CEditorScene::Handle_Input()
                 CEditorObject* pNewObj = nullptr;
 
                 // 타입별 복제
-                if (dynamic_cast<CEditorTile*>(pSelectedObj))
+                if (dynamic_cast<CEditorFloor*>(pSelectedObj))
                 {
-                    pNewObj = CEditorTile::Create(m_pGraphicDev, vPos, vRot, vScale);
+                    pNewObj = CEditorFloor::Create(m_pGraphicDev, vPos, vRot, vScale);
+                }
+                else if (dynamic_cast<CEditorCeiling*>(pSelectedObj))
+                {
+                    pNewObj = CEditorCeiling::Create(m_pGraphicDev, vPos, vRot, vScale);
                 }
                 else if (dynamic_cast<CEditorCube*>(pSelectedObj))
                 {
                     pNewObj = CEditorCube::Create(m_pGraphicDev, vPos, vRot, vScale);
                 }
+                else if (CEditorWall* pWall = dynamic_cast<CEditorWall*>(pSelectedObj))
+                {
+                    WALL_DIR eDir = pWall->Get_WallDirection();
+                    pNewObj = CEditorWall::Create(m_pGraphicDev, vPos, vRot, vScale, eDir);
+                }
+                // PlayerSpawnPoint까지 복제할 위험이 있어 일단 주석 처리
+                //else if (CEditorSpawnPoint* pSpawn = dynamic_cast<CEditorSpawnPoint*>(pSelectedObj))
+                //{
+                //    SPAWN_TYPE eType = pSpawn->Get_SpawnType();
+                //    const string& strMonsterKey = pSpawn->Get_MonsterKey();
+                //    pNewObj = CEditorSpawnPoint::Create(m_pGraphicDev, vPos, vRot, vScale,
+                //        eType, strMonsterKey);
+                //}
+                
 
                 if (pNewObj)
                 {
@@ -329,17 +350,27 @@ void CEditorScene::Handle_Input()
         _vec3 vRayPos = m_pMousePicker->Get_RayPos();
         _vec3 vRayDir = m_pMousePicker->Get_RayDir();
 
-        if (eMode == MODE_PLACE_TILE || eMode == MODE_PLACE_CUBE)
+        if (eMode == MODE_PLACE_FLOOR || eMode == MODE_PLACE_CEILING ||
+            eMode == MODE_PLACE_CUBE || eMode == MODE_PLACE_WALL || 
+            eMode == MODE_PLACE_SPAWN_PLAYER || eMode == MODE_PLACE_SPAWN_MONSTER)
         {
 
-            // Ray - Plane Intersection ( Y = 0 평면 )
+            // Ray - Plane Intersection (Y = 0 평면)
             _vec3 vPos = Pick_OnPlane(vRayPos, vRayDir, 0.f);
 
-            // 배치 
-            if (eMode == MODE_PLACE_TILE)
-                Place_Tile(vPos);
+            // 오브젝트 배치
+            if (eMode == MODE_PLACE_FLOOR)
+                Place_Floor(vPos);
+            else if (eMode == MODE_PLACE_CEILING)
+                Place_Ceiling(vPos);
             else if (eMode == MODE_PLACE_CUBE)
                 Place_Cube(vPos);
+            else if (eMode == MODE_PLACE_WALL)
+                Place_Wall(vPos);
+            else if (eMode == MODE_PLACE_SPAWN_PLAYER)
+                Place_SpawnPlayer(vPos);
+            else if (eMode == MODE_PLACE_SPAWN_MONSTER)
+                Place_SpawnMonster(vPos);
         }
         else if (eMode == MODE_SELECT)
         {
@@ -421,14 +452,82 @@ _vec3 CEditorScene::Pick_OnPlane(const _vec3& vRayPos, const _vec3& vRayDir, _fl
     return vIntersection;
 }
 
-void CEditorScene::Place_Tile(const _vec3& vPos)
+void CEditorScene::Place_Floor(const _vec3& vPos)
 {
-    CEditorTile* pTile = CEditorTile::Create(m_pGraphicDev, vPos);
+    CEditorFloor* pFloor = CEditorFloor::Create(m_pGraphicDev, vPos);
 
-    if (pTile)
+    if (pFloor)
     {
-        Add_Object(pTile);
-        Safe_Release(pTile);  // Add_Object에서 AddRef했으므로 Release
+        Add_Object(pFloor);
+        Safe_Release(pFloor);
+    }
+}
+
+void CEditorScene::Place_Ceiling(const _vec3& vPos)
+{
+    CEditorCeiling* pCeiling = CEditorCeiling::Create(m_pGraphicDev, vPos);
+
+    if (pCeiling)
+    {
+        // Y 위치 조정 (천장은 바닥보다 위)
+        _vec3 vAdjustedPos = vPos;
+        vAdjustedPos.y = vPos.y + 10.f;  
+        pCeiling->Set_Position(vAdjustedPos);
+
+        Add_Object(pCeiling);
+        Safe_Release(pCeiling);
+    }
+}
+
+void CEditorScene::Place_Wall(const _vec3& vPos)
+{
+    // 기본 XY 평면 벽 배치
+    CEditorWall* pWall = CEditorWall::Create(m_pGraphicDev, vPos, WALL_XY);
+
+    if (pWall)
+    {
+        // Y 위치 조정 (벽 중심이 바닥보다 위)
+        _vec3 vAdjustedPos = vPos;
+        vAdjustedPos.y = vPos.y + 3.0f;  
+        pWall->Set_Position(vAdjustedPos);
+
+        Add_Object(pWall);
+        Safe_Release(pWall);
+    }
+}
+
+void CEditorScene::Place_SpawnPlayer(const _vec3& vPos)
+{
+    CEditorSpawnPoint* pSpawn = CEditorSpawnPoint::Create(m_pGraphicDev, vPos, SPAWN_PLAYER);
+
+    if (pSpawn)
+    {
+        // Y 위치 조정 (바닥에서 살짝 띄움)
+        _vec3 vAdjustedPos = vPos;
+        vAdjustedPos.y = vPos.y + 0.5f;  
+        pSpawn->Set_Position(vAdjustedPos);
+
+        Add_Object(pSpawn);
+        Safe_Release(pSpawn);
+    }
+}
+
+void CEditorScene::Place_SpawnMonster(const _vec3& vPos)
+{
+    CEditorSpawnPoint* pSpawn = CEditorSpawnPoint::Create(m_pGraphicDev, vPos, SPAWN_MONSTER);
+
+    if (pSpawn)
+    {
+        // Y 위치 조정
+        _vec3 vAdjustedPos = vPos;
+        vAdjustedPos.y = vPos.y + 0.5f;
+        pSpawn->Set_Position(vAdjustedPos);
+
+        // 기본 몬스터 키 설정 (Inspector에서 변경 가능하도록 향후 확장)
+        pSpawn->Set_MonsterKey("DefaultMonster");
+
+        Add_Object(pSpawn);
+        Safe_Release(pSpawn);
     }
 }
 
