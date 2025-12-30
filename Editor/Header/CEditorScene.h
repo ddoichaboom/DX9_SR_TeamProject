@@ -34,11 +34,15 @@ public:
 	list<CEditorObject*>& Get_ObjectList() { return m_ObjectList; }
 
 	void						Set_SelectedObject(CEditorObject* pObj);
-	CEditorObject* Get_SelectedObject();
+	CEditorObject*				Get_SelectedObject() const;
+
+	void						Add_SelectedObject(CEditorObject* pObj);
+	void						Remove_SelectedObject(CEditorObject* pObj);
+	void						Clear_SelectedObjects();
 
 	// 배치 로직
 	_vec3                       Pick_OnPlane(const _vec3& vRayPos, const _vec3& vRayDir,
-		_float fPlaneY = 0.f);
+												_float fPlaneY = 0.f);
 	void                        Place_Tile(const _vec3& vPos);
 	void                        Place_Cube(const _vec3& vPos);
 
@@ -56,7 +60,6 @@ private:
 	CGrid*						m_pGrid;
 	list<CEditorObject*>		m_ObjectList;
 	CToolBar*					m_pToolBar;
-	_bool						m_bPrevMouseLeft;
 	CMousePicker*				m_pMousePicker;
 	CSelectionMgr*				m_pSelectionMgr;
 	CHierarchy*					m_pHierarchy;

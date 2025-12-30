@@ -26,6 +26,11 @@ private:
 	void				Render_HelpMenu();
 
 private:
+	void				Handle_NewMap();
+	void				Handle_SaveMap();
+	void				Handle_OpenMap();
+
+private:
 	// UI ป๓ลย
 	bool				m_bShowAbout;
 	CEditorScene*		m_pScene;

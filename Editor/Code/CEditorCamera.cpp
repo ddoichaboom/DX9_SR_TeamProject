@@ -13,7 +13,6 @@ CEditorCamera::CEditorCamera(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_fYaw(0.f)
     , m_fSpeed(1.f)
     , m_fSensitivity(0.125f)
-    , m_bRightButton(false)
     , m_eMode(MODE_FREE)
 {
     m_pGraphicDev->AddRef();
@@ -50,7 +49,9 @@ _int CEditorCamera::Update_GameObject(const _float& fTimeDelta)
     if (Engine::CDInputMgr::GetInstance()->Key_Down(DIK_2))
         m_eMode = MODE_FPS;
 
-    Update_FreeCamera(fTimeDelta);
+    if (Engine::CDInputMgr::GetInstance()->Mouse_Pressing(DIM_RB))
+        Update_FreeCamera(fTimeDelta);
+
     Update_Mouse();
 
     // View Matrix 계산
@@ -123,42 +124,35 @@ void CEditorCamera::Update_FreeCamera(const _float& fTimeDelta)
 
 void CEditorCamera::Update_Mouse()
 {
+    if (Engine::CDInputMgr::GetInstance()->Mouse_Down(DIM_RB))
+    {
+        GetCursorPos(&m_ptPrevMouse);
+    }
+
     if (Engine::CDInputMgr::GetInstance()->Mouse_Pressing(DIM_RB))
     {
-        if (!m_bRightButton)
-        {
-            m_bRightButton = true;
-            GetCursorPos(&m_ptPrevMouse);
-        }
-        else
-        {
-            POINT ptCurMouse;
-            GetCursorPos(&ptCurMouse);
+        POINT ptCurMouse;
+        GetCursorPos(&ptCurMouse);
 
-            _long dx = ptCurMouse.x - m_ptPrevMouse.x;
-            _long dy = ptCurMouse.y - m_ptPrevMouse.y;
+        _long dx = ptCurMouse.x - m_ptPrevMouse.x;
+        _long dy = ptCurMouse.y - m_ptPrevMouse.y;
 
-            m_fYaw += dx * m_fSensitivity;
-            m_fPitch -= dy * m_fSensitivity;
+        m_fYaw += dx * m_fSensitivity;
+        m_fPitch -= dy * m_fSensitivity;
 
-            // Pitch 제한
-            m_fPitch = max(-89.f, min(89.f, m_fPitch));
+        // Pitch 제한
+        m_fPitch = max(-89.f, min(89.f, m_fPitch));
 
-            // At 위치 업데이트
-            _vec3 vLook;
-            vLook.x = cosf(D3DXToRadian(m_fPitch)) * sinf(D3DXToRadian(m_fYaw));
-            vLook.y = sinf(D3DXToRadian(m_fPitch));
-            vLook.z = cosf(D3DXToRadian(m_fPitch)) * cosf(D3DXToRadian(m_fYaw));
+        // At 위치 업데이트
+        _vec3 vLook;
+        vLook.x = cosf(D3DXToRadian(m_fPitch)) * sinf(D3DXToRadian(m_fYaw));
+        vLook.y = sinf(D3DXToRadian(m_fPitch));
+        vLook.z = cosf(D3DXToRadian(m_fPitch)) * cosf(D3DXToRadian(m_fYaw));
 
-            D3DXVec3Normalize(&vLook, &vLook);
-            m_vAt = m_vEye + vLook;
+        D3DXVec3Normalize(&vLook, &vLook);
+        m_vAt = m_vEye + vLook;
 
-            m_ptPrevMouse = ptCurMouse;
-        }
-    }
-    else
-    {
-        m_bRightButton = false;
+        m_ptPrevMouse = ptCurMouse;
     }
 }
 

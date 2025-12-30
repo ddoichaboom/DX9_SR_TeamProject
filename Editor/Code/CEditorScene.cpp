@@ -18,7 +18,6 @@ CEditorScene::CEditorScene(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_pCamera(nullptr)
     , m_pGrid(nullptr)
     , m_pToolBar(nullptr)
-    , m_bPrevMouseLeft(false)
     , m_pMousePicker(nullptr)
     , m_pSelectionMgr(nullptr)
     , m_pHierarchy(nullptr)
@@ -157,7 +156,7 @@ void CEditorScene::Set_SelectedObject(CEditorObject* pObj)
         m_pHierarchy->Sync_Selection(pObj);
 }
 
-CEditorObject* CEditorScene::Get_SelectedObject()
+CEditorObject* CEditorScene::Get_SelectedObject() const
 {
     if (m_pSelectionMgr)
         return m_pSelectionMgr->Get_Selection();
@@ -165,22 +164,116 @@ CEditorObject* CEditorScene::Get_SelectedObject()
     return nullptr;
 }
 
+void CEditorScene::Add_SelectedObject(CEditorObject* pObj)
+{
+    if (!pObj || !m_pSelectionMgr)
+        return;
+
+    // CSelctionMgr에 추가
+    m_pSelectionMgr->Add_Selection(pObj);
+
+    // Hierarchy 동기화
+    if (m_pHierarchy)
+    {
+        CEditorObject* pPrimary = m_pSelectionMgr->Get_Selection();
+        m_pHierarchy->Sync_Selection(pPrimary);
+    }
+}
+
+void CEditorScene::Remove_SelectedObject(CEditorObject* pObj)
+{
+    if (!pObj || !m_pSelectionMgr)
+        return;
+
+    // CSelectionMgr 에서 제거
+    m_pSelectionMgr->Remove_Selection(pObj);
+
+    // Primary 선택 객체가 변경되었을 수 있으므로 동기화
+    if (m_pHierarchy)
+    {
+        CEditorObject* pPrimary = m_pSelectionMgr->Get_Selection();
+        m_pHierarchy->Sync_Selection(pPrimary);
+    }
+}
+
+void CEditorScene::Clear_SelectedObjects()
+{
+    if (!m_pSelectionMgr)
+        return;
+
+    // 모든 선택 해제
+    m_pSelectionMgr->Clear_Selection();
+
+    // Hierarchy 동기화
+    if (m_pHierarchy)
+        m_pHierarchy->Sync_Selection(nullptr);
+}
+
+
+
 void CEditorScene::Handle_Input()
 {
     ImGuiIO& io = ImGui::GetIO();
     if (io.WantCaptureMouse)
         return;     // ImGui 윈도우 클릭 시 무시 
 
-    // 현재 프레임 마우스 상태
-    bool bCurMouseLeft = (Engine::CDInputMgr::GetInstance()->Get_DIMouseState(DIM_LB) & 0x80) != 0;
+    // Ctrl + D  : 객체 복제
+    if (Engine::CDInputMgr::GetInstance()->Key_Down(DIK_D) &&
+        Engine::CDInputMgr::GetInstance()->Key_Pressing(DIK_LCONTROL))
+    {
+        CEditorObject* pSelectedObj = Get_SelectedObject();
+        if (pSelectedObj)
+        {
+            // 선택된 객체와 같은 타입의 새 객체 생성
+            _vec3 vPos = pSelectedObj->Get_Position();
+            _vec3 vRot = pSelectedObj->Get_Rotation();
+            _vec3 vScale = pSelectedObj->Get_Scale();
 
-    if (!m_bPrevMouseLeft && bCurMouseLeft)
+            // 약간 오프셋 두기 (겹치면 안됨)
+            vPos.x += 1.0f;
+
+            CEditorObject* pNewObj = nullptr;
+
+            // 타입별 생성
+            if (dynamic_cast<CEditorTile*>(pSelectedObj))
+            {
+                pNewObj = CEditorTile::Create(m_pGraphicDev, vPos, vRot, vScale);
+            }
+            else if (dynamic_cast<CEditorCube*>(pSelectedObj))
+            {
+                pNewObj = CEditorCube::Create(m_pGraphicDev, vPos, vRot, vScale);
+            }
+
+            if (pNewObj)
+            {
+                m_ObjectList.push_back(pNewObj);
+                Set_SelectedObject(pNewObj); 
+            }
+        }
+    }
+
+    // Delete 키 : 선택된 객체 삭제
+    if (Engine::CDInputMgr::GetInstance()->Key_Down(DIK_DELETE))
+    {
+        CEditorObject* pSelectedObj = Get_SelectedObject();
+        if (pSelectedObj)
+        {
+            // 리스트에서 제거
+            auto iter = find(m_ObjectList.begin(), m_ObjectList.end(), pSelectedObj);
+            if (iter != m_ObjectList.end())
+            {
+                Safe_Release(*iter);
+                m_ObjectList.erase(iter);
+            }
+
+            Set_SelectedObject(nullptr);
+        }
+    }
+
+    if (Engine::CDInputMgr::GetInstance()->Mouse_Down(DIM_LB))
     {
         if (!m_pToolBar)
-        {
-            m_bPrevMouseLeft = bCurMouseLeft;       // 상태 업데이트
             return;
-        }
 
         EDITOR_MODE eMode = m_pToolBar->Get_EditorMode();
 
@@ -213,29 +306,53 @@ void CEditorScene::Handle_Input()
         else if (eMode == MODE_SELECT)
         {
             static POINT ptPrevMouse = { 0, 0 };
-            // Ray - AABB Instersection (오브젝트 선택)
 
-//            CEditorObject* pPickedObject = m_pSelectionMgr->Pick_Object_Cycle(
-//                vRayPos, vRayDir, m_ObjectList, ptMouse, ptPrevMouse, 5);
+            CEditorObject* pPickedObject = m_pSelectionMgr->Pick_Object(vRayPos, vRayDir, m_ObjectList);
 
-            CEditorObject* pPickedObject = m_pSelectionMgr->Pick_Object(
-                vRayPos, vRayDir, m_ObjectList);
+            _bool bCtrlPressed = Engine::CDInputMgr::GetInstance()->Key_Pressing(DIK_LCONTROL);
+            _bool bShiftPressed = Engine::CDInputMgr::GetInstance()->Key_Pressing(DIK_LSHIFT);
 
             if (pPickedObject)
             {
-                Set_SelectedObject(pPickedObject);
+                if (bCtrlPressed && bShiftPressed)
+                {
+                    // Ctrl + Shift + 클릭 : 선택 해제
+                    Remove_SelectedObject(pPickedObject);
+                }
+                else if (bCtrlPressed)
+                {
+                    // Ctrl + 클릭 : 다중 선택 토글
+                    if (m_pSelectionMgr->Is_Selected(pPickedObject))
+                    {
+                        // 이미 선택됨 -> 선택 해제
+                        Remove_SelectedObject(pPickedObject);
+                    }
+                    else
+                    {
+                        // 선택 안됨 -> 선택 추가
+                        Add_SelectedObject(pPickedObject);
+                    }
+                }
+                else
+                {
+                    // 일반 클릭 : 단일 선택 ( 기존 선택 모두 해제 )
+                    Set_SelectedObject(pPickedObject);
+                }
             }
             else
             {
-                Set_SelectedObject(nullptr);        // 선택 해제 
+                // 빈 공간 클릭 
+                if (!bCtrlPressed)
+                {
+                    // Ctrl 안 눌렀을 때만 모든 선택 해제 
+                    Clear_SelectedObjects();
+                }
             }
 
             ptPrevMouse = ptMouse;
         }
     }
 
-    // 다음 프레임을 위해 현재 상태 저장
-    m_bPrevMouseLeft = bCurMouseLeft;
 }
 
 _vec3 CEditorScene::Pick_OnPlane(const _vec3& vRayPos, const _vec3& vRayDir, _float fPlaneY)

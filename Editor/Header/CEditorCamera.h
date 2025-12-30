@@ -69,7 +69,6 @@ private:
     _matrix             m_matProj;
 
     POINT               m_ptPrevMouse;
-    bool                m_bRightButton;
 
     CAMERA_MODE         m_eMode;
 

@@ -3,7 +3,7 @@
 #include "CEditorObject.h"
 
 CSelectionMgr::CSelectionMgr()
-    : m_pSelectedObject(nullptr)
+    : m_pPrimarySelected(nullptr)
     , m_ptLastMouse{ 0, 0 }
     , m_iCycleIndex(0)
 {
@@ -16,14 +16,85 @@ CSelectionMgr::~CSelectionMgr()
 void CSelectionMgr::Set_Selection(CEditorObject* pObj)
 {
     // 기존 선택 해제 
-    if (m_pSelectedObject)
-        m_pSelectedObject->Set_Selected(false);
+    Clear_Selection();
 
-    m_pSelectedObject = pObj;
+    if (pObj)
+    {
+        m_SelectedObjects.push_back(pObj);
+        m_pPrimarySelected = pObj;
+        pObj->Set_Selected(true);
+    }
+}
 
-    // 새로운 선택 적용
-    if (m_pSelectedObject)
-        m_pSelectedObject->Set_Selected(true);
+CEditorObject* CSelectionMgr::Get_Selection() const
+{
+    return m_pPrimarySelected;
+}
+
+void CSelectionMgr::Add_Selection(CEditorObject* pObj)
+{
+    if (!pObj)
+        return;
+
+    // 이미 선택되었는지 확인
+    if (Is_Selected(pObj))
+        return;
+
+    // 선택 목록에 추가
+    m_SelectedObjects.push_back(pObj);
+    pObj->Set_Selected(true);
+
+    // Primary가 없으면 이 객체를 Primary로 설정
+    if (!m_pPrimarySelected)
+        m_pPrimarySelected = pObj;
+}
+
+void CSelectionMgr::Remove_Selection(CEditorObject* pObj)
+{
+    if (!pObj)
+        return;
+
+    // 선택 목록에서 제거
+    auto iter = find(m_SelectedObjects.begin(), m_SelectedObjects.end(), pObj);
+    if (iter != m_SelectedObjects.end())
+    {
+        (*iter)->Set_Selected(false);
+        m_SelectedObjects.erase(iter);
+
+        // Primary였다면 다른 객체를 Primary로 설정
+        if (m_pPrimarySelected == pObj)
+        {
+            m_pPrimarySelected = m_SelectedObjects.empty() ? nullptr : m_SelectedObjects.front();
+        }
+    }
+}
+
+void CSelectionMgr::Clear_Selection()
+{
+    // 모든 선택 해제
+    for (auto& pObj : m_SelectedObjects)
+    {
+        if (pObj)
+            pObj->Set_Selected(false);
+    }
+
+    m_SelectedObjects.clear();
+    m_pPrimarySelected = nullptr;
+}
+
+_bool CSelectionMgr::Is_Selected(CEditorObject* pObj)
+{
+    if (!pObj)
+        return false;
+
+    auto iter = find(m_SelectedObjects.begin(), m_SelectedObjects.end(), pObj);
+    return iter != m_SelectedObjects.end();
+
+}
+
+list<CEditorObject*>& CSelectionMgr::Get_AllSelections()
+{
+    return m_SelectedObjects;
 }
 
 CEditorObject* CSelectionMgr::Pick_Object(const _vec3& vRayPos, const _vec3& vRayDir, list<CEditorObject*>& objectList)
