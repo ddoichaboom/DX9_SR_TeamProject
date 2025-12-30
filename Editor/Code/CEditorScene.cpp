@@ -221,33 +221,53 @@ void CEditorScene::Handle_Input()
     if (Engine::CDInputMgr::GetInstance()->Key_Down(DIK_D) &&
         Engine::CDInputMgr::GetInstance()->Key_Pressing(DIK_LCONTROL))
     {
-        CEditorObject* pSelectedObj = Get_SelectedObject();
-        if (pSelectedObj)
+        list<CEditorObject*>& SelectedList = m_pSelectionMgr->Get_AllSelections();
+
+        if (!SelectedList.empty())
         {
-            // 선택된 객체와 같은 타입의 새 객체 생성
-            _vec3 vPos = pSelectedObj->Get_Position();
-            _vec3 vRot = pSelectedObj->Get_Rotation();
-            _vec3 vScale = pSelectedObj->Get_Scale();
+            list<CEditorObject*> newObjects;
 
-            // 약간 오프셋 두기 (겹치면 안됨)
-            vPos.x += 1.0f;
-
-            CEditorObject* pNewObj = nullptr;
-
-            // 타입별 생성
-            if (dynamic_cast<CEditorTile*>(pSelectedObj))
+            for (auto& pSelectedObj : SelectedList)
             {
-                pNewObj = CEditorTile::Create(m_pGraphicDev, vPos, vRot, vScale);
+                if (!pSelectedObj)
+                    continue;
+
+                // 현재 Transform 값 가져오기
+                _vec3 vPos = pSelectedObj->Get_Position();
+                _vec3 vRot = pSelectedObj->Get_Rotation();
+                _vec3 vScale = pSelectedObj->Get_Scale();
+
+                // 위치 오프셋 (겹치지 않게)
+                vPos.x += 1.0f;
+
+                CEditorObject* pNewObj = nullptr;
+
+                // 타입별 복제
+                if (dynamic_cast<CEditorTile*>(pSelectedObj))
+                {
+                    pNewObj = CEditorTile::Create(m_pGraphicDev, vPos, vRot, vScale);
+                }
+                else if (dynamic_cast<CEditorCube*>(pSelectedObj))
+                {
+                    pNewObj = CEditorCube::Create(m_pGraphicDev, vPos, vRot, vScale);
+                }
+
+                if (pNewObj)
+                {
+                    m_ObjectList.push_back(pNewObj);
+                    newObjects.push_back(pNewObj);
+                }
             }
-            else if (dynamic_cast<CEditorCube*>(pSelectedObj))
-            {
-                pNewObj = CEditorCube::Create(m_pGraphicDev, vPos, vRot, vScale);
-            }
 
-            if (pNewObj)
+            // 복제된 객체들 선택 설정
+            if (!newObjects.empty())
             {
-                m_ObjectList.push_back(pNewObj);
-                Set_SelectedObject(pNewObj); 
+                Clear_SelectedObjects();
+
+                for (auto& pNewObj : newObjects)
+                {
+                    Add_SelectedObject(pNewObj);
+                }
             }
         }
     }
@@ -255,18 +275,36 @@ void CEditorScene::Handle_Input()
     // Delete 키 : 선택된 객체 삭제
     if (Engine::CDInputMgr::GetInstance()->Key_Down(DIK_DELETE))
     {
-        CEditorObject* pSelectedObj = Get_SelectedObject();
-        if (pSelectedObj)
+        if (!m_pSelectionMgr)
+            return;
+
+        list<CEditorObject*>& SelectedObjList = m_pSelectionMgr->Get_AllSelections();
+
+
+        if (!SelectedObjList.empty())
         {
-            // 리스트에서 제거
-            auto iter = find(m_ObjectList.begin(), m_ObjectList.end(), pSelectedObj);
-            if (iter != m_ObjectList.end())
+            list<CEditorObject*> ObjectsToDelete;
+            for (auto& pObj : SelectedObjList)
             {
-                Safe_Release(*iter);
-                m_ObjectList.erase(iter);
+                ObjectsToDelete.push_back(pObj);
             }
 
-            Set_SelectedObject(nullptr);
+            // 선택 해제
+            Clear_SelectedObjects();
+
+            // 객체 삭제
+            for (auto& pObj : ObjectsToDelete)
+            {
+                if (!pObj)
+                    continue;
+
+                auto iter = find(m_ObjectList.begin(), m_ObjectList.end(), pObj);
+                if (iter != m_ObjectList.end())
+                {
+                    Safe_Release(*iter);
+                    m_ObjectList.erase(iter);
+                }
+            }
         }
     }
 

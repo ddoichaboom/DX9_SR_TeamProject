@@ -31,7 +31,7 @@ public:
 	void						Add_Object(CEditorObject* pObject);
 	void						Remove_Object(CEditorObject* pObject);
 	void						Clear_AllObjects();
-	list<CEditorObject*>& Get_ObjectList() { return m_ObjectList; }
+	list<CEditorObject*>&		Get_ObjectList() { return m_ObjectList; }
 
 	void						Set_SelectedObject(CEditorObject* pObj);
 	CEditorObject*				Get_SelectedObject() const;
