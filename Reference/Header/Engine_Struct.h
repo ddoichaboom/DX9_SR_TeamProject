@@ -73,6 +73,7 @@ namespace Engine
 		_bool  bLoop;
 		_float fPlayTime = 0.12f;
 		_float fEndRatio = 0.f;
+		_bool  bPriority = false; //애니메이션 우선순위. 현재 애니메이션 무시하고 바로 출력할지
 	} AnimationSource;
 
 	typedef struct tagAnimationDesc
@@ -85,7 +86,17 @@ namespace Engine
 		_vec2 vUVoffset;
 		_float fTotalFrame;
 		_float fEndRatio = 0.f;
+		_bool bPriority = false;
+		//애니메이션에서 텍스쳐마다 크기가 다른 경우, 0번 텍스쳐를 기준으로 scale 비율을 조정함 
+		_vec2 vTextureScaleOffset = { 1.f, 1.f };
 	} AnimationDesc;
+
+	//애니메이션 Queue에 삽입될 구조체
+	typedef struct tagAnimTask
+	{
+		SUBSTATE subState;
+		AnimationDesc* animDesc;
+	}AnimTask;
 
 	//충돌 
 	class CGameObject;
@@ -93,6 +104,7 @@ namespace Engine
 	{
 		CGameObject* pTarget;
 		_vec3 vDiff;
+		_float fDamage;
 	} CollisionInfo;
 }
 

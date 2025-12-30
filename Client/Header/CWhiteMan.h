@@ -44,7 +44,6 @@ EndAttack용 State에서는
 
 이렇게 하면됩니다... 자동화 하려면 State세분화밖에 없는듯
 
-
 */
 
 
@@ -88,19 +87,22 @@ protected:
 
 protected:
 	//State Function 
-	void Begin_Idle();
+	void Idle();
 
 	void Begin_Attack();
-	void Attack();
+	void Idle_Attack();
 	void End_Attack();
 
-	void Begin_Hit();
+	void Shoot();
 	void Hit();
+	void Dead();
 
 protected:
 	static vector<TextureSource> m_vTextureSource;
 	static vector<AnimationSource> m_vAnimSource;
 
+protected:
+	_float m_fAttackDelayTime = 3.0f;
 
 
 };

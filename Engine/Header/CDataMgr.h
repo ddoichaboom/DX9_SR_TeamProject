@@ -54,7 +54,9 @@ public:
 
 	CState<T>* GetState(_uint _id)
 	{
-		return m_pStates[_id];
+		auto iter = m_pStates.find(_id);
+		if (iter == m_pStates.end()) return nullptr;
+		else return iter->second;
 	}
 
 	bool IsStateEmpty() { return m_pStates.empty(); }
