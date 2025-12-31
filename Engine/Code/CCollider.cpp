@@ -4,8 +4,8 @@
 #include "CRenderer.h"
 
 CCollider::CCollider(LPDIRECT3DDEVICE9 pGraphicDev)
-: CGameObject(pGraphicDev)
-, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pPrtTransformCom(nullptr)
+: CGameObject(pGraphicDev), m_pBufferCom(nullptr), m_pTransformCom(nullptr)
+, m_pPrtTransformCom(nullptr), m_bCanCollision(true)
 {
 	D3DXMatrixIdentity(&m_matWorld);
 }
@@ -19,8 +19,6 @@ HRESULT CCollider::Ready_Collider(CTransform* _prtTransComp)
 {
 	if (!_prtTransComp) return E_FAIL;
 	m_pPrtTransformCom = _prtTransComp;
-	m_pPrtTransformCom->AddRef();
-
 	if (FAILED(Add_Component())) return E_FAIL;
 	return S_OK;
 }
@@ -29,7 +27,8 @@ _int CCollider::Update_GameObject(const _float& fTimeDelta)
 {
 	int iExit = CGameObject::Update_GameObject(fTimeDelta);
 
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_DEBUG, this);
+	if(m_bCanCollision)
+		CRenderer::GetInstance()->Add_RenderGroup(RENDER_DEBUG, this);
 	
 	return iExit;
 }
@@ -37,10 +36,12 @@ _int CCollider::Update_GameObject(const _float& fTimeDelta)
 void CCollider::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
-	//m_matWorld = (*m_pTransformCom->Get_World()) * (*m_pPrtTransformCom->Get_World());
 	m_matWorld = (*m_pTransformCom->Get_World());
 	//위치값만 적용
-	memcpy(m_matWorld.m[3], m_pPrtTransformCom->Get_World()->m[3], sizeof(_vec3));
+	_matrix* prtWorld = m_pPrtTransformCom->Get_World();
+	m_matWorld._41 += prtWorld->_41;
+	m_matWorld._42 += prtWorld->_42;
+	m_matWorld._43 += prtWorld->_43;
 }
 
 void CCollider::Render_GameObject()
@@ -114,6 +115,5 @@ CCollider* CCollider::Create(LPDIRECT3DDEVICE9 pGraphicDev, CTransform* _prtTran
 
 void CCollider::Free()
 {
-	Safe_Release(m_pPrtTransformCom);
 	CGameObject::Free();
 }

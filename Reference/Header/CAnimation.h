@@ -114,6 +114,7 @@ private:
 	_bool m_bCanEnd;
 
 private:
+	//플레이 할 애니메이션 보관 컨테이너 
 	deque<AnimTask> m_AnimDeq;
 
 };

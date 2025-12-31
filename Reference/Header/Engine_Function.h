@@ -103,6 +103,13 @@ namespace Engine
 		}
 	};
 
+	//Easing 
+
+	static float easeOutQuint(float _rate)
+	{
+		return 1 - powf(1 - _rate, 5);
+	}
+
 }
 
 #endif // Engine_Function_h__

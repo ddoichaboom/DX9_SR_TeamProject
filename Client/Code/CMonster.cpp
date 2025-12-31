@@ -131,3 +131,13 @@ HRESULT CMonster::GetDistVecToPlayer(_vec3& pOutDist)
 	pOutDist = *playerPos - *myPos;
 	return S_OK;
 }
+
+void CMonster::Launch()
+{
+	
+}
+
+void CMonster::SetLaunched()
+{
+	ChangeState(MS_LAUNCH);
+}
