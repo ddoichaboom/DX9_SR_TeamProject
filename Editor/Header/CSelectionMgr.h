@@ -46,6 +46,8 @@ private:
                                                 const _vec3& vMax,
                                                 _float* pDistance);
 
+    _int                    GetPickingPriority(CEditorObject* pObj);
+
 private:
     //CEditorObject*        m_pSelectedObject;
     list<CEditorObject*>    m_SelectedObjects;

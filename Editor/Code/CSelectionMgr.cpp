@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "CSelectionMgr.h"
 #include "CEditorObject.h"
+#include <CEditorSpawnPoint.h>
+#include <CEditorCube.h>
+#include <CEditorWall.h>
+#include <CEditorFloor.h>
+#include <CEditorCeiling.h>
 
 CSelectionMgr::CSelectionMgr()
     : m_pPrimarySelected(nullptr)
@@ -99,44 +104,66 @@ list<CEditorObject*>& CSelectionMgr::Get_AllSelections()
 
 CEditorObject* CSelectionMgr::Pick_Object(const _vec3& vRayPos, const _vec3& vRayDir, list<CEditorObject*>& objectList)
 {
-    CEditorObject* pPickedObject = nullptr;
-    _float fMinDist = FLT_MAX;
+    struct PickedInfo
+    {
+        CEditorObject* pObj;
+        _float fDistance;
+        _int iPriority;
+    };
+
+    list<PickedInfo> pickedList;
 
     for (auto& pObj : objectList)
     {
-        // 오브젝트의 월드 행렬 가져오기
-        const _matrix* pWorldMatrix = pObj->Get_WorldMatrix();
+        if (!pObj)
+            continue;
 
+        // World 행렬의 역행렬
+        const _matrix* pWorldMatrix = pObj->Get_WorldMatrix();
         if (!pWorldMatrix)
             continue;
-        
-        // 월드 행렬의 역행렬 계산
-        _matrix matInvWorld;
-        D3DXMatrixInverse(&matInvWorld, nullptr, pWorldMatrix);
 
-        // World Ray를 Local Ray로 변환
+        _matrix matWorldInv;
+        D3DXMatrixInverse(&matWorldInv, nullptr, pWorldMatrix);
+
+        // Ray를 로컬 공간으로 변환
         _vec3 vLocalRayPos, vLocalRayDir;
-        D3DXVec3TransformCoord(&vLocalRayPos, &vRayPos, &matInvWorld);
-        D3DXVec3TransformNormal(&vLocalRayDir, &vRayDir, &matInvWorld);
+        D3DXVec3TransformCoord(&vLocalRayPos, &vRayPos, &matWorldInv);
+        D3DXVec3TransformNormal(&vLocalRayDir, &vRayDir, &matWorldInv);
         D3DXVec3Normalize(&vLocalRayDir, &vLocalRayDir);
 
-        // 로컬 AABB (고정 값)
-        _vec3 vLocalMin(-1.f, -1.f, -1.f);
-        _vec3 vLocalMax(1.f, 1.f, 1.f);
+        // 로컬 AABB (고정)
+        _vec3 vMin(-1.0f, -1.0f, -1.0f);
+        _vec3 vMax(1.0f, 1.0f, 1.0f);
 
-        _float fDist = 0.f;
-        if (Intersect_RayAABB(vLocalRayPos, vLocalRayDir, vLocalMin, vLocalMax, &fDist))
+        // 충돌 검사
+        _float fDistance = 0.f;
+        if (Intersect_RayAABB(vLocalRayPos, vLocalRayDir, vMin, vMax, &fDistance))
         {
-            if (fDist < fMinDist)
-            {
-                fMinDist = fDist;
-                pPickedObject = pObj;
-            }
+            PickedInfo info;
+            info.pObj = pObj;
+            info.fDistance = fDistance;
+            info.iPriority = GetPickingPriority(pObj);
+            pickedList.push_back(info);
         }
-
     }
 
-    return pPickedObject;
+
+    if (pickedList.empty())
+        return nullptr;
+
+    // 정렬 기준:
+    // 1차: 우선순위 높은 순
+    // 2차: 거리 가까운 순
+    pickedList.sort([](const PickedInfo& a, const PickedInfo& b)
+        {
+            if (a.iPriority != b.iPriority)
+                return a.iPriority > b.iPriority;   // 우선순위 높은 순
+            return a.fDistance < b.fDistance;       // 거리 가까운 순
+        });
+
+    // 최우선 오브젝트 반환
+    return pickedList.front().pObj;
 }
 
 void CSelectionMgr::Pick_Objects_All(const _vec3& vRayPos,
@@ -325,6 +352,31 @@ _bool CSelectionMgr::Intersect_RayAABB(const _vec3& vRayPos, const _vec3& vRayDi
     }
 
     return false;
+}
+
+_int CSelectionMgr::GetPickingPriority(CEditorObject* pObj)
+{
+    if (!pObj)
+        return 0;
+
+    // 우선순위 정의 
+    // 높을 수록 먼저 선택
+    // 작은 오브젝트 > 큰 오브젝트
+    // 특수 타입 > 일반 타입
+
+    if (dynamic_cast<CEditorSpawnPoint*>(pObj))
+        return 100;     // SpawnPoint 최우선
+
+    if (dynamic_cast<CEditorCube*>(pObj))
+        return 80;      // Cube 높은 우선순위
+
+    if (dynamic_cast<CEditorWall*>(pObj))
+        return 60;      // Wall 중간 우선순위
+
+    if (dynamic_cast<CEditorFloor*>(pObj) || dynamic_cast<CEditorCeiling*>(pObj))
+        return 40;      // Floor/Ceiling 낮은 우선순위
+
+    return 50;          // 기타 오브젝트
 }
 
 CSelectionMgr* CSelectionMgr::Create()

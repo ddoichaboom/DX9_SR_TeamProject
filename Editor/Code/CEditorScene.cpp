@@ -263,16 +263,41 @@ void CEditorScene::Handle_Input()
                     WALL_DIR eDir = pWall->Get_WallDirection();
                     pNewObj = CEditorWall::Create(m_pGraphicDev, vPos, vRot, vScale, eDir);
                 }
-                // PlayerSpawnPoint까지 복제할 위험이 있어 일단 주석 처리
-                //else if (CEditorSpawnPoint* pSpawn = dynamic_cast<CEditorSpawnPoint*>(pSelectedObj))
-                //{
-                //    SPAWN_TYPE eType = pSpawn->Get_SpawnType();
-                //    const string& strMonsterKey = pSpawn->Get_MonsterKey();
-                //    pNewObj = CEditorSpawnPoint::Create(m_pGraphicDev, vPos, vRot, vScale,
-                //        eType, strMonsterKey);
-                //}
-                
+                else if (CEditorSpawnPoint* pSpawn = dynamic_cast<CEditorSpawnPoint*>(pSelectedObj))
+                {
+                    SPAWN_TYPE eType = pSpawn->Get_SpawnType();
 
+                    // Player 타입은 복제 대신 위치 이동 옵션 제공
+                    if (eType == SPAWN_PLAYER)
+                    {
+                        wchar_t szMsg[512];
+                        swprintf_s(szMsg,
+                            L"플레이어 스폰 위치 복사 불가능.\n\n"
+                            L"새로운 위치로 플레이어 스폰 위치 이동하시겠습니까?\n\n"
+                            L"새로운 위치: (%.1f, %.1f, %.1f)\n\n"
+                            L"YES: 옮기기\n"
+                            L"NO: 취소",
+                            vPos.x, vPos.y, vPos.z);
+
+                        int iResult = MessageBoxW(nullptr, szMsg,
+                            L"플레이어 스폰 오브젝트 복사 시도?",
+                            MB_YESNO | MB_ICONQUESTION);
+
+                        if (iResult == IDYES)
+                        {
+                            // 기존 Player 위치 이동
+                            pSpawn->Set_Position(vPos);
+                        }
+                        continue;  // 복제는 하지 않음
+                    }
+
+                    // Monster 타입만 복제 허용
+                    const string& strMonsterKey = pSpawn->Get_MonsterKey();
+                    pNewObj = CEditorSpawnPoint::Create(m_pGraphicDev, vPos, vRot, vScale,
+                        eType, strMonsterKey);
+                }
+                
+                
                 if (pNewObj)
                 {
                     m_ObjectList.push_back(pNewObj);
@@ -368,7 +393,9 @@ void CEditorScene::Handle_Input()
             else if (eMode == MODE_PLACE_WALL)
                 Place_Wall(vPos);
             else if (eMode == MODE_PLACE_SPAWN_PLAYER)
+            {
                 Place_SpawnPlayer(vPos);
+            }
             else if (eMode == MODE_PLACE_SPAWN_MONSTER)
                 Place_SpawnMonster(vPos);
         }
@@ -498,11 +525,39 @@ void CEditorScene::Place_Wall(const _vec3& vPos)
 
 void CEditorScene::Place_SpawnPlayer(const _vec3& vPos)
 {
+    CEditorSpawnPoint* pExistingPlayer = nullptr;
+    for (auto& pObj : m_ObjectList)
+    {
+        CEditorSpawnPoint* pSpawn = dynamic_cast<CEditorSpawnPoint*>(pObj);
+        if (pSpawn && pSpawn->Get_SpawnType() == SPAWN_PLAYER)
+        {
+            pExistingPlayer = pSpawn;
+            break;
+        }
+    }
+
+    if (pExistingPlayer)
+    {
+        int iResult = MessageBoxW(nullptr,
+            L"이미 플레이어 스폰지점이 존재합니다.\n"
+            L"새로운 스폰 지점으로 대체합니까?\n",
+            L"플레이어 스폰지점 존재",
+            MB_YESNO | MB_ICONWARNING);
+
+        if (iResult == IDYES)
+        {
+            m_ObjectList.remove(pExistingPlayer);
+            Safe_Release(pExistingPlayer);
+        }
+        else
+            return;
+    }
+
+    
     CEditorSpawnPoint* pSpawn = CEditorSpawnPoint::Create(m_pGraphicDev, vPos, SPAWN_PLAYER);
 
     if (pSpawn)
     {
-        // Y 위치 조정 (바닥에서 살짝 띄움)
         _vec3 vAdjustedPos = vPos;
         vAdjustedPos.y = vPos.y + 0.5f;  
         pSpawn->Set_Position(vAdjustedPos);
@@ -547,7 +602,6 @@ void CEditorScene::Place_Cube(const _vec3& vPos)
     }
 }
 
-// =======================================================
 
 CEditorScene* CEditorScene::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
