@@ -10,14 +10,14 @@
 //-------------------------------------------------------------------------
 vector<TextureSource> CWhiteMan::m_vTextureSource =
 {
-	 { MS_IDLE,		L"../Bin/Resource/Texture/Monster/WhiteMan/white_Idle_1024.png" }
+	 { MS_IDLE,		L"../Bin/Resource/Texture/Monster/WhiteMan/white_Idle_1024.dds" }
 	,{ CStateComponent::MakeStateID(MS_ATTACK_IDLE, SUB_BEGIN),
-		L"../Bin/Resource/Texture/Monster/WhiteMan/white_Aiming_1024.png"}
-	,{ MS_ATTACK_IDLE, L"../Bin/Resource/Texture/Monster/WhiteMan/white_AttackIdle_1024.png"}
-	,{ MS_ATTACK,	L"../Bin/Resource/Texture/Monster/WhiteMan/white_Attack2_1024.png" }
-	,{ MS_WALK,		L"../Bin/Resource/Texture/Monster/WhiteMan/white_Walk_1024.png" }
-	,{ MS_HIT,		L"../Bin/Resource/Texture/Monster/WhiteMan/white_Hit_1024.png" }
-	,{ MS_DEAD,		L"../Bin/Resource/Texture/Monster/WhiteMan/white_DeadBack_512.png" }
+		L"../Bin/Resource/Texture/Monster/WhiteMan/white_Aiming_1024.dds"}
+	,{ MS_ATTACK_IDLE, L"../Bin/Resource/Texture/Monster/WhiteMan/white_AttackIdle_1024.dds"}
+	,{ MS_ATTACK,	L"../Bin/Resource/Texture/Monster/WhiteMan/white_Attack2_1024.dds" }
+	,{ MS_WALK,		L"../Bin/Resource/Texture/Monster/WhiteMan/white_Walk_1024.dds" }
+	,{ MS_HIT,		L"../Bin/Resource/Texture/Monster/WhiteMan/white_Hit_1024.dds" }
+	,{ MS_DEAD,		L"../Bin/Resource/Texture/Monster/WhiteMan/white_DeadBack_512.dds" }
 };
 //Loop 인 애니메이션은 Ratio 세팅 금지(디폴트로 두기) . Ratio먹이면 다음 애니메이션이 안나옴 
 vector<AnimationSource> CWhiteMan::m_vAnimSource =

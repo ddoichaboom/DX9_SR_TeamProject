@@ -26,7 +26,7 @@ private:
 	void			Render_Alpha_UI(LPDIRECT3DDEVICE9& pGraphicDev);
 	void			Render_UI(LPDIRECT3DDEVICE9& pGraphicDev);
 	void			Render_DEBUG(LPDIRECT3DDEVICE9& pGraphicDev);
-
+	void			Render_Alpha_UV(LPDIRECT3DDEVICE9& pGraphicDev);
 private:
 	list<CGameObject*>			m_RenderGroup[RENDER_END];
 

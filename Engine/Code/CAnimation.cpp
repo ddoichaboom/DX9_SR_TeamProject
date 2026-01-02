@@ -2,6 +2,7 @@
 #include "CTexture.h"
 #include "CStateComponent.h"
 
+
 CAnimation::CAnimation()
 	:m_iCurState(-1), m_vFrameIdx{0,0}, m_bPlaying(false), 
 	m_bEnd(false), m_fTime(0.f), m_bCanEnd(true), m_CurAnimTask({SUB_MAX,NULL})
@@ -88,6 +89,7 @@ AnimationDesc* CAnimation::MakeAnimationDesc(CTexture* _pTextureComp, AnimationS
 	//애니메이션이 종료 가능한 Ratio 비율 
 	animDesc->fEndRatio = AnimSource.fEndRatio;
 	animDesc->bPriority = AnimSource.bPriority;
+
 	return animDesc;
 }
 

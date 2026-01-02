@@ -137,7 +137,7 @@ HRESULT CTestStage::Ready_Prototype()
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_CubeTex", Engine::CCubeTex::Create(m_pGraphicDev))))
 		return E_FAIL;
 
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TerrainTexture", Engine::CTerrainTexture::Create(m_pGraphicDev, TEX_NORMAL, L"../Bin/Resource/Texture/Terrain/Grass_%d.tga", 2))))
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TerrainTexture", Engine::CTerrainTexture::Create(m_pGraphicDev, TEX_NORMAL, L"../Bin/Resource/Texture/Terrain/Terrain0.dds", 1))))
 		return E_FAIL;
 
 	//if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TerrainTexture", Engine::CTexture::Create(m_pGraphicDev, TEX_NORMAL, L"../Bin/Resource/Texture/Terrain/Grass_%d.tga", 2))))
@@ -149,7 +149,7 @@ HRESULT CTestStage::Ready_Prototype()
 	//TODO : WhiteMan Texture,Animation 수정된 부분 ! CWhiteMan으로 벡터 옮겨짐 
 	vector<TextureSource> vTextureSource =
 	{
-		{ 0, L"../Bin/Resource/Texture/Player/Pika.png" }
+		{ 0, L"../Bin/Resource/Texture/Player/pika.dds" }
 	};
 
 	CTexture* pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, vTextureSource);
@@ -168,9 +168,9 @@ HRESULT CTestStage::Ready_Prototype()
 
 	vector<TextureSource> vLeftTextureSource =
 	{
-		{ 0, L"../Bin/Resource/Texture/Player/Left_Hand_Idle.png" },
-		{ 1, L"../Bin/Resource/Texture/Player/Left_Hand_Reload_P.png" },
-		{ 2, L"../Bin/Resource/Texture/Player/Left_Hand_Reload_S.png" }
+		{ 0, L"../Bin/Resource/Texture/Player/Left_Hand_Idle.dds" },
+		{ 1, L"../Bin/Resource/Texture/Player/Left_Hand_Reload_P.dds" },
+		{ 2, L"../Bin/Resource/Texture/Player/Left_Hand_Reload_S.dds" }
 
 	};
 
@@ -196,9 +196,9 @@ HRESULT CTestStage::Ready_Prototype()
 
 	vector<TextureSource> vRightTextureSource =
 	{
-		{ 0, L"../Bin/Resource/Texture/Player/Right_Hand_Idle_P.png" },
-		{ 1, L"../Bin/Resource/Texture/Player/Right_Hand_Shot_P.png" },
-		{ 2, L"../Bin/Resource/Texture/Player/Right_Hand_Reload_P.png" }
+		{ 0, L"../Bin/Resource/Texture/Player/Right_Hand_Idle_P.dds" },
+		{ 1, L"../Bin/Resource/Texture/Player/Right_Hand_Shot_P.dds" },
+		{ 2, L"../Bin/Resource/Texture/Player/Right_Hand_Reload_P.dds" }
 
 	};
 
@@ -225,8 +225,8 @@ HRESULT CTestStage::Ready_Prototype()
 
 	vector<TextureSource> vMiddleTextureSource =
 	{
-		{ 0, L"../Bin/Resource/Texture/Player/Middle_Kick.png" },
-		{ 1, L"../Bin/Resource/Texture/Player/Middle_Soda.png" },
+		{ 0, L"../Bin/Resource/Texture/Player/Middle_Kick.dds" },
+		{ 1, L"../Bin/Resource/Texture/Player/Middle_Soda.dds" },
 
 	};
 

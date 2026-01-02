@@ -2,6 +2,7 @@
 
 #include "CBaseTexture.h"
 #include "Engine_Define.h"
+#include <tchar.h>
 
 BEGIN(Engine)
 
@@ -23,6 +24,10 @@ public:
 	static CTexture* Create(LPDIRECT3DDEVICE9 pGraphicDev,
 		TextureSource _vData);
 	virtual CComponent* Clone();
+
+private:
+	LPDIRECT3DTEXTURE9 LoadTextureAsPOT(LPDIRECT3DDEVICE9 pGraphicDev, _tchar*  pFilePath, _vec2* _vOutSize);
+	_tstring ConvertToPNGpath(const _tchar* _DDSPath);
 
 protected:
 	virtual void Free();
