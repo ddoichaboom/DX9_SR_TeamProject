@@ -464,3 +464,6 @@ FodyWeavers.xsd
 # Personal Guide Files
 명세서/
 CLAUDE.md
+
+# 빌드 산출물 
+*.exp
