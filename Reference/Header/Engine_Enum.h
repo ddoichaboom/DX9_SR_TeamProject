@@ -20,5 +20,7 @@ namespace Engine
 
 	enum MOUSEMOVESTATE {	DIMS_X, DIMS_Y, DIMS_Z, DIMS_END };
 
+	enum SUBSTATE {SUB_NONE, SUB_BEGIN, SUB_END, SUB_MAX };
+
 }
 #endif // Engine_Enum_h__

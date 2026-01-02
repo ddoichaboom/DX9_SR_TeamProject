@@ -44,9 +44,13 @@ EndAttack용 State에서는
 
 이렇게 하면됩니다... 자동화 하려면 State세분화밖에 없는듯
 
-
 */
 
+
+namespace Engine
+{
+	class CCollider;
+}
 
 class CWhiteMan :
 	public CMonster
@@ -84,24 +88,33 @@ protected:
 
 protected:
 	virtual void	Free();
-	void			OnCollision(CollisionInfo info);
+	void			OnHeadCollision(CollisionInfo info);
+	void			OnBodyCollision(CollisionInfo info);
 
 protected:
 	//State Function 
-	void Begin_Idle();
+	void			Idle();
 
-	void Begin_Attack();
-	void Attack();
-	void End_Attack();
+	void			Begin_Attack();
+	void			Idle_Attack();
+	void			End_Attack();
 
-	void Begin_Hit();
-	void Hit();
+	void			Shoot();
+	void			Hit();
+	void			Launch() override;
+	void			Dead();
 
 protected:
 	static vector<TextureSource> m_vTextureSource;
 	static vector<AnimationSource> m_vAnimSource;
 
+protected:
+	_float			m_fAttackDelayTime = 3.0f;
 
-
+	CCollider*		m_pHeadCollider;
+	const _tchar*	m_szHeadColliderName = L"ColHead";
+	
+	CCollider*		m_pBodyCollider;
+	const _tchar*	m_szBodyColliderName = L"ColBody";
 };
 

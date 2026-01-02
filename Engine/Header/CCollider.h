@@ -40,19 +40,23 @@ public:
 	//아래는 내 Transform을 변경하는 함수 
 	void				Set_RelativePos(_vec3 _pos);
 	_vec3				Get_RelativePos();
+public:
+	bool				CanCollision() { return m_bCanCollision; }
+	void				OnCollision() { m_bCanCollision = true; }
+	void				OffCollision() { m_bCanCollision = false; }
 
-	static CCollider* Create(LPDIRECT3DDEVICE9 pGraphicDev, CTransform* _prtTransComp);
+	static CCollider*	Create(LPDIRECT3DDEVICE9 pGraphicDev, CTransform* _prtTransComp);
 
 protected:
 	virtual void Free();
 
 protected:
-	_matrix		m_matWorld;
-	CCubeCol* m_pBufferCom;
-	CTransform* m_pTransformCom;
-	CTransform* m_pPrtTransformCom;
+	_matrix				m_matWorld;
+	CCubeCol*			m_pBufferCom;
+	CTransform*			m_pTransformCom;
+	CTransform*			m_pPrtTransformCom;
 
-	//function<void(CollisionInfo)> m_BindFunc;
+	bool				m_bCanCollision;
 };
 
 END

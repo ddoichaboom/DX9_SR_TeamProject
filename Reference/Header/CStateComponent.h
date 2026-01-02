@@ -13,7 +13,11 @@ private:
 	explicit CStateComponent(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CStateComponent(const CStateComponent& rhs);
 	virtual ~CStateComponent();
-
+public:
+	static _uint MakeStateID(_uint _state, SUBSTATE _sub)
+	{
+		return ((_uint)_sub << 8) | (_uint)_state;
+	}
 public:
 	_int Update_Component(const _float& fTimeDelta) override;
 	static CStateComponent* Create(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -23,6 +27,7 @@ public:
 	void SetOnwer(CGameObject* _owner);
 	CBaseState* GetCurrentState() { return m_pCurState; };
 	_uint GetCurrentStateID() { return m_iCurStateID; };
+	_uint GetPrevStateID() { return m_iPrevStateID; };
 
 public:
 	template<typename T>
@@ -38,8 +43,9 @@ public:
 			m_pCurState->End(m_pOwner);
 		}
 		m_pCurState = state;
-		m_pCurState->Begin(m_pOwner);
+		m_iPrevStateID = m_iCurStateID;
 		m_iCurStateID = _nextStateID;
+		m_pCurState->Begin(m_pOwner);
 	}
 
 private:
@@ -49,6 +55,7 @@ private:
 	CGameObject* m_pOwner;
 	CBaseState* m_pCurState;
 	_uint m_iCurStateID;
+	_uint m_iPrevStateID;
 };
 
 END
