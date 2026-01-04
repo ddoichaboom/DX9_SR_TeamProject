@@ -39,6 +39,8 @@ public:
     void                    SetDirection(_vec3 dir);
     void                    SetSpeed(_float _speed) { m_fSpeed = _speed; }
 
+    void					Activate() override;
+    void					Deactivate() override;
 protected:
     HRESULT                 Add_Component() override;
     virtual void	        Free();

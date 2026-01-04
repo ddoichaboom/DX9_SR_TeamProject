@@ -8,11 +8,15 @@
 CTestCharacter::CTestCharacter(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CCharacter(pGraphicDev)
 {
+	m_eOBJ_ID = OBJ_PLAYER;
+	m_iID = Make_ID();
 }
 
 CTestCharacter::CTestCharacter(const CTestCharacter& rhs)
 	:CCharacter(rhs)
 {
+	m_eOBJ_ID = OBJ_PLAYER;
+	m_iID = Make_ID();
 }
 
 CTestCharacter::~CTestCharacter()
@@ -22,7 +26,7 @@ CTestCharacter::~CTestCharacter()
 HRESULT CTestCharacter::Ready_GameObject()
 {
 	if (FAILED(Add_Component())) return E_FAIL;
-
+	//m_iID = 
 	//m_pAnimationCom->Change_Animation(0);
 	//m_pAnimationCom->PlayFromStart();
 	m_pTransformCom->Set_Pos(0, -5.f, -5.f);

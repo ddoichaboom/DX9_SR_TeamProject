@@ -20,6 +20,10 @@ HRESULT CCollider::Ready_Collider(CTransform* _prtTransComp)
 	if (!_prtTransComp) return E_FAIL;
 	m_pPrtTransformCom = _prtTransComp;
 	if (FAILED(Add_Component())) return E_FAIL;
+
+	m_eOBJ_ID = OBJ_COL;
+	m_iID = Make_ID();
+
 	return S_OK;
 }
 

@@ -10,14 +10,21 @@ CScene::~CScene()
 {
 }
 
-CComponent* CScene::Get_Component(COMPONENTID eID, const _tchar* pLayerTag, const _tchar* pObjTag, const _tchar* pComponentTag)
+CComponent* CScene::Get_Component(COMPONENTID eID, const _tchar* pLayerTag, OBJ_ID _objID, const _tchar* pComponentTag)
 {
     auto    iter = find_if(m_mapLayer.begin(), m_mapLayer.end(), CTag_Finder(pLayerTag));
 
     if (iter == m_mapLayer.end())
         return nullptr;
 
-    return iter->second->Get_Component(eID, pObjTag, pComponentTag);
+    return iter->second->Get_Component(eID, _objID, pComponentTag);
+}
+
+CLayer* CScene::Get_Layer(const _tchar* pLayerTag)
+{
+    auto iter = m_mapLayer.find(pLayerTag);
+    if (iter == m_mapLayer.end()) return nullptr;
+    else return iter->second;
 }
 
 HRESULT CScene::Ready_Scene()

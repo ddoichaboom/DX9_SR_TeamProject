@@ -78,6 +78,9 @@ AnimationDesc* CAnimation::MakeAnimationDesc(CTexture* _pTextureComp, AnimationS
 	_float cutWitdh = originSize.x / (animDesc->vMaxIdx.x + 1);
 	_float cutHeight = originSize.y / (animDesc->vMaxIdx.y + 1);
 
+	//한 프레임당 종횡비. 애니메이션의 텍스쳐가 크기가 다른 경우 종횡비로 오브젝트의 크기를 Set 
+	animDesc->fAspect = cutWitdh / cutHeight;
+
 	//desc의 width,height 정보는 GPU가 밉맵에 맞게 생성한 텍스쳐의 크기 (원본가 같거나 다를수도 있음)
 	//생성된 텍스쳐에 맞게 한 프레임당 uv 비율 구하기 
 	D3DSURFACE_DESC desc;
@@ -282,11 +285,14 @@ void CAnimation::Reset()
 	Stop();
 	m_fTime = 0.f;
 	m_CurAnimTask = { SUB_MAX,NULL };
+	m_bCanEnd = true;
+	ResetDeque();
 
 }
 
 void CAnimation::Change_Animation(AnimTask& animTask)
 {
+	if (m_ChangedFunc) m_ChangedFunc(animTask.animDesc->fAspect);
 	m_CurAnimTask = animTask;
 	PlayFromStart();
 	D3DXMatrixScaling(&m_UVMatrix, m_CurAnimTask.animDesc->vUVoffset.x, m_CurAnimTask.animDesc->vUVoffset.y, 1.0f);
@@ -298,6 +304,7 @@ void CAnimation::Change_Animation(_uint _state)
 	auto desc = m_mapAnimation[_state];
 	if (desc)
 	{
+		if (m_ChangedFunc) m_ChangedFunc(desc->fAspect);
 		ResetDeque();
 		m_iCurState = _state;
 		m_CurAnimTask = { SUB_NONE, desc };

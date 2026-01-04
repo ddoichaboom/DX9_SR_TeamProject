@@ -140,7 +140,10 @@ _matrix* CTransform::Compute_LookAtTarget(const _vec3* pTargetPos)
 void CTransform::Reset()
 {
     D3DXMatrixIdentity(&m_matWorld);
-    ZeroMemory(m_vInfo, sizeof(_vec3) * INFO_END);
+    for (_uint i = 0; i < INFO_END; ++i)
+    {
+        memcpy(&m_vInfo[i], &m_matWorld.m[i][0], sizeof(_vec3));
+    }
     m_vAngle = { 0.f, 0.f, 0.f };
     //ScaleÀº À¯Áö 
 }

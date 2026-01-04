@@ -11,7 +11,9 @@
 #include "CTerrain.h"
 #include "CTerrainTex.h"
 
-CTestStage::CTestStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
+CTestStage::CTestStage(LPDIRECT3DDEVICE9 pGraphicDev)
+	: CStage(pGraphicDev), m_pEnvironment_Layer(nullptr), m_pGameLogic_Layer(nullptr)
+	,m_pWhiteManPool(nullptr), m_pTerrainPool(nullptr)
 {
 }
 
@@ -36,6 +38,16 @@ HRESULT CTestStage::Ready_Scene()
 _int CTestStage::Update_Scene(const _float& fTimeDelta)
 {
 	int iExit = CStage::Update_Scene(fTimeDelta);
+	bool bEmpty = m_pGameLogic_Layer->IsEmptyByOBJID(OBJ_MONSTER);
+	if (bEmpty)
+	{
+		CWhiteMan* man = m_pWhiteManPool->Get_FreeObject();
+		if (man)
+		{
+			man->SetPos({ 0, 0, 110.f });
+			m_pGameLogic_Layer->Add_GameObject(man);
+		}
+	}
 	return iExit;
 }
 
@@ -50,67 +62,83 @@ void CTestStage::Render_Scene()
 
 HRESULT CTestStage::Ready_Environment_Layer(const _tchar* pLayerTag)
 {
-	CLayer* pLayer = CLayer::Create();
-	if (nullptr == pLayer)
+	m_pEnvironment_Layer = CLayer::Create();
+	if (nullptr == m_pEnvironment_Layer)
 		return E_FAIL;
 
-	_matrix View, Proj;
 	_vec3 vEye = { 0,0,0.f };
 	_vec3 vAt = { 0,0.f,1.f };
 	_vec3 vUp = { 0,1,0 };
 
-	_float fFov = D3DXToRadian(60.f);
-	_float fAspect = (_float)WINCX / WINCY;
-	_float fNear = 0.1f;
-	_float fFar = 1000.f;
-
+	//Camera
 	CGameObject* pGameObject = nullptr;
 	pGameObject = CFirstCamera::Create(m_pGraphicDev, &vEye, &vAt, &vUp);
 	if (nullptr == pGameObject)
 		return E_FAIL;
 
-	if (FAILED(pLayer->Add_GameObject(L"Camera", pGameObject)))
+	if (FAILED(m_pEnvironment_Layer->Add_GameObject(pGameObject)))
 		return E_FAIL;
 
-
-	pGameObject = CTerrain::Create(m_pGraphicDev);
-
-	if (nullptr == pGameObject)
+	//Terrain Pool
+	//Pool 생성과 동시에 개수만큼 오브젝트 생성  . 숫자는 임시 
+	m_pTerrainPool = CObjectPool<CTerrain>::Create(m_pGraphicDev, 3);
+	if (!m_pTerrainPool)
+	{
+		MSG_BOX("Terrain Pool Create Failed");
 		return E_FAIL;
+	}
+	pGameObject = m_pTerrainPool->Get_FreeObject();
+	
+	if (nullptr == pGameObject) return E_FAIL;
+	if (FAILED(m_pEnvironment_Layer->Add_GameObject(pGameObject))) return E_FAIL;
 
-	if (FAILED(pLayer->Add_GameObject(L"Terrain", pGameObject)))
-		return E_FAIL;
-
-	m_mapLayer.insert({ pLayerTag , pLayer });
+	m_mapLayer.insert({ pLayerTag , m_pEnvironment_Layer });
 
     return S_OK;
 }
 
 HRESULT CTestStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 {
-	CLayer* pLayer = CLayer::Create();
-	if (nullptr == pLayer)
+	m_pGameLogic_Layer = CLayer::Create();
+	if (nullptr == m_pGameLogic_Layer)
 		return E_FAIL;
 
+	//Player
 	CGameObject* pGameObject = nullptr;
 
 	pGameObject = CPlayer::Create(m_pGraphicDev);
 
-	if (FAILED(pLayer->Add_GameObject(L"Player", pGameObject)))
+	if (FAILED(m_pGameLogic_Layer->Add_GameObject(pGameObject)))
 		return E_FAIL;
 
-	pGameObject = CTestCharacter::Create(m_pGraphicDev);
-
-	if (FAILED(pLayer->Add_GameObject(L"TestCharacter", pGameObject)))
+	//Bullet Pool 
+	m_pBulletPool = CObjectPool<CBullet>::Create(m_pGraphicDev, 20);
+	if (!m_pBulletPool)
+	{
+		MSG_BOX("Bullet Pool Create Failed");
 		return E_FAIL;
+	}
 
-	pGameObject = CWhiteMan::Create(m_pGraphicDev);
-
-	if (FAILED(pLayer->Add_GameObject(L"WhiteMan", pGameObject)))
+	//WhiteMan Pool
+	m_pWhiteManPool = CObjectPool<CWhiteMan>::Create(m_pGraphicDev, 2);
+	if (!m_pWhiteManPool)
+	{
+		MSG_BOX("WhiteMan Pool Create Failed");
 		return E_FAIL;
+	}
+	//WhitMan에 BulletPool 포인터를 Set
+	auto pairIter = m_pWhiteManPool->GetObjectsRange();
+	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
+	{
+		(*iter)->SetBulletPool(m_pBulletPool);
+	}
+	
+	pGameObject = m_pWhiteManPool->Get_FreeObject();
 
+	if (nullptr == pGameObject) return E_FAIL;
+	if (FAILED(m_pGameLogic_Layer->Add_GameObject(pGameObject))) return E_FAIL;
 
-	m_mapLayer.insert({ pLayerTag , pLayer });
+	m_mapLayer.insert({ pLayerTag , m_pGameLogic_Layer });
 
 	return S_OK;
 
@@ -278,4 +306,8 @@ void CTestStage::Free()
 	CDataMgr<CWhiteMan>::GetInstance()->DestroyInstance();
 	CDataMgr<CPlayer>::GetInstance()->DestroyInstance();
 	CScene::Free();
+	//순서 주의 Pool은 마지막에 삭제 
+	Safe_Release(m_pWhiteManPool);
+	Safe_Release(m_pTerrainPool);
+	Safe_Release(m_pBulletPool);
 }

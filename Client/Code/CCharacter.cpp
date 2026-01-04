@@ -86,3 +86,25 @@ void CCharacter::Free()
 {
 	CGameObject::Free();
 }
+
+void CCharacter::Activate()
+{
+	CGameObject::Activate();
+}
+
+void CCharacter::Deactivate()
+{
+	CGameObject::Deactivate();
+}
+
+void CCharacter::SetPos(_vec3 _pos)
+{
+	if (!m_pTransformCom) return;
+	m_pTransformCom->Set_Pos(_pos);
+}
+
+void CCharacter::Rotate(ROTATION _Axis, _float _degree)
+{
+	if (!m_pTransformCom) return;
+	m_pTransformCom->Rotation(_Axis, _degree);
+}

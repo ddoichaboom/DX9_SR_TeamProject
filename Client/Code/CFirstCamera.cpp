@@ -11,13 +11,16 @@ CFirstCamera::CFirstCamera(LPDIRECT3DDEVICE9 pGraphicDev)
 	,	m_fPitch(0.f), m_fYaw(0.f)
 	
 {
-	
+	m_eOBJ_ID = OBJ_CAM;
+	m_iID = Make_ID();
 }
 
 CFirstCamera::CFirstCamera(const CFirstCamera& rhs)
 	: CCamera(rhs), m_bFix(true), m_bCheck(true)
 	, m_fPitch(0.f), m_fYaw(0.f)
 {
+	m_eOBJ_ID = OBJ_CAM;
+	m_iID = Make_ID();
 }
 
 CFirstCamera::~CFirstCamera()
@@ -78,7 +81,7 @@ _int CFirstCamera::Update_GameObject(const _float& fTimeDelta)
 	_int iExit = CCamera::Update_GameObject(fTimeDelta);
 
 	Engine::CTransform* pPlayerTransform = dynamic_cast<CTransform*>(Engine::CManagement::GetInstance()->
-		Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Player", L"Com_Transform"));
+		Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_PLAYER, L"Com_Transform"));
 	
 	_vec3 vPos, vLook;
 	pPlayerTransform->Get_Info(INFO_POS, &vPos);

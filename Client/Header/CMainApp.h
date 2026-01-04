@@ -19,8 +19,8 @@ public:
     void			Render_MainApp();
 
 private:
-    HRESULT		Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev);
-    HRESULT		Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev);
+    HRESULT		    Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev);
+    HRESULT		    Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
     LPDIRECT3DDEVICE9		m_pGraphicDev;

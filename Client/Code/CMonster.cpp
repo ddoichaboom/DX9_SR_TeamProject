@@ -7,14 +7,18 @@
 
 CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CCharacter(pGraphicDev), m_pAnimationCom(nullptr)
-	,m_fAttackableDist(100.f), m_vDir({0,0,0}), m_fSpeed(10.f), m_fHP(10.f)
+	,m_fAttackableDist(100.f), m_vDir({0,0,0}), m_fSpeed(10.f), m_fMaxHP(10.f), m_fHP(10.f)
 {
+	m_eOBJ_ID = OBJ_MONSTER;
+	m_iID = Make_ID();
 }
 
 CMonster::CMonster(const CMonster& rhs)
-	:CCharacter(rhs), m_pAnimationCom(nullptr), m_fAttackableDist(100.f), m_fHP(10.f)
+	:CCharacter(rhs), m_pAnimationCom(nullptr), m_fAttackableDist(100.f), m_fMaxHP(10.f), m_fHP(10.f)
 	, m_vDir(rhs.m_vDir), m_fSpeed(rhs.m_fSpeed)
 {
+	m_eOBJ_ID = OBJ_MONSTER;
+	m_iID = Make_ID();
 }
 
 CMonster::~CMonster()
@@ -29,6 +33,7 @@ HRESULT CMonster::Ready_GameObject()
 
 _int CMonster::Update_GameObject(const _float& fTimeDelta)
 {
+	if (IsDead()) return RET_DEAD;
 	int iExit = CCharacter::Update_GameObject(fTimeDelta);
 
 	MONSTER_STATE state = (MONSTER_STATE)(m_pStateCom->GetCurrentStateID());
@@ -41,7 +46,7 @@ _int CMonster::Update_GameObject(const _float& fTimeDelta)
 
 		if (m_fAttackableDist >= distLen)
 		{
-			ChangeState(MS_ATTACK_IDLE);
+				ChangeState(MS_ATTACK_IDLE);
 		}
 	}
 	return iExit;
@@ -108,7 +113,7 @@ Engine::CTransform* CMonster::GetPlayerTransformCom()
 	if (!m_pPlayerTransformCom)
 	{
 		m_pPlayerTransformCom =
-			dynamic_cast<CTransform*>(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Player", L"Com_Transform"));
+			dynamic_cast<CTransform*>(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer",OBJ_PLAYER, L"Com_Transform"));
 	}
 	return m_pPlayerTransformCom;
 }
@@ -136,5 +141,18 @@ void CMonster::Launch()
 
 void CMonster::SetLaunched()
 {
+	_uint curState = m_pStateCom->GetCurrentStateID();
+	if (curState == MS_HIT || curState == MS_DEAD) return;
 	ChangeState(MS_LAUNCH);
+}
+
+void CMonster::Activate()
+{
+	CCharacter::Activate();
+}
+
+void CMonster::Deactivate()
+{
+	CCharacter::Deactivate();
+	m_fHP = m_fMaxHP;
 }

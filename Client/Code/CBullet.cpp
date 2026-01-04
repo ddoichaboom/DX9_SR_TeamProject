@@ -20,6 +20,8 @@ CBullet::CBullet(LPDIRECT3DDEVICE9 pGraphicDev)
 	m_pCollisionCom(nullptr), m_fSpeed(0.f), m_vDir{0,0,0}, m_STATE(DIR_END), m_fLifeTime(0.f), m_fTime(0.f)
 	, m_pCollider(nullptr)
 {
+	m_eOBJ_ID = OBJ_BULLET;
+	m_iID = Make_ID();
 }
 
 CBullet::CBullet(const CBullet& rhs)
@@ -27,6 +29,8 @@ CBullet::CBullet(const CBullet& rhs)
 	m_pCollisionCom(nullptr), m_fSpeed(0.f), m_vDir{ 0,0,0 }, m_STATE(DIR_END), m_fLifeTime(0.f), m_fTime(0.f)
 	, m_pCollider(nullptr)
 {
+	m_eOBJ_ID = OBJ_BULLET;
+	m_iID = Make_ID();
 }
 
 CBullet::~CBullet()
@@ -61,21 +65,21 @@ HRESULT CBullet::Ready_GameObject()
 	m_pTransformCom->Set_Scale(2.f, 1.f, 3.f);
 	m_pTextureCom->Change_Texture(0);
 	m_fSpeed = 300.f;
-	m_fLifeTime = 5.0f;
+	m_fLifeTime = 2.0f;
 
 	return S_OK;
 }
 
 _int CBullet::Update_GameObject(const _float& fTimeDelta)
 {
-	if (IsDead()) return OBJ_DEAD;
+	if (IsDead()) return RET_DEAD;
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
 
 	m_fTime += fTimeDelta;
 	if (m_fTime >= m_fLifeTime)
 	{
 		SetDead();
-		return OBJ_NONE;
+		return RET_NONE;
 	}
 
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
@@ -126,6 +130,18 @@ void CBullet::SetDirection(_vec3 dir)
 }
 
 
+
+void CBullet::Activate()
+{
+	CGameObject::Activate();
+	m_pTextureCom->Change_Texture(0);
+	m_fTime = 0.f;
+}
+
+void CBullet::Deactivate()
+{
+	CGameObject::Deactivate();
+}
 
 HRESULT CBullet::Add_Component()
 {

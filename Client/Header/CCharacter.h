@@ -34,6 +34,12 @@ protected:
 	void				Free() override;
 	virtual void		ChangeState(_uint nextStateID) {};
 
+public:
+	void				Activate() override;
+	void				Deactivate() override;
+	void				SetPos(_vec3 _pos) override;
+	void				Rotate(ROTATION _Axis, _float _degree)  override;
+
 protected:
 	Engine::CRcTex*		m_pBufferCom;
 	Engine::CTransform* m_pTransformCom;

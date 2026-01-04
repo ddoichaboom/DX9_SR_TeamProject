@@ -1,6 +1,6 @@
 #pragma once
 #include "CMonster.h"
-
+#include "CObjectPool.h"
 /* Âü°í»çÇ× 
 1. CreateStateData 
 	- DataMgr¿¡ State °´Ã¼ »ðÀÔ.
@@ -105,6 +105,14 @@ protected:
 	void			Launch() override;
 	void			Dead();
 
+	void			OnAnimationChange(_float _animAspect);
+public:
+	void			Activate() override;
+	//void			Deactivate() override;
+	void			SetBulletPool(CObjectPool<CBullet>* _pool)
+	{
+		m_pBulletPool = _pool;
+	}
 protected:
 	static vector<TextureSource> m_vTextureSource;
 	static vector<AnimationSource> m_vAnimSource;
@@ -117,8 +125,8 @@ protected:
 	
 	CCollider*		m_pBodyCollider;
 	const _tchar*	m_szBodyColliderName = L"ColBody";
-//TEST
-protected:
-	vector<CBullet*> m_vBullets;
+
+//protected:
+	CObjectPool<CBullet>* m_pBulletPool;
 };
 

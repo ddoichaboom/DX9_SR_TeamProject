@@ -99,7 +99,7 @@ namespace Engine
 		_float fEndRatio = 0.f;
 		_bool bPriority = false;
 		//애니메이션에서 텍스쳐마다 크기가 다른 경우, 0번 텍스쳐를 기준으로 scale 비율을 조정함 
-		_vec2 vTextureScaleOffset = { 1.f, 1.f };
+		_float fAspect = 1.f;
 	} AnimationDesc;
 
 	//애니메이션 Queue에 삽입될 구조체
