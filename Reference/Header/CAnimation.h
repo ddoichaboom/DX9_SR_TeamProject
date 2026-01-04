@@ -66,8 +66,6 @@ public:
 	virtual HRESULT Ready_Animation(CTexture* _pTextureComp, AnimationSource _AnimSource);
 	_int			Update_Component(const _float& fTimeDelta) override;
 	virtual void	Render_Animation();
-	//Texture 관련 설정 해제하기 위함 
-	virtual void	LateRender_Animation(); 
 
 public:
 	static CAnimation* Create(LPDIRECT3DDEVICE9 pGraphicDev, CTexture* _pTextureComp, vector<AnimationSource>& _vAnimSource);
@@ -95,6 +93,7 @@ public:
 		return m_CurAnimTask.subState;
 	}
 
+	void Reset() override;
 private:
 	void Change_Animation(AnimTask& animTask);
 public:

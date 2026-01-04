@@ -115,7 +115,7 @@ HRESULT CPlayer::Ready_GameObject()
 		return E_FAIL;
 	Change_State(PLAYER_IDLE);
 	m_pTransformCom->m_vScale = { 6.f, 6.f, 1.f };
-
+	
 	return S_OK;
 }
 

@@ -5,13 +5,13 @@
 CCharacter::CCharacter(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr),
-	m_pStateCom(nullptr), m_pCollisionCom(nullptr), m_fTime(0.f), m_bDead(false)
+	m_pStateCom(nullptr), m_pCollisionCom(nullptr), m_fTime(0.f)
 {
 }
 
 CCharacter::CCharacter(const CCharacter& rhs)
 	: CGameObject(rhs), m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr),
-	 m_pStateCom(nullptr), m_pCollisionCom(nullptr), m_fTime(0.f), m_bDead(false)
+	 m_pStateCom(nullptr), m_pCollisionCom(nullptr), m_fTime(0.f)
 {
 }
 

@@ -58,23 +58,12 @@ void CMonster::Render_GameObject()
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 	m_pAnimationCom->Render_Animation();
 	m_pBufferCom->Render_Buffer();
-
-	m_pAnimationCom->LateRender_Animation();
 }
 
 HRESULT CMonster::Add_Component()
 {
 	if (FAILED(CCharacter::Add_Component())) return E_FAIL;
 	Engine::CComponent* pComponent = nullptr;
-
-	// Animation
-	pComponent = m_pAnimationCom = dynamic_cast<Engine::CAnimation*>
-		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_WhiteManAnimation"));
-
-	if (nullptr == pComponent)
-		return E_FAIL;
-
-	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Animation", pComponent });
 
 
 	return S_OK;
@@ -114,6 +103,16 @@ void CMonster::SetBillboard()
 
 }
 
+Engine::CTransform* CMonster::GetPlayerTransformCom()
+{
+	if (!m_pPlayerTransformCom)
+	{
+		m_pPlayerTransformCom =
+			dynamic_cast<CTransform*>(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Player", L"Com_Transform"));
+	}
+	return m_pPlayerTransformCom;
+}
+
 void CMonster::Free()
 {
 	CCharacter::Free();
@@ -121,11 +120,9 @@ void CMonster::Free()
 
 HRESULT CMonster::GetDistVecToPlayer(_vec3& pOutDist)
 {
-	CTransform* playerTranform =  
-		static_cast<CTransform*>(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Player", L"Com_Transform"));
-	if (playerTranform == nullptr) return E_FAIL;
+	if (GetPlayerTransformCom() == nullptr) return E_FAIL;
 
- 	_vec3* playerPos = playerTranform->Get_Info(INFO_POS);
+ 	_vec3* playerPos = GetPlayerTransformCom()->Get_Info(INFO_POS);
 	_vec3* myPos = m_pTransformCom->Get_Info(INFO_POS);
 
 	pOutDist = *playerPos - *myPos;

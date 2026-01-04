@@ -177,20 +177,11 @@ _int CAnimation::Update_Component(const _float& fTimeDelta)
 void CAnimation::Render_Animation()
 {
 	if (!m_CurAnimTask.animDesc) return;
-	//행렬변환 결과 중 앞에서 두 개의 요소만 적용한다 = 2차원 텍스쳐로 쓰겠다
-	m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT2);
 	//텍스쳐 UV 공간을 행렬 변환한다 
 	m_pGraphicDev->SetTransform(D3DTS_TEXTURE0, &m_UVMatrix);
 	m_pGraphicDev->SetTexture(0, m_CurAnimTask.animDesc->pTextureDesc->pTexture);
 	
 }
-
-void CAnimation::LateRender_Animation()
-{
-	//텍스쳐 공간을 변환하지 않게 함. disable로 돌려줘야함
-	m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_DISABLE);
-}
-
 CAnimation* CAnimation::Create(LPDIRECT3DDEVICE9 pGraphicDev, CTexture* _pTextureComp, vector<AnimationSource>& _vAnimSource)
 {
 	CAnimation* pAnimation = new CAnimation(pGraphicDev);
@@ -284,6 +275,14 @@ void CAnimation::PlayNextAnim()
 void CAnimation::ResetDeque()
 {
 	m_AnimDeq = deque<AnimTask>();
+}
+
+void CAnimation::Reset()
+{
+	Stop();
+	m_fTime = 0.f;
+	m_CurAnimTask = { SUB_MAX,NULL };
+
 }
 
 void CAnimation::Change_Animation(AnimTask& animTask)

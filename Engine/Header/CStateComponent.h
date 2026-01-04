@@ -48,6 +48,7 @@ public:
 		m_pCurState->Begin(m_pOwner);
 	}
 
+	void Reset() override;
 private:
 	virtual void Free();
 

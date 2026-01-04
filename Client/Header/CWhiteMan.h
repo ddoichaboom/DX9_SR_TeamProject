@@ -52,6 +52,7 @@ namespace Engine
 	class CCollider;
 }
 
+class CBullet;
 class CWhiteMan :
 	public CMonster
 {
@@ -116,5 +117,8 @@ protected:
 	
 	CCollider*		m_pBodyCollider;
 	const _tchar*	m_szBodyColliderName = L"ColBody";
+//TEST
+protected:
+	vector<CBullet*> m_vBullets;
 };
 

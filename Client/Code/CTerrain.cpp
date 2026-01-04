@@ -49,7 +49,9 @@ void CTerrain::Render_GameObject()
 
 	m_pGraphicDev->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);
 	m_pGraphicDev->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);
-
+	_matrix mat;
+	D3DXMatrixIdentity(&mat);
+	m_pGraphicDev->SetTransform(D3DTS_TEXTURE0, &mat);
 	//m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 
 	if (FAILED(Ready_Material()))

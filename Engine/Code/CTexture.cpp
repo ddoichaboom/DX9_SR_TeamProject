@@ -62,27 +62,52 @@ HRESULT CTexture::Ready_Texture(vector<TextureSource>& _vData)
 			);
 			if (FAILED(hr)) return E_FAIL;
 
+			//아틀라스면 uvOffset 설정 
+			if (data.IsAtlas)
+			{
+				_float cutWidth = txDesc.vOriginSize.x / (data.fMaxCol + 1);
+				_float cutHeight = txDesc.vOriginSize.y / (data.fMaxRow+ 1);
+
+				//COM 객체 형변환 하는 방법
+				IDirect3DTexture9* texture;
+				if (FAILED(txDesc.pTexture->QueryInterface(IID_IDirect3DTexture9, (void**)&texture)))
+				{
+					txDesc.pTexture->Release();
+					return E_FAIL;
+				}
+				D3DSURFACE_DESC desc;
+				texture->GetLevelDesc(0, &desc); 
+
+				txDesc.vUVoffset.x = cutWidth / desc.Width;
+				txDesc.vUVoffset.y = cutHeight / desc.Height;
+
+				txDesc.vMaxIdx = { data.fMaxCol, data.fMaxRow };
+				txDesc.fEndFrameCol = data.fEndFrameCol;
+			}
+
 			m_mapAllTexture.insert({ data.path, txDesc });
 		}
 		//상태 값에 대응하여 삽입 
 		m_mapTextures.insert({ data.state, &m_mapAllTexture[data.path] });
 
 	}
+	//초기화 
+	m_pCurTextDesc = m_mapTextures[_vData[0].state];
 	return S_OK;
 }
 
-HRESULT CTexture::Ready_Texture(TextureSource& _vData)
+HRESULT CTexture::Ready_Texture(TextureSource& _data)
 {
-	if (m_mapAllTexture.find(_vData.path) == m_mapAllTexture.end())
+	if (m_mapAllTexture.find(_data.path) == m_mapAllTexture.end())
 	{
 		TextureDesc txDesc;
 
 		D3DXIMAGE_INFO info;
-		_tstring pngFilePath = ConvertToPNGpath(_vData.path);
+		_tstring pngFilePath = ConvertToPNGpath(_data.path);
 
 		if (FAILED(D3DXGetImageInfoFromFile(pngFilePath.c_str(), &info)))
 		{
-			if (FAILED(D3DXGetImageInfoFromFile(_vData.path, &info)))
+			if (FAILED(D3DXGetImageInfoFromFile(_data.path, &info)))
 				return E_FAIL;
 		}
 
@@ -91,7 +116,7 @@ HRESULT CTexture::Ready_Texture(TextureSource& _vData)
 		HRESULT hr;
 		hr = D3DXCreateTextureFromFileEx
 		(
-			m_pGraphicDev, _vData.path,
+			m_pGraphicDev, _data.path,
 			D3DX_DEFAULT,
 			D3DX_DEFAULT,
 			5, // 밉 맵 레벨 
@@ -103,10 +128,34 @@ HRESULT CTexture::Ready_Texture(TextureSource& _vData)
 		);
 		if (FAILED(hr)) return E_FAIL;
 
-		m_mapAllTexture.insert({ _vData.path, txDesc });
+		//아틀라스면 uvOffset 설정 
+		if (_data.IsAtlas)
+		{
+			_float cutWidth = txDesc.vOriginSize.x / (_data.fMaxCol + 1);
+			_float cutHeight = txDesc.vOriginSize.y / (_data.fMaxRow + 1);
+
+			//COM 객체 형변환 하는 방법
+			IDirect3DTexture9* texture;
+			if (FAILED(txDesc.pTexture->QueryInterface(IID_IDirect3DTexture9, (void**)&texture)))
+			{
+				txDesc.pTexture->Release();
+				return E_FAIL;
+			}
+			D3DSURFACE_DESC desc;
+			texture->GetLevelDesc(0, &desc);
+
+			txDesc.vUVoffset.x = cutWidth / desc.Width;
+			txDesc.vUVoffset.y = cutHeight / desc.Height;
+
+			txDesc.vMaxIdx = { _data.fMaxCol, _data.fMaxRow };
+			txDesc.fEndFrameCol = _data.fEndFrameCol;
+		}
+		m_mapAllTexture.insert({ _data.path, txDesc });
 	}
 
-	m_mapTextures.insert({ _vData.state, &m_mapAllTexture[_vData.path] });
+	m_mapTextures.insert({ _data.state, &m_mapAllTexture[_data.path] });
+	//초기화 
+	m_pCurTextDesc = m_mapTextures[_data.state];
 	return S_OK;
 }
 
@@ -141,6 +190,25 @@ CTexture* CTexture::Create(LPDIRECT3DDEVICE9 pGraphicDev, TextureSource _vData)
 CComponent* CTexture::Clone()
 {
 	return new CTexture(*this);
+}
+
+void CTexture::Set_Frame(_vec2 _idx)
+{
+	if (!CheckValidIndex(_idx)) return;
+	D3DXMatrixIdentity(&m_UVMatrix);
+
+	const _vec2& uvOffset = m_pCurTextDesc->vUVoffset;
+	m_UVMatrix._11 = uvOffset.x;
+	m_UVMatrix._22 = uvOffset.y;
+	m_UVMatrix._31 = _idx.x * uvOffset.x;
+	m_UVMatrix._32 = _idx.y * uvOffset.y;
+}
+
+bool CTexture::CheckValidIndex(const _vec2& _idx)
+{
+	if (_idx.x > m_pCurTextDesc->vMaxIdx.x || _idx.y > m_pCurTextDesc->vMaxIdx.y) return false;
+	if (_idx.y == m_pCurTextDesc->vMaxIdx.y && _idx.x > m_pCurTextDesc->fEndFrameCol) return false;
+	return true; 
 }
 
 //앨리어싱을 방지하기 위해 밉맵을 켜야히는데 이미지 크기가 2의 거듭제곱이 아님 

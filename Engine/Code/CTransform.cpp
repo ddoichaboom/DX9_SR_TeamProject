@@ -137,6 +137,14 @@ _matrix* CTransform::Compute_LookAtTarget(const _vec3* pTargetPos)
                           D3DXVec3Normalize(&vDir, &vDir))));
 }
 
+void CTransform::Reset()
+{
+    D3DXMatrixIdentity(&m_matWorld);
+    ZeroMemory(m_vInfo, sizeof(_vec3) * INFO_END);
+    m_vAngle = { 0.f, 0.f, 0.f };
+    //ScaleÀº À¯Áö 
+}
+
 CTransform* CTransform::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
     CTransform* pTransform = new CTransform(pGraphicDev);

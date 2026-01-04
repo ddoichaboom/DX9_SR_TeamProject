@@ -72,6 +72,7 @@ public:
 		m_vScale = { fX, fY, fZ };
 	}
 
+	void		Reset() override; 
 public:
 	_vec3		m_vInfo[INFO_END];
 	_vec3		m_vScale;

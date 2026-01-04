@@ -1,13 +1,13 @@
 #include "CGameObject.h"
 
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev)
-    : m_pGraphicDev(pGraphicDev), m_fViewZ(0.f)
+    : m_pGraphicDev(pGraphicDev), m_fViewZ(0.f), m_bDead(false), m_bActivate(false)
 {
     m_pGraphicDev->AddRef();
 }
 
 CGameObject::CGameObject(const CGameObject& rhs)
-    : m_pGraphicDev(rhs.m_pGraphicDev), m_fViewZ(rhs.m_fViewZ)
+    : m_pGraphicDev(rhs.m_pGraphicDev), m_fViewZ(rhs.m_fViewZ), m_bDead(false), m_bActivate(false)
 {
     m_pGraphicDev->AddRef();
 }
@@ -36,7 +36,7 @@ _int CGameObject::Update_GameObject(const _float& fTimeDelta)
     for (auto& pComponent : m_mapComponent[ID_DYNAMIC])
         pComponent.second->Update_Component(fTimeDelta);
 
-    return 0;
+    return OBJ_NONE;
 }
 
 void CGameObject::LateUpdate_GameObject(const _float& fTimeDelta)
@@ -57,6 +57,23 @@ void CGameObject::Compute_ViewZ(const _vec3* pPos)
     _vec3      vDir = vCamPos - *pPos;
 
     m_fViewZ = D3DXVec3Length(&vDir);
+}
+
+void CGameObject::Activate()
+{
+    m_bActivate = true;
+    m_bDead = false;
+}
+
+void CGameObject::Deactivate()
+{
+    m_bActivate = false;
+
+    for (auto& pComponent : m_mapComponent[ID_DYNAMIC])
+        pComponent.second->Reset();
+
+    for (auto& pComponent : m_mapComponent[ID_STATIC])
+        pComponent.second->Reset();
 }
 
 CComponent* CGameObject::Find_Component(COMPONENTID eID, const _tchar* pComponentTag)

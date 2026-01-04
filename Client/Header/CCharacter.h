@@ -24,12 +24,10 @@ public:
 	void				LateUpdate_GameObject(const _float& fTimeDelta) override;
 	void				Render_GameObject() PURE;
 
-public:
-	bool				IsDead() { return m_bDead; }
-	void				SetDead() { m_bDead = true; }
+
 
 protected:
-	virtual HRESULT		Add_Component();
+	HRESULT				Add_Component() override;
 	//void				Set_OnTerrain();
 
 protected:
@@ -45,6 +43,6 @@ protected:
 
 protected:
 	float m_fTime;
-	bool  m_bDead;
+
 };
 

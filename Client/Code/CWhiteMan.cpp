@@ -4,6 +4,8 @@
 #include "CRenderer.h"
 #include "CDInputMgr.h"
 #include "CManagement.h"
+#include "CBullet.h"
+
 
 //-------------------------------------------------------------------------
 // Texture , Animation Data
@@ -167,7 +169,23 @@ _int CWhiteMan::Update_GameObject(const _float& fTimeDelta)
 	{
 		SetLaunched();
 	}
+
+	for (auto& bullet : m_vBullets)
+	{
+		bullet->Update_GameObject(fTimeDelta);
+	}
+	for (auto iter = m_vBullets.begin(); iter != m_vBullets.end(); )
+	{
+		_int ret = (*iter)->Update_GameObject(fTimeDelta);
+		if (ret == OBJ_DEAD)
+		{
+			iter = m_vBullets.erase(iter);
+		}
+		else iter++;
+	}
+
 	//TEST END
+
 	return iExit;
 }
 
@@ -176,6 +194,10 @@ void CWhiteMan::LateUpdate_GameObject(const _float& fTimeDelta)
 	CMonster::LateUpdate_GameObject(fTimeDelta);
 	//현재 상태에 맞는 애니메이션으로 자동 전환
 	m_pAnimationCom->Update_State(m_pStateCom->GetCurrentStateID());
+	for (auto& bullet : m_vBullets)
+	{
+		bullet->LateUpdate_GameObject(fTimeDelta);
+	}
 }
 
 void CWhiteMan::Render_GameObject()
@@ -188,6 +210,14 @@ HRESULT CWhiteMan::Add_Component()
 	if (FAILED(CMonster::Add_Component())) return E_FAIL;
 	Engine::CComponent* pComponent = nullptr;
 
+	// Animation
+	pComponent = m_pAnimationCom = dynamic_cast<Engine::CAnimation*>
+		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_WhiteManAnimation"));
+
+	if (nullptr == pComponent)
+		return E_FAIL;
+
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Animation", pComponent });
 	return S_OK;
 }
 
@@ -199,10 +229,6 @@ void CWhiteMan::ChangeState(_uint nextStateID)
 	m_pStateCom->ChangeState<CWhiteMan>(nextStateID);
 }
 
-void CWhiteMan::Free()
-{
-	CMonster::Free();
-}
 
 //TODO : 헤드샷 죽음 상태 추가해서 변경하기 
 void CWhiteMan::OnHeadCollision(CollisionInfo info)
@@ -265,6 +291,22 @@ void CWhiteMan::End_Attack()
 void CWhiteMan::Shoot()
 {
 	m_pAnimationCom->PlayOnce(MS_ATTACK);
+
+	CBullet* Bullet = CBullet::Create(m_pGraphicDev);
+
+	_vec3 myPos = *m_pTransformCom->Get_Info(INFO_POS);
+	//TODO : 수치 테스트 후 상수 + 함수로 수정하기 
+	myPos.y += 6.f;
+	_vec3 otherPos = { 0.f,0.f,0.f };
+	if (GetPlayerTransformCom()) otherPos = *GetPlayerTransformCom()->Get_Info(INFO_POS);
+	otherPos.y -= 1.0f;
+	Bullet->SetPos(myPos);
+
+	_vec3 dir = otherPos - myPos;
+	D3DXVec3Normalize(&dir, &dir);
+	Bullet->SetDirection(dir);
+
+	m_vBullets.push_back(Bullet);
 }
 
 void CWhiteMan::Hit()
@@ -281,8 +323,8 @@ void CWhiteMan::Hit()
 
 void CWhiteMan::Launch()
 {
-	static CTransform* playerTransform = dynamic_cast<CTransform*>(CManagement::GetInstance()->Get_Component
-		(ID_DYNAMIC, L"GameLogic_Layer", L"Player", L"Com_Transform"));
+	CTransform* playerTransform = GetPlayerTransformCom();
+	if (!playerTransform) return;
 
 	if (m_fTime >= m_fLaunchTime)
 	{
@@ -293,6 +335,7 @@ void CWhiteMan::Launch()
 	}
 	// 플레이어가 몬스터를 바라보는 방향으로 밀기 
 	_vec3 dir = *m_pTransformCom->Get_Info(INFO_POS) - *playerTransform->Get_Info(INFO_POS);
+	dir.y = 0.f;
 	D3DXVec3Normalize(&dir, &dir);
 
 	float totalSpeed = easeOutQuint(m_fTime/m_fLaunchTime) * m_fLaunchSpeed;
@@ -308,4 +351,12 @@ void CWhiteMan::Dead()
 		if(m_pHeadCollider) m_pHeadCollider->OffCollision();
 		if(m_pHeadCollider) m_pBodyCollider->OffCollision();
 	}
+}
+
+
+void CWhiteMan::Free()
+{
+	for_each(m_vBullets.begin(), m_vBullets.end(), CDeleteObj());
+	m_vBullets.clear();
+	CMonster::Free();
 }

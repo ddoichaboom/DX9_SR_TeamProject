@@ -98,7 +98,6 @@ void CLeftPart::Render_GameObject()
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 	m_pAnimationCom->Render_Animation();
 	m_pBufferCom->Render_Buffer();
-	m_pAnimationCom->LateRender_Animation();
 }
 
 HRESULT CLeftPart::Add_Component()

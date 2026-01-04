@@ -25,9 +25,9 @@ HRESULT CTestCharacter::Ready_GameObject()
 
 	//m_pAnimationCom->Change_Animation(0);
 	//m_pAnimationCom->PlayFromStart();
-	
 	m_pTransformCom->Set_Pos(0, -5.f, -5.f);
 	m_pTransformCom->m_vScale = { 3,3,1 };
+	m_pTextureCom->Change_Texture(0);
 	return S_OK;
 }
 
@@ -51,7 +51,7 @@ void CTestCharacter::Render_GameObject()
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 	//m_pAnimationCom->Render_Animation();
-	m_pTextureCom->Set_Texture(0);
+	m_pTextureCom->Render_Texture();
 	m_pBufferCom->Render_Buffer();
 
 	//m_pAnimationCom->LateRender_Animation();

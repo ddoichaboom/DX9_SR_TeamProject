@@ -248,6 +248,14 @@ CComponent* CCollision::Clone()
 	return new CCollision(*this);
 }
 
+void CCollision::Reset()
+{
+    for (auto& mp : m_mapCollider)
+    {
+        mp.second->OnCollision();
+    }
+}
+
 void CCollision::Free()
 {
     for (auto& mp : m_mapCollider)

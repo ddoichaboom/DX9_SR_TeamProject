@@ -29,7 +29,6 @@ void CRenderer::Render_GameObject(LPDIRECT3DDEVICE9& pGraphicDev)
 	Render_Alpha(pGraphicDev);
 	Render_Alpha_UI(pGraphicDev);
 	Render_UI(pGraphicDev);
-	//F1 누르면 디버그 상태 
 	if(CDInputMgr::GetInstance()->GetDebugState()) Render_DEBUG(pGraphicDev);
 
 	Clear_RenderGroup();
@@ -142,19 +141,6 @@ void CRenderer::Render_DEBUG(LPDIRECT3DDEVICE9& pGraphicDev)
 
 }
 
-void CRenderer::Render_Alpha_UV(LPDIRECT3DDEVICE9& pGraphicDev)
-{
-	CRenderStateGuard cGuard(pGraphicDev);
-	pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
-	pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-
-	pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT2);
-
-	for (auto& pObj : m_RenderGroup[RENDER_ALPHA_UV])
-		pObj->Render_GameObject();
-
-	pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_DISABLE);
-}
 
 void CRenderer::Free()
 {

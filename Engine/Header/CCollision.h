@@ -49,7 +49,7 @@ public:
 public:
 	static CCollision*	Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	virtual CComponent* Clone();
-
+	void				Reset() override; 
 private:
 	virtual void		Free();
 

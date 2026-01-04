@@ -6,6 +6,7 @@
 
 #include "CPlayer.h"
 #include "CFirstCamera.h"
+#include "CBullet.h"
 
 #include "CTerrain.h"
 #include "CTerrainTex.h"
@@ -146,7 +147,6 @@ HRESULT CTestStage::Ready_Prototype()
 	//if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SkyTexture", Engine::CTexture::Create(m_pGraphicDev, TEX_CUBE, L"../Bin/Resource/Texture/SkyBox/burger%d.dds", 4))))
 	//	return E_FAIL;
 #pragma endregion
-	//TODO : WhiteMan Texture,Animation 수정된 부분 ! CWhiteMan으로 벡터 옮겨짐 
 	vector<TextureSource> vTextureSource =
 	{
 		{ 0, L"../Bin/Resource/Texture/Player/pika.dds" }
@@ -157,12 +157,20 @@ HRESULT CTestStage::Ready_Prototype()
 			return E_FAIL;
 
 	//TODO : 아래와 같이 벡터 직접 넣는대신 정적 멤버 함수로 대체하기 
+	//White Man Texture 
 	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CWhiteMan::GetTextureSources());
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WhiteManTexture", pCom_Texture)))
 		return E_FAIL;
 
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WhiteManAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CWhiteMan::GetAnimSources()))))
 		return E_FAIL;
+
+	//Bullet Texture
+	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBullet::GetTextureSource());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BulletTexture", pCom_Texture)))
+		return E_FAIL;
+
+
 
 #pragma region Left
 

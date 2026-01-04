@@ -21,6 +21,8 @@ namespace Engine
 	enum MOUSEMOVESTATE {	DIMS_X, DIMS_Y, DIMS_Z, DIMS_END };
 
 	enum SUBSTATE {SUB_NONE, SUB_BEGIN, SUB_END, SUB_MAX };
+	//Object Update ¸®ÅÏ°ª
+	enum OBJ_RET {OBJ_NONE, OBJ_DEAD, OBJ_END};
 
 }
 #endif // Engine_Enum_h__
