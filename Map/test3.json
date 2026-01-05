@@ -1,0 +1,7510 @@
+{
+  "objectCount": 392,
+  "objects": [
+    {
+      "name": "Floor",
+      "position": [
+        1.0,
+        0.0,
+        3.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        3.0,
+        0.0,
+        3.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        5.0,
+        0.0,
+        3.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        13.0,
+        0.0,
+        3.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        7.0,
+        0.0,
+        3.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        11.0,
+        0.0,
+        3.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        1.0,
+        0.0,
+        5.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        3.0,
+        0.0,
+        5.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        5.0,
+        0.0,
+        5.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        7.0,
+        0.0,
+        5.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        9.0,
+        0.0,
+        5.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        11.0,
+        0.0,
+        5.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        1.0,
+        0.0,
+        7.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        3.0,
+        0.0,
+        7.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        5.0,
+        0.0,
+        7.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        7.0,
+        0.0,
+        7.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        9.0,
+        0.0,
+        7.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        11.0,
+        0.0,
+        7.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        1.0,
+        0.0,
+        9.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        3.0,
+        0.0,
+        9.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        5.0,
+        0.0,
+        9.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        7.0,
+        0.0,
+        9.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        9.0,
+        0.0,
+        9.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        11.0,
+        0.0,
+        9.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        1.0,
+        0.0,
+        11.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        3.0,
+        0.0,
+        11.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        5.0,
+        0.0,
+        11.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        7.0,
+        0.0,
+        11.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        9.0,
+        0.0,
+        11.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        11.0,
+        0.0,
+        11.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        13.0,
+        0.0,
+        11.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        13.0,
+        0.0,
+        9.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        13.0,
+        0.0,
+        7.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        9.0,
+        0.0,
+        3.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        13.0,
+        0.0,
+        5.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        15.0,
+        0.0,
+        9.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        15.0,
+        0.0,
+        11.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        15.0,
+        0.0,
+        7.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        15.0,
+        0.0,
+        5.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        15.0,
+        0.0,
+        3.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        1.0,
+        0.0,
+        13.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        3.0,
+        0.0,
+        13.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        5.0,
+        0.0,
+        13.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        7.0,
+        0.0,
+        13.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        9.0,
+        0.0,
+        13.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        11.0,
+        0.0,
+        13.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        13.0,
+        0.0,
+        13.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        15.0,
+        0.0,
+        13.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        1.0,
+        0.0,
+        15.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        3.0,
+        0.0,
+        15.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        5.0,
+        0.0,
+        15.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        7.0,
+        0.0,
+        15.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        9.0,
+        0.0,
+        15.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        11.0,
+        0.0,
+        15.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        13.0,
+        0.0,
+        15.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        15.0,
+        0.0,
+        15.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        1.0,
+        0.0,
+        17.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        1.0,
+        0.0,
+        19.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        1.0,
+        0.0,
+        21.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        3.0,
+        0.0,
+        21.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        3.0,
+        0.0,
+        19.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        3.0,
+        0.0,
+        17.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        5.0,
+        0.0,
+        21.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        5.0,
+        0.0,
+        19.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        5.0,
+        0.0,
+        17.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        7.0,
+        0.0,
+        21.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        7.0,
+        0.0,
+        19.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        7.0,
+        0.0,
+        17.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        9.0,
+        0.0,
+        21.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        9.0,
+        0.0,
+        19.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        9.0,
+        0.0,
+        17.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        11.0,
+        0.0,
+        21.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        11.0,
+        0.0,
+        19.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        11.0,
+        0.0,
+        17.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        13.0,
+        0.0,
+        21.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        13.0,
+        0.0,
+        19.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        13.0,
+        0.0,
+        17.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        15.0,
+        0.0,
+        21.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        15.0,
+        0.0,
+        19.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        15.0,
+        0.0,
+        17.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        1.0,
+        0.0,
+        23.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        1.0,
+        0.0,
+        25.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        1.0,
+        0.0,
+        27.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        1.0,
+        0.0,
+        29.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        3.0,
+        0.0,
+        23.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        3.0,
+        0.0,
+        25.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        3.0,
+        0.0,
+        27.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        3.0,
+        0.0,
+        29.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        5.0,
+        0.0,
+        23.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        5.0,
+        0.0,
+        25.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        5.0,
+        0.0,
+        27.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        5.0,
+        0.0,
+        29.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        7.0,
+        0.0,
+        23.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        7.0,
+        0.0,
+        25.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        7.0,
+        0.0,
+        27.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        7.0,
+        0.0,
+        29.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        9.0,
+        0.0,
+        23.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        9.0,
+        0.0,
+        25.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        9.0,
+        0.0,
+        27.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        9.0,
+        0.0,
+        29.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        11.0,
+        0.0,
+        23.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        11.0,
+        0.0,
+        25.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        11.0,
+        0.0,
+        27.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        11.0,
+        0.0,
+        29.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        13.0,
+        0.0,
+        23.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        13.0,
+        0.0,
+        25.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        13.0,
+        0.0,
+        27.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        13.0,
+        0.0,
+        29.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        15.0,
+        0.0,
+        23.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        15.0,
+        0.0,
+        25.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        15.0,
+        0.0,
+        27.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        15.0,
+        0.0,
+        29.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        17.0,
+        0.0,
+        23.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        17.0,
+        0.0,
+        25.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        17.0,
+        0.0,
+        27.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        17.0,
+        0.0,
+        29.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        17.0,
+        0.0,
+        21.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        17.0,
+        0.0,
+        19.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        17.0,
+        0.0,
+        17.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        17.0,
+        0.0,
+        15.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        17.0,
+        0.0,
+        13.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        17.0,
+        0.0,
+        11.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        17.0,
+        0.0,
+        9.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        17.0,
+        0.0,
+        7.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        17.0,
+        0.0,
+        5.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        17.0,
+        0.0,
+        3.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        19.0,
+        0.0,
+        23.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        19.0,
+        0.0,
+        25.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        19.0,
+        0.0,
+        27.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        19.0,
+        0.0,
+        29.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        19.0,
+        0.0,
+        21.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        19.0,
+        0.0,
+        19.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        19.0,
+        0.0,
+        17.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        19.0,
+        0.0,
+        15.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        19.0,
+        0.0,
+        13.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        19.0,
+        0.0,
+        11.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        19.0,
+        0.0,
+        9.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        19.0,
+        0.0,
+        7.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        19.0,
+        0.0,
+        5.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        19.0,
+        0.0,
+        3.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        21.0,
+        0.0,
+        23.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        21.0,
+        0.0,
+        25.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        21.0,
+        0.0,
+        27.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        21.0,
+        0.0,
+        29.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        21.0,
+        0.0,
+        21.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        21.0,
+        0.0,
+        19.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        21.0,
+        0.0,
+        17.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        21.0,
+        0.0,
+        15.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        21.0,
+        0.0,
+        13.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        21.0,
+        0.0,
+        11.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        21.0,
+        0.0,
+        9.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        21.0,
+        0.0,
+        7.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        21.0,
+        0.0,
+        5.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        21.0,
+        0.0,
+        3.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        23.0,
+        0.0,
+        23.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        23.0,
+        0.0,
+        25.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        23.0,
+        0.0,
+        27.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        23.0,
+        0.0,
+        29.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        23.0,
+        0.0,
+        21.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        23.0,
+        0.0,
+        19.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        23.0,
+        0.0,
+        17.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        23.0,
+        0.0,
+        15.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        23.0,
+        0.0,
+        13.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        23.0,
+        0.0,
+        11.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        23.0,
+        0.0,
+        9.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        23.0,
+        0.0,
+        7.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        23.0,
+        0.0,
+        5.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        23.0,
+        0.0,
+        3.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        1.0,
+        12.0,
+        3.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        1.0,
+        12.0,
+        5.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        1.0,
+        12.0,
+        7.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        1.0,
+        12.0,
+        9.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        1.0,
+        12.0,
+        11.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        1.0,
+        12.0,
+        13.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        1.0,
+        12.0,
+        15.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        1.0,
+        12.0,
+        17.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        1.0,
+        12.0,
+        19.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        1.0,
+        12.0,
+        21.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        1.0,
+        12.0,
+        23.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        1.0,
+        12.0,
+        25.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        1.0,
+        12.0,
+        27.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        1.0,
+        12.0,
+        29.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Wall",
+      "position": [
+        2.0,
+        3.0,
+        2.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        2.0,
+        9.0,
+        2.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        10.0,
+        3.0,
+        2.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        14.0,
+        3.0,
+        2.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        18.0,
+        3.0,
+        2.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        22.0,
+        3.0,
+        2.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        3.0,
+        12.0,
+        27.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        3.0,
+        12.0,
+        29.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        3.0,
+        12.0,
+        25.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        3.0,
+        12.0,
+        23.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        3.0,
+        12.0,
+        21.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        3.0,
+        12.0,
+        19.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        3.0,
+        12.0,
+        17.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        3.0,
+        12.0,
+        15.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        3.0,
+        12.0,
+        13.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        3.0,
+        12.0,
+        11.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        3.0,
+        12.0,
+        9.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        3.0,
+        12.0,
+        7.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        3.0,
+        12.0,
+        5.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        3.0,
+        12.0,
+        3.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        5.0,
+        12.0,
+        27.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        5.0,
+        12.0,
+        29.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        5.0,
+        12.0,
+        25.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        5.0,
+        12.0,
+        23.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        5.0,
+        12.0,
+        21.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        5.0,
+        12.0,
+        19.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        5.0,
+        12.0,
+        17.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        5.0,
+        12.0,
+        15.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        5.0,
+        12.0,
+        13.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        5.0,
+        12.0,
+        11.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        5.0,
+        12.0,
+        9.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        5.0,
+        12.0,
+        7.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        5.0,
+        12.0,
+        5.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        5.0,
+        12.0,
+        3.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        7.0,
+        12.0,
+        27.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        7.0,
+        12.0,
+        29.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        7.0,
+        12.0,
+        25.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        7.0,
+        12.0,
+        23.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        7.0,
+        12.0,
+        21.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        7.0,
+        12.0,
+        19.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        7.0,
+        12.0,
+        17.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        7.0,
+        12.0,
+        15.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        7.0,
+        12.0,
+        13.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        7.0,
+        12.0,
+        11.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        7.0,
+        12.0,
+        9.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        7.0,
+        12.0,
+        7.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        7.0,
+        12.0,
+        5.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        7.0,
+        12.0,
+        3.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        9.0,
+        12.0,
+        27.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        9.0,
+        12.0,
+        29.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        9.0,
+        12.0,
+        25.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        9.0,
+        12.0,
+        23.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        9.0,
+        12.0,
+        21.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        9.0,
+        12.0,
+        19.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        9.0,
+        12.0,
+        17.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        9.0,
+        12.0,
+        15.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        9.0,
+        12.0,
+        13.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        9.0,
+        12.0,
+        11.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        9.0,
+        12.0,
+        9.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        9.0,
+        12.0,
+        7.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        9.0,
+        12.0,
+        5.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        9.0,
+        12.0,
+        3.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        11.0,
+        12.0,
+        27.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        11.0,
+        12.0,
+        29.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        11.0,
+        12.0,
+        25.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        11.0,
+        12.0,
+        23.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        11.0,
+        12.0,
+        21.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        11.0,
+        12.0,
+        19.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        11.0,
+        12.0,
+        17.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        11.0,
+        12.0,
+        15.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        11.0,
+        12.0,
+        13.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        11.0,
+        12.0,
+        11.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        11.0,
+        12.0,
+        9.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        11.0,
+        12.0,
+        7.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        11.0,
+        12.0,
+        5.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        11.0,
+        12.0,
+        3.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        13.0,
+        12.0,
+        27.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        13.0,
+        12.0,
+        29.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        13.0,
+        12.0,
+        25.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        13.0,
+        12.0,
+        23.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        13.0,
+        12.0,
+        21.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        13.0,
+        12.0,
+        19.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        13.0,
+        12.0,
+        17.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        13.0,
+        12.0,
+        15.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        13.0,
+        12.0,
+        13.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        13.0,
+        12.0,
+        11.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        13.0,
+        12.0,
+        9.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        13.0,
+        12.0,
+        7.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        13.0,
+        12.0,
+        5.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        13.0,
+        12.0,
+        3.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        15.0,
+        12.0,
+        27.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        15.0,
+        12.0,
+        29.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        15.0,
+        12.0,
+        25.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        15.0,
+        12.0,
+        23.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        15.0,
+        12.0,
+        21.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        15.0,
+        12.0,
+        19.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        15.0,
+        12.0,
+        17.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        15.0,
+        12.0,
+        15.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        15.0,
+        12.0,
+        13.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        15.0,
+        12.0,
+        11.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        15.0,
+        12.0,
+        9.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        15.0,
+        12.0,
+        7.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        15.0,
+        12.0,
+        5.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        15.0,
+        12.0,
+        3.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        17.0,
+        12.0,
+        27.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        17.0,
+        12.0,
+        29.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        17.0,
+        12.0,
+        25.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        17.0,
+        12.0,
+        23.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        17.0,
+        12.0,
+        21.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        17.0,
+        12.0,
+        19.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        17.0,
+        12.0,
+        17.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        17.0,
+        12.0,
+        15.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        17.0,
+        12.0,
+        13.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        17.0,
+        12.0,
+        11.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        17.0,
+        12.0,
+        9.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        17.0,
+        12.0,
+        7.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        17.0,
+        12.0,
+        5.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        17.0,
+        12.0,
+        3.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        19.0,
+        12.0,
+        27.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        19.0,
+        12.0,
+        29.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        19.0,
+        12.0,
+        25.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        19.0,
+        12.0,
+        23.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        19.0,
+        12.0,
+        21.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        19.0,
+        12.0,
+        19.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        19.0,
+        12.0,
+        17.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        19.0,
+        12.0,
+        15.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        19.0,
+        12.0,
+        13.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        19.0,
+        12.0,
+        11.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        19.0,
+        12.0,
+        9.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        19.0,
+        12.0,
+        7.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        19.0,
+        12.0,
+        5.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        19.0,
+        12.0,
+        3.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        21.0,
+        12.0,
+        27.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        21.0,
+        12.0,
+        29.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        21.0,
+        12.0,
+        25.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        21.0,
+        12.0,
+        23.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        21.0,
+        12.0,
+        21.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        21.0,
+        12.0,
+        19.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        21.0,
+        12.0,
+        17.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        21.0,
+        12.0,
+        15.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        21.0,
+        12.0,
+        13.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        21.0,
+        12.0,
+        11.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        21.0,
+        12.0,
+        9.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        21.0,
+        12.0,
+        7.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        21.0,
+        12.0,
+        5.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        21.0,
+        12.0,
+        3.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        23.0,
+        12.0,
+        27.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        23.0,
+        12.0,
+        29.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        23.0,
+        12.0,
+        25.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        23.0,
+        12.0,
+        23.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        23.0,
+        12.0,
+        21.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        23.0,
+        12.0,
+        19.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        23.0,
+        12.0,
+        17.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        23.0,
+        12.0,
+        15.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        23.0,
+        12.0,
+        13.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        23.0,
+        12.0,
+        11.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        23.0,
+        12.0,
+        9.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        23.0,
+        12.0,
+        7.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        23.0,
+        12.0,
+        5.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        23.0,
+        12.0,
+        3.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Wall",
+      "position": [
+        6.0,
+        3.0,
+        2.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        6.0,
+        9.0,
+        2.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        10.0,
+        9.0,
+        2.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        14.0,
+        9.0,
+        2.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        18.0,
+        9.0,
+        2.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        22.0,
+        9.0,
+        2.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        2.0,
+        3.0,
+        30.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        2.0,
+        9.0,
+        30.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        6.0,
+        3.0,
+        30.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        6.0,
+        9.0,
+        30.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        10.0,
+        3.0,
+        30.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        10.0,
+        9.0,
+        30.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        14.0,
+        9.0,
+        30.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        14.0,
+        3.0,
+        30.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        18.0,
+        9.0,
+        30.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        18.0,
+        3.0,
+        30.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        22.0,
+        3.0,
+        30.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        22.0,
+        9.0,
+        30.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "monsterKey": "",
+      "name": "PlayerSpawn",
+      "position": [
+        12.0,
+        20.0,
+        5.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "spawnType": "Player",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        12.0,
+        13.0,
+        20.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "name": "Wall",
+      "position": [
+        0.0,
+        3.000000476837158,
+        4.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        0.0,
+        9.0,
+        4.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        0.0,
+        9.0,
+        8.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        0.0,
+        3.000000476837158,
+        8.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        0.0,
+        9.0,
+        12.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        0.0,
+        3.000000476837158,
+        12.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        0.0,
+        9.0,
+        16.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        0.0,
+        3.000000476837158,
+        16.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        0.0,
+        9.0,
+        20.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        0.0,
+        3.000000476837158,
+        20.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        0.0,
+        3.000000476837158,
+        24.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        0.0,
+        9.0,
+        24.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        0.0,
+        9.0,
+        28.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        0.0,
+        3.000000476837158,
+        28.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        24.0,
+        9.0,
+        4.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        24.0,
+        3.000000476837158,
+        4.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        24.0,
+        9.0,
+        8.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        24.0,
+        3.000000476837158,
+        8.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        24.0,
+        9.0,
+        12.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        24.0,
+        3.000000476837158,
+        12.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        24.0,
+        9.0,
+        16.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        24.0,
+        3.000000476837158,
+        16.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        24.0,
+        9.0,
+        20.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        24.0,
+        3.000000476837158,
+        20.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        24.0,
+        9.0,
+        24.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        24.0,
+        3.000000476837158,
+        24.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        24.0,
+        9.0,
+        28.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        24.0,
+        3.000000476837158,
+        28.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Cube",
+      "position": [
+        18.524099349975586,
+        0.9999995231628418,
+        23.35863494873047
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Cube"
+    },
+    {
+      "name": "Cube",
+      "position": [
+        5.283949851989746,
+        1.0,
+        24.171287536621094
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Cube"
+    }
+  ],
+  "version": 2
+}

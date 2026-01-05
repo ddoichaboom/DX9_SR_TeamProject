@@ -90,6 +90,25 @@ CWhiteMan* CWhiteMan::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 	return pWhite;
 }
+
+CWhiteMan* CWhiteMan::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
+{
+	CWhiteMan* pWhite = new CWhiteMan(pGraphicDev);
+
+	if (FAILED(pWhite->Ready_GameObject()))
+	{
+		Safe_Release(pWhite);
+		MSG_BOX("White Man Create Failed");
+		return nullptr;
+	}
+
+	CTransform* pTransform = dynamic_cast<Engine::CTransform*>(
+		pWhite->Get_Component(ID_DYNAMIC, L"Com_Transform"));
+	pTransform->Set_Pos(vPos);
+	pTransform->Update_Component(0.f);
+
+	return pWhite;
+}
 //Static End
 
 
@@ -101,8 +120,9 @@ HRESULT CWhiteMan::Ready_GameObject()
 	CreateStateData();
 	ChangeState(MS_IDLE);
 
-	m_pTransformCom->m_vScale = { 5,13,1 };
-	m_pTransformCom->Set_Pos(0, 0, 120.f);
+	m_pTransformCom->m_vScale = { 5.f, 13.f  ,1.f };
+	//m_pTransformCom->Update_Component(0.f);
+	//m_pTransformCom->Set_Pos(0, 0, 120.f);		// 窍靛内爹 秦力
 
 	//Collider 积己 
 	m_pHeadCollider = m_pCollisionCom->CreateCollider(m_pTransformCom, m_szHeadColliderName);

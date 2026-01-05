@@ -114,7 +114,7 @@ HRESULT CPlayer::Ready_GameObject()
 	if (FAILED(Add_PlayerPart()))
 		return E_FAIL;
 	Change_State(PLAYER_IDLE);
-	m_pTransformCom->m_vScale = { 6.f, 6.f, 1.f };
+	//m_pTransformCom->m_vScale = { 6.f, 6.f, 1.f };
 
 	return S_OK;
 }
@@ -270,6 +270,31 @@ CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 		MSG_BOX("pPlayer Create Failed");
 		return nullptr;
 	}
+
+	return pPlayer;
+}
+
+CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev,
+								_vec3 vPos,
+								_vec3 vRot,
+								_vec3 vScale)
+{
+	CPlayer* pPlayer = new CPlayer(pGraphicDev);
+
+	if (FAILED(pPlayer->Ready_GameObject()))
+	{
+		Safe_Release(pPlayer);
+		MSG_BOX("pPlayer Create Failed");
+		return nullptr;
+	}
+
+	CTransform* pTransform = dynamic_cast<Engine::CTransform*>(
+		pPlayer->Get_Component(ID_DYNAMIC, L"Com_Transform"));
+
+	pTransform->Set_Pos(vPos);
+	pTransform->Set_Angle(vRot.x, vRot.y, vRot.z);
+	pTransform->Set_Scale(vScale.x, vScale.y, vScale.z);
+	pTransform->Update_Component(0.f);
 
 	return pPlayer;
 }

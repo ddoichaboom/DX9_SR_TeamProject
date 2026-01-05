@@ -113,7 +113,7 @@ CEditorFloor* CEditorFloor::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
     pInstance->Set_Position(vPos);
 
     // 기본 크기
-    pInstance->Set_Scale(_vec3(1.f, 1.f, 1.f));
+    pInstance->Set_Scale(_vec3(16.f, 16.f, 1.f));
 
     // 기본 회전: XZ 평면 (바닥)
     pInstance->Set_Rotation(_vec3(-90.f, 0.f, 0.f));

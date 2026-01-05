@@ -248,7 +248,7 @@ void CInspector::Render_MonsterSpawnPointProperties(CEditorSpawnPoint* pSpawn)
         }
 
         // 도움말 텍스트
-        ImGui::TextDisabled("Available: WhiteMan, TestCharacter");
+        ImGui::TextDisabled("Available: WhiteMan");
 
         // 프리셋 버튼
         ImGui::Spacing();
@@ -258,12 +258,7 @@ void CInspector::Render_MonsterSpawnPointProperties(CEditorSpawnPoint* pSpawn)
             strcpy_s(szMonsterKey, "WhiteMan");
             pSpawn->Set_MonsterKey("WhiteMan");
         }
-        ImGui::SameLine();
-        if (ImGui::Button("TestCharacter"))
-        {
-            strcpy_s(szMonsterKey, "TestCharacter");
-            pSpawn->Set_MonsterKey("TestCharacter");
-        }
+        // 여기에 구현 몬스터 추가 
     }
 }
 

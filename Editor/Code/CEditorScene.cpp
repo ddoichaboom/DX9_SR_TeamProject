@@ -45,7 +45,7 @@ HRESULT CEditorScene::Ready_Scene()
     m_pCamera->Set_LookAt(_vec3(0.f, 0.f, 0.f));
 
     // 그리드 개수, 그리드 간 간격 지정 
-    m_pGrid = CGrid::Create(m_pGraphicDev, 100, 100, 2.f);
+    m_pGrid = CGrid::Create(m_pGraphicDev, 200, 200, 32.f);
     if (nullptr == m_pGrid)
     {
         MSG_BOX("Grid Create Failed");
@@ -241,7 +241,7 @@ void CEditorScene::Handle_Input()
                 _vec3 vScale = pSelectedObj->Get_Scale();
 
                 // 위치 오프셋 (겹치지 않게)
-                vPos.x += 1.0f;
+                vPos.x += 32.0f;
 
                 CEditorObject* pNewObj = nullptr;
 
@@ -498,7 +498,7 @@ void CEditorScene::Place_Ceiling(const _vec3& vPos)
     {
         // Y 위치 조정 (천장은 바닥보다 위)
         _vec3 vAdjustedPos = vPos;
-        vAdjustedPos.y = vPos.y + 10.f;  
+        vAdjustedPos.y = vPos.y + 64.0f;  
         pCeiling->Set_Position(vAdjustedPos);
 
         Add_Object(pCeiling);
@@ -515,7 +515,7 @@ void CEditorScene::Place_Wall(const _vec3& vPos)
     {
         // Y 위치 조정 (벽 중심이 바닥보다 위)
         _vec3 vAdjustedPos = vPos;
-        vAdjustedPos.y = vPos.y + 3.0f;  
+        vAdjustedPos.y = vPos.y + 16.0f;  
         pWall->Set_Position(vAdjustedPos);
 
         Add_Object(pWall);
@@ -592,7 +592,6 @@ void CEditorScene::Place_Cube(const _vec3& vPos)
 
     if (pCube)
     {
-        // 큐브는 Y 위치를 0.5f로 조정 (바닥에서 절반 높이)
         _vec3 vAdjustedPos = vPos;
         vAdjustedPos.y = vPos.y + 1.0f;
         pCube->Set_Position(vAdjustedPos);

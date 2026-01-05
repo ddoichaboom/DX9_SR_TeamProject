@@ -142,12 +142,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Header\CCeiling.h" />
     <ClInclude Include="..\Header\CCharacter.h" />
     <ClInclude Include="..\Header\CFirstCamera.h" />
+    <ClInclude Include="..\Header\CFloor.h" />
     <ClInclude Include="..\Header\CLeftPart.h" />
     <ClInclude Include="..\Header\CMainApp.h" />
+    <ClInclude Include="..\Header\CMapLoader.h" />
+    <ClInclude Include="..\Header\CMapStage.h" />
     <ClInclude Include="..\Header\CMiddlePart.h" />
     <ClInclude Include="..\Header\CMonster.h" />
+    <ClInclude Include="..\Header\CObstacle.h" />
     <ClInclude Include="..\Header\CPlayer.h" />
     <ClInclude Include="..\Header\CPlayerPart.h" />
     <ClInclude Include="..\Header\CRightPart.h" />
@@ -156,6 +161,7 @@
     <ClInclude Include="..\Header\CTestStage.h" />
     <ClInclude Include="..\Header\CStage.h" />
     <ClInclude Include="..\Header\CTestCharacter.h" />
+    <ClInclude Include="..\Header\CWall.h" />
     <ClInclude Include="..\Header\CWhiteMan.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
@@ -164,11 +170,16 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Code\CCeiling.cpp" />
     <ClCompile Include="..\Code\CCharacter.cpp" />
     <ClCompile Include="..\Code\CFirstCamera.cpp" />
+    <ClCompile Include="..\Code\CFloor.cpp" />
     <ClCompile Include="..\Code\CLeftPart.cpp" />
+    <ClCompile Include="..\Code\CMapLoader.cpp" />
+    <ClCompile Include="..\Code\CMapStage.cpp" />
     <ClCompile Include="..\Code\CMiddlePart.cpp" />
     <ClCompile Include="..\Code\CMonster.cpp" />
+    <ClCompile Include="..\Code\CObstacle.cpp" />
     <ClCompile Include="..\Code\CPlayer.cpp" />
     <ClCompile Include="..\Code\CPlayerPart.cpp" />
     <ClCompile Include="..\Code\CRightPart.cpp" />
@@ -178,6 +189,7 @@
     <ClCompile Include="..\Code\CStage.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
     <ClCompile Include="..\Code\CTestCharacter.cpp" />
+    <ClCompile Include="..\Code\CWall.cpp" />
     <ClCompile Include="..\Code\CWhiteMan.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="pch.cpp">

@@ -29,7 +29,7 @@ ChangeState(상태) 이 함수만 호출해주시면 됩니다.
 예를들어
 CState를 MS_BEGINATTACK / MS_ATTACK / MS_ENDATTACK 상태 별로 State를 만들고 
 BeingAttack용 State의 Update쪽에 바인딩 된 함수에 
-	ChnageState(MS_ATTACK) 
+	ChangeState(MS_ATTACK) 
 	or
 	if(m_pAnimationCom->CanEnd()) ChangeState(MS_ATTACK) 
 	위는(if버전) 선택사항! 이거 없어도 Ratio 설정된 애니메이션이면 끝나야 넘어가요 
@@ -72,6 +72,7 @@ public:
 	}
 
 	static CWhiteMan* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CWhiteMan* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos);
 
 
 protected:

@@ -4,6 +4,8 @@
 #include "CRenderer.h"
 #include "CDInputMgr.h"
 #include "CTestStage.h"
+#include "CMapStage.h"
+#include "CMapLoader.h"
 
 #include <ctime>
 
@@ -83,7 +85,8 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	Engine::CScene* pInitScene = CTestStage::Create(pGraphicDev);
+	//Engine::CScene* pInitScene = CTestStage::Create(pGraphicDev);
+	Engine::CScene* pInitScene = CMapStage::Create(pGraphicDev);
 
 	if (nullptr == pInitScene)
 		return E_FAIL;
@@ -116,6 +119,8 @@ void CMainApp::Free()
 {
 	Safe_Release(m_pGraphicDev);
 	Safe_Release(m_pDeviceClass);
+
+	CMapLoader::DestroyInstance();
 
 	CDInputMgr::DestroyInstance();
 	CRenderer::DestroyInstance();

@@ -1,0 +1,283 @@
+#include "pch.h"
+#include "CMapStage.h"
+#include "CProtoMgr.h"
+#include "CMapLoader.h"
+
+// 환경 오브젝트 (필터링용, 실제 생성은 CMapLoader가 담당)
+#include "CFloor.h"
+#include "CCeiling.h"
+#include "CWall.h"
+#include "CObstacle.h"
+
+// 게임 로직 오브젝트
+#include "CPlayer.h"
+#include "CFirstCamera.h"
+#include "CWhiteMan.h"
+
+CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
+{
+}
+
+CMapStage::~CMapStage()
+{
+}
+
+HRESULT CMapStage::Ready_Scene()
+{
+    if (FAILED(Ready_Prototype()))
+        return E_FAIL;
+
+    if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
+        return E_FAIL;
+
+    if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer")))
+        return E_FAIL;
+
+    return S_OK;
+}
+
+_int CMapStage::Update_Scene(const _float& fTimeDelta)
+{
+    int iExit = CStage::Update_Scene(fTimeDelta);
+    return iExit;
+}
+
+void CMapStage::LateUpdate_Scene(const _float& fTimeDelta)
+{
+    CStage::LateUpdate_Scene(fTimeDelta);
+}
+
+void CMapStage::Render_Scene()
+{
+}
+
+HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
+{
+    CLayer* pLayer = CLayer::Create();
+    if (nullptr == pLayer)
+        return E_FAIL;
+
+    // Map 데이터 로드
+    if (FAILED(CMapLoader::GetInstance()->Load_MapData(
+        L"../../Map/test.json",
+        pLayer,  // Environment_Layer에 추가
+        m_pGraphicDev)))
+    {
+        MessageBox(nullptr, L"Map Load Failed", L"Error", MB_OK);
+        return E_FAIL;
+    }
+        
+
+    // 카메라 생성 (PlayerSpawn 위치 사용)
+    _vec3 vPlayerSpawnPos = CMapLoader::GetInstance()->Get_PlayerSpawnPos();
+
+    _vec3 vEye = vPlayerSpawnPos;
+    _vec3 vAt = { vPlayerSpawnPos.x, vPlayerSpawnPos.y, vPlayerSpawnPos.z};
+    _vec3 vUp = { 0.f, 1.f, 0.f };
+
+    CGameObject* pGameObject = CFirstCamera::Create(m_pGraphicDev, &vEye, &vAt, &vUp);
+
+    if (nullptr == pGameObject)
+        return E_FAIL;
+
+    if (FAILED(pLayer->Add_GameObject(L"Camera", pGameObject)))
+        return E_FAIL;
+
+    m_mapLayer.insert({ pLayerTag, pLayer });
+
+    return S_OK;
+}
+
+HRESULT CMapStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
+{
+    CLayer* pLayer = CLayer::Create();
+    if (nullptr == pLayer)
+        return E_FAIL;
+
+    CGameObject* pGameObject = nullptr;
+
+    _vec3 pPlayerSpawnPos = CMapLoader::GetInstance()->Get_PlayerSpawnPos();
+
+     pGameObject = CPlayer::Create(m_pGraphicDev, pPlayerSpawnPos);
+
+     if (nullptr == pGameObject)
+         return E_FAIL;
+
+     if (FAILED(pLayer->Add_GameObject(L"Player", pGameObject)))
+         return E_FAIL;
+
+     auto& monsterSpawns = CMapLoader::GetInstance()->Get_MonsterSpawns();
+
+     _uint iMonsterIndex = 0;
+     for (auto& pair : monsterSpawns)
+     {
+         string MonsterKey = pair.first;            // "WhiteMan", 추가 몬스터
+         vector<_vec3> Positions = pair.second;
+
+         for (auto& vPos : Positions)
+         {
+             CGameObject* pMonster = nullptr;
+
+             // monsterKey에 따라 Monster 생성
+
+             if (MonsterKey == "WhiteMan")
+             {
+                 pMonster = CWhiteMan::Create(m_pGraphicDev, vPos);
+             }
+             //else if ( MonsterKey == "추가되는 몬스터")
+
+
+             // Layer에 추가 (고유 이름)
+             if (pMonster)
+             {
+                 wchar_t wszName[64];
+                 swprintf_s(wszName, L"%S_%d", MonsterKey.c_str(), iMonsterIndex++);
+                 // 예 : "WhiteMan_0", "WhiteMan_1" 
+
+                 if (FAILED(pLayer->Add_GameObject(wszName, pMonster)))
+                 {
+                     Safe_Release(pMonster);
+                 }
+             }
+             
+         }
+     }
+    m_mapLayer.insert({ pLayerTag, pLayer });
+
+    return S_OK;
+}
+
+HRESULT CMapStage::Ready_Prototype()
+{
+    // RcTex (CFloor, CCeiling, CWall에서 사용)
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcTex", Engine::CRcTex::Create(m_pGraphicDev))))
+        return E_FAIL;
+
+    // CubeTex (CObstacle에서 사용)
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_CubeTex", Engine::CCubeTex::Create(m_pGraphicDev))))
+        return E_FAIL;
+
+    // Transform (모든 오브젝트에서 사용)
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Transform", Engine::CTransform::Create(m_pGraphicDev))))
+        return E_FAIL;
+
+    // Collision 
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Collision", Engine::CCollision::Create(m_pGraphicDev))))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_StateComponent", Engine::CStateComponent::Create(m_pGraphicDev))))
+        return E_FAIL;
+
+    CTexture* pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CWhiteMan::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WhiteManTexture", pCom_Texture)))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WhiteManAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CWhiteMan::GetAnimSources()))))
+        return E_FAIL;
+
+    // Player
+#pragma region Left
+
+    vector<TextureSource> vLeftTextureSource =
+    {
+        { 0, L"../Bin/Resource/Texture/Player/Left_Hand_Idle.png" },
+        { 1, L"../Bin/Resource/Texture/Player/Left_Hand_Reload_P.png" },
+        { 2, L"../Bin/Resource/Texture/Player/Left_Hand_Reload_S.png" }
+
+    };
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, vLeftTextureSource);
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_LeftTexture", pCom_Texture)))
+        return E_FAIL;
+
+    //상태값, 마지막 행 번호,  마지막 열 번호, 프레임이 끝나는 열 번호, 루프 유무, 플레이 속도 = 0.12f	
+    vector<AnimationSource> vLeftAnimSource =
+    {
+        { 0,1,3,3, true, 0.11f},
+        { 1,0,3,3, false, 0.11f},
+        { 2,0,3,3, false, 0.11f},
+    };
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_LeftAnimation",
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, vLeftAnimSource))))
+        return E_FAIL;
+#pragma endregion
+
+#pragma region PLAYER_RIGHT_HAND
+
+    vector<TextureSource> vRightTextureSource =
+    {
+        { 0, L"../Bin/Resource/Texture/Player/Right_Hand_Idle_P.png" },
+        { 1, L"../Bin/Resource/Texture/Player/Right_Hand_Shot_P.png" },
+        { 2, L"../Bin/Resource/Texture/Player/Right_Hand_Reload_P.png" }
+
+    };
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, vRightTextureSource);
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RightTexture", pCom_Texture)))
+        return E_FAIL;
+
+    //상태값, 마지막 행 번호,  마지막 열 번호, 프레임이 끝나는 열 번호, 루프 유무, 플레이 속도 = 0.12f	
+    vector<AnimationSource> vRightAnimSource =
+    {
+        { 0,0,3,3, true, 0.11f},
+        { 1,0,5,5, false, 0.02f},
+        { 2,1,6,6, false, 0.02f},
+    };
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RightAnimation",
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, vRightAnimSource))))
+        return E_FAIL;
+
+#pragma endregion
+
+#pragma region Middle_Part
+
+    vector<TextureSource> vMiddleTextureSource =
+    {
+        { 0, L"../Bin/Resource/Texture/Player/Middle_Kick.png" },
+        { 1, L"../Bin/Resource/Texture/Player/Middle_Soda.png" },
+
+    };
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, vMiddleTextureSource);
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_MiddleTexture", pCom_Texture)))
+        return E_FAIL;
+
+    //상태값, 마지막 행 번호,  마지막 열 번호, 프레임이 끝나는 열 번호, 루프 유무, 플레이 속도 = 0.12f	
+    vector<AnimationSource> vMiddleAnimSource =
+    {
+        { 0,0,3,3, false, 0.08f},
+        { 1,0,6,6, false, 0.05f}
+    };
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_MiddleAnimation",
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, vMiddleAnimSource))))
+        return E_FAIL;
+
+
+#pragma endregion
+
+    return S_OK;
+}
+
+CMapStage* CMapStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+    CMapStage* pMapStage = new CMapStage(pGraphicDev);
+
+    if (FAILED(pMapStage->Ready_Scene()))
+    {
+        Safe_Release(pMapStage);
+        MSG_BOX("Map Stage Create Failed");
+        return nullptr;
+    }
+
+    return pMapStage;
+}
+
+void CMapStage::Free()
+{
+    CDataMgr<CWhiteMan>::GetInstance()->DestroyInstance();
+    CDataMgr<CPlayer>::GetInstance()->DestroyInstance();
+    CScene::Free();
+}
