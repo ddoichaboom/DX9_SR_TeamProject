@@ -4,20 +4,22 @@
 #include "CRenderer.h"
 #include "CDInputMgr.h"
 #include "CManagement.h"
+#include "CBullet.h"
+
 
 //-------------------------------------------------------------------------
 // Texture , Animation Data
 //-------------------------------------------------------------------------
 vector<TextureSource> CWhiteMan::m_vTextureSource =
 {
-	 { MS_IDLE,		L"../Bin/Resource/Texture/Monster/WhiteMan/white_Idle_1024.png" }
+	 { MS_IDLE,		L"../Bin/Resource/Texture/Monster/WhiteMan/white_Idle_1024.dds" }
 	,{ CStateComponent::MakeStateID(MS_ATTACK_IDLE, SUB_BEGIN),
-		L"../Bin/Resource/Texture/Monster/WhiteMan/white_Aiming_1024.png"}
-	,{ MS_ATTACK_IDLE, L"../Bin/Resource/Texture/Monster/WhiteMan/white_AttackIdle_1024.png"}
-	,{ MS_ATTACK,	L"../Bin/Resource/Texture/Monster/WhiteMan/white_Attack2_1024.png" }
-	,{ MS_WALK,		L"../Bin/Resource/Texture/Monster/WhiteMan/white_Walk_1024.png" }
-	,{ MS_HIT,		L"../Bin/Resource/Texture/Monster/WhiteMan/white_Hit_1024.png" }
-	,{ MS_DEAD,		L"../Bin/Resource/Texture/Monster/WhiteMan/white_DeadBack_512.png" }
+		L"../Bin/Resource/Texture/Monster/WhiteMan/white_Aiming_1024.dds"}
+	,{ MS_ATTACK_IDLE, L"../Bin/Resource/Texture/Monster/WhiteMan/white_AttackIdle_1024.dds"}
+	,{ MS_ATTACK,	L"../Bin/Resource/Texture/Monster/WhiteMan/white_Attack2_1024.dds" }
+	,{ MS_WALK,		L"../Bin/Resource/Texture/Monster/WhiteMan/white_Walk_1024.dds" }
+	,{ MS_HIT,		L"../Bin/Resource/Texture/Monster/WhiteMan/white_Hit_1024.dds" }
+	,{ MS_DEAD,		L"../Bin/Resource/Texture/Monster/WhiteMan/white_DeadBack_512.dds" }
 };
 //Loop 인 애니메이션은 Ratio 세팅 금지(디폴트로 두기) . Ratio먹이면 다음 애니메이션이 안나옴 
 vector<AnimationSource> CWhiteMan::m_vAnimSource =
@@ -27,17 +29,17 @@ vector<AnimationSource> CWhiteMan::m_vAnimSource =
 	,{ MS_ATTACK_IDLE,1,3,2, true, 0.11f}			//Attack_Idle
 	,{ MS_ATTACK,1,4,3, false, 0.08f}				//Attack
 	,{ MS_WALK,1,6,5, true, 0.11f}					//Walk
-	,{ MS_HIT,1,3,2, false, 0.11f, 0.9f,true}		//Hit
-	,{ MS_DEAD,6,3,2, false, 0.08f, 1.f}			//DeadBack
+	,{ MS_HIT,1,3,2, false, 0.11f, 1.f, true}		//Hit
+	,{ MS_DEAD,6,3,2, false, 0.08f, 1.f, true}			//DeadBack
 };
 
 CWhiteMan::CWhiteMan(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CMonster(pGraphicDev), m_pHeadCollider(nullptr), m_pBodyCollider(nullptr)
+	:CMonster(pGraphicDev), m_pHeadCollider(nullptr), m_pBodyCollider(nullptr), m_pBulletPool(nullptr)
 {
 }
 
 CWhiteMan::CWhiteMan(const CWhiteMan& rhs)
-	:CMonster(rhs), m_pHeadCollider(nullptr), m_pBodyCollider(nullptr)
+	:CMonster(rhs), m_pHeadCollider(nullptr), m_pBodyCollider(nullptr), m_pBulletPool(nullptr)
 {
 }
 
@@ -120,9 +122,12 @@ HRESULT CWhiteMan::Ready_GameObject()
 	CreateStateData();
 	ChangeState(MS_IDLE);
 
+	//애니메이션 텍스쳐에 맞게 스케일 조정용 
+	//애니메이션에 스케일 다른 텍스쳐가 있을때만 바인딩하기 
+	m_pAnimationCom->Bind_OnChangedFunc([&](_float _aspect) { OnAnimationChange(_aspect); });
+
 	m_pTransformCom->m_vScale = { 5.f, 13.f  ,1.f };
-	//m_pTransformCom->Update_Component(0.f);
-	//m_pTransformCom->Set_Pos(0, 0, 120.f);		// 하드코딩 해제
+	//m_pTransformCom->Set_Pos(0, 1.0, 110.f);
 
 	//Collider 생성 
 	m_pHeadCollider = m_pCollisionCom->CreateCollider(m_pTransformCom, m_szHeadColliderName);
@@ -177,7 +182,7 @@ _int CWhiteMan::Update_GameObject(const _float& fTimeDelta)
 		bPicked = CCollision::Collision_Mouse(g_hWnd, m_pGraphicDev, m_pBodyCollider);
 		if (bPicked)
 		{
-			CollisionInfo info = { NULL, {0,0,0}, 6.f };
+			CollisionInfo info = { NULL, {0,0,0}, 6.f }; // otherObj, dist, Damage
 			m_pBodyCollider->Collision(info);
 		}
 
@@ -188,13 +193,14 @@ _int CWhiteMan::Update_GameObject(const _float& fTimeDelta)
 		SetLaunched();
 	}
 	//TEST END
+
 	return iExit;
 }
 
 void CWhiteMan::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CMonster::LateUpdate_GameObject(fTimeDelta);
-	//현재 상태에 맞는 애니메이션으로 자동 전환
+	////현재 상태에 맞는 애니메이션으로 자동 전환
 	m_pAnimationCom->Update_State(m_pStateCom->GetCurrentStateID());
 }
 
@@ -208,6 +214,14 @@ HRESULT CWhiteMan::Add_Component()
 	if (FAILED(CMonster::Add_Component())) return E_FAIL;
 	Engine::CComponent* pComponent = nullptr;
 
+	// Animation
+	pComponent = m_pAnimationCom = dynamic_cast<Engine::CAnimation*>
+		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_WhiteManAnimation"));
+
+	if (nullptr == pComponent)
+		return E_FAIL;
+
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Animation", pComponent });
 	return S_OK;
 }
 
@@ -215,14 +229,13 @@ void CWhiteMan::ChangeState(_uint nextStateID)
 {
 	//m_fTime은 맨 위로 고정! ChangeState에서 실행되는 함수(Begin,End)에서 fTime을 바꿀수도있음
 	m_fTime = 0.f;
+	//현재 상태에 맞는 애니메이션으로 자동 전환
+	m_pAnimationCom->Update_State(nextStateID);
 	//템플릿 멤버함수! 주의 ! 
 	m_pStateCom->ChangeState<CWhiteMan>(nextStateID);
+
 }
 
-void CWhiteMan::Free()
-{
-	CMonster::Free();
-}
 
 //TODO : 헤드샷 죽음 상태 추가해서 변경하기 
 void CWhiteMan::OnHeadCollision(CollisionInfo info)
@@ -259,7 +272,8 @@ void CWhiteMan::Idle()
 
 void CWhiteMan::Begin_Attack()
 {
-	if (m_pStateCom->GetPrevStateID() == MS_HIT)
+	_uint prevState = m_pStateCom->GetPrevStateID();
+	if (prevState == MS_HIT || prevState == MS_LAUNCH)
 	{
 		m_fTime = m_fAttackDelayTime * 0.7f;
 	}
@@ -269,7 +283,7 @@ void CWhiteMan::Begin_Attack()
 void CWhiteMan::Idle_Attack()
 {
 	//attack begin 애니메이션이 플레이 중이면 대기
-	if (m_pAnimationCom->GetSubState() == SUB_BEGIN) return;
+	if (m_pAnimationCom->Get_State()!= MS_ATTACK_IDLE || m_pAnimationCom->GetSubState() == SUB_BEGIN) return;
 	if (m_fTime >= m_fAttackDelayTime)
 	{
 		Shoot();
@@ -285,6 +299,27 @@ void CWhiteMan::End_Attack()
 void CWhiteMan::Shoot()
 {
 	m_pAnimationCom->PlayOnce(MS_ATTACK);
+
+
+	CBullet* pBullet = m_pBulletPool->Get_FreeObject();
+	if (!pBullet) return;
+
+	_vec3 myPos = *m_pTransformCom->Get_Info(INFO_POS);
+	//TODO : 수치 테스트 후 상수 + 함수로 수정하기 
+	myPos.y += 6.f;
+	_vec3 otherPos = { 0.f,0.f,0.f };
+	if (GetPlayerTransformCom()) otherPos = *GetPlayerTransformCom()->Get_Info(INFO_POS);
+	otherPos.y -= 1.0f;
+	pBullet->SetPos(myPos);
+
+	_vec3 dir = otherPos - myPos;
+	D3DXVec3Normalize(&dir, &dir);
+	pBullet->SetDirection(dir);
+
+	CLayer* layer = CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer");
+	if (!layer) pBullet->ReturnToPool();
+	else layer->Add_GameObject(pBullet);
+
 }
 
 void CWhiteMan::Hit()
@@ -293,26 +328,23 @@ void CWhiteMan::Hit()
 	{
 		ChangeState(MS_ATTACK_IDLE);
 		// MS_ATTACK_IDLE의 BEGIN용 애니메이션을 건너뛰기 
-		// animation이 AttackIdle로 전환되고나서 PlayAnimNext해야 BEGIN용 애니메이션이 스킵됨
-		m_pAnimationCom->Update_State(MS_ATTACK_IDLE);
 		m_pAnimationCom->PlayNextAnim();
 	}
 }
 
 void CWhiteMan::Launch()
 {
-	static CTransform* playerTransform = dynamic_cast<CTransform*>(CManagement::GetInstance()->Get_Component
-		(ID_DYNAMIC, L"GameLogic_Layer", L"Player", L"Com_Transform"));
+	CTransform* playerTransform = GetPlayerTransformCom();
+	if (!playerTransform) return;
 
 	if (m_fTime >= m_fLaunchTime)
 	{
 		ChangeState(MS_ATTACK_IDLE);
-		//m_pAnimationCom->Update_State(MS_ATTACK_IDLE);
-		//m_pAnimationCom->PlayNextAnim();
 		return;
 	}
 	// 플레이어가 몬스터를 바라보는 방향으로 밀기 
 	_vec3 dir = *m_pTransformCom->Get_Info(INFO_POS) - *playerTransform->Get_Info(INFO_POS);
+	dir.y = 0.f;
 	D3DXVec3Normalize(&dir, &dir);
 
 	float totalSpeed = easeOutQuint(m_fTime/m_fLaunchTime) * m_fLaunchSpeed;
@@ -328,4 +360,24 @@ void CWhiteMan::Dead()
 		if(m_pHeadCollider) m_pHeadCollider->OffCollision();
 		if(m_pHeadCollider) m_pBodyCollider->OffCollision();
 	}
+}
+// _animAspect = cutSize.x / cutSize.y 한 종횡비 
+// 애니메이션마다 크기가 다를경우 오브젝트의 scale을 조정하기위함
+void CWhiteMan::OnAnimationChange(_float _animAspect)
+{
+	_vec3 scale = m_pTransformCom->Get_Scale();
+	scale.x = scale.y * _animAspect;
+	m_pTransformCom->Set_Scale(scale.x, scale.y, scale.z);
+}
+
+void CWhiteMan::Activate()
+{
+	CMonster::Activate();
+	ChangeState(MS_IDLE);
+}
+
+
+void CWhiteMan::Free()
+{
+	CMonster::Free();
 }

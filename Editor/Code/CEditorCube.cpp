@@ -20,6 +20,7 @@ HRESULT CEditorCube::Ready_GameObject()
     FAILED_CHECK_RETURN(CEditorObject::Ready_GameObject(), E_FAIL);
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
+    if (m_pTextureCom) m_pTextureCom->Change_Texture(0);
     m_wstrName = L"Cube";
 
     return S_OK;
@@ -49,7 +50,7 @@ void CEditorCube::Render_GameObject()
     }
     else
     {
-        m_pTextureCom->Set_Texture(0);
+        m_pTextureCom->Render_Texture();
     }
 
     // 선택 상태

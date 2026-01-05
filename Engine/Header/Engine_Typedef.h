@@ -28,6 +28,7 @@ namespace Engine
 
 	typedef		D3DXMATRIX					_matrix;
 
+	typedef		std::basic_string<TCHAR>	_tstring;
 	/*typedef	 struct tagMyVec3 : public D3DXVECTOR3
 	{
 		float	Get_Dot(const d3dxvector3& vTemp);

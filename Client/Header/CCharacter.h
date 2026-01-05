@@ -24,17 +24,21 @@ public:
 	void				LateUpdate_GameObject(const _float& fTimeDelta) override;
 	void				Render_GameObject() PURE;
 
-public:
-	bool				IsDead() { return m_bDead; }
-	void				SetDead() { m_bDead = true; }
+
 
 protected:
-	virtual HRESULT		Add_Component();
+	HRESULT				Add_Component() override;
 	//void				Set_OnTerrain();
 
 protected:
 	void				Free() override;
 	virtual void		ChangeState(_uint nextStateID) {};
+
+public:
+	void				Activate() override;
+	void				Deactivate() override;
+	void				SetPos(_vec3 _pos) override;
+	void				Rotate(ROTATION _Axis, _float _degree)  override;
 
 protected:
 	Engine::CRcTex*		m_pBufferCom;
@@ -45,6 +49,6 @@ protected:
 
 protected:
 	float m_fTime;
-	bool  m_bDead;
+
 };
 

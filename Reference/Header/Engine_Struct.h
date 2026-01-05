@@ -54,22 +54,31 @@ namespace Engine
 	{
 		_uint state;
 		const _tchar* path;
+		bool	IsAtlas = false; // 여러 이미지가 합쳐진 이미지인가 
+		_float fMaxRow = 0.f;
+		_float fMaxCol = 0.f;
+		_float fEndFrameCol = 0.f;
 	} TextureSource;
 
 	//텍스쳐의 정보
 	typedef struct tagTextureDesc
 	{
 		IDirect3DBaseTexture9* pTexture;
-		_vec2 vOriginSize;
+		_vec2  vOriginSize;
+		_vec2  vMaxIdx = { 0,0 };
+		_float fEndFrameCol = 0.f;
+		_vec2  vUVoffset = { 1.f, 1.f };
 	} TextureDesc;
 
 
 	typedef struct tagAnimationSource
 	{
 		_uint  uState;
+		//TODO : 제거. 이전 버전 호환용 
 		_float fMaxRow;
 		_float fMaxCol;
 		_float fEndFrameCol; // 마지막 프레임의 열 번호 (이미지 배열이 꽉 차있지않은 경우를 고려함) 
+		//
 		_bool  bLoop;
 		_float fPlayTime = 0.12f;
 		_float fEndRatio = 0.f;
@@ -81,14 +90,16 @@ namespace Engine
 		TextureDesc* pTextureDesc;
 		_float fPlayTime;
 		_bool bLoop;
+		//TODO : 제거. 이전 버전 호환용 
 		_vec2 vMaxIdx;
 		_float fEndFrameCol;
 		_vec2 vUVoffset;
+		//
 		_float fTotalFrame;
 		_float fEndRatio = 0.f;
 		_bool bPriority = false;
 		//애니메이션에서 텍스쳐마다 크기가 다른 경우, 0번 텍스쳐를 기준으로 scale 비율을 조정함 
-		_vec2 vTextureScaleOffset = { 1.f, 1.f };
+		_float fAspect = 1.f;
 	} AnimationDesc;
 
 	//애니메이션 Queue에 삽입될 구조체

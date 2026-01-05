@@ -14,9 +14,10 @@ protected:
 public:
 	CComponent* Get_Component(COMPONENTID eID,
 		const _tchar* pLayerTag,
-		const _tchar* pObjTag,
+		OBJ_ID _objID,
 		const _tchar* pComponentTag);
 
+	CLayer*			Get_Layer(const _tchar* pLayerTag);
 public:
 	virtual			HRESULT		Ready_Scene();
 	virtual			_int		Update_Scene(const _float& fTimeDelta);

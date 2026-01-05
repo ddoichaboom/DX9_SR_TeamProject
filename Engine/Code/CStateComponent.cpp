@@ -42,6 +42,13 @@ CComponent* CStateComponent::Clone()
 	return new CStateComponent(*this);
 }
 
+void CStateComponent::Reset()
+{
+	m_pCurState = nullptr;
+	m_iCurStateID = 0;
+	m_iPrevStateID = 0;
+}
+
 void CStateComponent::Free()
 {
 	CComponent::Free();

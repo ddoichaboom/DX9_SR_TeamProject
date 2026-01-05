@@ -4,6 +4,7 @@
 
 BEGIN(Engine)
 
+
 class ENGINE_DLL CLayer : public CBase
 {
 private:
@@ -11,16 +12,21 @@ private:
 	virtual ~CLayer();
 
 public:
-	CComponent*		Get_Component(COMPONENTID eID, const _tchar* pObjTag, const _tchar* pComponentTag);
-	HRESULT			Add_GameObject(const _tchar* pObjTag, CGameObject* pGameObject);
+	CComponent*		Get_Component(COMPONENTID eID, OBJ_ID _objID, const _tchar* pComponentTag);
+	HRESULT			Add_GameObject(CGameObject* pGameObject);
 
 public:
 	HRESULT			Ready_Layer();
 	_int			Update_Layer(const _float& fTimeDelta);
 	void			LateUpdate_Layer(const _float& fTimeDelta);
 
+	//TEST
+	bool			IsEmptyByOBJID(OBJ_ID _objID)
+	{
+		return m_mapObject.find(_objID) == m_mapObject.end();
+	}
 private:
-	multimap<const _tchar*, CGameObject*>			m_mapObject;
+	multimap<OBJ_ID, CGameObject*>			m_mapObject;
 
 public:
 	static CLayer* Create();

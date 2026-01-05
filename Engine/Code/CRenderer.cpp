@@ -29,7 +29,6 @@ void CRenderer::Render_GameObject(LPDIRECT3DDEVICE9& pGraphicDev)
 	Render_Alpha(pGraphicDev);
 	Render_Alpha_UI(pGraphicDev);
 	Render_UI(pGraphicDev);
-	//F1 누르면 디버그 상태 
 	if(CDInputMgr::GetInstance()->GetDebugState()) Render_DEBUG(pGraphicDev);
 
 	Clear_RenderGroup();
@@ -65,6 +64,10 @@ void CRenderer::Render_Alpha(LPDIRECT3DDEVICE9& pGraphicDev)
 	pGraphicDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	pGraphicDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
+	float bias = -1.f;
+	//좀 멀리 있어도 기본보다 더 높은 해상도의 밉맵을 사용하도록 
+	pGraphicDev->SetSamplerState(0, D3DSAMP_MIPMAPLODBIAS, *((DWORD*)&bias));
+
 	/*
 	//알파테스트 
 	pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
@@ -80,6 +83,8 @@ void CRenderer::Render_Alpha(LPDIRECT3DDEVICE9& pGraphicDev)
 	for (auto& pObj : m_RenderGroup[RENDER_ALPHA])
 		pObj->Render_GameObject();
 
+	float defaultBias = 0.0f;
+	pGraphicDev->SetSamplerState(0, D3DSAMP_MIPMAPLODBIAS, *((DWORD*)&defaultBias));
 }
 
 void CRenderer::Render_Alpha_UI(LPDIRECT3DDEVICE9& pGraphicDev)
@@ -135,6 +140,7 @@ void CRenderer::Render_DEBUG(LPDIRECT3DDEVICE9& pGraphicDev)
 	pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
 
 }
+
 
 void CRenderer::Free()
 {

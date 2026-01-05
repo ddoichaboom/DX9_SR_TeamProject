@@ -19,7 +19,7 @@ HRESULT CEditorTile::Ready_GameObject()
 {
     FAILED_CHECK_RETURN(CEditorObject::Ready_GameObject(), E_FAIL);
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-
+    if (m_pTextureCom) m_pTextureCom->Change_Texture(0);
     // 기본 이름
     m_wstrName = L"Tile";
 
@@ -52,7 +52,7 @@ void CEditorTile::Render_GameObject()
     }
     else
     {
-        m_pTextureCom->Set_Texture(0);
+        m_pTextureCom->Render_Texture();
     }
 
     // 선택 상태 표시 ( 색상 변경 )

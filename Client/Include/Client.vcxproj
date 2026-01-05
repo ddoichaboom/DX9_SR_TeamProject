@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CCeiling.h" />
+    <ClInclude Include="..\Header\CBullet.h" />
     <ClInclude Include="..\Header\CCharacter.h" />
     <ClInclude Include="..\Header\CFirstCamera.h" />
     <ClInclude Include="..\Header\CFloor.h" />
@@ -171,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CCeiling.cpp" />
+    <ClCompile Include="..\Code\CBullet.cpp" />
     <ClCompile Include="..\Code\CCharacter.cpp" />
     <ClCompile Include="..\Code\CFirstCamera.cpp" />
     <ClCompile Include="..\Code\CFloor.cpp" />

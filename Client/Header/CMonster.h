@@ -25,6 +25,7 @@ protected:
 protected:
 	HRESULT			Add_Component() override;
 	void			SetBillboard();
+	Engine::CTransform* GetPlayerTransformCom();
 protected:
 	virtual void	Free();
 
@@ -34,16 +35,23 @@ protected:
 //State
 	virtual	void	Launch(); 
 	void			SetLaunched();
+
+public:
+	void			Activate() override;
+	void			Deactivate() override;
 protected:
 	Engine::CAnimation* m_pAnimationCom;
+	Engine::CTransform* m_pPlayerTransformCom = nullptr;
 
 	_float m_fAttackableDist; 
 	_vec3 m_vDir;
 	_float m_fSpeed;
+	const _float m_fMaxHP;
 	_float m_fHP;
 
 	const _float m_fLaunchTime = 0.2f;
 	_float m_fLaunchSpeed = 2.f;
+
 	
 };
 

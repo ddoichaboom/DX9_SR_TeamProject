@@ -2,6 +2,7 @@
 #include "CTexture.h"
 #include "CStateComponent.h"
 
+
 CAnimation::CAnimation()
 	:m_iCurState(-1), m_vFrameIdx{0,0}, m_bPlaying(false), 
 	m_bEnd(false), m_fTime(0.f), m_bCanEnd(true), m_CurAnimTask({SUB_MAX,NULL})
@@ -77,6 +78,9 @@ AnimationDesc* CAnimation::MakeAnimationDesc(CTexture* _pTextureComp, AnimationS
 	_float cutWitdh = originSize.x / (animDesc->vMaxIdx.x + 1);
 	_float cutHeight = originSize.y / (animDesc->vMaxIdx.y + 1);
 
+	//한 프레임당 종횡비. 애니메이션의 텍스쳐가 크기가 다른 경우 종횡비로 오브젝트의 크기를 Set 
+	animDesc->fAspect = cutWitdh / cutHeight;
+
 	//desc의 width,height 정보는 GPU가 밉맵에 맞게 생성한 텍스쳐의 크기 (원본가 같거나 다를수도 있음)
 	//생성된 텍스쳐에 맞게 한 프레임당 uv 비율 구하기 
 	D3DSURFACE_DESC desc;
@@ -88,6 +92,7 @@ AnimationDesc* CAnimation::MakeAnimationDesc(CTexture* _pTextureComp, AnimationS
 	//애니메이션이 종료 가능한 Ratio 비율 
 	animDesc->fEndRatio = AnimSource.fEndRatio;
 	animDesc->bPriority = AnimSource.bPriority;
+
 	return animDesc;
 }
 
@@ -175,20 +180,11 @@ _int CAnimation::Update_Component(const _float& fTimeDelta)
 void CAnimation::Render_Animation()
 {
 	if (!m_CurAnimTask.animDesc) return;
-	//행렬변환 결과 중 앞에서 두 개의 요소만 적용한다 = 2차원 텍스쳐로 쓰겠다
-	m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT2);
 	//텍스쳐 UV 공간을 행렬 변환한다 
 	m_pGraphicDev->SetTransform(D3DTS_TEXTURE0, &m_UVMatrix);
 	m_pGraphicDev->SetTexture(0, m_CurAnimTask.animDesc->pTextureDesc->pTexture);
 	
 }
-
-void CAnimation::LateRender_Animation()
-{
-	//텍스쳐 공간을 변환하지 않게 함. disable로 돌려줘야함
-	m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_DISABLE);
-}
-
 CAnimation* CAnimation::Create(LPDIRECT3DDEVICE9 pGraphicDev, CTexture* _pTextureComp, vector<AnimationSource>& _vAnimSource)
 {
 	CAnimation* pAnimation = new CAnimation(pGraphicDev);
@@ -284,8 +280,19 @@ void CAnimation::ResetDeque()
 	m_AnimDeq = deque<AnimTask>();
 }
 
+void CAnimation::Reset()
+{
+	Stop();
+	m_fTime = 0.f;
+	m_CurAnimTask = { SUB_MAX,NULL };
+	m_bCanEnd = true;
+	ResetDeque();
+
+}
+
 void CAnimation::Change_Animation(AnimTask& animTask)
 {
+	if (m_ChangedFunc) m_ChangedFunc(animTask.animDesc->fAspect);
 	m_CurAnimTask = animTask;
 	PlayFromStart();
 	D3DXMatrixScaling(&m_UVMatrix, m_CurAnimTask.animDesc->vUVoffset.x, m_CurAnimTask.animDesc->vUVoffset.y, 1.0f);
@@ -297,6 +304,7 @@ void CAnimation::Change_Animation(_uint _state)
 	auto desc = m_mapAnimation[_state];
 	if (desc)
 	{
+		if (m_ChangedFunc) m_ChangedFunc(desc->fAspect);
 		ResetDeque();
 		m_iCurState = _state;
 		m_CurAnimTask = { SUB_NONE, desc };

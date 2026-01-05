@@ -77,9 +77,16 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 	(*ppGraphicDev)->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP);
 
 	(*ppGraphicDev)->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);	
-	(*ppGraphicDev)->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_NONE);
-	(*ppGraphicDev)->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
+	(*ppGraphicDev)->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
+	(*ppGraphicDev)->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR); 
 
+	//비등방성 필터링 - 픽셀이 모든 방향으로 크기가 일정하지않을 때, (카메라의 외곽쪽에 가까워져서 텍스쳐가 늘려 보일경우 등) 
+	//기울어진 정도를 체크하여 샘플링할건지에 대한 설정 (max = 16) 
+	//(*ppGraphicDev)->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_ANISOTROPIC);
+	//(*ppGraphicDev)->SetSamplerState(0, D3DSAMP_MAXANISOTROPY, 16);
+
+	//텍스쳐를 사용하는 모든 오브젝트는 텍스쳐 공간 변환을 U,V 2차원으로만 한다 
+	m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT2);
 	return S_OK;
 }
 

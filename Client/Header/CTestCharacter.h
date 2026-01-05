@@ -29,7 +29,7 @@ public:
 protected:
 	void			Key_Input(const _float& fTimeDelta);
 	virtual void Free();
-
+	virtual _uint	Make_ID() { return 999; }
 protected:
 	Engine::CAnimation* m_pAnimationCom;
 	Engine::CTexture* m_pTextureCom;

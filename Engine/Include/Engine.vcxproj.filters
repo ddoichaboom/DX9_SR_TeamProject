@@ -130,6 +130,9 @@
     <Filter Include="02. ComponentEX\06. Collision\Collider">
       <UniqueIdentifier>{bcfc9548-6574-41ca-a66f-a5c1663f9f5d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. ObjectPool">
+      <UniqueIdentifier>{54280ae9-b567-4a7e-97d4-6c3f6731906a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -263,6 +266,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\CCollision.h">
       <Filter>02. ComponentEX\06. Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CObjectPool.h">
+      <Filter>04. ObjectPool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

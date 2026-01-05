@@ -21,6 +21,14 @@ protected:
     HRESULT     Ready_GameLogic_Layer(const _tchar* pLayerTag) override;
     HRESULT     Ready_Prototype() override;
 
+protected:
+    CLayer* m_pEnvironment_Layer;
+    CLayer* m_pGameLogic_Layer;
+
+    CObjectPool<CWhiteMan>* m_pWhiteManPool;
+    CObjectPool<CTerrain>* m_pTerrainPool;
+    CObjectPool<CBullet>* m_pBulletPool;
+
 private:
     virtual void Free();
 };

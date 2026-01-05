@@ -22,8 +22,8 @@ protected:
 	_bool						m_bClone;
 
 public:
-	virtual CComponent* Clone()	PURE;		// 프로토타입 사용 예
-
+	virtual CComponent*			Clone()	PURE;		// 프로토타입 사용 예
+	virtual void				Reset() {};
 protected:
 	virtual void				Free();
 };

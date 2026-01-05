@@ -18,6 +18,10 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_pLeftPart(nullptr), m_pRightPart(nullptr), m_pMiddlePart(nullptr)
 	, m_bCheck(false), m_eNowState(PLAYER_UNACTIVE), m_eWeaponState(WS_PISTOL)
 {
+	m_eOBJ_ID = OBJ_PLAYER;
+	//OBJ_Player가 0이고 , PlayerPart 는 Player 생성자 이후에 생기므로 iCount > 0이기때문에 
+	//id를 0로 해도 무방
+	m_iID = 0;
 }
 
 CPlayer::CPlayer(const CPlayer& rhs)
@@ -25,6 +29,8 @@ CPlayer::CPlayer(const CPlayer& rhs)
 	, m_pLeftPart(nullptr), m_pRightPart(nullptr), m_pMiddlePart(nullptr)
 	, m_bCheck(false), m_eNowState(PLAYER_UNACTIVE), m_eWeaponState(WS_PISTOL)
 {
+	m_eOBJ_ID = OBJ_PLAYER;
+	m_iID = 0;
 }
 
 CPlayer::~CPlayer()
@@ -114,6 +120,7 @@ HRESULT CPlayer::Ready_GameObject()
 	if (FAILED(Add_PlayerPart()))
 		return E_FAIL;
 	Change_State(PLAYER_IDLE);
+
 	//m_pTransformCom->m_vScale = { 6.f, 6.f, 1.f };
 
 	return S_OK;
@@ -160,7 +167,7 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 {
 
 	Engine::CTransform* pTransform = dynamic_cast<CTransform*>(Engine::CManagement::GetInstance()->
-		Get_Component(ID_DYNAMIC, L"Environment_Layer", L"Camera", L"Com_Transform"));
+		Get_Component(ID_DYNAMIC, L"Environment_Layer", OBJ_CAM, L"Com_Transform"));
 
 	_vec3 vLook, vRight;
 	pTransform->Get_Info(INFO_LOOK, &vLook);

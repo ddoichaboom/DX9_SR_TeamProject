@@ -84,6 +84,9 @@
     </Filter>
     <Filter Include="03. Manager%28Hojun%29\00. MapLoader">
       <UniqueIdentifier>{db64e24e-5e04-40e9-a23f-e9ee296c4615}</UniqueIdentifier>
+	</Filter>
+	<Filter Include="02. GameObject\10. Bullet">
+      <UniqueIdentifier>{b9d3330c-6115-4de4-8e12-82a8203e6bed}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +167,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\CMapLoader.h">
       <Filter>03. Manager%28Hojun%29\00. MapLoader</Filter>
+	</ClInclude>
+    <ClInclude Include="..\Header\CBullet.h">
+      <Filter>02. GameObject\10. Bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +241,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CMapLoader.cpp">
       <Filter>03. Manager%28Hojun%29\00. MapLoader</Filter>
+	</ClCompile>
+    <ClCompile Include="..\Code\CBullet.cpp">
+      <Filter>02. GameObject\10. Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

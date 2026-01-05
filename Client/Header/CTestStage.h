@@ -1,5 +1,10 @@
 #pragma once
 #include "CStage.h"
+#include "CObjectPool.h"
+
+class CWhiteMan;
+class CTerrain;
+class CBullet;
 
 class CTestStage : public CStage
 {
@@ -20,8 +25,15 @@ protected:
 	HRESULT						Ready_Environment_Layer(const _tchar* pLayerTag) override;
 	HRESULT						Ready_GameLogic_Layer(const _tchar* pLayerTag) override;
 	HRESULT						Ready_Prototype() override;
-private:
+protected:
 	virtual void Free();
 
+protected:
+	CLayer* m_pEnvironment_Layer;
+	CLayer* m_pGameLogic_Layer;
+
+	CObjectPool<CWhiteMan>*	m_pWhiteManPool;
+	CObjectPool<CTerrain>*	m_pTerrainPool;
+	CObjectPool<CBullet>*	m_pBulletPool;
 };
 

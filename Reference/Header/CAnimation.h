@@ -66,8 +66,6 @@ public:
 	virtual HRESULT Ready_Animation(CTexture* _pTextureComp, AnimationSource _AnimSource);
 	_int			Update_Component(const _float& fTimeDelta) override;
 	virtual void	Render_Animation();
-	//Texture 관련 설정 해제하기 위함 
-	virtual void	LateRender_Animation(); 
 
 public:
 	static CAnimation* Create(LPDIRECT3DDEVICE9 pGraphicDev, CTexture* _pTextureComp, vector<AnimationSource>& _vAnimSource);
@@ -75,6 +73,7 @@ public:
 	virtual CComponent* Clone();
 
 public:
+	_uint Get_State() { return m_iCurState; }
 	void Update_State(const _uint _state);
 	void PlayOnce(const _uint _state);
 	void PlayNextAnim();
@@ -89,18 +88,25 @@ public:
 	void Stop();
 
 public:
+	void Bind_OnChangedFunc(function<void(_float)> _func)
+	{
+		m_ChangedFunc = _func;
+	}
 	void ResetDeque();
 	SUBSTATE GetSubState()
 	{
 		return m_CurAnimTask.subState;
 	}
-
+//ObjectPool Reset
+	void Reset() override;
 private:
 	void Change_Animation(AnimTask& animTask);
 public:
 	//이전 버전 호환용
 	void Change_Animation(_uint _state);
 private:
+	//애니메이션이 변경될 떄 호출될 함수
+	function<void(_float)> m_ChangedFunc;
 	map<_uint, AnimationDesc*> m_mapAnimation;
 	AnimTask m_CurAnimTask;
 	_matrix m_UVMatrix;

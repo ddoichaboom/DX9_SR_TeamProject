@@ -15,9 +15,9 @@ private:
 	virtual ~CRenderer();
 
 public:
-	void		Add_RenderGroup(RENDERID eType, CGameObject* pGameObject);
-	void		Render_GameObject(LPDIRECT3DDEVICE9& pGraphicDev);
-	void		Clear_RenderGroup();
+	void			Add_RenderGroup(RENDERID eType, CGameObject* pGameObject);
+	void			Render_GameObject(LPDIRECT3DDEVICE9& pGraphicDev);
+	void			Clear_RenderGroup();
 
 private:
 	void			Render_Priority(LPDIRECT3DDEVICE9& pGraphicDev);
@@ -26,7 +26,6 @@ private:
 	void			Render_Alpha_UI(LPDIRECT3DDEVICE9& pGraphicDev);
 	void			Render_UI(LPDIRECT3DDEVICE9& pGraphicDev);
 	void			Render_DEBUG(LPDIRECT3DDEVICE9& pGraphicDev);
-
 private:
 	list<CGameObject*>			m_RenderGroup[RENDER_END];
 
