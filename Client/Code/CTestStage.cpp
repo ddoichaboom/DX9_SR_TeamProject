@@ -10,10 +10,11 @@
 
 #include "CTerrain.h"
 #include "CTerrainTex.h"
+#include "CPoolMgr.h"
+
 
 CTestStage::CTestStage(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CStage(pGraphicDev), m_pEnvironment_Layer(nullptr), m_pGameLogic_Layer(nullptr)
-	,m_pWhiteManPool(nullptr), m_pTerrainPool(nullptr)
 {
 }
 
@@ -41,7 +42,7 @@ _int CTestStage::Update_Scene(const _float& fTimeDelta)
 	bool bEmpty = m_pGameLogic_Layer->IsEmptyByOBJID(OBJ_MONSTER);
 	if (bEmpty)
 	{
-		CWhiteMan* man = m_pWhiteManPool->Get_FreeObject();
+		CWhiteMan* man = CPoolMgr::GetInstance()->Get_Object<CWhiteMan>();
 		if (man)
 		{
 			man->SetPos({ 0, 0, 110.f });
@@ -79,15 +80,16 @@ HRESULT CTestStage::Ready_Environment_Layer(const _tchar* pLayerTag)
 	if (FAILED(m_pEnvironment_Layer->Add_GameObject(pGameObject)))
 		return E_FAIL;
 
-	//Terrain Pool
-	//Pool 생성과 동시에 개수만큼 오브젝트 생성  . 숫자는 임시 
-	m_pTerrainPool = CObjectPool<CTerrain>::Create(m_pGraphicDev, 3);
-	if (!m_pTerrainPool)
+	//Terrain Pool 생성 
+	if (CPoolMgr::GetInstance()->HasPool<CTerrain>() == false)
 	{
-		MSG_BOX("Terrain Pool Create Failed");
-		return E_FAIL;
+		if (FAILED(CPoolMgr::GetInstance()->CreatePool<CTerrain>(m_pGraphicDev)))
+		{
+			MSG_BOX("Terrain Pool Create Failed");
+			return E_FAIL;
+		}
 	}
-	pGameObject = m_pTerrainPool->Get_FreeObject();
+	pGameObject = CPoolMgr::GetInstance()->Get_Object<CTerrain>();
 	
 	if (nullptr == pGameObject) return E_FAIL;
 	if (FAILED(m_pEnvironment_Layer->Add_GameObject(pGameObject))) return E_FAIL;
@@ -112,28 +114,25 @@ HRESULT CTestStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 		return E_FAIL;
 
 	//Bullet Pool 
-	m_pBulletPool = CObjectPool<CBullet>::Create(m_pGraphicDev, 20);
-	if (!m_pBulletPool)
+	if (CPoolMgr::GetInstance()->HasPool<CBullet>() == false)
 	{
-		MSG_BOX("Bullet Pool Create Failed");
-		return E_FAIL;
+		if (FAILED(CPoolMgr::GetInstance()->CreatePool<CBullet>(m_pGraphicDev)))
+		{
+			MSG_BOX("Bullet Pool Create Failed");
+			return E_FAIL;
+		}
 	}
 
-	//WhiteMan Pool
-	m_pWhiteManPool = CObjectPool<CWhiteMan>::Create(m_pGraphicDev, 2);
-	if (!m_pWhiteManPool)
+	//WhiteMan
+	if (CPoolMgr::GetInstance()->HasPool<CWhiteMan>() == false)
 	{
-		MSG_BOX("WhiteMan Pool Create Failed");
-		return E_FAIL;
+		if (FAILED(CPoolMgr::GetInstance()->CreatePool<CWhiteMan>(m_pGraphicDev)))
+		{
+			MSG_BOX("WhiteMan Pool Create Failed");
+			return E_FAIL;
+		}
 	}
-	//WhitMan에 BulletPool 포인터를 Set
-	auto pairIter = m_pWhiteManPool->GetObjectsRange();
-	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
-	{
-		(*iter)->SetBulletPool(m_pBulletPool);
-	}
-	
-	pGameObject = m_pWhiteManPool->Get_FreeObject();
+	pGameObject = CPoolMgr::GetInstance()->Get_Object<CWhiteMan>();
 
 	if (nullptr == pGameObject) return E_FAIL;
 	if (FAILED(m_pGameLogic_Layer->Add_GameObject(pGameObject))) return E_FAIL;
@@ -303,11 +302,5 @@ CTestStage* CTestStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CTestStage::Free()
 {
-	CDataMgr<CWhiteMan>::GetInstance()->DestroyInstance();
-	CDataMgr<CPlayer>::GetInstance()->DestroyInstance();
 	CScene::Free();
-	//순서 주의 Pool은 마지막에 삭제 
-	Safe_Release(m_pWhiteManPool);
-	Safe_Release(m_pTerrainPool);
-	Safe_Release(m_pBulletPool);
 }

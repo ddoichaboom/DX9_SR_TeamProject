@@ -5,6 +5,7 @@
 #include "CDInputMgr.h"
 #include "CManagement.h"
 #include "CBullet.h"
+#include "CPoolMgr.h"
 
 
 //-------------------------------------------------------------------------
@@ -34,12 +35,12 @@ vector<AnimationSource> CWhiteMan::m_vAnimSource =
 };
 
 CWhiteMan::CWhiteMan(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CMonster(pGraphicDev), m_pHeadCollider(nullptr), m_pBodyCollider(nullptr), m_pBulletPool(nullptr)
+	:CMonster(pGraphicDev), m_pHeadCollider(nullptr), m_pBodyCollider(nullptr)
 {
 }
 
 CWhiteMan::CWhiteMan(const CWhiteMan& rhs)
-	:CMonster(rhs), m_pHeadCollider(nullptr), m_pBodyCollider(nullptr), m_pBulletPool(nullptr)
+	:CMonster(rhs), m_pHeadCollider(nullptr), m_pBodyCollider(nullptr)
 {
 }
 
@@ -281,8 +282,7 @@ void CWhiteMan::Shoot()
 {
 	m_pAnimationCom->PlayOnce(MS_ATTACK);
 
-
-	CBullet* pBullet = m_pBulletPool->Get_FreeObject();
+	CBullet* pBullet = CPoolMgr::GetInstance()->Get_Object<CBullet>();
 	if (!pBullet) return;
 
 	_vec3 myPos = *m_pTransformCom->Get_Info(INFO_POS);

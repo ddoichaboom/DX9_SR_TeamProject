@@ -1,7 +1,8 @@
 #pragma once
 #include "CMonster.h"
 #include "CObjectPool.h"
-/* 참고사항 
+#pragma region 참고
+/*  
 1. CreateStateData 
 	- DataMgr에 State 객체 삽입.
 	- 현 클래스의 함수를 State에 바인딩하기 위해 함수 포인터 넣어주기 
@@ -45,7 +46,7 @@ EndAttack용 State에서는
 이렇게 하면됩니다... 자동화 하려면 State세분화밖에 없는듯
 
 */
-
+#pragma endregion
 
 namespace Engine
 {
@@ -109,10 +110,7 @@ protected:
 public:
 	void			Activate() override;
 	//void			Deactivate() override;
-	void			SetBulletPool(CObjectPool<CBullet>* _pool)
-	{
-		m_pBulletPool = _pool;
-	}
+
 protected:
 	static vector<TextureSource> m_vTextureSource;
 	static vector<AnimationSource> m_vAnimSource;
@@ -126,7 +124,5 @@ protected:
 	CCollider*		m_pBodyCollider;
 	const _tchar*	m_szBodyColliderName = L"ColBody";
 
-//protected:
-	CObjectPool<CBullet>* m_pBulletPool;
 };
 
