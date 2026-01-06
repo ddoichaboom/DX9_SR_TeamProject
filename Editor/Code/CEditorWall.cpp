@@ -130,7 +130,7 @@ CEditorWall* CEditorWall::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
     pInstance->Set_Position(vPos);
 
     // 기본 크기 (벽은 세로로 큼)
-    pInstance->Set_Scale(_vec3(4.f, 6.5f, 1.f));
+    pInstance->Set_Scale(_vec3(8.f, 24.f, 1.f));
 
     // 기본 방향: XY 평면
     pInstance->Set_WallDirection(WALL_XY);
@@ -150,7 +150,7 @@ CEditorWall* CEditorWall::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, WALL
     }
 
     pInstance->Set_Position(vPos);
-    pInstance->Set_Scale(_vec3(4.f, 6.5f, 1.f));
+    pInstance->Set_Scale(_vec3(8.f, 24.f, 1.f));
     pInstance->Set_WallDirection(eDir);  // 방향 지정
 
     return pInstance;

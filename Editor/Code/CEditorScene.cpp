@@ -498,7 +498,7 @@ void CEditorScene::Place_Ceiling(const _vec3& vPos)
     {
         // Y 위치 조정 (천장은 바닥보다 위)
         _vec3 vAdjustedPos = vPos;
-        vAdjustedPos.y = vPos.y + 64.0f;  
+        vAdjustedPos.y = vPos.y + 48.0f;  
         pCeiling->Set_Position(vAdjustedPos);
 
         Add_Object(pCeiling);

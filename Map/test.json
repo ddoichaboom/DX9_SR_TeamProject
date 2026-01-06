@@ -1,7 +1,7 @@
 {
-  "ceilingCount": 0,
+  "ceilingCount": 3,
   "floorCount": 27,
-  "objectCount": 29,
+  "objectCount": 33,
   "objects": [
     {
       "name": "Floor",
@@ -541,9 +541,87 @@
       "monsterKey": "WhiteMan",
       "name": "MonsterSpawn",
       "position": [
-        80.0,
+        63.29999923706055,
         13.0,
-        208.0
+        168.5
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        81.41720581054688,
+        32.4000015258789,
+        39.907752990722656
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        84.11699676513672,
+        32.4000015258789,
+        204.4080047607422
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        82.21700286865234,
+        32.4000015258789,
+        72.10800170898438
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "SpawnPoint",
+      "position": [
+        99.9000015258789,
+        13.0,
+        211.39999389648438
       ],
       "rotation": [
         0.0,
