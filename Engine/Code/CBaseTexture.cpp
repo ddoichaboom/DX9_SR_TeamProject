@@ -21,7 +21,7 @@ CBaseTexture::CBaseTexture(const CBaseTexture& rhs)
 	for (auto& mp : rhs.m_mapTextures)
 	{
 		m_mapTextures.insert(mp);
-		mp.second->pTexture->AddRef();
+		//mp.second->pTexture->AddRef();
 	}
 
 }
@@ -64,9 +64,9 @@ void CBaseTexture::Free()
 {
 	CComponent::Free();
 
-	for (auto& mp : m_mapTextures)
-	{
-		Safe_Release(mp.second->pTexture);
-	}
+	//for (auto& mp : m_mapTextures)
+	//{
+	//	Safe_Release(mp.second->pTexture);
+	//}
 	m_mapTextures.clear();
 }
