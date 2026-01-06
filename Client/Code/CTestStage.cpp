@@ -183,7 +183,6 @@ HRESULT CTestStage::Ready_Prototype()
 		if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TestTexture", pCom_Texture)))
 			return E_FAIL;
 
-	//TODO : 아래와 같이 벡터 직접 넣는대신 정적 멤버 함수로 대체하기 
 	//White Man Texture 
 	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CWhiteMan::GetTextureSources());
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WhiteManTexture", pCom_Texture)))

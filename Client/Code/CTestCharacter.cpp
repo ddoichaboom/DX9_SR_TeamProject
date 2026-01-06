@@ -103,27 +103,7 @@ CTestCharacter* CTestCharacter::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CTestCharacter::Key_Input(const _float& fTimeDelta)
 {
-	//if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_RETURN) & 0x80)
-	//{
-	//	if (!m_bEnter)
-	//	{
-	//		if (m_pAnimationCom->currentState == 8)
-	//		{
-	//			m_pTransformCom->m_vScale.x = 2.f;
-	//		}
-	//		m_pAnimationCom->ChangeNextAnimation();
-	//		//TODO : 제거하기 임시용
-	//		if (m_pAnimationCom->currentState == 8)
-	//		{
-	//			m_pTransformCom->m_vScale.x = 5.f;
-	//		}
-	//		m_bEnter = true;
-	//	}
-	//}
-	//else if (m_bEnter)
-	//{
-	//	m_bEnter = false;
-	//}
+
 }
 
 void CTestCharacter::Free()

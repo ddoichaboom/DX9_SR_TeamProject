@@ -175,14 +175,16 @@ void CMainApp::Free()
 
 	CDInputMgr::DestroyInstance();
 	CRenderer::DestroyInstance();
-	CProtoMgr::DestroyInstance();
 	CFrameMgr::DestroyInstance();
 	CTimerMgr::DestroyInstance();
 	CManagement::DestroyInstance();
+	CPoolMgr::DestroyInstance();
+	//순서주의! ProtoMgr가 제일 뒤, BaseTexture는 ProtoMgr바로 앞에 두기 
+	CBaseTexture::ReleaseMap();
+	CProtoMgr::DestroyInstance();
 	//TODO : 한번에 해제하도록 수정하기 
 	CDataMgr<CPlayer>::DestroyInstance();
 	CDataMgr<CWhiteMan>::DestroyInstance();
 
-	CPoolMgr::DestroyInstance();
 	m_pDeviceClass->DestroyInstance();
 }
