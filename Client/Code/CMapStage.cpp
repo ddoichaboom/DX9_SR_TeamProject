@@ -2,6 +2,7 @@
 #include "CMapStage.h"
 #include "CProtoMgr.h"
 #include "CMapLoader.h"
+#include "CPoolMgr.h"
 
 // 환경 오브젝트 (필터링용, 실제 생성은 CMapLoader가 담당)
 #include "CFloor.h"
@@ -13,6 +14,7 @@
 #include "CPlayer.h"
 #include "CFirstCamera.h"
 #include "CWhiteMan.h"
+#include "CBullet.h"
 
 CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
 {
@@ -25,6 +27,9 @@ CMapStage::~CMapStage()
 HRESULT CMapStage::Ready_Scene()
 {
     if (FAILED(Ready_Prototype()))
+        return E_FAIL;
+
+    if (FAILED(Ready_ObjectPool()))
         return E_FAIL;
 
     if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
@@ -49,6 +54,82 @@ void CMapStage::LateUpdate_Scene(const _float& fTimeDelta)
 
 void CMapStage::Render_Scene()
 {
+}
+
+HRESULT CMapStage::Ready_ObjectPool()
+{
+    ///// TODO : 맵 데이터 하드 코딩 -> 스테이지별 데이터 or 청크데이터 파일 이름 형식으로 전환 
+    //if (FAILED(CMapLoader::GetInstance()->Parse_MapData(L"../../Map/test.json")))
+    //{
+    //    MSG_BOX("JSON Parse Failed");
+    //    return E_FAIL;
+    //}
+
+    // ========== Pool 크기 설정 ==========
+    _uint iFloorCount = CMapLoader::GetInstance()->Get_FloorCount();
+    _uint iCeilingCount = CMapLoader::GetInstance()->Get_CeilingCount();
+    _uint iWallCount = CMapLoader::GetInstance()->Get_WallCount();
+    _uint iObstacleCount = CMapLoader::GetInstance()->Get_ObstacleCount();
+    _uint iBulletCount = 30;
+    _uint iWhiteManCount = 5;
+
+    // ========== Pool 생성 ==========
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CFloor>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CFloor>(m_pGraphicDev)))
+        {
+            MSG_BOX("Floor Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CCeiling>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CCeiling>(m_pGraphicDev)))
+        {
+            MSG_BOX("Ceiling Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CWall>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CWall>(m_pGraphicDev)))
+        {
+            MSG_BOX("Wall Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CObstacle>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CObstacle>(m_pGraphicDev)))
+        {
+            MSG_BOX("Obstacle Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CWhiteMan>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CWhiteMan>(m_pGraphicDev)))
+        {
+            MSG_BOX("WhiteMan Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CBullet>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CBullet>(m_pGraphicDev)))
+        {
+            MSG_BOX("Bullet Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    return S_OK;
 }
 
 HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
@@ -80,7 +161,7 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
     if (nullptr == pGameObject)
         return E_FAIL;
 
-    if (FAILED(pLayer->Add_GameObject(L"Camera", pGameObject)))
+    if (FAILED(pLayer->Add_GameObject(pGameObject)))
         return E_FAIL;
 
     m_mapLayer.insert({ pLayerTag, pLayer });
@@ -103,7 +184,7 @@ HRESULT CMapStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
      if (nullptr == pGameObject)
          return E_FAIL;
 
-     if (FAILED(pLayer->Add_GameObject(L"Player", pGameObject)))
+     if (FAILED(pLayer->Add_GameObject(pGameObject)))
          return E_FAIL;
 
      auto& monsterSpawns = CMapLoader::GetInstance()->Get_MonsterSpawns();
@@ -118,27 +199,32 @@ HRESULT CMapStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
          {
              CGameObject* pMonster = nullptr;
 
-             // monsterKey에 따라 Monster 생성
-
              if (MonsterKey == "WhiteMan")
              {
-                 pMonster = CWhiteMan::Create(m_pGraphicDev, vPos);
+                 // Pool에서 가져오기
+                 CWhiteMan* pWhiteMan = CPoolMgr::GetInstance()->Get_Object<CWhiteMan>();
+                 if (pWhiteMan)
+                 {
+                     pWhiteMan->SetPos(vPos);
+
+                     // TODO : BulletPool 전달
+
+                     pMonster = pWhiteMan;
+                 }
              }
              //else if ( MonsterKey == "추가되는 몬스터")
 
-
-             // Layer에 추가 (고유 이름)
              if (pMonster)
              {
-                 wchar_t wszName[64];
-                 swprintf_s(wszName, L"%S_%d", MonsterKey.c_str(), iMonsterIndex++);
-                 // 예 : "WhiteMan_0", "WhiteMan_1" 
-
-                 if (FAILED(pLayer->Add_GameObject(wszName, pMonster)))
+                 if (FAILED(pLayer->Add_GameObject(pMonster)))
                  {
-                     Safe_Release(pMonster);
+                     // Pool 객체는 ReturnToPool 호출 
+                     pMonster->ReturnToPool();
                  }
              }
+
+
+             
              
          }
      }
@@ -173,6 +259,11 @@ HRESULT CMapStage::Ready_Prototype()
         return E_FAIL;
 
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WhiteManAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CWhiteMan::GetAnimSources()))))
+        return E_FAIL;
+
+    //Bullet Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBullet::GetTextureSource());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BulletTexture", pCom_Texture)))
         return E_FAIL;
 
     // Player
@@ -277,7 +368,5 @@ CMapStage* CMapStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CMapStage::Free()
 {
-    CDataMgr<CWhiteMan>::GetInstance()->DestroyInstance();
-    CDataMgr<CPlayer>::GetInstance()->DestroyInstance();
     CScene::Free();
 }

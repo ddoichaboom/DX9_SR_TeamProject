@@ -64,12 +64,20 @@ public:
 	{
 		m_vAngle = { fX, fY, fZ };
 	}
+	void		Set_Angle(_vec3 _angle)
+	{
+		m_vAngle = _angle;
+	}
 
 	// Scale
 	_vec3		Get_Scale() const { return m_vScale; }
 	void		Set_Scale(_float fX, _float fY, _float fZ)
 	{
 		m_vScale = { fX, fY, fZ };
+	}
+	void		Set_Scale(_vec3 _scale)
+	{
+		m_vScale = _scale;
 	}
 
 	void		Reset() override; 

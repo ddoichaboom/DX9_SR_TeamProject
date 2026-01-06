@@ -62,6 +62,18 @@ wstring CFileIO::StringToWString(const string& str)
     return result;
 }
 
+void CFileIO::SaveTransformData(json& jObj, CEditorObject* pObj)
+{
+    _vec3 vPos = pObj->Get_Position();
+    _vec3 vRot = pObj->Get_Rotation();
+    _vec3 vScale = pObj->Get_Scale();
+
+    jObj["position"] = { vPos.x, vPos.y, vPos.z };
+    jObj["rotation"] = { vRot.x, vRot.y, vRot.z };
+    jObj["scale"] = { vScale.x, vScale.y, vScale.z };
+    jObj["name"] = WStringToString(pObj->Get_Name());
+}
+
 HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
 {
     if (!pScene)
@@ -76,12 +88,20 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
         json jMap;
 
         // 2. 버전 정보
-        jMap["version"] = FILE_VERSION;  // v2
+        jMap["version"] = FILE_VERSION;  
 
-        // 3. 오브젝트 배열
+        // 클래스별 카운트 집계
+        _uint iFloorCount = 0;
+        _uint iCeilingCount = 0;
+        _uint iWallCount = 0;
+        _uint iObstacleCount = 0;
+        
+        auto& objectList = pScene->Get_ObjectList();
+
+        // 객체 데이터 저장 
         json jObjects = json::array();
 
-        auto& objectList = pScene->Get_ObjectList();
+        // 객체 데이터 저장 
 
         for (auto& pObj : objectList)
         {
@@ -90,60 +110,70 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
             // 타입 판별 및 저장
             if (dynamic_cast<CEditorFloor*>(pObj))
             {
+                iFloorCount++;  // 카운트 증가
                 jObj["type"] = "Floor";
+
+                // Transform 데이터 저장
+                SaveTransformData(jObj, pObj);
             }
             else if (dynamic_cast<CEditorCeiling*>(pObj))
             {
+                iCeilingCount++;
                 jObj["type"] = "Ceiling";
+
+                // Transform 데이터 저장 (동일)
+                SaveTransformData(jObj, pObj);
             }
             else if (dynamic_cast<CEditorCube*>(pObj))
             {
+                iObstacleCount++;
                 jObj["type"] = "Cube";
+
+                // Transform 데이터 저장 (동일)
+                SaveTransformData(jObj, pObj);
             }
             else if (dynamic_cast<CEditorWall*>(pObj))
             {
+                CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj);
+
+                iWallCount++;
                 jObj["type"] = "Wall";
 
-                // Wall 전용 필드: 방향
-                CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj);
+                // Wall 전용 필드
                 jObj["wallDirection"] = static_cast<_int>(pWall->Get_WallDirection());
+
+                // Transform 데이터 저장 (동일)
+                SaveTransformData(jObj, pObj);
             }
-            else if (dynamic_cast<CEditorSpawnPoint*>(pObj))
+            else if (CEditorSpawnPoint* pSpawn = dynamic_cast<CEditorSpawnPoint*>(pObj))
             {
                 jObj["type"] = "SpawnPoint";
 
                 // SpawnPoint 전용 필드
-                CEditorSpawnPoint* pSpawn = dynamic_cast<CEditorSpawnPoint*>(pObj);
-
-                // 스폰 타입 (문자열로 저장)
                 if (pSpawn->Get_SpawnType() == SPAWN_PLAYER)
                     jObj["spawnType"] = "Player";
                 else if (pSpawn->Get_SpawnType() == SPAWN_MONSTER)
                     jObj["spawnType"] = "Monster";
 
-                // 몬스터 키 (옵션, 빈 문자열 가능)
                 jObj["monsterKey"] = pSpawn->Get_MonsterKey();
+
+                // Transform 데이터 저장 (동일)
+                SaveTransformData(jObj, pObj);
             }
             else
             {
                 continue;  // 알 수 없는 타입 - 건너뜀
             }
 
-            // Transform 데이터
-            _vec3 vPos = pObj->Get_Position();
-            _vec3 vRot = pObj->Get_Rotation();
-            _vec3 vScale = pObj->Get_Scale();
-
-            jObj["position"] = { vPos.x, vPos.y, vPos.z };
-            jObj["rotation"] = { vRot.x, vRot.y, vRot.z };
-            jObj["scale"] = { vScale.x, vScale.y, vScale.z };
-
-            // 이름
-            jObj["name"] = WStringToString(pObj->Get_Name());
-
             // 배열에 추가
             jObjects.push_back(jObj);
         }
+
+        // 클래스별 카운트 저장
+        jMap["floorCount"] = iFloorCount;
+        jMap["ceilingCount"] = iCeilingCount;
+        jMap["wallCount"] = iWallCount;
+        jMap["obstacleCount"] = iObstacleCount;
 
         jMap["objects"] = jObjects;
         jMap["objectCount"] = jObjects.size();

@@ -52,7 +52,7 @@ void CEditorFloor::Render_GameObject()
     }
     else
     {
-        m_pTextureCom->Set_Texture(0);
+        //m_pTextureCom->Set_Texture(0);
     }
 
     // 선택 상태 표시

@@ -54,7 +54,7 @@ void CEditorSpawnPoint::Render_GameObject()
     }
     else
     {
-        m_pTextureCom->Set_Texture(0);
+        //m_pTextureCom->Set_Texture(0);
     }
 
     // 스폰 타입에 따라 색상 구분

@@ -9,6 +9,8 @@ CObstacle::CObstacle(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_pTransformCom(nullptr)
     , m_pTextureCom(nullptr)
 {
+    m_eOBJ_ID = OBJ_OBSTACLE;
+    m_iID = Make_ID();
 }
 
 CObstacle::CObstacle(const CObstacle& rhs)
@@ -17,10 +19,13 @@ CObstacle::CObstacle(const CObstacle& rhs)
     , m_pTransformCom(nullptr)
     , m_pTextureCom(nullptr)
 {
+    m_eOBJ_ID = rhs.m_eOBJ_ID;
+    m_iID = Make_ID();          // 복사생성자는 어떻게?
 }
 
 CObstacle::~CObstacle()
 {
+    Free();
 }
 
 HRESULT CObstacle::Ready_GameObject()
@@ -56,12 +61,39 @@ void CObstacle::Render_GameObject()
         return;
 
     // 텍스처가 있으면 렌더링 
-    if (m_pTextureCom)
-        m_pTextureCom->Set_Texture(0);
+    //if (m_pTextureCom)
+    //    m_pTextureCom->Set_Texture(0);
 
     m_pBufferCom->Render_Buffer();
 
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
+}
+
+void CObstacle::SetPos(_vec3 _pos)
+{
+    if (m_pTransformCom)
+    {
+        m_pTransformCom->Set_Pos(_pos);
+        //m_pTransformCom->Update_Component(0.f);
+    }
+}
+
+void CObstacle::SetAngle(_vec3 _rot)
+{
+    if (m_pTransformCom)
+    {
+        m_pTransformCom->Set_Angle(_rot);
+        //m_pTransformCom->Update_Component(0.f);
+    }
+}
+
+void CObstacle::SetScale(_vec3 _scale)
+{
+    if (m_pTransformCom)
+    {
+        m_pTransformCom->Set_Scale(_scale);
+        //m_pTransformCom->Update_Component(0.f);
+    }
 }
 
 HRESULT CObstacle::Add_Component()
@@ -121,7 +153,7 @@ HRESULT CObstacle::Ready_Material()
     tMtrl.Ambient = D3DXCOLOR(0.3f, 0.1f, 0.1f, 1.f);
 
     // Emissive: 발광 (자체 발광 없음)
-    tMtrl.Emissive = D3DXCOLOR(0.f, 0.f, 0.f, 0.f);
+    tMtrl.Emissive = D3DXCOLOR(0.8f, 0.3f, 0.3f, 1.f);
 
     // Power: 반사광 강도 (0 = 무광택)
     tMtrl.Power = 0.f;
@@ -130,6 +162,20 @@ HRESULT CObstacle::Ready_Material()
     m_pGraphicDev->SetMaterial(&tMtrl);
 
     return S_OK;
+}
+
+CObstacle* CObstacle::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+    CObstacle* pInstance = new CObstacle(pGraphicDev);
+
+    if (FAILED(pInstance->Ready_GameObject()))
+    {
+        Safe_Release(pInstance);
+        MSG_BOX("CObstacle Create Failed");
+        return nullptr;
+    }
+
+    return pInstance;
 }
 
 CObstacle* CObstacle::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)

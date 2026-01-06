@@ -35,7 +35,7 @@ public:
    
 public:
     void                    SetRotation(ROTATION eType, const _float& fAngle);
-    void                    SetPos(_vec3 _pos);
+    virtual void            SetPos(_vec3 _pos) override;
     void                    SetDirection(_vec3 dir);
     void                    SetSpeed(_float _speed) { m_fSpeed = _speed; }
 

@@ -11,6 +11,7 @@
 
 
 class CEditorScene;
+class CEditorObject;
 
 // JSON 라이브러리 별칭 
 using json = nlohmann::json;
@@ -44,14 +45,16 @@ public:
 						LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
+	void	SaveTransformData(json& jObj, CEditorObject* pObj);
 	// wstring -> string 변환
 	string WStringToString(const wstring& wstr);
 
 	// string -> wstring 변환
 	wstring StringToWString(const string& str);
 
+
 private:
-	static const _uint FILE_VERSION = 2;
+	static const _uint FILE_VERSION = 3;
 
 private:
 	virtual	void	Free() override;

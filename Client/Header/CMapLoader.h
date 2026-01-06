@@ -24,6 +24,15 @@ private:
 	virtual ~CMapLoader();
 
 public:
+	// Getter 추가
+	_uint Get_FloorCount() const { return m_iFloorCount; }
+	_uint Get_CeilingCount() const { return m_iCeilingCount; }
+	_uint Get_WallCount() const { return m_iWallCount; }
+	_uint Get_ObstacleCount() const { return m_iObstacleCount; }
+
+	// JSON 파싱만 수행 (Pool 크기 결정용)
+	HRESULT Parse_MapData(const wstring& wstrPath);
+
 	// 맵 로드 (JSON)
 	HRESULT Load_MapData(const wstring& wstrPath,
 							Engine::CLayer* pLayer,
@@ -55,12 +64,16 @@ private:
 	wstring StringToWString(const string& str);
 
 private:
-	static const _uint FILE_VERSION = 2;  // Editor v2와 호환
+	static const _uint FILE_VERSION = 3;  
+
+	_vec3						m_vPlayerSpawnPos;
+	map<string, vector<_vec3>>	m_mapMonsterSpawnPos;
+	_uint						m_iFloorCount;
+	_uint						m_iCeilingCount;
+	_uint						m_iWallCount;
+	_uint						m_iObstacleCount;
 
 private:
-	_vec3						m_vPlayerSpawnPos;
-	map<string, vector<_vec3>> m_mapMonsterSpawnPos;
-
 	virtual void Free() override;
 };
 

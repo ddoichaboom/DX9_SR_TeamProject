@@ -21,6 +21,11 @@ public:
     virtual void        LateUpdate_GameObject(const _float& fTimeDelta) override;
     virtual void        Render_GameObject() override;
 
+public:
+    virtual void        SetPos(_vec3 _pos) override;
+    void                SetAngle(_vec3 _rot);
+    void                SetScale(_vec3 _scale);
+
 private:
     HRESULT             Add_Component();
     HRESULT             Ready_Material();
@@ -31,7 +36,10 @@ private:
     Engine::CTexture* m_pTextureCom;
 
 public:
-    // 기본 생성 (위치만)
+    // 기본 생성 
+    static CObstacle* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+
+    // 기본 생성 
     static CObstacle* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos);
 
     // 확장 생성 (위치, 회전, 스케일)

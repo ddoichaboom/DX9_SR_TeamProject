@@ -2,13 +2,17 @@
 #include "CFloor.h"
 #include "CProtoMgr.h"
 #include "CRenderer.h"
+#include "Engine_Enum.h"
 
 CFloor::CFloor(LPDIRECT3DDEVICE9 pGraphicDev)
     : CGameObject(pGraphicDev)
     , m_pBufferCom(nullptr)
     , m_pTransformCom(nullptr)
     , m_pTextureCom(nullptr)
+    , m_eTerrainType(TERRAIN_FLOOR)
 {
+    m_eOBJ_ID = OBJ_TERRAIN;
+    m_iID = Make_ID();
 }
 
 CFloor::CFloor(const CFloor& rhs)
@@ -16,11 +20,15 @@ CFloor::CFloor(const CFloor& rhs)
     , m_pBufferCom(nullptr)
     , m_pTransformCom(nullptr)
     , m_pTextureCom(nullptr)
+    , m_eTerrainType(rhs.m_eTerrainType)
 {
+    m_eOBJ_ID = rhs.m_eOBJ_ID;
+    m_iID = Make_ID();              // 복사생성자는 어떻게?
 }
 
 CFloor::~CFloor()
 {
+    Free();
 }
 
 HRESULT CFloor::Ready_GameObject()
@@ -56,12 +64,39 @@ void CFloor::Render_GameObject()
         return;
 
     // 텍스처가 있으면 렌더링 
-    if (m_pTextureCom)
-        m_pTextureCom->Set_Texture(0);
+    //if (m_pTextureCom)
+    //    m_pTextureCom->Set_Texture(0);
 
     m_pBufferCom->Render_Buffer();
 
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
+}
+
+void CFloor::SetPos(_vec3 _pos)
+{
+    if (m_pTransformCom)
+    {
+        m_pTransformCom->Set_Pos(_pos);
+        //m_pTransformCom->Update_Component(0.f);
+    }
+}
+
+void CFloor::SetAngle(_vec3 _rot)
+{
+    if (m_pTransformCom)
+    {
+        m_pTransformCom->Set_Angle(_rot);
+        //m_pTransformCom->Update_Component(0.f);
+    }
+}
+
+void CFloor::SetScale(_vec3 _scale)
+{
+    if (m_pTransformCom)
+    {
+        m_pTransformCom->Set_Scale(_scale);
+        //m_pTransformCom->Update_Component(0.f);
+    }
 }
 
 HRESULT CFloor::Add_Component()
@@ -132,48 +167,62 @@ HRESULT CFloor::Ready_Material()
     return S_OK;
 }
 
+CFloor* CFloor::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+    CFloor* pInstance = new CFloor(pGraphicDev);
+
+    if (FAILED(pInstance->Ready_GameObject()))
+    {
+        Safe_Release(pInstance);
+        MSG_BOX("CFloor Create Failed");
+        return nullptr;
+    }
+
+    return pInstance;
+}
+
 CFloor* CFloor::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
 {
-    CFloor* pFloor = new CFloor(pGraphicDev);
+    CFloor* pInstance = new CFloor(pGraphicDev);
 
-    if (FAILED(pFloor->Ready_GameObject()))
+    if (FAILED(pInstance->Ready_GameObject()))
     {
-        Safe_Release(pFloor);
+        Safe_Release(pInstance);
         MSG_BOX("CFloor Create Failed");
         return nullptr;
     }
 
 
     // Transform 설정 
-    pFloor->m_pTransformCom->Set_Pos(vPos);
-    pFloor->m_pTransformCom->Set_Angle(-90.f, 0.f, 0.f);  
+    pInstance->m_pTransformCom->Set_Pos(vPos);
+    pInstance->m_pTransformCom->Set_Angle(-90.f, 0.f, 0.f);
 
-    pFloor->m_pTransformCom->Update_Component(0.f);
+    //pInstance->m_pTransformCom->Update_Component(0.f);
 
-    return pFloor;
+    return pInstance;
 }
 
 CFloor* CFloor::Create(LPDIRECT3DDEVICE9 pGraphicDev,
                         _vec3 vPos, _vec3 vRot, _vec3 vScale)
 {
-    CFloor* pFloor = new CFloor(pGraphicDev);
+    CFloor* pInstance = new CFloor(pGraphicDev);
 
-    if (FAILED(pFloor->Ready_GameObject()))
+    if (FAILED(pInstance->Ready_GameObject()))
     {
-        Safe_Release(pFloor);
+        Safe_Release(pInstance);
         MSG_BOX("CFloor Create Failed");
         return nullptr;
     }
 
     // Transform 설정 
-    pFloor->m_pTransformCom->Set_Pos(vPos);
-    pFloor->m_pTransformCom->Set_Angle(vRot.x, vRot.y, vRot.z);  
-    pFloor->m_pTransformCom->Set_Scale(vScale.x, vScale.y, vScale.z);  
+    pInstance->m_pTransformCom->Set_Pos(vPos);
+    pInstance->m_pTransformCom->Set_Angle(vRot.x, vRot.y, vRot.z);
+    pInstance->m_pTransformCom->Set_Scale(vScale.x, vScale.y, vScale.z);
 
-    pFloor->m_pTransformCom->Update_Component(0.f);
+    ///pInstance->m_pTransformCom->Update_Component(0.f);
 
 
-    return pFloor;
+    return pInstance;
 }
 
 void CFloor::Free()

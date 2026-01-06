@@ -2,6 +2,7 @@
 #include "CMapLoader.h"
 #include "CLayer.h"
 #include "CTransform.h"
+#include "CPoolMgr.h"
 
 // 환경 오브젝트
 #include "CFloor.h"
@@ -22,9 +23,13 @@ IMPLEMENT_SINGLETON(CMapLoader)
 
 CMapLoader::CMapLoader()
     : m_vPlayerSpawnPos(0, 0, 0)
+    , m_iFloorCount(0)
+    , m_iCeilingCount(0)
+    , m_iWallCount(0)
+    , m_iObstacleCount(0)
 {
     m_mapMonsterSpawnPos.clear();
-}
+}     
 
 CMapLoader::~CMapLoader()
 {
@@ -51,6 +56,64 @@ wstring CMapLoader::StringToWString(const string& str)
     wstring result(size - 1, 0);
     MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, &result[0], size);
     return result;
+}
+
+HRESULT CMapLoader::Parse_MapData(const wstring& wstrPath)
+{
+    try
+    {
+        std::ifstream file(wstrPath);
+        if (!file.is_open())
+        {
+            MSG_BOX("JSON File Open Failed");
+            return E_FAIL;
+        }
+
+        json jMap;
+        file >> jMap;
+        file.close();
+
+        _uint iVersion = jMap["version"];
+
+        // 클래스별 카운트 직접 읽기
+        if (iVersion >= 3 && jMap.contains("floorCount"))
+        {
+            m_iFloorCount = jMap["floorCount"];
+            m_iCeilingCount = jMap["ceilingCount"];
+            m_iWallCount = jMap["wallCount"];
+            m_iObstacleCount = jMap["obstacleCount"];
+        }
+        else  // 배열 순회하여 카운팅
+        {
+            m_iFloorCount = 0;
+            m_iCeilingCount = 0;
+            m_iWallCount = 0;
+            m_iObstacleCount = 0;
+
+            json jObjects = jMap["objects"];
+            for (auto& jObj : jObjects)
+            {
+                string strType = jObj["type"];
+                if (strType == "Floor") 
+                    m_iFloorCount++;
+                else if (strType == "Ceiling") 
+                    m_iCeilingCount++;
+                else if (strType == "Wall") 
+                    m_iWallCount++;
+                else if (strType == "Cube") 
+                    m_iObstacleCount++;
+            }
+        }
+
+        return S_OK;
+    }
+    catch (const json::exception& e)
+    {
+        char szError[512];
+        sprintf_s(szError, "JSON Parse Error: %s", e.what());
+        MessageBoxA(nullptr, szError, "Error", MB_OK);
+        return E_FAIL;
+    }
 }
 
 HRESULT CMapLoader::Load_MapData(const wstring& wstrPath,
@@ -102,15 +165,14 @@ HRESULT CMapLoader::Load_MapData(const wstring& wstrPath,
 
             if (pGameObject)
             {
-                // Layer에 추가
-                wstring wstrName = StringToWString(jObj["name"]);
-                if (SUCCEEDED(pLayer->Add_GameObject(wstrName.c_str(), pGameObject)))
+                if (FAILED(pLayer->Add_GameObject(pGameObject)))
                 {
-                    iLoadedCount++;
+                    // Pool 객체는 Safe_Release 하지 말고 반납
+                    pGameObject->ReturnToPool();
                 }
                 else
                 {
-                    Safe_Release(pGameObject);
+                    iLoadedCount++;
                 }
             }
         }
@@ -166,20 +228,47 @@ CGameObject* CMapLoader::Create_GameObject_FromJSON(const json& jObj,
 
         if (strType == "Floor")
         {
-            //  CFloor::Create에서 Set_Angle, Set_Scale 호출
-            pGameObject = CFloor::Create(pGraphicDev, vPos, vRot, vScale);
+            CFloor* pFloor = Engine::CPoolMgr::GetInstance()->Get_Object<CFloor>();
+            if (pFloor)
+            {
+                pFloor->SetPos(vPos);
+                pFloor->SetAngle(vRot);
+                pFloor->SetScale(vScale);
+                pGameObject = pFloor;
+            }
         }
         else if (strType == "Ceiling")
         {
-            pGameObject = CCeiling::Create(pGraphicDev, vPos, vRot, vScale);
+            CCeiling* pCeiling = Engine::CPoolMgr::GetInstance()->Get_Object<CCeiling>();
+            if (pCeiling)
+            {
+                pCeiling->SetPos(vPos);
+                pCeiling->SetAngle(vRot);
+                pCeiling->SetScale(vScale);
+                pGameObject = pCeiling;
+            }
         }
         else if (strType == "Cube")
         {
-            pGameObject = CObstacle::Create(pGraphicDev, vPos, vRot, vScale);
+            CObstacle* pObstacle = Engine::CPoolMgr::GetInstance()->Get_Object<CObstacle>();
+            if (pObstacle)
+            {
+                pObstacle->SetPos(vPos);
+                pObstacle->SetAngle(vRot);
+                pObstacle->SetScale(vScale);
+                pGameObject = pObstacle;
+            }
         }
         else if (strType == "Wall")
         {
-            pGameObject = CWall::Create(pGraphicDev, vPos, vRot, vScale);
+            CWall* pWall = Engine::CPoolMgr::GetInstance()->Get_Object<CWall>();
+            if (pWall)
+            {
+                pWall->SetPos(vPos);
+                pWall->SetAngle(vRot);
+                pWall->SetScale(vScale);
+                pGameObject = pWall;
+            }
         }
         else if (strType == "SpawnPoint")
         {
@@ -206,14 +295,6 @@ CGameObject* CMapLoader::Create_GameObject_FromJSON(const json& jObj,
             // SpawnPoint는 GameObject를 생성하지 않음
             pGameObject = nullptr;
         }
-
-        // Phase 7 이후: 텍스처 설정
-        // if (jObj.contains("texture"))
-        // {
-        //     string strTexKey = jObj["texture"];
-        //     // CTexture* pTexture = ...;
-        //     // pGameObject->Set_Texture(pTexture);
-        // }
 
         return pGameObject;
     }

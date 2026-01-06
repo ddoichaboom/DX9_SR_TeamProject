@@ -1,4 +1,6 @@
 {
+  "ceilingCount": 0,
+  "floorCount": 27,
   "objectCount": 29,
   "objects": [
     {
@@ -557,5 +559,7 @@
       "type": "SpawnPoint"
     }
   ],
-  "version": 2
+  "obstacleCount": 0,
+  "version": 3,
+  "wallCount": 0
 }

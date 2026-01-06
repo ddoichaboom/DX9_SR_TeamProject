@@ -21,13 +21,12 @@ protected:
     HRESULT     Ready_GameLogic_Layer(const _tchar* pLayerTag) override;
     HRESULT     Ready_Prototype() override;
 
+    // TODO:상위 클래스에 담아서 스테이지마다 다르게 해도 될듯함 - 호준
+    HRESULT     Ready_ObjectPool();
+
 protected:
     CLayer* m_pEnvironment_Layer;
     CLayer* m_pGameLogic_Layer;
-
-    CObjectPool<CWhiteMan>* m_pWhiteManPool;
-    CObjectPool<CTerrain>* m_pTerrainPool;
-    CObjectPool<CBullet>* m_pBulletPool;
 
 private:
     virtual void Free();

@@ -8,7 +8,10 @@ CCeiling::CCeiling(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_pBufferCom(nullptr)
     , m_pTransformCom(nullptr)
     , m_pTextureCom(nullptr)
+    , m_eTerrainType(TERRAIN_CEILING)
 {
+    m_eOBJ_ID = OBJ_TERRAIN;
+    m_iID = Make_ID();
 }
 
 CCeiling::CCeiling(const CCeiling& rhs)
@@ -16,11 +19,15 @@ CCeiling::CCeiling(const CCeiling& rhs)
     , m_pBufferCom(nullptr)
     , m_pTransformCom(nullptr)
     , m_pTextureCom(nullptr)
+    , m_eTerrainType(rhs.m_eTerrainType)
 {
+    m_eOBJ_ID = rhs.m_eOBJ_ID;
+    m_iID = Make_ID();              // 복사생성자는 어떻게?}
 }
 
 CCeiling::~CCeiling()
 {
+    Free();
 }
 
 HRESULT CCeiling::Ready_GameObject()
@@ -56,12 +63,39 @@ void CCeiling::Render_GameObject()
         return;
 
     // 텍스처가 있으면 렌더링 
-    if (m_pTextureCom)
-        m_pTextureCom->Set_Texture(0);
+    //if (m_pTextureCom)
+    //    m_pTextureCom->Set_Texture(0);
 
     m_pBufferCom->Render_Buffer();
 
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
+}
+
+void CCeiling::SetPos(_vec3 _pos)
+{
+    if (m_pTransformCom)
+    {
+        m_pTransformCom->Set_Pos(_pos);
+        //m_pTransformCom->Update_Component(0.f);
+    }
+}
+
+void CCeiling::SetAngle(_vec3 _rot)
+{
+    if (m_pTransformCom)
+    {
+        m_pTransformCom->Set_Angle(_rot);
+        //m_pTransformCom->Update_Component(0.f);
+    }
+}
+
+void CCeiling::SetScale(_vec3 _scale)
+{
+    if (m_pTransformCom)
+    {
+        m_pTransformCom->Set_Scale(_scale);
+        //m_pTransformCom->Update_Component(0.f);
+    }
 }
 
 HRESULT CCeiling::Add_Component()
@@ -106,12 +140,26 @@ HRESULT CCeiling::Ready_Material()
     tMtrl.Diffuse = D3DXCOLOR(0.3f, 0.5f, 0.7f, 1.f);
     tMtrl.Specular = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
     tMtrl.Ambient = D3DXCOLOR(0.1f, 0.2f, 0.3f, 1.f);
-    tMtrl.Emissive = D3DXCOLOR(0.f, 0.f, 0.f, 0.f);
+    tMtrl.Emissive = D3DXCOLOR(0.3f, 0.5f, 0.7f, 1.f);
     tMtrl.Power = 0.f;
 
     m_pGraphicDev->SetMaterial(&tMtrl);
 
     return S_OK;
+}
+
+CCeiling* CCeiling::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+    CCeiling* pInstance = new CCeiling(pGraphicDev);
+
+    if (FAILED(pInstance->Ready_GameObject()))
+    {
+        Safe_Release(pInstance);
+        MSG_BOX("CCeiling Create Failed");
+        return nullptr;
+    }
+
+    return pInstance;
 }
 
 CCeiling* CCeiling::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
