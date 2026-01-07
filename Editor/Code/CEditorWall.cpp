@@ -9,7 +9,7 @@
 
 CEditorWall::CEditorWall(LPDIRECT3DDEVICE9 pGraphicDev)
     : CEditorObject(pGraphicDev)
-    , m_eWallDir(WALL_XY)
+    , m_eWallDir(WALL_XY_FRONT)
 {
 }
 
@@ -84,12 +84,21 @@ void CEditorWall::Set_WallDirection(WALL_DIR eDir)
     m_eWallDir = eDir;
 
     // 방향에 따라 회전 자동 설정
-    if (m_eWallDir == WALL_XY)
+    if (m_eWallDir == WALL_XY_FRONT)
     {
         // XY 평면: 정면 벽 (회전 없음)
         Set_Rotation(_vec3(0.f, 0.f, 0.f));
     }
-    else if (m_eWallDir == WALL_YZ)
+    else if (m_eWallDir == WALL_XY_BACK)
+    {
+        Set_Rotation(_vec3(180.f, 0.f, 0.f));
+    }
+    else if (m_eWallDir == WALL_YZ_LEFT)
+    {
+        // YZ 평면: 측면 벽 (Y축 90도 회전)
+        Set_Rotation(_vec3(0.f, -90.f, 0.f));
+    }
+    else if (m_eWallDir == WALL_YZ_RIGHT)
     {
         // YZ 평면: 측면 벽 (Y축 90도 회전)
         Set_Rotation(_vec3(0.f, 90.f, 0.f));
@@ -133,7 +142,7 @@ CEditorWall* CEditorWall::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
     pInstance->Set_Scale(_vec3(16.f, 16.f, 1.f));
 
     // 기본 방향: XY 평면
-    pInstance->Set_WallDirection(WALL_XY);
+    pInstance->Set_WallDirection(WALL_XY_FRONT);
 
     return pInstance;
 }

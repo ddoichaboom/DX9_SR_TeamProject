@@ -270,7 +270,7 @@ void CEditorScene::Handle_Input()
                     // Player 타입은 복제 대신 위치 이동 옵션 제공
                     if (eType == SPAWN_PLAYER)
                     {
-                        wchar_t szMsg[512];
+                        wchar_t szMsg[1024];
                         swprintf_s(szMsg,
                             L"플레이어 스폰 위치 복사 불가능.\n\n"
                             L"새로운 위치로 플레이어 스폰 위치 이동하시겠습니까?\n\n"
@@ -509,7 +509,7 @@ void CEditorScene::Place_Ceiling(const _vec3& vPos)
 void CEditorScene::Place_Wall(const _vec3& vPos)
 {
     // 기본 XY 평면 벽 배치
-    CEditorWall* pWall = CEditorWall::Create(m_pGraphicDev, vPos, WALL_XY);
+    CEditorWall* pWall = CEditorWall::Create(m_pGraphicDev, vPos, WALL_XY_FRONT);
 
     if (pWall)
     {

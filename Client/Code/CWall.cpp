@@ -22,12 +22,11 @@ CWall::CWall(const CWall& rhs)
     , m_eTerrainType(rhs.m_eTerrainType)
 {
     m_eOBJ_ID = rhs.m_eOBJ_ID;
-    m_iID = rhs.m_iID;              // 복사생성자는 어떻게?
+    m_iID = Make_ID();              // 복사생성자는 어떻게?
 }
 
 CWall::~CWall()
 {
-    Free();
 }
 
 HRESULT CWall::Ready_GameObject()

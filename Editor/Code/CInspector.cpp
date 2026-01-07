@@ -211,7 +211,7 @@ void CInspector::Render_WallProperties(CEditorWall* pWall)
         ImGui::Text("Wall Properties");
 
         WALL_DIR eDir = pWall->Get_WallDirection();
-        const char* items[] = { "XY Plane (Front/Back)", "YZ Plane (Left/Right)" };
+        const char* items[] = { "XY Plane (Front)", "XY Plane (Back)" , "YZ Plane (Left)", "YZ Plane (Right)" };
         int iCurrentDir = (int)eDir;
 
         if (ImGui::Combo("Direction", &iCurrentDir, items, IM_ARRAYSIZE(items)))

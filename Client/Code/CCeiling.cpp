@@ -27,7 +27,6 @@ CCeiling::CCeiling(const CCeiling& rhs)
 
 CCeiling::~CCeiling()
 {
-    Free();
 }
 
 HRESULT CCeiling::Ready_GameObject()

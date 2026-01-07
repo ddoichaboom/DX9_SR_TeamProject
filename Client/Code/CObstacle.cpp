@@ -25,7 +25,6 @@ CObstacle::CObstacle(const CObstacle& rhs)
 
 CObstacle::~CObstacle()
 {
-    Free();
 }
 
 HRESULT CObstacle::Ready_GameObject()
