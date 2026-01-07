@@ -23,6 +23,8 @@ protected:
 
     // TODO:상위 클래스에 담아서 스테이지마다 다르게 해도 될듯함 - 호준
     HRESULT     Ready_ObjectPool();
+    HRESULT     Ready_PlayerProto();
+    HRESULT     Ready_MonsterProto();
 
 protected:
     CLayer* m_pEnvironment_Layer;

@@ -272,7 +272,6 @@ CGameObject* CMapLoader::Create_GameObject_FromJSON(const json& jObj,
         }
         else if (strType == "SpawnPoint")
         {
-            // SpawnPoint 처리 (Editor Phase 8에서 추가됨)
             if (jObj.contains("spawnType"))
             {
                 string strSpawnType = jObj["spawnType"];
@@ -283,7 +282,8 @@ CGameObject* CMapLoader::Create_GameObject_FromJSON(const json& jObj,
                 }
                 else if (strSpawnType == "Monster")
                 {
-                    string strMonsterKey = "WhiteMan"; // 기본 값
+                    string strMonsterKey = jObj["monsterKey"];
+
                     if (jObj.contains("monsterKey"))
                         strMonsterKey = jObj["monsterKey"];
 

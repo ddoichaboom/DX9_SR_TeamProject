@@ -160,6 +160,11 @@ CEditorSpawnPoint* CEditorSpawnPoint::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec
     pInstance->Set_SpawnType(eType);
     pInstance->Set_MonsterKey(strMonsterKey);
 
+    if (eType == SPAWN_PLAYER)
+        pInstance->Set_Name(L"PlayerSpawn");
+    else if (eType == SPAWN_MONSTER)
+        pInstance->Set_Name(L"MonsterSpawn");
+
     return pInstance;
 }
 

@@ -107,8 +107,8 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	Engine::CScene* pInitScene = CTestStage::Create(pGraphicDev);
-	//Engine::CScene* pInitScene = CMapStage::Create(pGraphicDev);
+	//Engine::CScene* pInitScene = CTestStage::Create(pGraphicDev);
+	Engine::CScene* pInitScene = CMapStage::Create(pGraphicDev);
 
 	if (nullptr == pInitScene)
 		return E_FAIL;

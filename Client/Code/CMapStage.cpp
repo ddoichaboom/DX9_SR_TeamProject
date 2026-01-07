@@ -14,7 +14,10 @@
 #include "CPlayer.h"
 #include "CFirstCamera.h"
 #include "CWhiteMan.h"
+#include "CBeamMon.h"
+#include "CFlyMon.h"
 #include "CBullet.h"
+#include "CBeam.h"
 
 CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
 {
@@ -58,21 +61,6 @@ void CMapStage::Render_Scene()
 
 HRESULT CMapStage::Ready_ObjectPool()
 {
-    ///// TODO : 맵 데이터 하드 코딩 -> 스테이지별 데이터 or 청크데이터 파일 이름 형식으로 전환 
-    //if (FAILED(CMapLoader::GetInstance()->Parse_MapData(L"../../Map/test.json")))
-    //{
-    //    MSG_BOX("JSON Parse Failed");
-    //    return E_FAIL;
-    //}
-
-    // ========== Pool 크기 설정 ==========
-    _uint iFloorCount = CMapLoader::GetInstance()->Get_FloorCount();
-    _uint iCeilingCount = CMapLoader::GetInstance()->Get_CeilingCount();
-    _uint iWallCount = CMapLoader::GetInstance()->Get_WallCount();
-    _uint iObstacleCount = CMapLoader::GetInstance()->Get_ObstacleCount();
-    _uint iBulletCount = 30;
-    _uint iWhiteManCount = 5;
-
     // ========== Pool 생성 ==========
     if (!Engine::CPoolMgr::GetInstance()->HasPool<CFloor>())
     {
@@ -110,6 +98,14 @@ HRESULT CMapStage::Ready_ObjectPool()
         }
     }
 
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CBullet>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CBullet>(m_pGraphicDev)))
+        {
+            MSG_BOX("Bullet Pool Create Failed");
+            return E_FAIL;
+        }
+    }
 
     if (!Engine::CPoolMgr::GetInstance()->HasPool<CWhiteMan>())
     {
@@ -120,14 +116,147 @@ HRESULT CMapStage::Ready_ObjectPool()
         }
     }
 
-    if (!Engine::CPoolMgr::GetInstance()->HasPool<CBullet>())
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CBeamMon>())
     {
-        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CBullet>(m_pGraphicDev)))
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CBeamMon>(m_pGraphicDev)))
         {
-            MSG_BOX("Bullet Pool Create Failed");
+            MSG_BOX("BeamMon Pool Create Failed");
             return E_FAIL;
         }
     }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CFlyMon>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CFlyMon>(m_pGraphicDev)))
+        {
+            MSG_BOX("FlyMon Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    return S_OK;
+}
+
+HRESULT CMapStage::Ready_PlayerProto()
+{
+    CTexture* pCom_Texture = nullptr;
+
+    // =========== Player - Left ===========
+
+    vector<TextureSource> vLeftTextureSource =
+    {
+        { 0, L"../Bin/Resource/Texture/Player/Left_Hand_Idle.png" },
+        { 1, L"../Bin/Resource/Texture/Player/Left_Hand_Reload_P.png" },
+        { 2, L"../Bin/Resource/Texture/Player/Left_Hand_Reload_S.png" }
+
+    };
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, vLeftTextureSource);
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_LeftTexture", pCom_Texture)))
+        return E_FAIL;
+
+    //상태값, 마지막 행 번호,  마지막 열 번호, 프레임이 끝나는 열 번호, 루프 유무, 플레이 속도 = 0.12f	
+    vector<AnimationSource> vLeftAnimSource =
+    {
+        { 0,1,3,3, true, 0.11f},
+        { 1,0,3,3, false, 0.11f},
+        { 2,0,3,3, false, 0.11f},
+    };
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_LeftAnimation",
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, vLeftAnimSource))))
+        return E_FAIL;
+
+    // =========== Player - PLAYER_RIGHT_HAND ===========
+
+    vector<TextureSource> vRightTextureSource =
+    {
+        { 0, L"../Bin/Resource/Texture/Player/Right_Hand_Idle_P.png" },
+        { 1, L"../Bin/Resource/Texture/Player/Right_Hand_Shot_P.png" },
+        { 2, L"../Bin/Resource/Texture/Player/Right_Hand_Reload_P.png" }
+
+    };
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, vRightTextureSource);
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RightTexture", pCom_Texture)))
+        return E_FAIL;
+
+    //상태값, 마지막 행 번호,  마지막 열 번호, 프레임이 끝나는 열 번호, 루프 유무, 플레이 속도 = 0.12f	
+    vector<AnimationSource> vRightAnimSource =
+    {
+        { 0,0,3,3, true, 0.11f},
+        { 1,0,5,5, false, 0.02f},
+        { 2,1,6,6, false, 0.02f},
+    };
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RightAnimation",
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, vRightAnimSource))))
+        return E_FAIL;
+
+    // =========== Player - Middle_Part ===========
+
+    vector<TextureSource> vMiddleTextureSource =
+    {
+        { 0, L"../Bin/Resource/Texture/Player/Middle_Kick.png" },
+        { 1, L"../Bin/Resource/Texture/Player/Middle_Soda.png" },
+
+    };
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, vMiddleTextureSource);
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_MiddleTexture", pCom_Texture)))
+        return E_FAIL;
+
+    //상태값, 마지막 행 번호,  마지막 열 번호, 프레임이 끝나는 열 번호, 루프 유무, 플레이 속도 = 0.12f	
+    vector<AnimationSource> vMiddleAnimSource =
+    {
+        { 0,0,3,3, false, 0.08f},
+        { 1,0,6,6, false, 0.05f}
+    };
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_MiddleAnimation",
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, vMiddleAnimSource))))
+        return E_FAIL;
+
+    return S_OK;
+}
+
+HRESULT CMapStage::Ready_MonsterProto()
+{
+    CTexture* pCom_Texture = nullptr;
+
+    // WhiteMan
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CWhiteMan::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WhiteManTexture", pCom_Texture)))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WhiteManAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CWhiteMan::GetAnimSources()))))
+        return E_FAIL;
+
+    //Beam Mon Texture 
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBeamMon::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BeamMonTexture", pCom_Texture)))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BeamMonAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CBeamMon::GetAnimSources()))))
+        return E_FAIL;
+
+    //Beam Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBeam::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BeamTexture", pCom_Texture)))
+        return E_FAIL;
+
+    //FlyMon Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CFlyMon::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FlyMonTexture", pCom_Texture)))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FlyMonAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CFlyMon::GetAnimSources()))))
+        return E_FAIL;
+
+    //Bullet Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBullet::GetTextureSource());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BulletTexture", pCom_Texture)))
+        return E_FAIL;
 
     return S_OK;
 }
@@ -207,12 +336,27 @@ HRESULT CMapStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
                  {
                      pWhiteMan->SetPos(vPos);
 
-                     // TODO : BulletPool 전달
-
                      pMonster = pWhiteMan;
                  }
              }
-             //else if ( MonsterKey == "추가되는 몬스터")
+             else if (MonsterKey == "BeamMon")
+             {
+                 CBeamMon* pBeamMon = CPoolMgr::GetInstance()->Get_Object<CBeamMon>();
+                 if (pBeamMon)
+                 {
+                     pBeamMon->SetPos(vPos);
+                     pMonster = pBeamMon;
+                 }
+             }
+             else if (MonsterKey == "FlyMon")
+             {
+                 CFlyMon* pFlyMon = CPoolMgr::GetInstance()->Get_Object<CFlyMon>();
+                 if (pFlyMon)
+                 {
+                     pFlyMon->SetPos(vPos);
+                     pMonster = pFlyMon;
+                 }
+             }
 
              if (pMonster)
              {
@@ -222,10 +366,6 @@ HRESULT CMapStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
                      pMonster->ReturnToPool();
                  }
              }
-
-
-             
-             
          }
      }
     m_mapLayer.insert({ pLayerTag, pLayer });
@@ -235,6 +375,9 @@ HRESULT CMapStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 
 HRESULT CMapStage::Ready_Prototype()
 {
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcTexUp", Engine::CRcTexUp::Create(m_pGraphicDev))))
+        return E_FAIL;
+
     // RcTex (CFloor, CCeiling, CWall에서 사용)
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcTex", Engine::CRcTex::Create(m_pGraphicDev))))
         return E_FAIL;
@@ -254,100 +397,13 @@ HRESULT CMapStage::Ready_Prototype()
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_StateComponent", Engine::CStateComponent::Create(m_pGraphicDev))))
         return E_FAIL;
 
-    CTexture* pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CWhiteMan::GetTextureSources());
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WhiteManTexture", pCom_Texture)))
+    // 기존 몬스터 관련된 것들 패킹
+    if (FAILED(Ready_MonsterProto()))
         return E_FAIL;
 
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WhiteManAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CWhiteMan::GetAnimSources()))))
+    // 기존 플레이어 프로토 등록 로직들 패킹
+    if (FAILED(Ready_PlayerProto()))
         return E_FAIL;
-
-    //Bullet Texture
-    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBullet::GetTextureSource());
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BulletTexture", pCom_Texture)))
-        return E_FAIL;
-
-    // Player
-#pragma region Left
-
-    vector<TextureSource> vLeftTextureSource =
-    {
-        { 0, L"../Bin/Resource/Texture/Player/Left_Hand_Idle.png" },
-        { 1, L"../Bin/Resource/Texture/Player/Left_Hand_Reload_P.png" },
-        { 2, L"../Bin/Resource/Texture/Player/Left_Hand_Reload_S.png" }
-
-    };
-
-    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, vLeftTextureSource);
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_LeftTexture", pCom_Texture)))
-        return E_FAIL;
-
-    //상태값, 마지막 행 번호,  마지막 열 번호, 프레임이 끝나는 열 번호, 루프 유무, 플레이 속도 = 0.12f	
-    vector<AnimationSource> vLeftAnimSource =
-    {
-        { 0,1,3,3, true, 0.11f},
-        { 1,0,3,3, false, 0.11f},
-        { 2,0,3,3, false, 0.11f},
-    };
-
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_LeftAnimation",
-        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, vLeftAnimSource))))
-        return E_FAIL;
-#pragma endregion
-
-#pragma region PLAYER_RIGHT_HAND
-
-    vector<TextureSource> vRightTextureSource =
-    {
-        { 0, L"../Bin/Resource/Texture/Player/Right_Hand_Idle_P.png" },
-        { 1, L"../Bin/Resource/Texture/Player/Right_Hand_Shot_P.png" },
-        { 2, L"../Bin/Resource/Texture/Player/Right_Hand_Reload_P.png" }
-
-    };
-
-    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, vRightTextureSource);
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RightTexture", pCom_Texture)))
-        return E_FAIL;
-
-    //상태값, 마지막 행 번호,  마지막 열 번호, 프레임이 끝나는 열 번호, 루프 유무, 플레이 속도 = 0.12f	
-    vector<AnimationSource> vRightAnimSource =
-    {
-        { 0,0,3,3, true, 0.11f},
-        { 1,0,5,5, false, 0.02f},
-        { 2,1,6,6, false, 0.02f},
-    };
-
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RightAnimation",
-        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, vRightAnimSource))))
-        return E_FAIL;
-
-#pragma endregion
-
-#pragma region Middle_Part
-
-    vector<TextureSource> vMiddleTextureSource =
-    {
-        { 0, L"../Bin/Resource/Texture/Player/Middle_Kick.png" },
-        { 1, L"../Bin/Resource/Texture/Player/Middle_Soda.png" },
-
-    };
-
-    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, vMiddleTextureSource);
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_MiddleTexture", pCom_Texture)))
-        return E_FAIL;
-
-    //상태값, 마지막 행 번호,  마지막 열 번호, 프레임이 끝나는 열 번호, 루프 유무, 플레이 속도 = 0.12f	
-    vector<AnimationSource> vMiddleAnimSource =
-    {
-        { 0,0,3,3, false, 0.08f},
-        { 1,0,6,6, false, 0.05f}
-    };
-
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_MiddleAnimation",
-        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, vMiddleAnimSource))))
-        return E_FAIL;
-
-
-#pragma endregion
 
     return S_OK;
 }

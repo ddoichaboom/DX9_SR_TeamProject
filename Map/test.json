@@ -1,7 +1,7 @@
 {
   "ceilingCount": 52,
   "floorCount": 76,
-  "objectCount": 164,
+  "objectCount": 166,
   "objects": [
     {
       "monsterKey": "",
@@ -3157,6 +3157,48 @@
       ],
       "type": "Wall",
       "wallDirection": 3
+    },
+    {
+      "monsterKey": "FlyMon",
+      "name": "MonsterSpawn",
+      "position": [
+        80.0,
+        20.0,
+        268.1650085449219
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "BeamMon",
+      "name": "MonsterSpawn",
+      "position": [
+        80.0,
+        26.0,
+        384.9976806640625
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
     }
   ],
   "obstacleCount": 1,

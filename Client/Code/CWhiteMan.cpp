@@ -128,7 +128,6 @@ HRESULT CWhiteMan::Ready_GameObject()
 	m_pAnimationCom->Bind_OnChangedFunc([&](_float _aspect) { OnAnimationChange(_aspect); });
 
 	m_pTransformCom->m_vScale = { 5.f, 13.f  ,1.f };
-	//m_pTransformCom->Set_Pos(0, 1.0, 110.f);
 
 	//Collider »ý¼º 
 	m_pHeadCollider = m_pCollisionCom->CreateCollider(m_pTransformCom, m_szHeadColliderName);

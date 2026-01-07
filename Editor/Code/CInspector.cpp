@@ -248,7 +248,7 @@ void CInspector::Render_MonsterSpawnPointProperties(CEditorSpawnPoint* pSpawn)
         }
 
         // 도움말 텍스트
-        ImGui::TextDisabled("Available: WhiteMan");
+        ImGui::TextDisabled("Available: WhiteMan, BeamMon, FlyMon");
 
         // 프리셋 버튼
         ImGui::Spacing();
@@ -258,7 +258,16 @@ void CInspector::Render_MonsterSpawnPointProperties(CEditorSpawnPoint* pSpawn)
             strcpy_s(szMonsterKey, "WhiteMan");
             pSpawn->Set_MonsterKey("WhiteMan");
         }
-        // 여기에 구현 몬스터 추가 
+        else if (ImGui::Button("BeamMon"))
+        {
+            strcpy_s(szMonsterKey, "BeamMon");
+            pSpawn->Set_MonsterKey("BeamMon");
+        }
+        else if (ImGui::Button("FlyMon"))
+        {
+            strcpy_s(szMonsterKey, "FlyMon");
+            pSpawn->Set_MonsterKey("FlyMon");
+        }
     }
 }
 
