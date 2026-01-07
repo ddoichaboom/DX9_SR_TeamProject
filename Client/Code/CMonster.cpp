@@ -8,6 +8,7 @@
 CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CCharacter(pGraphicDev), m_pAnimationCom(nullptr)
 	,m_fAttackableDist(100.f), m_vDir({0,0,0}), m_fSpeed(10.f), m_fMaxHP(10.f), m_fHP(10.f)
+	, m_pPlayerTransformCom(nullptr), m_pPlayerCollisionCom(nullptr)
 {
 	m_eOBJ_ID = OBJ_MONSTER;
 	m_iID = Make_ID();
@@ -16,6 +17,7 @@ CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev)
 CMonster::CMonster(const CMonster& rhs)
 	:CCharacter(rhs), m_pAnimationCom(nullptr), m_fAttackableDist(100.f), m_fMaxHP(10.f), m_fHP(10.f)
 	, m_vDir(rhs.m_vDir), m_fSpeed(rhs.m_fSpeed)
+	, m_pPlayerTransformCom(nullptr), m_pPlayerCollisionCom(nullptr)
 {
 	m_eOBJ_ID = OBJ_MONSTER;
 	m_iID = Make_ID();
@@ -110,15 +112,6 @@ void CMonster::SetBillboard()
 	m_pTransformCom->Set_World(&matBill);
 }
 
-Engine::CTransform* CMonster::GetPlayerTransformCom()
-{
-	if (!m_pPlayerTransformCom)
-	{
-		m_pPlayerTransformCom =
-			dynamic_cast<CTransform*>(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer",OBJ_PLAYER, L"Com_Transform"));
-	}
-	return m_pPlayerTransformCom;
-}
 
 void CMonster::Free()
 {
@@ -127,13 +120,33 @@ void CMonster::Free()
 
 HRESULT CMonster::GetDistVecToPlayer(_vec3& pOutDist)
 {
-	if (GetPlayerTransformCom() == nullptr) return E_FAIL;
+	if (GetPlayerTransform() == nullptr) return E_FAIL;
 
- 	_vec3* playerPos = GetPlayerTransformCom()->Get_Info(INFO_POS);
+ 	_vec3* playerPos = GetPlayerTransform()->Get_Info(INFO_POS);
 	_vec3* myPos = m_pTransformCom->Get_Info(INFO_POS);
 
 	pOutDist = *playerPos - *myPos;
 	return S_OK;
+}
+
+Engine::CTransform* CMonster::GetPlayerTransform()
+{
+	if (!m_pPlayerTransformCom)
+	{
+		m_pPlayerTransformCom =
+			static_cast<CTransform*>(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_PLAYER, L"Com_Transform"));
+	}
+	return m_pPlayerTransformCom;
+}
+
+Engine::CCollision* CMonster::GetPlayerCollision()
+{
+	if (!m_pPlayerCollisionCom)
+	{
+		m_pPlayerCollisionCom =
+			static_cast<CCollision*>(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_PLAYER, L"Com_Collision"));
+	}
+	return m_pPlayerCollisionCom;
 }
 
 void CMonster::Launch()

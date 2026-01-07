@@ -94,6 +94,9 @@
     <Filter Include="02. GameObject\00. Character\01. Monster\01. BeamMon\Beam">
       <UniqueIdentifier>{33507870-cd0f-47a9-be03-3430df8388c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\00. Character\01. Monster\02. FlyMon">
+      <UniqueIdentifier>{39a0eab7-bc28-4d5e-9a69-1095d849c0e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -183,6 +186,9 @@
     <ClInclude Include="..\Header\CBeam.h">
       <Filter>02. GameObject\00. Character\01. Monster\01. BeamMon\Beam</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CFlyMon.h">
+      <Filter>02. GameObject\00. Character\01. Monster\02. FlyMon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -262,6 +268,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CBeam.cpp">
       <Filter>02. GameObject\00. Character\01. Monster\01. BeamMon\Beam</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFlyMon.cpp">
+      <Filter>02. GameObject\00. Character\01. Monster\02. FlyMon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,7 @@
 #include "CPoolMgr.h"
 #include "CBeamMon.h"
 #include "CBeam.h"
+#include "CFlyMon.h"
 
 CTestStage::CTestStage(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CStage(pGraphicDev), m_pEnvironment_Layer(nullptr), m_pGameLogic_Layer(nullptr)
@@ -47,7 +48,7 @@ _int CTestStage::Update_Scene(const _float& fTimeDelta)
 		if (man)
 		{
 			man->SetPos({ 0, 0, 110.f });
-			m_pGameLogic_Layer->Add_GameObject(man);
+			m_pGameLogic_Layer->Add_GameObject(man); 
 		}
 	}
 	return iExit;
@@ -148,10 +149,27 @@ HRESULT CTestStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 		}
 	}
 	pGameObject = CPoolMgr::GetInstance()->Get_Object<CBeamMon>();
-	pGameObject->SetPos({ 0, 16.f, 60.f });
+	pGameObject->SetPos({ 0, 18.f, 60.f });
 
 	if (nullptr == pGameObject) return E_FAIL;
 	if (FAILED(m_pGameLogic_Layer->Add_GameObject(pGameObject))) return E_FAIL;
+
+
+	//Fly Mon
+	if (CPoolMgr::GetInstance()->HasPool<CFlyMon>() == false)
+	{
+		if (FAILED(CPoolMgr::GetInstance()->CreatePool<CFlyMon>(m_pGraphicDev)))
+		{
+			MSG_BOX("FlyMon Pool Create Failed");
+			return E_FAIL;
+		}
+	}
+	pGameObject = CPoolMgr::GetInstance()->Get_Object<CFlyMon>();
+	pGameObject->SetPos({ 70.f, 10.f, 90.f });
+
+	if (nullptr == pGameObject) return E_FAIL;
+	if (FAILED(m_pGameLogic_Layer->Add_GameObject(pGameObject))) return E_FAIL;
+
 
 	m_mapLayer.insert({ pLayerTag , m_pGameLogic_Layer });
 
@@ -221,6 +239,14 @@ HRESULT CTestStage::Ready_Prototype()
 	//Beam Texture
 	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBeam::GetTextureSources());
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BeamTexture", pCom_Texture)))
+		return E_FAIL;
+
+	//FlyMon Texture
+	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CFlyMon::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FlyMonTexture", pCom_Texture)))
+		return E_FAIL;
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FlyMonAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CFlyMon::GetAnimSources()))))
 		return E_FAIL;
 
 	//Bullet Texture

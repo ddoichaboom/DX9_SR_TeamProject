@@ -13,6 +13,7 @@
 #include "CBullet.h"
 #include "CWhiteMan.h"
 #include "CBeamMon.h"
+#include "CFlyMon.h"
 #include "CTerrain.h"
 #include "CPlayer.h"
 #include "CFloor.h"
@@ -140,14 +141,17 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iObstacleCount = CMapLoader::GetInstance()->Get_ObstacleCount();
 	_uint iBulletCount = 30;
 	_uint iWhiteManCount = 5;
+	_uint iBeamMonCount = 3;
+	_uint iFlyMonCount = 6;
 
 	CPoolMgr::GetInstance()->SetPoolSize<CFloor>(iFloorCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CCeiling>(iCeilingCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CWall>(iWallCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CObstacle>(iObstacleCount);
-	Engine::CPoolMgr::GetInstance()->SetPoolSize<CBullet>(iBulletCount);
-	Engine::CPoolMgr::GetInstance()->SetPoolSize<CWhiteMan>(iWhiteManCount);
-
+	CPoolMgr::GetInstance()->SetPoolSize<CBullet>(iBulletCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CWhiteMan>(iWhiteManCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CBeamMon>(iBeamMonCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CFlyMon>(iFlyMonCount);
 
 	return S_OK;
 }

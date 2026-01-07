@@ -310,7 +310,7 @@ void CWhiteMan::Shoot()
 	//TODO : 수치 테스트 후 상수 + 함수로 수정하기 
 	myPos.y += 6.f;
 	_vec3 otherPos = { 0.f,0.f,0.f };
-	if (GetPlayerTransformCom()) otherPos = *GetPlayerTransformCom()->Get_Info(INFO_POS);
+	if (GetPlayerTransform()) otherPos = *GetPlayerTransform()->Get_Info(INFO_POS);
 	otherPos.y -= 1.0f;
 	pBullet->SetPos(myPos);
 
@@ -336,7 +336,7 @@ void CWhiteMan::Hit()
 
 void CWhiteMan::Launch()
 {
-	CTransform* playerTransform = GetPlayerTransformCom();
+	CTransform* playerTransform = GetPlayerTransform();
 	if (!playerTransform) return;
 
 	if (m_fTime >= m_fLaunchTime)

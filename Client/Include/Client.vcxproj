@@ -149,6 +149,7 @@
     <ClInclude Include="..\Header\CCharacter.h" />
     <ClInclude Include="..\Header\CFirstCamera.h" />
     <ClInclude Include="..\Header\CFloor.h" />
+    <ClInclude Include="..\Header\CFlyMon.h" />
     <ClInclude Include="..\Header\CLeftPart.h" />
     <ClInclude Include="..\Header\CMainApp.h" />
     <ClInclude Include="..\Header\CMapLoader.h" />
@@ -180,6 +181,7 @@
     <ClCompile Include="..\Code\CCharacter.cpp" />
     <ClCompile Include="..\Code\CFirstCamera.cpp" />
     <ClCompile Include="..\Code\CFloor.cpp" />
+    <ClCompile Include="..\Code\CFlyMon.cpp" />
     <ClCompile Include="..\Code\CLeftPart.cpp" />
     <ClCompile Include="..\Code\CMapLoader.cpp" />
     <ClCompile Include="..\Code\CMapStage.cpp" />

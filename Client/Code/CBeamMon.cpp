@@ -31,14 +31,12 @@ vector<AnimationSource> CBeamMon::m_vAnimSource =
 CBeamMon::CBeamMon(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CMonster(pGraphicDev), m_pBodyCollider(nullptr), m_pBeam(nullptr)
 	, m_vShootDir({0,0,0}), m_vStartDir({0,0,0}), m_vEndDir({0,0,0}), m_bBeamCollision(false)
-	, m_pPlayerTransform(nullptr), m_pPlayerCollision(nullptr)
 {
 }
 
 CBeamMon::CBeamMon(const CBeamMon& rhs)
 	:CMonster(rhs), m_pBodyCollider(nullptr), m_pBeam(nullptr)
 	, m_vShootDir({ 0,0,0 }), m_vStartDir({ 0,0,0 }), m_vEndDir({ 0,0,0 }), m_bBeamCollision(false)
-	, m_pPlayerTransform(nullptr), m_pPlayerCollision(nullptr)
 {
 }
 
@@ -89,7 +87,7 @@ HRESULT CBeamMon::Ready_GameObject()
 	if (FAILED(Add_Component())) return E_FAIL;
 
 	m_fAttackableDist = 50.f;
-	m_pTransformCom->m_vScale = { 6.f, 6.f  ,1.f };
+	m_pTransformCom->m_vScale = { 8.f, 6.f  ,1.f };
 	m_pAnimationCom->Bind_OnChangedFunc([&](_float _aspect) { OnAnimationChange(_aspect); });
 
 	//상태 객체 생성
@@ -241,7 +239,7 @@ void CBeamMon::ResetBeam()
 	m_pBeam->SetPos(pos);
 	m_vStartDir = { 0,-1,0 };
 
-	_vec3 m_vPlayerPos = *GetPlayerTransformCom()->Get_Info(INFO_POS);
+	_vec3 m_vPlayerPos = *GetPlayerTransform()->Get_Info(INFO_POS);
 	m_vPlayerPos.y = pos.y; //현재 플레이어의 위치에서 높이값만 몬스터 높이로 변경
 	m_vEndDir = m_vPlayerPos - pos;
 	D3DXVec3Normalize(&m_vEndDir, &m_vEndDir);
@@ -281,30 +279,16 @@ void CBeamMon::CollisionBeam()
 
 }
 
-Engine::CTransform* CBeamMon::GetPlayerTransform()
-{
-	if (!m_pPlayerTransform)
-	{
-		m_pPlayerTransform = 
-		static_cast<CTransform*>(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_PLAYER, L"Com_Transform"));
-	}
-	return m_pPlayerTransform;
-}
-
-Engine::CCollision* CBeamMon::GetPlayerCollision()
-{
-	if (!m_pPlayerCollision)
-	{
-		m_pPlayerCollision =
-			static_cast<CCollision*>(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_PLAYER, L"Com_Collision"));
-	}
-	return m_pPlayerCollision;
-}
-
 void CBeamMon::Activate()
 {
 	CMonster::Activate();
+	m_pTransformCom->m_vScale = { 8.f, 6.f  ,1.f };
 	ChangeState(MS_IDLE);
+}
+
+void CBeamMon::Deactivate()
+{
+	CMonster::Deactivate();
 }
 
 

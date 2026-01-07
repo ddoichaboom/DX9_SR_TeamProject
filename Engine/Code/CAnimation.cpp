@@ -285,6 +285,7 @@ void CAnimation::Reset()
 {
 	Stop();
 	m_fTime = 0.f;
+	m_iCurState = -1;
 	m_CurAnimTask = { SUB_MAX,NULL };
 	m_bCanEnd = true;
 	ResetDeque();
