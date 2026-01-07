@@ -84,9 +84,15 @@
     </Filter>
     <Filter Include="03. Manager%28Hojun%29\00. MapLoader">
       <UniqueIdentifier>{db64e24e-5e04-40e9-a23f-e9ee296c4615}</UniqueIdentifier>
-	</Filter>
-	<Filter Include="02. GameObject\10. Bullet">
+    </Filter>
+    <Filter Include="02. GameObject\10. Bullet">
       <UniqueIdentifier>{b9d3330c-6115-4de4-8e12-82a8203e6bed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\01. Monster\01. BeamMon">
+      <UniqueIdentifier>{3562e0a5-f952-4628-bfed-2b829fa08c96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\01. Monster\01. BeamMon\Beam">
+      <UniqueIdentifier>{33507870-cd0f-47a9-be03-3430df8388c1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -167,9 +173,15 @@
     </ClInclude>
     <ClInclude Include="..\Header\CMapLoader.h">
       <Filter>03. Manager%28Hojun%29\00. MapLoader</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="..\Header\CBullet.h">
       <Filter>02. GameObject\10. Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBeamMon.h">
+      <Filter>02. GameObject\00. Character\01. Monster\01. BeamMon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBeam.h">
+      <Filter>02. GameObject\00. Character\01. Monster\01. BeamMon\Beam</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -241,9 +253,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\CMapLoader.cpp">
       <Filter>03. Manager%28Hojun%29\00. MapLoader</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="..\Code\CBullet.cpp">
       <Filter>02. GameObject\10. Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBeamMon.cpp">
+      <Filter>02. GameObject\00. Character\01. Monster\01. BeamMon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBeam.cpp">
+      <Filter>02. GameObject\00. Character\01. Monster\01. BeamMon\Beam</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

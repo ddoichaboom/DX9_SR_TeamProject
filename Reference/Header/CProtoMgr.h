@@ -3,6 +3,7 @@
 #include "CTransform.h"
 #include "CRcCol.h"
 #include "CRcTex.h"
+#include "CRcTexUp.h"
 #include "CCubeCol.h"
 #include "CTerrainTex.h"
 #include "CCubeTex.h"

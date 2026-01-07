@@ -142,6 +142,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Header\CBeam.h" />
+    <ClInclude Include="..\Header\CBeamMon.h" />
     <ClInclude Include="..\Header\CCeiling.h" />
     <ClInclude Include="..\Header\CBullet.h" />
     <ClInclude Include="..\Header\CCharacter.h" />
@@ -171,6 +173,8 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Code\CBeam.cpp" />
+    <ClCompile Include="..\Code\CBeamMon.cpp" />
     <ClCompile Include="..\Code\CCeiling.cpp" />
     <ClCompile Include="..\Code\CBullet.cpp" />
     <ClCompile Include="..\Code\CCharacter.cpp" />

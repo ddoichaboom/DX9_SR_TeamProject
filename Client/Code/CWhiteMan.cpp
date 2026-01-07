@@ -170,24 +170,24 @@ _int CWhiteMan::Update_GameObject(const _float& fTimeDelta)
 
 	//TEST
 	//TODO : 플레이어에 공격 구현되면 지우기 
-	if (CDInputMgr::GetInstance()->Mouse_Down(DIM_LB))
-	{
-		bool bPicked = CCollision::Collision_Mouse(g_hWnd, m_pGraphicDev, m_pHeadCollider);
-		if (bPicked)
-		{
-			CollisionInfo info = { NULL, {0,0,0}, 6.f };
-			m_pHeadCollider->Collision(info);
-			return iExit; // 중복 충돌 방지!
-		}
+	//if (CDInputMgr::GetInstance()->Mouse_Down(DIM_LB))
+	//{
+	//	bool bPicked = CCollision::Collision_Mouse(g_hWnd, m_pGraphicDev, m_pHeadCollider);
+	//	if (bPicked)
+	//	{
+	//		CollisionInfo info = { NULL, {0,0,0}, 6.f };
+	//		m_pHeadCollider->Collision(info);
+	//		return iExit; // 중복 충돌 방지!
+	//	}
 
-		bPicked = CCollision::Collision_Mouse(g_hWnd, m_pGraphicDev, m_pBodyCollider);
-		if (bPicked)
-		{
-			CollisionInfo info = { NULL, {0,0,0}, 6.f }; // otherObj, dist, Damage
-			m_pBodyCollider->Collision(info);
-		}
+	//	bPicked = CCollision::Collision_Mouse(g_hWnd, m_pGraphicDev, m_pBodyCollider);
+	//	if (bPicked)
+	//	{
+	//		CollisionInfo info = { NULL, {0,0,0}, 6.f }; // otherObj, dist, Damage
+	//		m_pBodyCollider->Collision(info);
+	//	}
 
-	}
+	//}
 
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_SPACE))
 	{
@@ -258,6 +258,8 @@ void CWhiteMan::OnBodyCollision(CollisionInfo info)
 	if (m_fHP <= 0.f)
 	{
 		m_pTransformCom->m_vScale.x = m_pTransformCom->m_vScale.y;
+		if (m_pHeadCollider) m_pHeadCollider->OffCollision();
+		if (m_pBodyCollider) m_pBodyCollider->OffCollision();
 		ChangeState(MS_DEAD);
 	}
 	else ChangeState(MS_HIT);
@@ -357,8 +359,6 @@ void CWhiteMan::Dead()
 	if (m_pAnimationCom->IsEnd())
 	{
 		SetDead();
-		if(m_pHeadCollider) m_pHeadCollider->OffCollision();
-		if(m_pHeadCollider) m_pBodyCollider->OffCollision();
 	}
 }
 // _animAspect = cutSize.x / cutSize.y 한 종횡비 

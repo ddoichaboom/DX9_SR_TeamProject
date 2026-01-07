@@ -13,6 +13,7 @@
 
 
 
+
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCharacter(pGraphicDev)
 	, m_pLeftPart(nullptr), m_pRightPart(nullptr), m_pMiddlePart(nullptr)
@@ -165,7 +166,6 @@ HRESULT CPlayer::Add_Component()
 
 void CPlayer::Key_Input(const _float& fTimeDelta)
 {
-
 	Engine::CTransform* pTransform = dynamic_cast<CTransform*>(Engine::CManagement::GetInstance()->
 		Get_Component(ID_DYNAMIC, L"Environment_Layer", OBJ_CAM, L"Com_Transform"));
 
@@ -220,11 +220,13 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 
 	}
 
-
 	// 공격 
-	if (CDInputMgr::GetInstance()->Get_DIMouseState(DIM_LB) & 0x80)
+	if (CDInputMgr::GetInstance()->Mouse_Down(DIM_LB))
 	{
 		Change_State(PLAYER_ATTACK);
+		// 방승희 임시 추가
+		CheckPickedMonster();
+		// 추가 끝
 	}
 
 
@@ -232,6 +234,8 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 	if (CDInputMgr::GetInstance()->Get_DIMouseState(DIM_RB) & 0x80)
 	{
 		Change_State(PLAYER_DRINK);
+
+		
 	}
 
 }
@@ -313,4 +317,36 @@ void CPlayer::Free()
 	Safe_Release(m_pMiddlePart);
 
 	CCharacter::Free();
+}
+
+//몬스터 전체를 가져와서 마우스와 피킹 체크 
+void CPlayer::CheckPickedMonster()
+{
+	CLayer* pLayer = CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer");
+	if (!pLayer) return;
+
+	auto pairIter = pLayer->Get_Objects(OBJ_MONSTER);
+	//multimap<OBJ_ID, CGameObject*> 에 대한 반복자
+	//OBJ_ID를 키로 가진 오브젝트들의 반복자 범위를 반환 = 몬스터 전체 목록
+	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
+	{
+		CCollision* pCollision = static_cast<CCollision*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+		if (!pCollision) continue;
+
+		auto& mapCollider = pCollision->GetColliderMap();
+		if (mapCollider.empty()) continue;
+		//몬스터의 CollisionCom에 있는 전체 Collider 
+		for (auto pairCollider : mapCollider)
+		{
+			bool bPicked = CCollision::Collision_Mouse(g_hWnd, m_pGraphicDev, pairCollider.second);
+			if (bPicked)
+			{
+				CollisionInfo info = { NULL, {0,0,0}, m_fAtk };
+				pairCollider.second->Collision(info);
+				//한 콜라이더에서 충돌이 일어났다면 이 몬스터의 다른 콜라이더와는 충돌체크 하지않음
+				break;
+			}
+		}
+	}
+
 }

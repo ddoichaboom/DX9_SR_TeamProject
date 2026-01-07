@@ -58,6 +58,11 @@ public:
 protected:
 	virtual void Free();
 
+/// ¹æ½ÂÈñ Ãß°¡ 
+	void		CheckPickedMonster();
+	_float		m_fAtk = 6.f;
+/// Ãß°¡ ³¡
+
 private:
 	CPlayerPart* m_pLeftPart;
 	CPlayerPart* m_pRightPart;

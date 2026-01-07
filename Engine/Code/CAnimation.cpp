@@ -223,6 +223,7 @@ void CAnimation::Update_State(const _uint _state)
 {
 	if (m_iCurState == _state) return;
 	AnimationDesc* nextAnim = m_mapAnimation[_state];
+
 	if (nextAnim == nullptr) return;
 	//상태를 바꿀 수 없는 상황이라면 종료 (우선순위가 높거나, 현 애니메이션이 종료 가능이여야 진행) 
 	if (nextAnim->bPriority == false && CanEnd() == false) return; 
@@ -292,10 +293,10 @@ void CAnimation::Reset()
 
 void CAnimation::Change_Animation(AnimTask& animTask)
 {
-	if (m_ChangedFunc) m_ChangedFunc(animTask.animDesc->fAspect);
 	m_CurAnimTask = animTask;
 	PlayFromStart();
 	D3DXMatrixScaling(&m_UVMatrix, m_CurAnimTask.animDesc->vUVoffset.x, m_CurAnimTask.animDesc->vUVoffset.y, 1.0f);
+	if (m_ChangedFunc) m_ChangedFunc(animTask.animDesc->fAspect);
 
 }
 
@@ -304,12 +305,12 @@ void CAnimation::Change_Animation(_uint _state)
 	auto desc = m_mapAnimation[_state];
 	if (desc)
 	{
-		if (m_ChangedFunc) m_ChangedFunc(desc->fAspect);
 		ResetDeque();
 		m_iCurState = _state;
 		m_CurAnimTask = { SUB_NONE, desc };
 		PlayFromStart();
 		D3DXMatrixScaling(&m_UVMatrix, m_CurAnimTask.animDesc->vUVoffset.x, m_CurAnimTask.animDesc->vUVoffset.y, 1.0f);
+		if (m_ChangedFunc) m_ChangedFunc(desc->fAspect);
 	}
 }
 

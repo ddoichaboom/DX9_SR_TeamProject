@@ -11,7 +11,8 @@
 #include "CTerrain.h"
 #include "CTerrainTex.h"
 #include "CPoolMgr.h"
-
+#include "CBeamMon.h"
+#include "CBeam.h"
 
 CTestStage::CTestStage(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CStage(pGraphicDev), m_pEnvironment_Layer(nullptr), m_pGameLogic_Layer(nullptr)
@@ -109,7 +110,7 @@ HRESULT CTestStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 	CGameObject* pGameObject = nullptr;
 
 	pGameObject = CPlayer::Create(m_pGraphicDev);
-
+	pGameObject->SetPos({ 0.f, 6.f, 0.f });
 	if (FAILED(m_pGameLogic_Layer->Add_GameObject(pGameObject)))
 		return E_FAIL;
 
@@ -133,6 +134,21 @@ HRESULT CTestStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 		}
 	}
 	pGameObject = CPoolMgr::GetInstance()->Get_Object<CWhiteMan>();
+	pGameObject->SetPos({ 0.f, 0.f, 110.f });
+	if (nullptr == pGameObject) return E_FAIL;
+	if (FAILED(m_pGameLogic_Layer->Add_GameObject(pGameObject))) return E_FAIL;
+
+	//Beam Mon
+	if (CPoolMgr::GetInstance()->HasPool<CBeamMon>() == false)
+	{
+		if (FAILED(CPoolMgr::GetInstance()->CreatePool<CBeamMon>(m_pGraphicDev)))
+		{
+			MSG_BOX("BeamMon Pool Create Failed");
+			return E_FAIL;
+		}
+	}
+	pGameObject = CPoolMgr::GetInstance()->Get_Object<CBeamMon>();
+	pGameObject->SetPos({ 0, 16.f, 60.f });
 
 	if (nullptr == pGameObject) return E_FAIL;
 	if (FAILED(m_pGameLogic_Layer->Add_GameObject(pGameObject))) return E_FAIL;
@@ -145,6 +161,9 @@ HRESULT CTestStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 
 HRESULT CTestStage::Ready_Prototype()
 {
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcTexUp", Engine::CRcTexUp::Create(m_pGraphicDev))))
+		return E_FAIL;
+
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcTex", Engine::CRcTex::Create(m_pGraphicDev))))
 		return E_FAIL;
 
@@ -189,6 +208,19 @@ HRESULT CTestStage::Ready_Prototype()
 		return E_FAIL;
 
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WhiteManAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CWhiteMan::GetAnimSources()))))
+		return E_FAIL;
+
+	//Beam Mon Texture 
+	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBeamMon::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BeamMonTexture", pCom_Texture)))
+		return E_FAIL;
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BeamMonAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CBeamMon::GetAnimSources()))))
+		return E_FAIL;
+
+	//Beam Texture
+	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBeam::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BeamTexture", pCom_Texture)))
 		return E_FAIL;
 
 	//Bullet Texture

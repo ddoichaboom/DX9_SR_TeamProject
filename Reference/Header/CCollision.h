@@ -27,6 +27,10 @@ public:
 	{	
 		return m_mapCollider[_name]; 
 	}
+	map<const _tchar*, CCollider*>& GetColliderMap()
+	{
+		return m_mapCollider;
+	}
 
 	void				SetCollision(CollisionInfo info, const _tchar* _name = L"Base");
 	
