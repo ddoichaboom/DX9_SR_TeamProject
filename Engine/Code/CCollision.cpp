@@ -138,13 +138,18 @@ bool CCollision::Collision_Mouse(HWND hWnd, LPDIRECT3DDEVICE9 _pGraphicDev, CCol
     const float eps = 1e-6f;
     _vec3 vRayPos, vRayDir;
     GetRay(hWnd, _pGraphicDev ,&vRayPos, &vRayDir);
+    return Collision_Ray(_col, vRayPos, vRayDir);
+}
 
+bool CCollision::Collision_Ray(CCollider* _col, _vec3 _RayPos, _vec3 _RayDir)
+{
+    static const float eps = 1e-6f;
     _matrix mat = _col->GetWorldMatrix();
 
     D3DXMatrixInverse(&mat, NULL, &mat);
-    D3DXVec3TransformCoord(&vRayPos, &vRayPos, &mat);
-    D3DXVec3TransformNormal(&vRayDir, &vRayDir, &mat);
-    D3DXVec3Normalize(&vRayDir, &vRayDir);
+    D3DXVec3TransformCoord(&_RayPos, &_RayPos, &mat);
+    D3DXVec3TransformNormal(&_RayDir, &_RayDir, &mat);
+    D3DXVec3Normalize(&_RayDir, &_RayDir);
 
     _vec3 minPoint = { -1.f, -1.f, -1.f };
     _vec3 maxPoint = { 1.f, 1.f, 1.f };
@@ -154,40 +159,40 @@ bool CCollision::Collision_Mouse(HWND hWnd, LPDIRECT3DDEVICE9 _pGraphicDev, CCol
         tMiny = -FLT_MIN, tMaxy = FLT_MAX, tMinz = -FLT_MIN, tMaxz = FLT_MAX;
 
 
-    if (fabsf(vRayDir.x) >= eps)
+    if (fabsf(_RayDir.x) >= eps)
     {
-        tMinx = (minPoint.x - vRayPos.x) / vRayDir.x;
-        tMaxx = (maxPoint.x - vRayPos.x) / vRayDir.x;
+        tMinx = (minPoint.x - _RayPos.x) / _RayDir.x;
+        tMaxx = (maxPoint.x - _RayPos.x) / _RayDir.x;
 
         if (tMinx > tMaxx) swap(tMinx, tMaxx);
     }
     else
     {
-        if (vRayPos.x < minPoint.x || vRayPos.x > maxPoint.x) return false;
+        if (_RayPos.x < minPoint.x || _RayPos.x > maxPoint.x) return false;
     }
 
-    if (fabsf(vRayDir.y) >= eps)
+    if (fabsf(_RayDir.y) >= eps)
     {
-        tMiny = (minPoint.y - vRayPos.y) / vRayDir.y;
-        tMaxy = (maxPoint.y - vRayPos.y) / vRayDir.y;
+        tMiny = (minPoint.y - _RayPos.y) / _RayDir.y;
+        tMaxy = (maxPoint.y - _RayPos.y) / _RayDir.y;
 
         if (tMiny > tMaxy) swap(tMiny, tMaxy);
     }
     else
     {
-        if (vRayPos.y < minPoint.y || vRayPos.y > maxPoint.y) return false;
+        if (_RayPos.y < minPoint.y || _RayPos.y > maxPoint.y) return false;
     }
 
-    if (fabsf(vRayDir.z) >= eps)
+    if (fabsf(_RayDir.z) >= eps)
     {
-        tMinz = (minPoint.z - vRayPos.z) / vRayDir.z;
-        tMaxz = (maxPoint.z - vRayPos.z) / vRayDir.z;
+        tMinz = (minPoint.z - _RayPos.z) / _RayDir.z;
+        tMaxz = (maxPoint.z - _RayPos.z) / _RayDir.z;
 
         if (tMinz > tMaxz) swap(tMinz, tMaxz);
     }
     else
     {
-        if (vRayPos.z < minPoint.z || vRayPos.z > maxPoint.z)
+        if (_RayPos.z < minPoint.z || _RayPos.z > maxPoint.z)
             return false;
     }
 

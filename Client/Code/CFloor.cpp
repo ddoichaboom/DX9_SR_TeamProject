@@ -28,7 +28,6 @@ CFloor::CFloor(const CFloor& rhs)
 
 CFloor::~CFloor()
 {
-    Free();
 }
 
 HRESULT CFloor::Ready_GameObject()

@@ -6,6 +6,7 @@ namespace Engine
 	class CRcTexUp;
 	class CTransform;
 	class CTexture;
+	class CCollider;
 }
 
 class CBeam :
@@ -33,9 +34,10 @@ protected:
 	virtual void	Free();
 
 public:
-	void			Rotate(ROTATION axis, _float _degree);
+	bool			CheckCollision(CCollider* _pCollider);
 	void			SetPos(_vec3 _pos) override;
 	void			SetShootDir(_vec3 _dir); 
+
 protected:
 	static vector<TextureSource> m_vTextureSource;
 	//버텍스가 RcTexUp 타입임. 정의 참고 
@@ -51,7 +53,7 @@ protected:
 
 	_vec3			m_vShootDir;
 	_vec3			m_vRotAxis;
-	float m_fTime;
+	float			m_fTime;
 
 };
 

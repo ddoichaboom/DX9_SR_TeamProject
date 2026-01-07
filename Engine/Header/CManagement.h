@@ -21,7 +21,6 @@ public:
 	CLayer* Get_Layer(const _tchar* pLayerTag);
 
 
-	//TODO : 추후에 Scene - Layer에서 Set하도록 수정하기 
 	_uint					GetPlayerID() { return m_iPlayerID; }
 
 public:

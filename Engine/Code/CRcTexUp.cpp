@@ -33,21 +33,21 @@ HRESULT CRcTexUp::Ready_Buffer()
 
 	VTXTEX* pVertex = NULL;
 
-	// &pVertex : 버텍스 버퍼에 저장된 정점 중 첫 번째 주소를 얻어 옴.
+	// & : 버텍스 버퍼에 저장된 정점 중 첫 번째 주소를 얻어 옴.
 
 	m_pVB->Lock(0, 0, (void**)&pVertex, 0);
 
 	// 오른쪽 위
-	pVertex[0].vPosition = { -2.f, 0.f, 0.f };
+	pVertex[0].vPosition = { -2.f, 2.f, 0.f };
 	pVertex[0].vTexUV = { 0.f, 0.f };
 
-	pVertex[1].vPosition = { 2.f, 0.f, 0.f };
+	pVertex[1].vPosition = { 2.f, 2.f, 0.f };
 	pVertex[1].vTexUV = { 1.f, 0.f };
 
-	pVertex[2].vPosition = { 2.f, -2.f, 0.f };
+	pVertex[2].vPosition = { 2.f, 0.f, 0.f };
 	pVertex[2].vTexUV = { 1.f, 1.f };
 
-	pVertex[3].vPosition = { -2.f, -2.f, 0.f };
+	pVertex[3].vPosition = { -2.f, 0.f, 0.f };
 	pVertex[3].vTexUV = { 0.f, 1.f };
 
 	m_pVB->Unlock();

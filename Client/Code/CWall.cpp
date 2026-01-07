@@ -27,7 +27,6 @@ CWall::CWall(const CWall& rhs)
 
 CWall::~CWall()
 {
-    Free();
 }
 
 HRESULT CWall::Ready_GameObject()

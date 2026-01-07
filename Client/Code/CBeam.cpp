@@ -75,6 +75,11 @@ void CBeam::Render_GameObject()
 	m_pBufferCom->Render_Buffer();
 }
 
+bool CBeam::CheckCollision(CCollider* _pCollider)
+{
+	return CCollision::Collision_Ray(_pCollider, m_vPos, m_vShootDir);
+}
+
 HRESULT CBeam::Add_Component()
 {
 	Engine::CComponent* pComponent = nullptr;
@@ -104,6 +109,8 @@ HRESULT CBeam::Add_Component()
 		return E_FAIL;
 
 	m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
+
+	return S_OK;
 }
 
 void CBeam::Free()
@@ -111,11 +118,6 @@ void CBeam::Free()
 	CGameObject::Free();
 }
 
-
-
-void CBeam::Rotate(ROTATION axis, _float _degree)
-{
-}
 
 void CBeam::SetPos(_vec3 _pos)
 {

@@ -10,9 +10,9 @@
 
 #include <ctime>
 
-//TODO : 맵로더 구현되면 제거하기. poolSize 세팅 목적  
 #include "CBullet.h"
 #include "CWhiteMan.h"
+#include "CBeamMon.h"
 #include "CTerrain.h"
 #include "CPlayer.h"
 #include "CFloor.h"
@@ -108,8 +108,8 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	//Engine::CScene* pInitScene = CTestStage::Create(pGraphicDev);
-	Engine::CScene* pInitScene = CMapStage::Create(pGraphicDev);
+	Engine::CScene* pInitScene = CTestStage::Create(pGraphicDev);
+	//Engine::CScene* pInitScene = CMapStage::Create(pGraphicDev);
 
 	if (nullptr == pInitScene)
 		return E_FAIL;
@@ -185,6 +185,7 @@ void CMainApp::Free()
 	//TODO : 한번에 해제하도록 수정하기 
 	CDataMgr<CPlayer>::DestroyInstance();
 	CDataMgr<CWhiteMan>::DestroyInstance();
+	CDataMgr<CBeamMon>::DestroyInstance();
 
 	m_pDeviceClass->DestroyInstance();
 }

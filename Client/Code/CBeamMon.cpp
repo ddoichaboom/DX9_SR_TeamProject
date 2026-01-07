@@ -29,13 +29,16 @@ vector<AnimationSource> CBeamMon::m_vAnimSource =
 
 
 CBeamMon::CBeamMon(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CMonster(pGraphicDev), m_pBodyCollider(nullptr), m_pBeam(nullptr), m_pPlayerTransform(nullptr)
-	, m_vShootDir({0,0,0})
+	:CMonster(pGraphicDev), m_pBodyCollider(nullptr), m_pBeam(nullptr)
+	, m_vShootDir({0,0,0}), m_vStartDir({0,0,0}), m_vEndDir({0,0,0}), m_bBeamCollision(false)
+	, m_pPlayerTransform(nullptr), m_pPlayerCollision(nullptr)
 {
 }
 
 CBeamMon::CBeamMon(const CBeamMon& rhs)
-	:CMonster(rhs), m_pBodyCollider(nullptr), m_pBeam(nullptr), m_pPlayerTransform(nullptr), m_vShootDir({ 0,0,0 })
+	:CMonster(rhs), m_pBodyCollider(nullptr), m_pBeam(nullptr)
+	, m_vShootDir({ 0,0,0 }), m_vStartDir({ 0,0,0 }), m_vEndDir({ 0,0,0 }), m_bBeamCollision(false)
+	, m_pPlayerTransform(nullptr), m_pPlayerCollision(nullptr)
 {
 }
 
@@ -142,6 +145,9 @@ void CBeamMon::LateUpdate_GameObject(const _float& fTimeDelta)
 	if (m_bShooting)
 	{
 		m_pBeam->LateUpdate_GameObject(fTimeDelta);
+		//TODO : 플레이어에 콜라이더 생성되면 주석 풀기 
+		//CollisionBeam();
+
 		bool bBeamEnd = RunBeam(fTimeDelta);
 		if (bBeamEnd) m_bShooting = false;
 	}
@@ -227,28 +233,52 @@ void CBeamMon::Dead()
 	SetDead();
 }
 
+//빔이 향하는 방향을 세팅 
+//시작 방향 -> 끝 방향으로 Lerp하여 현재 방향을 구함 
 void CBeamMon::ResetBeam()
 {
 	_vec3 pos = *m_pTransformCom->Get_Info(INFO_POS);
 	m_pBeam->SetPos(pos);
-	m_vShootDir = *m_pTransformCom->Get_Info(INFO_LOOK) * -1.f;
+	m_vStartDir = { 0,-1,0 };
+
+	_vec3 m_vPlayerPos = *GetPlayerTransformCom()->Get_Info(INFO_POS);
+	m_vPlayerPos.y = pos.y; //현재 플레이어의 위치에서 높이값만 몬스터 높이로 변경
+	m_vEndDir = m_vPlayerPos - pos;
+	D3DXVec3Normalize(&m_vEndDir, &m_vEndDir);
+
+	m_vShootDir = m_vStartDir;
 	m_pBeam->SetShootDir(m_vShootDir);
-	m_fRotValue = 0.f;
+	m_fTime = 0.f;
+	m_bBeamCollision = false;
 }
 
 bool CBeamMon::RunBeam(const _float& fTimeDelta)
 {
 	if (!m_pBeam) return true;
-	m_fRotValue += m_fRotSpeed * fTimeDelta;
+	if (m_fTime >= m_fBeamTime)return true;
 
-	_matrix mat;
-	_vec3  curShootDir;
+	D3DXVec3Lerp(&m_vShootDir, &m_vStartDir, &m_vEndDir, m_fTime / m_fBeamTime);
+	D3DXVec3Normalize(&m_vShootDir, &m_vShootDir);
+	m_pBeam->SetShootDir(m_vShootDir);
 
-	D3DXMatrixRotationAxis(&mat, m_pTransformCom->Get_Info(INFO_RIGHT), m_fRotValue);
-	D3DXVec3TransformNormal(&curShootDir, &m_vShootDir, &mat);
-	m_pBeam->SetShootDir(curShootDir);
-	if (m_fRotValue > m_fMaxRotValue) return true;
 	return false;
+}
+
+void CBeamMon::CollisionBeam()
+{
+	if (m_bBeamCollision) return;
+	CCollision* playerCollision = GetPlayerCollision();
+	auto& collidersMap = playerCollision->GetColliderMap();
+	for (auto &pairCollider : collidersMap)
+	{
+		bool bCollision = m_pBeam->CheckCollision(pairCollider.second);
+		if (bCollision)
+		{
+			m_bBeamCollision = bCollision;
+			return;
+		}
+	}
+
 }
 
 Engine::CTransform* CBeamMon::GetPlayerTransform()
@@ -260,6 +290,17 @@ Engine::CTransform* CBeamMon::GetPlayerTransform()
 	}
 	return m_pPlayerTransform;
 }
+
+Engine::CCollision* CBeamMon::GetPlayerCollision()
+{
+	if (!m_pPlayerCollision)
+	{
+		m_pPlayerCollision =
+			static_cast<CCollision*>(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_PLAYER, L"Com_Collision"));
+	}
+	return m_pPlayerCollision;
+}
+
 void CBeamMon::Activate()
 {
 	CMonster::Activate();
