@@ -3,8 +3,10 @@
 
 enum WALL_DIR
 {
-    WALL_XY,
-    WALL_YZ,
+    WALL_XY_FRONT,
+    WALL_XY_BACK,
+    WALL_YZ_LEFT,
+    WALL_YZ_RIGHT,
     WALL_END
 };
 

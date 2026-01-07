@@ -125,8 +125,7 @@ CEditorSpawnPoint* CEditorSpawnPoint::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec
     // 위치 설정
     pInstance->Set_Position(vPos);
 
-    // 작은 크기 (스폰 지점은 마커 역할)
-    pInstance->Set_Scale(_vec3(0.5f, 0.5f, 0.5f));
+    pInstance->Set_Scale(_vec3(5.f, 5.f, 5.f));
 
     // 스폰 타입 설정
     pInstance->Set_SpawnType(eType);

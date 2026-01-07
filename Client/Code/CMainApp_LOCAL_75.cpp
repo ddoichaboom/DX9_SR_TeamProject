@@ -80,7 +80,7 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 	(*ppGraphicDev) = m_pDeviceClass->Get_GraphicDev();
 	(*ppGraphicDev)->AddRef();
 
-	//(*ppGraphicDev)->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+
 	(*ppGraphicDev)->SetRenderState(D3DRS_LIGHTING, FALSE);
 
 
@@ -101,6 +101,8 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 
 	//텍스쳐를 사용하는 모든 오브젝트는 텍스쳐 공간 변환을 U,V 2차원으로만 한다 
 	m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT2);
+
+	///CPoolMgr::GetInstance()->SetPoolSize<CTerrain>(3);
 
 	return S_OK;
 }
@@ -177,21 +179,17 @@ void CMainApp::Free()
 
 	CDInputMgr::DestroyInstance();
 	CRenderer::DestroyInstance();
-
 	CFrameMgr::DestroyInstance();
 	CTimerMgr::DestroyInstance();
 	CManagement::DestroyInstance();
-
 	CPoolMgr::DestroyInstance();
+	//순서주의! ProtoMgr가 제일 뒤, BaseTexture는 ProtoMgr바로 앞에 두기 
 	CBaseTexture::ReleaseMap();
 	CProtoMgr::DestroyInstance();
-
-
 	//TODO : 한번에 해제하도록 수정하기 
 	CDataMgr<CPlayer>::DestroyInstance();
 	CDataMgr<CWhiteMan>::DestroyInstance();
 	CDataMgr<CBeamMon>::DestroyInstance();
-	CDataMgr<CFlyMon>::DestroyInstance();
 
 	m_pDeviceClass->DestroyInstance();
 }

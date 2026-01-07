@@ -10,10 +10,9 @@
 
 #include <ctime>
 
+//TODO : 맵로더 구현되면 제거하기. poolSize 세팅 목적  
 #include "CBullet.h"
 #include "CWhiteMan.h"
-#include "CBeamMon.h"
-#include "CFlyMon.h"
 #include "CTerrain.h"
 #include "CPlayer.h"
 #include "CFloor.h"
@@ -80,7 +79,7 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 	(*ppGraphicDev) = m_pDeviceClass->Get_GraphicDev();
 	(*ppGraphicDev)->AddRef();
 
-	//(*ppGraphicDev)->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+
 	(*ppGraphicDev)->SetRenderState(D3DRS_LIGHTING, FALSE);
 
 
@@ -102,13 +101,15 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 	//텍스쳐를 사용하는 모든 오브젝트는 텍스쳐 공간 변환을 U,V 2차원으로만 한다 
 	m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT2);
 
+	///CPoolMgr::GetInstance()->SetPoolSize<CTerrain>(3);
+
 	return S_OK;
 }
 
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	Engine::CScene* pInitScene = CTestStage::Create(pGraphicDev);
-	//Engine::CScene* pInitScene = CMapStage::Create(pGraphicDev);
+	//Engine::CScene* pInitScene = CTestStage::Create(pGraphicDev);
+	Engine::CScene* pInitScene = CMapStage::Create(pGraphicDev);
 
 	if (nullptr == pInitScene)
 		return E_FAIL;
@@ -139,17 +140,14 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iObstacleCount = CMapLoader::GetInstance()->Get_ObstacleCount();
 	_uint iBulletCount = 30;
 	_uint iWhiteManCount = 5;
-	_uint iBeamMonCount = 3;
-	_uint iFlyMonCount = 6;
 
 	CPoolMgr::GetInstance()->SetPoolSize<CFloor>(iFloorCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CCeiling>(iCeilingCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CWall>(iWallCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CObstacle>(iObstacleCount);
-	CPoolMgr::GetInstance()->SetPoolSize<CBullet>(iBulletCount);
-	CPoolMgr::GetInstance()->SetPoolSize<CWhiteMan>(iWhiteManCount);
-	CPoolMgr::GetInstance()->SetPoolSize<CBeamMon>(iBeamMonCount);
-	CPoolMgr::GetInstance()->SetPoolSize<CFlyMon>(iFlyMonCount);
+	Engine::CPoolMgr::GetInstance()->SetPoolSize<CBullet>(iBulletCount);
+	Engine::CPoolMgr::GetInstance()->SetPoolSize<CWhiteMan>(iWhiteManCount);
+
 
 	return S_OK;
 }
@@ -177,21 +175,14 @@ void CMainApp::Free()
 
 	CDInputMgr::DestroyInstance();
 	CRenderer::DestroyInstance();
-
+	CProtoMgr::DestroyInstance();
 	CFrameMgr::DestroyInstance();
 	CTimerMgr::DestroyInstance();
 	CManagement::DestroyInstance();
-
-	CPoolMgr::DestroyInstance();
-	CBaseTexture::ReleaseMap();
-	CProtoMgr::DestroyInstance();
-
-
 	//TODO : 한번에 해제하도록 수정하기 
 	CDataMgr<CPlayer>::DestroyInstance();
 	CDataMgr<CWhiteMan>::DestroyInstance();
-	CDataMgr<CBeamMon>::DestroyInstance();
-	CDataMgr<CFlyMon>::DestroyInstance();
 
+	CPoolMgr::DestroyInstance();
 	m_pDeviceClass->DestroyInstance();
 }

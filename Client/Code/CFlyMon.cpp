@@ -220,7 +220,7 @@ void CFlyMon::Launch()
 	dir.y = 0.f;
 	D3DXVec3Normalize(&dir, &dir);
 
-	float totalSpeed = easeOutCirc(m_fTime / m_fLaunchTime) * m_fLaunchSpeed;
+	float totalSpeed = easeOutQuint(m_fTime / m_fLaunchTime) * m_fLaunchSpeed;
 	m_pTransformCom->Move_Pos(&dir, 1, totalSpeed);
 }
 

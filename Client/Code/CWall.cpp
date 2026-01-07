@@ -22,7 +22,7 @@ CWall::CWall(const CWall& rhs)
     , m_eTerrainType(rhs.m_eTerrainType)
 {
     m_eOBJ_ID = rhs.m_eOBJ_ID;
-    m_iID = rhs.m_iID;              // 복사생성자는 어떻게?
+    m_iID = Make_ID();              // 복사생성자는 어떻게?
 }
 
 CWall::~CWall()
@@ -53,8 +53,7 @@ void CWall::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CWall::Render_GameObject()
 {
-    // TODO : 개발 단계 끝나면 주석 처리 뒷면이 보일 필요 X 
-    m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+   //m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
@@ -69,6 +68,7 @@ void CWall::Render_GameObject()
     m_pBufferCom->Render_Buffer();
 
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
+    //m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
 void CWall::SetPos(_vec3 _pos)
