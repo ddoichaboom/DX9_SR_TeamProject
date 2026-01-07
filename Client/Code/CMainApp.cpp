@@ -79,7 +79,7 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 	(*ppGraphicDev) = m_pDeviceClass->Get_GraphicDev();
 	(*ppGraphicDev)->AddRef();
 
-
+	//(*ppGraphicDev)->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	(*ppGraphicDev)->SetRenderState(D3DRS_LIGHTING, FALSE);
 
 
@@ -100,8 +100,6 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 
 	//텍스쳐를 사용하는 모든 오브젝트는 텍스쳐 공간 변환을 U,V 2차원으로만 한다 
 	m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT2);
-
-	///CPoolMgr::GetInstance()->SetPoolSize<CTerrain>(3);
 
 	return S_OK;
 }

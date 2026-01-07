@@ -54,8 +54,6 @@ void CCeiling::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CCeiling::Render_GameObject()
 {
-    m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 

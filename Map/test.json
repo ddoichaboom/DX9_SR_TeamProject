@@ -1,528 +1,15 @@
 {
-  "ceilingCount": 3,
-  "floorCount": 27,
-  "objectCount": 33,
+  "ceilingCount": 16,
+  "floorCount": 110,
+  "objectCount": 140,
   "objects": [
-    {
-      "name": "Floor",
-      "position": [
-        48.0,
-        0.0,
-        16.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        48.0,
-        0.0,
-        48.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        48.0,
-        0.0,
-        80.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        48.0,
-        0.0,
-        112.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        48.0,
-        0.0,
-        144.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        48.0,
-        0.0,
-        176.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        48.0,
-        0.0,
-        208.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        48.0,
-        0.0,
-        240.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        80.0,
-        0.0,
-        16.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        80.0,
-        0.0,
-        48.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        80.0,
-        0.0,
-        80.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        80.0,
-        0.0,
-        112.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        80.0,
-        0.0,
-        144.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        80.0,
-        0.0,
-        176.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        80.0,
-        0.0,
-        208.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        80.0,
-        0.0,
-        240.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        112.0,
-        0.0,
-        16.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        112.0,
-        0.0,
-        48.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        112.0,
-        0.0,
-        80.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        112.0,
-        0.0,
-        112.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        112.0,
-        0.0,
-        144.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        112.0,
-        0.0,
-        176.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        112.0,
-        0.0,
-        208.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        112.0,
-        0.0,
-        240.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        48.0,
-        0.0,
-        272.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        80.0,
-        0.0,
-        272.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
-    {
-      "name": "Floor",
-      "position": [
-        112.0,
-        0.0,
-        272.0
-      ],
-      "rotation": [
-        -90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "type": "Floor"
-    },
     {
       "monsterKey": "",
       "name": "PlayerSpawn",
       "position": [
         80.0,
         20.0,
-        64.0
+        24.0
       ],
       "rotation": [
         0.0,
@@ -530,9 +17,9 @@
         0.0
       ],
       "scale": [
-        10.0,
-        10.0,
-        10.0
+        5.0,
+        5.0,
+        5.0
       ],
       "spawnType": "Player",
       "type": "SpawnPoint"
@@ -541,9 +28,9 @@
       "monsterKey": "WhiteMan",
       "name": "MonsterSpawn",
       "position": [
-        63.29999923706055,
+        80.0,
         13.0,
-        168.5
+        96.0
       ],
       "rotation": [
         0.0,
@@ -551,22 +38,687 @@
         0.0
       ],
       "scale": [
-        10.0,
-        10.0,
-        10.0
+        5.0,
+        5.0,
+        5.0
       ],
       "spawnType": "Monster",
       "type": "SpawnPoint"
     },
     {
-      "name": "Ceiling",
+      "name": "Floor",
       "position": [
-        81.41720581054688,
-        32.4000015258789,
-        39.907752990722656
+        8.0,
+        0.0,
+        200.0
       ],
       "rotation": [
         90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        8.0,
+        0.0,
+        216.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        8.0,
+        0.0,
+        232.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        8.0,
+        0.0,
+        248.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        8.0,
+        0.0,
+        264.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        8.0,
+        0.0,
+        280.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        8.0,
+        0.0,
+        296.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        40.0,
+        0.0,
+        184.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        40.0,
+        0.0,
+        168.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        40.0,
+        0.0,
+        152.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        40.0,
+        0.0,
+        136.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        72.0,
+        0.0,
+        120.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        72.0,
+        0.0,
+        104.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        72.0,
+        0.0,
+        88.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        72.0,
+        0.0,
+        72.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        72.0,
+        0.0,
+        56.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        72.0,
+        0.0,
+        40.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        72.0,
+        0.0,
+        24.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        72.0,
+        0.0,
+        8.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        88.0,
+        0.0,
+        120.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        88.0,
+        0.0,
+        104.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        88.0,
+        0.0,
+        88.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        88.0,
+        0.0,
+        72.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        88.0,
+        0.0,
+        56.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        88.0,
+        0.0,
+        40.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        88.0,
+        0.0,
+        24.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        88.0,
+        0.0,
+        8.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        72.0,
+        32.0,
+        8.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        72.0,
+        32.0,
+        24.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        72.0,
+        32.0,
+        40.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        72.0,
+        32.0,
+        56.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        88.0,
+        32.0,
+        8.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        88.0,
+        32.0,
+        24.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        88.0,
+        32.0,
+        40.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        88.0,
+        32.0,
+        56.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Wall",
+      "position": [
+        80.0,
+        16.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
         0.0,
         0.0
       ],
@@ -575,17 +727,330 @@
         16.0,
         1.0
       ],
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Wall",
+      "position": [
+        64.0,
+        16.0,
+        16.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        64.0,
+        16.0,
+        48.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        64.0,
+        16.0,
+        80.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        64.0,
+        16.0,
+        112.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        88.0,
+        32.0,
+        72.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
       "type": "Ceiling"
     },
     {
       "name": "Ceiling",
       "position": [
-        84.11699676513672,
-        32.4000015258789,
-        204.4080047607422
+        72.0,
+        32.0,
+        72.0
       ],
       "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        72.0,
+        32.0,
+        88.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        88.0,
+        32.0,
+        88.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        72.0,
+        32.0,
+        104.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        88.0,
+        32.0,
+        104.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        72.0,
+        32.0,
+        120.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Ceiling",
+      "position": [
+        88.0,
+        32.0,
+        120.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Ceiling"
+    },
+    {
+      "name": "Wall",
+      "position": [
+        96.0,
+        16.0,
+        16.0
+      ],
+      "rotation": [
+        0.0,
         90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        96.0,
+        16.0,
+        48.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        96.0,
+        16.0,
+        80.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        96.0,
+        16.0,
+        112.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "type": "Wall",
+      "wallDirection": 1
+    },
+    {
+      "name": "Wall",
+      "position": [
+        48.0,
+        16.0,
+        128.0
+      ],
+      "rotation": [
+        0.0,
         0.0,
         0.0
       ],
@@ -594,17 +1059,18 @@
         16.0,
         1.0
       ],
-      "type": "Ceiling"
+      "type": "Wall",
+      "wallDirection": 0
     },
     {
-      "name": "Ceiling",
+      "name": "Wall",
       "position": [
-        82.21700286865234,
-        32.4000015258789,
-        72.10800170898438
+        112.0,
+        16.0,
+        128.0
       ],
       "rotation": [
-        90.0,
+        0.0,
         0.0,
         0.0
       ],
@@ -613,15 +1079,15 @@
         16.0,
         1.0
       ],
-      "type": "Ceiling"
+      "type": "Wall",
+      "wallDirection": 0
     },
     {
-      "monsterKey": "WhiteMan",
-      "name": "SpawnPoint",
+      "name": "Wall",
       "position": [
-        99.9000015258789,
-        13.0,
-        211.39999389648438
+        80.0,
+        16.0,
+        128.0
       ],
       "rotation": [
         0.0,
@@ -629,15 +1095,1592 @@
         0.0
       ],
       "scale": [
-        10.0,
-        10.0,
-        10.0
+        16.0,
+        16.0,
+        1.0
       ],
-      "spawnType": "Monster",
-      "type": "SpawnPoint"
+      "type": "Wall",
+      "wallDirection": 0
+    },
+    {
+      "name": "Floor",
+      "position": [
+        56.0,
+        0.0,
+        136.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        56.0,
+        0.0,
+        152.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        56.0,
+        0.0,
+        168.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        56.0,
+        0.0,
+        184.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        24.0,
+        0.0,
+        200.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        24.0,
+        0.0,
+        216.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        24.0,
+        0.0,
+        232.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        24.0,
+        0.0,
+        248.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        24.0,
+        0.0,
+        264.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        24.0,
+        0.0,
+        280.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        24.0,
+        0.0,
+        296.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        72.0,
+        0.0,
+        136.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        72.0,
+        0.0,
+        152.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        72.0,
+        0.0,
+        168.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        72.0,
+        0.0,
+        184.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        40.0,
+        0.0,
+        200.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        40.0,
+        0.0,
+        216.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        40.0,
+        0.0,
+        232.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        40.0,
+        0.0,
+        248.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        40.0,
+        0.0,
+        264.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        40.0,
+        0.0,
+        280.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        40.0,
+        0.0,
+        296.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        88.0,
+        0.0,
+        136.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        88.0,
+        0.0,
+        152.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        88.0,
+        0.0,
+        168.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        88.0,
+        0.0,
+        184.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        56.0,
+        0.0,
+        200.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        56.0,
+        0.0,
+        216.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        56.0,
+        0.0,
+        232.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        56.0,
+        0.0,
+        248.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        56.0,
+        0.0,
+        264.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        56.0,
+        0.0,
+        280.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        56.0,
+        0.0,
+        296.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        104.0,
+        0.0,
+        136.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        104.0,
+        0.0,
+        152.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        104.0,
+        0.0,
+        168.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        104.0,
+        0.0,
+        184.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        72.0,
+        0.0,
+        200.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        72.0,
+        0.0,
+        216.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        72.0,
+        0.0,
+        232.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        72.0,
+        0.0,
+        248.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        72.0,
+        0.0,
+        264.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        72.0,
+        0.0,
+        280.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        72.0,
+        0.0,
+        296.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        120.0,
+        0.0,
+        136.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        120.0,
+        0.0,
+        152.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        120.0,
+        0.0,
+        168.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        120.0,
+        0.0,
+        184.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        88.0,
+        0.0,
+        200.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        88.0,
+        0.0,
+        216.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        88.0,
+        0.0,
+        232.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        88.0,
+        0.0,
+        248.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        88.0,
+        0.0,
+        264.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        88.0,
+        0.0,
+        280.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        88.0,
+        0.0,
+        296.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        104.0,
+        0.0,
+        200.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        104.0,
+        0.0,
+        216.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        104.0,
+        0.0,
+        232.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        104.0,
+        0.0,
+        248.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        104.0,
+        0.0,
+        264.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        104.0,
+        0.0,
+        280.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        104.0,
+        0.0,
+        296.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        120.0,
+        0.0,
+        200.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        120.0,
+        0.0,
+        216.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        120.0,
+        0.0,
+        232.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        120.0,
+        0.0,
+        248.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        120.0,
+        0.0,
+        264.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        120.0,
+        0.0,
+        280.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        120.0,
+        0.0,
+        296.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        136.0,
+        0.0,
+        200.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        136.0,
+        0.0,
+        216.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        136.0,
+        0.0,
+        232.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        136.0,
+        0.0,
+        248.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        136.0,
+        0.0,
+        264.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        136.0,
+        0.0,
+        280.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        136.0,
+        0.0,
+        296.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        152.0,
+        0.0,
+        200.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        152.0,
+        0.0,
+        216.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        152.0,
+        0.0,
+        232.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        152.0,
+        0.0,
+        248.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        152.0,
+        0.0,
+        264.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        152.0,
+        0.0,
+        280.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
+    },
+    {
+      "name": "Floor",
+      "position": [
+        152.0,
+        0.0,
+        296.0
+      ],
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "Floor"
     }
   ],
   "obstacleCount": 0,
   "version": 3,
-  "wallCount": 0
+  "wallCount": 12
 }
