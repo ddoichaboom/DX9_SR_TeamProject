@@ -19,6 +19,12 @@
 #include "CBullet.h"
 #include "CBeam.h"
 
+//Player
+#include "CLeftPart.h"
+#include "CRightPart.h"
+#include "CMiddlePart.h"
+#include "CPistol.h"
+
 CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
 {
 }
@@ -141,80 +147,28 @@ HRESULT CMapStage::Ready_PlayerProto()
 {
     CTexture* pCom_Texture = nullptr;
 
-    // =========== Player - Left ===========
-
-    vector<TextureSource> vLeftTextureSource =
-    {
-        { 0, L"../Bin/Resource/Texture/Player/Left_Hand_Idle.png" },
-        { 1, L"../Bin/Resource/Texture/Player/Left_Hand_Reload_P.png" },
-        { 2, L"../Bin/Resource/Texture/Player/Left_Hand_Reload_S.png" }
-
-    };
-
-    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, vLeftTextureSource);
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CLeftPart::GetTextureSources());
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_LeftTexture", pCom_Texture)))
         return E_FAIL;
 
-    //상태값, 마지막 행 번호,  마지막 열 번호, 프레임이 끝나는 열 번호, 루프 유무, 플레이 속도 = 0.12f	
-    vector<AnimationSource> vLeftAnimSource =
-    {
-        { 0,1,3,3, true, 0.11f},
-        { 1,0,3,3, false, 0.11f},
-        { 2,0,3,3, false, 0.11f},
-    };
-
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_LeftAnimation",
-        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, vLeftAnimSource))))
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CLeftPart::GetAnimSources()))))
         return E_FAIL;
 
-    // =========== Player - PLAYER_RIGHT_HAND ===========
-
-    vector<TextureSource> vRightTextureSource =
-    {
-        { 0, L"../Bin/Resource/Texture/Player/Right_Hand_Idle_P.png" },
-        { 1, L"../Bin/Resource/Texture/Player/Right_Hand_Shot_P.png" },
-        { 2, L"../Bin/Resource/Texture/Player/Right_Hand_Reload_P.png" }
-
-    };
-
-    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, vRightTextureSource);
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CRightPart::GetTextureSources());
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RightTexture", pCom_Texture)))
         return E_FAIL;
 
-    //상태값, 마지막 행 번호,  마지막 열 번호, 프레임이 끝나는 열 번호, 루프 유무, 플레이 속도 = 0.12f	
-    vector<AnimationSource> vRightAnimSource =
-    {
-        { 0,0,3,3, true, 0.11f},
-        { 1,0,5,5, false, 0.02f},
-        { 2,1,6,6, false, 0.02f},
-    };
-
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RightAnimation",
-        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, vRightAnimSource))))
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CRightPart::GetAnimSources()))))
         return E_FAIL;
 
-    // =========== Player - Middle_Part ===========
-
-    vector<TextureSource> vMiddleTextureSource =
-    {
-        { 0, L"../Bin/Resource/Texture/Player/Middle_Kick.png" },
-        { 1, L"../Bin/Resource/Texture/Player/Middle_Soda.png" },
-
-    };
-
-    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, vMiddleTextureSource);
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CMiddlePart::GetTextureSources());
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_MiddleTexture", pCom_Texture)))
         return E_FAIL;
 
-    //상태값, 마지막 행 번호,  마지막 열 번호, 프레임이 끝나는 열 번호, 루프 유무, 플레이 속도 = 0.12f	
-    vector<AnimationSource> vMiddleAnimSource =
-    {
-        { 0,0,3,3, false, 0.08f},
-        { 1,0,6,6, false, 0.05f}
-    };
-
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_MiddleAnimation",
-        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, vMiddleAnimSource))))
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CMiddlePart::GetAnimSources()))))
         return E_FAIL;
 
     return S_OK;
@@ -306,15 +260,41 @@ HRESULT CMapStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 
     CGameObject* pGameObject = nullptr;
 
+#pragma region Player
+    CPlayer* pPlayer = nullptr;
     _vec3 pPlayerSpawnPos = CMapLoader::GetInstance()->Get_PlayerSpawnPos();
 
-     pGameObject = CPlayer::Create(m_pGraphicDev, pPlayerSpawnPos);
+    pGameObject = pPlayer = CPlayer::Create(m_pGraphicDev, pPlayerSpawnPos);
 
-     if (nullptr == pGameObject)
-         return E_FAIL;
+    if (nullptr == pGameObject)
+        return E_FAIL;
 
-     if (FAILED(pLayer->Add_GameObject(pGameObject)))
-         return E_FAIL;
+    if (FAILED(pLayer->Add_GameObject(pGameObject)))
+        return E_FAIL;
+
+    pGameObject = CMiddlePart::Create(m_pGraphicDev);
+    pPlayer->Set_MiddlePart(dynamic_cast<CMiddlePart*>(pGameObject));
+    if (FAILED(pLayer->Add_GameObject(pGameObject)))
+        return E_FAIL;
+
+    pGameObject = CRightPart::Create(m_pGraphicDev);
+    pPlayer->Set_RightPart(dynamic_cast<CRightPart*>(pGameObject));
+    if (FAILED(pLayer->Add_GameObject(pGameObject)))
+        return E_FAIL;
+
+    pGameObject = CLeftPart::Create(m_pGraphicDev);
+    pPlayer->Set_LeftPart(dynamic_cast<CLeftPart*>(pGameObject));
+    if (FAILED(pLayer->Add_GameObject(pGameObject)))
+        return E_FAIL;
+
+    pGameObject = CPistol::Create(m_pGraphicDev);
+    pPlayer->Add_Weapon((byte)1, dynamic_cast<CPistol*>(pGameObject));
+    if (FAILED(pLayer->Add_GameObject(pGameObject)))
+        return E_FAIL;
+
+#pragma endregion
+
+    
 
      auto& monsterSpawns = CMapLoader::GetInstance()->Get_MonsterSpawns();
 

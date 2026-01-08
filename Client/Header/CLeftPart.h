@@ -1,45 +1,57 @@
 #pragma once
 #include "CPlayerPart.h"
 
-class CLeftPart : public CPlayerPart    
+class CLeftPart : public CPlayerPart
 {
-public :
-	enum LEFT_STATE
-	{
-		LS_UNACTIVE = 999,
-		LS_IDLE		= 0,
-		LS_RELOAD_PISTOL	= 1,
-		LS_RELOAD_SHOTGUN	= 2,
-	};
-
 protected:
 	explicit		CLeftPart(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit		CLeftPart(const CLeftPart& rhs);
 	virtual			~CLeftPart();
 
-public :
-	void Change_State(_uint iStateNum) override;
 public:
-	HRESULT Ready_GameObject() override;
-	_int Update_GameObject(const _float& fTimeDelta) override;
-	void LateUpdate_GameObject(const _float& fTimeDelta) override;
-	void Render_GameObject() override;
+	static void		CreateStateData();
+	static vector<TextureSource>& GetTextureSources()
+	{
+		return m_vTextureSource;
+	}
+	static vector<AnimationSource>& GetAnimSources()
+	{
+		return m_vAnimSource;
+	}
 
-public:
-	HRESULT Add_Component() override;
 	static CLeftPart* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
-private:
-	void Free() override;
+public:
+	virtual _bool	Get_ActionAble() override;
 
-private :
-	void		Update_Idle(const float& fTimeDelta);
-	void		Update_Reload(const float& fTimeDelta);	
+public:
+	HRESULT		Ready_GameObject() override;
+	_int		Update_GameObject(const _float& fTimeDelta) override;
+	void		LateUpdate_GameObject(const _float& fTimeDelta) override;
+	void		Render_GameObject() override;
 
-private :
-	LEFT_STATE	m_eNowState;
-	_vec3		m_vEndPos;
+protected:
+	HRESULT		Add_Component() override;
+	virtual		void	Free();
 
-	_float		m_fTime;
+public:
+	void		ChangeState(_uint nextStateID) override;
+
+protected:
+	//State Function 
+	void Begin_Idle();
+	void Idle();
+
+	void Begin_Reload();
+	void Reload();
+	void End_Reload();
+
+protected:
+	static vector<TextureSource>	m_vTextureSource;
+	static vector<AnimationSource>	m_vAnimSource;
+	_vec3	m_vStartPos;
+	_vec3	m_vEndPos;
+
+	_bool	m_bReload;
 };
 
