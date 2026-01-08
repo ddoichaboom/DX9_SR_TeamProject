@@ -24,6 +24,8 @@ void CRenderer::Add_RenderGroup(RENDERID eType, CGameObject* pGameObject)
 
 void CRenderer::Render_GameObject(LPDIRECT3DDEVICE9& pGraphicDev)
 {
+	pGraphicDev->SetTexture(0, nullptr);
+
 	Render_Priority(pGraphicDev);
 	Render_NonAlpha(pGraphicDev);
 	Render_Alpha(pGraphicDev);
