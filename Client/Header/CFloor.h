@@ -16,6 +16,12 @@ private:
     virtual ~CFloor();
 
 public:
+    static TextureSource& GetTextureSource()
+    {
+        return m_textureSource;
+    }
+
+public:
     virtual HRESULT     Ready_GameObject() override;
     virtual _int        Update_GameObject(const _float& fTimeDelta) override;
     virtual void        LateUpdate_GameObject(const _float& fTimeDelta) override;
@@ -49,5 +55,8 @@ public:
 
 private:
     virtual void Free() override;
+
+private:
+    static TextureSource    m_textureSource;
 };
 

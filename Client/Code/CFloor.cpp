@@ -4,6 +4,12 @@
 #include "CRenderer.h"
 #include "Engine_Enum.h"
 
+//마지막 벡터 값은 외곽에서부터 제거될 픽셀 값이라고 생각하기 (이 비율만큼 uv를 땡겨서 랜더링함)
+TextureSource CFloor::m_textureSource =
+{
+    0,L"../Bin/Resource/Texture/Test/FLOORS.dds",true,0,3,3,{2.f,2.f}
+};
+
 CFloor::CFloor(LPDIRECT3DDEVICE9 pGraphicDev)
     : CGameObject(pGraphicDev)
     , m_pBufferCom(nullptr)
@@ -34,16 +40,18 @@ HRESULT CFloor::Ready_GameObject()
 {
     if (FAILED(Add_Component()))
         return E_FAIL;
-
+    //텍스쳐선택
+    m_pTextureCom->Change_Texture(0);
+    //사용할 프레임 인덱스. Col - Row 순서임 
+   // m_pTextureCom->Set_Frame({ (_float)(rand() % 4),0 });
+    m_pTextureCom->Set_Frame({ 0,0 });
     return S_OK;
 }
 
 _int CFloor::Update_GameObject(const _float& fTimeDelta)
 {
     _int iExit = CGameObject::Update_GameObject(fTimeDelta);
-
     CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA, this);
-
     return iExit;
 }
 
@@ -61,12 +69,17 @@ void CFloor::Render_GameObject()
         return;
 
     // 텍스처가 있으면 렌더링 
-    //if (m_pTextureCom)
-    //    m_pTextureCom->Set_Texture(0);
+    m_pTextureCom->Render_Texture();
 
     m_pBufferCom->Render_Buffer();
 
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
+
+    //TODO : 모든 타일에 텍스쳐 삽입이 완료되면 지우기 
+    //그 전까지는 모든 타일의 Render_GameObject 끝에 아래 코드 추가 
+    //아래 코드가 없으면 여기서 SetTexture에 들어간 텍스쳐가 텍스쳐가 없는 벽 등에 영향을 미침
+    m_pGraphicDev->SetTexture(0, nullptr);
+    //
 }
 
 void CFloor::SetPos(_vec3 _pos)
@@ -118,10 +131,10 @@ HRESULT CFloor::Add_Component()
 
     m_mapComponent[ID_STATIC].insert({ L"Com_Transform", pComponent });
 
-    // Texture (선택사항 - Phase 7에서 추가)
-    // pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>
-    //     (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_FloorTexture"));
-    // m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
+     pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>
+         (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_FloorTexture"));
+
+     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Texture", pComponent });
 
     return S_OK;
 }
