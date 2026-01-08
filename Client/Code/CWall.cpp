@@ -118,7 +118,7 @@ HRESULT CWall::Add_Component()
     if (nullptr == pComponent)
         return E_FAIL;
 
-    m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
+    m_mapComponent[ID_STATIC].insert({ L"Com_Transform", pComponent });
 
     // Texture (선택사항 - Phase 7에서 추가)
     // pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>

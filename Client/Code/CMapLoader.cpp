@@ -234,6 +234,7 @@ CGameObject* CMapLoader::Create_GameObject_FromJSON(const json& jObj,
                 pFloor->SetPos(vPos);
                 pFloor->SetAngle(vRot);
                 pFloor->SetScale(vScale);
+                pFloor->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
                 pGameObject = pFloor;
             }
         }
@@ -245,6 +246,7 @@ CGameObject* CMapLoader::Create_GameObject_FromJSON(const json& jObj,
                 pCeiling->SetPos(vPos);
                 pCeiling->SetAngle(vRot);
                 pCeiling->SetScale(vScale);
+                pCeiling->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
                 pGameObject = pCeiling;
             }
         }
@@ -256,6 +258,7 @@ CGameObject* CMapLoader::Create_GameObject_FromJSON(const json& jObj,
                 pObstacle->SetPos(vPos);
                 pObstacle->SetAngle(vRot);
                 pObstacle->SetScale(vScale);
+                pObstacle->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
                 pGameObject = pObstacle;
             }
         }
@@ -267,6 +270,7 @@ CGameObject* CMapLoader::Create_GameObject_FromJSON(const json& jObj,
                 pWall->SetPos(vPos);
                 pWall->SetAngle(vRot);
                 pWall->SetScale(vScale);
+                pWall->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
                 pGameObject = pWall;
             }
         }

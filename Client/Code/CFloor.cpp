@@ -23,7 +23,7 @@ CFloor::CFloor(const CFloor& rhs)
     , m_eTerrainType(rhs.m_eTerrainType)
 {
     m_eOBJ_ID = rhs.m_eOBJ_ID;
-    m_iID = Make_ID();              // 복사생성자는 어떻게?
+    m_iID = Make_ID();              
 }
 
 CFloor::~CFloor()
@@ -116,7 +116,7 @@ HRESULT CFloor::Add_Component()
     if (nullptr == pComponent)
         return E_FAIL;
 
-    m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
+    m_mapComponent[ID_STATIC].insert({ L"Com_Transform", pComponent });
 
     // Texture (선택사항 - Phase 7에서 추가)
     // pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>
