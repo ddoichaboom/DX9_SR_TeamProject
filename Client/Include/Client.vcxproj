@@ -157,6 +157,7 @@
     <ClInclude Include="..\Header\CMiddlePart.h" />
     <ClInclude Include="..\Header\CMonster.h" />
     <ClInclude Include="..\Header\CObstacle.h" />
+    <ClInclude Include="..\Header\CPistol.h" />
     <ClInclude Include="..\Header\CPlayer.h" />
     <ClInclude Include="..\Header\CPlayerPart.h" />
     <ClInclude Include="..\Header\CRightPart.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="..\Header\CStage.h" />
     <ClInclude Include="..\Header\CTestCharacter.h" />
     <ClInclude Include="..\Header\CWall.h" />
+    <ClInclude Include="..\Header\CWeapon.h" />
     <ClInclude Include="..\Header\CWhiteMan.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
@@ -188,6 +190,7 @@
     <ClCompile Include="..\Code\CMiddlePart.cpp" />
     <ClCompile Include="..\Code\CMonster.cpp" />
     <ClCompile Include="..\Code\CObstacle.cpp" />
+    <ClCompile Include="..\Code\CPistol.cpp" />
     <ClCompile Include="..\Code\CPlayer.cpp" />
     <ClCompile Include="..\Code\CPlayerPart.cpp" />
     <ClCompile Include="..\Code\CRightPart.cpp" />
@@ -198,6 +201,7 @@
     <ClCompile Include="..\Code\CMainApp.cpp" />
     <ClCompile Include="..\Code\CTestCharacter.cpp" />
     <ClCompile Include="..\Code\CWall.cpp" />
+    <ClCompile Include="..\Code\CWeapon.cpp" />
     <ClCompile Include="..\Code\CWhiteMan.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="pch.cpp">

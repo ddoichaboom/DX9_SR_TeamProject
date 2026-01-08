@@ -21,6 +21,10 @@
 #include "CWall.h"
 #include "CObstacle.h"
 
+#include "CLeftPart.h"
+#include "CRightPart.h"
+#include "CMiddlePart.h"
+
 CMainApp::CMainApp() : m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
 , m_pManagementClass(CManagement::GetInstance())
 {
@@ -188,10 +192,16 @@ void CMainApp::Free()
 
 
 	//TODO : 한번에 해제하도록 수정하기 
-	CDataMgr<CPlayer>::DestroyInstance();
+	
 	CDataMgr<CWhiteMan>::DestroyInstance();
 	CDataMgr<CBeamMon>::DestroyInstance();
 	CDataMgr<CFlyMon>::DestroyInstance();
+
+	// Player
+	CDataMgr<CLeftPart>::DestroyInstance();
+	CDataMgr<CRightPart>::DestroyInstance();
+	CDataMgr<CMiddlePart>::DestroyInstance();
+
 
 	m_pDeviceClass->DestroyInstance();
 }

@@ -97,6 +97,12 @@
     <Filter Include="02. GameObject\00. Character\01. Monster\02. FlyMon">
       <UniqueIdentifier>{39a0eab7-bc28-4d5e-9a69-1095d849c0e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\02.Weapon">
+      <UniqueIdentifier>{b21344ed-8c65-4666-b48f-ce97852a760e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02.Weapon\Pistol">
+      <UniqueIdentifier>{5f24d68b-aac9-42cd-8e32-23675dd96e6b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -189,12 +195,15 @@
     <ClInclude Include="..\Header\CFlyMon.h">
       <Filter>02. GameObject\00. Character\01. Monster\02. FlyMon</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CWeapon.h">
+      <Filter>02. GameObject\02.Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPistol.h">
+      <Filter>02. GameObject\02.Weapon\Pistol</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="pch.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CMainApp.cpp">
@@ -271,6 +280,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\CFlyMon.cpp">
       <Filter>02. GameObject\00. Character\01. Monster\02. FlyMon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CWeapon.cpp">
+      <Filter>02. GameObject\02.Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPistol.cpp">
+      <Filter>02. GameObject\02.Weapon\Pistol</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

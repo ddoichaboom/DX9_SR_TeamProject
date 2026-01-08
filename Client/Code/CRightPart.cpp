@@ -3,15 +3,32 @@
 #include "CProtoMgr.h"
 #include "CRenderer.h"
 #include "CDInputMgr.h"
+
 #include "CPlayer.h"
 
+vector<TextureSource> CRightPart::m_vTextureSource =
+{
+	{ GetStateID(IDLE,SW_PISTOL),	L"../Bin/Resource/Texture/Player/Right_Hand_Idle_P.png" },
+	{ GetStateID(ATTACK,SW_PISTOL), L"../Bin/Resource/Texture/Player/Right_Hand_Shot_P.png" },
+	{ GetStateID(RELOAD,SW_PISTOL), L"../Bin/Resource/Texture/Player/Right_Hand_Reload_P.png"}
+};
+
+vector<AnimationSource>  CRightPart::m_vAnimSource =
+{
+	{ GetStateID(IDLE,SW_PISTOL),0,3,3, true, 0.11f},
+	{ GetStateID(ATTACK,SW_PISTOL),0,5,5, false, 0.02f,	0.9f},
+	{ GetStateID(RELOAD,SW_PISTOL),1,6,6, false, 0.04f, 0.9f}
+};
+
+
+
 CRightPart::CRightPart(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CPlayerPart(pGraphicDev), m_eNowState(RS_UNACTIVE)
+	: CPlayerPart(pGraphicDev), m_bReload(false), m_bAttack(false)
 {
 }
 
 CRightPart::CRightPart(const CRightPart& rhs)
-	: CPlayerPart(rhs), m_eNowState(RS_UNACTIVE)
+	: CPlayerPart(rhs), m_bReload(false), m_bAttack(false)
 {
 }
 
@@ -19,13 +36,39 @@ CRightPart::~CRightPart()
 {
 }
 
-void CRightPart::Change_State(_uint iStateNum)
+void CRightPart::CreateStateData()
 {
-	m_eNowState = static_cast<RIGHT_STATE>(iStateNum);
-	if (m_eNowState == RS_UNACTIVE)
-		return;
+	auto Mgr = CDataMgr<CRightPart>::GetInstance();
+	if (Mgr->IsStateEmpty() == false) return;
 
-	m_pAnimationCom->Change_Animation(iStateNum);
+	CState<CRightPart>* State = new CState<CRightPart>(&CRightPart::Begin_Idle, &CRightPart::Idle, nullptr);
+	Mgr->AddState(GetStateID(IDLE, SW_PISTOL), State);
+
+	State = new CState<CRightPart>(&CRightPart::Begin_Attack, &CRightPart::Attack, &CRightPart::End_Attack);
+	Mgr->AddState(GetStateID(ATTACK, SW_PISTOL), State);
+
+	State = new CState<CRightPart>(&CRightPart::Begin_Reload, &CRightPart::Reload, &CRightPart::End_Reload);
+	Mgr->AddState(GetStateID(RELOAD, SW_PISTOL), State);
+
+}
+
+CRightPart* CRightPart::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+	CRightPart* pRightPart = new CRightPart(pGraphicDev);
+
+	if (FAILED(pRightPart->Ready_GameObject()))
+	{
+		Safe_Release(pRightPart);
+		MSG_BOX("Right Part Create Failed");
+		return nullptr;
+	}
+
+	return pRightPart;
+}
+
+_bool CRightPart::Get_ActionAble()
+{
+	return m_pAnimationCom->CanEnd();
 }
 
 HRESULT CRightPart::Ready_GameObject()
@@ -33,63 +76,37 @@ HRESULT CRightPart::Ready_GameObject()
 	if (FAILED(Add_Component()))
 		return E_FAIL;
 
+	CreateStateData();
+	ChangeState(GetStateID(IDLE, SW_PISTOL));
+
 	m_pTransformCom->m_vScale = { 256.f, 256.f, 1.f };
+	m_vStartPos = { WINCX * 0.5f - 200.f, WINCY * -0.5f + 150.f, 0.f };
 
-	m_vStartPos = { WINCX * 0.5f - 200.f, WINCY * -0.5f + 200.f, 0.f };
-	
 
-	m_pTransformCom->Set_Pos(m_vStartPos);	
+	m_pTransformCom->Set_Pos(m_vStartPos);
 
 	return S_OK;
 }
 
 _int CRightPart::Update_GameObject(const _float& fTimeDelta)
 {
-	if (m_eNowState == RS_UNACTIVE)
-		return 0;
-
-	int iExit = CCharacter::Update_GameObject(fTimeDelta);
-
-	switch (m_eNowState)
-	{
-	case CRightPart::RS_IDLE_PISTOL:
-	case CRightPart::RS_IDLE_SHOTGUN:
-		Update_Idle(fTimeDelta);
-		break;
-	case CRightPart::RS_ATTACK_PISTOL:
-	case CRightPart::RS_ATTACK_SHOTGUN:
-		Update_Attack(fTimeDelta);
-		break;
-	case CRightPart::RS_RELOAD_PISTOL:
-	case CRightPart::RS_RELOAD_SHOTGUN:
-		Update_Reload(fTimeDelta);
-		break;						
-	}
-
-	//CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
-
-
+	int iExit = CPlayerPart::Update_GameObject(fTimeDelta);
 	return iExit;
 }
 
 void CRightPart::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-	if (m_eNowState == RS_UNACTIVE)
-		return;
-
-	CCharacter::LateUpdate_GameObject(fTimeDelta);
+	CPlayerPart::LateUpdate_GameObject(fTimeDelta);
 }
 
 void CRightPart::Render_GameObject()
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
-	m_pAnimationCom->Render_Animation();
-	m_pBufferCom->Render_Buffer();
+	CPlayerPart::Render_GameObject();
 }
 
 HRESULT CRightPart::Add_Component()
 {
-	if (FAILED(CCharacter::Add_Component()))
+	if (FAILED(CPlayerPart::Add_Component()))
 		return E_FAIL;
 
 	Engine::CComponent* pComponent = nullptr;
@@ -104,48 +121,70 @@ HRESULT CRightPart::Add_Component()
 	return S_OK;
 }
 
-CRightPart* CRightPart::Create(LPDIRECT3DDEVICE9 pGraphicDev)
-{
-	CRightPart* pPart = new CRightPart(pGraphicDev);
-
-	if (FAILED(pPart->Ready_GameObject()))
-	{
-		Safe_Release(pPart);
-		MSG_BOX("Right Part Create Failed");
-		return nullptr;
-	}
-
-	return pPart;
-}
-
 void CRightPart::Free()
 {
-	CCharacter::Free();
+	CPlayerPart::Free();
+
 }
 
-void CRightPart::Update_Idle(const float& fTimeDelta)
-{	
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
-}
-
-void CRightPart::Update_Attack(const float& fTimeDelta)
+void CRightPart::ChangeState(_uint nextStateID)
 {
-	if (m_pAnimationCom->IsEnd())
-	{
-		Change_State(RS_IDLE_PISTOL);
-		return;
-	}
-
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	//m_fTime은 맨 위로 고정! ChangeState에서 실행되는 함수(Begin,End)에서 fTime을 바꿀수도있음
+	m_fTime = 0.f;
+	//현재 상태에 맞는 애니메이션으로 자동 전환
+	m_pAnimationCom->Update_State(nextStateID);
+	m_pStateCom->ChangeState<CRightPart>(nextStateID);
 }
 
-void CRightPart::Update_Reload(const float& fTimeDelta)
+void CRightPart::Begin_Idle()
 {
-	if (m_pAnimationCom->IsEnd())
-	{
-		Change_State(RS_IDLE_PISTOL);
-		return;
-	}
+	m_bAttack = false;
+	m_bReload = false;
+}
 
+void CRightPart::Idle()
+{
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 }
+
+void CRightPart::Begin_Attack()
+{
+
+}
+
+void CRightPart::Attack()
+{
+	if (m_pAnimationCom->CanEnd())
+	{
+		m_pPlayer->Fire();
+		ChangeState(GetStateID(IDLE, m_pPlayer->Get_WeaponState()));
+	}
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+}
+
+void CRightPart::End_Attack()
+{
+
+}
+
+void CRightPart::Begin_Reload()
+{
+
+}
+
+void CRightPart::Reload()
+{
+	if (m_pAnimationCom->CanEnd())
+	{
+		m_pPlayer->Reload();
+		ChangeState(GetStateID(IDLE, m_pPlayer->Get_WeaponState()));
+	}
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+
+}
+
+void CRightPart::End_Reload()
+{
+
+}
+
