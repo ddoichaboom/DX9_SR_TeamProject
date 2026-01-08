@@ -1,8 +1,12 @@
 #pragma once
 #include "CBase.h"
 
+
 class CEditorCamera;
 class CEditorScene;
+class CEditorObject;
+class CEditorWall;
+class CEditorSpawnPoint;
 
 class CInspector : public CBase
 {
@@ -21,6 +25,8 @@ private:
 
 private:
     void    Render_ObjectProperties();
+    void    Render_WallProperties(CEditorWall* pWall);
+    void    Render_MonsterSpawnPointProperties(CEditorSpawnPoint* pSpawn);
 
 public:
     static CInspector* Create(CEditorCamera* pCamera, CEditorScene* pScene);

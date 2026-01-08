@@ -13,7 +13,6 @@ CEditorCamera::CEditorCamera(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_fYaw(0.f)
     , m_fSpeed(1.f)
     , m_fSensitivity(0.125f)
-    , m_bRightButton(false)
     , m_eMode(MODE_FREE)
 {
     m_pGraphicDev->AddRef();
@@ -43,14 +42,16 @@ HRESULT CEditorCamera::Ready_GameObject()
 _int CEditorCamera::Update_GameObject(const _float& fTimeDelta)
 {
     // 1번 키 : FREE Camera 모드
-    if (Engine::CDInputMgr::GetInstance()->Get_DIKeyState(DIK_1) & 0x80)
+    if (Engine::CDInputMgr::GetInstance()->Key_Down(DIK_1))
         m_eMode = MODE_FREE;
 
     // 2번 키 : FPS Camera 모드
-    if (Engine::CDInputMgr::GetInstance()->Get_DIKeyState(DIK_2) & 0x80)
+    if (Engine::CDInputMgr::GetInstance()->Key_Down(DIK_2))
         m_eMode = MODE_FPS;
 
-    Update_FreeCamera(fTimeDelta);
+    if (Engine::CDInputMgr::GetInstance()->Mouse_Pressing(DIM_RB))
+        Update_FreeCamera(fTimeDelta);
+
     Update_Mouse();
 
     // View Matrix 계산
@@ -83,38 +84,38 @@ void CEditorCamera::Update_FreeCamera(const _float& fTimeDelta)
 
     // 속도 (Shift: 2배)
     _float fSpeed = m_fSpeed;
-    if (Engine::CDInputMgr::GetInstance()->Get_DIKeyState(DIK_LSHIFT) & 0x80)
+    if (Engine::CDInputMgr::GetInstance()->Key_Pressing(DIK_LSHIFT))
         fSpeed *= 2.f;
 
     // WASD 이동
-    if (Engine::CDInputMgr::GetInstance()->Get_DIKeyState(DIK_W) & 0x80)
+    if (Engine::CDInputMgr::GetInstance()->Key_Pressing(DIK_W))
     {
         m_vEye += vLook * fSpeed * fTimeDelta;
         m_vAt += vLook * fSpeed * fTimeDelta;
     }
-    if (Engine::CDInputMgr::GetInstance()->Get_DIKeyState(DIK_S) & 0x80)
+    if (Engine::CDInputMgr::GetInstance()->Key_Pressing(DIK_S))
     {
         m_vEye -= vLook * fSpeed * fTimeDelta;
         m_vAt -= vLook * fSpeed * fTimeDelta;
     }
-    if (Engine::CDInputMgr::GetInstance()->Get_DIKeyState(DIK_A) & 0x80)
+    if (Engine::CDInputMgr::GetInstance()->Key_Pressing(DIK_A))
     {
         m_vEye += vRight * fSpeed * fTimeDelta;
         m_vAt += vRight * fSpeed * fTimeDelta;
     }
-    if (Engine::CDInputMgr::GetInstance()->Get_DIKeyState(DIK_D) & 0x80)
+    if (Engine::CDInputMgr::GetInstance()->Key_Pressing(DIK_D))
     {
         m_vEye -= vRight * fSpeed * fTimeDelta;
         m_vAt -= vRight * fSpeed * fTimeDelta;
     }
 
     // QE 상하 이동
-    if (Engine::CDInputMgr::GetInstance()->Get_DIKeyState(DIK_Q) & 0x80)
+    if (Engine::CDInputMgr::GetInstance()->Key_Pressing(DIK_Q))
     {
         m_vEye.y += fSpeed * fTimeDelta;
         m_vAt.y += fSpeed * fTimeDelta;
     }
-    if (Engine::CDInputMgr::GetInstance()->Get_DIKeyState(DIK_E) & 0x80)
+    if (Engine::CDInputMgr::GetInstance()->Key_Pressing(DIK_E))
     {
         m_vEye.y -= fSpeed * fTimeDelta;
         m_vAt.y -= fSpeed * fTimeDelta;
@@ -123,42 +124,35 @@ void CEditorCamera::Update_FreeCamera(const _float& fTimeDelta)
 
 void CEditorCamera::Update_Mouse()
 {
-    if (GetAsyncKeyState(VK_RBUTTON) & 0x8000)
+    if (Engine::CDInputMgr::GetInstance()->Mouse_Down(DIM_RB))
     {
-        if (!m_bRightButton)
-        {
-            m_bRightButton = true;
-            GetCursorPos(&m_ptPrevMouse);
-        }
-        else
-        {
-            POINT ptCurMouse;
-            GetCursorPos(&ptCurMouse);
-
-            _long dx = ptCurMouse.x - m_ptPrevMouse.x;
-            _long dy = ptCurMouse.y - m_ptPrevMouse.y;
-
-            m_fYaw += dx * m_fSensitivity;
-            m_fPitch -= dy * m_fSensitivity;
-
-            // Pitch 제한
-            m_fPitch = max(-89.f, min(89.f, m_fPitch));
-
-            // At 위치 업데이트
-            _vec3 vLook;
-            vLook.x = cosf(D3DXToRadian(m_fPitch)) * sinf(D3DXToRadian(m_fYaw));
-            vLook.y = sinf(D3DXToRadian(m_fPitch));
-            vLook.z = cosf(D3DXToRadian(m_fPitch)) * cosf(D3DXToRadian(m_fYaw));
-
-            D3DXVec3Normalize(&vLook, &vLook);
-            m_vAt = m_vEye + vLook;
-
-            m_ptPrevMouse = ptCurMouse;
-        }
+        GetCursorPos(&m_ptPrevMouse);
     }
-    else
+
+    if (Engine::CDInputMgr::GetInstance()->Mouse_Pressing(DIM_RB))
     {
-        m_bRightButton = false;
+        POINT ptCurMouse;
+        GetCursorPos(&ptCurMouse);
+
+        _long dx = ptCurMouse.x - m_ptPrevMouse.x;
+        _long dy = ptCurMouse.y - m_ptPrevMouse.y;
+
+        m_fYaw += dx * m_fSensitivity;
+        m_fPitch -= dy * m_fSensitivity;
+
+        // Pitch 제한
+        m_fPitch = max(-89.f, min(89.f, m_fPitch));
+
+        // At 위치 업데이트
+        _vec3 vLook;
+        vLook.x = cosf(D3DXToRadian(m_fPitch)) * sinf(D3DXToRadian(m_fYaw));
+        vLook.y = sinf(D3DXToRadian(m_fPitch));
+        vLook.z = cosf(D3DXToRadian(m_fPitch)) * cosf(D3DXToRadian(m_fYaw));
+
+        D3DXVec3Normalize(&vLook, &vLook);
+        m_vAt = m_vEye + vLook;
+
+        m_ptPrevMouse = ptCurMouse;
     }
 }
 

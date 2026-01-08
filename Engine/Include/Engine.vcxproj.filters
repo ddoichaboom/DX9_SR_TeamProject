@@ -55,9 +55,6 @@
     <Filter Include="01. Structure\00. Management">
       <UniqueIdentifier>{bcc46299-379f-47e9-bc59-b5b7f7cd28f8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Structure\01. Scene">
-      <UniqueIdentifier>{8de7c49c-09bd-4d3e-94ae-9fbf6f571463}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01. Structure\02. Layer">
       <UniqueIdentifier>{47f90b17-3470-4f13-904a-e9dfb1cb0b5d}</UniqueIdentifier>
     </Filter>
@@ -135,6 +132,12 @@
     </Filter>
     <Filter Include="00. Manager\10. PoolMgr">
       <UniqueIdentifier>{6fc4cdf8-b457-4d37-a4f3-50e1f31fac3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Structure\01. Scene">
+      <UniqueIdentifier>{8de7c49c-09bd-4d3e-94ae-9fbf6f571463}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. ComponentEX\00. VIBuffer\05. RcTexUp">
+      <UniqueIdentifier>{0c54f6b0-c306-49cc-bfd9-bdc5a7a2f30a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -276,6 +279,9 @@
     <ClInclude Include="..\Header\CPoolMgr.h">
       <Filter>00. Manager\10. PoolMgr</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CRcTexUp.h">
+      <Filter>02. ComponentEX\00. VIBuffer\05. RcTexUp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -388,6 +394,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CPoolMgr.cpp">
       <Filter>00. Manager\10. PoolMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CRcTexUp.cpp">
+      <Filter>02. ComponentEX\00. VIBuffer\05. RcTexUp</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

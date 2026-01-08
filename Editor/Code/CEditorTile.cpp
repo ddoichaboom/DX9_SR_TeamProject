@@ -120,6 +120,24 @@ CEditorTile* CEditorTile::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
     return pInstance;
 }
 
+CEditorTile* CEditorTile::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale)
+{
+    CEditorTile* pInstance = new CEditorTile(pGraphicDev);
+
+    if (FAILED(pInstance->Ready_GameObject()))
+    {
+        Safe_Release(pInstance);
+        MSG_BOX("CEditorTile Create Failed");
+        return nullptr;
+    }
+
+    pInstance->Set_Scale(vScale);
+    pInstance->Set_Rotation(vRot);
+    pInstance->Set_Position(vPos);
+
+    return pInstance;
+}
+
 void CEditorTile::Free()
 {
     CEditorObject::Free();

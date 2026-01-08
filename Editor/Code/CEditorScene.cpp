@@ -5,8 +5,11 @@
 #include "CEditorCamera.h"
 #include "CGrid.h"
 #include "CEditorObject.h"
-#include "CEditorTile.h"
+#include "CEditorFloor.h"
 #include "CEditorCube.h"
+#include "CEditorCeiling.h"
+#include "CEditorWall.h"
+#include "CEditorSpawnPoint.h"
 #include "CToolBar.h"
 #include "CMousePicker.h"
 #include "CSelectionMgr.h"
@@ -18,7 +21,6 @@ CEditorScene::CEditorScene(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_pCamera(nullptr)
     , m_pGrid(nullptr)
     , m_pToolBar(nullptr)
-    , m_bPrevMouseLeft(false)
     , m_pMousePicker(nullptr)
     , m_pSelectionMgr(nullptr)
     , m_pHierarchy(nullptr)
@@ -39,11 +41,14 @@ HRESULT CEditorScene::Ready_Scene()
         return E_FAIL;
     }
 
-    m_pCamera->Set_Position(_vec3(0.f, 10.f, -10.f));
-    m_pCamera->Set_LookAt(_vec3(0.f, 0.f, 0.f));
+    m_pCamera->Set_Position(_vec3(0.f, 20.f, 0.f));
+    m_pCamera->Set_LookAt(_vec3(0.f, 0.f, 1.f));
 
     // 그리드 개수, 그리드 간 간격 지정 
-    m_pGrid = CGrid::Create(m_pGraphicDev, 100, 100, 2.f);
+    m_pGrid = CGrid::Create(m_pGraphicDev,
+                            300,    // X축 개수 
+                            300,    // Z축 개수
+                            16.f);  // 그리드 한 칸당 크기 ( 되도록이면 타일과 동일한 사이즈로 설정 )
     if (nullptr == m_pGrid)
     {
         MSG_BOX("Grid Create Failed");
@@ -130,8 +135,22 @@ void CEditorScene::Remove_Object(CEditorObject* pObject)
 
 void CEditorScene::Clear_AllObjects()
 {
-    for_each(m_ObjectList.begin(), m_ObjectList.end(), CDeleteObj());
+    // 선택 해제
+    Set_SelectedObject(nullptr);
+
+    // 모든 오브젝트 Release
+    for (auto& pObj : m_ObjectList)
+    {
+        Safe_Release(pObj);
+    }
+
     m_ObjectList.clear();
+
+    // Hierarchy 동기화
+    if (m_pHierarchy)
+    {
+        m_pHierarchy->Sync_Selection(nullptr);
+    }
 }
 
 void CEditorScene::Set_SelectedObject(CEditorObject* pObj)
@@ -143,7 +162,7 @@ void CEditorScene::Set_SelectedObject(CEditorObject* pObj)
         m_pHierarchy->Sync_Selection(pObj);
 }
 
-CEditorObject* CEditorScene::Get_SelectedObject()
+CEditorObject* CEditorScene::Get_SelectedObject() const
 {
     if (m_pSelectionMgr)
         return m_pSelectionMgr->Get_Selection();
@@ -151,22 +170,237 @@ CEditorObject* CEditorScene::Get_SelectedObject()
     return nullptr;
 }
 
+void CEditorScene::Add_SelectedObject(CEditorObject* pObj)
+{
+    if (!pObj || !m_pSelectionMgr)
+        return;
+
+    // CSelctionMgr에 추가
+    m_pSelectionMgr->Add_Selection(pObj);
+
+    // Hierarchy 동기화
+    if (m_pHierarchy)
+    {
+        CEditorObject* pPrimary = m_pSelectionMgr->Get_Selection();
+        m_pHierarchy->Sync_Selection(pPrimary);
+    }
+}
+
+void CEditorScene::Remove_SelectedObject(CEditorObject* pObj)
+{
+    if (!pObj || !m_pSelectionMgr)
+        return;
+
+    // CSelectionMgr 에서 제거
+    m_pSelectionMgr->Remove_Selection(pObj);
+
+    // Primary 선택 객체가 변경되었을 수 있으므로 동기화
+    if (m_pHierarchy)
+    {
+        CEditorObject* pPrimary = m_pSelectionMgr->Get_Selection();
+        m_pHierarchy->Sync_Selection(pPrimary);
+    }
+}
+
+void CEditorScene::Clear_SelectedObjects()
+{
+    if (!m_pSelectionMgr)
+        return;
+
+    // 모든 선택 해제
+    m_pSelectionMgr->Clear_Selection();
+
+    // Hierarchy 동기화
+    if (m_pHierarchy)
+        m_pHierarchy->Sync_Selection(nullptr);
+}
+
+
+
 void CEditorScene::Handle_Input()
 {
     ImGuiIO& io = ImGui::GetIO();
     if (io.WantCaptureMouse)
         return;     // ImGui 윈도우 클릭 시 무시 
 
-    // 현재 프레임 마우스 상태
-    bool bCurMouseLeft = (Engine::CDInputMgr::GetInstance()->Get_DIMouseState(DIM_LB) & 0x80) != 0;
+    Handle_Duplicate();
 
-    if (!m_bPrevMouseLeft && bCurMouseLeft)
+    Handle_Delete();
+
+    Handle_Left_Click();
+}
+
+void CEditorScene::Handle_Duplicate()
+{
+    // Ctrl + D  : 객체 복제
+    if (Engine::CDInputMgr::GetInstance()->Key_Down(DIK_D) &&
+        Engine::CDInputMgr::GetInstance()->Key_Pressing(DIK_LCONTROL))
+    {
+
+
+        list<CEditorObject*>& SelectedList = m_pSelectionMgr->Get_AllSelections();
+
+        if (!SelectedList.empty())
+        {
+            list<CEditorObject*> newObjects;
+
+            for (auto& pSelectedObj : SelectedList)
+            {
+                if (!pSelectedObj)
+                    continue;
+
+                // 현재 Transform 값 가져오기
+                _vec3 vPos = pSelectedObj->Get_Position();
+                _vec3 vRot = pSelectedObj->Get_Rotation();
+                _vec3 vScale = pSelectedObj->Get_Scale();
+
+                CEditorObject* pNewObj = nullptr;
+
+                // 타입별 복제
+                if (dynamic_cast<CEditorFloor*>(pSelectedObj))
+                {
+                    vPos.x += 16.0f;
+                    pNewObj = CEditorFloor::Create(m_pGraphicDev, vPos, vRot, vScale);
+                }
+                else if (dynamic_cast<CEditorCeiling*>(pSelectedObj))
+                {
+                    vPos.x += 16.0f;
+                    pNewObj = CEditorCeiling::Create(m_pGraphicDev, vPos, vRot, vScale);
+                }
+                else if (dynamic_cast<CEditorCube*>(pSelectedObj))
+                {
+                    vPos.x += 8.f;
+                    pNewObj = CEditorCube::Create(m_pGraphicDev, vPos, vRot, vScale);
+                }
+                else if (CEditorWall* pWall = dynamic_cast<CEditorWall*>(pSelectedObj))
+                {
+                    WALL_DIR eDir = pWall->Get_WallDirection();
+
+                    switch (eDir)
+                    {
+                    case WALL_XY_FRONT:
+                        vPos.x += 32.f;
+                        break;
+
+                    case WALL_XY_BACK:
+                        vPos.x += 32.f;
+                        break;
+
+                    case WALL_YZ_LEFT:
+                        vPos.z += 32.f;
+                        break;
+
+                    case WALL_YZ_RIGHT:
+                        vPos.z += 32.f;
+                        break;
+
+                    default:
+                        vPos.x += 32.f;
+                    }
+
+                    pNewObj = CEditorWall::Create(m_pGraphicDev, vPos, vRot, vScale, eDir);
+                }
+                else if (CEditorSpawnPoint* pSpawn = dynamic_cast<CEditorSpawnPoint*>(pSelectedObj))
+                {
+                    SPAWN_TYPE eType = pSpawn->Get_SpawnType();
+
+                    // Player 타입은 복제 대신 위치 이동 옵션 제공
+                    if (eType == SPAWN_PLAYER)
+                    {
+                        wchar_t szMsg[1024];
+                        swprintf_s(szMsg,
+                            L"플레이어 스폰 위치 복사 불가능.\n\n"
+                            L"새로운 위치로 플레이어 스폰 위치 이동하시겠습니까?\n\n"
+                            L"새로운 위치: (%.1f, %.1f, %.1f)\n\n"
+                            L"YES: 옮기기\n"
+                            L"NO: 취소",
+                            vPos.x, vPos.y, vPos.z);
+
+                        int iResult = MessageBoxW(nullptr, szMsg,
+                            L"플레이어 스폰 오브젝트 복사 시도?",
+                            MB_YESNO | MB_ICONQUESTION);
+
+                        if (iResult == IDYES)
+                        {
+                            // 기존 Player 위치 이동
+                            pSpawn->Set_Position(vPos);
+                        }
+                        continue;  // 복제는 하지 않음
+                    }
+
+                    // Monster 타입만 복제 허용
+                    const string& strMonsterKey = pSpawn->Get_MonsterKey();
+                    pNewObj = CEditorSpawnPoint::Create(m_pGraphicDev, vPos, vRot, vScale,
+                        eType, strMonsterKey);
+                }
+
+
+                if (pNewObj)
+                {
+                    m_ObjectList.push_back(pNewObj);
+                    newObjects.push_back(pNewObj);
+                }
+            }
+
+            // 복제된 객체들 선택 설정
+            if (!newObjects.empty())
+            {
+                Clear_SelectedObjects();
+
+                for (auto& pNewObj : newObjects)
+                {
+                    Add_SelectedObject(pNewObj);
+                }
+            }
+        }
+    }
+}
+
+void CEditorScene::Handle_Delete()
+{
+    // Delete 키 : 선택된 객체 삭제
+    if (Engine::CDInputMgr::GetInstance()->Key_Down(DIK_DELETE))
+    {
+        if (!m_pSelectionMgr)
+            return;
+
+        list<CEditorObject*>& SelectedObjList = m_pSelectionMgr->Get_AllSelections();
+
+
+        if (!SelectedObjList.empty())
+        {
+            list<CEditorObject*> ObjectsToDelete;
+            for (auto& pObj : SelectedObjList)
+            {
+                ObjectsToDelete.push_back(pObj);
+            }
+
+            // 선택 해제
+            Clear_SelectedObjects();
+
+            // 객체 삭제
+            for (auto& pObj : ObjectsToDelete)
+            {
+                if (!pObj)
+                    continue;
+
+                auto iter = find(m_ObjectList.begin(), m_ObjectList.end(), pObj);
+                if (iter != m_ObjectList.end())
+                {
+                    Safe_Release(*iter);
+                    m_ObjectList.erase(iter);
+                }
+            }
+        }
+    }
+}
+
+void CEditorScene::Handle_Left_Click()
+{
+    if (Engine::CDInputMgr::GetInstance()->Mouse_Down(DIM_LB))
     {
         if (!m_pToolBar)
-        {
-            m_bPrevMouseLeft = bCurMouseLeft;       // 상태 업데이트
             return;
-        }
 
         EDITOR_MODE eMode = m_pToolBar->Get_EditorMode();
 
@@ -184,44 +418,84 @@ void CEditorScene::Handle_Input()
         _vec3 vRayPos = m_pMousePicker->Get_RayPos();
         _vec3 vRayDir = m_pMousePicker->Get_RayDir();
 
-        if (eMode == MODE_PLACE_TILE || eMode == MODE_PLACE_CUBE)
+        if (eMode == MODE_PLACE_FLOOR || eMode == MODE_PLACE_CEILING ||
+            eMode == MODE_PLACE_CUBE || eMode == MODE_PLACE_WALL ||
+            eMode == MODE_PLACE_SPAWN_PLAYER || eMode == MODE_PLACE_SPAWN_MONSTER)
         {
 
-            // Ray - Plane Intersection ( Y = 0 평면 )
+            // Ray - Plane Intersection (Y = 0 평면)
             _vec3 vPos = Pick_OnPlane(vRayPos, vRayDir, 0.f);
 
-            // 배치 
-            if (eMode == MODE_PLACE_TILE)
-                Place_Tile(vPos);
+            // 오브젝트 배치
+            if (eMode == MODE_PLACE_FLOOR)
+                Place_Floor(vPos);
+            else if (eMode == MODE_PLACE_CEILING)
+                Place_Ceiling(vPos);
             else if (eMode == MODE_PLACE_CUBE)
                 Place_Cube(vPos);
+            else if (eMode == MODE_PLACE_WALL)
+                Place_Wall(vPos);
+            else if (eMode == MODE_PLACE_SPAWN_PLAYER)
+            {
+                Place_SpawnPlayer(vPos);
+            }
+            else if (eMode == MODE_PLACE_SPAWN_MONSTER)
+                Place_SpawnMonster(vPos);
         }
         else if (eMode == MODE_SELECT)
         {
             static POINT ptPrevMouse = { 0, 0 };
-            // Ray - AABB Instersection (오브젝트 선택)
 
-//            CEditorObject* pPickedObject = m_pSelectionMgr->Pick_Object_Cycle(
-//                vRayPos, vRayDir, m_ObjectList, ptMouse, ptPrevMouse, 5);
+            CEditorObject* pPickedObject = m_pSelectionMgr->Pick_Object(vRayPos, vRayDir, m_ObjectList);
 
-            CEditorObject* pPickedObject = m_pSelectionMgr->Pick_Object(
-                vRayPos, vRayDir, m_ObjectList);
+            _bool bCtrlPressed = Engine::CDInputMgr::GetInstance()->Key_Pressing(DIK_LCONTROL);
+            _bool bShiftPressed = Engine::CDInputMgr::GetInstance()->Key_Pressing(DIK_LSHIFT);
 
             if (pPickedObject)
             {
-                Set_SelectedObject(pPickedObject);
+                if (bCtrlPressed && bShiftPressed)
+                {
+                    // Ctrl + Shift + 클릭 : 선택 해제
+                    Remove_SelectedObject(pPickedObject);
+                }
+                else if (bCtrlPressed)
+                {
+                    // Ctrl + 클릭 : 다중 선택 토글
+                    if (m_pSelectionMgr->Is_Selected(pPickedObject))
+                    {
+                        // 이미 선택됨 -> 선택 해제
+                        Remove_SelectedObject(pPickedObject);
+                    }
+                    else
+                    {
+                        // 선택 안됨 -> 선택 추가
+                        Add_SelectedObject(pPickedObject);
+                    }
+                }
+                else
+                {
+                    // 일반 클릭 : 단일 선택 ( 기존 선택 모두 해제 )
+                    Set_SelectedObject(pPickedObject);
+                }
             }
             else
             {
-                Set_SelectedObject(nullptr);        // 선택 해제 
+                // 빈 공간 클릭 
+                if (!bCtrlPressed)
+                {
+                    // Ctrl 안 눌렀을 때만 모든 선택 해제 
+                    Clear_SelectedObjects();
+                }
             }
 
             ptPrevMouse = ptMouse;
         }
     }
+}
 
-    // 다음 프레임을 위해 현재 상태 저장
-    m_bPrevMouseLeft = bCurMouseLeft;
+void CEditorScene::Handle_Arrow()
+{
+    // TODO : 복제 할 때 어느 방향으로 오프셋 설정해서 복사할지 결정 구현
 }
 
 _vec3 CEditorScene::Pick_OnPlane(const _vec3& vRayPos, const _vec3& vRayDir, _float fPlaneY)
@@ -252,14 +526,110 @@ _vec3 CEditorScene::Pick_OnPlane(const _vec3& vRayPos, const _vec3& vRayDir, _fl
     return vIntersection;
 }
 
-void CEditorScene::Place_Tile(const _vec3& vPos)
+void CEditorScene::Place_Floor(const _vec3& vPos)
 {
-    CEditorTile* pTile = CEditorTile::Create(m_pGraphicDev, vPos);
+    CEditorFloor* pFloor = CEditorFloor::Create(m_pGraphicDev, vPos);
 
-    if (pTile)
+    if (pFloor)
     {
-        Add_Object(pTile);
-        Safe_Release(pTile);  // Add_Object에서 AddRef했으므로 Release
+        Add_Object(pFloor);
+        Safe_Release(pFloor);
+    }
+}
+
+void CEditorScene::Place_Ceiling(const _vec3& vPos)
+{
+    CEditorCeiling* pCeiling = CEditorCeiling::Create(m_pGraphicDev, vPos);
+
+    if (pCeiling)
+    {
+        // Y 위치 조정 (천장은 바닥보다 위)
+        _vec3 vAdjustedPos = vPos;
+        vAdjustedPos.y = vPos.y + 32.0f;  
+        pCeiling->Set_Position(vAdjustedPos);
+
+        Add_Object(pCeiling);
+        Safe_Release(pCeiling);
+    }
+}
+
+void CEditorScene::Place_Wall(const _vec3& vPos)
+{
+    // 기본 XY 평면 벽 배치
+    CEditorWall* pWall = CEditorWall::Create(m_pGraphicDev, vPos, WALL_XY_FRONT);
+
+    if (pWall)
+    {
+        // Y 위치 조정 (벽 중심이 바닥보다 위)
+        _vec3 vAdjustedPos = vPos;
+        vAdjustedPos.y = vPos.y + 16.0f;  
+        pWall->Set_Position(vAdjustedPos);
+
+        Add_Object(pWall);
+        Safe_Release(pWall);
+    }
+}
+
+void CEditorScene::Place_SpawnPlayer(const _vec3& vPos)
+{
+    CEditorSpawnPoint* pExistingPlayer = nullptr;
+    for (auto& pObj : m_ObjectList)
+    {
+        CEditorSpawnPoint* pSpawn = dynamic_cast<CEditorSpawnPoint*>(pObj);
+        if (pSpawn && pSpawn->Get_SpawnType() == SPAWN_PLAYER)
+        {
+            pExistingPlayer = pSpawn;
+            break;
+        }
+    }
+
+    if (pExistingPlayer)
+    {
+        int iResult = MessageBoxW(nullptr,
+            L"이미 플레이어 스폰지점이 존재합니다.\n"
+            L"새로운 스폰 지점으로 대체합니까?\n",
+            L"플레이어 스폰지점 존재",
+            MB_YESNO | MB_ICONWARNING);
+
+        if (iResult == IDYES)
+        {
+            m_ObjectList.remove(pExistingPlayer);
+            Safe_Release(pExistingPlayer);
+        }
+        else
+            return;
+    }
+
+    
+    CEditorSpawnPoint* pSpawn = CEditorSpawnPoint::Create(m_pGraphicDev, vPos, SPAWN_PLAYER);
+
+    if (pSpawn)
+    {
+        _vec3 vAdjustedPos = vPos;
+        vAdjustedPos.y = vPos.y + 0.5f;  
+        pSpawn->Set_Position(vAdjustedPos);
+
+        Add_Object(pSpawn);
+        Safe_Release(pSpawn);
+    }
+}
+
+void CEditorScene::Place_SpawnMonster(const _vec3& vPos)
+{
+    CEditorSpawnPoint* pSpawn = CEditorSpawnPoint::Create(m_pGraphicDev, vPos, SPAWN_MONSTER);
+
+    if (pSpawn)
+    {
+        // Y 위치 조정
+        _vec3 vAdjustedPos = vPos;
+        vAdjustedPos.y = vPos.y + 0.5f;
+        pSpawn->Set_Position(vAdjustedPos);
+
+        // 기본 몬스터 키 설정 (Inspector에서 변경 가능하도록 향후 확장)
+        pSpawn->Set_MonsterKey("DefaultMonster");
+
+        Add_Object(pSpawn);
+        Safe_Release(pSpawn);
     }
 }
 
@@ -269,9 +639,8 @@ void CEditorScene::Place_Cube(const _vec3& vPos)
 
     if (pCube)
     {
-        // 큐브는 Y 위치를 0.5f로 조정 (바닥에서 절반 높이)
         _vec3 vAdjustedPos = vPos;
-        vAdjustedPos.y = vPos.y + 1.0f;
+        vAdjustedPos.y = vPos.y + 12.0f;    // 설정된 Scale만큼
         pCube->Set_Position(vAdjustedPos);
 
         Add_Object(pCube);
@@ -279,7 +648,6 @@ void CEditorScene::Place_Cube(const _vec3& vPos)
     }
 }
 
-// =======================================================
 
 CEditorScene* CEditorScene::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {

@@ -19,6 +19,18 @@ CComponent* CLayer::Get_Component(COMPONENTID eID, OBJ_ID _objID, const _tchar* 
 	return iter->second->Get_Component(eID, pComponentTag);
 }
 
+CGameObject* CLayer::Get_Object(OBJ_ID _objID)
+{
+	auto iter = m_mapObject.find(_objID);
+	if (iter == m_mapObject.end()) return nullptr;
+	return iter->second;
+}
+
+pair<MapObjectType::iterator, MapObjectType::iterator> CLayer::Get_Objects(OBJ_ID _objID)
+{
+	return m_mapObject.equal_range(_objID);
+}
+
 
 HRESULT CLayer::Add_GameObject(CGameObject* pGameObject)
 {

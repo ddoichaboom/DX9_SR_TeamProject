@@ -21,9 +21,6 @@ public:
 	virtual void		Render_GameObject() PURE;
 
 public:
-	// AABB ( Axis-Aligned Bounding Box) 계산
-	_vec3				Get_Min();
-	_vec3				Get_Max();
 
 	// Transform 관련
 	void				Set_Position(_vec3 vPos);
@@ -44,7 +41,9 @@ public:
 
 	// 텍스처 (Phase 5+)
 	void				Set_Texture(Engine::CTexture* pTexture);
-	Engine::CTexture* Get_Texture() { return m_pTextureCom; }
+	Engine::CTexture*	Get_Texture() { return m_pTextureCom; }
+
+	const _matrix*		Get_WorldMatrix() const;
 
 protected:
 	// Component

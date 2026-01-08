@@ -1,11 +1,150 @@
 폴더 PATH의 목록입니다.
-볼륨 일련 번호는 869E-1BD6입니다.
-D:.
+볼륨 일련 번호는 181E-6BE0입니다.
+C:.
+│  .gitignore
+│  CLAUDE.md
 │  Copy.bat
 │  make_structure.bat
 │  SR_Proj.sln
 │  structure.txt
 │  
+├─.vs
+│  └─SR_Proj
+│      ├─copilot-chat
+│      │  └─63bd81ee
+│      │      └─sessions
+│      ├─CopilotIndices
+│      │  └─17.14.1091.29919
+│      │          CodeChunks.db
+│      │          SemanticSymbols.db
+│      │          
+│      ├─FileContentIndex
+│      │      034ea191-742d-4f85-a3f3-725cc6f8ffa0.vsidx
+│      │      50b8f119-0bc6-42f1-9b60-efd3ab8dcdde.vsidx
+│      │      94d8562b-c665-49c8-abb9-504444ecd171.vsidx
+│      │      d711e0ca-0db9-4c24-b7b6-25114aa4bc0c.vsidx
+│      │      da34e26b-998d-476b-b163-c5f232869013.vsidx
+│      │      
+│      └─v17
+│          │  Browse.VC.db
+│          │  Browse.VC.db-shm
+│          │  Browse.VC.db-wal
+│          │  DocumentLayout.backup.json
+│          │  DocumentLayout.json
+│          │  fileList.bin
+│          │  Solution.VC.db
+│          │  Solution.VC.db-shm
+│          │  Solution.VC.db-wal
+│          │  
+│          └─ipch
+│              │  3f761f69098c9834.ipch
+│              │  7d818047edb81578.ipch
+│              │  
+│              └─AutoPCH
+│                  ├─1243cc2ce7f058a8
+│                  │      IMGUIZMO.ipch
+│                  │      
+│                  ├─12c34f5cc581d124
+│                  ├─175de6602d25712
+│                  │      VCTMP4244_562291.CMAINAPP.0E282ADA.현재.ipch
+│                  │      
+│                  ├─17ccab3c8d4cbebd
+│                  │      VCTMP4244_641937.CMAINAPP.0E282ADA.결과.ipch
+│                  │      
+│                  ├─1996d269e39e7fa1
+│                  │      CANIMATION.ipch
+│                  │      
+│                  ├─1feb64610885168c
+│                  │      CGRAPHICDEV.ipch
+│                  │      
+│                  ├─221461ba2f850be3
+│                  │      CTERRAINTEXTURE.ipch
+│                  │      
+│                  ├─22a76abfebe3c13b
+│                  │      CPOOLMGR.ipch
+│                  │      
+│                  ├─2617a9a7d5366d61
+│                  │      CRENDERSTATEGUARD.ipch
+│                  │      
+│                  ├─2a24034d21f3a90
+│                  ├─2a7aeb0458b047cf
+│                  │      CBASETEXTURE.ipch
+│                  │      
+│                  ├─337e81c12fd2598f
+│                  │      CCOLLIDER.ipch
+│                  │      
+│                  ├─36fcdedd2de62984
+│                  │      IMSEQUENCER.ipch
+│                  │      
+│                  ├─3b4c99f2e41e942d
+│                  │      CTERRAINTEX.ipch
+│                  │      
+│                  ├─3d5455e235f5af07
+│                  │      IMGUIZMO.ipch
+│                  │      
+│                  ├─3da29452f4083788
+│                  │      IMSEQUENCER.ipch
+│                  │      
+│                  ├─50e95310630094c1
+│                  │      IMGUI_IMPL_DX9.ipch
+│                  │      
+│                  ├─60e2c334718475ab
+│                  │      CCOLLISION.ipch
+│                  │      
+│                  ├─6504f1e40cd830e
+│                  ├─6b8b1759e76ce3e4
+│                  │      CTEXTURE.ipch
+│                  │      
+│                  ├─6d22276ae308be57
+│                  │      CTRANSFORM.ipch
+│                  │      
+│                  ├─6fa1811e2e8f2df7
+│                  │      VCTMP4244_472483.CMAINAPP.0E282ADA.현재.ipch
+│                  │      
+│                  ├─74bd1066ed814d7e
+│                  │      IMGUIZMO.ipch
+│                  │      
+│                  ├─78762f557051257
+│                  │      VCTMP4244_148142.CMAINAPP.0E282ADA.결과.ipch
+│                  │      
+│                  ├─8a6d0ab21fbdd95b
+│                  │      CSCENE.ipch
+│                  │      
+│                  ├─8ae15050f4c24773
+│                  │      CPROTOMGR.ipch
+│                  │      
+│                  ├─8d5a168aff5186e3
+│                  ├─8eaa8a25f551e3c
+│                  │      IMGUI.ipch
+│                  │      
+│                  ├─93bf892b6167a289
+│                  │      CDINPUTMGR.ipch
+│                  │      
+│                  ├─978c2a34f100aca6
+│                  │      CLAYER.ipch
+│                  │      
+│                  ├─9cf0a54e91d9aae7
+│                  │      CRCTEX.ipch
+│                  │      
+│                  ├─9e0f7413d65ac610
+│                  ├─beeeca0092327192
+│                  │      CGAMEOBJECT.ipch
+│                  │      
+│                  ├─c03051de0b58ca36
+│                  │      IMGUI.ipch
+│                  │      
+│                  ├─c10be372158038b4
+│                  ├─cdc21ddd4cf93e78
+│                  │      CRENDERER.ipch
+│                  │      
+│                  ├─d5fa09ad246d4fba
+│                  ├─e659a3e2b297e536
+│                  ├─ee8ace58b3ec5788
+│                  │      CFILEIO.ipch
+│                  │      
+│                  ├─f15092b2a376c26c
+│                  ├─fbc842bef59afba6
+│                  └─fc442a49b14fd6e9
 ├─Base
 │      CBase.h
 │      CBase.inl
@@ -20,25 +159,123 @@ D:.
 │  │  │  
 │  │  └─Resource
 │  │      └─Texture
+│  │          ├─Bullet
+│  │          │      bullet256.dds
+│  │          │      bullet256.png
+│  │          │      single_bullet256.dds
+│  │          │      single_bullet256.png
+│  │          │      
+│  │          ├─Monster
+│  │          │  └─WhiteMan
+│  │          │          white_Aiming_1024.dds
+│  │          │          white_Aiming_1024.png
+│  │          │          white_Attack2_1024.dds
+│  │          │          white_Attack2_1024.png
+│  │          │          white_AttackIdle_1024.dds
+│  │          │          white_AttackIdle_1024.png
+│  │          │          white_Attack_1024.png
+│  │          │          white_DeadBack_512.dds
+│  │          │          white_DeadBack_512.png
+│  │          │          white_Hit_1024.dds
+│  │          │          white_Hit_1024.png
+│  │          │          white_Idle_1024.dds
+│  │          │          white_Idle_1024.png
+│  │          │          white_Idle_512.dds
+│  │          │          white_Idle_512.png
+│  │          │          white_Walk_1024.dds
+│  │          │          white_Walk_1024.png
+│  │          │          
 │  │          ├─Player
-│  │          └─Test
-│  │                  White_Idle.png
+│  │          │      Left_Hand_Idle.dds
+│  │          │      Left_Hand_Idle.png
+│  │          │      Left_Hand_Reload_P.dds
+│  │          │      Left_Hand_Reload_P.png
+│  │          │      Left_Hand_Reload_S.dds
+│  │          │      Left_Hand_Reload_S.png
+│  │          │      Middle_Kick.dds
+│  │          │      Middle_Kick.png
+│  │          │      Middle_Soda.dds
+│  │          │      Middle_Soda.png
+│  │          │      pika.dds
+│  │          │      pika.png
+│  │          │      Right_Hand_Idle_P.dds
+│  │          │      Right_Hand_Idle_P.png
+│  │          │      Right_Hand_Reload_P.dds
+│  │          │      Right_Hand_Reload_P.png
+│  │          │      Right_Hand_Shot_P.dds
+│  │          │      Right_Hand_Shot_P.png
+│  │          │      
+│  │          └─Terrain
+│  │                  Aura0.tga
+│  │                  GrassRock_0.tga
+│  │                  GrassRock_1.tga
+│  │                  Grass_0.tga
+│  │                  Grass_1.tga
+│  │                  Height.bmp
+│  │                  Height1.bmp
+│  │                  Height2.bmp
+│  │                  TempHeight.bmp
+│  │                  Terrain0.dds
+│  │                  Terrain0.png
+│  │                  Tile0.jpg
 │  │                  
 │  ├─Code
+│  │      CBullet.cpp
+│  │      CCeiling.cpp
 │  │      CCharacter.cpp
+│  │      CCubeTex.cpp
+│  │      CFirstCamera.cpp
+│  │      CFloor.cpp
+│  │      CLeftPart.cpp
 │  │      CMainApp.cpp
+│  │      CMapLoader.cpp
+│  │      CMapStage.cpp
+│  │      CMiddlePart.cpp
+│  │      CMonster.cpp
+│  │      CObstacle.cpp
 │  │      CPlayer.cpp
+│  │      CPlayerPart.cpp
+│  │      CRightPart.cpp
+│  │      CSkyBox.cpp
 │  │      CStage.cpp
+│  │      CTerrain.cpp
+│  │      CTerrainTex.cpp
 │  │      CTestCharacter.cpp
 │  │      CTestStage.cpp
+│  │      CWall.cpp
+│  │      CWhiteMan.cpp
+│  │      CWhiteMan_BACKUP_1176.cpp
+│  │      CWhiteMan_BACKUP_1239.cpp
+│  │      CWhiteMan_BASE_1176.cpp
+│  │      CWhiteMan_BASE_1239.cpp
+│  │      CWhiteMan_LOCAL_1176.cpp
+│  │      CWhiteMan_LOCAL_1239.cpp
+│  │      CWhiteMan_REMOTE_1176.cpp
+│  │      CWhiteMan_REMOTE_1239.cpp
 │  │      
 │  ├─Header
+│  │      CBullet.h
+│  │      CCeiling.h
 │  │      CCharacter.h
+│  │      CFirstCamera.h
+│  │      CFloor.h
+│  │      CLeftPart.h
 │  │      CMainApp.h
+│  │      CMapLoader.h
+│  │      CMapStage.h
+│  │      CMiddlePart.h
+│  │      CMonster.h
+│  │      CObstacle.h
 │  │      CPlayer.h
+│  │      CPlayerPart.h
+│  │      CRightPart.h
+│  │      CSkyBox.h
 │  │      CStage.h
+│  │      CTerrain.h
 │  │      CTestCharacter.h
 │  │      CTestStage.h
+│  │      CWall.h
+│  │      CWhiteMan.h
 │  │      
 │  └─Include
 │      │  Client.cpp
@@ -57,19 +294,36 @@ D:.
 │      │  
 │      └─x64
 │          └─Debug
+│              │  CBullet.obj
+│              │  CCeiling.obj
 │              │  CCharacter.obj
+│              │  CFirstCamera.obj
+│              │  CFloor.obj
+│              │  CLeftPart.obj
+│              │  Client.Build.CppClean.log
 │              │  Client.exe.recipe
 │              │  Client.ilk
 │              │  Client.log
 │              │  Client.obj
 │              │  Client.pch
 │              │  Client.res
+│              │  Client.vcxproj.FileListAbsolute.txt
 │              │  CMainApp.obj
+│              │  CMapLoader.obj
+│              │  CMapStage.obj
+│              │  CMiddlePart.obj
+│              │  CMonster.obj
+│              │  CObstacle.obj
 │              │  CPlayer.obj
-│              │  CPlayerTestStage.obj
+│              │  CPlayerPart.obj
+│              │  CRightPart.obj
+│              │  CSkyBox.obj
 │              │  CStage.obj
+│              │  CTerrain.obj
 │              │  CTestCharacter.obj
 │              │  CTestStage.obj
+│              │  CWall.obj
+│              │  CWhiteMan.obj
 │              │  pch.obj
 │              │  vc143.idb
 │              │  vc143.pdb
@@ -88,6 +342,146 @@ D:.
 │                      rc.read.1.tlog
 │                      rc.write.1.tlog
 │                      
+├─Editor
+│  ├─Bin
+│  │  │  Editor.exe
+│  │  │  Editor.exp
+│  │  │  Editor.lib
+│  │  │  Editor.pdb
+│  │  │  Engine.dll
+│  │  │  
+│  │  └─Temp
+│  │      └─Debug
+│  │          │  CEditorApp.obj
+│  │          │  CEditorCamera.obj
+│  │          │  CEditorCeiling.obj
+│  │          │  CEditorCube.obj
+│  │          │  CEditorFloor.obj
+│  │          │  CEditorObject.obj
+│  │          │  CEditorScene.obj
+│  │          │  CEditorSpawnPoint.obj
+│  │          │  CEditorTile.obj
+│  │          │  CEditorWall.obj
+│  │          │  CFileIO.obj
+│  │          │  CGrid.obj
+│  │          │  CHierarchy.obj
+│  │          │  CInspector.obj
+│  │          │  CMainMenuBar.obj
+│  │          │  CMousePicker.obj
+│  │          │  CSelectionMgr.obj
+│  │          │  CToolBar.obj
+│  │          │  Editor.Build.CppClean.log
+│  │          │  Editor.exe.recipe
+│  │          │  Editor.ilk
+│  │          │  Editor.log
+│  │          │  Editor.obj
+│  │          │  Editor.pch
+│  │          │  Editor.res
+│  │          │  Editor.vcxproj.FileListAbsolute.txt
+│  │          │  imgui.obj
+│  │          │  ImGuizmo.obj
+│  │          │  imgui_demo.obj
+│  │          │  imgui_draw.obj
+│  │          │  imgui_impl_dx9.obj
+│  │          │  imgui_impl_win32.obj
+│  │          │  imgui_tables.obj
+│  │          │  imgui_widgets.obj
+│  │          │  pch.obj
+│  │          │  vc143.idb
+│  │          │  vc143.pdb
+│  │          │  
+│  │          └─Editor.tlog
+│  │                  CL.command.1.tlog
+│  │                  Cl.items.tlog
+│  │                  CL.read.1.tlog
+│  │                  CL.write.1.tlog
+│  │                  Editor.lastbuildstate
+│  │                  link.command.1.tlog
+│  │                  link.read.1.tlog
+│  │                  link.secondary.1.tlog
+│  │                  link.write.1.tlog
+│  │                  rc.command.1.tlog
+│  │                  rc.read.1.tlog
+│  │                  rc.write.1.tlog
+│  │                  
+│  ├─Code
+│  │      CEditorApp.cpp
+│  │      CEditorCamera.cpp
+│  │      CEditorCeiling.cpp
+│  │      CEditorCube.cpp
+│  │      CEditorFloor.cpp
+│  │      CEditorObject.cpp
+│  │      CEditorScene.cpp
+│  │      CEditorSpawnPoint.cpp
+│  │      CEditorTile.cpp
+│  │      CEditorWall.cpp
+│  │      CFileIO.cpp
+│  │      CGrid.cpp
+│  │      CHierarchy.cpp
+│  │      CInspector.cpp
+│  │      CMainMenuBar.cpp
+│  │      CMousePicker.cpp
+│  │      CSelectionMgr.cpp
+│  │      CToolBar.cpp
+│  │      
+│  ├─Header
+│  │      CEditorApp.h
+│  │      CEditorCamera.h
+│  │      CEditorCeiling.h
+│  │      CEditorCube.h
+│  │      CEditorFloor.h
+│  │      CEditorObject.h
+│  │      CEditorScene.h
+│  │      CEditorSpawnPoint.h
+│  │      CEditorTile.h
+│  │      CEditorWall.h
+│  │      CFileIO.h
+│  │      CGrid.h
+│  │      CHierarchy.h
+│  │      CInspector.h
+│  │      CMainMenuBar.h
+│  │      CMousePicker.h
+│  │      CSelectionMgr.h
+│  │      CToolBar.h
+│  │      json.hpp
+│  │      
+│  ├─ImGui
+│  │      imconfig.h
+│  │      imgui.cpp
+│  │      imgui.h
+│  │      imgui_demo.cpp
+│  │      imgui_draw.cpp
+│  │      imgui_impl_dx9.cpp
+│  │      imgui_impl_dx9.h
+│  │      imgui_impl_win32.cpp
+│  │      imgui_impl_win32.h
+│  │      imgui_internal.h
+│  │      imgui_tables.cpp
+│  │      imgui_widgets.cpp
+│  │      imstb_rectpack.h
+│  │      imstb_textedit.h
+│  │      imstb_truetype.h
+│  │      
+│  ├─ImGuizmo
+│  │      ImGuizmo.cpp
+│  │      ImGuizmo.h
+│  │      
+│  └─Inlcude
+│          Editor.cpp
+│          Editor.h
+│          Editor.ico
+│          Editor.rc
+│          Editor.vcxproj
+│          Editor.vcxproj.filters
+│          Editor.vcxproj.user
+│          framework.h
+│          imgui.ini
+│          pch.cpp
+│          pch.h
+│          Resource.h
+│          small.ico
+│          targetver.h
+│          
 ├─Engine
 │  ├─Bin
 │  │      Engine.dll
@@ -98,8 +492,12 @@ D:.
 │  ├─Code
 │  │      CAnimation.cpp
 │  │      CBaseTexture.cpp
+│  │      CCalculator.cpp
 │  │      CCamera.cpp
+│  │      CCollider.cpp
+│  │      CCollision.cpp
 │  │      CComponent.cpp
+│  │      CCubeCol.cpp
 │  │      CCubeTex.cpp
 │  │      CCubeTexture.cpp
 │  │      CDInputMgr.cpp
@@ -114,12 +512,16 @@ D:.
 │  │      CLightMgr.cpp
 │  │      CManagement.cpp
 │  │      CPipeline.cpp
+│  │      CPoolMgr.cpp
 │  │      CProtoMgr.cpp
 │  │      CRcCol.cpp
 │  │      CRcTex.cpp
 │  │      CRenderer.cpp
+│  │      CRenderStateGuard.cpp
 │  │      CScene.cpp
+│  │      CStateComponent.cpp
 │  │      CTerrainTex.cpp
+│  │      CTerrainTexture.cpp
 │  │      CTexture.cpp
 │  │      CTimer.cpp
 │  │      CTimerMgr.cpp
@@ -129,10 +531,15 @@ D:.
 │  ├─Header
 │  │      CAnimation.h
 │  │      CBaseTexture.h
+│  │      CCalculator.h
 │  │      CCamera.h
+│  │      CCollider.h
+│  │      CCollision.h
 │  │      CComponent.h
+│  │      CCubeCol.h
 │  │      CCubeTex.h
 │  │      CCubeTexture.h
+│  │      CDataMgr.h
 │  │      CDInputMgr.h
 │  │      CFont.h
 │  │      CFontMgr.h
@@ -144,13 +551,19 @@ D:.
 │  │      CLight.h
 │  │      CLightMgr.h
 │  │      CManagement.h
+│  │      CObjectPool.h
 │  │      CPipeline.h
+│  │      CPoolMgr.h
 │  │      CProtoMgr.h
 │  │      CRcCol.h
 │  │      CRcTex.h
 │  │      CRenderer.h
+│  │      CRenderStateGuard.h
 │  │      CScene.h
+│  │      CState.h
+│  │      CStateComponent.h
 │  │      CTerrainTex.h
+│  │      CTerrainTexture.h
 │  │      CTexture.h
 │  │      CTimer.h
 │  │      CTimerMgr.h
@@ -172,8 +585,12 @@ D:.
 │          └─Debug
 │              │  CAnimation.obj
 │              │  CBaseTexture.obj
+│              │  CCalculator.obj
 │              │  CCamera.obj
+│              │  CCollider.obj
+│              │  CCollision.obj
 │              │  CComponent.obj
+│              │  CCubeCol.obj
 │              │  CCubeTex.obj
 │              │  CCubeTexture.obj
 │              │  CDInputMgr.obj
@@ -188,20 +605,26 @@ D:.
 │              │  CLightMgr.obj
 │              │  CManagement.obj
 │              │  CPipeline.obj
+│              │  CPoolMgr.obj
 │              │  CProtoMgr.obj
 │              │  CRcCol.obj
 │              │  CRcTex.obj
 │              │  CRenderer.obj
+│              │  CRenderStateGuard.obj
 │              │  CScene.obj
+│              │  CStateComponent.obj
 │              │  CTerrainTex.obj
+│              │  CTerrainTexture.obj
 │              │  CTexture.obj
 │              │  CTimer.obj
 │              │  CTimerMgr.obj
 │              │  CTransform.obj
 │              │  CVIBuffer.obj
+│              │  Engine.Build.CppClean.log
 │              │  Engine.dll.recipe
 │              │  Engine.ilk
 │              │  Engine.log
+│              │  Engine.vcxproj.FileListAbsolute.txt
 │              │  vc143.idb
 │              │  vc143.pdb
 │              │  
@@ -216,44 +639,106 @@ D:.
 │                      link.secondary.1.tlog
 │                      link.write.1.tlog
 │                      
-└─Reference
-    ├─Header
-    │      CAnimation.h
-    │      CBaseTexture.h
-    │      CCamera.h
-    │      CComponent.h
-    │      CCubeTex.h
-    │      CCubeTexture.h
-    │      CDInputMgr.h
-    │      CFont.h
-    │      CFontMgr.h
-    │      CFrame.h
-    │      CFrameMgr.h
-    │      CGameObject.h
-    │      CGraphicDev.h
-    │      CLayer.h
-    │      CLight.h
-    │      CLightMgr.h
-    │      CManagement.h
-    │      CPipeline.h
-    │      CProtoMgr.h
-    │      CRcCol.h
-    │      CRcTex.h
-    │      CRenderer.h
-    │      CScene.h
-    │      CTerrainTex.h
-    │      CTexture.h
-    │      CTimer.h
-    │      CTimerMgr.h
-    │      CTransform.h
-    │      CVIBuffer.h
-    │      Engine_Define.h
-    │      Engine_Enum.h
-    │      Engine_Function.h
-    │      Engine_Macro.h
-    │      Engine_Struct.h
-    │      Engine_Typedef.h
-    │      
-    └─Library
-            Engine.lib
-            
+├─Map
+│      1230.json
+│      1231.json
+│      imgui.ini
+│      test.json
+│      test2.json
+│      test3.json
+│      test4.json
+│      
+├─Reference
+│  ├─Header
+│  │      CAnimation.h
+│  │      CBaseTexture.h
+│  │      CCalculator.h
+│  │      CCamera.h
+│  │      CCollider.h
+│  │      CCollision.h
+│  │      CComponent.h
+│  │      CCubeCol.h
+│  │      CCubeTex.h
+│  │      CCubeTexture.h
+│  │      CDataMgr.h
+│  │      CDInputMgr.h
+│  │      CFont.h
+│  │      CFontMgr.h
+│  │      CFrame.h
+│  │      CFrameMgr.h
+│  │      CGameObject.h
+│  │      CGraphicDev.h
+│  │      CLayer.h
+│  │      CLight.h
+│  │      CLightMgr.h
+│  │      CManagement.h
+│  │      CObjectPool.h
+│  │      CPipeline.h
+│  │      CPoolMgr.h
+│  │      CProtoMgr.h
+│  │      CRcCol.h
+│  │      CRcTex.h
+│  │      CRenderer.h
+│  │      CRenderStateGuard.h
+│  │      CScene.h
+│  │      CState.h
+│  │      CStateComponent.h
+│  │      CTerrainTex.h
+│  │      CTerrainTexture.h
+│  │      CTexture.h
+│  │      CTimer.h
+│  │      CTimerMgr.h
+│  │      CTransform.h
+│  │      CVIBuffer.h
+│  │      Engine_Define.h
+│  │      Engine_Enum.h
+│  │      Engine_Function.h
+│  │      Engine_Macro.h
+│  │      Engine_Struct.h
+│  │      Engine_Typedef.h
+│  │      json.hpp
+│  │      
+│  └─Library
+│          Engine.lib
+│          
+└─명세서
+        01.05 수정 및 참고 사항.txt
+        Client-Engine_구조분석_및_연계방안.md
+        Client_Phase1_Backface_Culling_문제_해결가이드.md
+        Client_Phase1_CFirstCamera_크래시_수정가이드.md
+        Client_Phase1_Component_중복Release_수정가이드.md
+        Client_Phase1_Transform초기화_수정가이드.md
+        Client_Phase1_렌더링_ZBuffer_문제_해결가이드.md
+        Client_Phase1_맵로드_SpawnPoint_개선_가이드.md
+        Client_Phase1_맵로드_오류해결_가이드.md
+        Client_Phase1_맵로드시스템_구현가이드.md
+        Client_Phase1_맵로드시스템_구현가이드_v2.md
+        Client_Phase1_맵오브젝트_색상설정_가이드.md
+        Client_Phase1_메모리릭_해결가이드.md
+        Editor_MapEditor_개발계획.md
+        Editor_Phase5_Picking과텍스처_구현가이드_v3.md
+        Editor_Phase5_완료보고_2025-12-26.md
+        Editor_Phase6.5_ImGuizmo_구현가이드.md
+        Editor_Phase6.5_ImGuizmo_구현가이드_v2.md
+        Editor_Phase6.5_ImGuizmo_구현가이드_검증완료.md
+        Editor_Phase6_파일저장로드_구현가이드.md
+        Editor_Phase6_파일저장로드_구현가이드_JSON.md
+        Editor_Phase7_종합개선_Pivot_크기조정_텍스처시스템_가이드.md
+        Editor_Phase7_종합개선_SpawnPoint_크기조정_텍스처시스템_가이드_v2.md
+        Editor_Phase7_종합개선_SpawnPoint_크기조정_텍스처시스템_가이드_v3.md
+        Editor_Phase7_텍스처시스템_구현가이드.md
+        Editor_Phase7_텍스처시스템_구현가이드_v2.md
+        Editor_Phase7_텍스처아틀라스시스템_구현가이드.md
+        Editor_Phase8.1_기능확장_구현가이드.md
+        Editor_Phase8.2_Client연계_구현가이드.md
+        Editor_Phase8.3_구현_검증_및_수정사항.md
+        Editor_Phase8.3_기능보완_구현가이드.md
+        Editor_전체_개발계획_v2.md
+        Editor_전체_개발계획_v3.md
+        Editor_진행상황_2025-12-26.md
+        Editor_진행상황_2025-12-27.md
+        generate_atlas_json.py
+        Pool_초기화_미호출_버그_수정_가이드.md
+        Resource_텍스처관리전략_및_아틀라스구성가이드.md
+        프레임워크_Pool_적용_버그_수정_가이드.md
+        

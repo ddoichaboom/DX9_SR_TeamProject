@@ -38,35 +38,23 @@ void CToolBar::Render_ToolBar()
     ImGui::Text("Editor Mode:");
     ImGui::Separator();
 
-    if (ImGui::RadioButton("Select", m_eEditorMode == MODE_SELECT))
+    const char* szModeNames[] = {
+          "Select",
+          "Place Floor",
+          "Place Ceiling",
+          "Place Cube",
+          "Place Wall",
+          "Spawn Player",
+          "Spawn Monster"
+    };
+
+    int iCurrentMode = (int)m_eEditorMode;
+
+    if (ImGui::Combo("##EditorModeCombo", &iCurrentMode, szModeNames, IM_ARRAYSIZE(szModeNames)))
     {
-        m_eEditorMode = MODE_SELECT;
+        m_eEditorMode = (EDITOR_MODE)iCurrentMode;
     }
 
-    ImGui::SameLine();
-
-    if (ImGui::RadioButton("Place Tile", m_eEditorMode == MODE_PLACE_TILE))
-    {
-        m_eEditorMode = MODE_PLACE_TILE;
-    }
-
-    ImGui::SameLine();
-
-    if (ImGui::RadioButton("Place Cube", m_eEditorMode == MODE_PLACE_CUBE))
-    {
-        m_eEditorMode = MODE_PLACE_CUBE;
-    }
-
-    // 현재 모드 표시
-    const char* szModeName = "";
-    switch (m_eEditorMode)
-    {
-    case MODE_SELECT: szModeName = "Select"; break;
-    case MODE_PLACE_TILE: szModeName = "Place Tile"; break;
-    case MODE_PLACE_CUBE: szModeName = "Place Cube"; break;
-    }
-
-    ImGui::Text("Current: %s", szModeName);
 
     ImGui::Spacing();
     ImGui::Separator();

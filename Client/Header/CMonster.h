@@ -25,13 +25,14 @@ protected:
 protected:
 	HRESULT			Add_Component() override;
 	void			SetBillboard();
-	Engine::CTransform* GetPlayerTransformCom();
 protected:
 	virtual void	Free();
 
 //Perceive
 protected:
 	HRESULT			GetDistVecToPlayer(_vec3& pOutDist);
+	Engine::CTransform* GetPlayerTransform();
+	Engine::CCollision* GetPlayerCollision();
 //State
 	virtual	void	Launch(); 
 	void			SetLaunched();
@@ -41,7 +42,8 @@ public:
 	void			Deactivate() override;
 protected:
 	Engine::CAnimation* m_pAnimationCom;
-	Engine::CTransform* m_pPlayerTransformCom = nullptr;
+	Engine::CTransform* m_pPlayerTransformCom;
+	Engine::CCollision* m_pPlayerCollisionCom;
 
 	_float m_fAttackableDist; 
 	_vec3 m_vDir;

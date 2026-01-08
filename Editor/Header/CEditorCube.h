@@ -18,6 +18,7 @@ private:
 
 public:
     static CEditorCube* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos);
+    static CEditorCube* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale);
 
 private:
     virtual void        Free() override;

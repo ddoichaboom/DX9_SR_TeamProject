@@ -8,6 +8,7 @@
 CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CCharacter(pGraphicDev), m_pAnimationCom(nullptr)
 	,m_fAttackableDist(100.f), m_vDir({0,0,0}), m_fSpeed(10.f), m_fMaxHP(10.f), m_fHP(10.f)
+	, m_pPlayerTransformCom(nullptr), m_pPlayerCollisionCom(nullptr)
 {
 	m_eOBJ_ID = OBJ_MONSTER;
 	m_iID = Make_ID();
@@ -16,6 +17,7 @@ CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev)
 CMonster::CMonster(const CMonster& rhs)
 	:CCharacter(rhs), m_pAnimationCom(nullptr), m_fAttackableDist(100.f), m_fMaxHP(10.f), m_fHP(10.f)
 	, m_vDir(rhs.m_vDir), m_fSpeed(rhs.m_fSpeed)
+	, m_pPlayerTransformCom(nullptr), m_pPlayerCollisionCom(nullptr)
 {
 	m_eOBJ_ID = OBJ_MONSTER;
 	m_iID = Make_ID();
@@ -46,7 +48,7 @@ _int CMonster::Update_GameObject(const _float& fTimeDelta)
 
 		if (m_fAttackableDist >= distLen)
 		{
-				ChangeState(MS_ATTACK_IDLE);
+			ChangeState(MS_ATTACK_IDLE);
 		}
 	}
 	return iExit;
@@ -74,49 +76,42 @@ HRESULT CMonster::Add_Component()
 	return S_OK;
 }
 
-//카메라위치->몬스터위치 방향으로 미리 처다보게 만들어서 회전시키면 카메라를 항상 처다본다
-//현 몬스터들은 바라보는 방향 반대에서 랜더링되므로 카메라 방향을 향해야함 
-//뷰포트 각도로 처리하면 마우스 움직임에도 영향을 받으므로 위치값을 기준으로 하기 
 void CMonster::SetBillboard()
 {
-	_matrix matWorld, matView, matBill, matScale, matScaleInverse;
-
-	matWorld = *m_pTransformCom->Get_World();
+	_matrix matView, matBill;
 
 	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matView);
 	D3DXMatrixInverse(&matView, NULL, &matView);
-	_vec3* Front = m_pTransformCom->Get_Info(INFO_LOOK);
-	_vec3 dir;
-	memcpy(&dir, &matView.m[3], sizeof(_vec3));
-	dir = *m_pTransformCom->Get_Info(INFO_POS)- dir; // 카메라 -> 몬스터 방향
-	D3DXVec3Normalize(&dir, &dir);
-	_float value = acosf(D3DXVec3Dot(Front, &dir));
-	if (dir.x <= 0.f) value *= -1.f;
+	_vec3 camPos;
+	memcpy(&camPos, &matView.m[3], sizeof(_vec3));
+	_vec3 myPos = *m_pTransformCom->Get_Info(INFO_POS);
+	_vec3 myScale = m_pTransformCom->m_vScale;
 
-	D3DXMatrixRotationY(&matBill, value);
+	//방향 주의! 카메라의 방향을 처다봐야 뒷면이 랜더링 됨 
+	_vec3 look = myPos - camPos;
+	look.y = 0.0f;
+	D3DXVec3Normalize(&look, &look);
 
-	D3DXMatrixScaling(&matScale, m_pTransformCom->m_vScale.x, m_pTransformCom->m_vScale.y, m_pTransformCom->m_vScale.z);
+	_vec3 right;
+	_vec3 up = { 0.0f, 1.0f, 0.0f };
+	D3DXVec3Cross(&right, &up, &look);
+	D3DXVec3Normalize(&right, &right);
 
-	D3DXMatrixInverse(&matScaleInverse, 0, &matScale);
+	D3DXVec3Cross(&up, &look, &right);
+	D3DXVec3Normalize(&up, &up);
 
-	matWorld = matScaleInverse * matWorld;
-	matWorld = matScale * matBill * matWorld;
-	m_pTransformCom->Set_World(&matWorld);
+	D3DXMatrixIdentity(&matBill);
+	right *= myScale.x;
+	up *= myScale.y;
+	look *= myScale.z;
 
-	_vec3		vPos;
-	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-
+	memcpy(&matBill.m[0], &right, sizeof(_vec3));
+	memcpy(&matBill.m[1], &up, sizeof(_vec3));
+	memcpy(&matBill.m[2], &look , sizeof(_vec3));
+	memcpy(&matBill.m[3], &myPos, sizeof(_vec3));
+	m_pTransformCom->Set_World(&matBill);
 }
 
-Engine::CTransform* CMonster::GetPlayerTransformCom()
-{
-	if (!m_pPlayerTransformCom)
-	{
-		m_pPlayerTransformCom =
-			dynamic_cast<CTransform*>(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer",OBJ_PLAYER, L"Com_Transform"));
-	}
-	return m_pPlayerTransformCom;
-}
 
 void CMonster::Free()
 {
@@ -125,13 +120,33 @@ void CMonster::Free()
 
 HRESULT CMonster::GetDistVecToPlayer(_vec3& pOutDist)
 {
-	if (GetPlayerTransformCom() == nullptr) return E_FAIL;
+	if (GetPlayerTransform() == nullptr) return E_FAIL;
 
- 	_vec3* playerPos = GetPlayerTransformCom()->Get_Info(INFO_POS);
+ 	_vec3* playerPos = GetPlayerTransform()->Get_Info(INFO_POS);
 	_vec3* myPos = m_pTransformCom->Get_Info(INFO_POS);
 
 	pOutDist = *playerPos - *myPos;
 	return S_OK;
+}
+
+Engine::CTransform* CMonster::GetPlayerTransform()
+{
+	if (!m_pPlayerTransformCom)
+	{
+		m_pPlayerTransformCom =
+			static_cast<CTransform*>(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_PLAYER, L"Com_Transform"));
+	}
+	return m_pPlayerTransformCom;
+}
+
+Engine::CCollision* CMonster::GetPlayerCollision()
+{
+	if (!m_pPlayerCollisionCom)
+	{
+		m_pPlayerCollisionCom =
+			static_cast<CCollision*>(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_PLAYER, L"Com_Collision"));
+	}
+	return m_pPlayerCollisionCom;
 }
 
 void CMonster::Launch()

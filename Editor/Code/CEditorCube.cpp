@@ -106,7 +106,25 @@ CEditorCube* CEditorCube::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
     }
 
     pInstance->Set_Position(vPos);
-    pInstance->Set_Scale(_vec3(1.f, 1.f, 1.f));
+    pInstance->Set_Scale(_vec3(8.f, 12.f, 4.f));
+
+    return pInstance;
+}
+
+CEditorCube* CEditorCube::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale)
+{
+    CEditorCube* pInstance = new CEditorCube(pGraphicDev);
+
+    if (FAILED(pInstance->Ready_GameObject()))
+    {
+        Safe_Release(pInstance);
+        MSG_BOX("CEditorCube Create Failed");
+        return nullptr;
+    }
+
+    pInstance->Set_Scale(vScale);
+    pInstance->Set_Rotation(vRot);
+    pInstance->Set_Position(vPos);
 
     return pInstance;
 }

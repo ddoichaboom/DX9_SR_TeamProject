@@ -93,6 +93,25 @@ CWhiteMan* CWhiteMan::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 	return pWhite;
 }
+
+CWhiteMan* CWhiteMan::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
+{
+	CWhiteMan* pWhite = new CWhiteMan(pGraphicDev);
+
+	if (FAILED(pWhite->Ready_GameObject()))
+	{
+		Safe_Release(pWhite);
+		MSG_BOX("White Man Create Failed");
+		return nullptr;
+	}
+
+	CTransform* pTransform = dynamic_cast<Engine::CTransform*>(
+		pWhite->Get_Component(ID_DYNAMIC, L"Com_Transform"));
+	pTransform->Set_Pos(vPos);
+	pTransform->Update_Component(0.f);
+
+	return pWhite;
+}
 //Static End
 
 
@@ -108,8 +127,7 @@ HRESULT CWhiteMan::Ready_GameObject()
 	//애니메이션에 스케일 다른 텍스쳐가 있을때만 바인딩하기 
 	m_pAnimationCom->Bind_OnChangedFunc([&](_float _aspect) { OnAnimationChange(_aspect); });
 
-	m_pTransformCom->m_vScale = { 5,13,1 };
-	m_pTransformCom->Set_Pos(0, 1.0, 110.f);
+	m_pTransformCom->m_vScale = { 5.f, 13.f  ,1.f };
 
 	//Collider 생성 
 	m_pHeadCollider = m_pCollisionCom->CreateCollider(m_pTransformCom, m_szHeadColliderName);
@@ -151,24 +169,24 @@ _int CWhiteMan::Update_GameObject(const _float& fTimeDelta)
 
 	//TEST
 	//TODO : 플레이어에 공격 구현되면 지우기 
-	if (CDInputMgr::GetInstance()->Mouse_Down(DIM_LB))
-	{
-		bool bPicked = CCollision::Collision_Mouse(g_hWnd, m_pGraphicDev, m_pHeadCollider);
-		if (bPicked)
-		{
-			CollisionInfo info = { NULL, {0,0,0}, 6.f };
-			m_pHeadCollider->Collision(info);
-			return iExit; // 중복 충돌 방지!
-		}
+	//if (CDInputMgr::GetInstance()->Mouse_Down(DIM_LB))
+	//{
+	//	bool bPicked = CCollision::Collision_Mouse(g_hWnd, m_pGraphicDev, m_pHeadCollider);
+	//	if (bPicked)
+	//	{
+	//		CollisionInfo info = { NULL, {0,0,0}, 6.f };
+	//		m_pHeadCollider->Collision(info);
+	//		return iExit; // 중복 충돌 방지!
+	//	}
 
-		bPicked = CCollision::Collision_Mouse(g_hWnd, m_pGraphicDev, m_pBodyCollider);
-		if (bPicked)
-		{
-			CollisionInfo info = { NULL, {0,0,0}, 6.f }; // otherObj, dist, Damage
-			m_pBodyCollider->Collision(info);
-		}
+	//	bPicked = CCollision::Collision_Mouse(g_hWnd, m_pGraphicDev, m_pBodyCollider);
+	//	if (bPicked)
+	//	{
+	//		CollisionInfo info = { NULL, {0,0,0}, 6.f }; // otherObj, dist, Damage
+	//		m_pBodyCollider->Collision(info);
+	//	}
 
-	}
+	//}
 
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_SPACE))
 	{
@@ -239,6 +257,8 @@ void CWhiteMan::OnBodyCollision(CollisionInfo info)
 	if (m_fHP <= 0.f)
 	{
 		m_pTransformCom->m_vScale.x = m_pTransformCom->m_vScale.y;
+		if (m_pHeadCollider) m_pHeadCollider->OffCollision();
+		if (m_pBodyCollider) m_pBodyCollider->OffCollision();
 		ChangeState(MS_DEAD);
 	}
 	else ChangeState(MS_HIT);
@@ -289,7 +309,7 @@ void CWhiteMan::Shoot()
 	//TODO : 수치 테스트 후 상수 + 함수로 수정하기 
 	myPos.y += 6.f;
 	_vec3 otherPos = { 0.f,0.f,0.f };
-	if (GetPlayerTransformCom()) otherPos = *GetPlayerTransformCom()->Get_Info(INFO_POS);
+	if (GetPlayerTransform()) otherPos = *GetPlayerTransform()->Get_Info(INFO_POS);
 	otherPos.y -= 1.0f;
 	pBullet->SetPos(myPos);
 
@@ -315,7 +335,7 @@ void CWhiteMan::Hit()
 
 void CWhiteMan::Launch()
 {
-	CTransform* playerTransform = GetPlayerTransformCom();
+	CTransform* playerTransform = GetPlayerTransform();
 	if (!playerTransform) return;
 
 	if (m_fTime >= m_fLaunchTime)
@@ -338,8 +358,6 @@ void CWhiteMan::Dead()
 	if (m_pAnimationCom->IsEnd())
 	{
 		SetDead();
-		if(m_pHeadCollider) m_pHeadCollider->OffCollision();
-		if(m_pHeadCollider) m_pBodyCollider->OffCollision();
 	}
 }
 // _animAspect = cutSize.x / cutSize.y 한 종횡비 

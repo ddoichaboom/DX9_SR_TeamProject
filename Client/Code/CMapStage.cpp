@@ -1,0 +1,408 @@
+#include "pch.h"
+#include "CMapStage.h"
+#include "CProtoMgr.h"
+#include "CMapLoader.h"
+#include "CPoolMgr.h"
+
+// 환경 오브젝트 (필터링용, 실제 생성은 CMapLoader가 담당)
+#include "CFloor.h"
+#include "CCeiling.h"
+#include "CWall.h"
+#include "CObstacle.h"
+
+// 게임 로직 오브젝트
+#include "CPlayer.h"
+#include "CFirstCamera.h"
+#include "CWhiteMan.h"
+#include "CBeamMon.h"
+#include "CFlyMon.h"
+#include "CBullet.h"
+#include "CBeam.h"
+
+//Player
+#include "CLeftPart.h"
+#include "CRightPart.h"
+#include "CMiddlePart.h"
+#include "CPistol.h"
+
+CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
+{
+}
+
+CMapStage::~CMapStage()
+{
+}
+
+HRESULT CMapStage::Ready_Scene()
+{
+    if (FAILED(Ready_Prototype()))
+        return E_FAIL;
+
+    if (FAILED(Ready_ObjectPool()))
+        return E_FAIL;
+
+    if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
+        return E_FAIL;
+
+    if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer")))
+        return E_FAIL;
+
+    return S_OK;
+}
+
+_int CMapStage::Update_Scene(const _float& fTimeDelta)
+{
+    int iExit = CStage::Update_Scene(fTimeDelta);
+    return iExit;
+}
+
+void CMapStage::LateUpdate_Scene(const _float& fTimeDelta)
+{
+    CStage::LateUpdate_Scene(fTimeDelta);
+}
+
+void CMapStage::Render_Scene()
+{
+}
+
+HRESULT CMapStage::Ready_ObjectPool()
+{
+    // ========== Pool 생성 ==========
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CFloor>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CFloor>(m_pGraphicDev)))
+        {
+            MSG_BOX("Floor Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CCeiling>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CCeiling>(m_pGraphicDev)))
+        {
+            MSG_BOX("Ceiling Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CWall>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CWall>(m_pGraphicDev)))
+        {
+            MSG_BOX("Wall Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CObstacle>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CObstacle>(m_pGraphicDev)))
+        {
+            MSG_BOX("Obstacle Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CBullet>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CBullet>(m_pGraphicDev)))
+        {
+            MSG_BOX("Bullet Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CWhiteMan>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CWhiteMan>(m_pGraphicDev)))
+        {
+            MSG_BOX("WhiteMan Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CBeamMon>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CBeamMon>(m_pGraphicDev)))
+        {
+            MSG_BOX("BeamMon Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CFlyMon>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CFlyMon>(m_pGraphicDev)))
+        {
+            MSG_BOX("FlyMon Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    return S_OK;
+}
+
+HRESULT CMapStage::Ready_PlayerProto()
+{
+    CTexture* pCom_Texture = nullptr;
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CLeftPart::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_LeftTexture", pCom_Texture)))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_LeftAnimation",
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CLeftPart::GetAnimSources()))))
+        return E_FAIL;
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CRightPart::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RightTexture", pCom_Texture)))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RightAnimation",
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CRightPart::GetAnimSources()))))
+        return E_FAIL;
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CMiddlePart::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_MiddleTexture", pCom_Texture)))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_MiddleAnimation",
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CMiddlePart::GetAnimSources()))))
+        return E_FAIL;
+
+    return S_OK;
+}
+
+HRESULT CMapStage::Ready_MonsterProto()
+{
+    CTexture* pCom_Texture = nullptr;
+
+    // WhiteMan
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CWhiteMan::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WhiteManTexture", pCom_Texture)))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WhiteManAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CWhiteMan::GetAnimSources()))))
+        return E_FAIL;
+
+    //Beam Mon Texture 
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBeamMon::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BeamMonTexture", pCom_Texture)))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BeamMonAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CBeamMon::GetAnimSources()))))
+        return E_FAIL;
+
+    //Beam Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBeam::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BeamTexture", pCom_Texture)))
+        return E_FAIL;
+
+    //FlyMon Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CFlyMon::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FlyMonTexture", pCom_Texture)))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FlyMonAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CFlyMon::GetAnimSources()))))
+        return E_FAIL;
+
+    //Bullet Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBullet::GetTextureSource());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BulletTexture", pCom_Texture)))
+        return E_FAIL;
+
+    return S_OK;
+}
+
+HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
+{
+    CLayer* pLayer = CLayer::Create();
+    if (nullptr == pLayer)
+        return E_FAIL;
+
+    // Map 데이터 로드
+    if (FAILED(CMapLoader::GetInstance()->Load_MapData(
+        L"../../Map/test.json",
+        pLayer,  // Environment_Layer에 추가
+        m_pGraphicDev)))
+    {
+        MessageBox(nullptr, L"Map Load Failed", L"Error", MB_OK);
+        return E_FAIL;
+    }
+        
+
+    // 카메라 생성 (PlayerSpawn 위치 사용)
+    _vec3 vPlayerSpawnPos = CMapLoader::GetInstance()->Get_PlayerSpawnPos();
+
+    _vec3 vEye = vPlayerSpawnPos;
+    _vec3 vAt = { vPlayerSpawnPos.x, vPlayerSpawnPos.y, vPlayerSpawnPos.z};
+    _vec3 vUp = { 0.f, 1.f, 0.f };
+
+    CGameObject* pGameObject = CFirstCamera::Create(m_pGraphicDev, &vEye, &vAt, &vUp);
+
+    if (nullptr == pGameObject)
+        return E_FAIL;
+
+    if (FAILED(pLayer->Add_GameObject(pGameObject)))
+        return E_FAIL;
+
+    m_mapLayer.insert({ pLayerTag, pLayer });
+
+    return S_OK;
+}
+
+HRESULT CMapStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
+{
+    CLayer* pLayer = CLayer::Create();
+    if (nullptr == pLayer)
+        return E_FAIL;
+
+    CGameObject* pGameObject = nullptr;
+
+#pragma region Player
+    CPlayer* pPlayer = nullptr;
+    _vec3 pPlayerSpawnPos = CMapLoader::GetInstance()->Get_PlayerSpawnPos();
+
+    pGameObject = pPlayer = CPlayer::Create(m_pGraphicDev, pPlayerSpawnPos);
+
+    if (nullptr == pGameObject)
+        return E_FAIL;
+
+    if (FAILED(pLayer->Add_GameObject(pGameObject)))
+        return E_FAIL;
+
+    pGameObject = CMiddlePart::Create(m_pGraphicDev);
+    pPlayer->Set_MiddlePart(dynamic_cast<CMiddlePart*>(pGameObject));
+    if (FAILED(pLayer->Add_GameObject(pGameObject)))
+        return E_FAIL;
+
+    pGameObject = CRightPart::Create(m_pGraphicDev);
+    pPlayer->Set_RightPart(dynamic_cast<CRightPart*>(pGameObject));
+    if (FAILED(pLayer->Add_GameObject(pGameObject)))
+        return E_FAIL;
+
+    pGameObject = CLeftPart::Create(m_pGraphicDev);
+    pPlayer->Set_LeftPart(dynamic_cast<CLeftPart*>(pGameObject));
+    if (FAILED(pLayer->Add_GameObject(pGameObject)))
+        return E_FAIL;
+
+    pGameObject = CPistol::Create(m_pGraphicDev);
+    pPlayer->Add_Weapon((byte)1, dynamic_cast<CPistol*>(pGameObject));
+    if (FAILED(pLayer->Add_GameObject(pGameObject)))
+        return E_FAIL;
+
+#pragma endregion
+
+    
+
+     auto& monsterSpawns = CMapLoader::GetInstance()->Get_MonsterSpawns();
+
+     _uint iMonsterIndex = 0;
+     for (auto& pair : monsterSpawns)
+     {
+         string MonsterKey = pair.first;            // "WhiteMan", 추가 몬스터
+         vector<_vec3> Positions = pair.second;
+
+         for (auto& vPos : Positions)
+         {
+             CGameObject* pMonster = nullptr;
+
+             if (MonsterKey == "WhiteMan")
+             {
+                 // Pool에서 가져오기
+                 CWhiteMan* pWhiteMan = CPoolMgr::GetInstance()->Get_Object<CWhiteMan>();
+                 if (pWhiteMan)
+                 {
+                     pWhiteMan->SetPos(vPos);
+
+                     pMonster = pWhiteMan;
+                 }
+             }
+             else if (MonsterKey == "BeamMon")
+             {
+                 CBeamMon* pBeamMon = CPoolMgr::GetInstance()->Get_Object<CBeamMon>();
+                 if (pBeamMon)
+                 {
+                     pBeamMon->SetPos(vPos);
+                     pMonster = pBeamMon;
+                 }
+             }
+             else if (MonsterKey == "FlyMon")
+             {
+                 CFlyMon* pFlyMon = CPoolMgr::GetInstance()->Get_Object<CFlyMon>();
+                 if (pFlyMon)
+                 {
+                     pFlyMon->SetPos(vPos);
+                     pMonster = pFlyMon;
+                 }
+             }
+
+             if (pMonster)
+             {
+                 if (FAILED(pLayer->Add_GameObject(pMonster)))
+                 {
+                     // Pool 객체는 ReturnToPool 호출 
+                     pMonster->ReturnToPool();
+                 }
+             }
+         }
+     }
+    m_mapLayer.insert({ pLayerTag, pLayer });
+
+    return S_OK;
+}
+
+HRESULT CMapStage::Ready_Prototype()
+{
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcTexUp", Engine::CRcTexUp::Create(m_pGraphicDev))))
+        return E_FAIL;
+
+    // RcTex (CFloor, CCeiling, CWall에서 사용)
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcTex", Engine::CRcTex::Create(m_pGraphicDev))))
+        return E_FAIL;
+
+    // CubeTex (CObstacle에서 사용)
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_CubeTex", Engine::CCubeTex::Create(m_pGraphicDev))))
+        return E_FAIL;
+
+    // Transform (모든 오브젝트에서 사용)
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Transform", Engine::CTransform::Create(m_pGraphicDev))))
+        return E_FAIL;
+
+    // Collision 
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Collision", Engine::CCollision::Create(m_pGraphicDev))))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_StateComponent", Engine::CStateComponent::Create(m_pGraphicDev))))
+        return E_FAIL;
+
+    // 기존 몬스터 관련된 것들 패킹
+    if (FAILED(Ready_MonsterProto()))
+        return E_FAIL;
+
+    // 기존 플레이어 프로토 등록 로직들 패킹
+    if (FAILED(Ready_PlayerProto()))
+        return E_FAIL;
+
+    return S_OK;
+}
+
+CMapStage* CMapStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+    CMapStage* pMapStage = new CMapStage(pGraphicDev);
+
+    if (FAILED(pMapStage->Ready_Scene()))
+    {
+        Safe_Release(pMapStage);
+        MSG_BOX("Map Stage Create Failed");
+        return nullptr;
+    }
+
+    return pMapStage;
+}
+
+void CMapStage::Free()
+{
+    CScene::Free();
+}

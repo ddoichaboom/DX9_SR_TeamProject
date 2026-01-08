@@ -120,7 +120,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../Include;../Header;../../Base;../../Reference/Header;../ImGui</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../Include;../Header;../../Base;../../Reference/Header;../ImGui;../ImGuizmo</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -139,7 +139,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../Header;../../Base;../../Reference/Header;../ImGui</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Header;../../Base;../../Reference/Header;../ImGui;../ImGuizmo</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -151,10 +151,15 @@
   <ItemGroup>
     <ClInclude Include="..\Header\CEditorApp.h" />
     <ClInclude Include="..\Header\CEditorCamera.h" />
+    <ClInclude Include="..\Header\CEditorCeiling.h" />
     <ClInclude Include="..\Header\CEditorCube.h" />
+    <ClInclude Include="..\Header\CEditorFloor.h" />
     <ClInclude Include="..\Header\CEditorObject.h" />
     <ClInclude Include="..\Header\CEditorScene.h" />
+    <ClInclude Include="..\Header\CEditorSpawnPoint.h" />
     <ClInclude Include="..\Header\CEditorTile.h" />
+    <ClInclude Include="..\Header\CEditorWall.h" />
+    <ClInclude Include="..\Header\CFileIO.h" />
     <ClInclude Include="..\Header\CGrid.h" />
     <ClInclude Include="..\Header\CHierarchy.h" />
     <ClInclude Include="..\Header\CInspector.h" />
@@ -162,6 +167,13 @@
     <ClInclude Include="..\Header\CMousePicker.h" />
     <ClInclude Include="..\Header\CSelectionMgr.h" />
     <ClInclude Include="..\Header\CToolBar.h" />
+    <ClInclude Include="..\Header\json.hpp" />
+    <!-- <ClInclude Include="..\ImGuizmo\GraphEditor.h" /> -->
+    <!-- <ClInclude Include="..\ImGuizmo\ImCurveEdit.h" /> -->
+    <!-- <ClInclude Include="..\ImGuizmo\ImGradient.h" /> -->
+    <ClInclude Include="..\ImGuizmo\ImGuizmo.h" />
+    <!-- <ClInclude Include="..\ImGuizmo\ImSequencer.h" /> -->
+    <!-- <ClInclude Include="..\ImGuizmo\ImZoomSlider.h" /> -->
     <ClInclude Include="..\ImGui\imconfig.h" />
     <ClInclude Include="..\ImGui\imgui.h" />
     <ClInclude Include="..\ImGui\imgui_impl_dx9.h" />
@@ -179,10 +191,18 @@
   <ItemGroup>
     <ClCompile Include="..\Code\CEditorApp.cpp" />
     <ClCompile Include="..\Code\CEditorCamera.cpp" />
+    <ClCompile Include="..\Code\CEditorCeiling.cpp" />
     <ClCompile Include="..\Code\CEditorCube.cpp" />
+    <ClCompile Include="..\Code\CEditorFloor.cpp" />
     <ClCompile Include="..\Code\CEditorObject.cpp" />
     <ClCompile Include="..\Code\CEditorScene.cpp" />
+    <ClCompile Include="..\Code\CEditorSpawnPoint.cpp" />
     <ClCompile Include="..\Code\CEditorTile.cpp" />
+    <ClCompile Include="..\Code\CEditorWall.cpp" />
+    <ClCompile Include="..\Code\CFileIO.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\Code\CGrid.cpp" />
     <ClCompile Include="..\Code\CHierarchy.cpp" />
     <ClCompile Include="..\Code\CInspector.cpp" />
@@ -190,6 +210,26 @@
     <ClCompile Include="..\Code\CMousePicker.cpp" />
     <ClCompile Include="..\Code\CSelectionMgr.cpp" />
     <ClCompile Include="..\Code\CToolBar.cpp" />
+    <!-- <ClCompile Include="..\ImGuizmo\GraphEditor.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile> -->
+    <!-- <ClCompile Include="..\ImGuizmo\ImCurveEdit.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile> -->
+    <!-- <ClCompile Include="..\ImGuizmo\ImGradient.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile> -->
+    <ClCompile Include="..\ImGuizmo\ImGuizmo.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <!-- <ClCompile Include="..\ImGuizmo\ImSequencer.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile> -->
     <ClCompile Include="..\ImGui\imgui.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>

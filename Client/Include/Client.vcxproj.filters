@@ -61,8 +61,47 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="01. Scene\01. Stage\01. MapStage">
+      <UniqueIdentifier>{f30df1af-6373-4236-b9fe-abe37fc78b4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Environment">
+      <UniqueIdentifier>{fb01c617-0ba8-40f8-9e6a-3174534b7550}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Environment\00. Floor">
+      <UniqueIdentifier>{a95c6d76-d798-479e-a7f4-f50fb06fbeed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Environment\01. Ceiling">
+      <UniqueIdentifier>{6ceb23c7-0c1b-4af9-a77d-c8a60b3fc62a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Environment\03. Obstacle">
+      <UniqueIdentifier>{201c3123-c49d-4acf-adf8-a738fccb6dfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Environment\02. Wall">
+      <UniqueIdentifier>{6cf6218e-c410-4898-b859-90841f68fb0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Manager%28Hojun%29">
+      <UniqueIdentifier>{44fd1cba-5089-4c11-98e8-ea13ec15bbd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Manager%28Hojun%29\00. MapLoader">
+      <UniqueIdentifier>{db64e24e-5e04-40e9-a23f-e9ee296c4615}</UniqueIdentifier>
+    </Filter>
     <Filter Include="02. GameObject\10. Bullet">
       <UniqueIdentifier>{b9d3330c-6115-4de4-8e12-82a8203e6bed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\01. Monster\01. BeamMon">
+      <UniqueIdentifier>{3562e0a5-f952-4628-bfed-2b829fa08c96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\01. Monster\01. BeamMon\Beam">
+      <UniqueIdentifier>{33507870-cd0f-47a9-be03-3430df8388c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\01. Monster\02. FlyMon">
+      <UniqueIdentifier>{39a0eab7-bc28-4d5e-9a69-1095d849c0e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02.Weapon">
+      <UniqueIdentifier>{b21344ed-8c65-4666-b48f-ce97852a760e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02.Weapon\Pistol">
+      <UniqueIdentifier>{5f24d68b-aac9-42cd-8e32-23675dd96e6b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -126,15 +165,45 @@
     <ClInclude Include="..\Header\CTerrain.h">
       <Filter>999.Sample</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CMapStage.h">
+      <Filter>01. Scene\01. Stage\01. MapStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CFloor.h">
+      <Filter>02. GameObject\99. Environment\00. Floor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCeiling.h">
+      <Filter>02. GameObject\99. Environment\01. Ceiling</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CWall.h">
+      <Filter>02. GameObject\99. Environment\02. Wall</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CObstacle.h">
+      <Filter>02. GameObject\99. Environment\03. Obstacle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMapLoader.h">
+      <Filter>03. Manager%28Hojun%29\00. MapLoader</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\CBullet.h">
       <Filter>02. GameObject\10. Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBeamMon.h">
+      <Filter>02. GameObject\00. Character\01. Monster\01. BeamMon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBeam.h">
+      <Filter>02. GameObject\00. Character\01. Monster\01. BeamMon\Beam</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CFlyMon.h">
+      <Filter>02. GameObject\00. Character\01. Monster\02. FlyMon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CWeapon.h">
+      <Filter>02. GameObject\02.Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPistol.h">
+      <Filter>02. GameObject\02.Weapon\Pistol</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="pch.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CMainApp.cpp">
@@ -182,8 +251,44 @@
     <ClCompile Include="..\Code\CTerrain.cpp">
       <Filter>999.Sample</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\CMapStage.cpp">
+      <Filter>01. Scene\01. Stage\01. MapStage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFloor.cpp">
+      <Filter>02. GameObject\99. Environment\00. Floor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCeiling.cpp">
+      <Filter>02. GameObject\99. Environment\01. Ceiling</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CWall.cpp">
+      <Filter>02. GameObject\99. Environment\02. Wall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CObstacle.cpp">
+      <Filter>02. GameObject\99. Environment\03. Obstacle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMapLoader.cpp">
+      <Filter>03. Manager%28Hojun%29\00. MapLoader</Filter>
+    </ClCompile>
     <ClCompile Include="..\Code\CBullet.cpp">
       <Filter>02. GameObject\10. Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBeamMon.cpp">
+      <Filter>02. GameObject\00. Character\01. Monster\01. BeamMon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBeam.cpp">
+      <Filter>02. GameObject\00. Character\01. Monster\01. BeamMon\Beam</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFlyMon.cpp">
+      <Filter>02. GameObject\00. Character\01. Monster\02. FlyMon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CWeapon.cpp">
+      <Filter>02. GameObject\02.Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPistol.cpp">
+      <Filter>02. GameObject\02.Weapon\Pistol</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

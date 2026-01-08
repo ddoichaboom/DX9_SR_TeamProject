@@ -6,10 +6,14 @@ class CGrid;
 
 enum EDITOR_MODE
 {
-    MODE_SELECT,        // 선택 모드
-    MODE_PLACE_TILE,    // 타일 배치
-    MODE_PLACE_CUBE,    // 큐브 배치
-    EM_END
+    MODE_SELECT,               // 선택 모드
+    MODE_PLACE_FLOOR,          // 바닥 배치 (Tile 대체)
+    MODE_PLACE_CEILING,        // 천장 배치 (새로 추가)
+    MODE_PLACE_CUBE,           // 큐브 배치
+    MODE_PLACE_WALL,           // 벽 배치 (새로 추가)
+    MODE_PLACE_SPAWN_PLAYER,   // 플레이어 스폰 배치 (새로 추가)
+    MODE_PLACE_SPAWN_MONSTER,  // 몬스터 스폰 배치 (새로 추가)
+    MODE_END
 };
 
 class CToolBar : public CBase

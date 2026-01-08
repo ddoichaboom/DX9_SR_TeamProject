@@ -49,12 +49,6 @@
     <Filter Include="01. UI\03. Inspector">
       <UniqueIdentifier>{5993b022-36a0-43a6-a12c-030f5749913b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Tool\00. MapEditor">
-      <UniqueIdentifier>{c3a52ff4-9a90-4c93-b292-5331b079f570}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Tool\01. FileIO">
-      <UniqueIdentifier>{b875c117-49c3-43c1-a7ee-4db0940b9d3c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Scene\00. EditorScene">
       <UniqueIdentifier>{10508fc0-eae7-468d-9005-aa7f858c65e1}</UniqueIdentifier>
     </Filter>
@@ -79,8 +73,26 @@
     <Filter Include="05. Picking\01. SelectionManager">
       <UniqueIdentifier>{f34ddef7-18d8-4eb6-a1b8-eb1197276225}</UniqueIdentifier>
     </Filter>
-    <Filter Include="06. Resource\00. TextureManager">
-      <UniqueIdentifier>{87bbb3a8-cf0e-4da6-9575-6c3ac2406fb9}</UniqueIdentifier>
+    <Filter Include="02. Tool\00. FileIO">
+      <UniqueIdentifier>{b875c117-49c3-43c1-a7ee-4db0940b9d3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Tool\01. TextureManager">
+      <UniqueIdentifier>{47365ea3-ba40-4cd3-b6f6-a06bf6c8301f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImGuizmo">
+      <UniqueIdentifier>{517d3bde-d627-4f5e-b81b-afd4f46b814b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\03. EditorWall">
+      <UniqueIdentifier>{133ccb1c-3f7f-4c86-82b2-0b8d157a91d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\04. EditorFloor">
+      <UniqueIdentifier>{a873db56-0294-4243-963a-b75252bd9816}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\05. EditorCeiling">
+      <UniqueIdentifier>{be18d714-f7ba-40ca-be74-1a8e53c8c127}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\06. EditorSpawnPoint">
+      <UniqueIdentifier>{db2d9c86-d796-442e-986c-8fee47e714ae}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +174,27 @@
     <ClInclude Include="..\Header\CSelectionMgr.h">
       <Filter>05. Picking\01. SelectionManager</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CFileIO.h">
+      <Filter>02. Tool\00. FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\json.hpp">
+      <Filter>06. Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGuizmo\ImGuizmo.h">
+      <Filter>ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEditorWall.h">
+      <Filter>04. Object\03. EditorWall</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEditorFloor.h">
+      <Filter>04. Object\04. EditorFloor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEditorCeiling.h">
+      <Filter>04. Object\05. EditorCeiling</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEditorSpawnPoint.h">
+      <Filter>04. Object\06. EditorSpawnPoint</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -229,6 +262,24 @@
     </ClCompile>
     <ClCompile Include="..\Code\CSelectionMgr.cpp">
       <Filter>05. Picking\01. SelectionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFileIO.cpp">
+      <Filter>02. Tool\00. FileIO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGuizmo\ImGuizmo.cpp">
+      <Filter>ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorWall.cpp">
+      <Filter>04. Object\03. EditorWall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorFloor.cpp">
+      <Filter>04. Object\04. EditorFloor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorCeiling.cpp">
+      <Filter>04. Object\05. EditorCeiling</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorSpawnPoint.cpp">
+      <Filter>04. Object\06. EditorSpawnPoint</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

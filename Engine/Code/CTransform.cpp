@@ -145,7 +145,6 @@ void CTransform::Reset()
         memcpy(&m_vInfo[i], &m_matWorld.m[i][0], sizeof(_vec3));
     }
     m_vAngle = { 0.f, 0.f, 0.f };
-    //ScaleÀº À¯Áö 
 }
 
 CTransform* CTransform::Create(LPDIRECT3DDEVICE9 pGraphicDev)

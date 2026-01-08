@@ -3,6 +3,9 @@
 #include "CEditorCamera.h"
 #include "CEditorScene.h"
 #include "CEditorObject.h"
+#include "CEditorWall.h"
+#include "CEditorSpawnPoint.h"
+
 
 CInspector::CInspector()
     : m_pCamera(nullptr)
@@ -169,14 +172,103 @@ void CInspector::Render_ObjectProperties()
         pObj->Set_Scale(_vec3(fScale[0], fScale[1], fScale[2]));
     }
 
+    wstring cObjName = pObj->Get_Name();
+
+    if (cObjName == L"Wall")
+    {
+        CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj);
+        Render_WallProperties(pWall);
+    }
+    else if (cObjName == L"MonsterSpawn")
+    {
+        CEditorSpawnPoint* pSpawn = dynamic_cast<CEditorSpawnPoint*>(pObj);
+        SPAWN_TYPE eType = pSpawn->Get_SpawnType();
+        if (eType == SPAWN_MONSTER)
+        {
+            Render_MonsterSpawnPointProperties(pSpawn);
+        }
+    }
+    
+
+
+
     ImGui::Spacing();
     ImGui::Separator();
 
-    // 텍스처 (Phase 5+)
+    // 텍스처 
     ImGui::Text("Texture: None");
     ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),
         "[Phase 5] Texture selection");
 
+}
+
+void CInspector::Render_WallProperties(CEditorWall* pWall)
+{
+    if (pWall)
+    {
+        ImGui::Spacing();
+        ImGui::Separator();
+        ImGui::Text("Wall Properties");
+
+        WALL_DIR eDir = pWall->Get_WallDirection();
+        const char* items[] = { "XY Plane (Front)", "XY Plane (Back)" , "YZ Plane (Left)", "YZ Plane (Right)" };
+        int iCurrentDir = (int)eDir;
+
+        if (ImGui::Combo("Direction", &iCurrentDir, items, IM_ARRAYSIZE(items)))
+        {
+            pWall->Set_WallDirection((WALL_DIR)iCurrentDir);
+        }
+    }
+}
+
+void CInspector::Render_MonsterSpawnPointProperties(CEditorSpawnPoint* pSpawn)
+{
+    if (pSpawn)
+    {
+        ImGui::Spacing();
+        ImGui::Separator();
+        ImGui::Text("Monster SpawnPoint Properties");
+
+        ImGui::Spacing();
+
+        // MonsterKey 입력 버퍼 (static으로 유지)
+        static char szMonsterKey[64] = "";
+
+        // 처음 선택 시 기존 값 복사
+        const string& strCurrentKey = pSpawn->Get_MonsterKey();
+        if (strCurrentKey.length() < 64)
+        {
+            strcpy_s(szMonsterKey, strCurrentKey.c_str());
+        }
+
+        // 입력 필드
+        if (ImGui::InputText("Monster Key", szMonsterKey, IM_ARRAYSIZE(szMonsterKey)))
+        {
+            pSpawn->Set_MonsterKey(string(szMonsterKey));
+        }
+
+        // 도움말 텍스트
+        ImGui::TextDisabled("Available: WhiteMan, BeamMon, FlyMon");
+
+        // 프리셋 버튼
+        ImGui::Spacing();
+        ImGui::Text("Presets:");
+        if (ImGui::Button("WhiteMan"))
+        {
+            strcpy_s(szMonsterKey, "WhiteMan");
+            pSpawn->Set_MonsterKey("WhiteMan");
+        }
+        else if (ImGui::Button("BeamMon"))
+        {
+            strcpy_s(szMonsterKey, "BeamMon");
+            pSpawn->Set_MonsterKey("BeamMon");
+        }
+        else if (ImGui::Button("FlyMon"))
+        {
+            strcpy_s(szMonsterKey, "FlyMon");
+            pSpawn->Set_MonsterKey("FlyMon");
+        }
+    }
 }
 
 CInspector* CInspector::Create(CEditorCamera* pCamera, CEditorScene* pScene)

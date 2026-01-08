@@ -82,7 +82,12 @@ _int CFirstCamera::Update_GameObject(const _float& fTimeDelta)
 
 	Engine::CTransform* pPlayerTransform = dynamic_cast<CTransform*>(Engine::CManagement::GetInstance()->
 		Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_PLAYER, L"Com_Transform"));
-	
+
+		//Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Player", L"Com_Transform"));
+
+	if (pPlayerTransform == nullptr)
+		return 0;
+
 	_vec3 vPos, vLook;
 	pPlayerTransform->Get_Info(INFO_POS, &vPos);
 	m_pTransformCom->Set_Pos(vPos.x, vPos.y, vPos.z);
@@ -90,6 +95,8 @@ _int CFirstCamera::Update_GameObject(const _float& fTimeDelta)
 	m_pTransformCom->Get_Info(INFO_POS, &m_vEye);
 	m_pTransformCom->Get_Info(INFO_LOOK, &vLook);
 	m_vAt = m_vEye + vLook;
+
+
 	return 0;
 }
 

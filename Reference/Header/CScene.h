@@ -12,12 +12,12 @@ protected:
 	virtual ~CScene();
 
 public:
-	CComponent* Get_Component(COMPONENTID eID,
+	CComponent*					Get_Component(COMPONENTID eID,
 		const _tchar* pLayerTag,
 		OBJ_ID _objID,
 		const _tchar* pComponentTag);
 
-	CLayer*			Get_Layer(const _tchar* pLayerTag);
+	CLayer*						Get_Layer(const _tchar* pLayerTag);
 public:
 	virtual			HRESULT		Ready_Scene();
 	virtual			_int		Update_Scene(const _float& fTimeDelta);

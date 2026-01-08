@@ -1,0 +1,215 @@
+{
+  "objectCount": 11,
+  "objects": [
+    {
+      "name": "Tile",
+      "position": [
+        -3.0,
+        0.0,
+        -1.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Tile"
+    },
+    {
+      "name": "Tile",
+      "position": [
+        -1.0,
+        0.0,
+        -1.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Tile"
+    },
+    {
+      "name": "Tile",
+      "position": [
+        1.0,
+        0.0,
+        -1.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Tile"
+    },
+    {
+      "name": "Tile",
+      "position": [
+        3.0,
+        0.0,
+        -1.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Tile"
+    },
+    {
+      "name": "Tile",
+      "position": [
+        -5.0,
+        0.0,
+        -1.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Tile"
+    },
+    {
+      "name": "Tile",
+      "position": [
+        -3.0,
+        0.0,
+        1.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Tile"
+    },
+    {
+      "name": "Tile",
+      "position": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Tile"
+    },
+    {
+      "name": "Tile",
+      "position": [
+        1.0,
+        0.0,
+        1.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Tile"
+    },
+    {
+      "name": "Tile",
+      "position": [
+        3.0,
+        0.0,
+        1.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Tile"
+    },
+    {
+      "name": "Tile",
+      "position": [
+        -5.0,
+        0.0,
+        1.0
+      ],
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "Tile"
+    },
+    {
+      "name": "Tile",
+      "position": [
+        4.0,
+        5.0,
+        3.0
+      ],
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        1.0
+      ],
+      "type": "Tile"
+    }
+  ],
+  "version": 1
+}
