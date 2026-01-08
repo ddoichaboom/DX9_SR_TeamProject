@@ -84,15 +84,9 @@ private:
 public:
 	void				Fire();
 	void				Reload();
-	void				Gravity(const _float fTimeDelta);
-public:
-	void				Set_Jump(_bool bJump) { m_bJump = bJump; }
-	void				Set_Velocity(_float fVelocity) { m_fVelocity = fVelocity; }
-	void				Set_JumpTime(_float fJumpTime) { m_fJumpTime = fJumpTime; }
 
-	_bool				Get_Jump() { return m_bJump; }
-	_float				Get_Velocity() { return m_fVelocity; }
-	_float				Get_JumpTime() { return m_fJumpTime; }
+	
+
 
 private:
 	CLeftPart* m_pLeftPart;
@@ -105,9 +99,8 @@ private:
 
 	_float	m_fMoveSpeed;
 
-	_bool	m_bJump;
-	_float	m_fVelocity;
-	_float	m_fJumpTime;
+	
 	_float	m_fAtk = 6.f;
+	_float  m_JumpPower = 40.f;
 };
 

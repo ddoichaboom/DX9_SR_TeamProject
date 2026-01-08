@@ -8,7 +8,9 @@
 
 CFirstCamera::CFirstCamera(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCamera(pGraphicDev), m_bFix(true), m_bCheck(true)
-	,	m_fPitch(0.f), m_fYaw(0.f)
+	, m_pTransformCom(nullptr), m_fSpeed(0.f)
+	, m_fPitch(0.f), m_fYaw(0.f)
+	, m_fShakeTime(0.f), m_fShakeSpeed(12.f), m_fShakePower(0.25f)
 	
 {
 	m_eOBJ_ID = OBJ_CAM;
@@ -17,7 +19,9 @@ CFirstCamera::CFirstCamera(LPDIRECT3DDEVICE9 pGraphicDev)
 
 CFirstCamera::CFirstCamera(const CFirstCamera& rhs)
 	: CCamera(rhs), m_bFix(true), m_bCheck(true)
+	, m_pTransformCom(nullptr), m_fSpeed(0.f)
 	, m_fPitch(0.f), m_fYaw(0.f)
+	, m_fShakeTime(0.f), m_fShakeSpeed(10.f), m_fShakePower(1)
 {
 	m_eOBJ_ID = OBJ_CAM;
 	m_iID = Make_ID();
@@ -81,9 +85,7 @@ _int CFirstCamera::Update_GameObject(const _float& fTimeDelta)
 	_int iExit = CCamera::Update_GameObject(fTimeDelta);
 
 	Engine::CTransform* pPlayerTransform = dynamic_cast<CTransform*>(Engine::CManagement::GetInstance()->
-		Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_PLAYER, L"Com_Transform"));
-
-		//Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Player", L"Com_Transform"));
+		Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_PLAYER, L"Com_Transform"));		
 
 	if (pPlayerTransform == nullptr)
 		return 0;
@@ -95,6 +97,8 @@ _int CFirstCamera::Update_GameObject(const _float& fTimeDelta)
 	m_pTransformCom->Get_Info(INFO_POS, &m_vEye);
 	m_pTransformCom->Get_Info(INFO_LOOK, &vLook);
 	m_vAt = m_vEye + vLook;
+
+	pPlayerTransform->m_vAngle.y = m_pTransformCom->m_vAngle.y;
 
 
 	return 0;
@@ -111,8 +115,9 @@ void CFirstCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 	{
 		Mouse_Fix();
 		Mouse_Move();
-
 	}
+
+	Cam_Shake(fTimeDelta);
 }
 
 HRESULT CFirstCamera::Add_Component()
@@ -189,6 +194,32 @@ void CFirstCamera::Mouse_Fix()
 	ClientToScreen(g_hWnd, &ptMouse);
 	SetCursorPos(ptMouse.x, ptMouse.y);
 
+}
+
+void CFirstCamera::Cam_Shake(const _float& fTimeDelta)
+{
+	Engine::CTransform* pPlayerTransform = dynamic_cast<CTransform*>(Engine::CManagement::GetInstance()->
+		Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_PLAYER, L"Com_Transform"));
+
+	if (pPlayerTransform == nullptr)
+		return;
+
+	bool isKeyDown = CDInputMgr::GetInstance()->Key_Pressing(DIK_W) || CDInputMgr::GetInstance()->Key_Pressing(DIK_S) ||
+					 CDInputMgr::GetInstance()->Key_Pressing(DIK_A) || CDInputMgr::GetInstance()->Key_Pressing(DIK_D);
+	
+	if (isKeyDown)
+	{
+		m_fShakeTime += fTimeDelta * m_fShakeSpeed;
+
+		float ShakeValue = sinf(m_fShakeTime) * m_fShakePower;
+
+		m_vEye.y += ShakeValue;
+		m_vAt.y += ShakeValue;
+	}
+	else
+	{
+		m_fShakeTime = 0.f;
+	}
 }
 
 CFirstCamera* CFirstCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev,

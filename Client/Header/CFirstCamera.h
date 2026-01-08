@@ -41,6 +41,8 @@ private:
 	void		Mouse_Move();
 	void		Mouse_Fix();
 
+	void		Cam_Shake(const _float& fTimeDelta);
+
 public:
 	static CFirstCamera* Create(LPDIRECT3DDEVICE9 pGraphicDev,
 		const _vec3* pEye,
@@ -67,6 +69,9 @@ private:
 	_float		m_fPitch;
 	_float		m_fYaw;
 
+	_float		m_fShakeTime;
+	_float		m_fShakeSpeed;
+	_float		m_fShakePower;
 
 	// Transform 추가해보자
 };

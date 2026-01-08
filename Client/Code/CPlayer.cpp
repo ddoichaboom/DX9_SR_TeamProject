@@ -15,8 +15,8 @@
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCharacter(pGraphicDev)
 	, m_pLeftPart(nullptr), m_pRightPart(nullptr), m_pMiddlePart(nullptr)
-	, m_eWeaponState(SW_NONE), m_fMoveSpeed(25.f)
-	, m_bJump(false), m_fVelocity(0.f), m_fJumpTime(0.f)
+	, m_eWeaponState(SW_NONE), m_fMoveSpeed(100.f)
+
 {
 
 	m_eOBJ_ID = OBJ_PLAYER;
@@ -27,8 +27,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 CPlayer::CPlayer(const CPlayer& rhs)
 	: CCharacter(rhs)
 	, m_pLeftPart(nullptr), m_pRightPart(nullptr), m_pMiddlePart(nullptr)
-	, m_eWeaponState(SW_NONE), m_fMoveSpeed(25.f)
-	, m_bJump(false), m_fVelocity(0.f), m_fJumpTime(0.f)
+	, m_eWeaponState(SW_NONE), m_fMoveSpeed(100.f)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
 	//OBJ_Player가 0이고 , PlayerPart 는 Player 생성자 이후에 생기므로 iCount > 0이기때문에 
@@ -45,8 +44,8 @@ HRESULT CPlayer::Ready_GameObject()
 	if (FAILED(Add_Component()))
 		return E_FAIL;
 
-	m_pTransformCom->m_vScale = { 6,6,1 };
-	m_pTransformCom->Set_Pos(0, 0, 0.f);
+	m_pTransformCom->m_vScale = { 6,6,6 };
+	m_pTransformCom->Set_Pos(0.f, 0.f, 0.f);
 
 	m_pCollisionCom->CreateCollider(m_pTransformCom);
 
@@ -55,11 +54,12 @@ HRESULT CPlayer::Ready_GameObject()
 		return E_FAIL;
 
 	m_pCollider->Set_Scale(_vec3(4, 11, 4));
-
 	m_pCollider->BindFuncToCollision([&](CollisionInfo info)
 		{
 			OnCollision(info);
 		});
+
+	
 
 	m_eWeaponState = SW_PISTOL;
 
@@ -76,6 +76,20 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	Key_Input(fTimeDelta);
+
+	if (m_bFall)
+	{
+		Gravity(fTimeDelta);
+	}
+	else
+	{
+		m_fVelocity = 0.f;
+	}
+
+	Set_OnFloor(fTimeDelta);
+	
+	
+		
 
 	CCharacter::LateUpdate_GameObject(fTimeDelta);
 }
@@ -260,11 +274,7 @@ void CPlayer::Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _v
 		m_pTransformCom->Move_Pos(&vRight, fTimeDelta, m_fMoveSpeed);
 	}
 
-	//점프
-	if (CDInputMgr::GetInstance()->Key_Down(DIK_SPACE) && !m_bJump)
-	{
-		m_bJump = true; 
-	}
+	
 }
 
 void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
@@ -279,9 +289,23 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 	}
 
 	// 대쉬
-	if (CDInputMgr::GetInstance()->Mouse_Down(DIM_RB))
+	if (CDInputMgr::GetInstance()->Mouse_Down(DIM_RB) && !m_bDash)
 	{
+		m_fDashTime = 0.f;
+		m_vDashStart = m_pTransformCom->m_vInfo[INFO_POS];
 
+		// Test
+		m_vDashDir = *m_pTransformCom->Get_Info(INFO_LOOK);
+		D3DXVec3Normalize(&m_vDashDir, &m_vDashDir);
+		m_bDash = true;
+	}
+
+	//점프
+	if (CDInputMgr::GetInstance()->Key_Down(DIK_SPACE) && !m_bJump && !m_bDash)
+	{
+		m_fJumpTime = 0.f;
+		m_fJumpStartY = m_pTransformCom->m_vInfo[INFO_POS].y;
+		m_bJump = true;
 	}
 
 
@@ -320,9 +344,4 @@ void CPlayer::Reload()
 	m_mapWeapon[m_eWeaponState]->Reload();
 }
 
-void CPlayer::Gravity(const _float fTimeDelta)
-{
-	_float fVelocity = Get_Velocity();
-	fVelocity -= 9.81f * fTimeDelta;
-	Set_Velocity(fVelocity);
-}
+

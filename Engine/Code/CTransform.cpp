@@ -137,6 +137,49 @@ _matrix* CTransform::Compute_LookAtTarget(const _vec3* pTargetPos)
                           D3DXVec3Normalize(&vDir, &vDir))));
 }
 
+_vec3 CTransform::Get_Info_World(INFO info) const
+{
+    _vec3 vInfo;
+    memcpy(&vInfo, &m_matWorld.m[info][0], sizeof(_vec3));
+    return vInfo;
+}
+
+void CTransform::Set_Info_World(INFO info, _vec3* pVector)
+{
+    memcpy(&m_matWorld.m[info][0], pVector, sizeof(_vec3));
+}
+
+_vec3 CTransform::Get_Scale_World() const
+{
+    _vec3 vRight, vUp, vLook;
+    _float fX, fY, fZ;
+    memcpy(&vRight, &m_matWorld.m[0][0], sizeof(_vec3));
+    memcpy(&vUp, &m_matWorld.m[1][0], sizeof(_vec3));
+    memcpy(&vLook, &m_matWorld.m[2][0], sizeof(_vec3));
+
+    fX = D3DXVec3Length(&vRight);
+    fY = D3DXVec3Length(&vUp);
+    fZ = D3DXVec3Length(&vLook);
+
+    return _vec3(fX, fY, fZ);
+}
+
+void CTransform::Set_Scale_World(_float fX, _float fY, _float fZ)
+{
+    _vec3 vRight, vUp, vLook;    
+
+    memcpy(&vRight, &m_matWorld.m[0][0], sizeof(_vec3));
+    memcpy(&vUp, &m_matWorld.m[1][0], sizeof(_vec3));
+    memcpy(&vLook, &m_matWorld.m[2][0], sizeof(_vec3));
+    vRight = *D3DXVec3Normalize(&vRight, &vRight) * fX;
+    vUp = *D3DXVec3Normalize(&vUp, &vUp) * fY;
+    vLook = *D3DXVec3Normalize(&vLook, &vLook) * fZ;
+
+    memcpy(&m_matWorld.m[0][0], &vRight,sizeof(_vec3));
+    memcpy(&m_matWorld.m[1][0], &vUp,sizeof(_vec3));
+    memcpy(&m_matWorld.m[2][0], &vLook,sizeof(_vec3));    
+}
+
 void CTransform::Reset()
 {
     D3DXMatrixIdentity(&m_matWorld);

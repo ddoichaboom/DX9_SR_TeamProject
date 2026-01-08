@@ -80,6 +80,14 @@ public:
 		m_vScale = _scale;
 	}
 
+
+	// Scale World ( 행렬 연산 이후 변환 ) 
+	_vec3		Get_Info_World(INFO info) const;
+	void		Set_Info_World(INFO info, _vec3* pVector);
+
+	_vec3		Get_Scale_World() const;
+	void		Set_Scale_World(_float fX, _float fY, _float fZ);
+
 	void		Reset() override; 
 public:
 	_vec3		m_vInfo[INFO_END];
