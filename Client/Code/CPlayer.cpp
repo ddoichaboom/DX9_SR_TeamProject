@@ -114,7 +114,7 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 	D3DXVec3Normalize(&vLookExCludeY, &vLookExCludeY);
 
 	Move_Input(fTimeDelta, vRight, vLookExCludeY);
-	Action_Input(fTimeDelta, vLook);
+	Action_Input(fTimeDelta, vLookExCludeY);
 }
 
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -213,7 +213,8 @@ void CPlayer::CheckPickedMonster()
 			bool bPicked = CCollision::Collision_Mouse(g_hWnd, m_pGraphicDev, pairCollider.second);
 			if (bPicked)
 			{
-				CollisionInfo info = { NULL, {0,0,0}, m_fAtk };
+				_float fAtk = m_mapWeapon[m_eWeaponState]->Get_Power();
+				CollisionInfo info = { NULL, {0,0,0}, fAtk };
 				pairCollider.second->Collision(info);
 				//한 콜라이더에서 충돌이 일어났다면 이 몬스터의 다른 콜라이더와는 충돌체크 하지않음
 				break;
@@ -248,9 +249,9 @@ void CPlayer::Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _v
 	}
 
 	//점프
-	if (CDInputMgr::GetInstance()->Key_Down(DIK_SPACE))
+	if (CDInputMgr::GetInstance()->Key_Down(DIK_SPACE) && !m_bJump)
 	{
-
+		m_bJump = true; 
 	}
 }
 
@@ -286,11 +287,6 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 	// 장전
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_R))
 	{
-		if (m_mapWeapon[m_eWeaponState]->Get_IsShootAble() == false)
-		{
-			return;
-		}
-
 		if (m_pLeftPart->Get_ActionAble() && m_pRightPart->Get_ActionAble())
 		{
 			m_mapWeapon[m_eWeaponState]->Set_ShootAble(false);
@@ -304,9 +300,7 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 void CPlayer::Fire()
 {
 	m_mapWeapon[m_eWeaponState]->Fire();
-
-	_matrix matView, matProj;
-	//m_pGraphicDev->
+	CheckPickedMonster();
 }
 
 void CPlayer::Reload()

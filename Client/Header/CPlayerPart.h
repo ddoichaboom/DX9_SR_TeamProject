@@ -62,6 +62,8 @@ public:
 	void SetParent(CPlayer* pPlayer);
 	void SetPos(_vec3 _pos);
 	void SetWeapon(_byte eState) { m_eWeaponState = (STATE_WEAPON)eState; }
+	void	Set_Rendering(_bool bRender) { m_bRendering = bRender; }
+	_bool	Get_Rendering()	const { return m_bRendering; }
 
 protected:
 	virtual HRESULT	Add_Component();

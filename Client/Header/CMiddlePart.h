@@ -38,7 +38,6 @@ public:
 	void		ChangeState(_uint nextStateID) override;
 
 protected:
-
 	void Begin_Idle();
 	void Idle();
 

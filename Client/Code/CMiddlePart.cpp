@@ -16,8 +16,8 @@ vector<TextureSource> CMiddlePart::m_vTextureSource =
 vector<AnimationSource>  CMiddlePart::m_vAnimSource =
 {
 	{ IDLE,0,3,3, false, 0.08f},
-	{ KICK,0,3,3, false, 0.08f},
-	{ DRINK,0,6,6, false, 0.05f}
+	{ KICK,0,3,3, false, 0.08f, 1.f},
+	{ DRINK,0,6,6, false, 0.05f, 1.f}
 };
 
 CMiddlePart::CMiddlePart(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -138,6 +138,7 @@ void CMiddlePart::ChangeState(_uint nextStateID)
 
 void CMiddlePart::Begin_Idle()
 {
+	m_pTransformCom->m_vScale = { 256.f, 256.f, 1.f };
 }
 
 void CMiddlePart::Idle()
@@ -147,12 +148,12 @@ void CMiddlePart::Idle()
 
 void CMiddlePart::Begin_Kick()
 {
-
+	m_pTransformCom->m_vScale = { 256.f, 256.f, 1.f };
 }
 
 void CMiddlePart::Kick()
 {
-	if (m_pAnimationCom->IsEnd())
+	if (m_pAnimationCom->CanEnd())
 	{
 		ChangeState(IDLE);
 		return;
@@ -172,13 +173,14 @@ void CMiddlePart::End_Kick()
 void CMiddlePart::Begin_Drink()
 {
 	// 체력 회복 
+	m_pTransformCom->m_vScale = { 350.f, 350.f, 1.f };
 
 }
 
 void CMiddlePart::Drink()
 {
 
-	if (m_pAnimationCom->IsEnd())
+	if (m_pAnimationCom->CanEnd())
 	{
 		ChangeState(IDLE);
 		return;

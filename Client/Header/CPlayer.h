@@ -94,9 +94,6 @@ public:
 	_float				Get_Velocity() { return m_fVelocity; }
 	_float				Get_JumpTime() { return m_fJumpTime; }
 
-
-
-
 private:
 	CLeftPart* m_pLeftPart;
 	CRightPart* m_pRightPart;
@@ -108,10 +105,9 @@ private:
 
 	_float	m_fMoveSpeed;
 
-
 	_bool	m_bJump;
 	_float	m_fVelocity;
 	_float	m_fJumpTime;
-	_float		m_fAtk = 6.f;
+	_float	m_fAtk = 6.f;
 };
 

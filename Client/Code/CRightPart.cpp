@@ -17,7 +17,7 @@ vector<AnimationSource>  CRightPart::m_vAnimSource =
 {
 	{ GetStateID(IDLE,SW_PISTOL),0,3,3, true, 0.11f},
 	{ GetStateID(ATTACK,SW_PISTOL),0,5,5, false, 0.02f,	0.9f},
-	{ GetStateID(RELOAD,SW_PISTOL),1,6,6, false, 0.04f,0.9f}
+	{ GetStateID(RELOAD,SW_PISTOL),1,6,6, false, 0.04f, 0.9f}
 };
 
 
@@ -68,7 +68,7 @@ CRightPart* CRightPart::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 _bool CRightPart::Get_ActionAble()
 {
-	return !m_bReload && !m_bAttack;
+	return m_pAnimationCom->CanEnd();
 }
 
 HRESULT CRightPart::Ready_GameObject()
@@ -154,7 +154,7 @@ void CRightPart::Begin_Attack()
 
 void CRightPart::Attack()
 {
-	if (m_pAnimationCom->IsEnd())
+	if (m_pAnimationCom->CanEnd())
 	{
 		m_pPlayer->Fire();
 		ChangeState(GetStateID(IDLE, m_pPlayer->Get_WeaponState()));
@@ -174,7 +174,7 @@ void CRightPart::Begin_Reload()
 
 void CRightPart::Reload()
 {
-	if (m_pAnimationCom->IsEnd())
+	if (m_pAnimationCom->CanEnd())
 	{
 		m_pPlayer->Reload();
 		ChangeState(GetStateID(IDLE, m_pPlayer->Get_WeaponState()));

@@ -14,7 +14,7 @@ vector<TextureSource> CLeftPart::m_vTextureSource =
 vector<AnimationSource>  CLeftPart::m_vAnimSource =
 {
 	{ IDLE,1,3,3, true, 0.11f},
-	{ GetStateID(RELOAD,SW_PISTOL),0,3,3, false, 0.11f, 0.f},
+	{ GetStateID(RELOAD,SW_PISTOL),0,3,3, false, 0.11f, 1.f},
 	{ GetStateID(RELOAD,SW_SHOTGUN),0,3,3, false, 0.11f}
 };
 

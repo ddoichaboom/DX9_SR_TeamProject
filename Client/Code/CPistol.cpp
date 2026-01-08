@@ -18,7 +18,7 @@ CPistol::~CPistol()
 HRESULT CPistol::Ready_GameObject()
 {
 	m_bSelect = false;
-	// 파워 / 정확도 / attack cool time
+	// 파워 / attack cool time
 	m_iPower = 3;
 	m_fCoolTime = 0.1f;
 	// 최대 불렛
@@ -88,10 +88,7 @@ _bool CPistol::Can_Fire()
 }
 
 void CPistol::Fire()
-{
-	if (!Can_Fire())
-		return;
-
+{	
 	m_fTime = 0.f;
 	m_iNowBullet--;
 
