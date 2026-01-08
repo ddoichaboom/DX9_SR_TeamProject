@@ -56,6 +56,10 @@ public:
 
 private:
 	void						Handle_Input();		// 입력 처리
+	void						Handle_Duplicate();
+	void						Handle_Delete();
+	void						Handle_Left_Click();
+	void						Handle_Arrow();
 
 private:
 	LPDIRECT3DDEVICE9			m_pGraphicDev;

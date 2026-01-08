@@ -45,7 +45,10 @@ HRESULT CEditorScene::Ready_Scene()
     m_pCamera->Set_LookAt(_vec3(0.f, 0.f, 1.f));
 
     // 그리드 개수, 그리드 간 간격 지정 
-    m_pGrid = CGrid::Create(m_pGraphicDev, 100, 100, 16.f);
+    m_pGrid = CGrid::Create(m_pGraphicDev,
+                            300,    // X축 개수 
+                            300,    // Z축 개수
+                            16.f);  // 그리드 한 칸당 크기 ( 되도록이면 타일과 동일한 사이즈로 설정 )
     if (nullptr == m_pGrid)
     {
         MSG_BOX("Grid Create Failed");
@@ -220,10 +223,21 @@ void CEditorScene::Handle_Input()
     if (io.WantCaptureMouse)
         return;     // ImGui 윈도우 클릭 시 무시 
 
+    Handle_Duplicate();
+
+    Handle_Delete();
+
+    Handle_Left_Click();
+}
+
+void CEditorScene::Handle_Duplicate()
+{
     // Ctrl + D  : 객체 복제
     if (Engine::CDInputMgr::GetInstance()->Key_Down(DIK_D) &&
         Engine::CDInputMgr::GetInstance()->Key_Pressing(DIK_LCONTROL))
     {
+
+
         list<CEditorObject*>& SelectedList = m_pSelectionMgr->Get_AllSelections();
 
         if (!SelectedList.empty())
@@ -240,27 +254,50 @@ void CEditorScene::Handle_Input()
                 _vec3 vRot = pSelectedObj->Get_Rotation();
                 _vec3 vScale = pSelectedObj->Get_Scale();
 
-                // 위치 오프셋 (겹치지 않게)
-                vPos.x += 16.0f;
-
                 CEditorObject* pNewObj = nullptr;
 
                 // 타입별 복제
                 if (dynamic_cast<CEditorFloor*>(pSelectedObj))
                 {
+                    vPos.x += 16.0f;
                     pNewObj = CEditorFloor::Create(m_pGraphicDev, vPos, vRot, vScale);
                 }
                 else if (dynamic_cast<CEditorCeiling*>(pSelectedObj))
                 {
+                    vPos.x += 16.0f;
                     pNewObj = CEditorCeiling::Create(m_pGraphicDev, vPos, vRot, vScale);
                 }
                 else if (dynamic_cast<CEditorCube*>(pSelectedObj))
                 {
+                    vPos.x += 8.f;
                     pNewObj = CEditorCube::Create(m_pGraphicDev, vPos, vRot, vScale);
                 }
                 else if (CEditorWall* pWall = dynamic_cast<CEditorWall*>(pSelectedObj))
                 {
                     WALL_DIR eDir = pWall->Get_WallDirection();
+
+                    switch (eDir)
+                    {
+                    case WALL_XY_FRONT:
+                        vPos.x += 32.f;
+                        break;
+
+                    case WALL_XY_BACK:
+                        vPos.x += 32.f;
+                        break;
+
+                    case WALL_YZ_LEFT:
+                        vPos.z += 32.f;
+                        break;
+
+                    case WALL_YZ_RIGHT:
+                        vPos.z += 32.f;
+                        break;
+
+                    default:
+                        vPos.x += 32.f;
+                    }
+
                     pNewObj = CEditorWall::Create(m_pGraphicDev, vPos, vRot, vScale, eDir);
                 }
                 else if (CEditorSpawnPoint* pSpawn = dynamic_cast<CEditorSpawnPoint*>(pSelectedObj))
@@ -296,8 +333,8 @@ void CEditorScene::Handle_Input()
                     pNewObj = CEditorSpawnPoint::Create(m_pGraphicDev, vPos, vRot, vScale,
                         eType, strMonsterKey);
                 }
-                
-                
+
+
                 if (pNewObj)
                 {
                     m_ObjectList.push_back(pNewObj);
@@ -317,7 +354,10 @@ void CEditorScene::Handle_Input()
             }
         }
     }
+}
 
+void CEditorScene::Handle_Delete()
+{
     // Delete 키 : 선택된 객체 삭제
     if (Engine::CDInputMgr::GetInstance()->Key_Down(DIK_DELETE))
     {
@@ -353,7 +393,10 @@ void CEditorScene::Handle_Input()
             }
         }
     }
+}
 
+void CEditorScene::Handle_Left_Click()
+{
     if (Engine::CDInputMgr::GetInstance()->Mouse_Down(DIM_LB))
     {
         if (!m_pToolBar)
@@ -376,7 +419,7 @@ void CEditorScene::Handle_Input()
         _vec3 vRayDir = m_pMousePicker->Get_RayDir();
 
         if (eMode == MODE_PLACE_FLOOR || eMode == MODE_PLACE_CEILING ||
-            eMode == MODE_PLACE_CUBE || eMode == MODE_PLACE_WALL || 
+            eMode == MODE_PLACE_CUBE || eMode == MODE_PLACE_WALL ||
             eMode == MODE_PLACE_SPAWN_PLAYER || eMode == MODE_PLACE_SPAWN_MONSTER)
         {
 
@@ -448,7 +491,11 @@ void CEditorScene::Handle_Input()
             ptPrevMouse = ptMouse;
         }
     }
+}
 
+void CEditorScene::Handle_Arrow()
+{
+    // TODO : 복제 할 때 어느 방향으로 오프셋 설정해서 복사할지 결정 구현
 }
 
 _vec3 CEditorScene::Pick_OnPlane(const _vec3& vRayPos, const _vec3& vRayDir, _float fPlaneY)
@@ -593,7 +640,7 @@ void CEditorScene::Place_Cube(const _vec3& vPos)
     if (pCube)
     {
         _vec3 vAdjustedPos = vPos;
-        vAdjustedPos.y = vPos.y + 1.0f;
+        vAdjustedPos.y = vPos.y + 12.0f;    // 설정된 Scale만큼
         pCube->Set_Position(vAdjustedPos);
 
         Add_Object(pCube);

@@ -167,9 +167,9 @@ CEditorObject* CSelectionMgr::Pick_Object(const _vec3& vRayPos, const _vec3& vRa
 }
 
 void CSelectionMgr::Pick_Objects_All(const _vec3& vRayPos,
-    const _vec3& vRayDir,
-    const list<CEditorObject*>& ObjectList,
-    list<CEditorObject*>& outPickedList)
+                                    const _vec3& vRayDir,
+                                    const list<CEditorObject*>& ObjectList,
+                                    list<CEditorObject*>& outPickedList)
 {
     outPickedList.clear();
 

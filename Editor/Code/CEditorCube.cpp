@@ -106,7 +106,7 @@ CEditorCube* CEditorCube::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
     }
 
     pInstance->Set_Position(vPos);
-    pInstance->Set_Scale(_vec3(4.f, 6.5f, 4.f));
+    pInstance->Set_Scale(_vec3(8.f, 12.f, 4.f));
 
     return pInstance;
 }
