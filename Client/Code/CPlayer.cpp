@@ -322,6 +322,9 @@ void CPlayer::Free()
 //몬스터 전체를 가져와서 마우스와 피킹 체크 
 void CPlayer::CheckPickedMonster()
 {
+	list<pair<_float,CCollider*>> pickedList;
+	CollisionInfo info = { NULL, {0,0,0}, m_fAtk };
+
 	CLayer* pLayer = CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer");
 	if (!pLayer) return;
 
@@ -336,17 +339,29 @@ void CPlayer::CheckPickedMonster()
 		auto& mapCollider = pCollision->GetColliderMap();
 		if (mapCollider.empty()) continue;
 		//몬스터의 CollisionCom에 있는 전체 Collider 
-		for (auto pairCollider : mapCollider)
+		for (auto& pairCollider : mapCollider)
 		{
 			bool bPicked = CCollision::Collision_Mouse(g_hWnd, m_pGraphicDev, pairCollider.second);
 			if (bPicked)
 			{
-				CollisionInfo info = { NULL, {0,0,0}, m_fAtk };
-				pairCollider.second->Collision(info);
-				//한 콜라이더에서 충돌이 일어났다면 이 몬스터의 다른 콜라이더와는 충돌체크 하지않음
-				break;
+				//CollisionInfo info = { NULL, {0,0,0}, m_fAtk };
+				//pairCollider.second->Collision(info);
+				////한 콜라이더에서 충돌이 일어났다면 이 몬스터의 다른 콜라이더와는 충돌체크 하지않음
+				//break;
+				pickedList.push_back({ iter->second->Get_ViewZ() ,pairCollider.second});
 			}
 		}
+		
 	}
 
+	if (pickedList.empty()) return;
+	//카메라 거리순 정렬
+	pickedList.sort([&](auto& _First, auto& _Second)
+		{
+			return _First.first < _Second.first;
+		});
+
+	//피킹된 대상 중 카메라와 제일 가까운 콜라이더만 충돌처리하기 
+	CCollider* NearPickedCollider = pickedList.front().second;
+	NearPickedCollider->Collision(info);
 }
