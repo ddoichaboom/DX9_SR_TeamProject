@@ -25,12 +25,16 @@ void CRenderer::Add_RenderGroup(RENDERID eType, CGameObject* pGameObject)
 void CRenderer::Render_GameObject(LPDIRECT3DDEVICE9& pGraphicDev)
 {
 	pGraphicDev->SetTexture(0, nullptr);
+<<<<<<< HEAD
+
+=======
+>>>>>>> Develop
 	Render_Priority(pGraphicDev);
 	Render_NonAlpha(pGraphicDev);
 	Render_Alpha(pGraphicDev);
 	Render_Alpha_UI(pGraphicDev);
 	Render_UI(pGraphicDev);
-	if (CDInputMgr::GetInstance()->GetDebugState()) Render_DEBUG(pGraphicDev);
+	if(CDInputMgr::GetInstance()->GetDebugState()) Render_DEBUG(pGraphicDev);
 
 	Clear_RenderGroup();
 }

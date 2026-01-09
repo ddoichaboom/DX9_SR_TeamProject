@@ -83,6 +83,8 @@ HRESULT CTexture::Ready_Texture(vector<TextureSource>& _vData)
 
 				txDesc.vMaxIdx = { data.fMaxCol, data.fMaxRow };
 				txDesc.fEndFrameCol = data.fEndFrameCol;
+
+				txDesc.vPaddingUV = { data.vPadding.x / txDesc.vOriginSize.x , data.vPadding.y / txDesc.vOriginSize.y };
 			}
 
 			m_mapAllTexture.insert({ data.path, txDesc });
@@ -149,6 +151,8 @@ HRESULT CTexture::Ready_Texture(TextureSource& _data)
 
 			txDesc.vMaxIdx = { _data.fMaxCol, _data.fMaxRow };
 			txDesc.fEndFrameCol = _data.fEndFrameCol;
+			txDesc.vPaddingUV = { _data.vPadding.x / txDesc.vOriginSize.x , _data.vPadding.y / txDesc.vOriginSize.y };
+
 		}
 		m_mapAllTexture.insert({ _data.path, txDesc });
 	}
@@ -198,10 +202,10 @@ void CTexture::Set_Frame(_vec2 _idx)
 	D3DXMatrixIdentity(&m_UVMatrix);
 
 	const _vec2& uvOffset = m_pCurTextDesc->vUVoffset;
-	m_UVMatrix._11 = uvOffset.x;
-	m_UVMatrix._22 = uvOffset.y;
-	m_UVMatrix._31 = _idx.x * uvOffset.x;
-	m_UVMatrix._32 = _idx.y * uvOffset.y;
+	m_UVMatrix._11 = uvOffset.x - m_pCurTextDesc->vPaddingUV.x*2.f;
+	m_UVMatrix._22 = uvOffset.y - m_pCurTextDesc->vPaddingUV.y*2.f;
+	m_UVMatrix._31 = _idx.x * uvOffset.x + m_pCurTextDesc->vPaddingUV.x;
+	m_UVMatrix._32 = _idx.y * uvOffset.y + m_pCurTextDesc->vPaddingUV.y;
 }
 
 bool CTexture::CheckValidIndex(const _vec2& _idx)
