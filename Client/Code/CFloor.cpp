@@ -2,12 +2,31 @@
 #include "CFloor.h"
 #include "CProtoMgr.h"
 #include "CRenderer.h"
+#include "CAnimation.h"
 #include "Engine_Enum.h"
 
 //마지막 벡터 값은 외곽에서부터 제거될 픽셀 값이라고 생각하기 (이 비율만큼 uv를 땡겨서 랜더링함)
-TextureSource CFloor::m_textureSource =
+vector<TextureSource> CFloor::m_vTextureSource =
 {
-    0,L"../Bin/Resource/Texture/Test/FLOORS.dds",true,0,3,3,{2.f,2.f}
+    { 0, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOORS.dds", true, 0, 7, 7, {2.f, 2.f} },
+    { 1, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOORS.dds", true, 0, 7, 7, {0.f, 0.f} },
+    { 2, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOORS.dds", true, 0, 7, 7, {0.f, 0.f} },
+    { 3, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOORS.dds", true, 0, 7, 7, {0.f, 0.f} },
+    { 4, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOORS.dds", true, 0, 7, 7, {0.f, 0.f} },
+    { 5, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOORS.dds", true, 0, 7, 7, {0.f, 0.f} },
+    { 6, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOORS.dds", true, 0, 7, 7, {0.f, 0.f} },
+    { 7, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOORS.dds", true, 0, 7, 7, {0.f, 0.f} },
+
+
+    { 100, L"../Bin/Resource/Texture/Terrain/Floor/DYNAMIC_FLOOR/LAVA.dds"}
+
+    //{ STATIC_FLOOR, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR.dds"},
+    //{ DYNAMIC_FLOOR, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR.dds"}
+};
+
+vector<AnimationSource> CFloor::m_vAnimSource =
+{
+    { 100, 0, 4, 4, true, 0.75f}
 };
 
 CFloor::CFloor(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -15,7 +34,9 @@ CFloor::CFloor(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_pBufferCom(nullptr)
     , m_pTransformCom(nullptr)
     , m_pTextureCom(nullptr)
+    , m_pAnimationCom(nullptr)
     , m_eTerrainType(TERRAIN_FLOOR)
+    , m_bIsAnimated(false)
 {
     m_eOBJ_ID = OBJ_TERRAIN;
     m_iID = Make_ID();
@@ -26,7 +47,9 @@ CFloor::CFloor(const CFloor& rhs)
     , m_pBufferCom(nullptr)
     , m_pTransformCom(nullptr)
     , m_pTextureCom(nullptr)
+    , m_pAnimationCom(nullptr)
     , m_eTerrainType(rhs.m_eTerrainType)
+    , m_bIsAnimated(false)
 {
     m_eOBJ_ID = rhs.m_eOBJ_ID;
     m_iID = Make_ID();              
@@ -40,17 +63,20 @@ HRESULT CFloor::Ready_GameObject()
 {
     if (FAILED(Add_Component()))
         return E_FAIL;
-    //텍스쳐선택
-    m_pTextureCom->Change_Texture(0);
-    //사용할 프레임 인덱스. Col - Row 순서임 
-   // m_pTextureCom->Set_Frame({ (_float)(rand() % 4),0 });
-    m_pTextureCom->Set_Frame({ 0,0 });
+
+    //if (!m_bIsAnimated)
+    //{
+    //    m_pTextureCom->Change_Texture(1);
+    //    m_pTextureCom->Set_Frame({ 0,0 });
+    //}
+
     return S_OK;
 }
 
 _int CFloor::Update_GameObject(const _float& fTimeDelta)
 {
     _int iExit = CGameObject::Update_GameObject(fTimeDelta);
+
     CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA, this);
     return iExit;
 }
@@ -58,6 +84,7 @@ _int CFloor::Update_GameObject(const _float& fTimeDelta)
 void CFloor::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     CGameObject::LateUpdate_GameObject(fTimeDelta);
+
 }
 
 void CFloor::Render_GameObject()
@@ -68,8 +95,10 @@ void CFloor::Render_GameObject()
     if (FAILED(Ready_Material()))
         return;
 
-    // 텍스처가 있으면 렌더링 
-    m_pTextureCom->Render_Texture();
+    if (m_bIsAnimated && m_pAnimationCom)
+        m_pAnimationCom->Render_Animation();        // Dynamic_Floor 애니메이션 Render
+    else
+        m_pTextureCom->Render_Texture();
 
     m_pBufferCom->Render_Buffer();
 
@@ -131,10 +160,20 @@ HRESULT CFloor::Add_Component()
 
     m_mapComponent[ID_STATIC].insert({ L"Com_Transform", pComponent });
 
-     pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>
-         (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_FloorTexture"));
+    // Texture
+    pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>
+        (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_FloorTexture"));
 
-     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Texture", pComponent });
+    m_mapComponent[ID_DYNAMIC].insert({ L"Com_Texture", pComponent });
+
+    // Animation
+    pComponent = m_pAnimationCom = dynamic_cast<Engine::CAnimation*>
+        (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_FloorAnimation"));
+
+    if (nullptr == pComponent)
+        return E_FAIL;
+
+    m_mapComponent[ID_DYNAMIC].insert({ L"Com_Animation", pComponent });
 
     return S_OK;
 }
@@ -175,6 +214,25 @@ HRESULT CFloor::Ready_Material()
     m_pGraphicDev->SetMaterial(&tMtrl);
 
     return S_OK;
+}
+
+void CFloor::Set_FloorType(_uint floorType)
+{
+    if (floorType >= 100)
+    {
+        m_bIsAnimated = true;
+        if (m_pAnimationCom)
+            m_pAnimationCom->Change_Animation(floorType);
+    }
+    else
+    {
+        m_bIsAnimated = false;
+        if (m_pTextureCom)
+        {
+            m_pTextureCom->Change_Texture(floorType);
+            m_pTextureCom->Set_Frame(_vec2(floorType, 0));
+        }
+    }
 }
 
 CFloor* CFloor::Create(LPDIRECT3DDEVICE9 pGraphicDev)

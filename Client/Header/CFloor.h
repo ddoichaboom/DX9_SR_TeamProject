@@ -6,6 +6,7 @@ namespace Engine
     class CRcTex;
     class CTransform;
     class CTexture;
+    class CAnimation;
 }
 
 class CFloor : public CGameObject
@@ -16,9 +17,13 @@ private:
     virtual ~CFloor();
 
 public:
-    static TextureSource& GetTextureSource()
+    static vector<TextureSource>& GetTextureSources()
     {
-        return m_textureSource;
+        return m_vTextureSource;
+    }
+    static vector<AnimationSource>& GetAnimSources()
+    {
+        return m_vAnimSource;
     }
 
 public:
@@ -41,7 +46,13 @@ private:
     Engine::CRcTex*     m_pBufferCom;
     Engine::CTransform* m_pTransformCom;
     Engine::CTexture*   m_pTextureCom;
+    Engine::CAnimation* m_pAnimationCom;
     Engine::TERRAIN_TYPE m_eTerrainType; 
+
+    _bool               m_bIsAnimated;
+
+public:
+    void                Set_FloorType(_uint floorType);
 
 public:
     // 기본 생성 
@@ -57,6 +68,7 @@ private:
     virtual void Free() override;
 
 private:
-    static TextureSource    m_textureSource;
+    static vector<TextureSource>    m_vTextureSource;
+    static vector<AnimationSource>  m_vAnimSource;
 };
 

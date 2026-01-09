@@ -212,9 +212,22 @@ HRESULT CMapStage::Ready_MonsterProto()
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BulletTexture", pCom_Texture)))
         return E_FAIL;
 
+
+    return S_OK;
+}
+
+HRESULT CMapStage::Ready_TerrainProto()
+{
+    CTexture* pCom_Texture = nullptr;
+
+    //TODO : Terrain Texture Proto 등록
     //Floor Texture TEst
-    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CFloor::GetTextureSource());
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CFloor::GetTextureSources());
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FloorTexture", pCom_Texture)))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FloorAnimation", 
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CFloor::GetAnimSources()))))
         return E_FAIL;
 
     return S_OK;
@@ -380,6 +393,9 @@ HRESULT CMapStage::Ready_Prototype()
         return E_FAIL;
 
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_StateComponent", Engine::CStateComponent::Create(m_pGraphicDev))))
+        return E_FAIL;
+
+    if (FAILED(Ready_TerrainProto()))
         return E_FAIL;
 
     // 기존 몬스터 관련된 것들 패킹

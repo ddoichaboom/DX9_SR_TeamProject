@@ -234,6 +234,7 @@ CGameObject* CMapLoader::Create_GameObject_FromJSON(const json& jObj,
                 pFloor->SetPos(vPos);
                 pFloor->SetAngle(vRot);
                 pFloor->SetScale(vScale);
+                pFloor->Set_FloorType(100);
                 pFloor->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
                 pGameObject = pFloor;
             }
