@@ -212,6 +212,11 @@ HRESULT CMapStage::Ready_MonsterProto()
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BulletTexture", pCom_Texture)))
         return E_FAIL;
 
+    //Floor Texture TEst
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CFloor::GetTextureSource());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FloorTexture", pCom_Texture)))
+        return E_FAIL;
+
     return S_OK;
 }
 

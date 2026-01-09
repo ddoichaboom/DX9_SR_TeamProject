@@ -30,8 +30,8 @@ vector<AnimationSource> CWhiteMan::m_vAnimSource =
 	,{ MS_ATTACK_IDLE,1,3,2, true, 0.11f}			//Attack_Idle
 	,{ MS_ATTACK,1,4,3, false, 0.08f}				//Attack
 	,{ MS_WALK,1,6,5, true, 0.11f}					//Walk
-	,{ MS_HIT,1,3,2, false, 0.11f, 1.f, true}		//Hit
-	,{ MS_DEAD,6,3,2, false, 0.08f, 1.f, true}			//DeadBack
+	,{ MS_HIT,1,3,2, false, 0.10f, 1.f, true}		//Hit
+	,{ MS_DEAD,6,3,2, false, 0.06f, 1.f, true}			//DeadBack
 };
 
 CWhiteMan::CWhiteMan(LPDIRECT3DDEVICE9 pGraphicDev)

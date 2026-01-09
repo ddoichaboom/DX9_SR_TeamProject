@@ -58,6 +58,7 @@ namespace Engine
 		_float fMaxRow = 0.f;
 		_float fMaxCol = 0.f;
 		_float fEndFrameCol = 0.f;
+		_vec2   vPadding = { 0.f, 0.f };
 	} TextureSource;
 
 	//텍스쳐의 정보
@@ -68,6 +69,7 @@ namespace Engine
 		_vec2  vMaxIdx = { 0,0 };
 		_float fEndFrameCol = 0.f;
 		_vec2  vUVoffset = { 1.f, 1.f };
+		_vec2  vPaddingUV = { 0.f, 0.f };
 	} TextureDesc;
 
 
