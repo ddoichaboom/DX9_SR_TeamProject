@@ -188,7 +188,8 @@ _int CWhiteMan::Update_GameObject(const _float& fTimeDelta)
 
 	//}
 
-	if (CDInputMgr::GetInstance()->Key_Down(DIK_SPACE))
+	//TODO : CWhiteMan에서 발차기 키입력 제거하기 
+	if (CDInputMgr::GetInstance()->Key_Down(DIK_F))
 	{
 		SetLaunched();
 	}
