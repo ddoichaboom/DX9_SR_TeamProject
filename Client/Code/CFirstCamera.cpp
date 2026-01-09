@@ -92,6 +92,7 @@ _int CFirstCamera::Update_GameObject(const _float& fTimeDelta)
 
 	_vec3 vPos, vLook;
 	pPlayerTransform->Get_Info(INFO_POS, &vPos);
+	vPos.y += 6.f;
 	m_pTransformCom->Set_Pos(vPos.x, vPos.y, vPos.z);
 
 	m_pTransformCom->Get_Info(INFO_POS, &m_vEye);
