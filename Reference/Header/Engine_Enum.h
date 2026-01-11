@@ -66,5 +66,8 @@ namespace Engine
 		DW_END
 	};
 
+	enum MOVE_DIR { DIR_NONE, DIR_UP, DIR_DOWN, DIR_LEFT, DIR_RIGHT, DIR_LEFTUP, DIR_LEFTDOWN, DIR_RIGHTUP, DIR_RIGHTDOWN };
+
+	enum COLLIDER_TAG { TAG_NONE, TAG_KICK, TAG_END };
 }
 #endif // Engine_Enum_h__

@@ -118,6 +118,7 @@ namespace Engine
 		CGameObject* pTarget;
 		_vec3 vDiff;
 		_float fDamage;
+		COLLIDER_TAG eTag;
 	} CollisionInfo;
 }
 

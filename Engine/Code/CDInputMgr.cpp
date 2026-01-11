@@ -123,11 +123,56 @@ void Engine::CDInputMgr::Update_InputDev(void)
 		m_bDebug = !m_bDebug;
 	}
 
+	m_iAxisX = GetAxisRaw_Horizontal();
+	m_iAxisY = GetAxisRaw_Vertical();
+
+
+	m_eDirection = Make_Direction();
 }
 
-bool CDInputMgr::GetDebugState()
+bool Engine::CDInputMgr::GetDebugState()
 {
 	return m_bDebug;
+}
+
+_int Engine::CDInputMgr::GetAxisRaw_Horizontal()
+{
+	_int axis = 0;
+	if (Key_Pressing(DIK_A) || Key_Pressing(DIK_LEFT))axis--;
+	if (Key_Pressing(DIK_D) || Key_Pressing(DIK_RIGHT))axis++;
+	return axis;
+}
+
+_int Engine::CDInputMgr::GetAxisRaw_Vertical()
+{
+	_int axis = 0;
+	if (Key_Pressing(DIK_S) || Key_Pressing(DIK_DOWN))axis--;
+	if (Key_Pressing(DIK_W) || Key_Pressing(DIK_UP))axis++;
+	return axis;
+}
+
+MOVE_DIR Engine::CDInputMgr::Make_Direction()
+{
+	if (0 == m_iAxisX)
+	{
+		if (m_iAxisY > 0) return DIR_UP;
+		if (m_iAxisY < 0) return DIR_DOWN;
+	}
+	else if (0 == m_iAxisY)
+	{
+		if (m_iAxisX > 0) return DIR_RIGHT;
+		if (m_iAxisX < 0) return DIR_LEFT;
+	}
+	else
+	{
+		if (m_iAxisX < 0 && m_iAxisY > 0) return DIR_LEFTUP;
+		if (m_iAxisX < 0 && m_iAxisY < 0) return DIR_LEFTDOWN;
+		if (m_iAxisX > 0 && m_iAxisY > 0) return DIR_RIGHTUP;
+		if (m_iAxisX > 0 && m_iAxisY < 0) return DIR_RIGHTDOWN;
+	}
+
+	
+	return DIR_NONE;
 }
 
 void Engine::CDInputMgr::Free(void)
