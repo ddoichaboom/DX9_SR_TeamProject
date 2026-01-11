@@ -15,7 +15,7 @@
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCharacter(pGraphicDev)
 	, m_pLeftPart(nullptr), m_pRightPart(nullptr), m_pMiddlePart(nullptr)
-	, m_eWeaponState(SW_NONE), m_fMoveSpeed(100.f)
+	, m_eWeaponState(SW_NONE), m_fMoveSpeed(50.f)
 
 {
 

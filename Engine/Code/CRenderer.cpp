@@ -69,12 +69,12 @@ void CRenderer::Render_Alpha(LPDIRECT3DDEVICE9& pGraphicDev)
 	//좀 멀리 있어도 기본보다 더 높은 해상도의 밉맵을 사용하도록 
 	pGraphicDev->SetSamplerState(0, D3DSAMP_MIPMAPLODBIAS, *((DWORD*)&bias));
 
-	/*
+	
 	//알파테스트 
 	pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 	pGraphicDev->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
-	pGraphicDev->SetRenderState(D3DRS_ALPHAREF, 0xc0);
-	*/
+	pGraphicDev->SetRenderState(D3DRS_ALPHAREF, 0x50);
+	
 
 	m_RenderGroup[RENDER_ALPHA].sort([](CGameObject* pDst, CGameObject* pSrc)->bool
 		{
@@ -104,6 +104,8 @@ void CRenderer::Render_Alpha_UI(LPDIRECT3DDEVICE9& pGraphicDev)
 	//UI는 Z값이 동일하므로 넣은 순으로 랜더
 	for (auto& pObj : m_RenderGroup[RENDER_ALPHA_UI])
 		pObj->Render_GameObject();
+
+	pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
 }
 
 void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)

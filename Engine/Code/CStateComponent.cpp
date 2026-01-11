@@ -4,12 +4,12 @@
 #include "CDataMgr.h"
 
 CStateComponent::CStateComponent(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CComponent(pGraphicDev), m_pCurState(nullptr), m_pOwner(nullptr), m_iCurStateID(0), m_iPrevStateID(0)
+	:CComponent(pGraphicDev), m_pCurState(nullptr), m_pOwner(nullptr), m_iCurStateID(-1), m_iPrevStateID(0)
 {
 }
 
 CStateComponent::CStateComponent(const CStateComponent& rhs)
-	:CComponent(rhs), m_pCurState(nullptr), m_pOwner(nullptr), m_iCurStateID(0), m_iPrevStateID(0)
+	:CComponent(rhs), m_pCurState(nullptr), m_pOwner(nullptr), m_iCurStateID(-1), m_iPrevStateID(0)
 {
 }
 

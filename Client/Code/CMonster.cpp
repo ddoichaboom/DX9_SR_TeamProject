@@ -56,6 +56,8 @@ _int CMonster::Update_GameObject(const _float& fTimeDelta)
 
 void CMonster::LateUpdate_GameObject(const _float& fTimeDelta)
 {
+	//빌보드에 영향을 받는 콜리젼 컴포넌트를 가진 몬스터가 있어서 
+	//SetBillboard()를 위에 고정 
 	SetBillboard();
 	CCharacter::LateUpdate_GameObject(fTimeDelta);
 }

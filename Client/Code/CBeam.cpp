@@ -15,7 +15,8 @@ CBeam::CBeam(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	D3DXMatrixIdentity(&m_matScale);
 	D3DXMatrixIdentity(&m_matTrans);
-	D3DXMatrixIdentity(&m_matRot);
+	D3DXMatrixIdentity(&m_matRot);	
+	D3DXMatrixIdentity(&m_matVtxTran);
 }
 
 CBeam::~CBeam()
@@ -43,10 +44,9 @@ HRESULT CBeam::Ready_GameObject()
 	//m_pTransformCom->m_vScale = { 0.1f, 40.f ,1.f };
 	
 	m_matScale._11 = 0.1f;
-	m_matScale._22 = 40.f;
+	m_matScale._22 = 500.f;
 	m_matScale._33 = 1.f;
 
-//	D3DXMatrixRotationZ(&m_PrevRot, D3DX_PI);
 	return S_OK;
 }
 
@@ -69,7 +69,8 @@ void CBeam::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CBeam::Render_GameObject()
 {
-	_matrix finalWorld = m_matScale * m_matRot * m_matTrans;
+	//_matrix finalWorld = m_matVtxTran* m_matScale * m_matVtxTranInv * m_matRot * m_matTrans;
+	_matrix finalWorld =  m_matScale * m_matVtxTran* m_matRot * m_matTrans;
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, &finalWorld);
 	m_pTextureCom->Render_Texture();
 	m_pBufferCom->Render_Buffer();
@@ -151,5 +152,15 @@ void CBeam::SetShootDir(_vec3 _dir)
 	memcpy(&m_matRot.m[INFO_RIGHT],	&vRight,	sizeof(_vec3));
 	memcpy(&m_matRot.m[INFO_UP],	&vUp,		sizeof(_vec3));
 	memcpy(&m_matRot.m[INFO_LOOK],	&vLook,		sizeof(_vec3));
+}
+
+void CBeam::SetScale(ROTATION _Axis, _float _scale)
+{
+	m_matScale.m[_Axis][_Axis] = _scale;
+}
+
+void CBeam::SetPrevTranslation(_vec3 _vec)
+{
+	D3DXMatrixTranslation(&m_matVtxTran, _vec.x, _vec.y, _vec.z);
 }
 

@@ -144,6 +144,9 @@
   <ItemGroup>
     <ClInclude Include="..\Header\CBeam.h" />
     <ClInclude Include="..\Header\CBeamMon.h" />
+    <ClInclude Include="..\Header\CBoss.h" />
+    <ClInclude Include="..\Header\CBossBullet.h" />
+    <ClInclude Include="..\Header\CBossTestStage.h" />
     <ClInclude Include="..\Header\CCeiling.h" />
     <ClInclude Include="..\Header\CBullet.h" />
     <ClInclude Include="..\Header\CCharacter.h" />
@@ -161,6 +164,7 @@
     <ClInclude Include="..\Header\CPlayer.h" />
     <ClInclude Include="..\Header\CPlayerPart.h" />
     <ClInclude Include="..\Header\CRightPart.h" />
+    <ClInclude Include="..\Header\CRocket.h" />
     <ClInclude Include="..\Header\CSkyBox.h" />
     <ClInclude Include="..\Header\CTerrain.h" />
     <ClInclude Include="..\Header\CTestStage.h" />
@@ -178,6 +182,9 @@
   <ItemGroup>
     <ClCompile Include="..\Code\CBeam.cpp" />
     <ClCompile Include="..\Code\CBeamMon.cpp" />
+    <ClCompile Include="..\Code\CBoss.cpp" />
+    <ClCompile Include="..\Code\CBossBullet.cpp" />
+    <ClCompile Include="..\Code\CBossTestStage.cpp" />
     <ClCompile Include="..\Code\CCeiling.cpp" />
     <ClCompile Include="..\Code\CBullet.cpp" />
     <ClCompile Include="..\Code\CCharacter.cpp" />
@@ -194,6 +201,7 @@
     <ClCompile Include="..\Code\CPlayer.cpp" />
     <ClCompile Include="..\Code\CPlayerPart.cpp" />
     <ClCompile Include="..\Code\CRightPart.cpp" />
+    <ClCompile Include="..\Code\CRocket.cpp" />
     <ClCompile Include="..\Code\CSkyBox.cpp" />
     <ClCompile Include="..\Code\CTerrain.cpp" />
     <ClCompile Include="..\Code\CTestStage.cpp" />

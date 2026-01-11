@@ -30,7 +30,7 @@ vector<AnimationSource> CWhiteMan::m_vAnimSource =
 	,{ MS_ATTACK_IDLE,1,3,2, true, 0.11f}			//Attack_Idle
 	,{ MS_ATTACK,1,4,3, false, 0.08f}				//Attack
 	,{ MS_WALK,1,6,5, true, 0.11f}					//Walk
-	,{ MS_HIT,1,3,2, false, 0.10f, 1.f, true}		//Hit
+	,{ MS_HIT,1,2,2, false, 0.09f, 1.f, true}		//Hit
 	,{ MS_DEAD,6,3,2, false, 0.06f, 1.f, true}			//DeadBack
 };
 
@@ -166,27 +166,6 @@ _int CWhiteMan::Update_GameObject(const _float& fTimeDelta)
 	_vec3 info;
 	m_pTransformCom->Get_Info(INFO_POS, &info);
 	Compute_ViewZ(&info);
-
-	//TEST
-	//TODO : 플레이어에 공격 구현되면 지우기 
-	//if (CDInputMgr::GetInstance()->Mouse_Down(DIM_LB))
-	//{
-	//	bool bPicked = CCollision::Collision_Mouse(g_hWnd, m_pGraphicDev, m_pHeadCollider);
-	//	if (bPicked)
-	//	{
-	//		CollisionInfo info = { NULL, {0,0,0}, 6.f };
-	//		m_pHeadCollider->Collision(info);
-	//		return iExit; // 중복 충돌 방지!
-	//	}
-
-	//	bPicked = CCollision::Collision_Mouse(g_hWnd, m_pGraphicDev, m_pBodyCollider);
-	//	if (bPicked)
-	//	{
-	//		CollisionInfo info = { NULL, {0,0,0}, 6.f }; // otherObj, dist, Damage
-	//		m_pBodyCollider->Collision(info);
-	//	}
-
-	//}
 
 	//TODO : CWhiteMan에서 발차기 키입력 제거하기 
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_F))

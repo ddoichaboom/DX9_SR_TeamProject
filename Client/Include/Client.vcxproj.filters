@@ -103,6 +103,18 @@
     <Filter Include="02. GameObject\02.Weapon\Pistol">
       <UniqueIdentifier>{5f24d68b-aac9-42cd-8e32-23675dd96e6b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\00. Character\02. Boss">
+      <UniqueIdentifier>{0436d969-19c6-4403-b309-25eaa67f0dd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\01. Stage\02. BossTestStage">
+      <UniqueIdentifier>{04d88061-d5eb-4c6a-875c-49283c5875d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Bullet\BossBullet">
+      <UniqueIdentifier>{e7eee20e-6188-4ddb-8e63-38c6b7f80026}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\02. Boss\Rocket">
+      <UniqueIdentifier>{4984b130-26ea-46e7-b085-09c3268d713d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -201,6 +213,18 @@
     <ClInclude Include="..\Header\CPistol.h">
       <Filter>02. GameObject\02.Weapon\Pistol</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CBoss.h">
+      <Filter>02. GameObject\00. Character\02. Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossTestStage.h">
+      <Filter>01. Scene\01. Stage\02. BossTestStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossBullet.h">
+      <Filter>02. GameObject\10. Bullet\BossBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CRocket.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -289,6 +313,18 @@
     </ClCompile>
     <ClCompile Include="..\Code\CPistol.cpp">
       <Filter>02. GameObject\02.Weapon\Pistol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBoss.cpp">
+      <Filter>02. GameObject\00. Character\02. Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossTestStage.cpp">
+      <Filter>01. Scene\01. Stage\02. BossTestStage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossBullet.cpp">
+      <Filter>02. GameObject\10. Bullet\BossBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CRocket.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

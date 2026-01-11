@@ -60,11 +60,11 @@ protected :
 
 
 protected:
-	Engine::CRcTex*		m_pBufferCom;
-	Engine::CTransform* m_pTransformCom;
-	Engine::CTexture*	m_pTextureCom;
-	Engine::CStateComponent* m_pStateCom;
-	Engine::CCollision* m_pCollisionCom;
+	CRcTex*		m_pBufferCom;
+	CTransform* m_pTransformCom;
+	CTexture*	m_pTextureCom;
+	CStateComponent* m_pStateCom;
+	CCollision* m_pCollisionCom;
 
 protected:
 	float m_fTime;

@@ -5,7 +5,7 @@
 
 CCollider::CCollider(LPDIRECT3DDEVICE9 pGraphicDev)
 : CGameObject(pGraphicDev), m_pBufferCom(nullptr), m_pTransformCom(nullptr)
-, m_pPrtTransformCom(nullptr), m_bCanCollision(true)
+, m_pPrtTransformCom(nullptr), m_bCanCollision(true), m_bRotToPrt(false)
 {
 	D3DXMatrixIdentity(&m_matWorld);
 }
@@ -46,6 +46,21 @@ void CCollider::LateUpdate_GameObject(const _float& fTimeDelta)
 	m_matWorld._41 += prtWorld->_41;
 	m_matWorld._42 += prtWorld->_42;
 	m_matWorld._43 += prtWorld->_43;
+
+	//회전 적용 
+	if (m_bRotToPrt)
+	{
+		//Prt의 각 축을 정규화하여 스케일값을 뺀 부모의 회전 축을 얻음
+		for (_uint i = 0; i < INFO_POS; ++i)
+		{
+			_vec3 vecAxis;
+			memcpy(&vecAxis, &prtWorld->m[i], sizeof(_vec3));
+			D3DXVec3Normalize(&vecAxis, &vecAxis); // 회전 축
+			vecAxis *= m_pTransformCom->m_vScale[i]; // 내 스케일을 곱해줌 
+
+			memcpy(&m_matWorld.m[i], &vecAxis, sizeof(_vec3));
+		}
+	}
 }
 
 void CCollider::Render_GameObject()

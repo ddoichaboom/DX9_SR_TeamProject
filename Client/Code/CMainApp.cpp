@@ -6,6 +6,7 @@
 #include "CPoolMgr.h"
 #include "CTestStage.h"
 #include "CMapStage.h"
+#include "CBossTestStage.h"
 #include "CMapLoader.h"
 
 #include <ctime>
@@ -14,6 +15,9 @@
 #include "CWhiteMan.h"
 #include "CBeamMon.h"
 #include "CFlyMon.h"
+#include "CBoss.h"
+#include "CBossBullet.h"
+#include "CRocket.h"
 #include "CTerrain.h"
 #include "CPlayer.h"
 #include "CFloor.h"
@@ -112,7 +116,8 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	//Engine::CScene* pInitScene = CTestStage::Create(pGraphicDev);
-	Engine::CScene* pInitScene = CMapStage::Create(pGraphicDev);
+	//Engine::CScene* pInitScene = CMapStage::Create(pGraphicDev);
+	Engine::CScene* pInitScene = CBossTestStage::Create(pGraphicDev);
 
 	if (nullptr == pInitScene)
 		return E_FAIL;
@@ -142,6 +147,8 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iWallCount = CMapLoader::GetInstance()->Get_WallCount();
 	_uint iObstacleCount = CMapLoader::GetInstance()->Get_ObstacleCount();
 	_uint iBulletCount = 30;
+	_uint iBossBulletCount = 50;
+	_uint iBossRocketCount = 20;
 	_uint iWhiteManCount = 5;
 	_uint iBeamMonCount = 3;
 	_uint iFlyMonCount = 6;
@@ -151,6 +158,8 @@ HRESULT CMainApp::Ready_ObjectPool()
 	CPoolMgr::GetInstance()->SetPoolSize<CWall>(iWallCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CObstacle>(iObstacleCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CBullet>(iBulletCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CBossBullet>(iBossBulletCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CBossBullet>(iBossRocketCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CWhiteMan>(iWhiteManCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CBeamMon>(iBeamMonCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CFlyMon>(iFlyMonCount);
@@ -196,6 +205,7 @@ void CMainApp::Free()
 	CDataMgr<CWhiteMan>::DestroyInstance();
 	CDataMgr<CBeamMon>::DestroyInstance();
 	CDataMgr<CFlyMon>::DestroyInstance();
+	CDataMgr<CBoss>::DestroyInstance();
 
 	// Player
 	CDataMgr<CLeftPart>::DestroyInstance();

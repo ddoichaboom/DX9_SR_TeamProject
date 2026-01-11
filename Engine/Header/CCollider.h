@@ -40,6 +40,12 @@ public:
 	//아래는 내 Transform을 변경하는 함수 
 	void				Set_RelativePos(_vec3 _pos);
 	_vec3				Get_RelativePos();
+
+	void				Set_RotToPrt()
+	{
+			m_bRotToPrt = true;
+	}
+
 public:
 	bool				CanCollision() { return m_bCanCollision; }
 	void				OnCollision() { m_bCanCollision = true; }
@@ -57,6 +63,9 @@ protected:
 	CTransform*			m_pPrtTransformCom;
 
 	bool				m_bCanCollision;
+	//부모 행렬에 의해 회전을 할건지 
+	//주의. 콜라이더 대 콜라이더 충돌을 하는 콜라이더면 회전하면 안됨 (OBB 구현 x) 
+	bool				m_bRotToPrt;
 };
 
 END

@@ -23,7 +23,7 @@ HRESULT CTerrain::Ready_GameObject()
 		return E_FAIL;
 
 	
-	m_pTransformCom->Set_Pos(-25.f, -12.5f, -15.f);
+	//m_pTransformCom->Set_Pos(-25.f, -12.5f, -15.f);
 
 	return S_OK;
 }
@@ -69,6 +69,12 @@ void CTerrain::Render_GameObject()
 	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 
 }
+
+void CTerrain::SetPos(_vec3 _pos)
+{
+	m_pTransformCom->Set_Pos(_pos);
+}
+
 
 HRESULT CTerrain::Add_Component()
 {

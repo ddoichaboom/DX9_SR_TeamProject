@@ -5,15 +5,8 @@
 
 TextureSource CBullet::m_textureSource =
 {
-	0,L"../Bin/Resource/Texture/Bullet/single_bullet256.dds",false,0.f,3.f,3.f
+	0,L"../Bin/Resource/Texture/Bullet/single_bullet256.dds",false
 };
-
-//상태별 랜더링 할 텍스쳐 프레임의 인덱스 
-_vec2 CBullet::m_vFrameIdx[DIR_END]
-{
-	{0.f,0.f}, {1.f,0.f}, {2.f,0.f},{3.f,0.f}
-};
-
 
 CBullet::CBullet(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CGameObject(pGraphicDev), m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr),
@@ -65,7 +58,7 @@ HRESULT CBullet::Ready_GameObject()
 	m_pTransformCom->Set_Scale(2.f, 1.f, 3.f);
 	m_pTextureCom->Change_Texture(0);
 	m_fSpeed = 300.f;
-	m_fLifeTime = 2.0f;
+	m_fLifeTime = 3.0f;
 
 	return S_OK;
 }
@@ -123,6 +116,7 @@ void CBullet::SetDirection(_vec3 dir)
 
 	m_vDir = dir;
 	_float angleY = D3DXToDegree(atan2f(m_vDir.x, m_vDir.z));
+	//방향을 xz평면에 투영했을때의 길이 
 	_float  hypo = sqrtf(m_vDir.x * m_vDir.x + m_vDir.z * m_vDir.z);
 	_float angleX = -D3DXToDegree(atan2f(m_vDir.y, hypo));
 	m_pTransformCom->Rotation(ROT_Y, angleY);

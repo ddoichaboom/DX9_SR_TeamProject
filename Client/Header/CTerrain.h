@@ -20,7 +20,8 @@ public:
 	virtual			_int		Update_GameObject(const _float& fTimeDelta);
 	virtual			void		LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual			void		Render_GameObject();
-
+	//юс╫ц
+	void						SetPos(_vec3 _pos);
 private:
 	HRESULT			Add_Component();
 	HRESULT			Ready_Material();

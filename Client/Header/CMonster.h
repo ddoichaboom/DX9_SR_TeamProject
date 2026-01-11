@@ -9,7 +9,7 @@ namespace Engine
 class CMonster : public CCharacter
 {
 protected:
-	enum MONSTER_STATE : _byte { MS_IDLE, MS_AIM, MS_ATTACK_IDLE, MS_ATTACK, MS_WALK, MS_HIT,MS_LAUNCH, MS_DEAD, MS_END };
+	enum MONSTER_STATE : _byte { MS_IDLE, MS_AIM, MS_ATTACK_IDLE, MS_ATTACK, MS_ATTACK2, MS_ATTACK3, MS_WALK,MS_GUARD, MS_HIT,MS_LAUNCH, MS_DEAD, MS_END };
 
 protected:
 	explicit		CMonster(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -31,8 +31,8 @@ protected:
 //Perceive
 protected:
 	HRESULT			GetDistVecToPlayer(_vec3& pOutDist);
-	Engine::CTransform* GetPlayerTransform();
-	Engine::CCollision* GetPlayerCollision();
+	CTransform*		GetPlayerTransform();
+	CCollision*		GetPlayerCollision();
 //State
 	virtual	void	Launch(); 
 	void			SetLaunched();
@@ -41,9 +41,9 @@ public:
 	void			Activate() override;
 	void			Deactivate() override;
 protected:
-	Engine::CAnimation* m_pAnimationCom;
-	Engine::CTransform* m_pPlayerTransformCom;
-	Engine::CCollision* m_pPlayerCollisionCom;
+	CAnimation*		m_pAnimationCom;
+	CTransform*		m_pPlayerTransformCom;
+	CCollision*		m_pPlayerCollisionCom;
 
 	_float m_fAttackableDist; 
 	_vec3 m_vDir;
