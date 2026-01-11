@@ -10,7 +10,7 @@ CFirstCamera::CFirstCamera(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCamera(pGraphicDev), m_bFix(true), m_bCheck(true)
 	, m_pTransformCom(nullptr), m_fSpeed(0.f)
 	, m_fPitch(0.f), m_fYaw(0.f)
-	, m_fShakeTime(0.f), m_fShakeSpeed(12.f), m_fShakePower(0.25f)
+	, m_fShakeTime(0.f), m_fShakeSpeed(12.f), m_fShakePower(0.5f)
 	
 {
 	m_eOBJ_ID = OBJ_CAM;
@@ -21,7 +21,7 @@ CFirstCamera::CFirstCamera(const CFirstCamera& rhs)
 	: CCamera(rhs), m_bFix(true), m_bCheck(true)
 	, m_pTransformCom(nullptr), m_fSpeed(0.f)
 	, m_fPitch(0.f), m_fYaw(0.f)
-	, m_fShakeTime(0.f), m_fShakeSpeed(10.f), m_fShakePower(1)
+	, m_fShakeTime(0.f), m_fShakeSpeed(10.f), m_fShakePower(0.5f)
 {
 	m_eOBJ_ID = OBJ_CAM;
 	m_iID = Make_ID();
@@ -93,6 +93,7 @@ _int CFirstCamera::Update_GameObject(const _float& fTimeDelta)
 	_vec3 vPos, vLook;
 	pPlayerTransform->Get_Info(INFO_POS, &vPos);
 	vPos.y += 6.f;
+
 	m_pTransformCom->Set_Pos(vPos.x, vPos.y, vPos.z);
 
 	m_pTransformCom->Get_Info(INFO_POS, &m_vEye);
@@ -205,22 +206,18 @@ void CFirstCamera::Cam_Shake(const _float& fTimeDelta)
 	if (pPlayerTransform == nullptr)
 		return;
 
-	bool isKeyDown = CDInputMgr::GetInstance()->Key_Pressing(DIK_W) || CDInputMgr::GetInstance()->Key_Pressing(DIK_S) ||
-					 CDInputMgr::GetInstance()->Key_Pressing(DIK_A) || CDInputMgr::GetInstance()->Key_Pressing(DIK_D);
-	
-	if (isKeyDown)
-	{
-		m_fShakeTime += fTimeDelta * m_fShakeSpeed;
+	MOVE_DIR eDir = CDInputMgr::GetInstance()->Get_Direction();
 
-		float ShakeValue = sinf(m_fShakeTime) * m_fShakePower;
-
-		m_vEye.y += ShakeValue;
-		m_vAt.y += ShakeValue;
-	}
-	else
+	if (eDir == Engine::DIR_NONE)
 	{
 		m_fShakeTime = 0.f;
+		return;
 	}
+
+	m_fShakeTime += fTimeDelta * m_fShakeSpeed;
+	float ShakeValue = sinf(m_fShakeTime) * m_fShakePower;
+	m_vEye.y += ShakeValue;
+	m_vAt.y += ShakeValue;	
 }
 
 CFirstCamera* CFirstCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev,

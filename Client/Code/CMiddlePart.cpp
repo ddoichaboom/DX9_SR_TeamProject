@@ -17,7 +17,7 @@ vector<AnimationSource>  CMiddlePart::m_vAnimSource =
 {
 	{ IDLE,0,3,3, false, 0.08f},
 	{ KICK,0,3,3, false, 0.08f, 1.f},
-	{ DRINK,0,6,6, false, 0.05f, 1.f}
+	{ DRINK,0,6,6, false, 0.08f, 1.f}
 };
 
 CMiddlePart::CMiddlePart(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -155,13 +155,10 @@ void CMiddlePart::Kick()
 {
 	if (m_pAnimationCom->CanEnd())
 	{
+		m_pPlayer->Kick();
 		ChangeState(IDLE);
 		return;
 	}
-
-	if (m_pAnimationCom->Get_State() == IDLE)
-		return;
-
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 }
 
@@ -173,7 +170,8 @@ void CMiddlePart::End_Kick()
 void CMiddlePart::Begin_Drink()
 {
 	// 체력 회복 
-	m_pTransformCom->m_vScale = { 350.f, 350.f, 1.f };
+	m_pTransformCom->m_vScale = { 350.f, 350.f, 1.f };	
+	m_pTransformCom->Set_Pos({ 0.f, WINCY * -0.5f + 100.f, 0.f });
 
 }
 
@@ -185,16 +183,12 @@ void CMiddlePart::Drink()
 		ChangeState(IDLE);
 		return;
 	}
-
-	if (m_pAnimationCom->Get_State() == IDLE)
-		return;
-
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 }
 
 void CMiddlePart::End_Drink()
 {
-
+	m_pTransformCom->Set_Pos(m_vStartPos);
 }
 
 void CMiddlePart::Begin_Slide()

@@ -1,6 +1,12 @@
 #pragma once
 #include "CCharacter.h"
 
+namespace Engine
+{
+	class CCollider;
+}
+
+
 class CLeftPart;
 class CRightPart;
 class CMiddlePart;
@@ -74,10 +80,11 @@ protected:
 	virtual void	Free();
 	void			OnCollision(CollisionInfo info);
 	void			CheckPickedMonster();
+	void			CheckKickedMonster();
 
 private:
-	void Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _vec3& vLook);
-	void Action_Input(const _float& fTimeDelta, const _vec3& vLook);
+	void				Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _vec3& vLook);
+	void				Action_Input(const _float& fTimeDelta, const _vec3& vLook);
 	void				Gravity(const _float& fTimeDelta);
 	void				Set_OnFloor(const _float& fTimeDelta);
 	_bool				Get_OnFloor();
@@ -89,6 +96,7 @@ private:
 public:
 	void				Fire();
 	void				Reload();
+	void				Kick();
 
 private:
 	CLeftPart* m_pLeftPart;
@@ -99,6 +107,8 @@ private:
 	STATE_WEAPON	m_eWeaponState;
 	unordered_map<STATE_WEAPON, CWeapon*> m_mapWeapon;
 
+	CCollider*			m_pKickCollider;
+	const	_tchar*		m_szKickColliderName = L"ColKick";
 	
 
 public:
@@ -129,6 +139,8 @@ protected:
 	_float	m_fDashDistance;
 
 
-	_float	m_fMoveSpeed;	
+	_float	m_fMoveSpeed;
+
+	_float	m_fKickAttack;
 };
 

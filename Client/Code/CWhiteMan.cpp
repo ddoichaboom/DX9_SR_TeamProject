@@ -189,10 +189,10 @@ _int CWhiteMan::Update_GameObject(const _float& fTimeDelta)
 	//}
 
 	//TODO : CWhiteMan에서 발차기 키입력 제거하기 
-	if (CDInputMgr::GetInstance()->Key_Down(DIK_F))
-	{
-		SetLaunched();
-	}
+	//if (CDInputMgr::GetInstance()->Key_Down(DIK_F))
+	//{
+	//	SetLaunched();
+	//}
 	//TEST END
 
 	return iExit;
@@ -241,6 +241,9 @@ void CWhiteMan::ChangeState(_uint nextStateID)
 //TODO : 헤드샷 죽음 상태 추가해서 변경하기 
 void CWhiteMan::OnHeadCollision(CollisionInfo info)
 {
+	if (info.eTag == TAG_KICK)
+		return;
+
 	m_fHP -= info.fDamage;
 	if (m_fHP <= 0.f)
 	{
@@ -262,7 +265,12 @@ void CWhiteMan::OnBodyCollision(CollisionInfo info)
 		if (m_pBodyCollider) m_pBodyCollider->OffCollision();
 		ChangeState(MS_DEAD);
 	}
-	else ChangeState(MS_HIT);
+	else if (info.eTag == TAG_KICK)
+	{
+		SetLaunched();
+	}
+	else
+		ChangeState(MS_HIT);
 }
 
 
@@ -345,7 +353,8 @@ void CWhiteMan::Launch()
 		return;
 	}
 	// 플레이어가 몬스터를 바라보는 방향으로 밀기 
-	_vec3 dir = *m_pTransformCom->Get_Info(INFO_POS) - *playerTransform->Get_Info(INFO_POS);
+	//_vec3 dir = *m_pTransformCom->Get_Info(INFO_POS) - *playerTransform->Get_Info(INFO_POS);
+	_vec3 dir = *playerTransform->Get_Info(INFO_LOOK);
 	dir.y = 0.f;
 	D3DXVec3Normalize(&dir, &dir);
 

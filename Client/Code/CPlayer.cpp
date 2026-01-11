@@ -19,6 +19,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_bFall(false), m_fVelocity(0.f), m_fJumpTime(0.f)
 	, m_bJump(false), m_fJumpStartY(0.f), m_fJumpDuration(0.6f), m_fJumpHeight(20.f)
 	, m_bDash(false), m_fDashTime(0.f), m_fDashDuration(0.3f), m_fDashDistance(80.f)
+	, m_fKickAttack(1.f), m_pKickCollider(nullptr)
 {
 
 	m_eOBJ_ID = OBJ_PLAYER;
@@ -32,6 +33,7 @@ CPlayer::CPlayer(const CPlayer& rhs)
 	, m_bFall(false), m_fVelocity(0.f), m_fJumpTime(0.f)
 	, m_bJump(false), m_fJumpStartY(0.f), m_fJumpDuration(0.6f), m_fJumpHeight(20.f)
 	, m_bDash(false), m_fDashTime(0.f), m_fDashDuration(0.3f), m_fDashDistance(80.f)
+	, m_fKickAttack(1.f), m_pKickCollider(nullptr)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
 	m_iID = 0;
@@ -61,7 +63,9 @@ HRESULT CPlayer::Ready_GameObject()
 			OnCollision(info);
 		});
 
-	
+	m_pKickCollider = m_pCollisionCom->CreateCollider(m_pTransformCom, m_szKickColliderName);
+	m_pKickCollider->Set_Scale(_vec3(11, 11, 11));	
+	m_pKickCollider->OffCollision();
 
 	m_eWeaponState = SW_PISTOL;
 
@@ -239,7 +243,6 @@ void CPlayer::CheckPickedMonster()
 				pickedList.push_back({ iter->second->Get_ViewZ() ,pairCollider.second });
 			}
 		}
-
 	}
 
 	if (pickedList.empty()) return;
@@ -252,6 +255,45 @@ void CPlayer::CheckPickedMonster()
 	//피킹된 대상 중 카메라와 제일 가까운 콜라이더만 충돌처리하기 
 	CCollider* NearPickedCollider = pickedList.front().second;
 	NearPickedCollider->Collision(info);
+}
+
+void CPlayer::CheckKickedMonster()
+{
+	list<pair<_float, CCollider*>> pickedList;	
+	CollisionInfo info = { NULL, {0,0,0}, m_fKickAttack, TAG_KICK};
+
+	CLayer* pLayer = CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer");
+	if (!pLayer) return;
+
+	auto pairIter = pLayer->Get_Objects(OBJ_MONSTER);
+	//multimap<OBJ_ID, CGameObject*> 에 대한 반복자
+	//OBJ_ID를 키로 가진 오브젝트들의 반복자 범위를 반환 = 몬스터 전체 목록
+	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
+	{
+		CCollision* pCollision = static_cast<CCollision*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+		if (!pCollision) continue;
+
+		auto& mapCollider = pCollision->GetColliderMap();
+		if (mapCollider.empty()) continue;
+		//몬스터의 CollisionCom에 있는 전체 Collider 
+		for (auto& pairCollider : mapCollider)
+		{
+			bool bPicked = CCollision::CheckCollision(m_pKickCollider, pairCollider.second);
+			if (bPicked)
+			{
+				pickedList.push_back({ iter->second->Get_ViewZ() ,pairCollider.second });
+			}
+		}
+	}
+
+	if (pickedList.empty()) 
+		return;
+
+	for (auto& obj : pickedList)
+	{
+		obj.second->Collision(info);
+	}
+
 }
 
 void CPlayer::Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _vec3& vLook)
@@ -351,7 +393,7 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 	}
 
 	//점프
-	if (CDInputMgr::GetInstance()->Key_Down(DIK_SPACE) && !m_bJump && !m_bDash)
+	if (CDInputMgr::GetInstance()->Key_Down(DIK_SPACE) && !m_bJump && !m_bDash && !m_bFall)
 	{
 		m_fJumpTime = 0.f;
 		m_fVelocity = 0.f;
@@ -393,6 +435,12 @@ void CPlayer::Fire()
 void CPlayer::Reload()
 {
 	m_mapWeapon[m_eWeaponState]->Reload();
+}
+
+void CPlayer::Kick()
+{	
+	m_pKickCollider->OnCollision();
+	CheckKickedMonster();
 }
 
 
