@@ -55,7 +55,7 @@ public:
 public:
 	HRESULT			Add_Component() override;
 	HRESULT			Add_PlayerPart();
-
+	void			Add_Weapon(_byte eWeaponTag, CWeapon* pWeapon);
 
 	void			Key_Input(const _float& fTimeDelta);
 
@@ -67,8 +67,7 @@ public:
 	void			Set_LeftPart(CLeftPart* pLeft);
 	void			Set_RightPart(CRightPart* pRight);
 	void			Set_MiddlePart(CMiddlePart* pMiddle);
-
-	void			Add_Weapon(_byte eWeaponTag, CWeapon* pWeapon);
+	
 
 
 protected:
@@ -79,14 +78,17 @@ protected:
 private:
 	void Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _vec3& vLook);
 	void Action_Input(const _float& fTimeDelta, const _vec3& vLook);
+	void				Gravity(const _float& fTimeDelta);
+	void				Set_OnFloor(const _float& fTimeDelta);
+	_bool				Get_OnFloor();
+
+	void				Update_Jump(const _float& fTimeDelta);
+	void				Update_Dash(const _float& fTimeDelta);
 
 
 public:
 	void				Fire();
 	void				Reload();
-
-	
-
 
 private:
 	CLeftPart* m_pLeftPart;
@@ -97,10 +99,36 @@ private:
 	STATE_WEAPON	m_eWeaponState;
 	unordered_map<STATE_WEAPON, CWeapon*> m_mapWeapon;
 
-	_float	m_fMoveSpeed;
-
 	
-	_float	m_fAtk = 6.f;
-	_float  m_JumpPower = 40.f;
+
+public:
+	void				Set_Jump(_bool bJump) { m_bJump = bJump; }
+	void				Set_Velocity(_float fVelocity) { m_fVelocity = fVelocity; }
+	void				Set_JumpTime(_float fJumpTime) { m_fJumpTime = fJumpTime; }
+
+	_bool				Get_Jump() { return m_bJump; }
+	_float				Get_Velocity() { return m_fVelocity; }
+	_float				Get_JumpTime() { return m_fJumpTime; }
+
+
+protected:
+	_bool	m_bFall;
+	_float	m_fVelocity;
+
+	_bool	m_bJump;
+	_float	m_fJumpStartY;
+	_float	m_fJumpTime;
+	_float	m_fJumpDuration;
+	_float	m_fJumpHeight;
+
+	_bool	m_bDash;
+	_vec3	m_vDashStart;
+	_vec3	m_vDashDir;
+	_float	m_fDashTime;
+	_float	m_fDashDuration;
+	_float	m_fDashDistance;
+
+
+	_float	m_fMoveSpeed;	
 };
 

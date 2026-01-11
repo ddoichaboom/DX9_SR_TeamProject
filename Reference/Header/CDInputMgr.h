@@ -45,6 +45,14 @@ public:
 
 public:
 	bool	GetDebugState();
+	MOVE_DIR	Get_Direction() const { return m_eDirection; }
+
+private :
+	_int	GetAxisRaw_Horizontal();
+	_int	GetAxisRaw_Vertical();
+	MOVE_DIR	Make_Direction();
+
+	
 private:
 	const _ubyte			m_byDebugKey = DIK_G;
 	_bool					m_bDebug = true;
@@ -60,6 +68,11 @@ private:
 
 	_byte					m_byPrevKeyState[256];	// 이전 프레임의 키보드 상태값 
 	DIMOUSESTATE			m_tPrevMouseState;		// 이전 프레임의 마우스 상태값
+
+	// Axis 추가
+	_int					m_iAxisX;
+	_int					m_iAxisY;
+	MOVE_DIR				m_eDirection;
 
 public:
 	virtual void	Free(void);
