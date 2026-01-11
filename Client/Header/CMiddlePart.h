@@ -53,9 +53,17 @@ protected:
 	void Slide();
 	void End_Slide();
 
+	void Begin_Intro();
+	void Intro();
+
+	void Begin_Intro2();
+	void Intro2();
+
 protected:
 	static vector<TextureSource>	m_vTextureSource;
 	static vector<AnimationSource>	m_vAnimSource;
 	_vec3	m_vStartPos;
+
+	_int	m_iLoopTime;
 
 };

@@ -327,6 +327,7 @@ HRESULT CMapStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
     if (FAILED(pLayer->Add_GameObject(pGameObject)))
         return E_FAIL;
 
+    pPlayer->Intro();
 #pragma endregion
 
     

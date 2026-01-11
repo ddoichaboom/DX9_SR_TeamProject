@@ -17,13 +17,14 @@ class CPlayer :
 {
 public:
 	enum STATE_MAIN : _byte
-	{
+	{		
 		IDLE = 1,
 		RELOAD = 2,
 		ATTACK = 3,
 		KICK = 5,
 		DRINK = 6,
 		SLIDE = 7,
+		INTRO = 8,
 		MAIN_END
 	};
 
@@ -94,6 +95,7 @@ private:
 
 
 public:
+	void				Intro();
 	void				Fire();
 	void				Reload();
 	void				Kick();
@@ -143,5 +145,7 @@ protected:
 	_float	m_fMoveSpeed;
 
 	_float	m_fKickAttack;
+
+	_bool	m_bSlide;
 };
 

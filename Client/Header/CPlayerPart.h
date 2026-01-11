@@ -18,12 +18,14 @@ class CPlayerPart : public CGameObject
 public:
 	enum STATE_MAIN : _byte
 	{
+		
 		IDLE = 1,
 		RELOAD = 2,
 		ATTACK = 3,
 		KICK = 5,
 		DRINK = 6,
-		SLIDE = 7,
+		SLIDE = 7,		
+		INTRO = 8,
 		MAIN_END
 	};
 

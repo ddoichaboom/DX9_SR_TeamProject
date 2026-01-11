@@ -11,7 +11,9 @@ vector<TextureSource> CMiddlePart::m_vTextureSource =
 	{ IDLE, L"../Bin/Resource/Texture/Player/Middle_Kick.png"},
 	{ KICK, L"../Bin/Resource/Texture/Player/Middle_Kick.png"},
 	{ DRINK,  L"../Bin/Resource/Texture/Player/Middle_Soda.png" },
-	{ SLIDE,  L"../Bin/Resource/Texture/Player/Middle_Slide.png" }
+	{ SLIDE,  L"../Bin/Resource/Texture/Player/Middle_Slide.png" },
+	{ GetStateID(INTRO,SW_END),  L"../Bin/Resource/Texture/Player/Player_Intro_Begin.png"},
+	{ INTRO,  L"../Bin/Resource/Texture/Player/Player_Intro.png" },
 };
 
 vector<AnimationSource>  CMiddlePart::m_vAnimSource =
@@ -19,16 +21,18 @@ vector<AnimationSource>  CMiddlePart::m_vAnimSource =
 	{ IDLE,0,3,3, false, 0.08f},
 	{ KICK,0,3,3, false, 0.08f, 1.f},
 	{ DRINK,0,6,6, false, 0.08f, 1.f},
-	{ SLIDE,0,0,0, true, 0.08f}
+	{ SLIDE,0,0,0, true, 0.08f},
+	{ GetStateID(INTRO,SW_END),0,2,2, false, 0.33f, 1.f},
+	{ INTRO,0,2,2, true, 0.25f}
 };
 
 CMiddlePart::CMiddlePart(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CPlayerPart(pGraphicDev)
+	: CPlayerPart(pGraphicDev), m_iLoopTime(3)
 {
 }
 
 CMiddlePart::CMiddlePart(const CMiddlePart& rhs)
-	: CPlayerPart(rhs)
+	: CPlayerPart(rhs), m_iLoopTime(3)
 {
 }
 
@@ -52,6 +56,12 @@ void CMiddlePart::CreateStateData()
 
 	State = new CState<CMiddlePart>(&CMiddlePart::Begin_Slide, &CMiddlePart::Slide, &CMiddlePart::End_Slide);
 	Mgr->AddState(SLIDE, State);
+
+	State = new CState<CMiddlePart>(&CMiddlePart::Begin_Intro, &CMiddlePart::Intro, nullptr);
+	Mgr->AddState(GetStateID(INTRO, SW_END), State);
+
+	State = new CState<CMiddlePart>(&CMiddlePart::Begin_Intro2, &CMiddlePart::Intro2, nullptr);
+	Mgr->AddState(INTRO, State);
 
 }
 
@@ -92,7 +102,7 @@ HRESULT CMiddlePart::Ready_GameObject()
 _int CMiddlePart::Update_GameObject(const _float& fTimeDelta)
 {
 	int iExit = CPlayerPart::Update_GameObject(fTimeDelta);
-
+	m_fTime += fTimeDelta;
 	return iExit;
 }
 
@@ -143,6 +153,7 @@ void CMiddlePart::ChangeState(_uint nextStateID)
 void CMiddlePart::Begin_Idle()
 {
 	m_pTransformCom->m_vScale = { 256.f, 256.f, 1.f };
+	m_pTransformCom->Set_Pos(m_vStartPos);
 }
 
 void CMiddlePart::Idle()
@@ -153,6 +164,7 @@ void CMiddlePart::Idle()
 void CMiddlePart::Begin_Kick()
 {
 	m_pTransformCom->m_vScale = { 256.f, 256.f, 1.f };
+	m_pTransformCom->Set_Pos(m_vStartPos);
 }
 
 void CMiddlePart::Kick()
@@ -210,4 +222,40 @@ void CMiddlePart::Slide()
 void CMiddlePart::End_Slide()
 {
 
+}
+
+void CMiddlePart::Begin_Intro()
+{
+	m_pTransformCom->m_vScale = { 512.f, 512.f, 1.f };
+	m_pTransformCom->Set_Pos({ 0.f, WINCY * -0.5f, 0.f });
+}
+
+void CMiddlePart::Intro()
+{
+	if (m_pAnimationCom->CanEnd())
+	{
+		
+		ChangeState(INTRO);
+		return;
+	}
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+}
+
+void CMiddlePart::Begin_Intro2()
+{
+	m_pTransformCom->m_vScale = { 512.f, 256.f, 1.f };
+	m_pTransformCom->Set_Pos({ 0.f, WINCY * -0.5f + 125.f, 0.f });
+	m_fTime = 0.f;
+}
+
+void CMiddlePart::Intro2()
+{
+	if (m_fTime > 2.f)
+	{
+		ChangeState(IDLE);
+		return;
+	}
+		
+
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 }

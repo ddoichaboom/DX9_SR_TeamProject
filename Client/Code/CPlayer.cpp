@@ -20,6 +20,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_bJump(false), m_fJumpStartY(0.f), m_fJumpDuration(0.6f), m_fJumpHeight(20.f)
 	, m_bDash(false), m_fDashTime(0.f), m_fDashDuration(0.3f), m_fDashDistance(80.f)
 	, m_fKickAttack(1.f), m_pKickCollider(nullptr)
+	, m_bSlide(false)
 {
 
 	m_eOBJ_ID = OBJ_PLAYER;
@@ -34,6 +35,7 @@ CPlayer::CPlayer(const CPlayer& rhs)
 	, m_bJump(false), m_fJumpStartY(0.f), m_fJumpDuration(0.6f), m_fJumpHeight(20.f)
 	, m_bDash(false), m_fDashTime(0.f), m_fDashDuration(0.3f), m_fDashDistance(80.f)
 	, m_fKickAttack(1.f), m_pKickCollider(nullptr)
+	, m_bSlide(false)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
 	m_iID = 0;
@@ -66,6 +68,8 @@ HRESULT CPlayer::Ready_GameObject()
 	m_pKickCollider = m_pCollisionCom->CreateCollider(m_pTransformCom, m_szKickColliderName);
 	m_pKickCollider->Set_Scale(_vec3(11, 11, 11));	
 	m_pKickCollider->OffCollision();
+
+	
 
 	m_eWeaponState = SW_PISTOL;
 
@@ -403,13 +407,18 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 	// 발차기
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_LSHIFT))
 	{
-		m_pMiddlePart->ChangeState(KICK);
-		//m_pMiddlePart->ChangeState(SLIDE);
+		//m_pMiddlePart->ChangeState(KICK);	
+		if (m_bSlide == false)		
+			m_pMiddlePart->ChangeState(SLIDE);								
+		else
+			m_pMiddlePart->ChangeState(IDLE);
+		m_bSlide = !m_bSlide;
 	}
 
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_E))
 	{
-		m_pMiddlePart->ChangeState(DRINK);
+		//m_pMiddlePart->ChangeState(DRINK);
+		m_pMiddlePart->ChangeState(KICK);
 	}
 
 	// 장전
@@ -423,6 +432,11 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 			m_pMiddlePart->ChangeState(IDLE);
 		}
 	}
+}
+
+void CPlayer::Intro()
+{
+	m_pMiddlePart->ChangeState(GetStateID(INTRO,SW_END));
 }
 
 void CPlayer::Fire()
