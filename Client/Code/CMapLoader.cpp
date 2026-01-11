@@ -234,7 +234,11 @@ CGameObject* CMapLoader::Create_GameObject_FromJSON(const json& jObj,
                 pFloor->SetPos(vPos);
                 pFloor->SetAngle(vRot);
                 pFloor->SetScale(vScale);
-                pFloor->Set_FloorType(100);
+
+                // TextureIdx, FloorType은 에디터에서 Json에 담을 예정
+                pFloor->Set_TextureIdx(0);      // 0 ~ 7
+                pFloor->Set_FloorType(STATIC_FLOOR);
+
                 pFloor->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
                 pGameObject = pFloor;
             }
@@ -247,6 +251,11 @@ CGameObject* CMapLoader::Create_GameObject_FromJSON(const json& jObj,
                 pCeiling->SetPos(vPos);
                 pCeiling->SetAngle(vRot);
                 pCeiling->SetScale(vScale);
+
+                // TextureIdx, CeilingType은 에디터에서 Json에 담을 예정
+                pCeiling->Set_TextureIdx(2);    // 0 ~ 7
+                pCeiling->Set_CeilingType(STATIC_CEILING);
+
                 pCeiling->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
                 pGameObject = pCeiling;
             }
@@ -271,6 +280,10 @@ CGameObject* CMapLoader::Create_GameObject_FromJSON(const json& jObj,
                 pWall->SetPos(vPos);
                 pWall->SetAngle(vRot);
                 pWall->SetScale(vScale);
+
+                // TextureIdx, WallType은 에디터에서 Json에 담을 예정
+                pWall->Set_TextureIdx(0);   // 0~2
+                pWall->Set_WallType(STATIC_WALL_1);
                 pWall->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
                 pGameObject = pWall;
             }

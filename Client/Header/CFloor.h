@@ -1,15 +1,7 @@
 #pragma once
-#include "CGameObject.h"
+#include "CTerrain.h"
 
-namespace Engine
-{
-    class CRcTex;
-    class CTransform;
-    class CTexture;
-    class CAnimation;
-}
-
-class CFloor : public CGameObject
+class CFloor : public CTerrain
 {
 private:
     explicit CFloor(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -31,29 +23,10 @@ public:
     virtual _int        Update_GameObject(const _float& fTimeDelta) override;
     virtual void        LateUpdate_GameObject(const _float& fTimeDelta) override;
     virtual void        Render_GameObject() override;
-
-public:
-    virtual void        SetPos(_vec3 _pos) override;
-    void                SetAngle(_vec3 _rot);
-    void                SetScale(_vec3 _scale);
-    TERRAIN_TYPE        Get_TerrainType() const { return m_eTerrainType; }
+    void                Set_FloorType(_uint eFloorType);
 
 private:
     HRESULT             Add_Component();
-    HRESULT             Ready_Material();
-
-private:
-    Engine::CRcTex*     m_pBufferCom;
-    Engine::CTransform* m_pTransformCom;
-    Engine::CTexture*   m_pTextureCom;
-    Engine::CAnimation* m_pAnimationCom;
-    Engine::TERRAIN_TYPE m_eTerrainType; 
-
-    _bool               m_bIsAnimated;
-
-public:
-    void                Set_FloorType(_uint floorType);
-
 public:
     // 기본 생성 
     static CFloor* Create(LPDIRECT3DDEVICE9 pGraphicDev);

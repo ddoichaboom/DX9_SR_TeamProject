@@ -2,144 +2,88 @@
 #include "CTerrain.h"
 #include "CProtoMgr.h"
 #include "CRenderer.h"
+#include "Engine_Enum.h"
+
 
 CTerrain::CTerrain(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CGameObject(pGraphicDev)
+    : CGameObject(pGraphicDev)
+    , m_pBufferCom(nullptr)
+    , m_pTransformCom(nullptr)
+    , m_pTextureCom(nullptr)
+    , m_pAnimationCom(nullptr)
+    , m_eTerrainType(TERRAIN_END)
+    , m_bIsAnimated(false)
+    , m_iTextureIdx(0)
 {
+    m_eOBJ_ID = OBJ_TERRAIN;
+    m_iID = Make_ID();
 }
 
-CTerrain::CTerrain(const CGameObject& rhs)
-	: CGameObject(rhs)
+CTerrain::CTerrain(const CTerrain& rhs)
+    : CGameObject(rhs)
+    , m_pBufferCom(nullptr)
+    , m_pTransformCom(nullptr)
+    , m_pTextureCom(nullptr)
+    , m_pAnimationCom(nullptr)
+    , m_eTerrainType(rhs.m_eTerrainType)
+    , m_bIsAnimated(false)
+    , m_iTextureIdx(0)
 {
+    m_eOBJ_ID = rhs.m_eOBJ_ID;
+    m_iID = Make_ID();
 }
 
 CTerrain::~CTerrain()
 {
 }
 
-HRESULT CTerrain::Ready_GameObject()
+void CTerrain::SetPos(_vec3 _pos)
 {
-	if (FAILED(Add_Component()))
-		return E_FAIL;
+    if (nullptr == m_pTransformCom)
+        return;
 
-	
-	m_pTransformCom->Set_Pos(-25.f, -12.5f, -15.f);
-
-	return S_OK;
+    m_pTransformCom->Set_Pos(_pos);
 }
 
-_int CTerrain::Update_GameObject(const _float& fTimeDelta)
+void CTerrain::SetAngle(_vec3 _rot)
 {
-	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
+    if (nullptr == m_pTransformCom)
+        return;
 
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_PRIORITY, this);
-
-	return iExit;
+    m_pTransformCom->Set_Angle(_rot);
 }
 
-void CTerrain::LateUpdate_GameObject(const _float& fTimeDelta)
+void CTerrain::SetScale(_vec3 _scale)
 {
-	CGameObject::LateUpdate_GameObject(fTimeDelta);
+    if (nullptr == m_pTransformCom)
+        return;
+
+    m_pTransformCom->Set_Scale(_scale);
 }
 
-void CTerrain::Render_GameObject()
+HRESULT CTerrain::Ready_Material(const D3DXCOLOR& diffuse)
 {
-	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
+    D3DMATERIAL9 tMtrl;
+    ZeroMemory(&tMtrl, sizeof(D3DMATERIAL9));
 
-	m_pGraphicDev->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);
-	m_pGraphicDev->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);
-	_matrix mat;
-	D3DXMatrixIdentity(&mat);
-	m_pGraphicDev->SetTransform(D3DTS_TEXTURE0, &mat);
-	//m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+    tMtrl.Diffuse = diffuse;
 
-	if (FAILED(Ready_Material()))
-		return;
+    tMtrl.Specular = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
 
+    tMtrl.Ambient = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
 
-	m_pTextureCom->Set_Texture(0);
+    // 아직 조명 X 
+    //tMtrl.Emissive = D3DXCOLOR(0.f, 0.f, 0.f, 1.f);
 
-	m_pBufferCom->Render_Buffer();
+    tMtrl.Emissive = diffuse;
+    tMtrl.Power = 0.f;
 
-	m_pGraphicDev->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_CLAMP);
-	m_pGraphicDev->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP);
+    m_pGraphicDev->SetMaterial(&tMtrl);
 
-	m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
-
-}
-
-HRESULT CTerrain::Add_Component()
-{
-	Engine::CComponent* pComponent = nullptr;
-
-	// TerrainTex
-	pComponent = m_pBufferCom = dynamic_cast<Engine::CTerrainTex*>
-		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_TerrainTex"));
-
-	if (nullptr == pComponent)
-		return E_FAIL;
-
-	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
-
-	// Transform
-	pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>
-		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
-
-	if (nullptr == pComponent)
-		return E_FAIL;
-
-	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
-
-	// Texture
-	pComponent = m_pTextureCom = dynamic_cast<Engine::CTerrainTexture*>
-		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_TerrainTexture"));
-
-	if (nullptr == pComponent)
-		return E_FAIL;
-
-	m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
-
-
-	return S_OK;
-}
-
-HRESULT CTerrain::Ready_Material()
-{
-	D3DMATERIAL9			tMtrl;
-	ZeroMemory(&tMtrl, sizeof(D3DMATERIAL9));
-
-	tMtrl.Diffuse = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
-	tMtrl.Specular = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
-	tMtrl.Ambient = D3DXCOLOR(0.2f, 0.2f, 0.2f, 1.f);
-
-	tMtrl.Emissive = D3DXCOLOR(0.f, 0.f, 0.f, 0.f);
-	tMtrl.Power = 0.f;
-
-	m_pGraphicDev->SetMaterial(&tMtrl);
-
-	return S_OK;
-}
-
-
-CTerrain* CTerrain::Create(LPDIRECT3DDEVICE9 pGraphicDev)
-{
-	CTerrain* pTerrain = new CTerrain(pGraphicDev);
-
-	if (FAILED(pTerrain->Ready_GameObject()))
-	{
-		Safe_Release(pTerrain);
-		MSG_BOX("pTerrain Create Failed");
-		return nullptr;
-	}
-
-	return pTerrain;
+    return S_OK;
 }
 
 void CTerrain::Free()
 {
-	Safe_Release(m_pBufferCom);
-
-	CGameObject::Free();
+    CGameObject::Free();
 }
