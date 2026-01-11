@@ -212,9 +212,39 @@ HRESULT CMapStage::Ready_MonsterProto()
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BulletTexture", pCom_Texture)))
         return E_FAIL;
 
-    //Floor Texture TEst
-    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CFloor::GetTextureSource());
+
+    return S_OK;
+}
+
+HRESULT CMapStage::Ready_TerrainProto()
+{
+    CTexture* pCom_Texture = nullptr;
+
+    // Floor Proto 
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CFloor::GetTextureSources());
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FloorTexture", pCom_Texture)))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FloorAnimation", 
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CFloor::GetAnimSources()))))
+        return E_FAIL;
+
+    // Ceiling Proto
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CCeiling::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_CeilingTexture", pCom_Texture)))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_CeilingAnimation",
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CCeiling::GetAnimSources()))))
+        return E_FAIL;
+
+    // Wall Proto
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CWall::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WallTexture", pCom_Texture)))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WallAnimation",
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CWall::GetAnimSources()))))
         return E_FAIL;
 
     return S_OK;
@@ -380,6 +410,9 @@ HRESULT CMapStage::Ready_Prototype()
         return E_FAIL;
 
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_StateComponent", Engine::CStateComponent::Create(m_pGraphicDev))))
+        return E_FAIL;
+
+    if (FAILED(Ready_TerrainProto()))
         return E_FAIL;
 
     // 기존 몬스터 관련된 것들 패킹

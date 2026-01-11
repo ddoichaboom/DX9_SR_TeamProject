@@ -4,7 +4,6 @@
 #include "CRenderer.h"
 #include "CDInputMgr.h"
 #include "CPoolMgr.h"
-#include "CTestStage.h"
 #include "CMapStage.h"
 #include "CMapLoader.h"
 
@@ -14,7 +13,6 @@
 #include "CWhiteMan.h"
 #include "CBeamMon.h"
 #include "CFlyMon.h"
-#include "CTerrain.h"
 #include "CPlayer.h"
 #include "CFloor.h"
 #include "CCeiling.h"

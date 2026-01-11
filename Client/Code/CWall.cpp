@@ -2,27 +2,38 @@
 #include "CWall.h"
 #include "CProtoMgr.h"
 #include "CRenderer.h"
+#include "Engine_Enum.h"
+
+vector<TextureSource> CWall::m_vTextureSource =
+{
+    {STATIC_WALL_1, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_1.dds", true, 0, 2, 2, {0.f, 0.f}},
+    {STATIC_WALL_2, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_2.dds", true, 0, 2, 2, {0.f, 0.f}},
+    {STATIC_WALL_3, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_3.dds", true, 0, 2, 2, {0.f, 0.f}},
+    {STATIC_WALL_4, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_4.dds", true, 0, 2, 2, {0.f, 0.f}},
+    {STATIC_WALL_5, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_5.dds", true, 0, 2, 2, {0.f, 0.f}},
+    {STATIC_WALL_6, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_6.dds", true, 0, 2, 2, {0.f, 0.f}},
+    {STATIC_WALL_7, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_7.dds", true, 0, 2, 2, {0.f, 0.f}},
+    {STATIC_WALL_8, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_8.dds", true, 0, 2, 2, {0.f, 0.f}},
+    {STATIC_WALL_9, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_9.dds", true, 0, 2, 2, {0.f, 0.f}},
+    {STATIC_WALL_10, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_10.dds", true, 0, 2, 2, {0.f, 0.f}}
+
+};
+
+vector<AnimationSource> CWall::m_vAnimSource =
+{
+ 
+};
 
 CWall::CWall(LPDIRECT3DDEVICE9 pGraphicDev)
-    : CGameObject(pGraphicDev)
-    , m_pBufferCom(nullptr)
-    , m_pTransformCom(nullptr)
-    , m_pTextureCom(nullptr)
-    , m_eTerrainType(TERRAIN_WALL)
+    : CTerrain(pGraphicDev)
 {
-    m_eOBJ_ID = OBJ_TERRAIN;
-    m_iID = Make_ID();
+    m_eTerrainType = TERRAIN_WALL;
 }
 
 CWall::CWall(const CWall& rhs)
-    : CGameObject(rhs)
-    , m_pBufferCom(nullptr)
-    , m_pTransformCom(nullptr)
-    , m_pTextureCom(nullptr)
-    , m_eTerrainType(rhs.m_eTerrainType)
+    : CTerrain(rhs)
 {
-    m_eOBJ_ID = rhs.m_eOBJ_ID;
-    m_iID = Make_ID();              // 복사생성자는 어떻게?
+    m_eTerrainType = TERRAIN_WALL;
 }
 
 CWall::~CWall()
@@ -53,49 +64,22 @@ void CWall::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CWall::Render_GameObject()
 {
-   //m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 
-    if (FAILED(Ready_Material()))
+    if (FAILED(Ready_Material(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.f))))
         return;
 
-    // 텍스처가 있으면 렌더링 
-    //if (m_pTextureCom)
-    //    m_pTextureCom->Set_Texture(0);
+    if (m_bIsAnimated && m_pAnimationCom)
+        m_pAnimationCom->Render_Animation();
+    else
+        m_pTextureCom->Render_Texture();
 
     m_pBufferCom->Render_Buffer();
 
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
-    //m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-}
 
-void CWall::SetPos(_vec3 _pos)
-{
-    if (m_pTransformCom)
-    {
-        m_pTransformCom->Set_Pos(_pos);
-        //m_pTransformCom->Update_Component(0.f);
-    }
-}
-
-void CWall::SetAngle(_vec3 _rot)
-{
-    if (m_pTransformCom)
-    {
-        m_pTransformCom->Set_Angle(_rot);
-        //m_pTransformCom->Update_Component(0.f);
-    }
-}
-
-void CWall::SetScale(_vec3 _scale)
-{
-    if (m_pTransformCom)
-    {
-        m_pTransformCom->Set_Scale(_scale);
-        //m_pTransformCom->Update_Component(0.f);
-    }
+    m_pGraphicDev->SetTexture(0, nullptr);
 }
 
 HRESULT CWall::Add_Component()
@@ -120,51 +104,47 @@ HRESULT CWall::Add_Component()
 
     m_mapComponent[ID_STATIC].insert({ L"Com_Transform", pComponent });
 
-    // Texture (선택사항 - Phase 7에서 추가)
-    // pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>
-    //     (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_WallTexture"));
-    // m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
+    // Texture
+    pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>
+        (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_WallTexture"));
+
+    if (nullptr == pComponent)
+        return E_FAIL;
+
+    m_mapComponent[ID_DYNAMIC].insert({ L"Com_Texture", pComponent });
+
+    // Animation
+    pComponent = m_pAnimationCom = dynamic_cast<Engine::CAnimation*>
+        (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_WallAnimation"));
+
+    if (nullptr == pComponent)
+        return E_FAIL;
+
+    m_mapComponent[ID_DYNAMIC].insert({ L"Com_Animation", pComponent });
+
 
     return S_OK;
 }
 
-HRESULT CWall::Ready_Material()
+void CWall::Set_WallType(_uint eWallType)
 {
-    D3DMATERIAL9 tMtrl;
-    ZeroMemory(&tMtrl, sizeof(D3DMATERIAL9));
-
-    //// Diffuse: 확산광 (기본 색상) 
-    //tMtrl.Diffuse = D3DXCOLOR(0.8f, 0.8f, 0.9f, 1.f);
-
-    //// Specular: 반사광 (광택)
-    //tMtrl.Specular = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
-
-    //// Ambient: 환경광 (어두운 부분 색상)
-    //tMtrl.Ambient = D3DXCOLOR(0.2f, 0.2f, 0.2f, 1.f);
-
-    //// Emissive: 발광 (자체 발광 없음)
-    //tMtrl.Emissive = D3DXCOLOR(0.f, 0.f, 0.f, 0.f);
-
-        // Diffuse: 확산광 (기본 색상) 
-    tMtrl.Diffuse = D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.f);
-
-    // Specular: 반사광 (광택)
-    tMtrl.Specular = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
-
-    // Ambient: 환경광 (어두운 부분 색상)
-    tMtrl.Ambient = D3DXCOLOR(0.2f, 0.2f, 0.2f, 1.f);
-    
-    // Emissive: 발광 (자체 발광 없음)
-    tMtrl.Emissive = D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.f);
-
-    // Power: 반사광 강도 (0 = 무광택)
-    tMtrl.Power = 0.f;
-
-    // DirectX 디바이스에 Material 설정
-    m_pGraphicDev->SetMaterial(&tMtrl);
-
-    return S_OK;
+    if (eWallType >= (int)DW_START)
+    {
+        m_bIsAnimated = true;
+        if (m_pAnimationCom)
+            m_pAnimationCom->Change_Animation(eWallType);
+    }
+    else
+    {
+        m_bIsAnimated = false;
+        if (m_pTextureCom)
+        {
+            m_pTextureCom->Change_Texture(eWallType);
+            m_pTextureCom->Set_Frame(_vec2(m_iTextureIdx, 0));
+        }
+    }
 }
+
 
 CWall* CWall::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
@@ -223,9 +203,5 @@ CWall* CWall::Create(LPDIRECT3DDEVICE9 pGraphicDev,
 
 void CWall::Free()
 {
-    //Safe_Release(m_pBufferCom);
-    //Safe_Release(m_pTransformCom);
-    //Safe_Release(m_pTextureCom);
-
-    CGameObject::Free();
+    CTerrain::Free();
 }

@@ -25,6 +25,7 @@ protected:
     HRESULT     Ready_ObjectPool();
     HRESULT     Ready_PlayerProto();
     HRESULT     Ready_MonsterProto();
+    HRESULT     Ready_TerrainProto();
 
 protected:
     CLayer* m_pEnvironment_Layer;

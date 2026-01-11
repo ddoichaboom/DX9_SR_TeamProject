@@ -2,27 +2,27 @@
 #include "CCeiling.h"
 #include "CProtoMgr.h"
 #include "CRenderer.h"
+#include "Engine_Enum.h"
+
+vector<TextureSource> CCeiling::m_vTextureSource =
+{
+    { STATIC_CEILING, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOORS.dds", true, 0, 7, 7, {2.f, 2.f} },
+};
+
+vector<AnimationSource> CCeiling::m_vAnimSource =
+{
+};
 
 CCeiling::CCeiling(LPDIRECT3DDEVICE9 pGraphicDev)
-    : CGameObject(pGraphicDev)
-    , m_pBufferCom(nullptr)
-    , m_pTransformCom(nullptr)
-    , m_pTextureCom(nullptr)
-    , m_eTerrainType(TERRAIN_CEILING)
+    : CTerrain(pGraphicDev)
 {
-    m_eOBJ_ID = OBJ_TERRAIN;
-    m_iID = Make_ID();
+    m_eTerrainType = TERRAIN_CEILING;
 }
 
 CCeiling::CCeiling(const CCeiling& rhs)
-    : CGameObject(rhs)
-    , m_pBufferCom(nullptr)
-    , m_pTransformCom(nullptr)
-    , m_pTextureCom(nullptr)
-    , m_eTerrainType(rhs.m_eTerrainType)
+    : CTerrain(rhs)
 {
-    m_eOBJ_ID = rhs.m_eOBJ_ID;
-    m_iID = Make_ID();              // 복사생성자는 어떻게?}
+    m_eTerrainType = TERRAIN_CEILING;
 }
 
 CCeiling::~CCeiling()
@@ -56,43 +56,19 @@ void CCeiling::Render_GameObject()
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 
-    if (FAILED(Ready_Material()))
+    if (FAILED(Ready_Material(D3DXCOLOR(0.3f, 0.5f, 0.7f, 1.f))))
         return;
 
-    // 텍스처가 있으면 렌더링 
-    //if (m_pTextureCom)
-    //    m_pTextureCom->Set_Texture(0);
+    if (m_bIsAnimated && m_pAnimationCom)
+        m_pAnimationCom->Render_Animation();
+    else
+        m_pTextureCom->Render_Texture();
 
     m_pBufferCom->Render_Buffer();
 
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
-}
 
-void CCeiling::SetPos(_vec3 _pos)
-{
-    if (m_pTransformCom)
-    {
-        m_pTransformCom->Set_Pos(_pos);
-        //m_pTransformCom->Update_Component(0.f);
-    }
-}
-
-void CCeiling::SetAngle(_vec3 _rot)
-{
-    if (m_pTransformCom)
-    {
-        m_pTransformCom->Set_Angle(_rot);
-        //m_pTransformCom->Update_Component(0.f);
-    }
-}
-
-void CCeiling::SetScale(_vec3 _scale)
-{
-    if (m_pTransformCom)
-    {
-        m_pTransformCom->Set_Scale(_scale);
-        //m_pTransformCom->Update_Component(0.f);
-    }
+    m_pGraphicDev->SetTexture(0, nullptr);
 }
 
 HRESULT CCeiling::Add_Component()
@@ -117,32 +93,44 @@ HRESULT CCeiling::Add_Component()
 
     m_mapComponent[ID_STATIC].insert({ L"Com_Transform", pComponent });
 
-    // Texture (선택사항 - Phase 7에서 추가)
-    // pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>
-    //     (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_CeilingTexture"));
-    // m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
+    // Texture
+    pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>
+        (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_CeilingTexture"));
+
+    if (nullptr == pComponent)
+        return E_FAIL;
+
+    m_mapComponent[ID_DYNAMIC].insert({ L"Com_Texture", pComponent });
+
+    // Animation
+    pComponent = m_pAnimationCom = dynamic_cast<Engine::CAnimation*>
+        (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_CeilingAnimation"));
+
+    if (nullptr == pComponent)
+        return E_FAIL;
+
+    m_mapComponent[ID_DYNAMIC].insert({ L"Com_Animation", pComponent });
 
     return S_OK;
 }
 
-HRESULT CCeiling::Ready_Material()
+void CCeiling::Set_CeilingType(_uint eCeilingType)
 {
-    D3DMATERIAL9 tMtrl;
-    ZeroMemory(&tMtrl, sizeof(D3DMATERIAL9));
-
-    //tMtrl.Diffuse = D3DXCOLOR(0.9f, 0.9f, 1.f, 1.f);
-    //tMtrl.Specular = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
-    //tMtrl.Ambient = D3DXCOLOR(0.2f, 0.2f, 0.2f, 1.f);
-    //tMtrl.Emissive = D3DXCOLOR(0.f, 0.f, 0.f, 0.f);
-    tMtrl.Diffuse = D3DXCOLOR(0.3f, 0.5f, 0.7f, 1.f);
-    tMtrl.Specular = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
-    tMtrl.Ambient = D3DXCOLOR(0.1f, 0.2f, 0.3f, 1.f);
-    tMtrl.Emissive = D3DXCOLOR(0.3f, 0.5f, 0.7f, 1.f);
-    tMtrl.Power = 0.f;
-
-    m_pGraphicDev->SetMaterial(&tMtrl);
-
-    return S_OK;
+    if (eCeilingType >= (int)DC_START)
+    {
+        m_bIsAnimated = true;
+        if (m_pAnimationCom)
+            m_pAnimationCom->Change_Animation(eCeilingType);
+    }
+    else
+    {
+        m_bIsAnimated = false;
+        if (m_pTextureCom)
+        {
+            m_pTextureCom->Change_Texture(eCeilingType);
+            m_pTextureCom->Set_Frame(_vec2(m_iTextureIdx, 0));
+        }
+    }
 }
 
 CCeiling* CCeiling::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -205,9 +193,5 @@ CCeiling* CCeiling::Create(LPDIRECT3DDEVICE9 pGraphicDev,
 
 void CCeiling::Free()
 {
-    //Safe_Release(m_pBufferCom);
-    //Safe_Release(m_pTransformCom);
-    //Safe_Release(m_pTextureCom);
-
-    CGameObject::Free();
+    CTerrain::Free();
 }
