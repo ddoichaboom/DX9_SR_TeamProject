@@ -403,8 +403,8 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 	// ¹ßÂ÷±â
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_LSHIFT))
 	{
-		//m_pMiddlePart->ChangeState(KICK);
-		m_pMiddlePart->ChangeState(SLIDE);
+		m_pMiddlePart->ChangeState(KICK);
+		//m_pMiddlePart->ChangeState(SLIDE);
 	}
 
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_E))
@@ -444,7 +444,7 @@ void CPlayer::Kick()
 
 void CPlayer::Slide()
 {
-	CheckPickedMonster();
+	CheckKickedMonster();
 }
 
 
