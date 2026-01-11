@@ -76,11 +76,12 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
 	int iExit = CCharacter::Update_GameObject(fTimeDelta);
 
-	return _int();
+	return iExit;
 }
 
 void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
+	
 	Key_Input(fTimeDelta);
 
 	if (m_bFall)
@@ -93,10 +94,7 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 	}
 
 	Set_OnFloor(fTimeDelta);
-	
-	
 		
-
 	CCharacter::LateUpdate_GameObject(fTimeDelta);
 }
 
@@ -405,7 +403,8 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 	// ¹ßÂ÷±â
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_LSHIFT))
 	{
-		m_pMiddlePart->ChangeState(KICK);
+		//m_pMiddlePart->ChangeState(KICK);
+		m_pMiddlePart->ChangeState(SLIDE);
 	}
 
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_E))
@@ -441,6 +440,11 @@ void CPlayer::Kick()
 {	
 	m_pKickCollider->OnCollision();
 	CheckKickedMonster();
+}
+
+void CPlayer::Slide()
+{
+	CheckPickedMonster();
 }
 
 

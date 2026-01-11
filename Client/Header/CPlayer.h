@@ -97,6 +97,7 @@ public:
 	void				Fire();
 	void				Reload();
 	void				Kick();
+	void				Slide();
 
 private:
 	CLeftPart* m_pLeftPart;

@@ -10,14 +10,16 @@ vector<TextureSource> CMiddlePart::m_vTextureSource =
 {
 	{ IDLE, L"../Bin/Resource/Texture/Player/Middle_Kick.png"},
 	{ KICK, L"../Bin/Resource/Texture/Player/Middle_Kick.png"},
-	{ DRINK,  L"../Bin/Resource/Texture/Player/Middle_Soda.png" }
+	{ DRINK,  L"../Bin/Resource/Texture/Player/Middle_Soda.png" },
+	{ SLIDE,  L"../Bin/Resource/Texture/Player/Middle_Slide.png" }
 };
 
 vector<AnimationSource>  CMiddlePart::m_vAnimSource =
 {
 	{ IDLE,0,3,3, false, 0.08f},
 	{ KICK,0,3,3, false, 0.08f, 1.f},
-	{ DRINK,0,6,6, false, 0.08f, 1.f}
+	{ DRINK,0,6,6, false, 0.08f, 1.f},
+	{ SLIDE,0,0,0, true, 0.08f}
 };
 
 CMiddlePart::CMiddlePart(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -48,6 +50,8 @@ void CMiddlePart::CreateStateData()
 	State = new CState<CMiddlePart>(&CMiddlePart::Begin_Idle, &CMiddlePart::Idle, nullptr);
 	Mgr->AddState(IDLE, State);
 
+	State = new CState<CMiddlePart>(&CMiddlePart::Begin_Slide, &CMiddlePart::Slide, &CMiddlePart::End_Slide);
+	Mgr->AddState(SLIDE, State);
 
 }
 
@@ -193,11 +197,13 @@ void CMiddlePart::End_Drink()
 
 void CMiddlePart::Begin_Slide()
 {
-
+	m_pTransformCom->m_vScale = { 512.f, 256.f, 1.f };
+	m_pTransformCom->Set_Pos({ 0.f, WINCY * -0.5f + 225.f, 0.f });
 }
 
 void CMiddlePart::Slide()
 {
+	m_pPlayer->Slide();
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 }
 
