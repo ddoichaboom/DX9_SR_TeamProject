@@ -41,6 +41,7 @@ protected:
 	Engine::TERRAIN_TYPE		m_eTerrainType;
 
 	_bool						m_bIsAnimated;
+	_bool						m_bIsBlocked;
 	_int						m_iTextureIdx;
 
 protected:
