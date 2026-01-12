@@ -20,12 +20,14 @@ vector<AnimationSource> CFloor::m_vAnimSource =
 CFloor::CFloor(LPDIRECT3DDEVICE9 pGraphicDev)
     : CTerrain(pGraphicDev)
 {
+    m_eOBJ_ID = OBJ_FLOOR;
     m_eTerrainType = TERRAIN_FLOOR;
 }
 
 CFloor::CFloor(const CFloor& rhs)
     : CTerrain(rhs)
 {
+    m_eOBJ_ID = OBJ_FLOOR;
     m_eTerrainType = TERRAIN_FLOOR;
 }
 

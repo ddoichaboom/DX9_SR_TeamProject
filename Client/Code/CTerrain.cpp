@@ -16,7 +16,6 @@ CTerrain::CTerrain(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_iTextureIdx(0)
     , m_bIsBlocked(true)
 {
-    m_eOBJ_ID = OBJ_TERRAIN;
     m_iID = Make_ID();
 }
 
@@ -31,7 +30,6 @@ CTerrain::CTerrain(const CTerrain& rhs)
     , m_iTextureIdx(0)
     , m_bIsBlocked(true)
 {
-    m_eOBJ_ID = rhs.m_eOBJ_ID;
     m_iID = Make_ID();
 }
 

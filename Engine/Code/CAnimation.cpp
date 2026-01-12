@@ -119,7 +119,6 @@ HRESULT CAnimation::Ready_Animation(CTexture* _pTextureComp, AnimationSource _An
 	return S_OK;
 }
 
-
 //순서 주의 x = x 축 y = y축  
 _int CAnimation::Update_Component(const _float& fTimeDelta)
 {

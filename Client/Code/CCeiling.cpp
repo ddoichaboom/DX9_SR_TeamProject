@@ -16,12 +16,14 @@ vector<AnimationSource> CCeiling::m_vAnimSource =
 CCeiling::CCeiling(LPDIRECT3DDEVICE9 pGraphicDev)
     : CTerrain(pGraphicDev)
 {
+    m_eOBJ_ID = OBJ_CEILING;
     m_eTerrainType = TERRAIN_CEILING;
 }
 
 CCeiling::CCeiling(const CCeiling& rhs)
     : CTerrain(rhs)
 {
+    m_eOBJ_ID = OBJ_CEILING;
     m_eTerrainType = TERRAIN_CEILING;
 }
 
