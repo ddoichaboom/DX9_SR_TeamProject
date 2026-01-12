@@ -80,7 +80,8 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 
 void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-	
+	CCharacter::LateUpdate_GameObject(fTimeDelta);
+
 	Key_Input(fTimeDelta);
 
 	if (m_bFall)
@@ -97,7 +98,7 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 	Set_OnFloor(fTimeDelta);
 
 
-	CCharacter::LateUpdate_GameObject(fTimeDelta);
+	
 }
 
 void CPlayer::Render_GameObject()
@@ -328,7 +329,8 @@ void CPlayer::CheckEnterCollider()
 
 		for (auto& pairCollider : mapCollider)
 		{
-			vColPos = pairCollider.second->Get_RelativePos();				
+			vColPos = pairCollider.second->Get_ParentPos();				
+			//vColPos = pairCollider.second->Get_RelativePos();				
 			vDir = vColPos - vPos;
 			bool bPicked = CCollision::CheckCollision_Diff(m_pMainCollider, pairCollider.second, &vDiff);
 			if (bPicked)
@@ -342,7 +344,23 @@ void CPlayer::CheckEnterCollider()
 				else if (vDiff.y < vDiff.x && vDiff.y < vDiff.z)
 				{
 					float dir = (vDir.y > 0.f) ? -1.f : 1.f;
-					vPos.y += vDiff.y * dir;					
+					vPos.y += vDiff.y * dir;			
+
+					if (dir < 0.f)
+					{
+						m_bJump = false;
+						m_bDash = false;
+						m_bFall = true;
+						m_fVelocity = 0.f;
+					}
+					else
+					{
+						m_bJump = false;						
+						m_bFall = false;
+						m_fVelocity = 0.f;
+						iCallCount++;
+					}
+
 				}
 				else
 				{
@@ -357,7 +375,7 @@ void CPlayer::CheckEnterCollider()
 		}
 	}
 	
-	//m_bOnCollision = iCallCount > 0;
+	m_bOnCollision = iCallCount > 0;
 }
 
 void CPlayer::Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _vec3& vLook)
@@ -573,9 +591,8 @@ void CPlayer::Set_OnFloor(const _float& fTimeDelta)
 			return;
 		}
 		else if (m_bFall)
-		{
-			vPosition.y += m_fVelocity * fTimeDelta;
-			//fBottom = vPosition.y - m_pTransformCom->Get_Scale().y;
+		{			
+			vPosition.y += m_fVelocity * fTimeDelta;			
 			fBottom = vPosition.y - 15.f;
 
 			if (fBottom <= fHeight)
