@@ -27,12 +27,14 @@ vector<AnimationSource> CWall::m_vAnimSource =
 CWall::CWall(LPDIRECT3DDEVICE9 pGraphicDev)
     : CTerrain(pGraphicDev)
 {
+    m_eOBJ_ID = OBJ_WALL;
     m_eTerrainType = TERRAIN_WALL;
 }
 
 CWall::CWall(const CWall& rhs)
     : CTerrain(rhs)
 {
+    m_eOBJ_ID = OBJ_WALL;
     m_eTerrainType = TERRAIN_WALL;
 }
 
