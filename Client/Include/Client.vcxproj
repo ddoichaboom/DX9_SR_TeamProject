@@ -147,6 +147,9 @@
     <ClInclude Include="..\Header\CCeiling.h" />
     <ClInclude Include="..\Header\CBullet.h" />
     <ClInclude Include="..\Header\CCharacter.h" />
+    <ClInclude Include="..\Header\CDynamicCeiling.h" />
+    <ClInclude Include="..\Header\CDynamicFloor.h" />
+    <ClInclude Include="..\Header\CDynamicWall.h" />
     <ClInclude Include="..\Header\CFirstCamera.h" />
     <ClInclude Include="..\Header\CFloor.h" />
     <ClInclude Include="..\Header\CFlyMon.h" />
@@ -181,6 +184,9 @@
     <ClCompile Include="..\Code\CCeiling.cpp" />
     <ClCompile Include="..\Code\CBullet.cpp" />
     <ClCompile Include="..\Code\CCharacter.cpp" />
+    <ClCompile Include="..\Code\CDynamicCeiling.cpp" />
+    <ClCompile Include="..\Code\CDynamicFloor.cpp" />
+    <ClCompile Include="..\Code\CDynamicWall.cpp" />
     <ClCompile Include="..\Code\CFirstCamera.cpp" />
     <ClCompile Include="..\Code\CFloor.cpp" />
     <ClCompile Include="..\Code\CFlyMon.cpp" />

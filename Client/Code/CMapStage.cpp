@@ -6,8 +6,11 @@
 
 // 환경 오브젝트 (필터링용, 실제 생성은 CMapLoader가 담당)
 #include "CFloor.h"
+#include "CDynamicFloor.h"
 #include "CCeiling.h"
+#include "CDynamicCeiling.h"
 #include "CWall.h"
+#include "CDynamicWall.h"
 #include "CObstacle.h"
 
 // 게임 로직 오브젝트
@@ -73,6 +76,15 @@ HRESULT CMapStage::Ready_ObjectPool()
         if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CFloor>(m_pGraphicDev)))
         {
             MSG_BOX("Floor Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CDynamicFloor>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CDynamicFloor>(m_pGraphicDev)))
+        {
+            MSG_BOX("DynamicFloor Pool Create Failed");
             return E_FAIL;
         }
     }
@@ -222,29 +234,41 @@ HRESULT CMapStage::Ready_TerrainProto()
 
     // Floor Proto 
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CFloor::GetTextureSources());
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FloorTexture", pCom_Texture)))
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Static_FloorTexture", pCom_Texture)))
+        return E_FAIL;
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CDynamicFloor::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Dynamic_FloorTexture", pCom_Texture)))
         return E_FAIL;
 
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FloorAnimation", 
-        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CFloor::GetAnimSources()))))
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CDynamicFloor::GetAnimSources()))))
         return E_FAIL;
 
-    // Ceiling Proto
+    // Ceiling Proto 
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CCeiling::GetTextureSources());
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_CeilingTexture", pCom_Texture)))
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Static_CeilingTexture", pCom_Texture)))
+        return E_FAIL;
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CDynamicCeiling::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Dynamic_CeilingTexture", pCom_Texture)))
         return E_FAIL;
 
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_CeilingAnimation",
-        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CCeiling::GetAnimSources()))))
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CDynamicCeiling::GetAnimSources()))))
         return E_FAIL;
 
-    // Wall Proto
+    // Wall Proto 
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CWall::GetTextureSources());
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WallTexture", pCom_Texture)))
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Static_WallTexture", pCom_Texture)))
+        return E_FAIL;
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CDynamicWall::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Dynamic_WallTexture", pCom_Texture)))
         return E_FAIL;
 
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WallAnimation",
-        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CWall::GetAnimSources()))))
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CDynamicWall::GetAnimSources()))))
         return E_FAIL;
 
     return S_OK;

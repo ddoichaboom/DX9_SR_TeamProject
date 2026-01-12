@@ -10,14 +10,10 @@ CTerrain::CTerrain(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_pBufferCom(nullptr)
     , m_pTransformCom(nullptr)
     , m_pTextureCom(nullptr)
-    , m_pAnimationCom(nullptr)
-    , m_eTerrainType(TERRAIN_END)
     , m_bIsAnimated(false)
     , m_iTextureIdx(0)
     , m_bIsBlocked(true)
 {
-    m_eOBJ_ID = OBJ_TERRAIN;
-    m_iID = Make_ID();
 }
 
 CTerrain::CTerrain(const CTerrain& rhs)
@@ -25,14 +21,10 @@ CTerrain::CTerrain(const CTerrain& rhs)
     , m_pBufferCom(nullptr)
     , m_pTransformCom(nullptr)
     , m_pTextureCom(nullptr)
-    , m_pAnimationCom(nullptr)
-    , m_eTerrainType(rhs.m_eTerrainType)
     , m_bIsAnimated(false)
     , m_iTextureIdx(0)
     , m_bIsBlocked(true)
 {
-    m_eOBJ_ID = rhs.m_eOBJ_ID;
-    m_iID = Make_ID();
 }
 
 CTerrain::~CTerrain()
@@ -81,6 +73,31 @@ HRESULT CTerrain::Ready_Material(const D3DXCOLOR& diffuse)
     tMtrl.Power = 0.f;
 
     m_pGraphicDev->SetMaterial(&tMtrl);
+
+    return S_OK;
+}
+
+HRESULT CTerrain::Add_Component()
+{
+    Engine::CComponent* pComponent = nullptr;
+
+    // RcTex
+    pComponent = m_pBufferCom = dynamic_cast<Engine::CRcTex*>
+        (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_RcTex"));
+
+    if (nullptr == pComponent)
+        return E_FAIL;
+
+    m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
+
+    // Transform
+    pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>
+        (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
+
+    if (nullptr == pComponent)
+        return E_FAIL;
+
+    m_mapComponent[ID_STATIC].insert({ L"Com_Transform", pComponent });
 
     return S_OK;
 }

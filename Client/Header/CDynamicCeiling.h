@@ -1,17 +1,26 @@
 #pragma once
-#include "CTerrain.h"
+#include "CCeiling.h"
 
-class CFloor : public CTerrain
+namespace Engine
+{
+    class CAnimation;
+}
+
+class CDynamicCeiling : public CCeiling
 {
 protected:
-    explicit CFloor(LPDIRECT3DDEVICE9 pGraphicDev);
-    explicit CFloor(const CFloor& rhs);
-    virtual ~CFloor();
+	explicit CDynamicCeiling(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CDynamicCeiling(const CDynamicCeiling& rhs);
+	virtual ~CDynamicCeiling();
 
 public:
     static vector<TextureSource>& GetTextureSources()
     {
         return m_vTextureSource;
+    }
+    static vector<AnimationSource>& GetAnimSources()
+    {
+        return m_vAnimSource;
     }
 
 public:
@@ -19,19 +28,23 @@ public:
     virtual _int        Update_GameObject(const _float& fTimeDelta) override;
     virtual void        LateUpdate_GameObject(const _float& fTimeDelta) override;
     virtual void        Render_GameObject() override;
-    virtual void        Set_FloorType(_uint eFloorType);
+    virtual void        Set_CeilingType(_uint eCeilingType) override;
+
+protected:
+    Engine::CAnimation* m_pAnimationCom;
 
 protected:
     virtual HRESULT     Add_Component() override;
 
 public:
     // 기본 생성 
-    static CFloor* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+    static CDynamicCeiling* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 protected:
     virtual void Free() override;
 
 private:
     static vector<TextureSource>    m_vTextureSource;
+    static vector<AnimationSource>  m_vAnimSource;
 };
 

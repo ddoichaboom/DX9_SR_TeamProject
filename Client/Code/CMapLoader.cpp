@@ -6,8 +6,11 @@
 
 // 환경 오브젝트
 #include "CFloor.h"
+#include "CDynamicFloor.h"
 #include "CCeiling.h"
+#include "CDynamicCeiling.h"
 #include "CWall.h"
+#include "CDynamicWall.h"
 #include "CObstacle.h"
 
 // 캐릭터,몬스터 (SpawnPoint 처리용)
@@ -243,6 +246,21 @@ CGameObject* CMapLoader::Create_GameObject_FromJSON(const json& jObj,
                 pGameObject = pFloor;
             }
         }
+        else if (strType == "DynamicFloor")
+        {
+            CDynamicFloor* pDynamicFloor = Engine::CPoolMgr::GetInstance()->Get_Object<CDynamicFloor>();
+            if (pDynamicFloor)
+            {
+                pDynamicFloor->SetPos(vPos);
+                pDynamicFloor->SetAngle(vRot);
+                pDynamicFloor->SetScale(vScale);
+                //pDynamicFloor->Set_TextureIdx(0);   // 애니메이션은 인덱스 필요없을 수도?
+                pDynamicFloor->Set_FloorType(DYNAMIC_FLOOR_LAVA);     // JSON에서 읽어서 대입 임시로 하드코딩
+                pDynamicFloor->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
+
+                pGameObject = pDynamicFloor;
+            }
+        }
         else if (strType == "Ceiling")
         {
             CCeiling* pCeiling = Engine::CPoolMgr::GetInstance()->Get_Object<CCeiling>();
@@ -253,23 +271,26 @@ CGameObject* CMapLoader::Create_GameObject_FromJSON(const json& jObj,
                 pCeiling->SetScale(vScale);
 
                 // TextureIdx, CeilingType은 에디터에서 Json에 담을 예정
-                pCeiling->Set_TextureIdx(2);    // 0 ~ 7
+                pCeiling->Set_TextureIdx(2);    // 0 ~ 7 정적 텍스처만 인덱스 지정 필요 
                 pCeiling->Set_CeilingType(STATIC_CEILING);
 
                 pCeiling->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
                 pGameObject = pCeiling;
             }
         }
-        else if (strType == "Cube")
+        else if (strType == "DynamicCeiling")
         {
-            CObstacle* pObstacle = Engine::CPoolMgr::GetInstance()->Get_Object<CObstacle>();
-            if (pObstacle)
+            CDynamicCeiling* pDynamicCeiling = Engine::CPoolMgr::GetInstance()->Get_Object<CDynamicCeiling>();
+            if (pDynamicCeiling)
             {
-                pObstacle->SetPos(vPos);
-                pObstacle->SetAngle(vRot);
-                pObstacle->SetScale(vScale);
-                pObstacle->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
-                pGameObject = pObstacle;
+                pDynamicCeiling->SetPos(vPos);
+                pDynamicCeiling->SetAngle(vRot);
+                pDynamicCeiling->SetScale(vScale);
+                //pDynamicCeiling->Set_TextureIdx(0);   // 애니메이션은 인덱스 필요없을 수도?
+                pDynamicCeiling->Set_CeilingType(DYNAMIC_CEILING);     // JSON에서 읽어서 대입 임시로 하드코딩
+                pDynamicCeiling->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
+
+                pGameObject = pDynamicCeiling;
             }
         }
         else if (strType == "Wall")
@@ -286,6 +307,34 @@ CGameObject* CMapLoader::Create_GameObject_FromJSON(const json& jObj,
                 pWall->Set_WallType(STATIC_WALL_1);
                 pWall->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
                 pGameObject = pWall;
+            }
+        }
+        else if (strType == "DynamicWall")
+        {
+            CDynamicWall* pDynamicWall = Engine::CPoolMgr::GetInstance()->Get_Object<CDynamicWall>();
+            if (pDynamicWall)
+            {
+                pDynamicWall->SetPos(vPos);
+                pDynamicWall->SetAngle(vRot);
+                pDynamicWall->SetScale(vScale);
+
+                // TextureIdx, WallType은 에디터에서 Json에 담을 예정
+                //pDynamicWall->Set_TextureIdx(0);   // 0~2
+                pDynamicWall->Set_WallType(STATIC_WALL_1);
+                pDynamicWall->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
+                pGameObject = pDynamicWall;
+            }
+        }
+        else if (strType == "Cube")
+        {
+            CObstacle* pObstacle = Engine::CPoolMgr::GetInstance()->Get_Object<CObstacle>();
+            if (pObstacle)
+            {
+                pObstacle->SetPos(vPos);
+                pObstacle->SetAngle(vRot);
+                pObstacle->SetScale(vScale);
+                pObstacle->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
+                pGameObject = pObstacle;
             }
         }
         else if (strType == "SpawnPoint")
