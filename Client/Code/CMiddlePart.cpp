@@ -8,22 +8,23 @@
 
 vector<TextureSource> CMiddlePart::m_vTextureSource =
 {
-	{ IDLE, L"../Bin/Resource/Texture/Player/Middle_Kick.png"},
-	{ KICK, L"../Bin/Resource/Texture/Player/Middle_Kick.png"},
-	{ DRINK,  L"../Bin/Resource/Texture/Player/Middle_Soda.png" },
-	{ SLIDE,  L"../Bin/Resource/Texture/Player/Middle_Slide.png" },
-	{ GetStateID(INTRO,SW_END),  L"../Bin/Resource/Texture/Player/Player_Intro_Begin.png"},
-	{ INTRO,  L"../Bin/Resource/Texture/Player/Player_Intro.png" },
+	{ IDLE, L"../Bin/Resource/Texture/Player/Middle_Kick.dds"},
+	{ KICK, L"../Bin/Resource/Texture/Player/Middle_Kick.dds"},
+	{ DRINK,  L"../Bin/Resource/Texture/Player/Middle_Soda.dds" },
+	{ SLIDE,  L"../Bin/Resource/Texture/Player/Middle_Slide.dds" },
+	{ GetStateID(INTRO,SW_END),  L"../Bin/Resource/Texture/Player/Player_Intro_Begin.dds"},
+
+	{ INTRO,  L"../Bin/Resource/Texture/Player/Player_Intro.dds" },
 };
 
 vector<AnimationSource>  CMiddlePart::m_vAnimSource =
 {
-	{ IDLE,0,3,3, false, 0.08f},
+	{ IDLE,0,3,3, true, 0.08f},
 	{ KICK,0,3,3, false, 0.08f, 1.f},
 	{ DRINK,0,6,6, false, 0.08f, 1.f},
-	{ SLIDE,0,0,0, true, 0.08f},
-	{ GetStateID(INTRO,SW_END),0,2,2, false, 0.33f, 1.f},
-	{ INTRO,0,2,2, true, 0.25f}
+	{ SLIDE,1,0,0, true, 0.08f},
+	{ GetStateID(INTRO,SW_END),1,2,2, false, 0.12f, 1.f},
+	{ INTRO,1,2,2, false, 0.12f, 1.f}
 };
 
 CMiddlePart::CMiddlePart(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -93,7 +94,6 @@ HRESULT CMiddlePart::Ready_GameObject()
 	m_vStartPos = { 0.f, WINCY * -0.5f + 200.f, 0.f };
 	m_pTransformCom->Set_Pos(m_vStartPos);
 
-
 	m_bRendering = false;
 
 	return S_OK;
@@ -101,14 +101,14 @@ HRESULT CMiddlePart::Ready_GameObject()
 
 _int CMiddlePart::Update_GameObject(const _float& fTimeDelta)
 {
-	int iExit = CPlayerPart::Update_GameObject(fTimeDelta);
-	m_fTime += fTimeDelta;
+	int iExit = CPlayerPart::Update_GameObject(fTimeDelta);	
 	return iExit;
 }
 
 void CMiddlePart::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CPlayerPart::LateUpdate_GameObject(fTimeDelta);
+	m_pAnimationCom->Update_State(m_pStateCom->GetCurrentStateID());
 }
 
 void CMiddlePart::Render_GameObject()
@@ -233,8 +233,7 @@ void CMiddlePart::Begin_Intro()
 void CMiddlePart::Intro()
 {
 	if (m_pAnimationCom->CanEnd())
-	{
-		
+	{		
 		ChangeState(INTRO);
 		return;
 	}
@@ -250,12 +249,11 @@ void CMiddlePart::Begin_Intro2()
 
 void CMiddlePart::Intro2()
 {
-	if (m_fTime > 2.f)
+	if (m_pAnimationCom->CanEnd())
 	{
 		ChangeState(IDLE);
 		return;
 	}
-		
 
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 }
