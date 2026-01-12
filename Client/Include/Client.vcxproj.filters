@@ -109,6 +109,9 @@
     <Filter Include="02. GameObject\99. Environment\01. Object\03. Obstacle">
       <UniqueIdentifier>{201c3123-c49d-4acf-adf8-a738fccb6dfc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\999.DebugObject">
+      <UniqueIdentifier>{bd545b88-97bc-4240-9694-3bc3967717b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -207,6 +210,9 @@
     <ClInclude Include="..\Header\CTerrain.h">
       <Filter>02. GameObject\99. Environment\00. Terrain</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CDebugObject.h">
+      <Filter>02. GameObject\999.DebugObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -295,6 +301,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTerrain.cpp">
       <Filter>02. GameObject\99. Environment\00. Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDebugObject.cpp">
+      <Filter>02. GameObject\999.DebugObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

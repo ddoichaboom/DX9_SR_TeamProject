@@ -82,6 +82,8 @@ protected:
 	void			OnCollision(CollisionInfo info);
 	void			CheckPickedMonster();
 	void			CheckKickedMonster();
+	void			CheckEnterCollider();
+	_bool			CheckOnFloor(_float* pHeight);
 
 private:
 	void				Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _vec3& vLook);
@@ -109,6 +111,9 @@ private:
 
 	STATE_WEAPON	m_eWeaponState;
 	unordered_map<STATE_WEAPON, CWeapon*> m_mapWeapon;
+
+	CCollider* m_pMainCollider;
+	const	_tchar* m_szMainColliderName = L"ColMain";
 
 	CCollider*			m_pKickCollider;
 	const	_tchar*		m_szKickColliderName = L"ColKick";
@@ -147,5 +152,6 @@ protected:
 	_float	m_fKickAttack;
 
 	_bool	m_bSlide;
+	_bool	m_bOnCollision = false;
 };
 

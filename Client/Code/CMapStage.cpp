@@ -25,6 +25,10 @@
 #include "CMiddlePart.h"
 #include "CPistol.h"
 
+
+// Test
+#include "CDebugObject.h"
+
 CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
 {
 }
@@ -281,6 +285,27 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
 
     if (FAILED(pLayer->Add_GameObject(pGameObject)))
         return E_FAIL;
+
+
+    pGameObject = CDebugObject::Create(m_pGraphicDev, _vec3(62.f, 8.f, 80.f), _vec3(4.f, 16.f, 45.f));
+
+    if (nullptr == pGameObject)
+        return E_FAIL;
+
+    if (FAILED(pLayer->Add_GameObject(pGameObject)))
+        return E_FAIL;
+
+
+    pGameObject = CDebugObject::Create(m_pGraphicDev, _vec3(62.f, 35.f, 80.f), _vec3(25.f, 2.f, 45.f));
+
+    if (nullptr == pGameObject)
+        return E_FAIL;
+
+    if (FAILED(pLayer->Add_GameObject(pGameObject)))
+        return E_FAIL;
+
+   
+       
 
     m_mapLayer.insert({ pLayerTag, pLayer });
 

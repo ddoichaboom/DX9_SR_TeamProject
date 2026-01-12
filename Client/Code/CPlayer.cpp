@@ -19,7 +19,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_bFall(false), m_fVelocity(0.f), m_fJumpTime(0.f)
 	, m_bJump(false), m_fJumpStartY(0.f), m_fJumpDuration(0.6f), m_fJumpHeight(20.f)
 	, m_bDash(false), m_fDashTime(0.f), m_fDashDuration(0.3f), m_fDashDistance(80.f)
-	, m_fKickAttack(1.f), m_pKickCollider(nullptr)
+	, m_fKickAttack(1.f), m_pKickCollider(nullptr), m_pMainCollider(nullptr)
 	, m_bSlide(false)
 {
 
@@ -34,7 +34,7 @@ CPlayer::CPlayer(const CPlayer& rhs)
 	, m_bFall(false), m_fVelocity(0.f), m_fJumpTime(0.f)
 	, m_bJump(false), m_fJumpStartY(0.f), m_fJumpDuration(0.6f), m_fJumpHeight(20.f)
 	, m_bDash(false), m_fDashTime(0.f), m_fDashDuration(0.3f), m_fDashDistance(80.f)
-	, m_fKickAttack(1.f), m_pKickCollider(nullptr)
+	, m_fKickAttack(1.f), m_pKickCollider(nullptr), m_pMainCollider(nullptr)
 	, m_bSlide(false)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
@@ -50,17 +50,12 @@ HRESULT CPlayer::Ready_GameObject()
 	if (FAILED(Add_Component()))
 		return E_FAIL;
 
-	m_pTransformCom->m_vScale = { 6,6,6 };
+	m_pTransformCom->m_vScale = { 6.f,6.f,6.f };
 	m_pTransformCom->Set_Pos(0.f, 0.f, 0.f);
 
-	m_pCollisionCom->CreateCollider(m_pTransformCom);
-
-	CCollider* m_pCollider = m_pCollisionCom->GetCollider();
-	if (!m_pCollider)
-		return E_FAIL;
-
-	m_pCollider->Set_Scale(_vec3(4, 11, 4));
-	m_pCollider->BindFuncToCollision([&](CollisionInfo info)
+	m_pMainCollider = m_pCollisionCom->CreateCollider(m_pTransformCom, m_szMainColliderName);
+	m_pMainCollider->Set_Scale(_vec3(4, 11, 4));
+	m_pMainCollider->BindFuncToCollision([&](CollisionInfo info)
 		{
 			OnCollision(info);
 		});
@@ -97,8 +92,11 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 		m_fVelocity = 0.f;
 	}
 
+	CheckEnterCollider();
+
 	Set_OnFloor(fTimeDelta);
-		
+
+
 	CCharacter::LateUpdate_GameObject(fTimeDelta);
 }
 
@@ -298,6 +296,70 @@ void CPlayer::CheckKickedMonster()
 
 }
 
+void CPlayer::CheckEnterCollider()
+{
+	list<pair<_float, CCollider*>> pickedList;
+	CollisionInfo info = { NULL, {0,0,0}, 0.f, TAG_NONE };
+
+	CLayer* pLayer = CManagement::GetInstance()->Get_Layer(L"Environment_Layer");
+	if (!pLayer) return;
+
+	auto pairIter = pLayer->Get_Objects(OBJ_COL);
+
+	_vec3 vPos = *m_pTransformCom->Get_Info(INFO_POS);
+	_vec3 vMyPos = m_pMainCollider->Get_RelativePos();
+	_vec3 vColPos = {};
+	_vec3 vDiff = {};
+	_vec3 vDir = {};
+	_int iCallCount = 0;
+
+	// Test 
+	
+
+	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
+	{
+		CCollision* pCollision = static_cast<CCollision*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+		if (!pCollision) continue;
+
+		auto& mapCollider = pCollision->GetColliderMap();
+		if (mapCollider.empty()) continue;
+
+		
+
+		for (auto& pairCollider : mapCollider)
+		{
+			vColPos = pairCollider.second->Get_RelativePos();				
+			vDir = vColPos - vPos;
+			bool bPicked = CCollision::CheckCollision_Diff(m_pMainCollider, pairCollider.second, &vDiff);
+			if (bPicked)
+			{
+				if (vDiff.x < vDiff.y && vDiff.x < vDiff.z)
+				{
+					float dir = (vDir.x < 0.f) ? 1.f : -1.f;
+					vPos.x += vDiff.x * dir;
+
+				}
+				else if (vDiff.y < vDiff.x && vDiff.y < vDiff.z)
+				{
+					float dir = (vDir.y > 0.f) ? -1.f : 1.f;
+					vPos.y += vDiff.y * dir;					
+				}
+				else
+				{
+					float dir = (vDir.z < 0.f) ? 1.f : -1.f;
+					vPos.z += vDiff.z * dir;
+
+				}						
+
+				
+				m_pTransformCom->Set_Pos(vPos);
+			}
+		}
+	}
+	
+	//m_bOnCollision = iCallCount > 0;
+}
+
 void CPlayer::Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _vec3& vLook)
 {
 	MOVE_DIR eDir = CDInputMgr::GetInstance()->Get_Direction();
@@ -461,7 +523,6 @@ void CPlayer::Slide()
 	CheckKickedMonster();
 }
 
-
 void CPlayer::Gravity(const _float& fTimeDelta)
 {
 	_float fVelocity = Get_Velocity();
@@ -469,42 +530,84 @@ void CPlayer::Gravity(const _float& fTimeDelta)
 	m_fVelocity = fVelocity;
 }
 
+_bool CPlayer::CheckOnFloor(_float* pHeight)
+{
+	CLayer* pLayer = CManagement::GetInstance()->Get_Layer(L"Environment_Layer");
+	if (!pLayer) 
+		return false;
+
+	_vec3 vPosition = m_pTransformCom->m_vInfo[INFO_POS];
+	auto pairIter = pLayer->Get_Objects(OBJ_FLOOR);
+	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
+	{
+		CTransform* pTransform = static_cast<CTransform*>(iter->second->Get_Component(ID_STATIC, L"Com_Transform"));
+
+		if (pTransform && pTransform->Check_OnRange(&vPosition, pHeight))
+			return true;
+	}
+
+	return false;
+}
+
 void CPlayer::Set_OnFloor(const _float& fTimeDelta)
 {
-	_float fY = 0.f;
-	_float fBottom = 0.f;
+	_float fHeight = 0.f;
 	_vec3 vPosition = m_pTransformCom->m_vInfo[INFO_POS];
+	//_float fBottom = vPosition.y - m_pTransformCom->Get_Scale().y;
+	_float fBottom = vPosition.y - 15.f;
+	
 
-	if (m_bJump || m_bDash)
+	if (CheckOnFloor(&fHeight))
 	{
-		if (m_bJump)
+		if (m_bJump || m_bDash)
 		{
-			Update_Jump(fTimeDelta);
+			if (m_bJump)
+			{
+				Update_Jump(fTimeDelta);
+			}
+			if (m_bDash)
+			{
+				Update_Dash(fTimeDelta);
+			}
+
+			return;
 		}
-		if (m_bDash)
+		else if (m_bFall)
 		{
-			Update_Dash(fTimeDelta);
+			vPosition.y += m_fVelocity * fTimeDelta;
+			//fBottom = vPosition.y - m_pTransformCom->Get_Scale().y;
+			fBottom = vPosition.y - 15.f;
+
+			if (fBottom <= fHeight)
+			{
+				m_bFall = false;
+				//vPosition.y = fHeight + m_pTransformCom->Get_Scale().y;
+				vPosition.y = fHeight + 15.f;
+			}
+
 		}
-
-		return;
-	}
-	else if (m_bFall)
-	{
-		vPosition.y += m_fVelocity * fTimeDelta;
-		fBottom = vPosition.y - 15.f;
-
-		if (fBottom <= fY)
+		else
 		{
-			m_bFall = false;
-			vPosition.y = fY + 15.f;
-		}
+			if (false == m_bOnCollision)
+			{
+				//vPosition.y = fHeight + m_pTransformCom->Get_Scale().y;
+				vPosition.y = fHeight + 15.f;
+			}
+				
 
+		}
 	}
 	else
 	{
-		vPosition.y = fY + 15.f;
-
+		if (!m_bOnCollision)
+		{
+			vPosition.y += m_fVelocity * fTimeDelta;
+			m_bFall = true;
+		}
+			
 	}
+
+	
 
 	m_pTransformCom->Set_Pos(vPosition);
 }
@@ -548,16 +651,24 @@ void CPlayer::Update_Dash(const _float& fTimeDelta)
 
 _bool CPlayer::Get_OnFloor()
 {
-	_float fY = 0.f;
+	_float fHeight = 0.f;
 	_vec3 vPosition = m_pTransformCom->m_vInfo[INFO_POS];
 	_float fBottom = vPosition.y - 15.f;
 
-	if (fBottom <= fY)
+	if (CheckOnFloor(&fHeight))
 	{
-		return true;
+		if (fBottom <= fHeight)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	else
 	{
 		return false;
 	}
+
 }

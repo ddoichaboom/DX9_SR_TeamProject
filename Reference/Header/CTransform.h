@@ -88,6 +88,9 @@ public:
 	_vec3		Get_Scale_World() const;
 	void		Set_Scale_World(_float fX, _float fY, _float fZ);
 
+
+	_bool		Check_OnRange(_vec3* pPosition, _float* pHeight);
+
 	void		Reset() override; 
 public:
 	_vec3		m_vInfo[INFO_END];
