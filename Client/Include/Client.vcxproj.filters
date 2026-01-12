@@ -109,6 +109,12 @@
     <Filter Include="02. GameObject\99. Environment\01. Object\03. Obstacle">
       <UniqueIdentifier>{201c3123-c49d-4acf-adf8-a738fccb6dfc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\02. Loading">
+      <UniqueIdentifier>{034ad6be-3396-4232-b306-09501ab26c96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\98. BackGround">
+      <UniqueIdentifier>{bc5cf546-9147-47cc-9af4-103b080d0c88}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -207,6 +213,12 @@
     <ClInclude Include="..\Header\CTerrain.h">
       <Filter>02. GameObject\99. Environment\00. Terrain</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CLoading.h">
+      <Filter>01. Scene\02. Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBackGround.h">
+      <Filter>02. GameObject\98. BackGround</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -295,6 +307,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTerrain.cpp">
       <Filter>02. GameObject\99. Environment\00. Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLoading.cpp">
+      <Filter>01. Scene\02. Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBackGround.cpp">
+      <Filter>02. GameObject\98. BackGround</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 #pragma once
 #include "CScene.h"
 
+class CBackGround;
 class CStage : public CScene
 {
 protected:
@@ -23,6 +24,8 @@ protected:
 
 private:
 	virtual void Free();
+protected:
+	CBackGround* m_pBackGround;
 
 };
 
