@@ -23,6 +23,8 @@
 #include "CRightPart.h"
 #include "CMiddlePart.h"
 
+#include "CBackGround.h"
+
 CMainApp::CMainApp() : m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
 , m_pManagementClass(CManagement::GetInstance())
 {
@@ -103,6 +105,19 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 
 	//텍스쳐를 사용하는 모든 오브젝트는 텍스쳐 공간 변환을 U,V 2차원으로만 한다 
 	m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT2);
+
+	//TODO : Start Stage나 다른 곳으로 옮기기 
+	//로딩 화면 세팅을 위해서 일단 여기에 둠 
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Transform", Engine::CTransform::Create(m_pGraphicDev))))
+		return E_FAIL;
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcTex", Engine::CRcTex::Create(m_pGraphicDev))))
+		return E_FAIL;
+
+	CTexture* pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBackGround::GetTextureSource());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_LoadingTexture", pCom_Texture)))
+		return E_FAIL;
+	// TODO END
 
 	return S_OK;
 }

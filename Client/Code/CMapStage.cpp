@@ -25,11 +25,11 @@
 #include "CMiddlePart.h"
 #include "CPistol.h"
 
-
-// Test
+#include "CLoading.h"
+#include "CBackGround.h"
 #include "CDebugObject.h"
 
-CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
+CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev), m_pLoading(nullptr)
 {
 }
 
@@ -39,7 +39,20 @@ CMapStage::~CMapStage()
 
 HRESULT CMapStage::Ready_Scene()
 {
-    if (FAILED(Ready_Prototype()))
+    m_pBackGround = CBackGround::Create(m_pGraphicDev);
+
+
+    //각 함수를 Loading에서 처리하도록 함 
+    m_pLoading = CLoading::Create(m_pGraphicDev,
+        [&]() {  m_BaseResult = Ready_Prototype(); },
+        [&]() {  m_TextureResult = Ready_Prototype_OnlyTexture(); },
+        [&]() {  m_ObjectPoolResult = Ready_ObjectPool(); },
+        [&]() {  m_ReadyEnvResult = Ready_Environment_Layer(L"Environment_Layer"); },
+        [&]() {  m_ReadyGameResult = Ready_GameLogic_Layer(L"GameLogic_Layer"); }
+    );
+    
+
+  /*  if (FAILED(Ready_Prototype()))
         return E_FAIL;
 
     if (FAILED(Ready_ObjectPool()))
@@ -49,13 +62,20 @@ HRESULT CMapStage::Ready_Scene()
         return E_FAIL;
 
     if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer")))
-        return E_FAIL;
+        return E_FAIL;*/
 
     return S_OK;
 }
 
 _int CMapStage::Update_Scene(const _float& fTimeDelta)
 {
+    if (m_pLoading->IsEnd() == false)
+    {
+        m_pBackGround->Update_GameObject(fTimeDelta);
+        m_pLoading->Update_Loading();
+        return 0;
+    }
+
     int iExit = CStage::Update_Scene(fTimeDelta);
     return iExit;
 }
@@ -67,6 +87,10 @@ void CMapStage::LateUpdate_Scene(const _float& fTimeDelta)
 
 void CMapStage::Render_Scene()
 {
+    if (m_pLoading->IsEnd() == false)
+    {
+        m_pBackGround->Render_GameObject();
+    }
 }
 
 HRESULT CMapStage::Ready_ObjectPool()
@@ -147,7 +171,16 @@ HRESULT CMapStage::Ready_ObjectPool()
     return S_OK;
 }
 
-HRESULT CMapStage::Ready_PlayerProto()
+
+HRESULT CMapStage::Ready_Prototype_OnlyTexture()
+{
+   if(FAILED(Ready_PlayerTextureProto())) return E_FAIL;
+   if(FAILED(Ready_MonsterTextureProto())) return E_FAIL;
+   if(FAILED(Ready_TerrainTextureProto())) return E_FAIL;
+   return S_OK;
+}
+
+HRESULT CMapStage::Ready_PlayerTextureProto()
 {
     CTexture* pCom_Texture = nullptr;
 
@@ -178,7 +211,7 @@ HRESULT CMapStage::Ready_PlayerProto()
     return S_OK;
 }
 
-HRESULT CMapStage::Ready_MonsterProto()
+HRESULT CMapStage::Ready_MonsterTextureProto()
 {
     CTexture* pCom_Texture = nullptr;
 
@@ -220,7 +253,7 @@ HRESULT CMapStage::Ready_MonsterProto()
     return S_OK;
 }
 
-HRESULT CMapStage::Ready_TerrainProto()
+HRESULT CMapStage::Ready_TerrainTextureProto()
 {
     CTexture* pCom_Texture = nullptr;
 
@@ -434,16 +467,16 @@ HRESULT CMapStage::Ready_Prototype()
         return E_FAIL;
 
     // RcTex (CFloor, CCeiling, CWall에서 사용)
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcTex", Engine::CRcTex::Create(m_pGraphicDev))))
-        return E_FAIL;
+    //if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcTex", Engine::CRcTex::Create(m_pGraphicDev))))
+    //    return E_FAIL;
 
     // CubeTex (CObstacle에서 사용)
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_CubeTex", Engine::CCubeTex::Create(m_pGraphicDev))))
         return E_FAIL;
 
     // Transform (모든 오브젝트에서 사용)
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Transform", Engine::CTransform::Create(m_pGraphicDev))))
-        return E_FAIL;
+    //if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Transform", Engine::CTransform::Create(m_pGraphicDev))))
+    //    return E_FAIL;
 
     // Collision 
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Collision", Engine::CCollision::Create(m_pGraphicDev))))
@@ -452,16 +485,16 @@ HRESULT CMapStage::Ready_Prototype()
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_StateComponent", Engine::CStateComponent::Create(m_pGraphicDev))))
         return E_FAIL;
 
-    if (FAILED(Ready_TerrainProto()))
-        return E_FAIL;
+    //if (FAILED(Ready_TerrainTextureProto()))
+    //    return E_FAIL;
 
-    // 기존 몬스터 관련된 것들 패킹
-    if (FAILED(Ready_MonsterProto()))
-        return E_FAIL;
+    //// 기존 몬스터 관련된 것들 패킹
+    //if (FAILED(Ready_MonsterProto()))
+    //    return E_FAIL;
 
-    // 기존 플레이어 프로토 등록 로직들 패킹
-    if (FAILED(Ready_PlayerProto()))
-        return E_FAIL;
+    //// 기존 플레이어 프로토 등록 로직들 패킹
+    //if (FAILED(Ready_PlayerTextureProto()))
+    //    return E_FAIL;
 
     return S_OK;
 }
@@ -482,5 +515,7 @@ CMapStage* CMapStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CMapStage::Free()
 {
+    Safe_Release(m_pBackGround);
+    Safe_Release(m_pLoading);
     CScene::Free();
 }

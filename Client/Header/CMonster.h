@@ -16,7 +16,7 @@ protected:
 	explicit		CMonster(const CMonster& rhs);
 	virtual			~CMonster();
 
-protected:
+public:
 	HRESULT			Ready_GameObject() override;
 	_int			Update_GameObject(const _float& fTimeDelta) override;
 	void			LateUpdate_GameObject(const _float& fTimeDelta) override;

@@ -1,6 +1,7 @@
 #pragma once
 #include "CStage.h"
 
+class CLoading;
 class CMapStage : public CStage
 {
 protected:
@@ -19,19 +20,29 @@ public:
 protected:
     HRESULT     Ready_Environment_Layer(const _tchar* pLayerTag) override;
     HRESULT     Ready_GameLogic_Layer(const _tchar* pLayerTag) override;
-    HRESULT     Ready_Prototype() override;
 
+    //스레드 전달 함수
+    HRESULT     Ready_Prototype() override;
+    HRESULT     Ready_Prototype_OnlyTexture();
     // TODO:상위 클래스에 담아서 스테이지마다 다르게 해도 될듯함 - 호준
     HRESULT     Ready_ObjectPool();
-    HRESULT     Ready_PlayerProto();
-    HRESULT     Ready_MonsterProto();
-    HRESULT     Ready_TerrainProto();
+    //
+
+    HRESULT     Ready_PlayerTextureProto();
+    HRESULT     Ready_MonsterTextureProto();
+    HRESULT     Ready_TerrainTextureProto();
 
 protected:
-    CLayer* m_pEnvironment_Layer;
-    CLayer* m_pGameLogic_Layer;
+    CLoading* m_pLoading;
+
+    HRESULT	m_BaseResult;
+    HRESULT	m_TextureResult;
+    HRESULT	m_ObjectPoolResult;
+    HRESULT	m_ReadyEnvResult;
+    HRESULT	m_ReadyGameResult;
 
 private:
     virtual void Free();
+
 };
 
