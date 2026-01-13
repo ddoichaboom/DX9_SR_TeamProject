@@ -139,7 +139,6 @@ void CInspector::Render_ObjectProperties()
     // 이름
     wstring wstrName = pObj->Get_Name();
     string strName(wstrName.begin(), wstrName.end());
-
     ImGui::Text("Object: %s", strName.c_str());
     ImGui::Separator();
 
@@ -189,8 +188,22 @@ void CInspector::Render_ObjectProperties()
         }
     }
     
+    ImGui::Spacing();
 
+    // Room Settings 
+    if (ImGui::CollapsingHeader("Room Settings", ImGuiTreeNodeFlags_DefaultOpen))
+    {
+        _int iRoomIdx = pObj->Get_RoomIndex();
+        if (ImGui::InputInt("Room Index", &iRoomIdx))
+        {
+            if (iRoomIdx >= 0)
+            {
+                pObj->Set_RoomIndex(iRoomIdx);
+            }
+        }
 
+        ImGui::TextDisabled("Tip: Room 0 : Start, Room 1 = Next, etc.");
+    }
 
     ImGui::Spacing();
     ImGui::Separator();
@@ -198,7 +211,7 @@ void CInspector::Render_ObjectProperties()
     // 텍스처 
     ImGui::Text("Texture: None");
     ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),
-        "[Phase 5] Texture selection");
+        "[Phase 2] Texture selection");
 
 }
 

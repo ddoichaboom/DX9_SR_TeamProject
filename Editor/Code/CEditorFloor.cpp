@@ -1,13 +1,21 @@
 #include "pch.h"
 #include "CEditorFloor.h"
 #include "CRenderer.h"
-
 #include "CProtoMgr.h"
 #include "CTransform.h"
 #include "CRcTex.h"
+#include "CTexture.h"
+
+vector<TextureSource> CEditorFloor::m_vTextureSource =
+{
+    {STATIC_FLOOR, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOORS.dds", true, 0, 7, 7, { 2.f, 2.f} }
+};
 
 CEditorFloor::CEditorFloor(LPDIRECT3DDEVICE9 pGraphicDev)
     : CEditorObject(pGraphicDev)
+    , m_pTextureCom(nullptr)
+    , m_iFloorType(STATIC_FLOOR)
+    , m_iTextureIdx(0)
 {
 }
 
@@ -43,40 +51,25 @@ void CEditorFloor::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CEditorFloor::Render_GameObject()
 {
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT2);
+
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 
-    // 텍스처 설정 (기본 흰색)
-    if (nullptr == m_pTextureCom)
+    if (m_pTextureCom)
     {
-        m_pGraphicDev->SetTexture(0, nullptr);
-    }
-    else
-    {
-        //m_pTextureCom->Set_Texture(0);
+        m_pTextureCom->Render_Texture();
     }
 
-    // 선택 상태 표시
     if (m_bSelected)
     {
-        // 선택됨: 노란색 (모든 타입 공통)
-        m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG2);
-        m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_TFACTOR);
-        m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 0));  // 노란색
-    }
-    else
-    {
-        // 미선택: 연한 갈색 (바닥 느낌)
-        m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG2);
-        m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_TFACTOR);
-        m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 200, 180, 150));  // 연한 갈색
+        m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 100));  // 노란색 tint
     }
 
     m_pBufferCom->Render_Buffer();
 
-    // 렌더 상태 복원
-    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
-    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_DISABLE);
+    m_pGraphicDev->SetTexture(0, nullptr);
+
 }
 
 HRESULT CEditorFloor::Add_Component()
@@ -95,7 +88,38 @@ HRESULT CEditorFloor::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[Engine::ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
+    pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>(
+        Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Static_FloorTexture"));
+    NULL_CHECK_RETURN(pComponent, E_FAIL);
+    m_mapComponent[Engine::ID_DYNAMIC].insert({ L"Com_Texture", pComponent });
+
+    if (m_pTextureCom)
+    {
+        m_pTextureCom->Change_Texture(m_iFloorType);
+        m_pTextureCom->Set_Frame(_vec2(m_iTextureIdx, 0));
+    }
     return S_OK;
+}
+
+void   CEditorFloor::Set_TextureIdx(_int iIdx)
+{
+    m_iTextureIdx = iIdx;
+
+    if (m_pTextureCom)
+    {
+        m_pTextureCom->Set_Frame(_vec2(m_iTextureIdx, 0));  // 프레임만 변경
+    }
+}
+
+void   CEditorFloor::Set_FloorType(_uint iType)
+{
+    m_iFloorType = iType;
+
+    if (m_pTextureCom)
+    {
+        m_pTextureCom->Change_Texture(m_iFloorType);
+        m_pTextureCom->Set_Frame(_vec2(m_iTextureIdx, 0));
+    }
 }
 
 CEditorFloor* CEditorFloor::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)

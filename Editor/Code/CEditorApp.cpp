@@ -6,7 +6,7 @@
 #include "CDInputMgr.h"
 #include "CTransform.h"
 #include "CRcTex.h"
-#include "CTerrainTex.h"
+#include "CTexture.h"
 
 #include "CEditorScene.h"
 #include "CMainMenuBar.h"
@@ -14,6 +14,10 @@
 #include "CHierarchy.h"
 #include "CInspector.h"
 #include <CFileIO.h>
+
+#include "CEditorFloor.h"
+#include "CEditorCeiling.h"
+#include "CEditorWall.h"
 
 
 CEditorApp::CEditorApp()
@@ -164,6 +168,7 @@ HRESULT CEditorApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev, HWND h
     // Editor에서는 양면 렌더링 (오브젝트를 모든 각도에서 볼 수 있어야 함)
     (*ppGraphicDev)->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
+
     // 3. InputDev 초기화
     if (FAILED(Engine::CDInputMgr::GetInstance()->Ready_InputDev(hInst, hWnd)))
     {
@@ -228,6 +233,9 @@ HRESULT CEditorApp::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
         return E_FAIL;
     }
 
+    if (FAILED(Ready_Texture_Prototype()))
+        return E_FAIL;
+
     return S_OK;
 }
 
@@ -279,6 +287,37 @@ HRESULT CEditorApp::Ready_Scene()
     if (nullptr == m_pInspector)
     {
         MSG_BOX("Inspector Create Failed");
+        return E_FAIL;
+    }
+
+    return S_OK;
+}
+
+HRESULT CEditorApp::Ready_Texture_Prototype()
+{
+    Engine::CTexture* pCom_Texture = nullptr;
+
+    // ========== Floor 텍스처 프로토타입 ==========
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CEditorFloor::GetTextureSources());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Static_FloorTexture", pCom_Texture)))
+    {
+        MSG_BOX("Proto_Static_FloorTexture Ready Failed");
+        return E_FAIL;
+    }
+
+    // ========== Ceiling 텍스처 프로토타입 ==========
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CEditorCeiling::GetTextureSources());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Static_CeilingTexture", pCom_Texture)))
+    {
+        MSG_BOX("Proto_Static_CeilingTexture Ready Failed");
+        return E_FAIL;
+    }
+
+    // ========== Wall 텍스처 프로토타입 ==========
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CEditorWall::GetTextureSources());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Static_WallTexture", pCom_Texture)))
+    {
+        MSG_BOX("Proto_Static_WallTexture Ready Failed");
         return E_FAIL;
     }
 

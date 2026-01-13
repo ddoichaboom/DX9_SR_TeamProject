@@ -26,6 +26,7 @@ private:
     HRESULT Ready_ImGui(HWND hWnd);
     HRESULT Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev);
     HRESULT Ready_Scene();
+    HRESULT Ready_Texture_Prototype();
 
 public:
     static CEditorApp* Create(HWND hWnd, HINSTANCE hInst);
