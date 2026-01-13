@@ -339,7 +339,9 @@ void CPlayer::CheckEnterCollider()
 				{
 					float dir = (vDir.x < 0.f) ? 1.f : -1.f;
 					vPos.x += vDiff.x * dir;
-
+					
+					m_bDash = false;
+					iCallCount++;
 				}
 				else if (vDiff.y < vDiff.x && vDiff.y < vDiff.z)
 				{
@@ -366,6 +368,10 @@ void CPlayer::CheckEnterCollider()
 				{
 					float dir = (vDir.z < 0.f) ? 1.f : -1.f;
 					vPos.z += vDiff.z * dir;
+
+
+					m_bDash = false;
+					iCallCount++;
 
 				}						
 
