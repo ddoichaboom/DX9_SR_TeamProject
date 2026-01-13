@@ -33,23 +33,32 @@ namespace Engine
 
 	enum DYNAMIC_FLOOR_TYPE
 	{
-		DYNAMIC_FLOOR_WATER = 0,
+		// 나중에 앞부분에 정적 텍스처도 추가해야함 
+		// ( Collider에 동적 -> 정적 전환 함수 바인딩 (애니메이션 off, 별도 텍스처 출력)) 
+		DF_START = 100,
+		DYNAMIC_FLOOR_WATER,
 		DYNAMIC_FLOOR_LAVA,
 		DYNAMIC_FLOOR_ACID,
 		DF_END
 	};
 
-	enum STATIC_CEILING_TYPE {
+	enum STATIC_CEILING_TYPE 
+	{
 		STATIC_CEILING = 0,
 		SC_END,
 	};
 
-	enum DYNAMIC_CEILING_TYPE {
-		DYNAMIC_CEILING = 0,	// TODO : 추가 
+	enum DYNAMIC_CEILING_TYPE 
+	{
+		// 나중에 앞부분에 정적 텍스처도 추가해야함 
+		// ( Collider에 동적 -> 정적 전환 함수 바인딩 (애니메이션 off, 별도 텍스처 출력)) 
+		DC_START = 100,
+		DYNAMIC_CEILING,
 		DC_END
 	};
 
-	enum STATIC_WALL_TYPE {
+	enum STATIC_WALL_TYPE 
+	{
 		STATIC_WALL_1 = 0,
 		STATIC_WALL_2,
 		STATIC_WALL_3,
@@ -63,8 +72,12 @@ namespace Engine
 		SW_END,
 	};
 
-	enum DYNAMIC_WALL_TYPE {
-		DYNAMIC_WALL = 0,		// TODO : 추가
+	enum DYNAMIC_WALL_TYPE 
+	{
+		// 나중에 앞부분에 정적 텍스처도 추가해야함 
+		// ( Collider에 동적 -> 정적 전환 함수 바인딩 (애니메이션 off, 별도 텍스처 출력)) 
+		DW_START = 100,
+		DYNAMIC_WALL,
 		DW_END
 	};
 

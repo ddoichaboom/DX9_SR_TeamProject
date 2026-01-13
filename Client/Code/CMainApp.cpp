@@ -17,6 +17,9 @@
 #include "CFloor.h"
 #include "CCeiling.h"
 #include "CWall.h"
+#include "CDynamicFloor.h"
+#include "CDynamicCeiling.h"
+#include "CDynamicWall.h"
 #include "CObstacle.h"
 
 #include "CLeftPart.h"
@@ -127,27 +130,55 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CMainApp::Ready_ObjectPool()
 {
-	/// TODO : 맵 데이터 하드 코딩 -> 스테이지별 데이터 or 청크데이터 파일 이름 형식으로 전환 
-	if (FAILED(CMapLoader::GetInstance()->Parse_MapData(L"../../Map/test.json")))
-	{
-		MSG_BOX("JSON Parse Failed");
-		return E_FAIL;
-	}
+	// 모든 맵 파일 경로 수집
+	vector<wstring> vecMapFiles;
+	vecMapFiles.push_back(L"../../Map/test.json");		// 현재 사용중인 파일
+	//vecMapFiles.push_back(L"../../Map/TutorialStage.json");
+	//vecMapFiles.push_back(L"../../Map/Stage01.json");
+	//vecMapFiles.push_back(L"../../Map/BossStage.json");
 
-	// ========== Pool 크기 설정 ==========
-	_uint iFloorCount = CMapLoader::GetInstance()->Get_FloorCount();
-	_uint iCeilingCount = CMapLoader::GetInstance()->Get_CeilingCount();
-	_uint iWallCount = CMapLoader::GetInstance()->Get_WallCount();
-	_uint iObstacleCount = CMapLoader::GetInstance()->Get_ObstacleCount();
+	// 타입별 최대값 초기화
+	_uint iMaxFloor(0), iMaxDynamicFloor(0),iMaxCeiling(0), iMaxDynamicCeiling(0), iMaxWall(0), iMaxDynamicWall(0);
+	_uint iMaxObstacle(0);
 	_uint iBulletCount = 30;
 	_uint iWhiteManCount = 5;
 	_uint iBeamMonCount = 3;
 	_uint iFlyMonCount = 6;
 
-	CPoolMgr::GetInstance()->SetPoolSize<CFloor>(iFloorCount);
-	CPoolMgr::GetInstance()->SetPoolSize<CCeiling>(iCeilingCount);
-	CPoolMgr::GetInstance()->SetPoolSize<CWall>(iWallCount);
-	CPoolMgr::GetInstance()->SetPoolSize<CObstacle>(iObstacleCount);
+	for (auto& wstrFile : vecMapFiles)
+	{
+		// 각 파일에서 타입별 최대 개수 추출 
+		iMaxFloor = max(iMaxFloor,
+			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "Floor"));
+		iMaxDynamicFloor = max(iMaxDynamicFloor,
+			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "DynamicFloor"));
+
+		iMaxCeiling = max(iMaxCeiling,
+			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "Ceiling"));
+		iMaxDynamicCeiling = max(iMaxDynamicCeiling,
+			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "DynamicCeiling"));
+
+		iMaxWall = max(iMaxWall,
+			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "Wall"));
+		iMaxDynamicWall = max(iMaxDynamicWall,
+			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "DynamicWall"));
+
+		iMaxObstacle = max(iMaxObstacle,
+			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "Cube"));
+	}
+
+	// 풀 크기 설정 
+	CPoolMgr::GetInstance()->SetPoolSize<CFloor>(iMaxFloor);
+	CPoolMgr::GetInstance()->SetPoolSize<CDynamicFloor>(iMaxDynamicFloor);
+
+	CPoolMgr::GetInstance()->SetPoolSize<CCeiling>(iMaxCeiling);
+	CPoolMgr::GetInstance()->SetPoolSize<CDynamicCeiling>(iMaxDynamicCeiling);
+
+	CPoolMgr::GetInstance()->SetPoolSize<CWall>(iMaxWall);
+	CPoolMgr::GetInstance()->SetPoolSize<CDynamicWall>(iMaxDynamicWall);
+
+	CPoolMgr::GetInstance()->SetPoolSize<CObstacle>(iMaxObstacle);
+
 	CPoolMgr::GetInstance()->SetPoolSize<CBullet>(iBulletCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CWhiteMan>(iWhiteManCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CBeamMon>(iBeamMonCount);
