@@ -105,6 +105,13 @@ _vec3 CCollider::Get_RelativePos()
 	return pos;
 }
 
+_vec3 CCollider::Get_ParentPos()
+{
+	_vec3 pos;
+	m_pPrtTransformCom->Get_Info(INFO_POS, &pos);
+	return pos;
+}
+
 CCollider* CCollider::Create(LPDIRECT3DDEVICE9 pGraphicDev, CTransform* _prtTransComp)
 {
 	CCollider* pCollider = new CCollider(pGraphicDev);

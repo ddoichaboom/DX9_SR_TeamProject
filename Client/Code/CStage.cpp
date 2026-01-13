@@ -1,8 +1,9 @@
 #include "pch.h"
 #include "CStage.h"
+#include "CBackGround.h"
 
 CStage::CStage(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CScene(pGraphicDev)
+	: CScene(pGraphicDev), m_pBackGround(nullptr)
 {
 }
 

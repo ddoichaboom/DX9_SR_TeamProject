@@ -88,6 +88,7 @@ _int CTransform::Update_Component(const _float& fTimeDelta)
 
 void CTransform::LateUpdate_Component()
 {
+
 }
 
 void CTransform::Chase_Target(const _vec3* pTargetPos, const _float& fTimeDelta, const _float& fSpeed)
@@ -178,6 +179,26 @@ void CTransform::Set_Scale_World(_float fX, _float fY, _float fZ)
     memcpy(&m_matWorld.m[0][0], &vRight,sizeof(_vec3));
     memcpy(&m_matWorld.m[1][0], &vUp,sizeof(_vec3));
     memcpy(&m_matWorld.m[2][0], &vLook,sizeof(_vec3));    
+}
+
+_bool CTransform::Check_OnRange(_vec3* pPosition, _float* pHeight)
+{    
+    _float fHalfX = m_vScale.x;
+    _float fHalfZ = m_vScale.y;
+    _float fMinX = m_vInfo[INFO_POS].x - fHalfX;
+    _float fMaxX = m_vInfo[INFO_POS].x + fHalfX;
+    _float fMinZ = m_vInfo[INFO_POS].z - fHalfZ;    
+    _float fMaxZ = m_vInfo[INFO_POS].z + fHalfZ;
+
+    if (pPosition->x <= fMaxX && pPosition->x >= fMinX && pPosition->z <= fMaxZ && pPosition->z >= fMinZ)
+    {    
+        if (pPosition->y >= m_vInfo[INFO_POS].y)
+        {
+            *pHeight = m_vInfo[INFO_POS].y;
+            return true;
+        }        
+    }
+    return false;
 }
 
 void CTransform::Reset()

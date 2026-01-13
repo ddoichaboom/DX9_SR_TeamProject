@@ -40,6 +40,9 @@ public:
 	//아래는 내 Transform을 변경하는 함수 
 	void				Set_RelativePos(_vec3 _pos);
 	_vec3				Get_RelativePos();
+
+
+	_vec3				Get_ParentPos();
 public:
 	bool				CanCollision() { return m_bCanCollision; }
 	void				OnCollision() { m_bCanCollision = true; }

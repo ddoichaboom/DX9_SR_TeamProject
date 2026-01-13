@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Header\CBackGround.h" />
     <ClInclude Include="..\Header\CBeam.h" />
     <ClInclude Include="..\Header\CBeamMon.h" />
     <ClInclude Include="..\Header\CCeiling.h" />
@@ -150,11 +151,13 @@
     <ClInclude Include="..\Header\CDynamicCeiling.h" />
     <ClInclude Include="..\Header\CDynamicFloor.h" />
     <ClInclude Include="..\Header\CDynamicWall.h" />
+    <ClInclude Include="..\Header\CDebugObject.h" />
     <ClInclude Include="..\Header\CFirstCamera.h" />
     <ClInclude Include="..\Header\CFloor.h" />
     <ClInclude Include="..\Header\CFlyMon.h" />
     <ClInclude Include="..\header\CHeightMapTerrain.h" />
     <ClInclude Include="..\Header\CLeftPart.h" />
+    <ClInclude Include="..\Header\CLoading.h" />
     <ClInclude Include="..\Header\CMainApp.h" />
     <ClInclude Include="..\Header\CMapLoader.h" />
     <ClInclude Include="..\Header\CMapStage.h" />
@@ -179,6 +182,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Code\CBackGround.cpp" />
     <ClCompile Include="..\Code\CBeam.cpp" />
     <ClCompile Include="..\Code\CBeamMon.cpp" />
     <ClCompile Include="..\Code\CCeiling.cpp" />
@@ -187,11 +191,13 @@
     <ClCompile Include="..\Code\CDynamicCeiling.cpp" />
     <ClCompile Include="..\Code\CDynamicFloor.cpp" />
     <ClCompile Include="..\Code\CDynamicWall.cpp" />
+    <ClCompile Include="..\Code\CDebugObject.cpp" />
     <ClCompile Include="..\Code\CFirstCamera.cpp" />
     <ClCompile Include="..\Code\CFloor.cpp" />
     <ClCompile Include="..\Code\CFlyMon.cpp" />
     <ClCompile Include="..\Code\CHeightMapTerrain.cpp" />
     <ClCompile Include="..\Code\CLeftPart.cpp" />
+    <ClCompile Include="..\Code\CLoading.cpp" />
     <ClCompile Include="..\Code\CMapLoader.cpp" />
     <ClCompile Include="..\Code\CMapStage.cpp" />
     <ClCompile Include="..\Code\CMiddlePart.cpp" />

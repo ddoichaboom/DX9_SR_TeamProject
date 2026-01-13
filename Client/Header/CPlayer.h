@@ -17,13 +17,14 @@ class CPlayer :
 {
 public:
 	enum STATE_MAIN : _byte
-	{
+	{		
 		IDLE = 1,
 		RELOAD = 2,
 		ATTACK = 3,
 		KICK = 5,
 		DRINK = 6,
 		SLIDE = 7,
+		INTRO = 8,
 		MAIN_END
 	};
 
@@ -81,6 +82,8 @@ protected:
 	void			OnCollision(CollisionInfo info);
 	void			CheckPickedMonster();
 	void			CheckKickedMonster();
+	void			CheckEnterCollider();
+	_bool			CheckOnFloor(_float* pHeight);
 
 private:
 	void				Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _vec3& vLook);
@@ -94,9 +97,11 @@ private:
 
 
 public:
+	void				Intro();
 	void				Fire();
 	void				Reload();
 	void				Kick();
+	void				Slide();
 
 private:
 	CLeftPart* m_pLeftPart;
@@ -106,6 +111,9 @@ private:
 
 	STATE_WEAPON	m_eWeaponState;
 	unordered_map<STATE_WEAPON, CWeapon*> m_mapWeapon;
+
+	CCollider* m_pMainCollider;
+	const	_tchar* m_szMainColliderName = L"ColMain";
 
 	CCollider*			m_pKickCollider;
 	const	_tchar*		m_szKickColliderName = L"ColKick";
@@ -142,5 +150,8 @@ protected:
 	_float	m_fMoveSpeed;
 
 	_float	m_fKickAttack;
+
+	_bool	m_bSlide;
+	_bool	m_bOnCollision = false;
 };
 
