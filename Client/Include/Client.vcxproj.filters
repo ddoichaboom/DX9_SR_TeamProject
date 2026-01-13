@@ -111,7 +111,7 @@
     </Filter>
     <Filter Include="02. GameObject\999.DebugObject">
       <UniqueIdentifier>{bd545b88-97bc-4240-9694-3bc3967717b1}</UniqueIdentifier>
-	</Filter>
+    </Filter>
     <Filter Include="01. Scene\02. Loading">
       <UniqueIdentifier>{034ad6be-3396-4232-b306-09501ab26c96}</UniqueIdentifier>
     </Filter>
