@@ -75,15 +75,19 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
 	int iExit = CCharacter::Update_GameObject(fTimeDelta);
 
+	Key_Input(fTimeDelta);
+
+	if(m_bJump)
+		Update_Jump(fTimeDelta);
+
+	if(m_bDash)
+		Update_Dash(fTimeDelta);
+
 	return iExit;
 }
 
 void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-	CCharacter::LateUpdate_GameObject(fTimeDelta);
-
-	Key_Input(fTimeDelta);
-
 	if (m_bFall)
 	{
 		Gravity(fTimeDelta);
@@ -93,12 +97,11 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 		m_fVelocity = 0.f;
 	}
 
+	CCharacter::LateUpdate_GameObject(fTimeDelta);
+
 	CheckEnterCollider();
 
 	Set_OnFloor(fTimeDelta);
-
-
-	
 }
 
 void CPlayer::Render_GameObject()
@@ -308,14 +311,10 @@ void CPlayer::CheckEnterCollider()
 	auto pairIter = pLayer->Get_Objects(OBJ_COL);
 
 	_vec3 vPos = *m_pTransformCom->Get_Info(INFO_POS);
-	_vec3 vMyPos = m_pMainCollider->Get_RelativePos();
 	_vec3 vColPos = {};
 	_vec3 vDiff = {};
 	_vec3 vDir = {};
 	_int iCallCount = 0;
-
-	// Test 
-	
 
 	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
 	{
@@ -324,8 +323,6 @@ void CPlayer::CheckEnterCollider()
 
 		auto& mapCollider = pCollision->GetColliderMap();
 		if (mapCollider.empty()) continue;
-
-		
 
 		for (auto& pairCollider : mapCollider)
 		{
@@ -584,16 +581,7 @@ void CPlayer::Set_OnFloor(const _float& fTimeDelta)
 	if (CheckOnFloor(&fHeight))
 	{
 		if (m_bJump || m_bDash)
-		{
-			if (m_bJump)
-			{
-				Update_Jump(fTimeDelta);
-			}
-			if (m_bDash)
-			{
-				Update_Dash(fTimeDelta);
-			}
-
+		{			
 			return;
 		}
 		else if (m_bFall)

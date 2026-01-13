@@ -79,16 +79,26 @@ HRESULT CFirstCamera::Ready_GameObject(const _vec3* pEye,
 _int CFirstCamera::Update_GameObject(const _float& fTimeDelta)
 {
 	// Transform -> Matrix
+	_int iExit = CCamera::Update_GameObject(fTimeDelta);
+
+
+	return 0;
+}
+
+void CFirstCamera::LateUpdate_GameObject(const _float& fTimeDelta)
+{	
+	CCamera::LateUpdate_GameObject(fTimeDelta);
+
 	for (auto& pComponent : m_mapComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);
 
-	_int iExit = CCamera::Update_GameObject(fTimeDelta);
+	
 
 	Engine::CTransform* pPlayerTransform = dynamic_cast<CTransform*>(Engine::CManagement::GetInstance()->
-		Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_PLAYER, L"Com_Transform"));		
+		Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_PLAYER, L"Com_Transform"));
 
 	if (pPlayerTransform == nullptr)
-		return 0;
+		return;
 
 	_vec3 vPos, vLook;
 	pPlayerTransform->Get_Info(INFO_POS, &vPos);
@@ -102,15 +112,6 @@ _int CFirstCamera::Update_GameObject(const _float& fTimeDelta)
 
 	pPlayerTransform->m_vAngle.y = m_pTransformCom->m_vAngle.y;
 
-
-	return 0;
-}
-
-void CFirstCamera::LateUpdate_GameObject(const _float& fTimeDelta)
-{	
-	CCamera::LateUpdate_GameObject(fTimeDelta);
-
-	
 	Key_Input(fTimeDelta);
 
 	if (m_bFix)
@@ -120,6 +121,7 @@ void CFirstCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 	}
 
 	Cam_Shake(fTimeDelta);
+
 }
 
 HRESULT CFirstCamera::Add_Component()
