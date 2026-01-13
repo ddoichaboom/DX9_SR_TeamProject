@@ -108,6 +108,22 @@ void        CDynamicFloor::Set_FloorType(_uint eFloorType)
 {
 	if (m_pAnimationCom)
 		m_pAnimationCom->Change_Animation(eFloorType);
+
+	switch (eFloorType)
+	{
+	case DYNAMIC_FLOOR_WATER:
+		Set_ColliderTag(TAG_WATER);
+		break;
+	case DYNAMIC_FLOOR_LAVA:
+		Set_ColliderTag(TAG_LAVA);
+		break;
+	case DYNAMIC_FLOOR_ACID:
+		Set_ColliderTag(TAG_ACID);
+		break;
+	default:
+		Set_ColliderTag(TAG_NONE);
+		break;
+	}
 }
 
 CDynamicFloor* CDynamicFloor::Create(LPDIRECT3DDEVICE9 pGraphicDev)

@@ -19,6 +19,9 @@ protected:
 public:
 	void						Set_TextureIdx(_int iIdx) { m_iTextureIdx = iIdx; }
 
+	COLLIDER_TAG				Get_ColliderTag() const { return m_eColliderTag; }
+	void						Set_ColliderTag(COLLIDER_TAG eColliderTag) { m_eColliderTag = eColliderTag; }
+
 	virtual void				SetPos(_vec3 _pos) override;
 	void						SetAngle(_vec3 _rot);
 	void						SetScale(_vec3 _scale);
@@ -41,6 +44,8 @@ protected:
 	_bool						m_bIsAnimated;
 	_bool						m_bIsBlocked;
 	_int						m_iTextureIdx;
+	COLLIDER_TAG                m_eColliderTag;
+
 
 protected:
 	// 공통 Material 설정 (자식에서 색상 커스터마이징 가능)
