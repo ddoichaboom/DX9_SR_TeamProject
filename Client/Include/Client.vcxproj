@@ -164,6 +164,7 @@
     <ClInclude Include="..\Header\CMiddlePart.h" />
     <ClInclude Include="..\Header\CMonster.h" />
     <ClInclude Include="..\Header\CObstacle.h" />
+    <ClInclude Include="..\Header\CPhoneBG.h" />
     <ClInclude Include="..\Header\CPistol.h" />
     <ClInclude Include="..\Header\CPlayer.h" />
     <ClInclude Include="..\Header\CPlayerPart.h" />
@@ -202,6 +203,7 @@
     <ClCompile Include="..\Code\CMiddlePart.cpp" />
     <ClCompile Include="..\Code\CMonster.cpp" />
     <ClCompile Include="..\Code\CObstacle.cpp" />
+    <ClCompile Include="..\Code\CPhoneBG.cpp" />
     <ClCompile Include="..\Code\CPistol.cpp" />
     <ClCompile Include="..\Code\CPlayer.cpp" />
     <ClCompile Include="..\Code\CPlayerPart.cpp" />

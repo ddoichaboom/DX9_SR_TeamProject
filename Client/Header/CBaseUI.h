@@ -18,9 +18,12 @@ protected :
 	virtual		HRESULT		Add_Component();
 	virtual		void		Free();
 
+public :
+	virtual void            Rotate(ROTATION eType, const _float& fAngle) {};
+	virtual void            SetPos(_vec3 _pos) {};
+
 protected :
 	_bool					MousePicking();
-	virtual		void		Set_TransformPosition() {};
 
 
 protected :
