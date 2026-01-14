@@ -19,7 +19,7 @@ public:
 	virtual	void						Render_GameObject() PURE;
 
 public:
-	CComponent* Get_Component(COMPONENTID eID, const _tchar* pComponentTag);
+	CComponent*							Get_Component(COMPONENTID eID, const _tchar* pComponentTag);
 	void								Compute_ViewZ(const _vec3* pPos);
 	_float								Get_ViewZ()		{ return m_fViewZ; }
 

@@ -1,5 +1,6 @@
 #include "CManagement.h"
 #include "CRenderer.h"
+#include "CProtoMgr.h"
 
 IMPLEMENT_SINGLETON(CManagement)
 

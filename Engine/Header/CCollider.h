@@ -14,7 +14,7 @@ protected:
 	virtual				~CCollider();
 
 public:
-	HRESULT				Ready_Collider(CTransform* _prtTransComp);
+	HRESULT				Ready_Collider(CGameObject* _Owner);
 	_int				Update_GameObject(const _float& fTimeDelta) override;
 	void				LateUpdate_GameObject(const _float& fTimeDelta) override;
 	void				Render_GameObject() override;
@@ -32,6 +32,11 @@ public:
 	void				Collision(CollisionInfo info);
 
 public:
+	CGameObject* Get_Owner()
+	{
+		return m_pOwner;
+	}
+
 	void				Set_Scale(_vec3 _scale);
 	_vec3				Get_Scale();
 
@@ -45,13 +50,13 @@ public:
 	{
 			m_bRotToPrt = true;
 	}
-
+	_vec3				Get_ParentPos();
 public:
 	bool				CanCollision() { return m_bCanCollision; }
 	void				OnCollision() { m_bCanCollision = true; }
 	void				OffCollision() { m_bCanCollision = false; }
 
-	static CCollider*	Create(LPDIRECT3DDEVICE9 pGraphicDev, CTransform* _prtTransComp);
+	static CCollider*	Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _owner);
 
 protected:
 	virtual void Free();
@@ -61,7 +66,7 @@ protected:
 	CCubeCol*			m_pBufferCom;
 	CTransform*			m_pTransformCom;
 	CTransform*			m_pPrtTransformCom;
-
+	CGameObject*		m_pOwner;
 	bool				m_bCanCollision;
 	//부모 행렬에 의해 회전을 할건지 
 	//주의. 콜라이더 대 콜라이더 충돌을 하는 콜라이더면 회전하면 안됨 (OBB 구현 x) 

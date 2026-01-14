@@ -135,7 +135,7 @@ HRESULT CBoss::Ready_GameObject()
 
 	m_pAnimationCom->Bind_OnChangedFunc([&](_float _aspect) { OnAnimationChange(_aspect); });
 
-	m_pBodyCollider = m_pCollisionCom->CreateCollider(m_pTransformCom, m_szBodyColliderName);
+	m_pBodyCollider = m_pCollisionCom->CreateCollider(this, m_szBodyColliderName);
 	if (!m_pBodyCollider) return E_FAIL;
 
 	m_pBodyCollider->Set_RotToPrt();

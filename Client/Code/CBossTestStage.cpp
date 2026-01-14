@@ -7,8 +7,6 @@
 #include "CPlayer.h"
 #include "CFirstCamera.h"
 
-#include "CTerrain.h"
-#include "CTerrainTex.h"
 #include "CPoolMgr.h"
 #include "CBeamMon.h"
 #include "CBeam.h"
@@ -119,21 +117,6 @@ HRESULT CBossTestStage::Ready_Environment_Layer(const _tchar* pLayerTag)
 	if (FAILED(m_pEnvironment_Layer->Add_GameObject(pGameObject)))
 		return E_FAIL;
 
-	//Terrain Pool »ý¼º 
-	if (CPoolMgr::GetInstance()->HasPool<CTerrain>() == false)
-	{
-		if (FAILED(CPoolMgr::GetInstance()->CreatePool<CTerrain>(m_pGraphicDev)))
-		{
-			MSG_BOX("Terrain Pool Create Failed");
-			return E_FAIL;
-		}
-	}
-	pGameObject = CPoolMgr::GetInstance()->Get_Object<CTerrain>();
-	
-	if (nullptr == pGameObject) return E_FAIL;
-	pGameObject->SetPos({-192.f,0,-192.f });
-	if (FAILED(m_pEnvironment_Layer->Add_GameObject(pGameObject))) return E_FAIL;
-
 	m_mapLayer.insert({ pLayerTag , m_pEnvironment_Layer });
 
 
@@ -205,49 +188,19 @@ HRESULT CBossTestStage::Ready_Prototype()
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcTexUp", CRcTexUp::Create(m_pGraphicDev))))
 		return E_FAIL;
 
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcTex", CRcTex::Create(m_pGraphicDev))))
-		return E_FAIL;
+	CTexture* pCom_Texture = nullptr;
+	////FlyMon Texture
+	//pCom_Texture = CTexture::Create(m_pGraphicDev, CFlyMon::GetTextureSources());
+	//if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FlyMonTexture", pCom_Texture)))
+	//	return E_FAIL;
 
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Transform", CTransform::Create(m_pGraphicDev))))
-		return E_FAIL;
-
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Collision", CCollision::Create(m_pGraphicDev))))
-		return E_FAIL;
-
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_StateComponent", CStateComponent::Create(m_pGraphicDev))))
-		return E_FAIL;
-
-#pragma region SAMPLE
-	// SAMPLE
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TerrainTex", CTerrainTex::Create(m_pGraphicDev, VTXCNTX, VTXCNTZ, 3))))
-		return E_FAIL;
-
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_CubeTex", CCubeTex::Create(m_pGraphicDev))))
-		return E_FAIL;
-
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TerrainTexture", CTerrainTexture::Create(m_pGraphicDev, TEX_NORMAL, L"../Bin/Resource/Texture/Terrain/Terrain0.dds", 1))))
-		return E_FAIL;
-
-	//if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TerrainTexture", Engine::CTexture::Create(m_pGraphicDev, TEX_NORMAL, L"../Bin/Resource/Texture/Terrain/Grass_%d.tga", 2))))
+	//if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FlyMonAnimation", CAnimation::Create(m_pGraphicDev, pCom_Texture, CFlyMon::GetAnimSources()))))
 	//	return E_FAIL;
 	//
-	//if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SkyTexture", Engine::CTexture::Create(m_pGraphicDev, TEX_CUBE, L"../Bin/Resource/Texture/SkyBox/burger%d.dds", 4))))
+	////Beam Texture
+	//pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBeam::GetTextureSources());
+	//if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BeamTexture", pCom_Texture)))
 	//	return E_FAIL;
-#pragma endregion
-	CTexture* pCom_Texture = nullptr;
-
-	//FlyMon Texture
-	pCom_Texture = CTexture::Create(m_pGraphicDev, CFlyMon::GetTextureSources());
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FlyMonTexture", pCom_Texture)))
-		return E_FAIL;
-
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FlyMonAnimation", CAnimation::Create(m_pGraphicDev, pCom_Texture, CFlyMon::GetAnimSources()))))
-		return E_FAIL;
-	
-	//Beam Texture
-	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBeam::GetTextureSources());
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BeamTexture", pCom_Texture)))
-		return E_FAIL;
 
 	//BOSS Texture
 	pCom_Texture = CTexture::Create(m_pGraphicDev, CBoss::GetTextureSources());
@@ -270,32 +223,6 @@ HRESULT CBossTestStage::Ready_Prototype()
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RocketTexture", pCom_Texture)))
 		return E_FAIL;
 
-
-	//Player Proto 
-
-	pCom_Texture = CTexture::Create(m_pGraphicDev, CLeftPart::GetTextureSources());
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_LeftTexture", pCom_Texture)))
-		return E_FAIL;
-
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_LeftAnimation",
-		CAnimation::Create(m_pGraphicDev, pCom_Texture, CLeftPart::GetAnimSources()))))
-		return E_FAIL;
-
-	pCom_Texture =CTexture::Create(m_pGraphicDev, CRightPart::GetTextureSources());
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RightTexture", pCom_Texture)))
-		return E_FAIL;
-
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RightAnimation",
-		CAnimation::Create(m_pGraphicDev, pCom_Texture, CRightPart::GetAnimSources()))))
-		return E_FAIL;
-
-	pCom_Texture = CTexture::Create(m_pGraphicDev, CMiddlePart::GetTextureSources());
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_MiddleTexture", pCom_Texture)))
-		return E_FAIL;
-
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_MiddleAnimation",
-		CAnimation::Create(m_pGraphicDev, pCom_Texture, CMiddlePart::GetAnimSources()))))
-		return E_FAIL;
 	return S_OK;
 }
 

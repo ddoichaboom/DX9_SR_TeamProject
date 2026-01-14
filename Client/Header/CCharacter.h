@@ -8,6 +8,7 @@ namespace Engine
 	class CTexture;
 	class CStateComponent;
 	class CCollision;
+	class CCollider;
 }
 
 class CCharacter :
@@ -15,6 +16,7 @@ class CCharacter :
 {
 protected:
 	explicit			CCharacter(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit			CCharacter(LPDIRECT3DDEVICE9 pGraphicDev, _float fHP);
 	explicit			CCharacter(const CCharacter& rhs);
 	virtual				~CCharacter();
 
@@ -24,7 +26,10 @@ public:
 	void				LateUpdate_GameObject(const _float& fTimeDelta) override;
 	void				Render_GameObject() PURE;
 
-
+	//첫 콜라이더만 반환(콜라이더가 한 개인 객체면 이걸 사용)
+	virtual CCollider*	GetCollider();
+	//모든 콜라이더 반환
+	virtual bool		GetAllCollider(vector<CCollider*>& _OutColliders);
 
 protected:
 	HRESULT				Add_Component() override;
@@ -40,25 +45,6 @@ public:
 	void				SetPos(_vec3 _pos) override;
 	void				Rotate(ROTATION _Axis, _float _degree)  override;
 
-public:
-
-	void				Set_Jump(_bool bJump) { m_bJump = bJump; }
-	void				Set_Velocity(_float fVelocity) { m_fVelocity = fVelocity; }
-	void				Set_JumpTime(_float fJumpTime) { m_fJumpTime = fJumpTime; }
-
-	_bool				Get_Jump() { return m_bJump; }
-	_float				Get_Velocity() { return m_fVelocity; }
-	_float				Get_JumpTime() { return m_fJumpTime; }
-
-protected :
-	void				Gravity(const _float& fTimeDelta);
-	void				Set_OnFloor(const _float& fTimeDelta);
-	_bool				Get_OnFloor();
-
-	void				Update_Jump(const _float& fTimeDelta);
-	void				Update_Dash(const _float& fTimeDelta);
-
-
 protected:
 	CRcTex*		m_pBufferCom;
 	CTransform* m_pTransformCom;
@@ -67,23 +53,8 @@ protected:
 	CCollision* m_pCollisionCom;
 
 protected:
-	float m_fTime;
-
-	_bool	m_bFall;
-	_float	m_fVelocity;
-	
-	_bool	m_bJump;
-	_float	m_fJumpStartY;
-	_float	m_fJumpTime;
-	_float	m_fJumpDuration;
-	_float	m_fJumpHeight;
-
-	_bool	m_bDash;
-	_vec3	m_vDashStart;
-	_vec3	m_vDashDir;
-	_float	m_fDashTime;
-	_float	m_fDashDuration;
-	_float	m_fDashDistance;
-
+	_float m_fTime;
+	const _float m_fMaxHP;
+	_float m_fHP;
 };
 

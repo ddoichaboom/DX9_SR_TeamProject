@@ -21,29 +21,38 @@ public:
 	virtual	void		LateUpdate_Component();
 
 public:
-	//생성 + 컴포넌트가 보관
-	CCollider*			CreateCollider(CTransform* _prtTransComp, const _tchar* _name = L"Base");
-	CCollider*			GetCollider(const _tchar* _name = L"Base") 
+	//생성 + 컴포넌트가 보관CreateCollider
+	CCollider*			CreateCollider(CGameObject* _obj, const _tchar* _name);
+	CCollider* GetCollider()
+	{
+		if (m_mapCollider.empty()) return nullptr;
+		else return m_mapCollider.begin()->second;
+	}
+	CCollider*			GetCollider(const _tchar* _name) 
 	{	
-		return m_mapCollider[_name]; 
+		auto iter = m_mapCollider.find(_name);
+		if (iter == m_mapCollider.end()) return nullptr;
+		else return iter->second;
 	}
 	map<const _tchar*, CCollider*>& GetColliderMap()
 	{
 		return m_mapCollider;
 	}
 
-	void				SetCollision(CollisionInfo info, const _tchar* _name = L"Base");
+	void				SetCollision(CollisionInfo info, const _tchar* _name);
 	
 public:
 	//충돌 여부만 판단 후 충돌 처리 
 	static void			Collision_Base(CCollider* _aCol, CCollider * _bCol);
 	
+	//충돌 처리 후 미는 범위를 전달 함수
+	static void			Collision_Diff(CCollider* _obj, CCollider* _terrain);
+
 	//충돌 여부만 판단하는 AABB 함수 
 	static bool			CheckCollision(CCollider* _aCol, CCollider* _bCol );
 
 	//충돌 여부 + 충돌 범위를 반환하는 함수 ( 충돌에 따라 밀어내기 위한 정보)
-	//TODO : 지형생기면 테스트하기 
-	static bool			CheckCollision_Diff(CCollider* _aCol, CCollider* _bCol, _vec3* diff);
+	static bool			CheckCollision_Diff(CCollider* _obj, CCollider* _terrain, _vec3* diff);
 
 	//매개변수로 들어온 객체가 마우스에 Picked 됐는지 반환
 	static bool			Collision_Mouse(HWND hWnd, LPDIRECT3DDEVICE9 _pGraphicDev, CCollider* _col);

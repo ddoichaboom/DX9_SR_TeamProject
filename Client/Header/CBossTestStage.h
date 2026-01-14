@@ -2,7 +2,6 @@
 #include "CStage.h"
 
 class CWhiteMan;
-class CTerrain;
 class CBullet;
 
 class CBossTestStage : public CStage

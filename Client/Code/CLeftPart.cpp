@@ -6,16 +6,21 @@
 
 vector<TextureSource> CLeftPart::m_vTextureSource =
 {
-	{ IDLE, L"../Bin/Resource/Texture/Player/Left_Hand_Idle.png" },
-	{ GetStateID(RELOAD,SW_PISTOL), L"../Bin/Resource/Texture/Player/Left_Hand_Reload_P.png"},
-	{ GetStateID(RELOAD,SW_SHOTGUN), L"../Bin/Resource/Texture/Player/Left_Hand_Reload_S.png" }
+	{ IDLE, L"../Bin/Resource/Texture/Player/Left_Hand_Idle.dds" },
+	{ GetStateID(RELOAD,SW_PISTOL), L"../Bin/Resource/Texture/Player/Left_Hand_Reload_P.dds"},
+	{ GetStateID(RELOAD,SW_SHOTGUN), L"../Bin/Resource/Texture/Player/Left_Hand_Reload_S.dds" },
+
+
+	{ GetStateID(INTRO,SW_KATANA), L"../Bin/Resource/Texture/Player/Left_Hand_Intro_Katana.dds" }
+
 };
 
 vector<AnimationSource>  CLeftPart::m_vAnimSource =
 {
 	{ IDLE,1,3,3, true, 0.11f},
 	{ GetStateID(RELOAD,SW_PISTOL),0,3,3, false, 0.11f, 1.f},
-	{ GetStateID(RELOAD,SW_SHOTGUN),0,3,3, false, 0.11f}
+	{ GetStateID(RELOAD,SW_SHOTGUN),0,3,3, false, 0.11f},
+	{ GetStateID(INTRO,SW_KATANA),1,0,0, true, 0.11f}
 };
 
 

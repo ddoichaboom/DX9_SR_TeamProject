@@ -8,16 +8,19 @@
 
 vector<TextureSource> CRightPart::m_vTextureSource =
 {
-	{ GetStateID(IDLE,SW_PISTOL),	L"../Bin/Resource/Texture/Player/Right_Hand_Idle_P.png" },
-	{ GetStateID(ATTACK,SW_PISTOL), L"../Bin/Resource/Texture/Player/Right_Hand_Shot_P.png" },
-	{ GetStateID(RELOAD,SW_PISTOL), L"../Bin/Resource/Texture/Player/Right_Hand_Reload_P.png"}
+	{ GetStateID(IDLE,SW_PISTOL),	L"../Bin/Resource/Texture/Player/Right_Hand_Idle_P.dds" },
+	{ GetStateID(ATTACK,SW_PISTOL), L"../Bin/Resource/Texture/Player/Right_Hand_Shot_P.dds" },
+	{ GetStateID(RELOAD,SW_PISTOL), L"../Bin/Resource/Texture/Player/Right_Hand_Reload_P.dds"},
+	{ GetStateID(INTRO,SW_KATANA), L"../Bin/Resource/Texture/Player/Right_Hand_Intro_Katana.dds"}
+
 };
 
 vector<AnimationSource>  CRightPart::m_vAnimSource =
 {
 	{ GetStateID(IDLE,SW_PISTOL),0,3,3, true, 0.11f},
 	{ GetStateID(ATTACK,SW_PISTOL),0,5,5, false, 0.02f,	0.9f},
-	{ GetStateID(RELOAD,SW_PISTOL),1,6,6, false, 0.04f, 0.9f}
+	{ GetStateID(RELOAD,SW_PISTOL),1,6,6, false, 0.04f, 0.9f},
+	{ GetStateID(INTRO,SW_KATANA),1,0,0, true, 0.04f},
 };
 
 
@@ -97,6 +100,7 @@ _int CRightPart::Update_GameObject(const _float& fTimeDelta)
 void CRightPart::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CPlayerPart::LateUpdate_GameObject(fTimeDelta);
+	m_pAnimationCom->Update_State(m_pStateCom->GetCurrentStateID());
 }
 
 void CRightPart::Render_GameObject()

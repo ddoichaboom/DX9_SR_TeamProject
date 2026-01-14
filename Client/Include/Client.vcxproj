@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Header\CBackGround.h" />
     <ClInclude Include="..\Header\CBeam.h" />
     <ClInclude Include="..\Header\CBeamMon.h" />
     <ClInclude Include="..\Header\CBoss.h" />
@@ -150,10 +151,13 @@
     <ClInclude Include="..\Header\CCeiling.h" />
     <ClInclude Include="..\Header\CBullet.h" />
     <ClInclude Include="..\Header\CCharacter.h" />
+    <ClInclude Include="..\Header\CDebugObject.h" />
     <ClInclude Include="..\Header\CFirstCamera.h" />
     <ClInclude Include="..\Header\CFloor.h" />
     <ClInclude Include="..\Header\CFlyMon.h" />
+    <ClInclude Include="..\header\CHeightMapTerrain.h" />
     <ClInclude Include="..\Header\CLeftPart.h" />
+    <ClInclude Include="..\Header\CLoading.h" />
     <ClInclude Include="..\Header\CMainApp.h" />
     <ClInclude Include="..\Header\CMapLoader.h" />
     <ClInclude Include="..\Header\CMapStage.h" />
@@ -167,7 +171,6 @@
     <ClInclude Include="..\Header\CRocket.h" />
     <ClInclude Include="..\Header\CSkyBox.h" />
     <ClInclude Include="..\Header\CTerrain.h" />
-    <ClInclude Include="..\Header\CTestStage.h" />
     <ClInclude Include="..\Header\CStage.h" />
     <ClInclude Include="..\Header\CTestCharacter.h" />
     <ClInclude Include="..\Header\CWall.h" />
@@ -180,6 +183,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Code\CBackGround.cpp" />
     <ClCompile Include="..\Code\CBeam.cpp" />
     <ClCompile Include="..\Code\CBeamMon.cpp" />
     <ClCompile Include="..\Code\CBoss.cpp" />
@@ -188,10 +192,13 @@
     <ClCompile Include="..\Code\CCeiling.cpp" />
     <ClCompile Include="..\Code\CBullet.cpp" />
     <ClCompile Include="..\Code\CCharacter.cpp" />
+    <ClCompile Include="..\Code\CDebugObject.cpp" />
     <ClCompile Include="..\Code\CFirstCamera.cpp" />
     <ClCompile Include="..\Code\CFloor.cpp" />
     <ClCompile Include="..\Code\CFlyMon.cpp" />
+    <ClCompile Include="..\Code\CHeightMapTerrain.cpp" />
     <ClCompile Include="..\Code\CLeftPart.cpp" />
+    <ClCompile Include="..\Code\CLoading.cpp" />
     <ClCompile Include="..\Code\CMapLoader.cpp" />
     <ClCompile Include="..\Code\CMapStage.cpp" />
     <ClCompile Include="..\Code\CMiddlePart.cpp" />
@@ -204,7 +211,6 @@
     <ClCompile Include="..\Code\CRocket.cpp" />
     <ClCompile Include="..\Code\CSkyBox.cpp" />
     <ClCompile Include="..\Code\CTerrain.cpp" />
-    <ClCompile Include="..\Code\CTestStage.cpp" />
     <ClCompile Include="..\Code\CStage.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
     <ClCompile Include="..\Code\CTestCharacter.cpp" />

@@ -90,7 +90,7 @@ HRESULT CFlyMon::Ready_GameObject()
 	CreateStateData();
 	ChangeState(MS_IDLE);
 
-	m_pBodyCollider = m_pCollisionCom->CreateCollider(m_pTransformCom, m_szBodyColliderName);
+	m_pBodyCollider = m_pCollisionCom->CreateCollider(this, m_szBodyColliderName);
 	if (!m_pBodyCollider) return E_FAIL;
 	m_pBodyCollider->Set_Scale(_vec3(4, 4, 4));
 	m_pBodyCollider->BindFuncToCollision([&](CollisionInfo info)

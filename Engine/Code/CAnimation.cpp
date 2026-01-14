@@ -119,13 +119,12 @@ HRESULT CAnimation::Ready_Animation(CTexture* _pTextureComp, AnimationSource _An
 	return S_OK;
 }
 
-
 //순서 주의 x = x 축 y = y축  
 _int CAnimation::Update_Component(const _float& fTimeDelta)
 {
 	if (!m_CurAnimTask.animDesc || !m_bPlaying || m_bEnd) return 0 ;
 	auto pCurAnimation = m_CurAnimTask.animDesc;
-	if (pCurAnimation->vMaxIdx ==_vec2(0,0)) return 0; // 한 장 
+	//if (pCurAnimation->vMaxIdx ==_vec2(0,0)) return 0; // 한 장 
 
 	m_fTime += fTimeDelta;
 

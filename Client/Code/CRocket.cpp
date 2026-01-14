@@ -52,7 +52,7 @@ CRocket* CRocket::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 HRESULT CRocket::Ready_GameObject()
 {
 	if (FAILED(Add_Component())) return E_FAIL;
-	m_pCollider = m_pCollisionCom->CreateCollider(m_pTransformCom, m_szColliderName);
+	m_pCollider = m_pCollisionCom->CreateCollider(this, m_szColliderName);
 	if (!m_pCollider) return E_FAIL;
 
 	m_pCollider->Set_Scale({ 3.f, 3.f, 3.f });

@@ -5,7 +5,7 @@
 
 CCollider::CCollider(LPDIRECT3DDEVICE9 pGraphicDev)
 : CGameObject(pGraphicDev), m_pBufferCom(nullptr), m_pTransformCom(nullptr)
-, m_pPrtTransformCom(nullptr), m_bCanCollision(true), m_bRotToPrt(false)
+, m_pPrtTransformCom(nullptr), m_bCanCollision(true), m_bRotToPrt(false),m_pOwner(nullptr)
 {
 	D3DXMatrixIdentity(&m_matWorld);
 }
@@ -15,10 +15,18 @@ CCollider::~CCollider()
 
 }
 
-HRESULT CCollider::Ready_Collider(CTransform* _prtTransComp)
+HRESULT CCollider::Ready_Collider(CGameObject* _Owner)
 {
-	if (!_prtTransComp) return E_FAIL;
-	m_pPrtTransformCom = _prtTransComp;
+	if (!_Owner) return E_FAIL;
+	m_pOwner = _Owner;
+
+	m_pPrtTransformCom = static_cast<CTransform*>(m_pOwner->Get_Component(ID_DYNAMIC, L"Com_Transform"));
+	if (!m_pPrtTransformCom) 
+	{
+		m_pPrtTransformCom = static_cast<CTransform*>(m_pOwner->Get_Component(ID_STATIC, L"Com_Transform"));
+		if (!m_pPrtTransformCom) return E_FAIL;
+	}
+
 	if (FAILED(Add_Component())) return E_FAIL;
 
 	m_eOBJ_ID = OBJ_COL;
@@ -94,7 +102,7 @@ _matrix  CCollider::GetWorldMatrix()
 
 void  CCollider::Collision(CollisionInfo info)
 {
-	m_BindFunc(info);
+	if(m_BindFunc)	m_BindFunc(info);
 }
 
 void CCollider::Set_Scale(_vec3 _scale)
@@ -120,10 +128,17 @@ _vec3 CCollider::Get_RelativePos()
 	return pos;
 }
 
-CCollider* CCollider::Create(LPDIRECT3DDEVICE9 pGraphicDev, CTransform* _prtTransComp)
+_vec3 CCollider::Get_ParentPos()
+{
+	_vec3 pos;
+	m_pPrtTransformCom->Get_Info(INFO_POS, &pos);
+	return pos;
+}
+
+CCollider* CCollider::Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _Owner)
 {
 	CCollider* pCollider = new CCollider(pGraphicDev);
-	if (FAILED(pCollider->Ready_Collider(_prtTransComp)))
+	if (FAILED(pCollider->Ready_Collider(_Owner)))
 	{
 		Safe_Release(pCollider);
 		MSG_BOX("Collider Create Faild");

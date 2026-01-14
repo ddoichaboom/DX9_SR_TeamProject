@@ -4,7 +4,6 @@
 #include "CRenderer.h"
 #include "CDInputMgr.h"
 #include "CPoolMgr.h"
-#include "CTestStage.h"
 #include "CMapStage.h"
 #include "CBossTestStage.h"
 #include "CMapLoader.h"
@@ -29,6 +28,8 @@
 #include "CRightPart.h"
 #include "CMiddlePart.h"
 
+#include "CBackGround.h"
+
 CMainApp::CMainApp() : m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
 , m_pManagementClass(CManagement::GetInstance())
 {
@@ -43,6 +44,9 @@ HRESULT CMainApp::Ready_MainApp()
 	srand(unsigned(time(NULL)));
 
 	if (FAILED(Ready_DefaultSetting(&m_pGraphicDev)))
+		return E_FAIL;
+	
+	if (FAILED(Ready_DefaultProto()))
 		return E_FAIL;
 
 	if (FAILED(Ready_ObjectPool()))
@@ -113,11 +117,65 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 	return S_OK;
 }
 
+HRESULT CMainApp::Ready_DefaultProto()
+{
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Transform", Engine::CTransform::Create(m_pGraphicDev))))
+		return E_FAIL;
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcTexUp", Engine::CRcTexUp::Create(m_pGraphicDev))))
+		return E_FAIL;
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcTex", Engine::CRcTex::Create(m_pGraphicDev))))
+		return E_FAIL;
+
+	// CubeTex (CObstacle에서 사용)
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_CubeTex", Engine::CCubeTex::Create(m_pGraphicDev))))
+		return E_FAIL;
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_StateComponent", CStateComponent::Create(m_pGraphicDev))))
+		return E_FAIL;
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Collision", CCollision::Create(m_pGraphicDev))))
+		return E_FAIL;
+
+	//Loading Proto
+	CTexture* pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBackGround::GetTextureSource());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_LoadingTexture", pCom_Texture)))
+		return E_FAIL;
+
+	//Player Proto 
+	pCom_Texture = CTexture::Create(m_pGraphicDev, CLeftPart::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_LeftTexture", pCom_Texture)))
+		return E_FAIL;
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_LeftAnimation",
+		CAnimation::Create(m_pGraphicDev, pCom_Texture, CLeftPart::GetAnimSources()))))
+		return E_FAIL;
+
+	pCom_Texture = CTexture::Create(m_pGraphicDev, CRightPart::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RightTexture", pCom_Texture)))
+		return E_FAIL;
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RightAnimation",
+		CAnimation::Create(m_pGraphicDev, pCom_Texture, CRightPart::GetAnimSources()))))
+		return E_FAIL;
+
+	pCom_Texture = CTexture::Create(m_pGraphicDev, CMiddlePart::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_MiddleTexture", pCom_Texture)))
+		return E_FAIL;
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_MiddleAnimation",
+		CAnimation::Create(m_pGraphicDev, pCom_Texture, CMiddlePart::GetAnimSources()))))
+		return E_FAIL;
+
+	return S_OK;
+}
+
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	//Engine::CScene* pInitScene = CTestStage::Create(pGraphicDev);
-	//Engine::CScene* pInitScene = CMapStage::Create(pGraphicDev);
-	Engine::CScene* pInitScene = CBossTestStage::Create(pGraphicDev);
+	Engine::CScene* pInitScene = CMapStage::Create(pGraphicDev);
+	//Engine::CScene* pInitScene = CBossTestStage::Create(pGraphicDev);
 
 	if (nullptr == pInitScene)
 		return E_FAIL;

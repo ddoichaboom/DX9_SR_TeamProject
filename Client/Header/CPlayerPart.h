@@ -17,13 +17,14 @@ class CPlayerPart : public CGameObject
 {
 public:
 	enum STATE_MAIN : _byte
-	{
+	{		
 		IDLE = 1,
 		RELOAD = 2,
 		ATTACK = 3,
 		KICK = 5,
 		DRINK = 6,
-		SLIDE = 7,
+		SLIDE = 7,		
+		INTRO = 8,
 		MAIN_END
 	};
 
@@ -59,9 +60,9 @@ public:
 	virtual		void	Render_GameObject() override;
 
 public:
-	void SetParent(CPlayer* pPlayer);
-	void SetPos(_vec3 _pos);
-	void SetWeapon(_byte eState) { m_eWeaponState = (STATE_WEAPON)eState; }
+	void	SetParent(CPlayer* pPlayer);
+	void	SetPos(_vec3 _pos);
+	void	SetWeapon(_byte eState) { m_eWeaponState = (STATE_WEAPON)eState; }
 	void	Set_Rendering(_bool bRender) { m_bRendering = bRender; }
 	_bool	Get_Rendering()	const { return m_bRendering; }
 

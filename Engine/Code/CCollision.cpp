@@ -19,9 +19,9 @@ CCollision::~CCollision()
 {
 }
 
-CCollider* CCollision::CreateCollider(CTransform* _prtTransComp, const _tchar* _name)
+CCollider* CCollision::CreateCollider(CGameObject* _obj, const _tchar* _name)
 {
-	CCollider * pCollider = CCollider::Create(m_pGraphicDev, _prtTransComp);
+	CCollider * pCollider = CCollider::Create(m_pGraphicDev, _obj);
     if (m_mapCollider.find(_name) != m_mapCollider.end())
     {
         Safe_Release(pCollider);
@@ -66,9 +66,35 @@ void CCollision::Collision_Base(CCollider* _aCol, CCollider* _bCol)
 
 	if (CheckCollision(_aCol, _bCol))
 	{
-        _aCol->Collision({ _bCol,{0,0,0} });
-        _bCol->Collision({ _aCol,{0,0,0}});
+        _aCol->Collision({ _bCol->Get_Owner(),{0,0,0}});
+        _bCol->Collision({ _aCol->Get_Owner(),{0,0,0}});
 	}
+}
+
+void CCollision::Collision_Diff(CCollider* _obj, CCollider* _terrain)
+{
+    if (!_obj || !_terrain) return;
+    if (!_obj->CanCollision() || !_terrain->CanCollision()) return;
+
+    _vec3 vDiff; 
+    if (CheckCollision_Diff(_obj, _terrain, &vDiff))
+    {
+        COL_DIR eDir;
+        _vec3 vABSDiff = { fabsf(vDiff.x),fabsf(vDiff.y),fabsf(vDiff.z) };
+        if (vABSDiff.x < vABSDiff.y && vABSDiff.x < vABSDiff.z)
+        {
+            eDir = CDIR_X;
+        }
+        else if (vABSDiff.y < vABSDiff.x && vABSDiff.y < vABSDiff.z)
+        {
+            eDir = CDIR_Y;
+        }
+        else
+        {
+            eDir = CDIR_Z;
+        }
+        _obj->Collision({ _terrain->Get_Owner(), vDiff,0.f,TAG_NONE,eDir});
+    }
 }
 
 bool CCollision::CheckCollision(CCollider* _aCol, CCollider* _bCol)
@@ -97,22 +123,23 @@ bool CCollision::CheckCollision(CCollider* _aCol, CCollider* _bCol)
 
 //겹치는 부분을 파악하기 위한 충돌
 //벽 충돌 or Collider가 있는 오브젝트 충돌용 
-bool CCollision::CheckCollision_Diff(CCollider* _aCol, CCollider* _bCol, _vec3* diff)
+//절대값 대신 실제 차이값을 반환하도록 변경 
+bool CCollision::CheckCollision_Diff(CCollider* _obj, CCollider* _terrain, _vec3* diff)
 {
-    if (!_aCol || !_bCol) return false;
+    if (!_obj || !_terrain) return false;
 
 	_vec3 origin = { 0.f, 0.f, 0.f };
-	_matrix MyMatrix = _aCol->GetWorldMatrix();
+	_matrix MyMatrix = _obj->GetWorldMatrix();
 	D3DXVec3TransformCoord(&origin, &origin, &MyMatrix); // 원점 월드 위치 
 
 	// 로컬의 각 축의 너비는 2, 절반은 1이므로 반지름 == 크기 로 대체가능 
-	_vec3 radius = _aCol->Get_Scale();
+	_vec3 radius = _obj->Get_Scale();
 
 
 	_vec3 otherOrigin = { 0.f, 0.f, 0.f };
-	_matrix otherMatrix = _bCol->GetWorldMatrix();
+	_matrix otherMatrix = _terrain->GetWorldMatrix();
 	D3DXVec3TransformCoord(&otherOrigin, &otherOrigin, &otherMatrix);
-	_vec3 otherRadius = _bCol->Get_Scale();
+	_vec3 otherRadius = _terrain->Get_Scale();
 
 
 	float fHorizontal = fabsf(origin.x - otherOrigin.x );
@@ -123,9 +150,9 @@ bool CCollision::CheckCollision_Diff(CCollider* _aCol, CCollider* _bCol, _vec3* 
 
 	if ((totalRadius.x > fHorizontal) && (totalRadius.y > fVertical) && (totalRadius.z >fDepth))
 	{
-		diff->x = totalRadius.x - fHorizontal;
-		diff->y = totalRadius.y - fVertical;
-		diff->z = totalRadius.z - fDepth;
+		diff->x = (totalRadius.x - fHorizontal)* (origin.x < otherOrigin.x ?-1.f :1.f);
+		diff->y = (totalRadius.y - fVertical) * (origin.y < otherOrigin.y ? -1.f : 1.f);;
+		diff->z = (totalRadius.z - fDepth) * (origin.z < otherOrigin.z ? -1.f : 1.f);;
 		return true;
 	}
 	return false;

@@ -66,12 +66,14 @@ private:
 private:
 	static const _uint FILE_VERSION = 3;  
 
-	_vec3						m_vPlayerSpawnPos;
-	map<string, vector<_vec3>>	m_mapMonsterSpawnPos;
-	_uint						m_iFloorCount;
-	_uint						m_iCeilingCount;
-	_uint						m_iWallCount;
-	_uint						m_iObstacleCount;
+	_vec3								m_vPlayerSpawnPos;
+	_vec3								m_vTerrainPos;
+	map<TERRAIN_TYPE, vector<_vec3>>	m_mapTerrainPos;
+	map<string, vector<_vec3>>			m_mapMonsterSpawnPos;
+	_uint								m_iFloorCount;
+	_uint								m_iCeilingCount;
+	_uint								m_iWallCount;
+	_uint								m_iObstacleCount;
 
 private:
 	virtual void Free() override;

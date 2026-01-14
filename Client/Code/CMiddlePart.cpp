@@ -8,25 +8,32 @@
 
 vector<TextureSource> CMiddlePart::m_vTextureSource =
 {
-	{ IDLE, L"../Bin/Resource/Texture/Player/Middle_Kick.png"},
-	{ KICK, L"../Bin/Resource/Texture/Player/Middle_Kick.png"},
-	{ DRINK,  L"../Bin/Resource/Texture/Player/Middle_Soda.png" }
+	{ IDLE, L"../Bin/Resource/Texture/Player/Middle_Kick.dds"},
+	{ KICK, L"../Bin/Resource/Texture/Player/Middle_Kick.dds"},
+	{ DRINK,  L"../Bin/Resource/Texture/Player/Middle_Soda.dds" },
+	{ SLIDE,  L"../Bin/Resource/Texture/Player/Middle_Slide.dds" },
+	{ GetStateID(INTRO,SW_END),  L"../Bin/Resource/Texture/Player/Player_Intro_Begin.dds"},
+
+	{ INTRO,  L"../Bin/Resource/Texture/Player/Player_Intro.dds" },
 };
 
 vector<AnimationSource>  CMiddlePart::m_vAnimSource =
 {
-	{ IDLE,0,3,3, false, 0.08f},
+	{ IDLE,0,3,3, true, 0.08f},
 	{ KICK,0,3,3, false, 0.08f, 1.f},
-	{ DRINK,0,6,6, false, 0.05f, 1.f}
+	{ DRINK,0,6,6, false, 0.08f, 1.f},
+	{ SLIDE,1,0,0, true, 0.08f},
+	{ GetStateID(INTRO,SW_END),1,2,2, false, 0.12f, 1.f},
+	{ INTRO,1,2,2, false, 0.12f, 1.f}
 };
 
 CMiddlePart::CMiddlePart(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CPlayerPart(pGraphicDev)
+	: CPlayerPart(pGraphicDev), m_iLoopTime(3)
 {
 }
 
 CMiddlePart::CMiddlePart(const CMiddlePart& rhs)
-	: CPlayerPart(rhs)
+	: CPlayerPart(rhs), m_iLoopTime(3)
 {
 }
 
@@ -48,6 +55,14 @@ void CMiddlePart::CreateStateData()
 	State = new CState<CMiddlePart>(&CMiddlePart::Begin_Idle, &CMiddlePart::Idle, nullptr);
 	Mgr->AddState(IDLE, State);
 
+	State = new CState<CMiddlePart>(&CMiddlePart::Begin_Slide, &CMiddlePart::Slide, &CMiddlePart::End_Slide);
+	Mgr->AddState(SLIDE, State);
+
+	State = new CState<CMiddlePart>(&CMiddlePart::Begin_Intro, &CMiddlePart::Intro, nullptr);
+	Mgr->AddState(GetStateID(INTRO, SW_END), State);
+
+	State = new CState<CMiddlePart>(&CMiddlePart::Begin_Intro2, &CMiddlePart::Intro2, nullptr);
+	Mgr->AddState(INTRO, State);
 
 }
 
@@ -79,7 +94,6 @@ HRESULT CMiddlePart::Ready_GameObject()
 	m_vStartPos = { 0.f, WINCY * -0.5f + 200.f, 0.f };
 	m_pTransformCom->Set_Pos(m_vStartPos);
 
-
 	m_bRendering = false;
 
 	return S_OK;
@@ -87,14 +101,14 @@ HRESULT CMiddlePart::Ready_GameObject()
 
 _int CMiddlePart::Update_GameObject(const _float& fTimeDelta)
 {
-	int iExit = CPlayerPart::Update_GameObject(fTimeDelta);
-
+	int iExit = CPlayerPart::Update_GameObject(fTimeDelta);	
 	return iExit;
 }
 
 void CMiddlePart::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CPlayerPart::LateUpdate_GameObject(fTimeDelta);
+	m_pAnimationCom->Update_State(m_pStateCom->GetCurrentStateID());
 }
 
 void CMiddlePart::Render_GameObject()
@@ -139,6 +153,7 @@ void CMiddlePart::ChangeState(_uint nextStateID)
 void CMiddlePart::Begin_Idle()
 {
 	m_pTransformCom->m_vScale = { 256.f, 256.f, 1.f };
+	m_pTransformCom->Set_Pos(m_vStartPos);
 }
 
 void CMiddlePart::Idle()
@@ -149,19 +164,17 @@ void CMiddlePart::Idle()
 void CMiddlePart::Begin_Kick()
 {
 	m_pTransformCom->m_vScale = { 256.f, 256.f, 1.f };
+	m_pTransformCom->Set_Pos(m_vStartPos);
 }
 
 void CMiddlePart::Kick()
 {
 	if (m_pAnimationCom->CanEnd())
 	{
+		m_pPlayer->Kick();
 		ChangeState(IDLE);
 		return;
 	}
-
-	if (m_pAnimationCom->Get_State() == IDLE)
-		return;
-
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 }
 
@@ -173,7 +186,8 @@ void CMiddlePart::End_Kick()
 void CMiddlePart::Begin_Drink()
 {
 	// 체력 회복 
-	m_pTransformCom->m_vScale = { 350.f, 350.f, 1.f };
+	m_pTransformCom->m_vScale = { 350.f, 350.f, 1.f };	
+	m_pTransformCom->Set_Pos({ 0.f, WINCY * -0.5f + 100.f, 0.f });
 
 }
 
@@ -185,29 +199,61 @@ void CMiddlePart::Drink()
 		ChangeState(IDLE);
 		return;
 	}
-
-	if (m_pAnimationCom->Get_State() == IDLE)
-		return;
-
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 }
 
 void CMiddlePart::End_Drink()
 {
-
+	m_pTransformCom->Set_Pos(m_vStartPos);
 }
 
 void CMiddlePart::Begin_Slide()
 {
-
+	m_pTransformCom->m_vScale = { 512.f, 256.f, 1.f };
+	m_pTransformCom->Set_Pos({ 0.f, WINCY * -0.5f + 225.f, 0.f });
 }
 
 void CMiddlePart::Slide()
 {
+	m_pPlayer->Slide();
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 }
 
 void CMiddlePart::End_Slide()
 {
 
+}
+
+void CMiddlePart::Begin_Intro()
+{
+	m_pTransformCom->m_vScale = { 512.f, 512.f, 1.f };
+	m_pTransformCom->Set_Pos({ 0.f, WINCY * -0.5f, 0.f });
+}
+
+void CMiddlePart::Intro()
+{
+	if (m_pAnimationCom->CanEnd())
+	{		
+		ChangeState(INTRO);
+		return;
+	}
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+}
+
+void CMiddlePart::Begin_Intro2()
+{
+	m_pTransformCom->m_vScale = { 512.f, 256.f, 1.f };
+	m_pTransformCom->Set_Pos({ 0.f, WINCY * -0.5f + 125.f, 0.f });
+	m_fTime = 0.f;
+}
+
+void CMiddlePart::Intro2()
+{
+	if (m_pAnimationCom->CanEnd())
+	{
+		ChangeState(IDLE);
+		return;
+	}
+
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 }

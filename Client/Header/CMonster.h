@@ -16,7 +16,7 @@ protected:
 	explicit		CMonster(const CMonster& rhs);
 	virtual			~CMonster();
 
-protected:
+public:
 	HRESULT			Ready_GameObject() override;
 	_int			Update_GameObject(const _float& fTimeDelta) override;
 	void			LateUpdate_GameObject(const _float& fTimeDelta) override;
@@ -48,8 +48,6 @@ protected:
 	_float m_fAttackableDist; 
 	_vec3 m_vDir;
 	_float m_fSpeed;
-	const _float m_fMaxHP;
-	_float m_fHP;
 
 	const _float m_fLaunchTime = 0.2f;
 	_float m_fLaunchSpeed = 2.f;

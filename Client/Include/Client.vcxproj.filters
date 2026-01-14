@@ -67,18 +67,6 @@
     <Filter Include="02. GameObject\99. Environment">
       <UniqueIdentifier>{fb01c617-0ba8-40f8-9e6a-3174534b7550}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\99. Environment\00. Floor">
-      <UniqueIdentifier>{a95c6d76-d798-479e-a7f4-f50fb06fbeed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\99. Environment\01. Ceiling">
-      <UniqueIdentifier>{6ceb23c7-0c1b-4af9-a77d-c8a60b3fc62a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\99. Environment\03. Obstacle">
-      <UniqueIdentifier>{201c3123-c49d-4acf-adf8-a738fccb6dfc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\99. Environment\02. Wall">
-      <UniqueIdentifier>{6cf6218e-c410-4898-b859-90841f68fb0f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Manager%28Hojun%29">
       <UniqueIdentifier>{44fd1cba-5089-4c11-98e8-ea13ec15bbd2}</UniqueIdentifier>
     </Filter>
@@ -115,6 +103,33 @@
     <Filter Include="02. GameObject\00. Character\02. Boss\Rocket">
       <UniqueIdentifier>{4984b130-26ea-46e7-b085-09c3268d713d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\99. Environment\00. Terrain">
+      <UniqueIdentifier>{56f144aa-528e-488e-a9c9-499a69316446}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Environment\00. Terrain\00. Floor">
+      <UniqueIdentifier>{a95c6d76-d798-479e-a7f4-f50fb06fbeed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Environment\00. Terrain\01. Ceiling">
+      <UniqueIdentifier>{6ceb23c7-0c1b-4af9-a77d-c8a60b3fc62a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Environment\00. Terrain\02. Wall">
+      <UniqueIdentifier>{6cf6218e-c410-4898-b859-90841f68fb0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Environment\01. Object">
+      <UniqueIdentifier>{943e9a83-6010-409a-be24-d94ce4a8d0b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Environment\01. Object\03. Obstacle">
+      <UniqueIdentifier>{201c3123-c49d-4acf-adf8-a738fccb6dfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\999.DebugObject">
+      <UniqueIdentifier>{bd545b88-97bc-4240-9694-3bc3967717b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\02. Loading">
+      <UniqueIdentifier>{034ad6be-3396-4232-b306-09501ab26c96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\98. BackGround">
+      <UniqueIdentifier>{bc5cf546-9147-47cc-9af4-103b080d0c88}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -144,9 +159,6 @@
     <ClInclude Include="..\Header\CTestCharacter.h">
       <Filter>02. GameObject\00. Character\99. TestCharacter</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CTestStage.h">
-      <Filter>01. Scene\01. Stage\00. TestStage</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CMonster.h">
       <Filter>02. GameObject\00. Character\01. Monster</Filter>
     </ClInclude>
@@ -174,23 +186,20 @@
     <ClInclude Include="..\Header\CSkyBox.h">
       <Filter>999.Sample</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CTerrain.h">
-      <Filter>999.Sample</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CMapStage.h">
       <Filter>01. Scene\01. Stage\01. MapStage</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CFloor.h">
-      <Filter>02. GameObject\99. Environment\00. Floor</Filter>
+      <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CCeiling.h">
-      <Filter>02. GameObject\99. Environment\01. Ceiling</Filter>
+      <Filter>02. GameObject\99. Environment\00. Terrain\01. Ceiling</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CWall.h">
-      <Filter>02. GameObject\99. Environment\02. Wall</Filter>
+      <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CObstacle.h">
-      <Filter>02. GameObject\99. Environment\03. Obstacle</Filter>
+      <Filter>02. GameObject\99. Environment\01. Object\03. Obstacle</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CMapLoader.h">
       <Filter>03. Manager%28Hojun%29\00. MapLoader</Filter>
@@ -225,6 +234,21 @@
     <ClInclude Include="..\Header\CRocket.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="..\header\CHeightMapTerrain.h">
+      <Filter>999.Sample</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTerrain.h">
+      <Filter>02. GameObject\99. Environment\00. Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDebugObject.h">
+      <Filter>02. GameObject\999.DebugObject</Filter>
+	</ClInclude>
+    <ClInclude Include="..\Header\CLoading.h">
+      <Filter>01. Scene\02. Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBackGround.h">
+      <Filter>02. GameObject\98. BackGround</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -241,9 +265,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTestCharacter.cpp">
       <Filter>02. GameObject\00. Character\99. TestCharacter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CTestStage.cpp">
-      <Filter>01. Scene\01. Stage\00. TestStage</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CMonster.cpp">
       <Filter>02. GameObject\00. Character\01. Monster</Filter>
@@ -272,23 +293,20 @@
     <ClCompile Include="..\Code\CSkyBox.cpp">
       <Filter>999.Sample</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CTerrain.cpp">
-      <Filter>999.Sample</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CMapStage.cpp">
       <Filter>01. Scene\01. Stage\01. MapStage</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CFloor.cpp">
-      <Filter>02. GameObject\99. Environment\00. Floor</Filter>
+      <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CCeiling.cpp">
-      <Filter>02. GameObject\99. Environment\01. Ceiling</Filter>
+      <Filter>02. GameObject\99. Environment\00. Terrain\01. Ceiling</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CWall.cpp">
-      <Filter>02. GameObject\99. Environment\02. Wall</Filter>
+      <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CObstacle.cpp">
-      <Filter>02. GameObject\99. Environment\03. Obstacle</Filter>
+      <Filter>02. GameObject\99. Environment\01. Object\03. Obstacle</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CMapLoader.cpp">
       <Filter>03. Manager%28Hojun%29\00. MapLoader</Filter>
@@ -325,6 +343,21 @@
     </ClCompile>
     <ClCompile Include="..\Code\CRocket.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHeightMapTerrain.cpp">
+      <Filter>999.Sample</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTerrain.cpp">
+      <Filter>02. GameObject\99. Environment\00. Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDebugObject.cpp">
+      <Filter>02. GameObject\999.DebugObject</Filter>
+	</ClCompile>
+    <ClCompile Include="..\Code\CLoading.cpp">
+      <Filter>01. Scene\02. Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBackGround.cpp">
+      <Filter>02. GameObject\98. BackGround</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
