@@ -7,6 +7,8 @@ class CEditorScene;
 class CEditorObject;
 class CEditorWall;
 class CEditorSpawnPoint;
+class CEditorFloor;
+class CEditorCeiling;
 
 class CInspector : public CBase
 {
@@ -22,6 +24,10 @@ public:
 private:
     void    Render_CameraProperties();
     void    Render_GridProperties();
+    void    Render_FloorTextureUI(CEditorFloor* pFloor);
+    void    Render_CeilingTextureUI(CEditorCeiling* pCeiling);
+    void    Render_WallTextureUI(CEditorWall* pWall);
+
 
 private:
     void    Render_ObjectProperties();

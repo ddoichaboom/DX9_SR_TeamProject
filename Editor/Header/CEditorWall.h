@@ -41,6 +41,7 @@ public:
 private:
     HRESULT         Add_Component();
 
+public:
     void            Set_TextureIdx(_int iIdx);
     _int            Get_TextureIdx() const { return m_iTextureIdx; }
 
@@ -64,6 +65,8 @@ public:
 
     // 전체 파라미터 지정 (맵 로드용)
     static CEditorWall* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, WALL_DIR eDir);
+
+    static CEditorWall* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, WALL_DIR eDir, _uint iType, _int iIdx);
 
 private:
     static vector<TextureSource> m_vTextureSource;

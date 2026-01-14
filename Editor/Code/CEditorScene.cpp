@@ -255,20 +255,28 @@ void CEditorScene::Handle_Duplicate()
                 _vec3 vScale = pSelectedObj->Get_Scale();
 
                 CEditorObject* pNewObj = nullptr;
+                _uint iType(0);
+                _int iIdx(0);
 
                 // 타입별 복제
-                if (dynamic_cast<CEditorFloor*>(pSelectedObj))
+                if (CEditorFloor* pFloor = dynamic_cast<CEditorFloor*>(pSelectedObj))
                 {
+                    iType  =  pFloor->Get_FloorType();
+                    iIdx   = pFloor->Get_TextureIdx();
+
                     vPos.x += 16.0f;
-                    pNewObj = CEditorFloor::Create(m_pGraphicDev, vPos, vRot, vScale);
+                    pNewObj = CEditorFloor::Create(m_pGraphicDev, vPos, vRot, vScale, iType, iIdx);
                 }
-                else if (dynamic_cast<CEditorCeiling*>(pSelectedObj))
+                else if (CEditorCeiling* pCeiling = dynamic_cast<CEditorCeiling*>(pSelectedObj))
                 {
+                    iType   = pCeiling->Get_CeilingType();
+                    iIdx    = pCeiling->Get_TextureIdx();
                     vPos.x += 16.0f;
                     pNewObj = CEditorCeiling::Create(m_pGraphicDev, vPos, vRot, vScale);
                 }
                 else if (dynamic_cast<CEditorCube*>(pSelectedObj))
                 {
+                    // TODO 자판기 구현 완료시 구현
                     vPos.x += 8.f;
                     pNewObj = CEditorCube::Create(m_pGraphicDev, vPos, vRot, vScale);
                 }
@@ -298,7 +306,10 @@ void CEditorScene::Handle_Duplicate()
                         vPos.x += 32.f;
                     }
 
-                    pNewObj = CEditorWall::Create(m_pGraphicDev, vPos, vRot, vScale, eDir);
+                    iType = pWall->Get_WallType();
+                    iIdx = pWall->Get_TextureIdx();
+
+                    pNewObj = CEditorWall::Create(m_pGraphicDev, vPos, vRot, vScale, eDir, iType, iIdx);
                 }
                 else if (CEditorSpawnPoint* pSpawn = dynamic_cast<CEditorSpawnPoint*>(pSelectedObj))
                 {

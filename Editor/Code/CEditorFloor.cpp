@@ -51,6 +51,14 @@ void CEditorFloor::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CEditorFloor::Render_GameObject()
 {
+    // 텍스처 스테이트 저장 
+    DWORD dwOldColorOp, dwOldColorArg1, dwOldColorArg2, dwOldTextureFactor;
+
+    m_pGraphicDev->GetTextureStageState(0, D3DTSS_COLOROP, &dwOldColorOp);
+    m_pGraphicDev->GetTextureStageState(0, D3DTSS_COLORARG1, &dwOldColorArg1);
+    m_pGraphicDev->GetTextureStageState(0, D3DTSS_COLORARG2, &dwOldColorArg2);
+    m_pGraphicDev->GetRenderState(D3DRS_TEXTUREFACTOR, &dwOldTextureFactor);
+
     m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT2);
 
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
@@ -62,13 +70,22 @@ void CEditorFloor::Render_GameObject()
 
     if (m_bSelected)
     {
+        m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+        m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+        m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_TFACTOR);
         m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 100));  // 노란색 tint
     }
 
     m_pBufferCom->Render_Buffer();
 
-    m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_DISABLE);
+    // 텍스처 스테이트 복원
     m_pGraphicDev->SetTexture(0, nullptr);
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, dwOldColorOp);
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, dwOldColorArg1);
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG2, dwOldColorArg2);
+    m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, dwOldTextureFactor);
+
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_DISABLE);
 
 }
 
@@ -161,6 +178,26 @@ CEditorFloor* CEditorFloor::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _v
     pInstance->Set_Rotation(vRot);
     pInstance->Set_Position(vPos);
 
+    return pInstance;
+}
+
+CEditorFloor* CEditorFloor::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, _uint iType, _int iIdx)
+{
+    CEditorFloor* pInstance = new CEditorFloor(pGraphicDev);
+
+    if (FAILED(pInstance->Ready_GameObject()))
+    {
+        Safe_Release(pInstance);
+        MSG_BOX("CEditorFloor Create Failed");
+        return nullptr;
+    }
+
+    // Transform 전체 지정 (맵 로드 시 사용)
+    pInstance->Set_Scale(vScale);
+    pInstance->Set_Rotation(vRot);
+    pInstance->Set_Position(vPos);
+    pInstance->Set_FloorType(iType);
+    pInstance->Set_TextureIdx(iIdx);
     return pInstance;
 }
 

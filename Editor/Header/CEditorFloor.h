@@ -43,8 +43,11 @@ public:
     // 기본 생성 (위치만)
     static CEditorFloor* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos);
 
-    // 전체 파라미터 지정 (맵 로드용)
+    // 전체 파라미터 지정 - 텍스처 제외
     static CEditorFloor* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale);
+    
+    // 전체 파라미터 지정 - 텍스처 포함 
+    static CEditorFloor* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, _uint iType, _int iIdx);
 
 protected:
     virtual void    Free() override;
