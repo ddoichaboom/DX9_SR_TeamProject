@@ -22,8 +22,9 @@
 #include "CLeftPart.h"
 #include "CRightPart.h"
 #include "CMiddlePart.h"
-
+#include "CKatana.h"
 #include "CBackGround.h"
+
 
 CMainApp::CMainApp() : m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
 , m_pManagementClass(CManagement::GetInstance())
@@ -214,6 +215,7 @@ void CMainApp::Free()
 	CDataMgr<CLeftPart>::DestroyInstance();
 	CDataMgr<CRightPart>::DestroyInstance();
 	CDataMgr<CMiddlePart>::DestroyInstance();
+	CDataMgr<CKatana>::DestroyInstance();
 
 
 	m_pDeviceClass->DestroyInstance();

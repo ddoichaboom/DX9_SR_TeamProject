@@ -17,8 +17,10 @@ CPlayerPart::CPlayerPart(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_pStateCom(nullptr)
 	, m_bRendering(true), m_fTime(0.f)
 	, m_pPlayer(nullptr)
+	, m_vConvertPos(), m_vConvertScale(), m_fDelayTime(0.f)
+	, m_bDelay(false), m_eWeaponState(SW_NONE)
 {
-
+	
 }
 
 CPlayerPart::CPlayerPart(const CPlayerPart& rhs)
@@ -30,6 +32,8 @@ CPlayerPart::CPlayerPart(const CPlayerPart& rhs)
 	, m_pStateCom(nullptr)
 	, m_bRendering(true), m_fTime(0.f)
 	, m_pPlayer(nullptr)
+	, m_vConvertPos(), m_vConvertScale(), m_fDelayTime(0.f)
+	, m_bDelay(false), m_eWeaponState(SW_NONE)
 {
 
 }

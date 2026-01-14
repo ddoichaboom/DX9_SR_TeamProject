@@ -12,7 +12,7 @@ vector<TextureSource> CMiddlePart::m_vTextureSource =
 	{ KICK, L"../Bin/Resource/Texture/Player/Middle_Kick.dds"},
 	{ DRINK,  L"../Bin/Resource/Texture/Player/Middle_Soda.dds" },
 	{ SLIDE,  L"../Bin/Resource/Texture/Player/Middle_Slide.dds" },
-	{ GetStateID(INTRO,SW_END),  L"../Bin/Resource/Texture/Player/Player_Intro_Begin.dds"},
+	{ GetStateID(INTRO,SW_PISTOL),  L"../Bin/Resource/Texture/Player/Player_Intro_Begin.dds"},
 
 	{ INTRO,  L"../Bin/Resource/Texture/Player/Player_Intro.dds" },
 };
@@ -23,7 +23,7 @@ vector<AnimationSource>  CMiddlePart::m_vAnimSource =
 	{ KICK,0,3,3, false, 0.08f, 1.f},
 	{ DRINK,0,6,6, false, 0.08f, 1.f},
 	{ SLIDE,1,0,0, true, 0.08f},
-	{ GetStateID(INTRO,SW_END),1,2,2, false, 0.12f, 1.f},
+	{ GetStateID(INTRO,SW_PISTOL),1,2,2, false, 0.12f, 1.f},
 	{ INTRO,1,2,2, false, 0.12f, 1.f}
 };
 
@@ -59,7 +59,7 @@ void CMiddlePart::CreateStateData()
 	Mgr->AddState(SLIDE, State);
 
 	State = new CState<CMiddlePart>(&CMiddlePart::Begin_Intro, &CMiddlePart::Intro, nullptr);
-	Mgr->AddState(GetStateID(INTRO, SW_END), State);
+	Mgr->AddState(GetStateID(INTRO, SW_PISTOL), State);
 
 	State = new CState<CMiddlePart>(&CMiddlePart::Begin_Intro2, &CMiddlePart::Intro2, nullptr);
 	Mgr->AddState(INTRO, State);
@@ -102,6 +102,7 @@ HRESULT CMiddlePart::Ready_GameObject()
 _int CMiddlePart::Update_GameObject(const _float& fTimeDelta)
 {
 	int iExit = CPlayerPart::Update_GameObject(fTimeDelta);	
+
 	return iExit;
 }
 
@@ -171,8 +172,9 @@ void CMiddlePart::Kick()
 {
 	if (m_pAnimationCom->CanEnd())
 	{
-		m_pPlayer->Kick();
-		ChangeState(IDLE);
+		m_pPlayer->Kick_Func();
+		//ChangeState(IDLE);
+		m_pPlayer->Change_State(IDLE);
 		return;
 	}
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
@@ -196,7 +198,8 @@ void CMiddlePart::Drink()
 
 	if (m_pAnimationCom->CanEnd())
 	{
-		ChangeState(IDLE);
+		//ChangeState(IDLE);
+		m_pPlayer->Change_State(IDLE);
 		return;
 	}
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
@@ -215,7 +218,7 @@ void CMiddlePart::Begin_Slide()
 
 void CMiddlePart::Slide()
 {
-	m_pPlayer->Slide();
+	m_pPlayer->Slide_Func();
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 }
 
@@ -234,7 +237,7 @@ void CMiddlePart::Intro()
 {
 	if (m_pAnimationCom->CanEnd())
 	{		
-		ChangeState(INTRO);
+		ChangeState(INTRO);		
 		return;
 	}
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
@@ -251,9 +254,10 @@ void CMiddlePart::Intro2()
 {
 	if (m_pAnimationCom->CanEnd())
 	{
-		ChangeState(IDLE);
+		//ChangeState(IDLE);
+		m_pPlayer->Change_State(IDLE);
 		return;
 	}
-
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 }
+	

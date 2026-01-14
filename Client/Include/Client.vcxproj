@@ -153,6 +153,7 @@
     <ClInclude Include="..\Header\CFloor.h" />
     <ClInclude Include="..\Header\CFlyMon.h" />
     <ClInclude Include="..\header\CHeightMapTerrain.h" />
+    <ClInclude Include="..\Header\CKatana.h" />
     <ClInclude Include="..\Header\CLeftPart.h" />
     <ClInclude Include="..\Header\CLoading.h" />
     <ClInclude Include="..\Header\CMainApp.h" />
@@ -190,6 +191,7 @@
     <ClCompile Include="..\Code\CFloor.cpp" />
     <ClCompile Include="..\Code\CFlyMon.cpp" />
     <ClCompile Include="..\Code\CHeightMapTerrain.cpp" />
+    <ClCompile Include="..\Code\CKatana.cpp" />
     <ClCompile Include="..\Code\CLeftPart.cpp" />
     <ClCompile Include="..\Code\CLoading.cpp" />
     <ClCompile Include="..\Code\CMapLoader.cpp" />

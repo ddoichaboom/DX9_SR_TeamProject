@@ -6,7 +6,7 @@ CPistol::CPistol(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 }
 
-CPistol::CPistol(const CWeapon& rhs)
+CPistol::CPistol(const CPistol& rhs)
 	: CWeapon(rhs)
 {
 }
@@ -19,7 +19,7 @@ HRESULT CPistol::Ready_GameObject()
 {
 	m_bSelect = false;
 	// 파워 / attack cool time
-	m_iPower = 3;
+	m_fPower = 3;
 	m_fCoolTime = 0.1f;
 	// 최대 불렛
 	m_iMaxBullet = 9;
@@ -29,9 +29,6 @@ HRESULT CPistol::Ready_GameObject()
 
 _int CPistol::Update_GameObject(const _float& fTimeDelta)
 {
-	if (m_bSelect == false)
-		return RET_NONE;
-
 	int iExit = CGameObject::Update_GameObject(fTimeDelta);
 	m_fTime += fTimeDelta;
 
@@ -40,9 +37,6 @@ _int CPistol::Update_GameObject(const _float& fTimeDelta)
 
 void CPistol::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-	if (m_bSelect == false)
-		return;
-
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 

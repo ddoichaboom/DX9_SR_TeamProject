@@ -11,7 +11,8 @@ vector<TextureSource> CRightPart::m_vTextureSource =
 	{ GetStateID(IDLE,SW_PISTOL),	L"../Bin/Resource/Texture/Player/Right_Hand_Idle_P.dds" },
 	{ GetStateID(ATTACK,SW_PISTOL), L"../Bin/Resource/Texture/Player/Right_Hand_Shot_P.dds" },
 	{ GetStateID(RELOAD,SW_PISTOL), L"../Bin/Resource/Texture/Player/Right_Hand_Reload_P.dds"},
-	{ GetStateID(INTRO,SW_KATANA), L"../Bin/Resource/Texture/Player/Right_Hand_Intro_Katana.dds"}
+	{ GetStateID(INTRO,SW_KATANA), L"../Bin/Resource/Texture/Player/Right_Hand_Intro_Katana.dds"},
+	{ GetStateID(IDLE,SW_KATANA), L"../Bin/Resource/Texture/Player/Right_Hand_Idle_K.dds"},
 
 };
 
@@ -21,6 +22,7 @@ vector<AnimationSource>  CRightPart::m_vAnimSource =
 	{ GetStateID(ATTACK,SW_PISTOL),0,5,5, false, 0.02f,	0.9f},
 	{ GetStateID(RELOAD,SW_PISTOL),1,6,6, false, 0.04f, 0.9f},
 	{ GetStateID(INTRO,SW_KATANA),1,0,0, true, 0.04f},
+	{ GetStateID(IDLE,SW_KATANA),0,1,1, true, 0.11f}
 };
 
 
@@ -53,6 +55,11 @@ void CRightPart::CreateStateData()
 	State = new CState<CRightPart>(&CRightPart::Begin_Reload, &CRightPart::Reload, &CRightPart::End_Reload);
 	Mgr->AddState(GetStateID(RELOAD, SW_PISTOL), State);
 
+	State = new CState<CRightPart>(&CRightPart::Begin_Intro, &CRightPart::Intro, &CRightPart::End_Intro);
+	Mgr->AddState(GetStateID(INTRO, SW_KATANA), State);
+
+	State = new CState<CRightPart>(&CRightPart::Begin_Idle, &CRightPart::Idle, nullptr);
+	Mgr->AddState(GetStateID(IDLE, SW_KATANA), State);
 }
 
 CRightPart* CRightPart::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -80,13 +87,9 @@ HRESULT CRightPart::Ready_GameObject()
 		return E_FAIL;
 
 	CreateStateData();
-	ChangeState(GetStateID(IDLE, SW_PISTOL));
-
-	m_pTransformCom->m_vScale = { 256.f, 256.f, 1.f };
-	m_vStartPos = { WINCX * 0.5f - 200.f, WINCY * -0.5f + 150.f, 0.f };
-
-
-	m_pTransformCom->Set_Pos(m_vStartPos);
+	
+	m_vStartPos = { WINCX - 200.f, WINCY - 200.f, 0.f };
+	m_vEndPos = { WINCX - 200.f, WINCY - 200.f, 0.f };
 
 	return S_OK;
 }
@@ -94,6 +97,11 @@ HRESULT CRightPart::Ready_GameObject()
 _int CRightPart::Update_GameObject(const _float& fTimeDelta)
 {
 	int iExit = CPlayerPart::Update_GameObject(fTimeDelta);
+	
+	m_fTime += fTimeDelta;
+	if (m_bDelay)
+		m_fDelayTime += fTimeDelta;
+
 	return iExit;
 }
 
@@ -144,6 +152,13 @@ void CRightPart::Begin_Idle()
 {
 	m_bAttack = false;
 	m_bReload = false;
+
+	m_vConvertPos = m_vStartPos;
+	m_vConvertScale = { 512.f, 512.f, 1.f };
+
+
+	m_pTransformCom->Set_Scale(m_vConvertScale * 0.5f);
+	m_pTransformCom->Set_Pos(m_vConvertPos.x - WINCX * 0.5f, -m_vConvertPos.y + WINCY * 0.5f, 0.f);
 }
 
 void CRightPart::Idle()
@@ -153,6 +168,12 @@ void CRightPart::Idle()
 
 void CRightPart::Begin_Attack()
 {
+	m_vConvertPos = m_vStartPos;
+	m_vConvertScale = { 512.f, 512.f, 1.f };
+
+
+	m_pTransformCom->Set_Scale(m_vConvertScale * 0.5f);
+	m_pTransformCom->Set_Pos(m_vConvertPos.x - WINCX * 0.5f, -m_vConvertPos.y + WINCY * 0.5f, 0.f);
 
 }
 
@@ -160,9 +181,11 @@ void CRightPart::Attack()
 {
 	if (m_pAnimationCom->CanEnd())
 	{
-		m_pPlayer->Fire();
+		m_pPlayer->Fire_Func();
 		ChangeState(GetStateID(IDLE, m_pPlayer->Get_WeaponState()));
+		m_pPlayer->Change_State(IDLE);
 	}
+
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 }
 
@@ -173,22 +196,79 @@ void CRightPart::End_Attack()
 
 void CRightPart::Begin_Reload()
 {
+	m_vConvertPos = m_vStartPos;
+	m_vConvertScale = { 512.f, 512.f, 1.f };
 
+
+	m_pTransformCom->Set_Scale(m_vConvertScale * 0.5f);
+	m_pTransformCom->Set_Pos(m_vConvertPos.x - WINCX * 0.5f, -m_vConvertPos.y + WINCY * 0.5f, 0.f);
 }
 
 void CRightPart::Reload()
 {
 	if (m_pAnimationCom->CanEnd())
 	{
-		m_pPlayer->Reload();
+		m_pPlayer->Reload_Func();
 		ChangeState(GetStateID(IDLE, m_pPlayer->Get_WeaponState()));
+		m_pPlayer->Change_State(IDLE);
 	}
+	
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
-
 }
 
 void CRightPart::End_Reload()
 {
 
+}
+
+void CRightPart::Begin_Intro()
+{
+	m_vStartPos = { 800.f, WINCY - 200.f, 0.f };
+	m_vEndPos = { 1900.f, WINCY - 200.f, 0.f };
+
+	m_vConvertScale = { 1024.f, 512.f, 1.f };
+
+
+	m_pTransformCom->Set_Scale(m_vConvertScale * 0.5f);
+	m_pTransformCom->Set_Pos(m_vStartPos.x - WINCX * 0.5f, -m_vStartPos.y + WINCY * 0.5f, 0.f);
+	m_fTime = 0.f;
+	m_fDelayTime = 0.f;
+	m_bDelay = true;
+}
+
+void CRightPart::Intro()
+{
+	_vec3 vPos;
+	_float fTime;
+	if (m_fDelayTime < 1.f)
+	{
+		CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+		return;
+	}
+	else if (m_bDelay)
+	{
+		m_fTime = 0.f;
+		m_pPlayer->Intro_Func();
+		m_bDelay = false;
+	}
+
+	fTime = m_fTime * 1.5f;
+	D3DXVec3Lerp(&vPos, &m_vStartPos, &m_vEndPos, fTime);
+
+	m_pTransformCom->Set_Pos(vPos.x - WINCX * 0.5f, -vPos.y + WINCY * 0.5f, 0.f);
+	if (fTime > 1.f)
+	{
+		m_pTransformCom->Set_Pos(m_vEndPos.x - WINCX * 0.5f, -m_vEndPos.y + WINCY * 0.5f, 0.f);
+		m_pPlayer->Change_State(IDLE);
+	}
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+}
+
+void CRightPart::End_Intro()
+{
+	m_vStartPos = { WINCX - 200.f, WINCY - 200.f, 0.f };
+	m_vEndPos = { WINCX - 200.f, WINCY - 200.f, 0.f };
+	m_fDelayTime = 0.f;
+	m_bDelay = false;
 }
 
