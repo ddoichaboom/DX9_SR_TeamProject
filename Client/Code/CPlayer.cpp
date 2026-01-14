@@ -58,14 +58,14 @@ HRESULT CPlayer::Ready_GameObject()
 	m_pTransformCom->Set_Pos(0.f, 0.f, 0.f);
 
 	m_pMainCollider = m_pCollisionCom->CreateCollider(m_pTransformCom, m_szMainColliderName);
-	m_pMainCollider->Set_Scale(_vec3(4, 11, 4));
+	m_pMainCollider->Set_Scale(_vec3(4, 15, 4));
 	m_pMainCollider->BindFuncToCollision([&](CollisionInfo info)
 		{
 			OnCollision(info);
 		});
 
 	m_pKickCollider = m_pCollisionCom->CreateCollider(m_pTransformCom, m_szKickColliderName);
-	m_pKickCollider->Set_Scale(_vec3(15.f, 11.f, 15.f));	
+	m_pKickCollider->Set_Scale(_vec3(15.f, 15.f, 15.f));	
 	//m_pKickCollider->OffCollision();	
 
 	//m_eWeaponState = SW_PISTOL;
@@ -381,6 +381,12 @@ void CPlayer::CheckKickedMonster(COLLIDER_TAG eTag, _float fAttack)
 {
 	list<pair<_float, CCollider*>> pickedList;	
 	CollisionInfo info = { NULL, {0,0,0}, fAttack, eTag };
+	_vec3	vLook, vPos;
+	_float cosFov = cosf(D3DXToRadian(60.f));
+	vLook = *m_pTransformCom->Get_Info(INFO_LOOK);
+	vPos = *m_pTransformCom->Get_Info(INFO_POS);
+
+	D3DXVec3Normalize(&vLook, &vLook);
 
 	CLayer* pLayer = CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer");
 	if (!pLayer) return;
@@ -391,7 +397,15 @@ void CPlayer::CheckKickedMonster(COLLIDER_TAG eTag, _float fAttack)
 	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
 	{
 		CCollision* pCollision = static_cast<CCollision*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+		CTransform* pTransform = static_cast<CTransform*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Transform"));
+
 		if (!pCollision) continue;
+		if (!pTransform) continue;
+
+		_vec3 vDir = *pTransform->Get_Info(INFO_POS) - vPos;				
+		D3DXVec3Normalize(&vDir, &vDir);
+
+		_float fDot = D3DXVec3Dot(&vLook, &vDir);
 
 		auto& mapCollider = pCollision->GetColliderMap();
 		if (mapCollider.empty()) continue;
@@ -401,7 +415,8 @@ void CPlayer::CheckKickedMonster(COLLIDER_TAG eTag, _float fAttack)
 			bool bPicked = CCollision::CheckCollision(m_pKickCollider, pairCollider.second);
 			if (bPicked)
 			{
-				pickedList.push_back({ iter->second->Get_ViewZ() ,pairCollider.second });
+				if(fDot >= cosFov)
+					pickedList.push_back({ iter->second->Get_ViewZ() ,pairCollider.second });
 			}
 		}
 	}

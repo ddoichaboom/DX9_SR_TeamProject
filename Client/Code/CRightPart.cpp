@@ -234,6 +234,7 @@ void CRightPart::Begin_Intro()
 	m_fTime = 0.f;
 	m_fDelayTime = 0.f;
 	m_bDelay = true;
+	m_pPlayer->Intro_Func();
 }
 
 void CRightPart::Intro()
@@ -248,7 +249,7 @@ void CRightPart::Intro()
 	else if (m_bDelay)
 	{
 		m_fTime = 0.f;
-		m_pPlayer->Intro_Func();
+		
 		m_bDelay = false;
 	}
 

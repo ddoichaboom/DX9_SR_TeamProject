@@ -117,6 +117,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>./;../Header;../../Base;../../Reference/Header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -143,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CBackGround.h" />
+    <ClInclude Include="..\Header\CBaseUI.h" />
     <ClInclude Include="..\Header\CBeam.h" />
     <ClInclude Include="..\Header\CBeamMon.h" />
     <ClInclude Include="..\Header\CCeiling.h" />
@@ -181,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CBackGround.cpp" />
+    <ClCompile Include="..\Code\CBaseUI.cpp" />
     <ClCompile Include="..\Code\CBeam.cpp" />
     <ClCompile Include="..\Code\CBeamMon.cpp" />
     <ClCompile Include="..\Code\CCeiling.cpp" />

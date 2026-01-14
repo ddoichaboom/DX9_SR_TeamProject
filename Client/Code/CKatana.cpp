@@ -220,8 +220,7 @@ void CKatana::CreateStateData()
 void CKatana::Begin_Idle()
 {
 	m_vStartPos = { 1050.f, WINCY - 365.f, 0.f };
-	m_vEndPos = { -700.f, WINCY - 250.f, 0.f };	
-	m_vConvertScale = { 800.f, 200.f, 1.f };
+	m_vConvertScale = { 1024.f, 128.f, 1.f };
 	m_pTransformCom->Set_Angle(0, 0, -90);
 	m_pTransformCom->Set_Scale(m_vConvertScale * 0.5f);
 	m_pTransformCom->Set_Pos(m_vStartPos.x - WINCX * 0.5f, -m_vStartPos.y + WINCY * 0.5f, 0.f);
@@ -234,10 +233,10 @@ void CKatana::Idle()
 
 void CKatana::Begin_Intro()
 {
-	m_vStartPos = { 200.f, WINCY - 275.f, 0.f };
-	m_vEndPos = { 1300.f, WINCY - 275.f, 0.f };
+	m_vStartPos =	{ 200.f, WINCY - 275.f, 0.f };
+	m_vEndPos =		{ 1300.f, WINCY - 275.f, 0.f };
 	
-	m_vConvertScale = { 1500.f, 256.f, 1.f };
+	m_vConvertScale = { 1600.f, 256.f, 1.f };
 	m_pTransformCom->Set_Angle(0, 0, 0);
 	m_pTransformCom->Set_Scale(m_vConvertScale * 0.5f);
 	m_pTransformCom->Set_Pos(m_vStartPos.x - WINCX * 0.5f, -m_vStartPos.y + WINCY * 0.5f, 0.f);
@@ -245,14 +244,26 @@ void CKatana::Begin_Intro()
 	m_fAniTime = 0.f;
 	m_fDelayTime = 0.f;	
 	m_fAniSpeed = 1.5f;
+	m_bDelay = true;
 }
 
 void CKatana::Intro()
 {
 	_vec3 vPos;
 	_float fTime;
+
+	if (m_fDelayTime < 1.f)
+	{
+		CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+		return;
+	}
+	else if (m_bDelay)
+	{
+		m_fAniTime = 0.f;
+		m_bDelay = false;
+	}
 									
-	fTime = m_fAniTime* m_fAniSpeed;
+	fTime = m_fAniTime * m_fAniSpeed;
 	D3DXVec3Lerp(&vPos, &m_vStartPos, &m_vEndPos, fTime);
 
 	m_pTransformCom->Set_Pos(vPos.x - WINCX * 0.5f, -vPos.y + WINCY * 0.5f, 0.f);
@@ -277,10 +288,10 @@ void CKatana::Begin_Attack1()
 	m_bComboBuffered = false;
 	m_bCanCombo = false;
 
-	m_vStartPos = { 0.f, WINCY - 275.f, 0.f };
-	m_vEndPos = { 1500.f, WINCY - 275.f, 0.f };
+	m_vStartPos = { 800.f, WINCY - 275.f, 0.f };
+	m_vEndPos = { 3000.f, WINCY - 275.f, 0.f };
 
-	m_vConvertScale = { 1600.f, 196.f, 1.f };
+	m_vConvertScale = { 3200.f, 200.f, 1.f };
 	m_pTransformCom->Set_Angle(0.f, 0.f, 0.f);
 	m_pTransformCom->Set_Scale(m_vConvertScale * 0.5f);
 	
@@ -288,7 +299,7 @@ void CKatana::Begin_Attack1()
 	m_fAniTime = 0.f;
 	m_fDelayTime = 0.f;
 	m_pTransformCom->Set_Pos(m_vStartPos.x - WINCX * 0.5f, -m_vStartPos.y + WINCY * 0.5f, 0.f);
-	m_fAniSpeed = 4.f;
+	m_fAniSpeed = 6.f;
 
 }
 
@@ -298,9 +309,9 @@ void CKatana::Begin_Attack2()
 	m_bCanCombo = false;
 
 	m_vStartPos = { 0.f, 0.f, 0.f };
-	m_vEndPos = { WINCX, WINCY, 0.f };
+	m_vEndPos = { 3000.f, 3000.f, 0.f };
 
-	m_vConvertScale = { 2048.f, 256.f, 1.f };
+	m_vConvertScale = { 3200.f, 200.f, 1.f };
 	m_pTransformCom->Set_Angle(0, 0, -45.f);
 	m_pTransformCom->Set_Scale(m_vConvertScale * 0.5f);
 	
@@ -308,7 +319,7 @@ void CKatana::Begin_Attack2()
 	m_fAniTime = 0.f;
 	m_fDelayTime = 0.f;
 	m_pTransformCom->Set_Pos(m_vStartPos.x - WINCX * 0.5f, -m_vStartPos.y + WINCY * 0.5f, 0.f);
-	m_fAniSpeed = 4.f;
+	m_fAniSpeed = 6.f;
 }
 
 void CKatana::Begin_Attack3()
@@ -316,18 +327,18 @@ void CKatana::Begin_Attack3()
 	m_bComboBuffered = false;
 	m_bCanCombo = false;
 
-	m_vStartPos = { WINCX, 0.f, 0.f };
-	m_vEndPos = { 0.f, WINCY, 0.f };
+	m_vStartPos = { WINCX - 400.f, 400.f, 0.f };
+	m_vEndPos = { WINCX - 3000.f, 1800.f, 0.f };
 
-	m_vConvertScale = { 2048.f, 256.f, 1.f };
-	m_pTransformCom->Set_Angle(0, 0, -135.f);
+	m_vConvertScale = { 3200.f, 200.f, 1.f };
+	m_pTransformCom->Set_Angle(0, 0, -150.f);
 	m_pTransformCom->Set_Scale(m_vConvertScale * 0.5f);
 	
 
 	m_fAniTime = 0.f;
 	m_fDelayTime = 0.f;
 	m_pTransformCom->Set_Pos(m_vStartPos.x - WINCX * 0.5f, -m_vStartPos.y + WINCY * 0.5f, 0.f);
-	m_fAniSpeed = 4.f;
+	m_fAniSpeed = 6.f;
 }
 
 void CKatana::Attack()
@@ -340,8 +351,9 @@ void CKatana::Attack()
 	{
 		m_bCanCombo = true;
 	}
+
 		
-	if (fTime >= 1.0f)
+	if (fTime >= 1.f)
 	{
 		if (m_bComboBuffered)
 		{
@@ -363,6 +375,7 @@ void CKatana::Attack()
 
 	D3DXVec3Lerp(&vPos, &m_vStartPos, &m_vEndPos, fTime);
 	m_pTransformCom->Set_Pos(vPos.x - WINCX * 0.5f, -vPos.y + WINCY * 0.5f, 0.f);
+	
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 }
 

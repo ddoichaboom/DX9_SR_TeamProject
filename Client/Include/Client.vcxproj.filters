@@ -121,6 +121,12 @@
     <Filter Include="02. GameObject\02.Weapon\Katana">
       <UniqueIdentifier>{0622a69c-0483-4869-b18a-553d8af2e910}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04.UI">
+      <UniqueIdentifier>{8a7c753d-2076-4f7a-bfa1-452380eee520}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\00.BaseUI">
+      <UniqueIdentifier>{9b1cf752-3739-4e42-9848-a29a8abcd6aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -231,6 +237,9 @@
     <ClInclude Include="..\Header\CKatana.h">
       <Filter>02. GameObject\02.Weapon\Katana</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CBaseUI.h">
+      <Filter>04.UI\00.BaseUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -331,6 +340,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CKatana.cpp">
       <Filter>02. GameObject\02.Weapon\Katana</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBaseUI.cpp">
+      <Filter>04.UI\00.BaseUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
