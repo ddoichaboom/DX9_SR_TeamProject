@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "CPlayer.h"
 #include "CProtoMgr.h"
 #include "CRenderer.h"
@@ -81,6 +81,8 @@ HRESULT CPlayer::Ready_GameObject()
 _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
 	int iExit = CCharacter::Update_GameObject(fTimeDelta);
+
+
 
 	Key_Input(fTimeDelta);
 
@@ -224,7 +226,7 @@ void CPlayer::Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _v
 
 void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 {
-	// �Ϲ� ����
+	// 일반 공격
 	if (CDInputMgr::GetInstance()->Mouse_Down(DIM_LB))
 	{
 		if (m_mapWeapon[m_eWeaponState]->Can_Fire())
@@ -238,7 +240,7 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 		}
 	}
 
-	// �뽬
+	// 대쉬
 	if (CDInputMgr::GetInstance()->Mouse_Down(DIM_RB) && !m_bDash)
 	{
 		m_fDashTime = 0.f;
@@ -286,7 +288,7 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 		return;
 	}
 
-	//����
+	//점프
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_SPACE) && !m_bJump && !m_bDash && !m_bFall)
 	{
 		m_fJumpTime = 0.f;
@@ -297,7 +299,7 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 	}
 
 
-	// ������
+	// 발차기
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_LSHIFT))
 	{
 		if (m_eNowState == IDLE)
@@ -321,7 +323,7 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 		return;
 	}
 
-	// ����
+	// 장전
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_R))
 	{
 		if (m_eNowState == IDLE)
@@ -331,7 +333,7 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_1))
 	{
-		if(m_eWeaponState != WEAPON_PISTOL)
+		if (m_eWeaponState != WEAPON_PISTOL)
 			Change_Weapon(WEAPON_PISTOL);
 		return;
 	}
@@ -344,7 +346,7 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 	}
 }
 
-//���� ��ü�� �����ͼ� ���콺�� ��ŷ üũ 
+//몬스터 전체를 가져와서 마우스와 피킹 체크 
 void CPlayer::CheckPickedMonster()
 {
 	list<pair<_float, CCollider*>> pickedList;
@@ -357,8 +359,8 @@ void CPlayer::CheckPickedMonster()
 	if (!pLayer) return;
 
 	auto pairIter = pLayer->Get_Objects(OBJ_MONSTER);
-	//multimap<OBJ_ID, CGameObject*> �� ���� �ݺ���
-	//OBJ_ID�� Ű�� ���� ������Ʈ���� �ݺ��� ������ ��ȯ = ���� ��ü ���
+	//multimap<OBJ_ID, CGameObject*> 에 대한 반복자
+	//OBJ_ID를 키로 가진 오브젝트들의 반복자 범위를 반환 = 몬스터 전체 목록
 	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
 	{
 		CCollision* pCollision = static_cast<CCollision*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
@@ -366,7 +368,7 @@ void CPlayer::CheckPickedMonster()
 
 		auto& mapCollider = pCollision->GetColliderMap();
 		if (mapCollider.empty()) continue;
-		//������ CollisionCom�� �ִ� ��ü Collider 
+		//몬스터의 CollisionCom에 있는 전체 Collider 
 		for (auto& pairCollider : mapCollider)
 		{
 			bool bPicked = CCollision::Collision_Mouse(g_hWnd, m_pGraphicDev, pairCollider.second);
@@ -378,12 +380,13 @@ void CPlayer::CheckPickedMonster()
 	}
 
 	if (pickedList.empty()) return;
-	//ī�޶� �Ÿ��� ����
+	//카메라 거리순 정렬
 	pickedList.sort([&](auto& _First, auto& _Second)
 		{
 			return _First.first < _Second.first;
 		});
-	//��ŷ�� ��� �� ī�޶�� ���� ����� �ݶ��̴��� �浹ó���ϱ� 
+
+	//피킹된 대상 중 카메라와 제일 가까운 콜라이더만 충돌처리하기 
 	CCollider* NearPickedCollider = pickedList.front().second;
 	NearPickedCollider->Collision(info);
 }
@@ -403,6 +406,8 @@ void CPlayer::CheckKickedMonster(COLLIDER_TAG eTag, _float fAttack)
 	if (!pLayer) return;
 
 	auto pairIter = pLayer->Get_Objects(OBJ_MONSTER);
+	//multimap<OBJ_ID, CGameObject*> 에 대한 반복자
+	//OBJ_ID를 키로 가진 오브젝트들의 반복자 범위를 반환 = 몬스터 전체 목록
 	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
 	{
 		CCollision* pCollision = static_cast<CCollision*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
@@ -418,6 +423,7 @@ void CPlayer::CheckKickedMonster(COLLIDER_TAG eTag, _float fAttack)
 
 		auto& mapCollider = pCollision->GetColliderMap();
 		if (mapCollider.empty()) continue;
+		//몬스터의 CollisionCom에 있는 전체 Collider 
 		for (auto& pairCollider : mapCollider)
 		{
 			bool bPicked = CCollision::CheckCollision(m_pKickCollider, pairCollider.second);
@@ -658,43 +664,6 @@ void CPlayer::Update_Dash(const _float& fTimeDelta)
 	_vec3 newPos = m_vDashStart + m_vDashDir * dashDistance;
 
 	m_pTransformCom->Set_Pos(newPos);
-}
-
-void CPlayer::Move_ByCollision(COL_DIR& dir, _vec3 _diff)
-{
-	_vec3 vPos = *m_pTransformCom->Get_Info(INFO_POS);
-	if (dir == CDIR_X)
-	{
-		vPos.x += _diff.x;
-		m_bDash = false;
-		m_bOnCollision = true;
-	}
-	else if (dir == CDIR_Y)
-	{
-		vPos.y += _diff.y;
-		if (_diff.y < 0.f)
-		{
-			m_bJump = false;
-			m_bDash = false;
-			m_bFall = true;
-			m_fVelocity = 0.f;
-		}
-		else
-		{
-			m_bJump = false;
-			m_bFall = false;
-			m_fVelocity = 0.f;
-			m_bOnCollision = true;
-		}
-	}
-	else
-	{
-		vPos.z += _diff.z;
-		m_bDash = false;
-		m_bOnCollision = true;
-	}
-
-	m_pTransformCom->Set_Pos(vPos);
 }
 
 void CPlayer::Intro_Func()
@@ -955,7 +924,7 @@ void CPlayer::Intro_LateUpdate(const _float& fTimeDelta)
 		break;
 	case WEAPON_END:
 		break;
-	}	
+	}
 }
 
 void CPlayer::Intro_Exit()
@@ -968,7 +937,7 @@ void CPlayer::Idle_Enter()
 	m_pLeftPart->ChangeState(IDLE);
 	m_pRightPart->ChangeState(GetStateID(IDLE, m_eWeaponState));
 	m_pMiddlePart->ChangeState(IDLE);
-	
+
 }
 
 void CPlayer::Idle_Update(const _float& fTimeDelta)
@@ -1058,7 +1027,7 @@ void CPlayer::Attack_Enter()
 void CPlayer::Attack_Update(const _float& fTimeDelta)
 {
 	m_pMiddlePart->Update_GameObject(fTimeDelta);
-	if(m_eWeaponState == WEAPON_PISTOL)
+	if (m_eWeaponState == WEAPON_PISTOL)
 		m_pRightPart->Update_GameObject(fTimeDelta);
 	m_pLeftPart->Update_GameObject(fTimeDelta);
 }
@@ -1246,6 +1215,54 @@ void CPlayer::Set_MiddlePart(CMiddlePart* pMiddle)
 	m_pMiddlePart->SetParent(this);
 }
 
+
+void CPlayer::Move_ByCollision(COL_DIR& dir, _vec3 _diff)
+{
+	_vec3 vPos = *m_pTransformCom->Get_Info(INFO_POS);
+	if (dir == CDIR_X)
+	{
+		vPos.x += _diff.x;
+		m_bDash = false;
+		m_bOnCollision = true;
+	}
+	else if (dir == CDIR_Y)
+	{
+		vPos.y += _diff.y;
+		if (_diff.y < 0.f)
+		{
+			m_bJump = false;
+			m_bDash = false;
+			m_bFall = true;
+			m_fVelocity = 0.f;
+		}
+		else
+		{
+			m_bJump = false;
+			m_bFall = false;
+			m_fVelocity = 0.f;
+			m_bOnCollision = true;
+		}
+	}
+	else
+	{
+		vPos.z += _diff.z;
+		m_bDash = false;
+		m_bOnCollision = true;
+	}
+
+	m_pTransformCom->Set_Pos(vPos);
+}
+
+
+void CPlayer::OnCollision(CollisionInfo info)
+{
+	if (info.eDir != CDIR_NONE)
+	{
+		Move_ByCollision(info.eDir, info.vDiff);
+	}
+}
+
+
 void CPlayer::Free()
 {
 	CCharacter::Free();
@@ -1254,13 +1271,4 @@ void CPlayer::Free()
 	Safe_Release(m_pMiddlePart);
 	for_each(m_mapWeapon.begin(), m_mapWeapon.end(), CDeleteMap());
 	m_mapWeapon.clear();
-}
-
-void CPlayer::OnCollision(CollisionInfo info)
-{
-	//���Ⱚ�� ���Դٸ� ���� �浹
-	if (info.eDir != CDIR_NONE)
-	{
-		Move_ByCollision(info.eDir, info.vDiff);
-	}
 }

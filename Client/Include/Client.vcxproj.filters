@@ -261,15 +261,6 @@
     <ClInclude Include="..\Header\CTerrain.h">
       <Filter>02. GameObject\99. Environment\00. Terrain</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CDynamicFloor.h">
-      <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\DynamicFloor</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CDynamicCeiling.h">
-      <Filter>02. GameObject\99. Environment\00. Terrain\01. Ceiling\DynamicCeiling</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CDynamicWall.h">
-      <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall\DynamicWall</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CMapCollider.h">
       <Filter>02. GameObject\11. MapCollider</Filter>
     </ClInclude>
@@ -287,6 +278,15 @@
     </ClInclude>
     <ClInclude Include="..\Header\CPhoneBG.h">
       <Filter>04.UI\01.StaticUI\01.Phone_Back</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDynamicCeiling.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDynamicFloor.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDynamicWall.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -313,9 +313,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\CFirstCamera.cpp">
       <Filter>02. GameObject\01. FirstCamera</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CPlayer.cpp">
-      <Filter>02. GameObject\00. Character\00. Player</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CLeftPart.cpp">
       <Filter>02. GameObject\00. Character\00. Player\01.LeftPart</Filter>
@@ -389,18 +386,6 @@
     <ClCompile Include="..\Code\CTerrain.cpp">
       <Filter>02. GameObject\99. Environment\00. Terrain</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CDynamicFloor.cpp">
-      <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\DynamicFloor</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CDynamicCeiling.cpp">
-      <Filter>02. GameObject\99. Environment\00. Terrain\01. Ceiling\DynamicCeiling</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CDynamicWall.cpp">
-      <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall\DynamicWall</Filter>
-	</ClCompile>
-    <ClCompile Include="..\Code\CDebugObject.cpp">
-      <Filter>02. GameObject\999.DebugObject</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CMapCollider.cpp">
       <Filter>02. GameObject\11. MapCollider</Filter>
     </ClCompile>
@@ -418,6 +403,18 @@
     </ClCompile>
     <ClCompile Include="..\Code\CPhoneBG.cpp">
       <Filter>04.UI\01.StaticUI\01.Phone_Back</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDynamicCeiling.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDynamicFloor.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDynamicWall.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPlayer.cpp">
+      <Filter>02. GameObject\00. Character\00. Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
