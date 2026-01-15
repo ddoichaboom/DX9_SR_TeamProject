@@ -514,24 +514,25 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
         return E_FAIL;
 
 
-    pGameObject = CMapCollider::Create(m_pGraphicDev, _vec3(62.f, 8.f, 80.f), _vec3(4.f, 16.f, 80.f));
+    //pGameObject = CMapCollider::Create(m_pGraphicDev, _vec3(62.f, 8.f, 80.f), _vec3(4.f, 16.f, 80.f));
 
-    if (nullptr == pGameObject)
-        return E_FAIL;
+    //if (nullptr == pGameObject)
+    //    return E_FAIL;
 
-    if (FAILED(pLayer->Add_GameObject(pGameObject)))
-        return E_FAIL;
+    //if (FAILED(pLayer->Add_GameObject(pGameObject)))
+    //    return E_FAIL;
 
 
-    pGameObject = CMapCollider::Create(m_pGraphicDev, _vec3(100.f, 8.f, 80.f), _vec3(4.f, 16.f, 80.f));
+    //pGameObject = CMapCollider::Create(m_pGraphicDev, _vec3(100.f, 8.f, 80.f), _vec3(4.f, 16.f, 80.f));
 
-    if (nullptr == pGameObject)
-        return E_FAIL;
+    //if (nullptr == pGameObject)
+    //    return E_FAIL;
 
-    if (FAILED(pLayer->Add_GameObject(pGameObject)))
-        return E_FAIL;
+    //if (FAILED(pLayer->Add_GameObject(pGameObject)))
+    //    return E_FAIL;
 
     m_mapLayer.insert({ pLayerTag, pLayer });
+
     m_pEnvironment_Layer = pLayer;
     return S_OK;
 }

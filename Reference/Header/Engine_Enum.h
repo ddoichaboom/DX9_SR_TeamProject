@@ -28,6 +28,7 @@ namespace Engine
 
 	enum STATIC_FLOOR_TYPE {
 		STATIC_FLOOR = 0,
+		STATIC_FLOOR_FLUID,		// WATER, LAVA, ACID 방에서 사용할 바닥 
 		SF_END,
 	};
 
@@ -69,6 +70,9 @@ namespace Engine
 		STATIC_WALL_8,
 		STATIC_WALL_9,
 		STATIC_WALL_10,
+		STATIC_WALL_WATER,
+		STATIC_WALL_LAVA,
+		STATIC_WALL_ACID,
 		SW_END,
 	};
 
