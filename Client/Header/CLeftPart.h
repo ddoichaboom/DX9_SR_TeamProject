@@ -1,6 +1,8 @@
 #pragma once
 #include "CPlayerPart.h"
 
+class CPlayer;
+
 class CLeftPart : public CPlayerPart
 {
 protected:
@@ -45,6 +47,10 @@ protected:
 	void Begin_Reload();
 	void Reload();
 	void End_Reload();
+
+	void Begin_Intro();
+	void Intro();
+	void End_Intro();
 
 protected:
 	static vector<TextureSource>	m_vTextureSource;

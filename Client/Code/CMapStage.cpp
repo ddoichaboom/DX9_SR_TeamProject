@@ -28,10 +28,12 @@
 #include "CRightPart.h"
 #include "CMiddlePart.h"
 #include "CPistol.h"
+#include "CKatana.h"
 
 #include "CLoading.h"
 #include "CBackGround.h"
 #include "CDebugObject.h"
+
 
 CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev), m_pLoading(nullptr)
 {
@@ -222,6 +224,14 @@ HRESULT CMapStage::Ready_PlayerTextureProto()
 
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_MiddleAnimation",
         Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CMiddlePart::GetAnimSources()))))
+        return E_FAIL;
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CKatana::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_KatanaTexture", pCom_Texture)))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_KatanaAnimation",
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CKatana::GetAnimSources()))))
         return E_FAIL;
 
     return S_OK;
@@ -505,13 +515,6 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
     if (FAILED(pLayer->Add_GameObject(pGameObject)))
         return E_FAIL;
        
-    pGameObject = CDebugObject::Create(m_pGraphicDev, _vec3(100.f, 10.f, 200.f), _vec3(40.f, 6.f, 30.f));
-
-    if (nullptr == pGameObject)
-        return E_FAIL;
-
-    if (FAILED(pLayer->Add_GameObject(pGameObject)))
-        return E_FAIL;
 
     m_mapLayer.insert({ pLayerTag, pLayer });
     m_pEnvironment_Layer = pLayer;
@@ -567,27 +570,7 @@ HRESULT CMapStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
     if (FAILED(pLayer->Add_GameObject(pGameObject)))
         return E_FAIL;
 
-    pGameObject = CMiddlePart::Create(m_pGraphicDev);
-    pPlayer->Set_MiddlePart(dynamic_cast<CMiddlePart*>(pGameObject));
-    if (FAILED(pLayer->Add_GameObject(pGameObject)))
-        return E_FAIL;
-
-    pGameObject = CRightPart::Create(m_pGraphicDev);
-    pPlayer->Set_RightPart(dynamic_cast<CRightPart*>(pGameObject));
-    if (FAILED(pLayer->Add_GameObject(pGameObject)))
-        return E_FAIL;
-
-    pGameObject = CLeftPart::Create(m_pGraphicDev);
-    pPlayer->Set_LeftPart(dynamic_cast<CLeftPart*>(pGameObject));
-    if (FAILED(pLayer->Add_GameObject(pGameObject)))
-        return E_FAIL;
-
-    pGameObject = CPistol::Create(m_pGraphicDev);
-    pPlayer->Add_Weapon((byte)1, dynamic_cast<CPistol*>(pGameObject));
-    if (FAILED(pLayer->Add_GameObject(pGameObject)))
-        return E_FAIL;
-
-    pPlayer->Intro();
+    //pPlayer->Intro_Func();
 #pragma endregion
 
     m_mapLayer.insert({ pLayerTag, pLayer });

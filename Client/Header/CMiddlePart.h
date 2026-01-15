@@ -1,6 +1,6 @@
 #pragma once
 #include "CPlayerPart.h"
-
+class CPlayer;
 class CMiddlePart : public CPlayerPart
 {
 protected:

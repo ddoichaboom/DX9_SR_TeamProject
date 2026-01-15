@@ -1,10 +1,13 @@
 #pragma once
 #include "CWeapon.h"
+
+class CPlayerPart;
+
 class CPistol : public CWeapon
 {
 protected:
 	explicit		CPistol(LPDIRECT3DDEVICE9 pGraphicDev);
-	explicit		CPistol(const CWeapon& rhs);
+	explicit		CPistol(const CPistol& rhs);
 	virtual			~CPistol();
 
 public:
