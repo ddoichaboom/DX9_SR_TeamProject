@@ -95,20 +95,7 @@ _vec3 CEditorObject::Get_Scale()
     return _vec3(1.f, 1.f, 1.f);
 }
 
-// 텍스처 설정 (Phase 5+)
-void CEditorObject::Set_Texture(Engine::CTexture* pTexture)
-{
-    if (m_pTextureCom)
-    {
-        m_pTextureCom->Release();
-        m_pTextureCom = nullptr;
-    }
 
-    m_pTextureCom = pTexture;
-
-    if (m_pTextureCom)
-        m_pTextureCom->AddRef();
-}
 
 const _matrix* CEditorObject::Get_WorldMatrix() const
 {
@@ -120,10 +107,9 @@ const _matrix* CEditorObject::Get_WorldMatrix() const
 
 void CEditorObject::Free()
 {
-    Safe_Release(m_pTextureCom);
-    Safe_Release(m_pBufferCom);
-    Safe_Release(m_pTransformCom);
-    Safe_Release(m_pGraphicDev);
+    //Safe_Release(m_pBufferCom);
+    //Safe_Release(m_pTransformCom);
+    //Safe_Release(m_pGraphicDev);
 
     Engine::CGameObject::Free();
 }

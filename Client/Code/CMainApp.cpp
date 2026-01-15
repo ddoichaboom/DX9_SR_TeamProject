@@ -206,7 +206,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 {
 	// 모든 맵 파일 경로 수집
 	vector<wstring> vecMapFiles;
-	vecMapFiles.push_back(L"../../Map/test02.json");		// 현재 사용중인 파일
+	vecMapFiles.push_back(L"../../Map/Tutorial.json");		// 현재 사용중인 파일
 	//vecMapFiles.push_back(L"../../Map/TutorialStage.json");
 	//vecMapFiles.push_back(L"../../Map/Stage01.json");
 	//vecMapFiles.push_back(L"../../Map/BossStage.json");

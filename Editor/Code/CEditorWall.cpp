@@ -23,7 +23,6 @@ vector<TextureSource> CEditorWall::m_vTextureSource =
 
 CEditorWall::CEditorWall(LPDIRECT3DDEVICE9 pGraphicDev)
     : CEditorObject(pGraphicDev)
-    , m_pTextureCom(nullptr)
     , m_eWallDir(WALL_XY_FRONT)
     , m_iTextureIdx(0)
     , m_iWallType(STATIC_WALL_1)
