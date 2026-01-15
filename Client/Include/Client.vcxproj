@@ -177,6 +177,7 @@
     <ClInclude Include="..\Header\CPlayerPart.h" />
     <ClInclude Include="..\Header\CRightPart.h" />
     <ClInclude Include="..\Header\CRocket.h" />
+    <ClInclude Include="..\Header\CSelectBG.h" />
     <ClInclude Include="..\Header\CShopBG.h" />
     <ClInclude Include="..\Header\CShopItem.h" />
     <ClInclude Include="..\Header\CSkyBox.h" />
@@ -227,6 +228,7 @@
     <ClCompile Include="..\Code\CPlayerPart.cpp" />
     <ClCompile Include="..\Code\CRightPart.cpp" />
     <ClCompile Include="..\Code\CRocket.cpp" />
+    <ClCompile Include="..\Code\CSelectBG.cpp" />
     <ClCompile Include="..\Code\CShopBG.cpp" />
     <ClCompile Include="..\Code\CShopItem.cpp" />
     <ClCompile Include="..\Code\CSkyBox.cpp" />

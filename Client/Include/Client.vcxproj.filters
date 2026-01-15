@@ -175,6 +175,9 @@
     <Filter Include="02. GameObject\10. Bullet\Rocket">
       <UniqueIdentifier>{fc7ab85c-a5ec-4c9d-93e3-0e115cbe301d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04.UI\01.StaticUI\03.Select_Item">
+      <UniqueIdentifier>{a64ef52c-e2cb-4cb3-96ae-8cb2e75da0b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -324,6 +327,9 @@
     <ClInclude Include="..\Header\CRocket.h">
       <Filter>02. GameObject\10. Bullet\Rocket</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CSelectBG.h">
+      <Filter>04.UI\01.StaticUI\03.Select_Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -463,6 +469,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CRocket.cpp">
       <Filter>02. GameObject\10. Bullet\Rocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSelectBG.cpp">
+      <Filter>04.UI\01.StaticUI\03.Select_Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

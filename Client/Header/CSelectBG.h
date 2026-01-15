@@ -9,21 +9,18 @@ namespace Engine
 }
 
 
-class CShopItem : public CBaseUI
+class CSelectBG : public CBaseUI
 {
 protected:
-	explicit	CShopItem(LPDIRECT3DDEVICE9 pGraphicDev);
-	explicit	CShopItem(LPDIRECT3DDEVICE9 pGraphicDev, _float fX, _float fY, _uint iTextureID);
-	explicit	CShopItem(const CShopItem& rhs);
-	virtual		~CShopItem();
+	explicit	CSelectBG(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit	CSelectBG(LPDIRECT3DDEVICE9 pGraphicDev, _float fX, _float fY);
+	explicit	CSelectBG(const CSelectBG& rhs);
+	virtual		~CSelectBG();
 
 public:
-	static		CShopItem* Create(PDIRECT3DDEVICE9 pGraphicDev);
-	static		CShopItem* Create(PDIRECT3DDEVICE9 pGraphicDev,_float fX, _float fY, _uint iTextureID);
-	static vector<TextureSource>& GetTextureSources()
-	{
-		return m_vTextureSource;
-	}
+	static		CSelectBG* Create(PDIRECT3DDEVICE9 pGraphicDev);
+	static		CSelectBG* Create(PDIRECT3DDEVICE9 pGraphicDev, _float fX, _float fY);
+	static		TextureSource& GetTextureSource() { return m_textureSource; }
 
 protected:
 	virtual		HRESULT		Add_Component();
@@ -40,18 +37,13 @@ protected:
 	virtual		void        SetPos(_vec3 _pos) override;
 	virtual		void		SetScale(_float fCX, _float fCY);
 
-public :
-	void		Set_Render(_bool bRender) { m_bRender = bRender; }
-
 protected:
-	static vector<TextureSource>	m_vTextureSource;
+	static TextureSource    m_textureSource;
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTransform* m_pTransformCom;
 	Engine::CTexture* m_pTextureCom;
 
-	_uint	m_iTextureID;
+	//_bool	m_bRender;
 
-	_bool	m_bRender;
-	CGameObject* m_pSelectBG;
 };
 

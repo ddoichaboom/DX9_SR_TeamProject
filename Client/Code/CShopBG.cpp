@@ -120,9 +120,9 @@ HRESULT CShopBG::Add_ShopItem()
 {
 	CShopItem* pItem = nullptr;
 
-	_float padding = 130.f;
-	_float startX = 340.f;
-	_float startY = 280.f;
+	_float padding = 125.f;
+	_float startX = 300.f;
+	_float startY = 300.f;
 
 	for (_int i = 0; i < 3; ++i)
 	{

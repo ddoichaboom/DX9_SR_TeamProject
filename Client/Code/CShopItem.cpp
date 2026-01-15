@@ -3,6 +3,8 @@
 #include "CProtoMgr.h"
 #include "CRenderer.h"
 
+#include "CSelectBG.h"
+
 
 vector<TextureSource> CShopItem::m_vTextureSource =
 {
@@ -104,6 +106,7 @@ HRESULT CShopItem::Add_Component()
 
 void CShopItem::Free()
 {
+    Safe_Release(m_pSelectBG);
     CGameObject::Free();
 }
 
@@ -112,11 +115,14 @@ HRESULT CShopItem::Ready_GameObject()
     if (FAILED(Add_Component()))
         return E_FAIL;
 
-    //m_fX = 260.f;
-    //m_fY = WINCY - 205.f;
+    //BG Add
+    m_pSelectBG = CSelectBG::Create(m_pGraphicDev, m_fX, m_fY);
+    if (nullptr == m_pSelectBG)
+        return E_FAIL;
 
-    m_fSizeX = 180.f;
-    m_fSizeY = 220.f;
+
+    m_fSizeX = 100.f;
+    m_fSizeY = 200.f;
 
     
     SetScale(m_fSizeX, m_fSizeY);
@@ -136,6 +142,12 @@ _int CShopItem::Update_GameObject(const _float& fTimeDelta)
     _int iExit = CGameObject::Update_GameObject(fTimeDelta);
     CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
     
+    m_bRender = MousePicking();
+
+    if (m_bRender)
+    {
+        m_pSelectBG->Update_GameObject(fTimeDelta);
+    }
 
     return iExit;
 }
@@ -146,6 +158,11 @@ void CShopItem::LateUpdate_GameObject(const _float& fTimeDelta)
     //    return;
     //
     CGameObject::LateUpdate_GameObject(fTimeDelta);
+
+    if (m_bRender)
+    {
+        m_pSelectBG->LateUpdate_GameObject(fTimeDelta);
+    }
 }
 
 void CShopItem::Render_GameObject()

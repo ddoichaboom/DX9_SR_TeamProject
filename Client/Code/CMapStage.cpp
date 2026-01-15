@@ -41,6 +41,7 @@
 #include "CPhoneBG.h"
 #include "CShopBG.h"
 #include "CShopItem.h"
+#include "CSelectBG.h"
 
 
 CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev), m_pLoading(nullptr)
@@ -360,6 +361,10 @@ HRESULT CMapStage::Ready_UITextureProto()
 
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CShopItem::GetTextureSources());
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_ShopItemTexture", pCom_Texture)))
+        return E_FAIL;
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CSelectBG::GetTextureSource());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SelectBGTexture", pCom_Texture)))
         return E_FAIL;
 
     return S_OK;
