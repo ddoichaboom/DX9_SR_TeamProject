@@ -59,10 +59,20 @@ protected:
 	void Begin_Intro2();
 	void Intro2();
 
+	void Begin_Shop();
+	void Shopping();
+	void End_Shop();
+
 protected:
 	static vector<TextureSource>	m_vTextureSource;
 	static vector<AnimationSource>	m_vAnimSource;
 	_vec3	m_vStartPos;
+	_vec3	m_vEndPos;
+
+	_float	m_fX;
+	_float	m_fY;
+	_float  m_fSizeX;
+	_float  m_fSizeY;
 
 	_int	m_iLoopTime;
 

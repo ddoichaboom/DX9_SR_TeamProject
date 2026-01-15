@@ -16,27 +16,6 @@ class CPlayer :
 	public CCharacter
 {
 public:
-	enum STATE_MAIN : _byte
-	{		
-		IDLE = 1,
-		RELOAD = 2,
-		ATTACK = 3,
-		KICK = 5,
-		DRINK = 6,
-		SLIDE = 7,
-		INTRO = 8,
-		MAIN_END
-	};
-
-	enum STATE_WEAPON : _byte
-	{
-		SW_NONE = 0,
-		SW_PISTOL = 1,
-		SW_SHOTGUN = 2,
-		SW_KATANA = 3,
-		SW_END
-	};
-
 
 protected:
 	explicit		CPlayer(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -85,6 +64,7 @@ public:
 	void				Reload_Func();
 	void				Kick_Func();
 	void				Slide_Func();
+	void				Shop_Func();
 
 public :
 	void				Change_State(_uint eState);
@@ -131,6 +111,11 @@ private :
 	void				Slide_LateUpdate(const _float& fTimeDelta);
 	void				Slide_Exit();
 
+	void				Shop_Enter();
+	void				Shop_Update(const _float& fTimeDelta);
+	void				Shop_LateUpdate(const _float& fTimeDelta);
+	void				Shop_Exit();
+
 public:
 	static CPlayer*		Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	static CPlayer*		Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot = { 0.f, 0.f, 1.f }, _vec3 vScale = { 6.f, 6.f, 1.f });
@@ -157,9 +142,9 @@ private:
 	CRightPart* m_pRightPart;
 	CMiddlePart* m_pMiddlePart;
 
-	STATE_MAIN		m_eNowState;
-	STATE_WEAPON	m_eWeaponState;
-	unordered_map<STATE_WEAPON, CWeapon*> m_mapWeapon;
+	PLAYER_STATE		m_eNowState;
+	WEAPON_STATE	m_eWeaponState;
+	unordered_map<WEAPON_STATE, CWeapon*> m_mapWeapon;
 
 	CCollider* m_pMainCollider;
 	const	_tchar* m_szMainColliderName = L"ColMain";

@@ -12,28 +12,33 @@ vector<TextureSource> CMiddlePart::m_vTextureSource =
 	{ KICK, L"../Bin/Resource/Texture/Player/Middle_Kick.dds"},
 	{ DRINK,  L"../Bin/Resource/Texture/Player/Middle_Soda.dds" },
 	{ SLIDE,  L"../Bin/Resource/Texture/Player/Middle_Slide.dds" },
-	{ GetStateID(INTRO,SW_PISTOL),  L"../Bin/Resource/Texture/Player/Player_Intro_Begin.dds"},
+	{ GetStateID(INTRO,WEAPON_PISTOL),  L"../Bin/Resource/Texture/Player/Player_Intro_Begin.dds"},
 
 	{ INTRO,  L"../Bin/Resource/Texture/Player/Player_Intro.dds" },
+	{ SHOP,  L"../Bin/Resource/Texture/Player/Player_Shop.dds" },
+
 };
 
 vector<AnimationSource>  CMiddlePart::m_vAnimSource =
 {
 	{ IDLE,0,3,3, true, 0.08f},
 	{ KICK,0,3,3, false, 0.08f, 1.f},
-	{ DRINK,0,6,6, false, 0.08f, 1.f},
+	{ DRINK,0,6,6, false, 0.1f, 1.f},
 	{ SLIDE,1,0,0, true, 0.08f},
-	{ GetStateID(INTRO,SW_PISTOL),1,2,2, false, 0.12f, 1.f},
-	{ INTRO,1,2,2, false, 0.12f, 1.f}
+	{ GetStateID(INTRO,WEAPON_PISTOL),1,2,2, false, 0.12f, 1.f},
+	{ INTRO,1,2,2, false, 0.12f, 1.f},
+	{ SHOP,1,0,0, true, 0.12f, 1.f},
 };
 
 CMiddlePart::CMiddlePart(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CPlayerPart(pGraphicDev), m_iLoopTime(3)
-{
+	, m_fX(0.f), m_fY(0.f), m_fSizeX(0.f), m_fSizeY(0.f)
+{	
 }
 
 CMiddlePart::CMiddlePart(const CMiddlePart& rhs)
 	: CPlayerPart(rhs), m_iLoopTime(3)
+	, m_fX(0.f), m_fY(0.f), m_fSizeX(0.f), m_fSizeY(0.f)
 {
 }
 
@@ -59,10 +64,13 @@ void CMiddlePart::CreateStateData()
 	Mgr->AddState(SLIDE, State);
 
 	State = new CState<CMiddlePart>(&CMiddlePart::Begin_Intro, &CMiddlePart::Intro, nullptr);
-	Mgr->AddState(GetStateID(INTRO, SW_PISTOL), State);
+	Mgr->AddState(GetStateID(INTRO, WEAPON_PISTOL), State);
 
 	State = new CState<CMiddlePart>(&CMiddlePart::Begin_Intro2, &CMiddlePart::Intro2, nullptr);
 	Mgr->AddState(INTRO, State);
+
+	State = new CState<CMiddlePart>(&CMiddlePart::Begin_Shop, &CMiddlePart::Shopping, &CMiddlePart::End_Shop);
+	Mgr->AddState(SHOP, State);
 
 }
 
@@ -90,12 +98,6 @@ HRESULT CMiddlePart::Ready_GameObject()
 	if (FAILED(Add_Component()))
 		return E_FAIL;
 	CreateStateData();
-	m_pTransformCom->m_vScale = { 256.f, 256.f, 1.f };
-	m_vStartPos = { 0.f, WINCY * -0.5f + 200.f, 0.f };
-	m_pTransformCom->Set_Pos(m_vStartPos);
-
-	m_bRendering = false;
-
 	return S_OK;
 }
 
@@ -153,8 +155,14 @@ void CMiddlePart::ChangeState(_uint nextStateID)
 
 void CMiddlePart::Begin_Idle()
 {
-	m_pTransformCom->m_vScale = { 256.f, 256.f, 1.f };
-	m_pTransformCom->Set_Pos(m_vStartPos);
+	m_fSizeX = 512.f;
+	m_fSizeY = 512.f;
+	m_fX = WINCX * 0.5f;
+	m_fY = WINCY - m_fSizeY * 0.5f;
+	m_vStartPos = { m_fX, m_fY, 0.f };
+	m_vEndPos = { m_fX, m_fY, 0.f };
+	m_pTransformCom->Set_Scale(m_fSizeX * 0.5f, m_fSizeY * 0.5f, 1.f);
+	m_pTransformCom->Set_Pos(m_fX - WINCX * 0.5f, -m_fY + WINCY * 0.5f, 0.f);
 }
 
 void CMiddlePart::Idle()
@@ -164,8 +172,14 @@ void CMiddlePart::Idle()
 
 void CMiddlePart::Begin_Kick()
 {
-	m_pTransformCom->m_vScale = { 256.f, 256.f, 1.f };
-	m_pTransformCom->Set_Pos(m_vStartPos);
+	m_fSizeX = 512.f;
+	m_fSizeY = 512.f;
+	m_fX = WINCX * 0.5f;
+	m_fY = WINCY - m_fSizeY * 0.5f;
+	m_vStartPos = { m_fX, m_fY, 0.f };
+	m_vEndPos = { m_fX, m_fY, 0.f };
+	m_pTransformCom->Set_Scale(m_fSizeX * 0.5f, m_fSizeY * 0.5f, 1.f);
+	m_pTransformCom->Set_Pos(m_fX - WINCX * 0.5f, -m_fY + WINCY * 0.5f, 0.f);
 }
 
 void CMiddlePart::Kick()
@@ -187,9 +201,14 @@ void CMiddlePart::End_Kick()
 
 void CMiddlePart::Begin_Drink()
 {
-	// 체력 회복 
-	m_pTransformCom->m_vScale = { 350.f, 350.f, 1.f };	
-	m_pTransformCom->Set_Pos({ 0.f, WINCY * -0.5f + 100.f, 0.f });
+	m_fSizeX = 700.f;
+	m_fSizeY = 700.f;
+	m_fX = WINCX * 0.5f;
+	m_fY = WINCY -100.f;
+	m_vStartPos = { m_fX, m_fY, 0.f };
+	m_vEndPos = { m_fX, m_fY, 0.f };
+	m_pTransformCom->Set_Scale(m_fSizeX * 0.5f, m_fSizeY * 0.5f, 1.f);
+	m_pTransformCom->Set_Pos(m_fX - WINCX * 0.5f, -m_fY + WINCY * 0.5f, 0.f);
 
 }
 
@@ -212,8 +231,14 @@ void CMiddlePart::End_Drink()
 
 void CMiddlePart::Begin_Slide()
 {
-	m_pTransformCom->m_vScale = { 512.f, 256.f, 1.f };
-	m_pTransformCom->Set_Pos({ 0.f, WINCY * -0.5f + 225.f, 0.f });
+	m_fSizeX = 1024.f;
+	m_fSizeY = 512.f;
+	m_fX = WINCX * 0.5f;
+	m_fY = WINCY - m_fSizeY * 0.5f;
+	m_vStartPos = { m_fX, m_fY, 0.f };
+	m_vEndPos = { m_fX, m_fY, 0.f };
+	m_pTransformCom->Set_Scale(m_fSizeX * 0.5f, m_fSizeY * 0.5f, 1.f);
+	m_pTransformCom->Set_Pos(m_fX - WINCX * 0.5f, -m_fY + WINCY * 0.5f, 0.f);
 }
 
 void CMiddlePart::Slide()
@@ -229,8 +254,14 @@ void CMiddlePart::End_Slide()
 
 void CMiddlePart::Begin_Intro()
 {
-	m_pTransformCom->m_vScale = { 512.f, 512.f, 1.f };
-	m_pTransformCom->Set_Pos({ 0.f, WINCY * -0.5f, 0.f });
+	m_fSizeX = 1024.f;
+	m_fSizeY = 1024.f;
+	m_fX = WINCX * 0.5f;
+	m_fY = WINCY - 100.f;
+	m_vStartPos = { m_fX, m_fY, 0.f };
+	m_vEndPos = { m_fX, m_fY, 0.f };
+	m_pTransformCom->Set_Scale(m_fSizeX * 0.5f, m_fSizeY * 0.5f, 1.f);
+	m_pTransformCom->Set_Pos(m_fX - WINCX * 0.5f, -m_fY + WINCY * 0.5f, 0.f);
 }
 
 void CMiddlePart::Intro()
@@ -245,9 +276,14 @@ void CMiddlePart::Intro()
 
 void CMiddlePart::Begin_Intro2()
 {
-	m_pTransformCom->m_vScale = { 512.f, 256.f, 1.f };
-	m_pTransformCom->Set_Pos({ 0.f, WINCY * -0.5f + 125.f, 0.f });
-	m_fTime = 0.f;
+	m_fSizeX = 1024.f;
+	m_fSizeY = 512.f;
+	m_fX = WINCX * 0.5f;
+	m_fY = WINCY - 50.f;
+	m_vStartPos = { m_fX, m_fY, 0.f };
+	m_vEndPos = { m_fX, m_fY, 0.f };
+	m_pTransformCom->Set_Scale(m_fSizeX * 0.5f, m_fSizeY * 0.5f, 1.f);
+	m_pTransformCom->Set_Pos(m_fX - WINCX * 0.5f, -m_fY + WINCY * 0.5f, 0.f);
 }
 
 void CMiddlePart::Intro2()
@@ -259,5 +295,25 @@ void CMiddlePart::Intro2()
 		return;
 	}
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+}
+
+void CMiddlePart::Begin_Shop()
+{
+	m_fSizeX = 1024.f;
+	m_fSizeY = 512.f;
+	m_fX = WINCX * 0.5f;
+	m_fY = WINCY - 50.f;
+	m_vStartPos = { m_fX, m_fY, 0.f };
+	m_vEndPos = { m_fX, m_fY, 0.f };
+	m_pTransformCom->Set_Scale(m_fSizeX * 0.5f, m_fSizeY * 0.5f, 1.f);
+	m_pTransformCom->Set_Pos(m_fX - WINCX * 0.5f, -m_fY + WINCY * 0.5f, 0.f);
+}
+
+void CMiddlePart::Shopping()
+{
+}
+
+void CMiddlePart::End_Shop()
+{
 }
 	

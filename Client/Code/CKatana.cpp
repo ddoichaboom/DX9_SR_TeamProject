@@ -60,7 +60,7 @@ HRESULT CKatana::Ready_GameObject()
 		return E_FAIL;
 
 	CreateStateData();
-	ChangeState(GetStateID(IDLE, SW_KATANA));
+	ChangeState(GetStateID(IDLE, WEAPON_KATANA));
 	m_fCoolTime = 0.5f;
 	m_fPower = 15.f;
 	Begin_Intro();

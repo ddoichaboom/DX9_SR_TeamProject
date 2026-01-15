@@ -8,21 +8,21 @@
 
 vector<TextureSource> CRightPart::m_vTextureSource =
 {
-	{ GetStateID(IDLE,SW_PISTOL),	L"../Bin/Resource/Texture/Player/Right_Hand_Idle_P.dds" },
-	{ GetStateID(ATTACK,SW_PISTOL), L"../Bin/Resource/Texture/Player/Right_Hand_Shot_P.dds" },
-	{ GetStateID(RELOAD,SW_PISTOL), L"../Bin/Resource/Texture/Player/Right_Hand_Reload_P.dds"},
-	{ GetStateID(INTRO,SW_KATANA), L"../Bin/Resource/Texture/Player/Right_Hand_Intro_Katana.dds"},
-	{ GetStateID(IDLE,SW_KATANA), L"../Bin/Resource/Texture/Player/Right_Hand_Idle_K.dds"},
+	{ GetStateID(IDLE,WEAPON_PISTOL),	L"../Bin/Resource/Texture/Player/Right_Hand_Idle_P.dds" },
+	{ GetStateID(ATTACK,WEAPON_PISTOL), L"../Bin/Resource/Texture/Player/Right_Hand_Shot_P.dds" },
+	{ GetStateID(RELOAD,WEAPON_PISTOL), L"../Bin/Resource/Texture/Player/Right_Hand_Reload_P.dds"},
+	{ GetStateID(INTRO,WEAPON_KATANA), L"../Bin/Resource/Texture/Player/Right_Hand_Intro_Katana.dds"},
+	{ GetStateID(IDLE,WEAPON_KATANA), L"../Bin/Resource/Texture/Player/Right_Hand_Idle_K.dds"},
 
 };
 
 vector<AnimationSource>  CRightPart::m_vAnimSource =
 {
-	{ GetStateID(IDLE,SW_PISTOL),0,3,3, true, 0.11f},
-	{ GetStateID(ATTACK,SW_PISTOL),0,5,5, false, 0.02f,	0.9f},
-	{ GetStateID(RELOAD,SW_PISTOL),1,6,6, false, 0.04f, 0.9f},
-	{ GetStateID(INTRO,SW_KATANA),1,0,0, true, 0.04f},
-	{ GetStateID(IDLE,SW_KATANA),0,1,1, true, 0.11f}
+	{ GetStateID(IDLE,WEAPON_PISTOL),0,3,3, true, 0.11f},
+	{ GetStateID(ATTACK,WEAPON_PISTOL),0,5,5, false, 0.02f,	0.9f},
+	{ GetStateID(RELOAD,WEAPON_PISTOL),1,6,6, false, 0.04f, 0.9f},
+	{ GetStateID(INTRO,WEAPON_KATANA),1,0,0, true, 0.04f},
+	{ GetStateID(IDLE,WEAPON_KATANA),0,1,1, true, 0.11f}
 };
 
 
@@ -47,19 +47,19 @@ void CRightPart::CreateStateData()
 	if (Mgr->IsStateEmpty() == false) return;
 
 	CState<CRightPart>* State = new CState<CRightPart>(&CRightPart::Begin_Idle, &CRightPart::Idle, nullptr);
-	Mgr->AddState(GetStateID(IDLE, SW_PISTOL), State);
+	Mgr->AddState(GetStateID(IDLE, WEAPON_PISTOL), State);
 
 	State = new CState<CRightPart>(&CRightPart::Begin_Attack, &CRightPart::Attack, &CRightPart::End_Attack);
-	Mgr->AddState(GetStateID(ATTACK, SW_PISTOL), State);
+	Mgr->AddState(GetStateID(ATTACK, WEAPON_PISTOL), State);
 
 	State = new CState<CRightPart>(&CRightPart::Begin_Reload, &CRightPart::Reload, &CRightPart::End_Reload);
-	Mgr->AddState(GetStateID(RELOAD, SW_PISTOL), State);
+	Mgr->AddState(GetStateID(RELOAD, WEAPON_PISTOL), State);
 
 	State = new CState<CRightPart>(&CRightPart::Begin_Intro, &CRightPart::Intro, &CRightPart::End_Intro);
-	Mgr->AddState(GetStateID(INTRO, SW_KATANA), State);
+	Mgr->AddState(GetStateID(INTRO, WEAPON_KATANA), State);
 
 	State = new CState<CRightPart>(&CRightPart::Begin_Idle, &CRightPart::Idle, nullptr);
-	Mgr->AddState(GetStateID(IDLE, SW_KATANA), State);
+	Mgr->AddState(GetStateID(IDLE, WEAPON_KATANA), State);
 }
 
 CRightPart* CRightPart::Create(LPDIRECT3DDEVICE9 pGraphicDev)

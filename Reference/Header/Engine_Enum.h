@@ -84,5 +84,27 @@ namespace Engine
 	enum MOVE_DIR { DIR_NONE, DIR_UP, DIR_DOWN, DIR_LEFT, DIR_RIGHT, DIR_LEFTUP, DIR_LEFTDOWN, DIR_RIGHTUP, DIR_RIGHTDOWN };
 
 	enum COLLIDER_TAG { TAG_NONE, TAG_KICK, TAG_WATER, TAG_LAVA, TAG_ACID, TAG_ELECTRIC, TAG_END };
+
+	enum PLAYER_STATE : byte
+	{
+		IDLE = 1,
+		RELOAD = 2,
+		ATTACK = 3,
+		KICK = 5,
+		DRINK = 6,
+		SLIDE = 7,
+		INTRO = 8,
+		SHOP  = 9,
+		MAIN_END
+	};
+
+	enum WEAPON_STATE : byte
+	{
+		WEAPON_NONE = 0,
+		WEAPON_PISTOL = 1,
+		WEAPON_SHOTGUN = 2,
+		WEAPON_KATANA = 3,
+		WEAPON_END
+	};
 }
 #endif // Engine_Enum_h__
