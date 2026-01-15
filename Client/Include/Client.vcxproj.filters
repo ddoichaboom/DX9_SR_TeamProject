@@ -166,6 +166,12 @@
     <Filter Include="02. GameObject\12. Trigger\StageEndTrigger">
       <UniqueIdentifier>{b457a555-07c9-4099-85f4-2704782f1090}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04.UI\02.DynamicUI\01.Shop_BG">
+      <UniqueIdentifier>{3ad2316d-f529-4f71-90d0-9126f7c2043a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\01.StaticUI\02.Shop_Item">
+      <UniqueIdentifier>{92278782-f580-497e-8e7d-57a0dc2b6129}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -309,6 +315,12 @@
     <ClInclude Include="..\Header\CDoorTrigger.h">
       <Filter>02. GameObject\12. Trigger\DoorTrigger</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CShopBG.h">
+      <Filter>04.UI\02.DynamicUI\01.Shop_BG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CShopItem.h">
+      <Filter>04.UI\01.StaticUI\02.Shop_Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -442,6 +454,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CDoorTrigger.cpp">
       <Filter>02. GameObject\12. Trigger\DoorTrigger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CShopBG.cpp">
+      <Filter>04.UI\02.DynamicUI\01.Shop_BG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CShopItem.cpp">
+      <Filter>04.UI\01.StaticUI\02.Shop_Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

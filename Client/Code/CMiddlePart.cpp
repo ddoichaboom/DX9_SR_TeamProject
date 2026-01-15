@@ -315,7 +315,7 @@ void CMiddlePart::Begin_Shop()
 	m_vEndPos = { m_fX, m_fY - 150.f , 0.f };
 
 	m_vStartScale = { m_fSizeX * 0.5f, m_fSizeY * 0.5f, 1.f };
-	m_vEndScale = { m_fSizeX * 0.6f, m_fSizeY * 0.6f, 1.f };
+	m_vEndScale = { m_fSizeX * 0.7f, m_fSizeY * 0.7f, 1.f };
 	m_pTransformCom->Set_Scale(m_vStartScale);
 	m_pTransformCom->Set_Pos(m_fX - WINCX * 0.5f, -m_fY + WINCY * 0.5f, 0.f);
 
@@ -340,7 +340,7 @@ void CMiddlePart::Shopping()
 	{
 		if (m_fDelayTime < 1.f)
 		{
-			fTime = m_fTime * 2.f;
+			fTime = m_fTime * 3.f;
 			D3DXVec3Lerp(&vPos, &m_vStartPos, &m_vEndPos, fTime);
 			m_pTransformCom->Set_Pos(vPos.x - WINCX * 0.5f, -vPos.y + WINCY * 0.5f, 0.f);
 			CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
@@ -353,7 +353,7 @@ void CMiddlePart::Shopping()
 		}
 	}	
 	
-	fTime = m_fTime * 2.f;
+	fTime = m_fTime * 3.f;
 	D3DXVec3Lerp(&vScale, &m_vStartScale, &m_vEndScale, fTime);
 
 	if (fTime < 1.f)
@@ -363,8 +363,7 @@ void CMiddlePart::Shopping()
 	if (fTime > 1.f)
 	{
 		m_pTransformCom->Set_Scale(vScale);
-		// 상점 생성
-		m_pPlayer->Shop_Func();
+
 
 		m_bStateStop = true;
 	}
