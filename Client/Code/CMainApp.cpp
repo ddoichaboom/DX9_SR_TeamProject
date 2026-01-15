@@ -32,7 +32,7 @@
 #include "CMiddlePart.h"
 #include "CKatana.h"
 #include "CBackGround.h"
-
+#include "CTrigger.h"
 
 CMainApp::CMainApp() : m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
 , m_pManagementClass(CManagement::GetInstance())
@@ -229,6 +229,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iWhiteManCount = 5;
 	_uint iBeamMonCount = 3;
 	_uint iFlyMonCount = 6;
+	_uint iTriggerCount = 7;
 
 	for (auto& wstrFile : vecMapFiles)
 	{
@@ -271,6 +272,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 	CPoolMgr::GetInstance()->SetPoolSize<CBeamMon>(iBeamMonCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CFlyMon>(iFlyMonCount);
 
+	CPoolMgr::GetInstance()->SetPoolSize<CTrigger>(iTriggerCount);
 	return S_OK;
 }
 
