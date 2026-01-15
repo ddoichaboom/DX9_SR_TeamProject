@@ -450,7 +450,7 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
         m_pGraphicDev,
         pLayerTag)))
     {
-        MessageBox(nullptr, L"Room 0 Load Failed", L"Error", MB_OK);
+        MessageBox(nullptr, L"Room 0 (Environment) Load Failed", L"Error", MB_OK);
         return E_FAIL;
     }
     m_setLoadedRooms.insert(0);
@@ -465,7 +465,7 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
         pLayerTag)))
     {
         // 1번방이 있으면 오류 체크 위해 주석 해제 
-        MessageBox(nullptr, L"Room 1 Load Failed", L"Error", MB_OK);
+        MessageBox(nullptr, L"Room 1 (Environment) Load Failed", L"Error", MB_OK);
         return E_FAIL;
     }
     else
@@ -535,7 +535,7 @@ HRESULT CMapStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
         m_pGraphicDev,
         pLayerTag)))
     {
-        MessageBox(nullptr, L"Room 0 (Monster) Load Failed", L"Erro", MB_OK);
+        MessageBox(nullptr, L"Room 0 (GameLogic) Load Failed", L"Erro", MB_OK);
         return E_FAIL;
     }
     m_setLoadedRooms.insert(0);
@@ -548,8 +548,8 @@ HRESULT CMapStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
         m_pGraphicDev,
         pLayerTag)))
     {
-        /*MessageBox(nullptr, L"Room 1 (Monster) Load Failed", L"Erro", MB_OK);
-        return E_FAIL;*/
+        MessageBox(nullptr, L"Room 1 (GameLogic) Load Failed", L"Erro", MB_OK);
+        return E_FAIL;
     }
     else
     {
