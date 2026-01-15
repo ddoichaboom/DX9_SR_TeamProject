@@ -121,14 +121,17 @@
     <Filter Include="02. GameObject\99. Environment\01. Object\03. Obstacle">
       <UniqueIdentifier>{201c3123-c49d-4acf-adf8-a738fccb6dfc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\999.DebugObject">
-      <UniqueIdentifier>{bd545b88-97bc-4240-9694-3bc3967717b1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01. Scene\02. Loading">
       <UniqueIdentifier>{034ad6be-3396-4232-b306-09501ab26c96}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\98. BackGround">
       <UniqueIdentifier>{bc5cf546-9147-47cc-9af4-103b080d0c88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\11. MapCollider">
+      <UniqueIdentifier>{bd545b88-97bc-4240-9694-3bc3967717b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. Trigger">
+      <UniqueIdentifier>{c3e03a26-b888-4a42-8e23-5584f9799a14}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -240,9 +243,9 @@
     <ClInclude Include="..\Header\CTerrain.h">
       <Filter>02. GameObject\99. Environment\00. Terrain</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CDebugObject.h">
-      <Filter>02. GameObject\999.DebugObject</Filter>
-	</ClInclude>
+    <ClInclude Include="..\Header\CMapCollider.h">
+      <Filter>02. GameObject\11. MapCollider</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\CLoading.h">
       <Filter>01. Scene\02. Loading</Filter>
     </ClInclude>
@@ -350,9 +353,9 @@
     <ClCompile Include="..\Code\CTerrain.cpp">
       <Filter>02. GameObject\99. Environment\00. Terrain</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CDebugObject.cpp">
-      <Filter>02. GameObject\999.DebugObject</Filter>
-	</ClCompile>
+    <ClCompile Include="..\Code\CMapCollider.cpp">
+      <Filter>02. GameObject\11. MapCollider</Filter>
+    </ClCompile>
     <ClCompile Include="..\Code\CLoading.cpp">
       <Filter>01. Scene\02. Loading</Filter>
     </ClCompile>

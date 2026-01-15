@@ -66,6 +66,7 @@ protected:
 	IBasePool*							m_pPool;
 	OBJ_ID								m_eOBJ_ID;
 	_uint								m_iID;
+	_uint								m_iRoomNum;
 	static _uint						m_iCount;
 };
 

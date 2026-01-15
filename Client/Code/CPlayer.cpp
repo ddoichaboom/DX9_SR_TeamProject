@@ -219,7 +219,7 @@ void CPlayer::CheckPickedMonster()
 
 	_float fAttack = m_mapWeapon[m_eWeaponState]->Get_Power();
 	//TODO : 몬스터 카타나 애니메이션 테스트로 일시적 TAG 삽입. 제거하기  
-	CollisionInfo info = { NULL, {0,0,0}, fAttack, TAG_KATANA};
+	CollisionInfo info = { NULL, {0,0,0}, fAttack};
 
 	CLayer* pLayer = CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer");
 	if (!pLayer) return;
@@ -228,7 +228,7 @@ void CPlayer::CheckPickedMonster()
 	//multimap<OBJ_ID, CGameObject*> 에 대한 반복자
 	//OBJ_ID를 키로 가진 오브젝트들의 반복자 범위를 반환 = 몬스터 전체 목록
 	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
-	{
+	{  
 		CCollision* pCollision = static_cast<CCollision*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
 		if (!pCollision) continue;
 

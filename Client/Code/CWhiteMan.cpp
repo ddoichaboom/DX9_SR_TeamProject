@@ -158,7 +158,7 @@ HRESULT CWhiteMan::Ready_GameObject()
 
 	if (!m_pHeadCollider) return E_FAIL;
 
-	m_pHeadCollider->Set_RelativePos(_vec3(0,10,0));
+	m_pHeadCollider->Set_RelativePos(_vec3(0,9.5f,0));
 	m_pHeadCollider->Set_Scale(_vec3(2,2,2));
 	//콜라이더가 충돌되면 호출될 함수를 바인딩하기. CollisionInfo는 충돌 정보 
 	//웬만하면 아래처럼 람다로 넣기

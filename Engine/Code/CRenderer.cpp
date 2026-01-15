@@ -73,7 +73,7 @@ void CRenderer::Render_Alpha(LPDIRECT3DDEVICE9& pGraphicDev)
 	//알파테스트 
 	pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 	pGraphicDev->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
-	pGraphicDev->SetRenderState(D3DRS_ALPHAREF, 0x50);
+	pGraphicDev->SetRenderState(D3DRS_ALPHAREF, 0x60);
 	
 
 	m_RenderGroup[RENDER_ALPHA].sort([](CGameObject* pDst, CGameObject* pSrc)->bool

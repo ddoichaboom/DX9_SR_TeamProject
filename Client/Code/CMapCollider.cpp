@@ -1,17 +1,18 @@
 #include "pch.h"
 #include "CManagement.h"
-#include "CDebugObject.h"
+#include "CMapCollider.h"
 #include "CProtoMgr.h"
 #include "CRenderer.h"
 
-CDebugObject::CDebugObject(LPDIRECT3DDEVICE9 pGraphicDev)
+CMapCollider::CMapCollider(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CGameObject(pGraphicDev) 
-	, m_pTransformCom(nullptr), m_pCollisionCom(nullptr), m_pCollider(nullptr)
+	, m_pTransformCom(nullptr), m_pCollisionCom(nullptr), m_pCollider(nullptr),
+	m_vPos{0.f,0.f,0.f}, m_vScale{1.f,1.f,1.f}
 {
 	m_eOBJ_ID = OBJ_COL;
 }
 
-CDebugObject::CDebugObject(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vScale)
+CMapCollider::CMapCollider(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vScale)
 	:CGameObject(pGraphicDev)
 	, m_pTransformCom(nullptr), m_pCollisionCom(nullptr), m_pCollider(nullptr)
 	, m_vPos(vPos), m_vScale(vScale)
@@ -19,64 +20,47 @@ CDebugObject::CDebugObject(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vSca
 	m_eOBJ_ID = OBJ_COL;
 }
 
-CDebugObject::CDebugObject(const CDebugObject& rhs)
+CMapCollider::CMapCollider(const CMapCollider& rhs)
 	: CGameObject(rhs)
 	, m_pTransformCom(nullptr), m_pCollisionCom(nullptr), m_pCollider(nullptr)
 {
 	m_eOBJ_ID = OBJ_COL;
 }
 
-CDebugObject::~CDebugObject()
+CMapCollider::~CMapCollider()
 {
 }
 
-HRESULT CDebugObject::Ready_GameObject()
+HRESULT CMapCollider::Ready_GameObject()
 {
 	if (FAILED(Add_Component()))
 		return E_FAIL;
 
-	// Ceil
-	//m_pTransformCom->m_vScale = { 1.f, 1.f, 1.f };
-	//m_pTransformCom->Set_Pos(62.f, 35.f, 80.f);
-	//
-
-	//m_pCollider = m_pCollisionCom->CreateCollider(m_pTransformCom, m_szColliderName);
-	//m_pCollider->Set_Scale(_vec3(25.f, 2.f, 45.f));
-
-	//Wall
 	m_pTransformCom->m_vScale = { 1.f, 1.f, 1.f };
 	m_pTransformCom->Set_Pos(m_vPos);
-
 	
 	m_pCollider = m_pCollisionCom->CreateCollider(this, m_szColliderName);
 	m_pCollider->Set_Scale(m_vScale);
 
-
+	//Transform -Static 
 	m_pTransformCom->Update_Component(0.f);
-	
-
 
 	return S_OK;
 }
 
-_int CDebugObject::Update_GameObject(const _float& fTimeDelta)
+_int CMapCollider::Update_GameObject(const _float& fTimeDelta)
 {
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
-
-
 	return iExit;
 }
 
-void CDebugObject::LateUpdate_GameObject(const _float& fTimeDelta)
+
+void CMapCollider::Render_GameObject()
 {
-	CGameObject::LateUpdate_GameObject(fTimeDelta);
+	m_pCollider->Render_GameObject();
 }
 
-void CDebugObject::Render_GameObject()
-{
-}
-
-HRESULT CDebugObject::Add_Component()
+HRESULT CMapCollider::Add_Component()
 {
 	Engine::CComponent* pComponent = nullptr;
 	pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>
@@ -98,36 +82,42 @@ HRESULT CDebugObject::Add_Component()
 	return S_OK;
 }
 
-void CDebugObject::Activate()
+void CMapCollider::SetPos(_vec3 _pos)
+{
+	m_pTransformCom->Set_Pos(_pos);
+	m_pTransformCom->Update_Component(1.f);
+}
+void CMapCollider::SetScale(_vec3 _scale)
+{
+	m_pTransformCom->Set_Scale(_scale);
+	m_pTransformCom->Update_Component(1.f);
+}
+
+void CMapCollider::Activate()
 {
 	CGameObject::Activate();
 }
 
-void CDebugObject::Deactivate()
+void CMapCollider::Deactivate()
 {
 	CGameObject::Deactivate();
 }
 
-CDebugObject* CDebugObject::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vScale)
+CMapCollider* CMapCollider::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vScale)
 {
-	CDebugObject* pDebug = new CDebugObject(pGraphicDev, vPos, vScale);
+	CMapCollider* pMapCol = new CMapCollider(pGraphicDev, vPos, vScale);
 
-	if (FAILED(pDebug->Ready_GameObject()))
+	if (FAILED(pMapCol->Ready_GameObject()))
 	{
-		Safe_Release(pDebug);
-		MSG_BOX("DebugObject Create Failed");
+		Safe_Release(pMapCol);
+		MSG_BOX("MapCollider Create Failed");
 		return nullptr;
 	}
 
-	return pDebug;
+	return pMapCol;
 }
 
-void CDebugObject::Free()
+void CMapCollider::Free()
 {
 	CGameObject::Free();
-}
-
-void CDebugObject::OnCollision(CollisionInfo info)
-{
-
 }
