@@ -12,6 +12,9 @@ class CRightPart;
 class CMiddlePart;
 class CWeapon;
 
+// 바꿔야할거같긴함
+class CShopBG;
+
 class CPlayer :
 	public CCharacter
 {
@@ -175,5 +178,9 @@ private:
 
 	map<_uint, _int> m_mapCallCnt = {};
 	//_int	m_iCallCnt;	
+
+
+	//UI
+	CShopBG*	m_pShopBG;
 };
 

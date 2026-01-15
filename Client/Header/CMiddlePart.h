@@ -69,6 +69,9 @@ protected:
 	_vec3	m_vStartPos;
 	_vec3	m_vEndPos;
 
+	_vec3	m_vStartScale;
+	_vec3	m_vEndScale;
+
 	_float	m_fX;
 	_float	m_fY;
 	_float  m_fSizeX;
@@ -76,4 +79,8 @@ protected:
 
 	_int	m_iLoopTime;
 
+	_float  m_fDelayTime;
+	_bool	m_bDelay;
+
+	_bool	m_bStateStop;
 };

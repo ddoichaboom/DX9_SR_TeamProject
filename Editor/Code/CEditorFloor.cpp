@@ -8,7 +8,8 @@
 
 vector<TextureSource> CEditorFloor::m_vTextureSource =
 {
-    {STATIC_FLOOR, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOORS.dds", true, 0, 7, 7, { 2.f, 2.f} }
+    {STATIC_FLOOR, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOORS.dds", true, 0, 7, 7, { 2.f, 2.f} },
+    { STATIC_FLOOR_FLUID, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOOR_FLUID.dds", true, 0, 2, 2, {0.f, 0.f} }
 };
 
 CEditorFloor::CEditorFloor(LPDIRECT3DDEVICE9 pGraphicDev)

@@ -90,7 +90,7 @@ private:
 	wstring StringToWString(const string& str);
 
 private:
-	static const _uint FILE_VERSION = 3;  
+	static const _uint FILE_VERSION = 4;  
 	_vec3								m_vPlayerSpawnPos;
 	_vec3								m_vTerrainPos;
 	_uint								m_iFloorCount;

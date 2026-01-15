@@ -39,6 +39,9 @@
 
 //UI
 #include "CPhoneBG.h"
+#include "CShopBG.h"
+#include "CShopItem.h"
+#include "CSelectBG.h"
 
 
 CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev), m_pLoading(nullptr)
@@ -348,6 +351,21 @@ HRESULT CMapStage::Ready_UITextureProto()
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_PhoneBGTexture", pCom_Texture)))
         return E_FAIL;
 
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CShopBG::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_ShopBGTexture", pCom_Texture)))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_ShopBGAnimation",
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CShopBG::GetAnimSources()))))
+        return E_FAIL;
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CShopItem::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_ShopItemTexture", pCom_Texture)))
+        return E_FAIL;
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CSelectBG::GetTextureSource());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SelectBGTexture", pCom_Texture)))
+        return E_FAIL;
 
     return S_OK;
 }
@@ -526,6 +544,7 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
     if (FAILED(pLayer->Add_GameObject(pGameObject)))
         return E_FAIL;
 
+
     //이 트리거가 있는 방의 번호 첫 인자로 입력
     CDoorTrigger* trigger = CDoorTrigger::Create(m_pGraphicDev, 0, _vec3(28.f, 8.f, 250.f), _vec3(16.f, 16.f, 16.f));
     
@@ -537,6 +556,7 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
         return E_FAIL;
 
     m_mapLayer.insert({ pLayerTag, pLayer });
+
     m_pEnvironment_Layer = pLayer;
     return S_OK;
 }
@@ -689,7 +709,9 @@ void CMapStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
 {
     if (_type == EVENT_DOOR_IN)
     {
-        if (m_iCurrentRoomIndex == 0) Change_Room(m_iCurrentRoomIndex + 1);
+        if (m_iCurrentRoomIndex == 0) // 방이 언로드 되는 것을 보기 위해 임의로 2번 증가 시키기
+            Change_Room(m_iCurrentRoomIndex + 1);
+        
         Change_Room(m_iCurrentRoomIndex + 1);
     }
     

@@ -8,6 +8,7 @@
 #include "CEditorFloor.h"
 #include "CEditorCeiling.h"
 #include "CEditorDynamicFloor.h"
+#include "CTexture.h"
 
 
 CInspector::CInspector()
@@ -56,7 +57,7 @@ void CInspector::Render_Inspector()
             }
             else if (m_iSelectedType == 1)
             {
-                Render_GridProperties();
+                //Render_GridProperties();
             }
             else
             {
@@ -115,26 +116,13 @@ void CInspector::Render_CameraProperties()
     }
 }
 
-void CInspector::Render_GridProperties()
-{
-    ImGui::Text("Grid");
-    ImGui::Separator();
 
-    ImGui::Text("Size : 100 x 100");
-    ImGui::Text("Interval : 1.0");
-    ImGui::Text("Color : ( 100, 100, 100)");
-
-    ImGui::Spacing();
-    ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),
-        "[ Phase 3 ] Read - Only Properties");
-}
 
 void CInspector::Render_FloorTextureUI(CEditorFloor* pFloor)
 {
     ImGui::Text("Floor Texture");
     ImGui::Separator();
 
-    CEditorDynamicFloor* pDynamicFloor = dynamic_cast<CEditorDynamicFloor*>(pFloor);
 
     if (CEditorDynamicFloor* pDynamicFloor = dynamic_cast<CEditorDynamicFloor*>(pFloor))
     {
@@ -189,27 +177,42 @@ void CInspector::Render_FloorTextureUI(CEditorFloor* pFloor)
             "Dynamic floors have animated textures");
 
     }
-    else
+    else if (pFloor)
     {
         // Floor Type 콤보 박스    (현재는 STATIC_FLOOR만 지원)
         _uint iFloorType = pFloor->Get_FloorType();
-        const char* szFloorTypes[] = { "STATIC_FLOOR" };
-        _int iSelectedType = 0;
+        const char* szFloorTypes[] = { 
+            "STATIC_FLOOR",
+            "STATIC_FLOOR_FLUID"
+        };
+
+        _int iSelectedType = iFloorType;
 
         if (ImGui::Combo("Floor Type", &iSelectedType, szFloorTypes, IM_ARRAYSIZE(szFloorTypes)))
         {
             pFloor->Set_FloorType(iSelectedType);
         }
 
-        int iTextureIdx = pFloor->Get_TextureIdx();
-        if (ImGui::SliderInt("Texture Index", &iTextureIdx, 0, 7))
+        _int iTextureIdx = pFloor->Get_TextureIdx();
+
+        Engine::CTexture* pTextureCom = dynamic_cast<Engine::CTexture*>(
+            pFloor->Get_Component(ID_DYNAMIC, L"Com_Texture"));
+
+        _int iMaxIdx(0);
+
+        if (pTextureCom)
+        {
+            Engine::TextureDesc* pDesc = pTextureCom->GetTextureDesc(iFloorType);
+            if (pDesc)
+            {
+                iMaxIdx = (_int)pDesc->vMaxIdx.x;
+            }
+        }
+
+        if (ImGui::SliderInt("Texture Index", &iTextureIdx, 0, iMaxIdx))
         {
             pFloor->Set_TextureIdx(iTextureIdx);
         }
-
-        // 힌트 텍스트
-        ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),
-            "Texture Index: 0 ~ 7 (FLOORS.dds 8x1 atlas)");
     }
 }
 
@@ -230,7 +233,22 @@ void CInspector::Render_CeilingTextureUI(CEditorCeiling* pCeiling)
 
     // Texture Index 슬라이더 (0 ~ 7)
     int iTextureIdx = pCeiling->Get_TextureIdx();
-    if (ImGui::SliderInt("Texture Index", &iTextureIdx, 0, 7))
+
+    Engine::CTexture* pTextureCom = dynamic_cast<Engine::CTexture*>(
+        pCeiling->Get_Component(ID_DYNAMIC, L"Com_Texture"));
+
+    _int iMaxIdx(0);
+
+    if (pTextureCom)
+    {
+        Engine::TextureDesc* pDesc = pTextureCom->GetTextureDesc(iCeilingType);
+        if (pDesc)
+        {
+            iMaxIdx = (_int)pDesc->vMaxIdx.x;
+        }
+    }
+
+    if (ImGui::SliderInt("Texture Index", &iTextureIdx, 0, iMaxIdx))
     {
         pCeiling->Set_TextureIdx(iTextureIdx);
     }
@@ -256,7 +274,11 @@ void CInspector::Render_WallTextureUI(CEditorWall* pWall)
         "STATIC_WALL_7",
         "STATIC_WALL_8",
         "STATIC_WALL_9",
-        "STATIC_WALL_10"
+        "STATIC_WALL_10",
+        "STATIC_WALL_WATER",
+        "STATIC_WALL_LAVA",
+        "STATIC_WALL_ACID",
+        "STATIC_WALL_FENCE"
     };
 
     int iSelectedType = iWallType;  // STATIC_WALL_1 = 0, STATIC_WALL_2 = 1, ...
@@ -267,8 +289,22 @@ void CInspector::Render_WallTextureUI(CEditorWall* pWall)
     }
 
     // Texture Index 슬라이더 (0 ~ 2, 3x3 아틀라스의 행)
-    int iTextureIdx = pWall->Get_TextureIdx();
-    if (ImGui::SliderInt("Texture Index", &iTextureIdx, 0, 2))
+    _int iTextureIdx = pWall->Get_TextureIdx();
+
+    Engine::CTexture* pTextureCom = dynamic_cast<Engine::CTexture*>(
+        pWall->Get_Component(ID_DYNAMIC, L"Com_Texture"));
+
+    _int iMaxIdx(0);
+
+    if (pTextureCom)
+    {
+        Engine::TextureDesc* pDesc = pTextureCom->GetTextureDesc(iWallType);
+        if (pDesc)
+        {
+            iMaxIdx = (_int)pDesc->vMaxIdx.x;
+        }
+    }
+    if (ImGui::SliderInt("Texture Index", &iTextureIdx, 0, iMaxIdx))
     {
         pWall->Set_TextureIdx(iTextureIdx);
     }
