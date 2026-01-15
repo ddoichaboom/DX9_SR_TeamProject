@@ -61,7 +61,7 @@ protected:
 	CCollider* m_pBodyCollider;
 	const _tchar* m_szBodyColliderName = L"ColBody";
 
-	_float	m_fAttackDist = 10.f;
+	_float	m_fAttackDist = 25.f;
 	_float	m_fTraceSpeed = 30.f;
 
 	_bool	m_fNear;
