@@ -136,6 +136,15 @@
     <Filter Include="04.UI\00.BaseUI">
       <UniqueIdentifier>{9b1cf752-3739-4e42-9848-a29a8abcd6aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04.UI\01.StaticUI">
+      <UniqueIdentifier>{753aa42d-392d-45f6-a087-9d11e86bbf4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\02.DynamicUI">
+      <UniqueIdentifier>{ad8da3ef-9ba8-4c95-bc2a-645ba1acfb0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\01.StaticUI\01.Phone_Back">
+      <UniqueIdentifier>{9b00fd92-8983-4423-abcc-16010820e407}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -258,6 +267,9 @@
     <ClInclude Include="..\Header\CBaseUI.h">
       <Filter>04.UI\00.BaseUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CPhoneBG.h">
+      <Filter>04.UI\01.StaticUI\01.Phone_Back</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -370,6 +382,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CBaseUI.cpp">
       <Filter>04.UI\00.BaseUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPhoneBG.cpp">
+      <Filter>04.UI\01.StaticUI\01.Phone_Back</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

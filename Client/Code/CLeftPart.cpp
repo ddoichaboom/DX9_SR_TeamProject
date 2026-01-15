@@ -5,6 +5,7 @@
 #include "CDInputMgr.h"
 
 #include "CPlayer.h"
+#include <CPhoneBG.h>
 
 vector<TextureSource> CLeftPart::m_vTextureSource =
 {
@@ -25,12 +26,12 @@ vector<AnimationSource>  CLeftPart::m_vAnimSource =
 
 
 CLeftPart::CLeftPart(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CPlayerPart(pGraphicDev), m_bReload(false)
+	: CPlayerPart(pGraphicDev), m_bReload(false), m_pPhoneBG(nullptr)
 {
 }
 
 CLeftPart::CLeftPart(const CLeftPart& rhs)
-	: CPlayerPart(rhs), m_bReload(false)
+	: CPlayerPart(rhs), m_bReload(false), m_pPhoneBG(nullptr)
 {
 }
 
@@ -81,6 +82,10 @@ HRESULT CLeftPart::Ready_GameObject()
 		return E_FAIL;
 
 	CreateStateData();
+
+	m_pPhoneBG = CPhoneBG::Create(m_pGraphicDev);
+	if (m_pPhoneBG == nullptr)
+		return E_FAIL;
 		
 	m_vStartPos = { 200.f, WINCY - 200.f, 0.f };
 	m_vEndPos	= { WINCX - 200.f, WINCY - 200.f, 0.f };	
@@ -97,12 +102,22 @@ _int CLeftPart::Update_GameObject(const _float& fTimeDelta)
 	if (m_bDelay)
 		m_fDelayTime += fTimeDelta;
 	//CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+
+	if (!m_bReload)
+	{
+		m_pPhoneBG->Update_GameObject(fTimeDelta);
+	}
 	return iExit;
 }
 
 void CLeftPart::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CPlayerPart::LateUpdate_GameObject(fTimeDelta);
+
+	if (!m_bReload)
+	{
+		m_pPhoneBG->LateUpdate_GameObject(fTimeDelta);
+	}
 
 	m_pAnimationCom->Update_State(m_pStateCom->GetCurrentStateID());
 }
@@ -132,6 +147,7 @@ HRESULT CLeftPart::Add_Component()
 
 void CLeftPart::Free()
 {
+	Safe_Release(m_pPhoneBG);
 	CGameObject::Free();
 }
 
@@ -214,6 +230,7 @@ void CLeftPart::Begin_Intro()
 	m_fTime = 0.f;
 	m_fDelayTime = 0.f;
 	m_bDelay = true;
+	m_bReload = true;
 }
 
 void CLeftPart::Intro()

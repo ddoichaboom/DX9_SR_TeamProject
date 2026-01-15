@@ -330,6 +330,20 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 			Change_State(RELOAD);
 		return;
 	}
+
+	if (CDInputMgr::GetInstance()->Key_Down(DIK_1))
+	{
+		if(m_eWeaponState != SW_PISTOL)
+			Change_Weapon(SW_PISTOL);
+		return;
+	}
+
+	if (CDInputMgr::GetInstance()->Key_Down(DIK_3))
+	{
+		if (m_eWeaponState != SW_KATANA)
+			Change_Weapon(SW_KATANA);
+		return;
+	}
 }
 
 //몬스터 전체를 가져와서 마우스와 피킹 체크 
@@ -845,7 +859,7 @@ void CPlayer::Intro_Enter()
 	case CPlayer::SW_SHOTGUN:
 		break;
 	case CPlayer::SW_KATANA:
-		m_mapCallCnt[INTRO] = 2;
+		m_mapCallCnt[INTRO] = 1;
 		m_pRightPart->ChangeState(GetStateID(INTRO, SW_KATANA));
 		m_pLeftPart->ChangeState(GetStateID(INTRO, SW_KATANA));	
 		break;

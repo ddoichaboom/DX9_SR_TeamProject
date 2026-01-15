@@ -35,6 +35,10 @@
 #include "CDebugObject.h"
 
 
+//UI
+#include "CPhoneBG.h"
+
+
 CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev), m_pLoading(nullptr)
 {
 }
@@ -195,6 +199,7 @@ HRESULT CMapStage::Ready_Prototype_OnlyTexture()
    if(FAILED(Ready_PlayerTextureProto())) return E_FAIL;
    if(FAILED(Ready_MonsterTextureProto())) return E_FAIL;
    if(FAILED(Ready_TerrainTextureProto())) return E_FAIL;
+   if (FAILED(Ready_UITextureProto())) return E_FAIL;
    return S_OK;
 }
 
@@ -321,6 +326,19 @@ HRESULT CMapStage::Ready_TerrainTextureProto()
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WallAnimation",
         Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CDynamicWall::GetAnimSources()))))
         return E_FAIL;
+
+    return S_OK;
+}
+
+HRESULT CMapStage::Ready_UITextureProto()
+{
+    CTexture* pCom_Texture = nullptr;
+
+    // Floor Proto 
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CPhoneBG::GetTextureSource());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_PhoneBGTexture", pCom_Texture)))
+        return E_FAIL;
+
 
     return S_OK;
 }
@@ -569,8 +587,6 @@ HRESULT CMapStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 
     if (FAILED(pLayer->Add_GameObject(pGameObject)))
         return E_FAIL;
-
-    //pPlayer->Intro_Func();
 #pragma endregion
 
     m_mapLayer.insert({ pLayerTag, pLayer });

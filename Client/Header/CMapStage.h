@@ -31,6 +31,7 @@ protected:
     HRESULT     Ready_PlayerTextureProto();
     HRESULT     Ready_MonsterTextureProto();
     HRESULT     Ready_TerrainTextureProto();
+    HRESULT     Ready_UITextureProto();
 
     void        Update_RoomLoading(const _float& fTimeDelta);
     void        Change_Room(_int iNewRoomIndex);
