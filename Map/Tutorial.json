@@ -2,7 +2,7 @@
   "ceilingCount": 496,
   "dynamicFloorCount": 56,
   "floorCount": 444,
-  "objectCount": 1214,
+  "objectCount": 1215,
   "objects": [
     {
       "floorType": 0,
@@ -27345,6 +27345,28 @@
       "type": "Wall",
       "wallDirection": 0,
       "wallType": 9
+    },
+    {
+      "monsterKey": "FlyMon",
+      "name": "MonsterSpawn",
+      "position": [
+        56.0,
+        20.0,
+        968.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
     }
   ],
   "obstacleCount": 3,
