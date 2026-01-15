@@ -121,6 +121,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>./;../Include;../Header;../../Base;../../Reference/Header;../ImGui;../ImGuizmo</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -140,6 +141,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>../Header;../../Base;../../Reference/Header;../ImGui;../ImGuizmo</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -153,6 +155,7 @@
     <ClInclude Include="..\Header\CEditorCamera.h" />
     <ClInclude Include="..\Header\CEditorCeiling.h" />
     <ClInclude Include="..\Header\CEditorCube.h" />
+    <ClInclude Include="..\Header\CEditorDynamicFloor.h" />
     <ClInclude Include="..\Header\CEditorFloor.h" />
     <ClInclude Include="..\Header\CEditorObject.h" />
     <ClInclude Include="..\Header\CEditorScene.h" />
@@ -193,6 +196,7 @@
     <ClCompile Include="..\Code\CEditorCamera.cpp" />
     <ClCompile Include="..\Code\CEditorCeiling.cpp" />
     <ClCompile Include="..\Code\CEditorCube.cpp" />
+    <ClCompile Include="..\Code\CEditorDynamicFloor.cpp" />
     <ClCompile Include="..\Code\CEditorFloor.cpp" />
     <ClCompile Include="..\Code\CEditorObject.cpp" />
     <ClCompile Include="..\Code\CEditorScene.cpp" />

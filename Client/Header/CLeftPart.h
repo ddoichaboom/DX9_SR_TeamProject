@@ -1,6 +1,8 @@
 #pragma once
 #include "CPlayerPart.h"
 
+class CPlayer;
+
 class CLeftPart : public CPlayerPart
 {
 protected:
@@ -46,9 +48,16 @@ protected:
 	void Reload();
 	void End_Reload();
 
+	void Begin_Intro();
+	void Intro();
+	void End_Intro();
+
 protected:
 	static vector<TextureSource>	m_vTextureSource;
 	static vector<AnimationSource>	m_vAnimSource;
+
+	CGameObject*	m_pPhoneBG;
+
 	_vec3	m_vStartPos;
 	_vec3	m_vEndPos;
 

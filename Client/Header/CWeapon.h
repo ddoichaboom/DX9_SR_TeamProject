@@ -1,15 +1,29 @@
 #pragma once
 #include "CGameObject.h"
 
+class CPlayerPart;
+
 class CWeapon : public CGameObject
 {
 public:
+	enum STATE_MAIN : _byte
+	{
+		IDLE = 1,
+		RELOAD = 2,
+		ATTACK = 3,
+		KICK = 5,
+		DRINK = 6,
+		SLIDE = 7,
+		INTRO = 8,
+		MAIN_END
+	};
+
 	enum STATE_WEAPON : _byte
 	{
 		SW_NONE = 0,
-		SW_PISTOL = 5,
-		SW_SHOTGUN = 6,
-		SW_KATANA = 7,
+		SW_PISTOL = 1,
+		SW_SHOTGUN = 2,
+		SW_KATANA = 3,
 		SW_END
 	};
 
@@ -25,7 +39,7 @@ public:
 	_bool	Get_IsShootAble() const { return m_bShootAble; }
 	_int	Get_NowBullet() const { return m_iNowBullet; }
 	_int	Get_MaxBullet() const { return m_iMaxBullet; }
-	_int	Get_Power() const { return m_iPower; }
+	_int	Get_Power() const { return m_fPower; }
 	_float	Get_CoolTime() const { return m_fCoolTime; }
 	_float	Get_Range() const { return m_fRange; }
 
@@ -35,9 +49,11 @@ public:
 	void	Set_ShootAble(_bool bAble) { m_bShootAble = bAble; }
 	void	Set_NowBullet(_int	iNowBullet) { m_iNowBullet = iNowBullet; }
 	void	Set_MaxBullet(_int	iMaxBullet) { m_iMaxBullet = iMaxBullet; }
-	void	Set_Power(_int	iPower) { m_iPower = iPower; }
+	void	Set_Power(_float	iPower) { m_fPower = iPower; }
 	void	Set_CoolTime(_float	fCoolTime) { m_fCoolTime = fCoolTime; }
 	void	Set_Range(_float	fRange) { m_fRange = fRange; }
+
+	void	Set_Parent(CPlayerPart* pParent);
 
 
 public:
@@ -60,13 +76,14 @@ protected:
 	virtual		void				Free();
 
 protected:
+	CPlayerPart* m_pParentPart;
 	STATE_WEAPON m_eWeaponState;
 	_bool	m_bSelect;
 	_bool	m_bIsEmpty;
 	_bool	m_bShootAble;
 	_int	m_iNowBullet;
 	_int	m_iMaxBullet;
-	_int	m_iPower;
+	_float	m_fPower;
 	_float	m_fCoolTime;
 	_float	m_fRange;
 	_float	m_fTime;

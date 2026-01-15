@@ -121,6 +121,57 @@ namespace Engine
 		COLLIDER_TAG eTag;
 		COL_DIR eDir = CDIR_NONE;
 	} CollisionInfo;
+
+	// 맵 데이터 구조체
+	typedef struct tagObjectData
+	{
+		// 기본 정보 
+		std::string	sType;				// "Floor", "Ceiling" ... 
+		std::string	sName;				// 오브젝트 이름 ( 디버깅 용도 )
+
+		// Transform
+		_vec3	vPos;
+		_vec3	vRot;
+		_vec3	vScale;
+
+		// 오브젝트별 속성
+		_int	iTextureIdx;			// 정적 텍스처 출력 위한 인덱스 ( 0 ~ 7 / 0 ~ 2 )
+		_uint	iFloorType;			// STATIC/DYNAMIC_FLOOR_TYPE enum
+		_uint	iCeilingType;		// STATIC/DYNAMIC_CEILING_TYPE enum
+		_uint	iWallType;			// STATIC/DYNAMIC_WALL_TYPE enum
+
+		// SpawnPoint 전용
+		std::string sSpawnType;           // "Player", "Monster", "BossMonster"
+		std::string sMonsterKey;          // "WhiteMan", "BeamMon" 등
+
+		tagObjectData()
+			: sType(""), sName(""),
+			vPos(0, 0, 0), vRot(0, 0, 0), vScale(1, 1, 1),
+			iTextureIdx(0), iFloorType(0), iCeilingType(0), iWallType(0),
+			sSpawnType(""), sMonsterKey("")
+		{}
+
+	}ObjectData;
+
+	// 방 정보 구조체 
+	typedef struct tagRoomData
+	{
+		_int iRoomIdx;				// 방 번호
+		std::vector<ObjectData> vObjects;	// 해당 방의 모든 오브젝트
+		_uint iFloorCount;
+		_uint iDynamicFloorCount;
+		_uint iCeilingCount;
+		_uint iDynamicCeilingCount;
+		_uint iWallCount;
+		_uint iDynamicWallCount;
+		_uint iObstacleCount;
+
+		tagRoomData()
+			: iRoomIdx(-1), iFloorCount(0), iDynamicFloorCount(0), iCeilingCount(0),
+			iDynamicCeilingCount(0), iWallCount(0), iDynamicWallCount(0), iObstacleCount(0)
+		{}
+
+	}RoomData;
 }
 
 

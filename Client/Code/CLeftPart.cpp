@@ -4,15 +4,15 @@
 #include "CRenderer.h"
 #include "CDInputMgr.h"
 
+#include "CPlayer.h"
+#include <CPhoneBG.h>
+
 vector<TextureSource> CLeftPart::m_vTextureSource =
 {
 	{ IDLE, L"../Bin/Resource/Texture/Player/Left_Hand_Idle.dds" },
 	{ GetStateID(RELOAD,SW_PISTOL), L"../Bin/Resource/Texture/Player/Left_Hand_Reload_P.dds"},
 	{ GetStateID(RELOAD,SW_SHOTGUN), L"../Bin/Resource/Texture/Player/Left_Hand_Reload_S.dds" },
-
-
 	{ GetStateID(INTRO,SW_KATANA), L"../Bin/Resource/Texture/Player/Left_Hand_Intro_Katana.dds" }
-
 };
 
 vector<AnimationSource>  CLeftPart::m_vAnimSource =
@@ -26,12 +26,12 @@ vector<AnimationSource>  CLeftPart::m_vAnimSource =
 
 
 CLeftPart::CLeftPart(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CPlayerPart(pGraphicDev), m_bReload(false)
+	: CPlayerPart(pGraphicDev), m_bReload(false), m_pPhoneBG(nullptr)
 {
 }
 
 CLeftPart::CLeftPart(const CLeftPart& rhs)
-	: CPlayerPart(rhs), m_bReload(false)
+	: CPlayerPart(rhs), m_bReload(false), m_pPhoneBG(nullptr)
 {
 }
 
@@ -52,6 +52,9 @@ void CLeftPart::CreateStateData()
 
 	State = new CState<CLeftPart>(&CLeftPart::Begin_Reload, &CLeftPart::Reload, &CLeftPart::End_Reload);
 	Mgr->AddState(GetStateID(RELOAD, SW_SHOTGUN), State);
+
+	State = new CState<CLeftPart>(&CLeftPart::Begin_Intro, &CLeftPart::Intro, &CLeftPart::End_Intro);
+	Mgr->AddState(GetStateID(INTRO, SW_KATANA), State);
 }
 
 CLeftPart* CLeftPart::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -79,14 +82,15 @@ HRESULT CLeftPart::Ready_GameObject()
 		return E_FAIL;
 
 	CreateStateData();
-	ChangeState(IDLE);
 
-	m_pTransformCom->m_vScale = { 256.f, 256.f, 1.f };
-	m_vStartPos = { WINCX * -0.5f + 200.f, WINCY * -0.5f + 150.f, 0.f };
-	m_vEndPos = { WINCX * 0.5f - 200.f, WINCY * -0.5f + 150.f, 0.f };
+	m_pPhoneBG = CPhoneBG::Create(m_pGraphicDev);
+	if (m_pPhoneBG == nullptr)
+		return E_FAIL;
+		
+	m_vStartPos = { 200.f, WINCY - 200.f, 0.f };
+	m_vEndPos	= { WINCX - 200.f, WINCY - 200.f, 0.f };	
 
-	m_pTransformCom->Set_Pos(m_vStartPos);
-
+	//ChangeState(IDLE);
 	return S_OK;
 }
 
@@ -95,13 +99,25 @@ _int CLeftPart::Update_GameObject(const _float& fTimeDelta)
 	int iExit = CPlayerPart::Update_GameObject(fTimeDelta);
 
 	m_fTime += fTimeDelta;
+	if (m_bDelay)
+		m_fDelayTime += fTimeDelta;
+	//CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 
+	if (!m_bReload)
+	{
+		m_pPhoneBG->Update_GameObject(fTimeDelta);
+	}
 	return iExit;
 }
 
 void CLeftPart::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CPlayerPart::LateUpdate_GameObject(fTimeDelta);
+
+	if (!m_bReload)
+	{
+		m_pPhoneBG->LateUpdate_GameObject(fTimeDelta);
+	}
 
 	m_pAnimationCom->Update_State(m_pStateCom->GetCurrentStateID());
 }
@@ -131,6 +147,7 @@ HRESULT CLeftPart::Add_Component()
 
 void CLeftPart::Free()
 {
+	Safe_Release(m_pPhoneBG);
 	CGameObject::Free();
 }
 
@@ -140,13 +157,19 @@ void CLeftPart::ChangeState(_uint nextStateID)
 	m_fTime = 0.f;
 	//현재 상태에 맞는 애니메이션으로 자동 전환
 	m_pAnimationCom->Update_State(nextStateID);
-	m_pStateCom->ChangeState<CLeftPart>(nextStateID);
+	m_pStateCom->ChangeState<CLeftPart>(nextStateID);	
 }
 
 void CLeftPart::Begin_Idle()
 {
 	m_bReload = false;
-	m_pTransformCom->Set_Pos(m_vStartPos);
+
+	m_vConvertPos = m_vStartPos;
+	m_vConvertScale = { 512.f, 512.f, 1.f };
+	
+		
+	m_pTransformCom->Set_Scale(m_vConvertScale * 0.5f);
+	m_pTransformCom->Set_Pos(m_vConvertPos.x - WINCX * 0.5f, -m_vConvertPos.y + WINCY * 0.5f, 0.f);
 }
 
 void CLeftPart::Idle()
@@ -157,6 +180,13 @@ void CLeftPart::Idle()
 void CLeftPart::Begin_Reload()
 {
 	m_bReload = true;
+	m_fTime = 0.f;
+	m_vConvertPos = m_vStartPos;
+	m_vConvertScale = { 512.f, 512.f, 1.f };
+
+
+	m_pTransformCom->Set_Scale(m_vConvertScale * 0.5f);
+	m_pTransformCom->Set_Pos(m_vConvertPos.x - WINCX * 0.5f, -m_vConvertPos.y + WINCY * 0.5f, 0.f);
 }
 
 void CLeftPart::Reload()
@@ -165,23 +195,76 @@ void CLeftPart::Reload()
 	_float fTime;
 	fTime = m_fTime * 2.f;
 	D3DXVec3Lerp(&vPos, &m_vStartPos, &m_vEndPos, fTime);
-	m_pTransformCom->Set_Pos(vPos);
-
+	//m_pTransformCom->Set_Pos(vPos);
+	m_pTransformCom->Set_Pos(vPos.x - WINCX * 0.5f, -vPos.y + WINCY * 0.5f, 0.f);
 	if (fTime > 1.f)
 	{
-		m_pTransformCom->Set_Pos(m_vEndPos);
+		m_pTransformCom->Set_Pos(m_vEndPos.x - WINCX * 0.5f, -m_vEndPos.y + WINCY * 0.5f, 0.f);
 		if (m_pAnimationCom->CanEnd())
 		{
-			ChangeState(IDLE);
+			//ChangeState(IDLE);
+			m_pPlayer->Reload_Func();
+			m_pPlayer->Change_State(IDLE);
 			return;
 		}
 	}
-
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 }
 
 void CLeftPart::End_Reload()
 {
 
+}
+
+void CLeftPart::Begin_Intro()
+{
+
+	m_vStartPos = { 250.f, WINCY - 200.f, 0.f };
+	m_vEndPos = { -700.f, WINCY - 200.f, 0.f };
+
+	m_vConvertScale = { 1024.f, 512.f, 1.f };
+
+
+	m_pTransformCom->Set_Scale(m_vConvertScale * 0.5f);
+	m_pTransformCom->Set_Pos(m_vStartPos.x - WINCX * 0.5f, -m_vStartPos.y + WINCY * 0.5f, 0.f);
+	m_fTime = 0.f;
+	m_fDelayTime = 0.f;
+	m_bDelay = true;
+	m_bReload = true;
+}
+
+void CLeftPart::Intro()
+{
+	_vec3 vPos;
+	_float fTime;
+	if (m_fDelayTime < 1.f)
+	{		
+		CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+		return;
+	}
+	else if(m_bDelay)
+	{
+		m_fTime = 0.f;
+		m_bDelay = false;
+	}
+	
+	fTime = m_fTime * 1.5f;
+	D3DXVec3Lerp(&vPos, &m_vStartPos, &m_vEndPos, fTime);
+	
+	m_pTransformCom->Set_Pos(vPos.x - WINCX * 0.5f, -vPos.y + WINCY * 0.5f, 0.f);
+	if (fTime > 1.f)
+	{
+		m_pTransformCom->Set_Pos(m_vEndPos.x - WINCX * 0.5f, -m_vEndPos.y + WINCY * 0.5f, 0.f);
+		m_pPlayer->Change_State(IDLE);
+	}
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+}
+
+void CLeftPart::End_Intro()
+{
+	m_vStartPos = { 200.f, WINCY - 200.f, 0.f };
+	m_vEndPos = { WINCX - 200.f, WINCY - 200.f, 0.f };
+	m_fDelayTime = 0.f;
+	m_bDelay = false;
 }
 

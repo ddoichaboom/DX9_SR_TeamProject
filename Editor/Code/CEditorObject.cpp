@@ -15,6 +15,7 @@ CEditorObject::CEditorObject(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_wstrName(L"EditorObject")
 {
     m_pGraphicDev->AddRef();
+    m_iRoomIndex = 0;
 }
 
 CEditorObject::~CEditorObject()

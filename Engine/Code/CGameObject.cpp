@@ -5,14 +5,14 @@ _uint CGameObject::m_iCount = 0;
 
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev)
     : m_pGraphicDev(pGraphicDev), m_fViewZ(0.f), m_bDead(false), m_bActivate(false)
-    , m_eOBJ_ID(OBJ_END), m_iID(-1), m_pPool(nullptr), m_iRoomNum(0)
+    , m_eOBJ_ID(OBJ_END), m_iID(-1), m_pPool(nullptr), m_iRoomIndex(-1)
 {
     m_pGraphicDev->AddRef();
 }
 
 CGameObject::CGameObject(const CGameObject& rhs)
     : m_pGraphicDev(rhs.m_pGraphicDev), m_fViewZ(rhs.m_fViewZ), m_bDead(false), m_bActivate(false)
-    , m_eOBJ_ID(OBJ_END), m_iID(-1), m_pPool(nullptr), m_iRoomNum(0)
+    , m_eOBJ_ID(OBJ_END), m_iID(-1), m_pPool(nullptr), m_iRoomIndex(-1)
 {
     m_pGraphicDev->AddRef();
 }

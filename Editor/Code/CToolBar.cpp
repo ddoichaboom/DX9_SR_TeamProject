@@ -41,6 +41,7 @@ void CToolBar::Render_ToolBar()
     const char* szModeNames[] = {
           "Select",
           "Place Floor",
+          "Place Dynamic Floor",
           "Place Ceiling",
           "Place Cube",
           "Place Wall",

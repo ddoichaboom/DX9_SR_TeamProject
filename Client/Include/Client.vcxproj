@@ -117,6 +117,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>./;../Header;../../Base;../../Reference/Header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -143,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CBackGround.h" />
+    <ClInclude Include="..\Header\CBaseUI.h" />
     <ClInclude Include="..\Header\CBeam.h" />
     <ClInclude Include="..\Header\CBeamMon.h" />
     <ClInclude Include="..\Header\CBoss.h" />
@@ -152,10 +154,14 @@
     <ClInclude Include="..\Header\CBullet.h" />
     <ClInclude Include="..\Header\CCharacter.h" />
     <ClInclude Include="..\Header\CMapCollider.h" />
+    <ClInclude Include="..\Header\CDynamicCeiling.h" />
+    <ClInclude Include="..\Header\CDynamicFloor.h" />
+    <ClInclude Include="..\Header\CDynamicWall.h" />
     <ClInclude Include="..\Header\CFirstCamera.h" />
     <ClInclude Include="..\Header\CFloor.h" />
     <ClInclude Include="..\Header\CFlyMon.h" />
     <ClInclude Include="..\header\CHeightMapTerrain.h" />
+    <ClInclude Include="..\Header\CKatana.h" />
     <ClInclude Include="..\Header\CLeftPart.h" />
     <ClInclude Include="..\Header\CLoading.h" />
     <ClInclude Include="..\Header\CMainApp.h" />
@@ -164,6 +170,7 @@
     <ClInclude Include="..\Header\CMiddlePart.h" />
     <ClInclude Include="..\Header\CMonster.h" />
     <ClInclude Include="..\Header\CObstacle.h" />
+    <ClInclude Include="..\Header\CPhoneBG.h" />
     <ClInclude Include="..\Header\CPistol.h" />
     <ClInclude Include="..\Header\CPlayer.h" />
     <ClInclude Include="..\Header\CPlayerPart.h" />
@@ -184,6 +191,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CBackGround.cpp" />
+    <ClCompile Include="..\Code\CBaseUI.cpp" />
     <ClCompile Include="..\Code\CBeam.cpp" />
     <ClCompile Include="..\Code\CBeamMon.cpp" />
     <ClCompile Include="..\Code\CBoss.cpp" />
@@ -193,10 +201,14 @@
     <ClCompile Include="..\Code\CBullet.cpp" />
     <ClCompile Include="..\Code\CCharacter.cpp" />
     <ClCompile Include="..\Code\CMapCollider.cpp" />
+    <ClCompile Include="..\Code\CDynamicCeiling.cpp" />
+    <ClCompile Include="..\Code\CDynamicFloor.cpp" />
+    <ClCompile Include="..\Code\CDynamicWall.cpp" />
     <ClCompile Include="..\Code\CFirstCamera.cpp" />
     <ClCompile Include="..\Code\CFloor.cpp" />
     <ClCompile Include="..\Code\CFlyMon.cpp" />
     <ClCompile Include="..\Code\CHeightMapTerrain.cpp" />
+    <ClCompile Include="..\Code\CKatana.cpp" />
     <ClCompile Include="..\Code\CLeftPart.cpp" />
     <ClCompile Include="..\Code\CLoading.cpp" />
     <ClCompile Include="..\Code\CMapLoader.cpp" />
@@ -204,6 +216,7 @@
     <ClCompile Include="..\Code\CMiddlePart.cpp" />
     <ClCompile Include="..\Code\CMonster.cpp" />
     <ClCompile Include="..\Code\CObstacle.cpp" />
+    <ClCompile Include="..\Code\CPhoneBG.cpp" />
     <ClCompile Include="..\Code\CPistol.cpp" />
     <ClCompile Include="..\Code\CPlayer.cpp" />
     <ClCompile Include="..\Code\CPlayerPart.cpp" />

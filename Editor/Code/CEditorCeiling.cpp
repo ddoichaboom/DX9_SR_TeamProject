@@ -6,8 +6,24 @@
 #include "CTransform.h"
 #include "CRcTex.h"
 
+vector<TextureSource> CEditorCeiling::m_vTextureSource =
+{
+    {
+        STATIC_CEILING,
+        L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOORS.dds",  // Floor와 같은 텍스처
+        true,
+        0,
+        7,
+        7,
+        {2.f, 2.f}
+    }
+};
+
 CEditorCeiling::CEditorCeiling(LPDIRECT3DDEVICE9 pGraphicDev)
     : CEditorObject(pGraphicDev)
+    , m_pTextureCom(nullptr)
+    , m_iCeilingType(STATIC_CEILING)
+    , m_iTextureIdx(0)
 {
 }
 
@@ -43,40 +59,41 @@ void CEditorCeiling::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CEditorCeiling::Render_GameObject()
 {
+    // 텍스처 스테이트 저장 
+    DWORD dwOldColorOp, dwOldColorArg1, dwOldColorArg2, dwOldTextureFactor;
+
+    m_pGraphicDev->GetTextureStageState(0, D3DTSS_COLOROP, &dwOldColorOp);
+    m_pGraphicDev->GetTextureStageState(0, D3DTSS_COLORARG1, &dwOldColorArg1);
+    m_pGraphicDev->GetTextureStageState(0, D3DTSS_COLORARG2, &dwOldColorArg2);
+    m_pGraphicDev->GetRenderState(D3DRS_TEXTUREFACTOR, &dwOldTextureFactor);
+
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT2);
+
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 
-    // 텍스처 설정 (기본 흰색)
-    if (nullptr == m_pTextureCom)
+    if (m_pTextureCom)
     {
-        m_pGraphicDev->SetTexture(0, nullptr);
-    }
-    else
-    {
-        //m_pTextureCom->Set_Texture(0);
+        m_pTextureCom->Render_Texture();
     }
 
-    // 선택 상태 표시
     if (m_bSelected)
     {
-        // 선택됨: 노란색 (모든 타입 공통)
-        m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG2);
+        m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+        m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
         m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_TFACTOR);
-        m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 0));  // 노란색
-    }
-    else
-    {
-        // 미선택: 연한 파란색 (하늘/천장 느낌)
-        m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG2);
-        m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_TFACTOR);
-        m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 150, 180, 220));  // 연한 파란색
+        m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 100));  // 노란색 tint
     }
 
     m_pBufferCom->Render_Buffer();
 
-    // 렌더 상태 복원
-    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
-    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+    // 텍스처 스테이트 복원
+    m_pGraphicDev->SetTexture(0, nullptr);
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, dwOldColorOp);
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, dwOldColorArg1);
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG2, dwOldColorArg2);
+    m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, dwOldTextureFactor);
+
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_DISABLE);
 }
 
 HRESULT CEditorCeiling::Add_Component()
@@ -95,7 +112,39 @@ HRESULT CEditorCeiling::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[Engine::ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
+    pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>(
+        Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Static_CeilingTexture"));
+    NULL_CHECK_RETURN(pComponent, E_FAIL);
+    m_mapComponent[Engine::ID_DYNAMIC].insert({ L"Com_Texture", pComponent });
+
+    if (m_pTextureCom)
+    {
+        m_pTextureCom->Change_Texture(m_iCeilingType);
+        m_pTextureCom->Set_Frame(_vec2(m_iTextureIdx, 0));
+    }
+
     return S_OK;
+}
+
+void CEditorCeiling::Set_CeilingType(_uint eCeilingType)
+{
+    m_iCeilingType = eCeilingType;
+
+    if (m_pTextureCom)
+    {
+        m_pTextureCom->Change_Texture(m_iCeilingType);
+        m_pTextureCom->Set_Frame(_vec2(m_iTextureIdx, 0));
+    }
+}
+
+void CEditorCeiling::Set_TextureIdx(_int iIdx)
+{
+    m_iTextureIdx = iIdx;
+
+    if (m_pTextureCom)
+    {
+        m_pTextureCom->Set_Frame(_vec2(m_iTextureIdx, 0));
+    }
 }
 
 CEditorCeiling* CEditorCeiling::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
@@ -136,6 +185,27 @@ CEditorCeiling* CEditorCeiling::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos
     pInstance->Set_Scale(vScale);
     pInstance->Set_Rotation(vRot);
     pInstance->Set_Position(vPos);
+
+    return pInstance;
+}
+
+CEditorCeiling* CEditorCeiling::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, _uint iType, _int iIdx, _int iRoomIndex)
+{
+    CEditorCeiling* pInstance = new CEditorCeiling(pGraphicDev);
+
+    if (FAILED(pInstance->Ready_GameObject()))
+    {
+        Safe_Release(pInstance);
+        MSG_BOX("CEditorCeiling Create Failed");
+        return nullptr;
+    }
+
+    // Transform 전체 지정 (맵 로드 시 사용)
+    pInstance->Set_Scale(vScale);
+    pInstance->Set_Rotation(vRot);
+    pInstance->Set_Position(vPos);
+    pInstance->Set_CeilingType(iType);
+    pInstance->Set_TextureIdx(iIdx);
 
     return pInstance;
 }

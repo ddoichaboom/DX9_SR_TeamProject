@@ -140,7 +140,7 @@ CEditorSpawnPoint* CEditorSpawnPoint::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec
 }
 
 CEditorSpawnPoint* CEditorSpawnPoint::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale,
-                                                SPAWN_TYPE eType, const string& strMonsterKey)
+                            SPAWN_TYPE eType, const string& strMonsterKey)
 {
     CEditorSpawnPoint* pInstance = new CEditorSpawnPoint(pGraphicDev);
 
@@ -164,6 +164,37 @@ CEditorSpawnPoint* CEditorSpawnPoint::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec
         pInstance->Set_Name(L"PlayerSpawn");
     else if (eType == SPAWN_MONSTER)
         pInstance->Set_Name(L"MonsterSpawn");
+
+    return pInstance;
+}
+
+CEditorSpawnPoint* CEditorSpawnPoint::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale,
+                                                SPAWN_TYPE eType, const string& strMonsterKey, _int iRoomIndex)
+{
+    CEditorSpawnPoint* pInstance = new CEditorSpawnPoint(pGraphicDev);
+
+    if (FAILED(pInstance->Ready_GameObject()))
+    {
+        Safe_Release(pInstance);
+        MSG_BOX("CEditorSpawnPoint Create Failed");
+        return nullptr;
+    }
+
+    // Transform 전체 지정
+    pInstance->Set_Scale(vScale);
+    pInstance->Set_Rotation(vRot);
+    pInstance->Set_Position(vPos);
+
+    // 스폰 정보 설정
+    pInstance->Set_SpawnType(eType);
+    pInstance->Set_MonsterKey(strMonsterKey);
+
+    if (eType == SPAWN_PLAYER)
+        pInstance->Set_Name(L"PlayerSpawn");
+    else if (eType == SPAWN_MONSTER)
+        pInstance->Set_Name(L"MonsterSpawn");
+
+    pInstance->Set_RoomIndex(iRoomIndex);
 
     return pInstance;
 }

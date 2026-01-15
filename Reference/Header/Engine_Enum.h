@@ -24,31 +24,41 @@ namespace Engine
 	//Object Update 리턴값
 	enum OBJ_RET {RET_NONE, RET_DEAD, RET_END};
 
-	//enum OBJ_ID {OBJ_PLAYER, OBJ_MONSTER, OBJ_BULLET, OBJ_TERRAIN, OBJ_ITEM, OBJ_CAM, OBJ_COL, OBJ_OBSTACLE, OBJ_END };
 	enum OBJ_ID { OBJ_PLAYER, OBJ_MONSTER, OBJ_BULLET, OBJ_CEILING, OBJ_FLOOR, OBJ_WALL, OBJ_ITEM, OBJ_CAM, OBJ_COL, OBJ_OBSTACLE, OBJ_END };
-	enum TERRAIN_TYPE { TERRAIN_FLOOR, TERRAIN_CEILING, TERRAIN_WALL, TERRAIN_END };
 
-	enum FLOOR_TYPE {
+	enum STATIC_FLOOR_TYPE {
 		STATIC_FLOOR = 0,
 		SF_END,
+	};
 
+	enum DYNAMIC_FLOOR_TYPE
+	{
+		// 나중에 앞부분에 정적 텍스처도 추가해야함 
+		// ( Collider에 동적 -> 정적 전환 함수 바인딩 (애니메이션 off, 별도 텍스처 출력)) 
 		DF_START = 100,
-		DYNANIC_FLOOR_WATER,
+		DYNAMIC_FLOOR_WATER,
 		DYNAMIC_FLOOR_LAVA,
 		DYNAMIC_FLOOR_ACID,
 		DF_END
 	};
 
-	enum CEILING_TYPE {
+	enum STATIC_CEILING_TYPE 
+	{
 		STATIC_CEILING = 0,
 		SC_END,
+	};
 
+	enum DYNAMIC_CEILING_TYPE 
+	{
+		// 나중에 앞부분에 정적 텍스처도 추가해야함 
+		// ( Collider에 동적 -> 정적 전환 함수 바인딩 (애니메이션 off, 별도 텍스처 출력)) 
 		DC_START = 100,
 		DYNAMIC_CEILING,
 		DC_END
 	};
 
-	enum WALL_TYPE {
+	enum STATIC_WALL_TYPE 
+	{
 		STATIC_WALL_1 = 0,
 		STATIC_WALL_2,
 		STATIC_WALL_3,
@@ -60,7 +70,12 @@ namespace Engine
 		STATIC_WALL_9,
 		STATIC_WALL_10,
 		SW_END,
+	};
 
+	enum DYNAMIC_WALL_TYPE 
+	{
+		// 나중에 앞부분에 정적 텍스처도 추가해야함 
+		// ( Collider에 동적 -> 정적 전환 함수 바인딩 (애니메이션 off, 별도 텍스처 출력)) 
 		DW_START = 100,
 		DYNAMIC_WALL,
 		DW_END
@@ -68,7 +83,7 @@ namespace Engine
 
 	enum MOVE_DIR { DIR_NONE, DIR_UP, DIR_DOWN, DIR_LEFT, DIR_RIGHT, DIR_LEFTUP, DIR_LEFTDOWN, DIR_RIGHTUP, DIR_RIGHTDOWN };
 
-	enum COLLIDER_TAG { TAG_NONE, TAG_KICK, TAG_KATANA, TAG_END };
-	enum COL_DIR {CDIR_NONE, CDIR_X, CDIR_Y, CDIR_Z, CDIR_END};
+	enum COLLIDER_TAG { TAG_NONE, TAG_KICK, TAG_WATER, TAG_LAVA, TAG_ACID, TAG_ELECTRIC, TAG_KATANA, TAG_END };
+	enum COL_DIR { CDIR_NONE, CDIR_X, CDIR_Y, CDIR_Z, CDIR_END };
 }
 #endif // Engine_Enum_h__

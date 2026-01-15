@@ -65,6 +65,7 @@ public:
 	void	SetWeapon(_byte eState) { m_eWeaponState = (STATE_WEAPON)eState; }
 	void	Set_Rendering(_bool bRender) { m_bRendering = bRender; }
 	_bool	Get_Rendering()	const { return m_bRendering; }
+	CPlayer* Get_Player() { if (nullptr != m_pPlayer) return m_pPlayer;  return nullptr; }
 
 protected:
 	virtual HRESULT	Add_Component();
@@ -78,10 +79,16 @@ protected:
 	Engine::CStateComponent* m_pStateCom;
 
 protected:
-	_float m_fTime;
+	_float	m_fTime;
+	_float	m_fDelayTime;
+	_bool	m_bDelay;
 	_bool	m_bRendering;
+
 	CPlayer* m_pPlayer;
 
 	STATE_WEAPON	m_eWeaponState;
+
+	_vec3		m_vConvertPos;
+	_vec3		m_vConvertScale;
 };
 

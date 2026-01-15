@@ -127,6 +127,24 @@
     <Filter Include="02. GameObject\98. BackGround">
       <UniqueIdentifier>{bc5cf546-9147-47cc-9af4-103b080d0c88}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\02.Weapon\Katana">
+      <UniqueIdentifier>{0622a69c-0483-4869-b18a-553d8af2e910}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI">
+      <UniqueIdentifier>{8a7c753d-2076-4f7a-bfa1-452380eee520}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\00.BaseUI">
+      <UniqueIdentifier>{9b1cf752-3739-4e42-9848-a29a8abcd6aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\01.StaticUI">
+      <UniqueIdentifier>{753aa42d-392d-45f6-a087-9d11e86bbf4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\02.DynamicUI">
+      <UniqueIdentifier>{ad8da3ef-9ba8-4c95-bc2a-645ba1acfb0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\01.StaticUI\01.Phone_Back">
+      <UniqueIdentifier>{9b00fd92-8983-4423-abcc-16010820e407}</UniqueIdentifier>
+    </Filter>
     <Filter Include="02. GameObject\11. MapCollider">
       <UniqueIdentifier>{bd545b88-97bc-4240-9694-3bc3967717b1}</UniqueIdentifier>
     </Filter>
@@ -243,6 +261,15 @@
     <ClInclude Include="..\Header\CTerrain.h">
       <Filter>02. GameObject\99. Environment\00. Terrain</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CDynamicFloor.h">
+      <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\DynamicFloor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDynamicCeiling.h">
+      <Filter>02. GameObject\99. Environment\00. Terrain\01. Ceiling\DynamicCeiling</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDynamicWall.h">
+      <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall\DynamicWall</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\CMapCollider.h">
       <Filter>02. GameObject\11. MapCollider</Filter>
     </ClInclude>
@@ -251,6 +278,15 @@
     </ClInclude>
     <ClInclude Include="..\Header\CBackGround.h">
       <Filter>02. GameObject\98. BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CKatana.h">
+      <Filter>02. GameObject\02.Weapon\Katana</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBaseUI.h">
+      <Filter>04.UI\00.BaseUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPhoneBG.h">
+      <Filter>04.UI\01.StaticUI\01.Phone_Back</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -353,6 +389,18 @@
     <ClCompile Include="..\Code\CTerrain.cpp">
       <Filter>02. GameObject\99. Environment\00. Terrain</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\CDynamicFloor.cpp">
+      <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\DynamicFloor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDynamicCeiling.cpp">
+      <Filter>02. GameObject\99. Environment\00. Terrain\01. Ceiling\DynamicCeiling</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDynamicWall.cpp">
+      <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall\DynamicWall</Filter>
+	</ClCompile>
+    <ClCompile Include="..\Code\CDebugObject.cpp">
+      <Filter>02. GameObject\999.DebugObject</Filter>
+    </ClCompile>
     <ClCompile Include="..\Code\CMapCollider.cpp">
       <Filter>02. GameObject\11. MapCollider</Filter>
     </ClCompile>
@@ -361,6 +409,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\CBackGround.cpp">
       <Filter>02. GameObject\98. BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CKatana.cpp">
+      <Filter>02. GameObject\02.Weapon\Katana</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBaseUI.cpp">
+      <Filter>04.UI\00.BaseUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPhoneBG.cpp">
+      <Filter>04.UI\01.StaticUI\01.Phone_Back</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

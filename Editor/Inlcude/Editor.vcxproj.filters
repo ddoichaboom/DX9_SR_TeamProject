@@ -94,6 +94,9 @@
     <Filter Include="04. Object\06. EditorSpawnPoint">
       <UniqueIdentifier>{db2d9c86-d796-442e-986c-8fee47e714ae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Object\04. EditorFloor\DynamicFloor">
+      <UniqueIdentifier>{a1528ea3-3528-4e92-a13e-488a85d3dc8e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -195,6 +198,9 @@
     <ClInclude Include="..\Header\CEditorSpawnPoint.h">
       <Filter>04. Object\06. EditorSpawnPoint</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CEditorDynamicFloor.h">
+      <Filter>04. Object\04. EditorFloor\DynamicFloor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -280,6 +286,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CEditorSpawnPoint.cpp">
       <Filter>04. Object\06. EditorSpawnPoint</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorDynamicFloor.cpp">
+      <Filter>04. Object\04. EditorFloor\DynamicFloor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

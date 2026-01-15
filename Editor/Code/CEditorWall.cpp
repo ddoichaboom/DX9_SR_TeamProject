@@ -5,11 +5,28 @@
 #include "CProtoMgr.h"
 #include "CTransform.h"
 #include "CRcTex.h"
+#include "CTexture.h"
 
+vector<TextureSource> CEditorWall::m_vTextureSource =
+{
+    {STATIC_WALL_1, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_1.dds", true, 0, 2, 2, {0.f, 0.f}},
+    {STATIC_WALL_2, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_2.dds", true, 0, 2, 2, {0.f, 0.f}},
+    {STATIC_WALL_3, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_3.dds", true, 0, 2, 2, {0.f, 0.f}},
+    {STATIC_WALL_4, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_4.dds", true, 0, 2, 2, {0.f, 0.f}},
+    {STATIC_WALL_5, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_5.dds", true, 0, 2, 2, {0.f, 0.f}},
+    {STATIC_WALL_6, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_6.dds", true, 0, 2, 2, {0.f, 0.f}},
+    {STATIC_WALL_7, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_7.dds", true, 0, 2, 2, {0.f, 0.f}},
+    {STATIC_WALL_8, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_8.dds", true, 0, 2, 2, {0.f, 0.f}},
+    {STATIC_WALL_9, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_9.dds", true, 0, 2, 2, {0.f, 0.f}},
+    {STATIC_WALL_10, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_10.dds", true, 0, 2, 2, {0.f, 0.f}}
+};
 
 CEditorWall::CEditorWall(LPDIRECT3DDEVICE9 pGraphicDev)
     : CEditorObject(pGraphicDev)
+    , m_pTextureCom(nullptr)
     , m_eWallDir(WALL_XY_FRONT)
+    , m_iTextureIdx(0)
+    , m_iWallType(STATIC_WALL_1)
 {
 }
 
@@ -45,38 +62,41 @@ void CEditorWall::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CEditorWall::Render_GameObject()
 {
+    // 텍스처 스테이트 저장 
+    DWORD dwOldColorOp, dwOldColorArg1, dwOldColorArg2, dwOldTextureFactor;
+
+    m_pGraphicDev->GetTextureStageState(0, D3DTSS_COLOROP, &dwOldColorOp);
+    m_pGraphicDev->GetTextureStageState(0, D3DTSS_COLORARG1, &dwOldColorArg1);
+    m_pGraphicDev->GetTextureStageState(0, D3DTSS_COLORARG2, &dwOldColorArg2);
+    m_pGraphicDev->GetRenderState(D3DRS_TEXTUREFACTOR, &dwOldTextureFactor);
+
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT2);
+
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 
-    // 텍스처 설정 (기본 흰색)
-    if (nullptr == m_pTextureCom)
+    if (m_pTextureCom)
     {
-        m_pGraphicDev->SetTexture(0, nullptr);
-    }
-    else
-    {
-        //m_pTextureCom->Set_Texture(0);
+        m_pTextureCom->Render_Texture();
     }
 
-    // 선택 상태 표시 (벽은 회색 계열)
     if (m_bSelected)
     {
-        m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG2);
+        m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+        m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
         m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_TFACTOR);
-        m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 200, 100));  // 주황색 (선택됨)
-    }
-    else
-    {
-        m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG2);
-        m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_TFACTOR);
-        m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 180, 180, 180));  // 회색 (벽)
+        m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 100));  // 노란색 tint
     }
 
     m_pBufferCom->Render_Buffer();
 
-    // 렌더 상태 복원
-    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
-    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+    // 텍스처 스테이트 복원
+    m_pGraphicDev->SetTexture(0, nullptr);
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, dwOldColorOp);
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, dwOldColorArg1);
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG2, dwOldColorArg2);
+    m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, dwOldTextureFactor);
+
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_DISABLE);
 }
 
 void CEditorWall::Set_WallDirection(WALL_DIR eDir)
@@ -91,7 +111,7 @@ void CEditorWall::Set_WallDirection(WALL_DIR eDir)
     }
     else if (m_eWallDir == WALL_XY_BACK)
     {
-        Set_Rotation(_vec3(180.f, 0.f, 0.f));
+        Set_Rotation(_vec3(180.f, 0.f, 180.f));
     }
     else if (m_eWallDir == WALL_YZ_LEFT)
     {
@@ -121,7 +141,39 @@ HRESULT CEditorWall::Add_Component()
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[Engine::ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
+    pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>(
+        Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Static_WallTexture"));
+    NULL_CHECK_RETURN(pComponent, E_FAIL);
+    m_mapComponent[Engine::ID_DYNAMIC].insert({ L"Com_Texture", pComponent });
+
+    if (m_pTextureCom)
+    {
+        m_pTextureCom->Change_Texture(m_iWallType);
+        m_pTextureCom->Set_Frame(_vec2(m_iTextureIdx, 0));
+    }
+
     return S_OK;
+}
+
+void CEditorWall::Set_WallType(_uint eWallType)
+{
+    m_iWallType = eWallType;
+
+    if (m_pTextureCom)
+    {
+        m_pTextureCom->Change_Texture(m_iWallType);
+        m_pTextureCom->Set_Frame(_vec2(m_iTextureIdx, 0));
+    }
+}
+
+void CEditorWall::Set_TextureIdx(_int iIdx)
+{
+    m_iTextureIdx = iIdx;
+
+    if (m_pTextureCom)
+    {
+        m_pTextureCom->Set_Frame(_vec2(m_iTextureIdx, 0));
+    }
 }
 
 CEditorWall* CEditorWall::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
@@ -181,6 +233,28 @@ CEditorWall* CEditorWall::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec
     pInstance->Set_Rotation(vRot);
     pInstance->Set_Position(vPos);
     pInstance->m_eWallDir = eDir;  // 방향만 저장 (Set_WallDirection 호출 X, 회전은 이미 설정됨)
+
+    return pInstance;
+}
+
+CEditorWall* CEditorWall::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, WALL_DIR eDir, _uint iType, _int iIdx)
+{
+    CEditorWall* pInstance = new CEditorWall(pGraphicDev);
+
+    if (FAILED(pInstance->Ready_GameObject()))
+    {
+        Safe_Release(pInstance);
+        MSG_BOX("CEditorWall Create Failed");
+        return nullptr;
+    }
+
+    // Transform 전체 지정 (맵 로드 시 사용)
+    pInstance->Set_Scale(vScale);
+    pInstance->Set_Rotation(vRot);
+    pInstance->Set_Position(vPos);
+    pInstance->m_eWallDir = eDir;  // 방향만 저장 (Set_WallDirection 호출 X, 회전은 이미 설정됨)
+    pInstance->Set_WallType(iType);
+    pInstance->Set_TextureIdx(iIdx);
 
     return pInstance;
 }

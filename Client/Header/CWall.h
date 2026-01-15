@@ -3,7 +3,7 @@
 
 class CWall : public CTerrain
 {
-private:
+protected:
     explicit CWall(LPDIRECT3DDEVICE9 pGraphicDev);
     explicit CWall(const CWall& rhs);
     virtual ~CWall();
@@ -13,36 +13,26 @@ public:
     {
         return m_vTextureSource;
     }
-    static vector<AnimationSource>& GetAnimSources()
-    {
-        return m_vAnimSource;
-    }
+
 
 public:
     virtual HRESULT     Ready_GameObject() override;
     virtual _int        Update_GameObject(const _float& fTimeDelta) override;
     virtual void        LateUpdate_GameObject(const _float& fTimeDelta) override;
     virtual void        Render_GameObject() override;
-    void                Set_WallType(_uint eWallType);
+    virtual void        Set_WallType(_uint eWallType);
 
-private:
-    HRESULT             Add_Component();
+protected:
+    virtual HRESULT     Add_Component() override;
 
 public:
     // 기본 생성
     static CWall* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
-    static CWall* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos);
-
-    // 확장 생성 (위치, 회전, 스케일)
-    static CWall* Create(LPDIRECT3DDEVICE9 pGraphicDev,
-        _vec3 vPos, _vec3 vRot, _vec3 vScale);
-
-private:
+protected:
     virtual void Free() override;
 
 private:
     static vector<TextureSource>    m_vTextureSource;
-    static vector<AnimationSource>  m_vAnimSource;
 };
 

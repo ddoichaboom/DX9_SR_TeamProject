@@ -5,6 +5,9 @@
 #include "CEditorObject.h"
 #include "CEditorWall.h"
 #include "CEditorSpawnPoint.h"
+#include "CEditorFloor.h"
+#include "CEditorCeiling.h"
+#include "CEditorDynamicFloor.h"
 
 
 CInspector::CInspector()
@@ -126,6 +129,154 @@ void CInspector::Render_GridProperties()
         "[ Phase 3 ] Read - Only Properties");
 }
 
+void CInspector::Render_FloorTextureUI(CEditorFloor* pFloor)
+{
+    ImGui::Text("Floor Texture");
+    ImGui::Separator();
+
+    CEditorDynamicFloor* pDynamicFloor = dynamic_cast<CEditorDynamicFloor*>(pFloor);
+
+    if (CEditorDynamicFloor* pDynamicFloor = dynamic_cast<CEditorDynamicFloor*>(pFloor))
+    {
+        ImGui::TextColored(ImVec4(1.0f, 0.5f, 0.0f, 1.0f), "Dynamic Floor (Animated)");
+        ImGui::Separator();
+
+        // Dynamic Floor Type 
+        _uint iFloorType = pDynamicFloor->Get_FloorType();
+        const char* szDynamicTypes[] = {
+            "DYNAMIC_FLOOR_WATER",
+            "DYNAMIC_FLOOR_LAVA",
+            "DYNAMIC_FLOOR_ACID"
+        };
+
+        _int iComboIdx = 0;
+        if (iFloorType == DYNAMIC_FLOOR_WATER)
+            iComboIdx = 0;
+        else if (iFloorType == DYNAMIC_FLOOR_LAVA)
+            iComboIdx = 1;
+        else if (iFloorType == DYNAMIC_FLOOR_ACID)
+            iComboIdx = 2;
+
+        if (ImGui::Combo("Dynamic Type", &iComboIdx, szDynamicTypes, IM_ARRAYSIZE(szDynamicTypes)))
+        {
+            // 콤보박스 인덱스를 enum 값으로 변환
+            _uint eNewType = DYNAMIC_FLOOR_WATER;
+            if (iComboIdx == 0) eNewType = DYNAMIC_FLOOR_WATER;
+            else if (iComboIdx == 1) eNewType = DYNAMIC_FLOOR_LAVA;
+            else if (iComboIdx == 2) eNewType = DYNAMIC_FLOOR_ACID;
+
+            pDynamicFloor->Set_FloorType(eNewType);
+        }
+
+        // 애니메이션 속도 슬라이더
+        _float fSpeed = pDynamicFloor->Get_AnimationSpeed();
+        if (ImGui::SliderFloat("Animation Speed", &fSpeed, 0.1f, 3.0f))
+        {
+            pDynamicFloor->Set_AnimationSpeed(fSpeed);
+        }
+
+        // 재생/일시정지 체크박스
+        bool bIsPlaying = pDynamicFloor->Is_Playing();
+        if (ImGui::Checkbox("Playing", &bIsPlaying))
+        {
+            if (bIsPlaying)
+                pDynamicFloor->Play_Animation();
+            else
+                pDynamicFloor->Pause_Animation();
+        }
+
+        ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),
+            "Dynamic floors have animated textures");
+
+    }
+    else
+    {
+        // Floor Type 콤보 박스    (현재는 STATIC_FLOOR만 지원)
+        _uint iFloorType = pFloor->Get_FloorType();
+        const char* szFloorTypes[] = { "STATIC_FLOOR" };
+        _int iSelectedType = 0;
+
+        if (ImGui::Combo("Floor Type", &iSelectedType, szFloorTypes, IM_ARRAYSIZE(szFloorTypes)))
+        {
+            pFloor->Set_FloorType(iSelectedType);
+        }
+
+        int iTextureIdx = pFloor->Get_TextureIdx();
+        if (ImGui::SliderInt("Texture Index", &iTextureIdx, 0, 7))
+        {
+            pFloor->Set_TextureIdx(iTextureIdx);
+        }
+
+        // 힌트 텍스트
+        ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),
+            "Texture Index: 0 ~ 7 (FLOORS.dds 8x1 atlas)");
+    }
+}
+
+void CInspector::Render_CeilingTextureUI(CEditorCeiling* pCeiling)
+{
+    ImGui::Text("Ceiling Texture");
+    ImGui::Separator();
+
+    // Ceiling Type 콤보박스 (STATIC_CEILING만 지원)
+    _uint iCeilingType = pCeiling->Get_CeilingType();
+    const char* szCeilingTypes[] = { "STATIC_CEILING" };
+    int iSelectedType = 0;
+
+    if (ImGui::Combo("Ceiling Type", &iSelectedType, szCeilingTypes, IM_ARRAYSIZE(szCeilingTypes)))
+    {
+        pCeiling->Set_CeilingType(iSelectedType);
+    }
+
+    // Texture Index 슬라이더 (0 ~ 7)
+    int iTextureIdx = pCeiling->Get_TextureIdx();
+    if (ImGui::SliderInt("Texture Index", &iTextureIdx, 0, 7))
+    {
+        pCeiling->Set_TextureIdx(iTextureIdx);
+    }
+
+    ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),
+        "Texture Index: 0 ~ 7 (FLOORS.dds 8x1 atlas)");
+}
+
+void CInspector::Render_WallTextureUI(CEditorWall* pWall)
+{
+    ImGui::Text("Wall Texture");
+    ImGui::Separator();
+
+    // Wall Type 콤보박스 (STATIC_WALL_1 ~ STATIC_WALL_10)
+    _uint iWallType = pWall->Get_WallType();
+    const char* szWallTypes[] = {
+        "STATIC_WALL_1",
+        "STATIC_WALL_2",
+        "STATIC_WALL_3",
+        "STATIC_WALL_4",
+        "STATIC_WALL_5",
+        "STATIC_WALL_6",
+        "STATIC_WALL_7",
+        "STATIC_WALL_8",
+        "STATIC_WALL_9",
+        "STATIC_WALL_10"
+    };
+
+    int iSelectedType = iWallType;  // STATIC_WALL_1 = 0, STATIC_WALL_2 = 1, ...
+
+    if (ImGui::Combo("Wall Type", &iSelectedType, szWallTypes, IM_ARRAYSIZE(szWallTypes)))
+    {
+        pWall->Set_WallType(iSelectedType);
+    }
+
+    // Texture Index 슬라이더 (0 ~ 2, 3x3 아틀라스의 행)
+    int iTextureIdx = pWall->Get_TextureIdx();
+    if (ImGui::SliderInt("Texture Index", &iTextureIdx, 0, 2))
+    {
+        pWall->Set_TextureIdx(iTextureIdx);
+    }
+
+    ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),
+        "Texture Index: 0 ~ 2 (3x1 atlas row)");
+}
+
 void CInspector::Render_ObjectProperties()
 {
     if (!m_pScene)
@@ -139,7 +290,6 @@ void CInspector::Render_ObjectProperties()
     // 이름
     wstring wstrName = pObj->Get_Name();
     string strName(wstrName.begin(), wstrName.end());
-
     ImGui::Text("Object: %s", strName.c_str());
     ImGui::Separator();
 
@@ -189,16 +339,40 @@ void CInspector::Render_ObjectProperties()
         }
     }
     
+    ImGui::Spacing();
 
+    // Room Settings 
+    if (ImGui::CollapsingHeader("Room Settings", ImGuiTreeNodeFlags_DefaultOpen))
+    {
+        _int iRoomIdx = pObj->Get_RoomIndex();
+        if (ImGui::InputInt("Room Index", &iRoomIdx))
+        {
+            if (iRoomIdx >= 0)
+            {
+                pObj->Set_RoomIndex(iRoomIdx);
+            }
+        }
 
+        ImGui::TextDisabled("Tip: Room 0 : Start, Room 1 = Next, etc.");
+    }
 
     ImGui::Spacing();
     ImGui::Separator();
 
     // 텍스처 
-    ImGui::Text("Texture: None");
-    ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),
-        "[Phase 5] Texture selection");
+    ImGui::Text("Texture");
+    if (CEditorFloor* pFloor = dynamic_cast<CEditorFloor*>(pObj))
+    {
+        Render_FloorTextureUI(pFloor);
+    }
+    else if (CEditorCeiling* pCeiling = dynamic_cast<CEditorCeiling*>(pObj))
+    {
+        Render_CeilingTextureUI(pCeiling);
+    }
+    else if (CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj))
+    {
+        Render_WallTextureUI(pWall);
+    }
 
 }
 
