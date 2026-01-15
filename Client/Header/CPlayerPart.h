@@ -15,28 +15,6 @@ class CPlayer;
 
 class CPlayerPart : public CGameObject
 {
-public:
-	enum STATE_MAIN : _byte
-	{		
-		IDLE = 1,
-		RELOAD = 2,
-		ATTACK = 3,
-		KICK = 5,
-		DRINK = 6,
-		SLIDE = 7,		
-		INTRO = 8,
-		MAIN_END
-	};
-
-	enum STATE_WEAPON : _byte
-	{
-		SW_NONE = 0,
-		SW_PISTOL = 1,
-		SW_SHOTGUN = 2,
-		SW_KATANA = 3,
-		SW_END
-	};
-
 protected:
 	explicit	CPlayerPart(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit	CPlayerPart(const CPlayerPart& rhs);
@@ -62,7 +40,7 @@ public:
 public:
 	void	SetParent(CPlayer* pPlayer);
 	void	SetPos(_vec3 _pos);
-	void	SetWeapon(_byte eState) { m_eWeaponState = (STATE_WEAPON)eState; }
+	void	SetWeapon(_byte eState) { m_eWeaponState = (WEAPON_STATE)eState; }
 	void	Set_Rendering(_bool bRender) { m_bRendering = bRender; }
 	_bool	Get_Rendering()	const { return m_bRendering; }
 	CPlayer* Get_Player() { if (nullptr != m_pPlayer) return m_pPlayer;  return nullptr; }
@@ -86,7 +64,7 @@ protected:
 
 	CPlayer* m_pPlayer;
 
-	STATE_WEAPON	m_eWeaponState;
+	WEAPON_STATE	m_eWeaponState;
 
 	_vec3		m_vConvertPos;
 	_vec3		m_vConvertScale;

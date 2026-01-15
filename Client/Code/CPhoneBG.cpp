@@ -83,11 +83,11 @@ HRESULT CPhoneBG::Ready_GameObject()
 	if (FAILED(Add_Component()))
 		return E_FAIL;
 
-	m_fX = 222.f;
-	m_fY = WINCY - 170.f;
+	m_fX = 260.f;
+	m_fY = WINCY - 205.f;
 
-	m_fSizeX = 135.f;
-	m_fSizeY = 280.f;	
+	m_fSizeX = 230.f;
+	m_fSizeY = 220.f;
 
 	Rotate(ROT_Z, 15.f);
 	SetScale(m_fSizeX, m_fSizeY);

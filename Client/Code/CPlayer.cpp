@@ -16,7 +16,7 @@
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCharacter(pGraphicDev, 15.f)
 	, m_pLeftPart(nullptr), m_pRightPart(nullptr), m_pMiddlePart(nullptr)
-	, m_eWeaponState(SW_NONE), m_fMoveSpeed(100.f)
+	, m_eWeaponState(WEAPON_NONE), m_fMoveSpeed(100.f)
 	, m_bFall(false), m_fVelocity(0.f), m_fJumpTime(0.f)
 	, m_bJump(false), m_fJumpStartY(0.f), m_fJumpDuration(0.6f), m_fJumpHeight(20.f)
 	, m_bDash(false), m_fDashTime(0.f), m_fDashDuration(0.3f), m_fDashDistance(80.f)
@@ -31,7 +31,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 CPlayer::CPlayer(const CPlayer& rhs)
 	: CCharacter(rhs)
 	, m_pLeftPart(rhs.m_pLeftPart), m_pRightPart(rhs.m_pRightPart), m_pMiddlePart(rhs.m_pMiddlePart)
-	, m_eWeaponState(SW_NONE), m_fMoveSpeed(100.f)
+	, m_eWeaponState(WEAPON_NONE), m_fMoveSpeed(100.f)
 	, m_bFall(false), m_fVelocity(0.f), m_fJumpTime(0.f)
 	, m_bJump(false), m_fJumpStartY(0.f), m_fJumpDuration(0.6f), m_fJumpHeight(20.f)
 	, m_bDash(false), m_fDashTime(0.f), m_fDashDuration(0.3f), m_fDashDistance(80.f)
@@ -68,8 +68,8 @@ HRESULT CPlayer::Ready_GameObject()
 	m_pKickCollider->Set_Scale(_vec3(15.f, 15.f, 15.f));
 	//m_pKickCollider->OffCollision();	
 
-	//m_eWeaponState = SW_PISTOL;
-	m_eWeaponState = SW_KATANA;
+	//m_eWeaponState = WEAPON_PISTOL;
+	m_eWeaponState = WEAPON_KATANA;
 
 	Change_State(INTRO);
 
@@ -154,13 +154,13 @@ HRESULT CPlayer::Add_PlayerPart()
 	if (nullptr == pWeapon)
 		return E_FAIL;
 
-	Add_Weapon(SW_PISTOL, pWeapon);
+	Add_Weapon(WEAPON_PISTOL, pWeapon);
 
 	pWeapon = CKatana::Create(m_pGraphicDev);
 	if (nullptr == pWeapon)
 		return E_FAIL;
 
-	Add_Weapon(SW_KATANA, pWeapon);
+	Add_Weapon(WEAPON_KATANA, pWeapon);
 
 	return S_OK;
 }
@@ -224,7 +224,7 @@ void CPlayer::Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _v
 
 void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 {
-	// 일반 공격
+	// �Ϲ� ����
 	if (CDInputMgr::GetInstance()->Mouse_Down(DIM_LB))
 	{
 		if (m_mapWeapon[m_eWeaponState]->Can_Fire())
@@ -238,7 +238,7 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 		}
 	}
 
-	// 대쉬
+	// �뽬
 	if (CDInputMgr::GetInstance()->Mouse_Down(DIM_RB) && !m_bDash)
 	{
 		m_fDashTime = 0.f;
@@ -286,7 +286,7 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 		return;
 	}
 
-	//점프
+	//����
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_SPACE) && !m_bJump && !m_bDash && !m_bFall)
 	{
 		m_fJumpTime = 0.f;
@@ -297,7 +297,7 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 	}
 
 
-	// 발차기
+	// ������
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_LSHIFT))
 	{
 		if (m_eNowState == IDLE)
@@ -321,7 +321,7 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 		return;
 	}
 
-	// 장전
+	// ����
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_R))
 	{
 		if (m_eNowState == IDLE)
@@ -331,20 +331,20 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_1))
 	{
-		if (m_eWeaponState != SW_PISTOL)
-			Change_Weapon(SW_PISTOL);
+		if(m_eWeaponState != WEAPON_PISTOL)
+			Change_Weapon(WEAPON_PISTOL);
 		return;
 	}
 
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_3))
 	{
-		if (m_eWeaponState != SW_KATANA)
-			Change_Weapon(SW_KATANA);
+		if (m_eWeaponState != WEAPON_KATANA)
+			Change_Weapon(WEAPON_KATANA);
 		return;
 	}
 }
 
-//몬스터 전체를 가져와서 마우스와 피킹 체크 
+//���� ��ü�� �����ͼ� ���콺�� ��ŷ üũ 
 void CPlayer::CheckPickedMonster()
 {
 	list<pair<_float, CCollider*>> pickedList;
@@ -357,8 +357,8 @@ void CPlayer::CheckPickedMonster()
 	if (!pLayer) return;
 
 	auto pairIter = pLayer->Get_Objects(OBJ_MONSTER);
-	//multimap<OBJ_ID, CGameObject*> 에 대한 반복자
-	//OBJ_ID를 키로 가진 오브젝트들의 반복자 범위를 반환 = 몬스터 전체 목록
+	//multimap<OBJ_ID, CGameObject*> �� ���� �ݺ���
+	//OBJ_ID�� Ű�� ���� ������Ʈ���� �ݺ��� ������ ��ȯ = ���� ��ü ���
 	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
 	{
 		CCollision* pCollision = static_cast<CCollision*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
@@ -366,7 +366,7 @@ void CPlayer::CheckPickedMonster()
 
 		auto& mapCollider = pCollision->GetColliderMap();
 		if (mapCollider.empty()) continue;
-		//몬스터의 CollisionCom에 있는 전체 Collider 
+		//������ CollisionCom�� �ִ� ��ü Collider 
 		for (auto& pairCollider : mapCollider)
 		{
 			bool bPicked = CCollision::Collision_Mouse(g_hWnd, m_pGraphicDev, pairCollider.second);
@@ -378,12 +378,12 @@ void CPlayer::CheckPickedMonster()
 	}
 
 	if (pickedList.empty()) return;
-	//카메라 거리순 정렬
+	//ī�޶� �Ÿ��� ����
 	pickedList.sort([&](auto& _First, auto& _Second)
 		{
 			return _First.first < _Second.first;
 		});
-	//피킹된 대상 중 카메라와 제일 가까운 콜라이더만 충돌처리하기 
+	//��ŷ�� ��� �� ī�޶�� ���� ����� �ݶ��̴��� �浹ó���ϱ� 
 	CCollider* NearPickedCollider = pickedList.front().second;
 	NearPickedCollider->Collision(info);
 }
@@ -569,7 +569,7 @@ void CPlayer::Set_OnFloor(const _float& fTimeDelta)
 			{
 				m_bFall = false;
 				//vPosition.y = fHeight + m_pTransformCom->Get_Scale().y;
-				vPosition.y = fHeight + 15.f;
+				vPosition.y = fHeight + m_pMainCollider->Get_Scale().y;
 			}
 
 		}
@@ -578,7 +578,7 @@ void CPlayer::Set_OnFloor(const _float& fTimeDelta)
 			if (false == m_bOnCollision)
 			{
 				//vPosition.y = fHeight + m_pTransformCom->Get_Scale().y;
-				vPosition.y = fHeight + 15.f;
+				vPosition.y = fHeight + m_pMainCollider->Get_Scale().y;
 			}
 
 
@@ -603,7 +603,7 @@ _bool CPlayer::Get_OnFloor()
 {
 	_float fHeight = 0.f;
 	_vec3 vPosition = m_pTransformCom->m_vInfo[INFO_POS];
-	_float fBottom = vPosition.y - 15.f;
+	_float fBottom = vPosition.y - m_pMainCollider->Get_Scale().y;
 
 	if (CheckOnFloor(&fHeight))
 	{
@@ -702,16 +702,16 @@ void CPlayer::Intro_Func()
 	//m_pMiddlePart->ChangeState(GetStateID(INTRO, SW_END));
 	switch (m_eWeaponState)
 	{
-	case CPlayer::SW_NONE:
+	case WEAPON_NONE:
 		break;
-	case CPlayer::SW_PISTOL:
+	case WEAPON_PISTOL:
 		break;
-	case CPlayer::SW_SHOTGUN:
+	case WEAPON_SHOTGUN:
 		break;
-	case CPlayer::SW_KATANA:
+	case WEAPON_KATANA:
 		static_cast<CKatana*>(m_mapWeapon[m_eWeaponState])->ChangeState(INTRO);
 		break;
-	case CPlayer::SW_END:
+	case WEAPON_END:
 		break;
 	default:
 		break;
@@ -747,6 +747,10 @@ void CPlayer::Slide_Func()
 	CheckKickedMonster(TAG_KICK, m_fKickAttack);
 }
 
+void CPlayer::Shop_Func()
+{
+}
+
 void CPlayer::Change_State(_uint eState)
 {
 	if (eState == m_eNowState)
@@ -758,7 +762,7 @@ void CPlayer::Change_State(_uint eState)
 	if (m_eNowState != MAIN_END)
 		State_Exit();
 
-	m_eNowState = (STATE_MAIN)eState;
+	m_eNowState = (PLAYER_STATE)eState;
 	State_Enter();
 }
 
@@ -766,26 +770,29 @@ void CPlayer::State_Enter()
 {
 	switch (m_eNowState)
 	{
-	case CPlayer::INTRO:
+	case INTRO:
 		Intro_Enter();
 		break;
-	case CPlayer::IDLE:
+	case IDLE:
 		Idle_Enter();
 		break;
-	case CPlayer::RELOAD:
+	case RELOAD:
 		Reload_Enter();
 		break;
-	case CPlayer::ATTACK:
+	case ATTACK:
 		Attack_Enter();
 		break;
-	case CPlayer::KICK:
+	case KICK:
 		Kick_Enter();
 		break;
-	case CPlayer::DRINK:
+	case DRINK:
 		Drink_Enter();
 		break;
-	case CPlayer::SLIDE:
+	case SLIDE:
 		Slide_Enter();
+		break;
+	case SHOP:
+		Shop_Enter();
 		break;
 	}
 }
@@ -794,26 +801,30 @@ void CPlayer::State_Update(const _float& fTimeDelta)
 {
 	switch (m_eNowState)
 	{
-	case CPlayer::INTRO:
+	case INTRO:
 		Intro_Update(fTimeDelta);
 		break;
-	case CPlayer::IDLE:
+	case IDLE:
 		Idle_Update(fTimeDelta);
 		break;
-	case CPlayer::RELOAD:
+	case RELOAD:
 		Reload_Update(fTimeDelta);
 		break;
-	case CPlayer::ATTACK:
+	case ATTACK:
 		Attack_Update(fTimeDelta);
 		break;
-	case CPlayer::KICK:
+	case KICK:
 		Kick_Update(fTimeDelta);
 		break;
-	case CPlayer::DRINK:
+	case DRINK:
 		Drink_Update(fTimeDelta);
 		break;
-	case CPlayer::SLIDE:
+	case SLIDE:
 		Slide_Update(fTimeDelta);
+		break;
+
+	case SHOP:
+		Shop_Update(fTimeDelta);
 		break;
 	}
 }
@@ -822,26 +833,29 @@ void CPlayer::State_LateUpdate(const _float& fTimeDelta)
 {
 	switch (m_eNowState)
 	{
-	case CPlayer::INTRO:
+	case INTRO:
 		Intro_LateUpdate(fTimeDelta);
 		break;
-	case CPlayer::IDLE:
+	case IDLE:
 		Idle_LateUpdate(fTimeDelta);
 		break;
-	case CPlayer::RELOAD:
+	case RELOAD:
 		Reload_LateUpdate(fTimeDelta);
 		break;
-	case CPlayer::ATTACK:
+	case ATTACK:
 		Attack_LateUpdate(fTimeDelta);
 		break;
-	case CPlayer::KICK:
+	case KICK:
 		Kick_LateUpdate(fTimeDelta);
 		break;
-	case CPlayer::DRINK:
+	case DRINK:
 		Drink_LateUpdate(fTimeDelta);
 		break;
-	case CPlayer::SLIDE:
+	case SLIDE:
 		Slide_LateUpdate(fTimeDelta);
+		break;
+	case SHOP:
+		Shop_LateUpdate(fTimeDelta);
 		break;
 	}
 }
@@ -850,26 +864,29 @@ void CPlayer::State_Exit()
 {
 	switch (m_eNowState)
 	{
-	case CPlayer::INTRO:
+	case INTRO:
 		Intro_Exit();
 		break;
-	case CPlayer::IDLE:
+	case IDLE:
 		Idle_Exit();
 		break;
-	case CPlayer::RELOAD:
+	case RELOAD:
 		Reload_Exit();
 		break;
-	case CPlayer::ATTACK:
+	case ATTACK:
 		Attack_Exit();
 		break;
-	case CPlayer::KICK:
+	case KICK:
 		Kick_Exit();
 		break;
-	case CPlayer::DRINK:
+	case DRINK:
 		Drink_Exit();
 		break;
-	case CPlayer::SLIDE:
+	case SLIDE:
 		Slide_Exit();
+		break;
+	case SHOP:
+		Shop_Exit();
 		break;
 	}
 }
@@ -878,23 +895,23 @@ void CPlayer::Intro_Enter()
 {
 	switch (m_eWeaponState)
 	{
-	case CPlayer::SW_NONE:
+	case WEAPON_NONE:
 		//m_iCallCnt = 1;
 		m_mapCallCnt[INTRO] = 1;
-		m_pMiddlePart->ChangeState(GetStateID(INTRO, SW_PISTOL));
+		m_pMiddlePart->ChangeState(GetStateID(INTRO, WEAPON_PISTOL));
 		break;
-	case CPlayer::SW_PISTOL:
+	case WEAPON_PISTOL:
 		m_mapCallCnt[INTRO] = 1;
-		m_pMiddlePart->ChangeState(GetStateID(INTRO, SW_PISTOL));
+		m_pMiddlePart->ChangeState(GetStateID(INTRO, WEAPON_PISTOL));
 		break;
-	case CPlayer::SW_SHOTGUN:
+	case WEAPON_SHOTGUN:
 		break;
-	case CPlayer::SW_KATANA:
+	case WEAPON_KATANA:
 		m_mapCallCnt[INTRO] = 1;
-		m_pRightPart->ChangeState(GetStateID(INTRO, SW_KATANA));
-		m_pLeftPart->ChangeState(GetStateID(INTRO, SW_KATANA));
+		m_pRightPart->ChangeState(GetStateID(INTRO, WEAPON_KATANA));
+		m_pLeftPart->ChangeState(GetStateID(INTRO, WEAPON_KATANA));
 		break;
-	case CPlayer::SW_END:
+	case WEAPON_END:
 		break;
 	}
 }
@@ -903,19 +920,19 @@ void CPlayer::Intro_Update(const _float& fTimeDelta)
 {
 	switch (m_eWeaponState)
 	{
-	case CPlayer::SW_NONE:
+	case WEAPON_NONE:
 		m_pMiddlePart->Update_GameObject(fTimeDelta);
 		break;
-	case CPlayer::SW_PISTOL:
+	case WEAPON_PISTOL:
 		m_pMiddlePart->Update_GameObject(fTimeDelta);
 		break;
-	case CPlayer::SW_SHOTGUN:
+	case WEAPON_SHOTGUN:
 		break;
-	case CPlayer::SW_KATANA:
+	case WEAPON_KATANA:
 		m_pRightPart->Update_GameObject(fTimeDelta);
 		m_pLeftPart->Update_GameObject(fTimeDelta);
 		break;
-	case CPlayer::SW_END:
+	case WEAPON_END:
 		break;
 	}
 }
@@ -924,21 +941,21 @@ void CPlayer::Intro_LateUpdate(const _float& fTimeDelta)
 {
 	switch (m_eWeaponState)
 	{
-	case CPlayer::SW_NONE:
+	case WEAPON_NONE:
 		m_pMiddlePart->LateUpdate_GameObject(fTimeDelta);
 		break;
-	case CPlayer::SW_PISTOL:
+	case WEAPON_PISTOL:
 		m_pMiddlePart->LateUpdate_GameObject(fTimeDelta);
 		break;
-	case CPlayer::SW_SHOTGUN:
+	case WEAPON_SHOTGUN:
 		break;
-	case CPlayer::SW_KATANA:
+	case WEAPON_KATANA:
 		m_pRightPart->LateUpdate_GameObject(fTimeDelta);
 		m_pLeftPart->LateUpdate_GameObject(fTimeDelta);
 		break;
-	case CPlayer::SW_END:
+	case WEAPON_END:
 		break;
-	}
+	}	
 }
 
 void CPlayer::Intro_Exit()
@@ -951,7 +968,7 @@ void CPlayer::Idle_Enter()
 	m_pLeftPart->ChangeState(IDLE);
 	m_pRightPart->ChangeState(GetStateID(IDLE, m_eWeaponState));
 	m_pMiddlePart->ChangeState(IDLE);
-	//m_pRightPart->ChangeState(GetStateID(IDLE, SW_PISTOL));
+	
 }
 
 void CPlayer::Idle_Update(const _float& fTimeDelta)
@@ -976,22 +993,22 @@ void CPlayer::Reload_Enter()
 {
 	switch (m_eWeaponState)
 	{
-	case CPlayer::SW_NONE:
+	case WEAPON_NONE:
 
 		break;
-	case CPlayer::SW_PISTOL:
-		m_mapCallCnt[RELOAD] = 2;
+	case WEAPON_PISTOL:
+		m_mapCallCnt[RELOAD] = 1;
 		m_mapWeapon[m_eWeaponState]->Set_ShootAble(false);
 		m_pLeftPart->ChangeState(GetStateID(RELOAD, m_eWeaponState));
 		m_pRightPart->ChangeState(GetStateID(RELOAD, m_eWeaponState));
 		break;
-	case CPlayer::SW_SHOTGUN:
+	case WEAPON_SHOTGUN:
 		break;
-	case CPlayer::SW_KATANA:
+	case WEAPON_KATANA:
 		m_mapCallCnt[RELOAD] = 0;
 		Change_State(IDLE);
 		break;
-	case CPlayer::SW_END:
+	case WEAPON_END:
 		break;
 	}
 }
@@ -1018,19 +1035,19 @@ void CPlayer::Attack_Enter()
 {
 	switch (m_eWeaponState)
 	{
-	case CPlayer::SW_NONE:
+	case WEAPON_NONE:
 		break;
-	case CPlayer::SW_PISTOL:
+	case WEAPON_PISTOL:
 		m_mapCallCnt[ATTACK] = 1;
 		m_pRightPart->ChangeState(GetStateID(ATTACK, m_eWeaponState));
 		break;
-	case CPlayer::SW_SHOTGUN:
+	case WEAPON_SHOTGUN:
 		break;
-	case CPlayer::SW_KATANA:
+	case WEAPON_KATANA:
 		m_mapCallCnt[ATTACK] = 1;
 		m_mapWeapon[m_eWeaponState]->Fire();
 		break;
-	case CPlayer::SW_END:
+	case WEAPON_END:
 		break;
 	default:
 		break;
@@ -1041,7 +1058,7 @@ void CPlayer::Attack_Enter()
 void CPlayer::Attack_Update(const _float& fTimeDelta)
 {
 	m_pMiddlePart->Update_GameObject(fTimeDelta);
-	if (m_eWeaponState == SW_PISTOL)
+	if(m_eWeaponState == WEAPON_PISTOL)
 		m_pRightPart->Update_GameObject(fTimeDelta);
 	m_pLeftPart->Update_GameObject(fTimeDelta);
 }
@@ -1049,7 +1066,7 @@ void CPlayer::Attack_Update(const _float& fTimeDelta)
 void CPlayer::Attack_LateUpdate(const _float& fTimeDelta)
 {
 	m_pMiddlePart->LateUpdate_GameObject(fTimeDelta);
-	if (m_eWeaponState == SW_PISTOL)
+	if (m_eWeaponState == WEAPON_PISTOL)
 		m_pRightPart->LateUpdate_GameObject(fTimeDelta);
 	m_pLeftPart->LateUpdate_GameObject(fTimeDelta);
 }
@@ -1130,6 +1147,25 @@ void CPlayer::Slide_Exit()
 	m_pMiddlePart->ChangeState(IDLE);
 }
 
+void CPlayer::Shop_Enter()
+{
+	m_pMiddlePart->ChangeState(SLIDE);
+}
+
+void CPlayer::Shop_Update(const _float& fTimeDelta)
+{
+	m_pMiddlePart->Update_GameObject(fTimeDelta);
+}
+
+void CPlayer::Shop_LateUpdate(const _float& fTimeDelta)
+{
+	m_pMiddlePart->LateUpdate_GameObject(fTimeDelta);
+}
+
+void CPlayer::Shop_Exit()
+{
+}
+
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CPlayer* pPlayer = new CPlayer(pGraphicDev);
@@ -1168,10 +1204,10 @@ CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, 
 
 void CPlayer::Add_Weapon(_byte eWeaponTag, CWeapon* pWeapon)
 {
-	if (m_mapWeapon.count((STATE_WEAPON)eWeaponTag) > 0)
+	if (m_mapWeapon.count((WEAPON_STATE)eWeaponTag) > 0)
 		return;
 
-	m_mapWeapon.insert({ (STATE_WEAPON)eWeaponTag , pWeapon });
+	m_mapWeapon.insert({ (WEAPON_STATE)eWeaponTag , pWeapon });
 
 	pWeapon->Set_Parent(m_pMiddlePart);
 	pWeapon->Set_WeaponState(eWeaponTag);
@@ -1182,11 +1218,11 @@ void CPlayer::Add_Weapon(_byte eWeaponTag, CWeapon* pWeapon)
 
 void CPlayer::Change_Weapon(_byte eWeaponTag)
 {
-	if (m_mapWeapon.count((STATE_WEAPON)eWeaponTag) <= 0)
+	if (m_mapWeapon.count((WEAPON_STATE)eWeaponTag) <= 0)
 		return;
 
 	m_mapWeapon[m_eWeaponState]->Set_Select(false);
-	m_eWeaponState = (STATE_WEAPON)eWeaponTag;
+	m_eWeaponState = (WEAPON_STATE)eWeaponTag;
 	m_mapWeapon[m_eWeaponState]->Set_Select(true);
 
 	Change_State(INTRO);
@@ -1222,7 +1258,7 @@ void CPlayer::Free()
 
 void CPlayer::OnCollision(CollisionInfo info)
 {
-	//방향값이 들어왔다면 지형 충돌
+	//���Ⱚ�� ���Դٸ� ���� �浹
 	if (info.eDir != CDIR_NONE)
 	{
 		Move_ByCollision(info.eDir, info.vDiff);

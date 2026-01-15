@@ -5,27 +5,6 @@ class CPlayerPart;
 
 class CWeapon : public CGameObject
 {
-public:
-	enum STATE_MAIN : _byte
-	{
-		IDLE = 1,
-		RELOAD = 2,
-		ATTACK = 3,
-		KICK = 5,
-		DRINK = 6,
-		SLIDE = 7,
-		INTRO = 8,
-		MAIN_END
-	};
-
-	enum STATE_WEAPON : _byte
-	{
-		SW_NONE = 0,
-		SW_PISTOL = 1,
-		SW_SHOTGUN = 2,
-		SW_KATANA = 3,
-		SW_END
-	};
 
 protected:
 	explicit		CWeapon(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -33,7 +12,7 @@ protected:
 	virtual			~CWeapon();
 
 public:
-	STATE_WEAPON Get_WeaponState() const { return m_eWeaponState; }
+	WEAPON_STATE Get_WeaponState() const { return m_eWeaponState; }
 	_bool	Get_IsSelect() const { return m_bSelect; }
 	_bool	Get_IsEmpty() const { return m_bIsEmpty; }
 	_bool	Get_IsShootAble() const { return m_bShootAble; }
@@ -43,7 +22,7 @@ public:
 	_float	Get_CoolTime() const { return m_fCoolTime; }
 	_float	Get_Range() const { return m_fRange; }
 
-	void	Set_WeaponState(_byte eState) { m_eWeaponState = (STATE_WEAPON)eState; }
+	void	Set_WeaponState(_byte eState) { m_eWeaponState = (WEAPON_STATE)eState; }
 	void	Set_Select(_bool  bSelect) { m_bSelect = bSelect; }
 	void	Set_Empty(_bool  bIsEmpty) { m_bIsEmpty = bIsEmpty; }
 	void	Set_ShootAble(_bool bAble) { m_bShootAble = bAble; }
@@ -77,7 +56,7 @@ protected:
 
 protected:
 	CPlayerPart* m_pParentPart;
-	STATE_WEAPON m_eWeaponState;
+	WEAPON_STATE m_eWeaponState;
 	_bool	m_bSelect;
 	_bool	m_bIsEmpty;
 	_bool	m_bShootAble;

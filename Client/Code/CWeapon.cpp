@@ -7,7 +7,7 @@ CWeapon::CWeapon(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_bIsEmpty(false), m_bSelect(false)
     , m_iNowBullet(0), m_iMaxBullet(0), m_fPower(0)
     , m_fCoolTime(0.f), m_fRange(0.f), m_fTime(0.f)
-    , m_bShootAble(true), m_eWeaponState(SW_NONE)
+    , m_bShootAble(true), m_eWeaponState(WEAPON_NONE)
     , m_pParentPart(nullptr)
 {
 
@@ -18,7 +18,7 @@ CWeapon::CWeapon(const CWeapon& rhs)
     , m_bIsEmpty(false), m_bSelect(false)
     , m_iNowBullet(0), m_iMaxBullet(0), m_fPower(0)
     , m_fCoolTime(0.f), m_fRange(0.f), m_fTime(0.f)
-    , m_bShootAble(true), m_eWeaponState(SW_NONE)
+    , m_bShootAble(true), m_eWeaponState(WEAPON_NONE)
     , m_pParentPart(nullptr)
 {
 }
