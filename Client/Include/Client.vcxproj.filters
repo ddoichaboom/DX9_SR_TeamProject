@@ -160,6 +160,12 @@
     <Filter Include="02. GameObject\99. Environment\00. Terrain\02. Wall\DynamicWall">
       <UniqueIdentifier>{7213c873-2075-4cae-8f68-4fad555388d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\12. Trigger\DoorTrigger">
+      <UniqueIdentifier>{d4792a02-de85-4862-aa33-963f1ea9731c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. Trigger\StageEndTrigger">
+      <UniqueIdentifier>{b457a555-07c9-4099-85f4-2704782f1090}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -297,6 +303,12 @@
     <ClInclude Include="..\Header\CDynamicWall.h">
       <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall\DynamicWall</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CTrigger.h">
+      <Filter>02. GameObject\12. Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDoorTrigger.h">
+      <Filter>02. GameObject\12. Trigger\DoorTrigger</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -424,6 +436,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CDynamicWall.cpp">
       <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall\DynamicWall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTrigger.cpp">
+      <Filter>02. GameObject\12. Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDoorTrigger.cpp">
+      <Filter>02. GameObject\12. Trigger\DoorTrigger</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

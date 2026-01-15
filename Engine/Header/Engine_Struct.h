@@ -172,6 +172,15 @@ namespace Engine
 		{}
 
 	}RoomData;
+
+	// 추가 데이터가 필요한경우 여기에 추가하거나, EventData를 상속받아 만들어서 EventData로 전달하기
+	// 그럴경우 , 외부에서 처리하기 위해 전역으로 
+	typedef struct tagEventData
+	{
+		int value = -1;
+	}EventData;
+
+
 }
 
 

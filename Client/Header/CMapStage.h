@@ -1,8 +1,9 @@
 #pragma once
 #include "CStage.h"
+#include "CEventMgr.h"
 
 class CLoading;
-class CMapStage : public CStage
+class CMapStage : public CStage, public IListener
 {
 protected:
     explicit CMapStage(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -38,6 +39,8 @@ protected:
     void        Change_Room(_int iNewRoomIndex);
 
     void        Check_Collision() override;
+
+    void        OnEvent(EVENT_TYPE _type, EventData* _pData) override;
 protected:
     CLayer*     m_pEnvironment_Layer;
     CLayer*     m_pGameLogic_Layer;
