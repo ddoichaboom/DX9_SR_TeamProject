@@ -14,6 +14,7 @@
 #include "CWall.h"
 #include "CDynamicWall.h"
 #include "CObstacle.h"
+#include "CDoorTrigger.h"
 
 // 게임 로직 오브젝트
 #include "CPlayer.h"
@@ -64,6 +65,9 @@ HRESULT CMapStage::Ready_Scene()
         [&]() {  m_ReadyGameResult = Ready_GameLogic_Layer(L"GameLogic_Layer"); }
     );
     
+    //메세지 구독 신청
+    CEventMgr::GetInstance()->Subscribe(EVENT_DOOR_IN, this);
+    CEventMgr::GetInstance()->Subscribe(EVENT_DOOR_OUT, this);
 
   /*  if (FAILED(Ready_Prototype()))
         return E_FAIL;
@@ -190,6 +194,15 @@ HRESULT CMapStage::Ready_ObjectPool()
         if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CFlyMon>(m_pGraphicDev)))
         {
             MSG_BOX("FlyMon Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CTrigger>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CTrigger>(m_pGraphicDev)))
+        {
+            MSG_BOX("Trigger Pool Create Failed");
             return E_FAIL;
         }
     }
@@ -502,7 +515,7 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
     _vec3 vPlayerSpawnPos = CMapLoader::GetInstance()->Get_PlayerSpawnPos();
 
     _vec3 vEye = vPlayerSpawnPos;
-    _vec3 vAt = { vPlayerSpawnPos.x, vPlayerSpawnPos.y, vPlayerSpawnPos.z};
+    _vec3 vAt = { vPlayerSpawnPos.x, vPlayerSpawnPos.y, vPlayerSpawnPos.z };
     _vec3 vUp = { 0.f, 1.f, 0.f };
 
     CGameObject* pGameObject = CFirstCamera::Create(m_pGraphicDev, &vEye, &vAt, &vUp);
@@ -513,18 +526,10 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
     if (FAILED(pLayer->Add_GameObject(pGameObject)))
         return E_FAIL;
 
-
-    pGameObject = CMapCollider::Create(m_pGraphicDev, _vec3(62.f, 8.f, 80.f), _vec3(4.f, 16.f, 80.f));
-
-    if (nullptr == pGameObject)
-        return E_FAIL;
-
-    if (FAILED(pLayer->Add_GameObject(pGameObject)))
-        return E_FAIL;
-
-
-    pGameObject = CMapCollider::Create(m_pGraphicDev, _vec3(100.f, 8.f, 80.f), _vec3(4.f, 16.f, 80.f));
-
+    //이 트리거가 있는 방의 번호 첫 인자로 입력
+    CDoorTrigger* trigger = CDoorTrigger::Create(m_pGraphicDev, 0, _vec3(28.f, 8.f, 250.f), _vec3(16.f, 16.f, 16.f));
+    
+    pGameObject = trigger;
     if (nullptr == pGameObject)
         return E_FAIL;
 
@@ -629,9 +634,12 @@ HRESULT CMapStage::Ready_Prototype()
 void CMapStage::Check_Collision()
 {
    auto iter_Map_Col = m_mapLayer[L"Environment_Layer"]->Get_Objects(OBJ_COL);
+   auto iter_Map_Trigger = m_mapLayer[L"Environment_Layer"]->Get_Objects(OBJ_TRIGGER);
    auto iter_Map_Mon = m_mapLayer[L"GameLogic_Layer"]->Get_Objects(OBJ_MONSTER);
    CGameObject* player = m_mapLayer[L"GameLogic_Layer"]->Get_Object(OBJ_PLAYER);
+
    vector<CCollider*> PlayerColliders;
+
    if (player) 
    {
        CCharacter * cPlayer = static_cast<CCharacter*>(player);
@@ -662,7 +670,33 @@ void CMapStage::Check_Collision()
        }
 
    }
+   //Player- Trigger 충돌
+   for (multimap<OBJ_ID, CGameObject*>::iterator it_tri = iter_Map_Trigger.first; it_tri != iter_Map_Trigger.second; it_tri++)
+   {
+       CCollision* mapTrig_Collision = static_cast<CCollision*>(it_tri->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+       CCollider* mapCollider = mapTrig_Collision->GetCollider();
+       if (!mapCollider) continue;
 
+       for (auto& collider : PlayerColliders)
+       {
+           CCollision::Collision_Base(collider, mapCollider);
+       }
+   }
+
+}
+
+void CMapStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
+{
+    if (_type == EVENT_DOOR_IN)
+    {
+        if (m_iCurrentRoomIndex == 0) Change_Room(m_iCurrentRoomIndex + 1);
+        Change_Room(m_iCurrentRoomIndex + 1);
+    }
+    
+    else if (_type == EVENT_DOOR_OUT)
+    {
+        Change_Room(m_iCurrentRoomIndex - 1);
+    }
 }
 
 CMapStage* CMapStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)

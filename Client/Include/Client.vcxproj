@@ -153,6 +153,7 @@
     <ClInclude Include="..\Header\CCeiling.h" />
     <ClInclude Include="..\Header\CBullet.h" />
     <ClInclude Include="..\Header\CCharacter.h" />
+    <ClInclude Include="..\Header\CDoorTrigger.h" />
     <ClInclude Include="..\Header\CMapCollider.h" />
     <ClInclude Include="..\Header\CDynamicCeiling.h" />
     <ClInclude Include="..\Header\CDynamicFloor.h" />
@@ -180,6 +181,7 @@
     <ClInclude Include="..\Header\CTerrain.h" />
     <ClInclude Include="..\Header\CStage.h" />
     <ClInclude Include="..\Header\CTestCharacter.h" />
+    <ClInclude Include="..\Header\CTrigger.h" />
     <ClInclude Include="..\Header\CWall.h" />
     <ClInclude Include="..\Header\CWeapon.h" />
     <ClInclude Include="..\Header\CWhiteMan.h" />
@@ -200,6 +202,7 @@
     <ClCompile Include="..\Code\CCeiling.cpp" />
     <ClCompile Include="..\Code\CBullet.cpp" />
     <ClCompile Include="..\Code\CCharacter.cpp" />
+    <ClCompile Include="..\Code\CDoorTrigger.cpp" />
     <ClCompile Include="..\Code\CMapCollider.cpp" />
     <ClCompile Include="..\Code\CDynamicCeiling.cpp" />
     <ClCompile Include="..\Code\CDynamicFloor.cpp" />
@@ -227,6 +230,7 @@
     <ClCompile Include="..\Code\CStage.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
     <ClCompile Include="..\Code\CTestCharacter.cpp" />
+    <ClCompile Include="..\Code\CTrigger.cpp" />
     <ClCompile Include="..\Code\CWall.cpp" />
     <ClCompile Include="..\Code\CWeapon.cpp" />
     <ClCompile Include="..\Code\CWhiteMan.cpp" />

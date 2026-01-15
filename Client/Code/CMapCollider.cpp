@@ -103,6 +103,21 @@ void CMapCollider::Deactivate()
 	CGameObject::Deactivate();
 }
 
+CMapCollider* CMapCollider::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+	CMapCollider* pMapCol = new CMapCollider(pGraphicDev);
+
+	if (FAILED(pMapCol->Ready_GameObject()))
+	{
+		Safe_Release(pMapCol);
+		MSG_BOX("MapCollider Create Failed");
+		return nullptr;
+	}
+
+	return pMapCol;
+}
+
+
 CMapCollider* CMapCollider::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vScale)
 {
 	CMapCollider* pMapCol = new CMapCollider(pGraphicDev, vPos, vScale);

@@ -35,6 +35,9 @@ public:
 	virtual void						Activate();
 	virtual void						Deactivate();
 
+	_int								GetRoomIndex() { return m_iRoomIndex; }
+	void								SetRoomIndex(_int _idx) { m_iRoomIndex = _idx; }
+
 	OBJ_ID								GetOBJID()		{ return m_eOBJ_ID; }
 	_uint								GetID()			{ return m_iID; }
 
@@ -70,7 +73,6 @@ protected:
 	IBasePool*							m_pPool;
 	OBJ_ID								m_eOBJ_ID;
 	_uint								m_iID;
-	_uint								m_iRoomNum;
 	static _uint						m_iCount;
 
 	// 몇번 방에 속하는 객체인지 파악하기 위한 정보 

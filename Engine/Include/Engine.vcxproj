@@ -152,6 +152,7 @@ call Copy.bat</Command>
     <ClInclude Include="..\Header\CCubeTexture.h" />
     <ClInclude Include="..\Header\CDataMgr.h" />
     <ClInclude Include="..\Header\CDInputMgr.h" />
+    <ClInclude Include="..\Header\CEventMgr.h" />
     <ClInclude Include="..\Header\CFont.h" />
     <ClInclude Include="..\Header\CFontMgr.h" />
     <ClInclude Include="..\Header\CFrame.h" />
@@ -200,6 +201,7 @@ call Copy.bat</Command>
     <ClCompile Include="..\Code\CCubeTex.cpp" />
     <ClCompile Include="..\Code\CCubeTexture.cpp" />
     <ClCompile Include="..\Code\CDInputMgr.cpp" />
+    <ClCompile Include="..\Code\CEventMgr.cpp" />
     <ClCompile Include="..\Code\CFont.cpp" />
     <ClCompile Include="..\Code\CFontMgr.cpp" />
     <ClCompile Include="..\Code\CFrame.cpp" />

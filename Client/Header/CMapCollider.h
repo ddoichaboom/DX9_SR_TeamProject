@@ -36,6 +36,7 @@ public:
 	void				Deactivate() override;	
 
 public:
+	static CMapCollider* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	static CMapCollider* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vScale);
 
 protected : 
