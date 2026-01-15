@@ -79,6 +79,12 @@ HRESULT CTerrain::Ready_Material(const D3DXCOLOR& diffuse)
     return S_OK;
 }
 
+_int    CTerrain::Update_GameObject(const _float& fTimeDelta)
+{
+    _int iExit = CGameObject::Update_GameObject(fTimeDelta);
+    return iExit;
+}
+
 HRESULT CTerrain::Add_Component()
 {
     Engine::CComponent* pComponent = nullptr;

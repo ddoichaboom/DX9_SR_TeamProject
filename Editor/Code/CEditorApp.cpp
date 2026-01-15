@@ -18,6 +18,7 @@
 #include "CEditorFloor.h"
 #include "CEditorCeiling.h"
 #include "CEditorWall.h"
+#include "CEditorDynamicFloor.h"
 
 
 CEditorApp::CEditorApp()
@@ -297,7 +298,7 @@ HRESULT CEditorApp::Ready_Texture_Prototype()
 {
     Engine::CTexture* pCom_Texture = nullptr;
 
-    // ========== Floor 텍스처 프로토타입 ==========
+    // Floor 텍스처  
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CEditorFloor::GetTextureSources());
     if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Static_FloorTexture", pCom_Texture)))
     {
@@ -305,7 +306,23 @@ HRESULT CEditorApp::Ready_Texture_Prototype()
         return E_FAIL;
     }
 
-    // ========== Ceiling 텍스처 프로토타입 ==========
+    // DynamicFloor Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CEditorDynamicFloor::GetTextureSources());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Dynamic_FloorTexture", pCom_Texture)))
+    {
+        MSG_BOX("Proto_Dynamic_FloorTexture Ready Failed");
+        return E_FAIL;
+    }
+    
+    // Floor Animation
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FloorAnimation",
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CEditorDynamicFloor::GetAnimSources()))))
+    {
+        MSG_BOX("Proto_FloorAnimation Ready Failed");
+        return E_FAIL;
+    }
+
+    //  Ceiling 텍스처  
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CEditorCeiling::GetTextureSources());
     if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Static_CeilingTexture", pCom_Texture)))
     {
@@ -313,7 +330,7 @@ HRESULT CEditorApp::Ready_Texture_Prototype()
         return E_FAIL;
     }
 
-    // ========== Wall 텍스처 프로토타입 ==========
+    //  Wall 텍스처  
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CEditorWall::GetTextureSources());
     if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Static_WallTexture", pCom_Texture)))
     {

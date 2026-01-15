@@ -111,7 +111,7 @@ void CEditorWall::Set_WallDirection(WALL_DIR eDir)
     }
     else if (m_eWallDir == WALL_XY_BACK)
     {
-        Set_Rotation(_vec3(180.f, 0.f, 0.f));
+        Set_Rotation(_vec3(180.f, 0.f, 180.f));
     }
     else if (m_eWallDir == WALL_YZ_LEFT)
     {

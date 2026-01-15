@@ -46,7 +46,10 @@ HRESULT CWall::Ready_GameObject()
 
 _int CWall::Update_GameObject(const _float& fTimeDelta)
 {
-    _int iExit = CGameObject::Update_GameObject(fTimeDelta);
+    if (IsDead()) 
+        return RET_DEAD;
+
+    _int iExit = CTerrain::Update_GameObject(fTimeDelta);
 
     CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA, this);
 

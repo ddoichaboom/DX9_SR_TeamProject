@@ -7,12 +7,16 @@
 
 vector<TextureSource> CDynamicFloor::m_vTextureSource =
 {
-	{ DYNAMIC_FLOOR_LAVA, L"../Bin/Resource/Texture/Terrain/Floor/DYNAMIC_FLOOR/LAVA.dds"}
+	{ DYNAMIC_FLOOR_WATER, L"../Bin/Resource/Texture/Terrain/Floor/DYNAMIC_FLOOR/WATER.dds"},
+	{ DYNAMIC_FLOOR_LAVA, L"../Bin/Resource/Texture/Terrain/Floor/DYNAMIC_FLOOR/LAVA.dds"},
+	{ DYNAMIC_FLOOR_ACID, L"../Bin/Resource/Texture/Terrain/Floor/DYNAMIC_FLOOR/ACID.dds"},
 };
 
 vector<AnimationSource> CDynamicFloor::m_vAnimSource =
 {
-	{ DYNAMIC_FLOOR_LAVA, 0, 4, 4, true, 0.75f}
+	{ DYNAMIC_FLOOR_WATER, 0, 4, 4, true, 0.75f},
+	{ DYNAMIC_FLOOR_LAVA, 0, 4, 4, true, 0.75f},
+	{ DYNAMIC_FLOOR_ACID, 0, 4, 4, true, 0.75f}
 };
 
 
@@ -44,7 +48,10 @@ HRESULT CDynamicFloor::Ready_GameObject()
 
 _int CDynamicFloor::Update_GameObject(const _float& fTimeDelta)
 {
-	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
+	if (IsDead()) 
+		return RET_DEAD;
+
+	_int iExit = CTerrain::Update_GameObject(fTimeDelta);
 
 	if (m_pAnimationCom)
 		m_pAnimationCom->Update_Component(fTimeDelta);

@@ -46,6 +46,8 @@ public:
 
 private:
 	void	SaveTransformData(json& jObj, CEditorObject* pObj);
+	void	SaveTextureData(json& jObj, CEditorObject* pObj);
+
 	// wstring -> string º¯È¯
 	string WStringToString(const wstring& wstr);
 
@@ -54,7 +56,7 @@ private:
 
 
 private:
-	static const _uint FILE_VERSION = 3;
+	static const _uint FILE_VERSION = 4;
 
 private:
 	virtual	void	Free() override;

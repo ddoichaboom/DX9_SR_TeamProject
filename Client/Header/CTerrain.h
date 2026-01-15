@@ -31,7 +31,7 @@ public:
 
 	// ========== GameObject 인터페이스 (자식에서 구현) ==========
 	virtual HRESULT				Ready_GameObject() PURE;
-	virtual _int				Update_GameObject(const _float& fTimeDelta) PURE;
+	virtual _int				Update_GameObject(const _float& fTimeDelta);
 	virtual void				LateUpdate_GameObject(const _float& fTimeDelta) PURE;
 	virtual void				Render_GameObject() PURE;
 	virtual HRESULT				Add_Component();

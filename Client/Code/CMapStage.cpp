@@ -329,7 +329,7 @@ void CMapStage::Update_RoomLoading(const _float& fTimeDelta)
     pPlayerTransform->Get_Info(INFO_POS, &vPlayerPos);
 
     // Door 구현이 안되어 있어서 우선 플레이어의 Z축 좌표를 기준으로 방 인덱스 재설정
-    _int iNewRoomIndex = (_int)(vPlayerPos.z / 16.0f);      // 맵 찍으면서 설정해야 함(문 구현 전까지)
+    _int iNewRoomIndex = (_int)(vPlayerPos.z / 200.0f);      // 맵 찍으면서 설정해야 함(문 구현 전까지)
 
     // 방 변경 감지 
     if (iNewRoomIndex != m_iCurrentRoomIndex)
@@ -383,7 +383,7 @@ void CMapStage::Change_Room(_int iNewRoomIndex)
 
         if (m_setLoadedRooms.find(i) == m_setLoadedRooms.end())
         {
-            roomsToLoad.insert(i);
+           roomsToLoad.insert(i);
         }
     }
 
@@ -420,7 +420,7 @@ void CMapStage::Change_Room(_int iNewRoomIndex)
         }
     }
 
-    // ========== 5단계: 현재 방 업데이트 ==========
+    //  5단계: 현재 방 업데이트 
     m_iCurrentRoomIndex = iNewRoomIndex;
 }
 
@@ -430,7 +430,7 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
     if (nullptr == pLayer)
         return E_FAIL;
 
-    m_wstrCurrentMapFile = L"../../Map/test.json";
+    m_wstrCurrentMapFile = L"../../Map/test02.json";
 
     // 0번방 로드 
     if (FAILED(CMapLoader::GetInstance()->Load_Room(
@@ -455,8 +455,8 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
         pLayerTag)))
     {
         // 1번방이 있으면 오류 체크 위해 주석 해제 
-        //MessageBox(nullptr, L"Room 1 Load Failed", L"Error", MB_OK);
-        //return E_FAIL;
+        MessageBox(nullptr, L"Room 1 Load Failed", L"Error", MB_OK);
+        return E_FAIL;
     }
     else
     {
@@ -514,7 +514,7 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
         return E_FAIL;
 
     m_mapLayer.insert({ pLayerTag, pLayer });
-
+    m_pEnvironment_Layer = pLayer;
     return S_OK;
 }
 
@@ -523,6 +523,35 @@ HRESULT CMapStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
     CLayer* pLayer = CLayer::Create();
     if (nullptr == pLayer)
         return E_FAIL;
+
+    // 0번 방 로드
+    if (FAILED(CMapLoader::GetInstance()->Load_Room(
+        m_wstrCurrentMapFile,
+        0,
+        pLayer,
+        m_pGraphicDev,
+        pLayerTag)))
+    {
+        MessageBox(nullptr, L"Room 0 (Monster) Load Failed", L"Erro", MB_OK);
+        return E_FAIL;
+    }
+    m_setLoadedRooms.insert(0);
+    m_iCurrentRoomIndex = 0;
+
+    if (FAILED(CMapLoader::GetInstance()->Load_Room(
+        m_wstrCurrentMapFile,
+        1,
+        pLayer,
+        m_pGraphicDev,
+        pLayerTag)))
+    {
+        /*MessageBox(nullptr, L"Room 1 (Monster) Load Failed", L"Erro", MB_OK);
+        return E_FAIL;*/
+    }
+    else
+    {
+        m_setLoadedRooms.insert(1);
+    }
 
     CGameObject* pGameObject = nullptr;
 
@@ -561,91 +590,8 @@ HRESULT CMapStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
     pPlayer->Intro();
 #pragma endregion
 
-    
-    // 0번 방 로드
-    if (FAILED(CMapLoader::GetInstance()->Load_Room(
-        m_wstrCurrentMapFile,
-        0,
-        pLayer,
-        m_pGraphicDev,
-        pLayerTag)))
-    {
-        MessageBox(nullptr, L"Room 0 (Monster) Load Failed", L"Erro", MB_OK);
-        return E_FAIL;
-    }
-    m_setLoadedRooms.insert(0);
-    m_iCurrentRoomIndex = 0;
-
-    if (FAILED(CMapLoader::GetInstance()->Load_Room(
-        m_wstrCurrentMapFile,
-        1,
-        pLayer,
-        m_pGraphicDev,
-        pLayerTag)))
-    {
-        /*MessageBox(nullptr, L"Room 1 (Monster) Load Failed", L"Erro", MB_OK);
-        return E_FAIL;*/
-    }
-    else
-    {
-        m_setLoadedRooms.insert(1);
-    }
-
-
-     //auto& monsterSpawns = CMapLoader::GetInstance()->Get_MonsterSpawns();
-
-     //_uint iMonsterIndex = 0;
-     //for (auto& pair : monsterSpawns)
-     //{
-     //    string MonsterKey = pair.first;            // "WhiteMan", 추가 몬스터
-     //    vector<_vec3> Positions = pair.second;
-
-     //    for (auto& vPos : Positions)
-     //    {
-     //        CGameObject* pMonster = nullptr;
-
-     //        if (MonsterKey == "WhiteMan")
-     //        {
-     //            // Pool에서 가져오기
-     //            CWhiteMan* pWhiteMan = CPoolMgr::GetInstance()->Get_Object<CWhiteMan>();
-     //            if (pWhiteMan)
-     //            {
-     //                pWhiteMan->SetPos(vPos);
-
-     //                pMonster = pWhiteMan;
-     //            }
-     //        }
-     //        else if (MonsterKey == "BeamMon")
-     //        {
-     //            CBeamMon* pBeamMon = CPoolMgr::GetInstance()->Get_Object<CBeamMon>();
-     //            if (pBeamMon)
-     //            {
-     //                pBeamMon->SetPos(vPos);
-     //                pMonster = pBeamMon;
-     //            }
-     //        }
-     //        else if (MonsterKey == "FlyMon")
-     //        {
-     //            CFlyMon* pFlyMon = CPoolMgr::GetInstance()->Get_Object<CFlyMon>();
-     //            if (pFlyMon)
-     //            {
-     //                pFlyMon->SetPos(vPos);
-     //                pMonster = pFlyMon;
-     //            }
-     //        }
-
-     //        if (pMonster)
-     //        {
-     //            if (FAILED(pLayer->Add_GameObject(pMonster)))
-     //            {
-     //                // Pool 객체는 ReturnToPool 호출 
-     //                pMonster->ReturnToPool();
-     //            }
-     //        }
-     //    }
-     //}
     m_mapLayer.insert({ pLayerTag, pLayer });
-
+    m_pGameLogic_Layer = pLayer;
     return S_OK;
 }
 

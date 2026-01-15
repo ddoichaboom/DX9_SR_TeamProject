@@ -181,7 +181,7 @@ CEditorFloor* CEditorFloor::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _v
     return pInstance;
 }
 
-CEditorFloor* CEditorFloor::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, _uint iType, _int iIdx)
+CEditorFloor* CEditorFloor::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, _uint iType, _int iIdx, _int iRoomIndex)
 {
     CEditorFloor* pInstance = new CEditorFloor(pGraphicDev);
 
@@ -198,6 +198,7 @@ CEditorFloor* CEditorFloor::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _v
     pInstance->Set_Position(vPos);
     pInstance->Set_FloorType(iType);
     pInstance->Set_TextureIdx(iIdx);
+    pInstance->Set_RoomIndex(iRoomIndex);
     return pInstance;
 }
 

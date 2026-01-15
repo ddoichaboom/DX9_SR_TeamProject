@@ -189,7 +189,7 @@ CEditorCeiling* CEditorCeiling::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos
     return pInstance;
 }
 
-CEditorCeiling* CEditorCeiling::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, _uint iType, _int iIdx)
+CEditorCeiling* CEditorCeiling::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, _uint iType, _int iIdx, _int iRoomIndex)
 {
     CEditorCeiling* pInstance = new CEditorCeiling(pGraphicDev);
 

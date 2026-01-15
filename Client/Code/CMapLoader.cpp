@@ -497,8 +497,8 @@ HRESULT CMapLoader::Unload_Room(const wstring& wstrPath, _int iRoomIndex, CLayer
             }
 
             // ========== 언로드 처리 ==========
-            pObj->ReturnToPool();  // 풀에 반환
             pObj->SetDead();       // Layer에서 제거 예약
+            //pObj->ReturnToPool();  // Dead 처리하면 Layer에서 알아서 Pool에 반환 해줌
             iUnloadedCount++;
 
             ++iter;
@@ -567,6 +567,7 @@ CGameObject* CMapLoader::Create_GameObject_FromJSON(const json& jObj,
     {
         // 타입 읽기
         string strType = jObj["type"];
+        _int   iRoomIndex = jObj["roomindex"];
 
         // Transform 읽기
         _vec3 vPos, vRot, vScale;
@@ -598,6 +599,7 @@ CGameObject* CMapLoader::Create_GameObject_FromJSON(const json& jObj,
                 // TextureIdx, FloorType은 에디터에서 Json에 담을 예정
                 pFloor->Set_TextureIdx(0);      // 0 ~ 7
                 pFloor->Set_FloorType(STATIC_FLOOR);
+                pFloor->Set_RoomIndex(iRoomIndex);
 
                 pFloor->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
                 pGameObject = pFloor;
@@ -614,6 +616,7 @@ CGameObject* CMapLoader::Create_GameObject_FromJSON(const json& jObj,
                 pDynamicFloor->Set_TextureIdx(0);   // 애니메이션은 인덱스 필요없을 수도?
                 pDynamicFloor->Set_FloorType(DYNAMIC_FLOOR_LAVA);     // JSON에서 읽어서 대입 임시로 하드코딩
                 pDynamicFloor->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
+               
 
                 pGameObject = pDynamicFloor;
             }

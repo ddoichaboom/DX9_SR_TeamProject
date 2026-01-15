@@ -42,7 +42,10 @@ HRESULT CDynamicWall::Ready_GameObject()
 
 _int CDynamicWall::Update_GameObject(const _float& fTimeDelta)
 {
-	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
+	if (IsDead()) 
+		return RET_DEAD;
+
+	_int iExit = CTerrain::Update_GameObject(fTimeDelta);
 
 	if (m_pAnimationCom)
 		m_pAnimationCom->Update_Component(fTimeDelta);

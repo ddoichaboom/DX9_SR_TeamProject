@@ -47,7 +47,7 @@ public:
     static CEditorCeiling* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale);
 
     // 전체 파라미터 지정 텍스처 포함 
-    static CEditorCeiling* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, _uint iType, _int iIdx);
+    static CEditorCeiling* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, _uint iType, _int iIdx, _int iRoomIndex);
 
 private:
     static vector<TextureSource> m_vTextureSource;

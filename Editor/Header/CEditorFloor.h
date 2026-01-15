@@ -8,7 +8,7 @@ namespace Engine
 
 class CEditorFloor : public CEditorObject
 {
-private:
+protected:
     explicit        CEditorFloor(LPDIRECT3DDEVICE9 pGraphicDev);
     virtual         ~CEditorFloor();
 
@@ -31,7 +31,7 @@ public:
     void            Set_TextureIdx(_int iIdx);
     _int            Get_TextureIdx() const { return m_iTextureIdx; }
 
-    void            Set_FloorType(_uint iType);
+    virtual void    Set_FloorType(_uint iType);
     _uint           Get_FloorType() const { return m_iFloorType; }
 
 protected:
@@ -47,7 +47,7 @@ public:
     static CEditorFloor* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale);
     
     // 전체 파라미터 지정 - 텍스처 포함 
-    static CEditorFloor* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, _uint iType, _int iIdx);
+    static CEditorFloor* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, _uint iType, _int iIdx, _int iRoomIndex);
 
 protected:
     virtual void    Free() override;

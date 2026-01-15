@@ -147,10 +147,19 @@ HRESULT CMainApp::Ready_ObjectPool()
 {
 	// 모든 맵 파일 경로 수집
 	vector<wstring> vecMapFiles;
-	vecMapFiles.push_back(L"../../Map/test.json");		// 현재 사용중인 파일
+	vecMapFiles.push_back(L"../../Map/test02.json");		// 현재 사용중인 파일
 	//vecMapFiles.push_back(L"../../Map/TutorialStage.json");
 	//vecMapFiles.push_back(L"../../Map/Stage01.json");
 	//vecMapFiles.push_back(L"../../Map/BossStage.json");
+
+	for (auto& wstrFile : vecMapFiles)
+	{
+		if (FAILED(CMapLoader::GetInstance()->Preload_AllMapData(wstrFile)))
+		{
+			MSG_BOX("Map Preload Failed");
+			return E_FAIL;
+		}
+	}
 
 	// 타입별 최대값 초기화
 	_uint iMaxFloor(0), iMaxDynamicFloor(0),iMaxCeiling(0), iMaxDynamicCeiling(0), iMaxWall(0), iMaxDynamicWall(0);

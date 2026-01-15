@@ -7,6 +7,7 @@
 #include "CEditorSpawnPoint.h"
 #include "CEditorFloor.h"
 #include "CEditorCeiling.h"
+#include "CEditorDynamicFloor.h"
 
 
 CInspector::CInspector()
@@ -133,25 +134,83 @@ void CInspector::Render_FloorTextureUI(CEditorFloor* pFloor)
     ImGui::Text("Floor Texture");
     ImGui::Separator();
 
-    // Floor Type 콤보 박스    (현재는 STATIC_FLOOR만 지원)
-    _uint iFloorType = pFloor->Get_FloorType();
-    const char* szFloorTypes[] = { "STATIC_FLOOR" };
-    _int iSelectedType = 0;     
+    CEditorDynamicFloor* pDynamicFloor = dynamic_cast<CEditorDynamicFloor*>(pFloor);
 
-    if (ImGui::Combo("Floor Type", &iSelectedType, szFloorTypes, IM_ARRAYSIZE(szFloorTypes)))
+    if (CEditorDynamicFloor* pDynamicFloor = dynamic_cast<CEditorDynamicFloor*>(pFloor))
     {
-        pFloor->Set_FloorType(iSelectedType);
-    }
+        ImGui::TextColored(ImVec4(1.0f, 0.5f, 0.0f, 1.0f), "Dynamic Floor (Animated)");
+        ImGui::Separator();
 
-    int iTextureIdx = pFloor->Get_TextureIdx();
-    if (ImGui::SliderInt("Texture Index", &iTextureIdx, 0, 7))
+        // Dynamic Floor Type 
+        _uint iFloorType = pDynamicFloor->Get_FloorType();
+        const char* szDynamicTypes[] = {
+            "DYNAMIC_FLOOR_WATER",
+            "DYNAMIC_FLOOR_LAVA",
+            "DYNAMIC_FLOOR_ACID"
+        };
+
+        _int iComboIdx = 0;
+        if (iFloorType == DYNAMIC_FLOOR_WATER)
+            iComboIdx = 0;
+        else if (iFloorType == DYNAMIC_FLOOR_LAVA)
+            iComboIdx = 1;
+        else if (iFloorType == DYNAMIC_FLOOR_ACID)
+            iComboIdx = 2;
+
+        if (ImGui::Combo("Dynamic Type", &iComboIdx, szDynamicTypes, IM_ARRAYSIZE(szDynamicTypes)))
+        {
+            // 콤보박스 인덱스를 enum 값으로 변환
+            _uint eNewType = DYNAMIC_FLOOR_WATER;
+            if (iComboIdx == 0) eNewType = DYNAMIC_FLOOR_WATER;
+            else if (iComboIdx == 1) eNewType = DYNAMIC_FLOOR_LAVA;
+            else if (iComboIdx == 2) eNewType = DYNAMIC_FLOOR_ACID;
+
+            pDynamicFloor->Set_FloorType(eNewType);
+        }
+
+        // 애니메이션 속도 슬라이더
+        _float fSpeed = pDynamicFloor->Get_AnimationSpeed();
+        if (ImGui::SliderFloat("Animation Speed", &fSpeed, 0.1f, 3.0f))
+        {
+            pDynamicFloor->Set_AnimationSpeed(fSpeed);
+        }
+
+        // 재생/일시정지 체크박스
+        bool bIsPlaying = pDynamicFloor->Is_Playing();
+        if (ImGui::Checkbox("Playing", &bIsPlaying))
+        {
+            if (bIsPlaying)
+                pDynamicFloor->Play_Animation();
+            else
+                pDynamicFloor->Pause_Animation();
+        }
+
+        ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),
+            "Dynamic floors have animated textures");
+
+    }
+    else
     {
-        pFloor->Set_TextureIdx(iTextureIdx);
-    }
+        // Floor Type 콤보 박스    (현재는 STATIC_FLOOR만 지원)
+        _uint iFloorType = pFloor->Get_FloorType();
+        const char* szFloorTypes[] = { "STATIC_FLOOR" };
+        _int iSelectedType = 0;
 
-    // 힌트 텍스트
-    ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),
-        "Texture Index: 0 ~ 7 (FLOORS.dds 8x1 atlas)");
+        if (ImGui::Combo("Floor Type", &iSelectedType, szFloorTypes, IM_ARRAYSIZE(szFloorTypes)))
+        {
+            pFloor->Set_FloorType(iSelectedType);
+        }
+
+        int iTextureIdx = pFloor->Get_TextureIdx();
+        if (ImGui::SliderInt("Texture Index", &iTextureIdx, 0, 7))
+        {
+            pFloor->Set_TextureIdx(iTextureIdx);
+        }
+
+        // 힌트 텍스트
+        ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),
+            "Texture Index: 0 ~ 7 (FLOORS.dds 8x1 atlas)");
+    }
 }
 
 void CInspector::Render_CeilingTextureUI(CEditorCeiling* pCeiling)
