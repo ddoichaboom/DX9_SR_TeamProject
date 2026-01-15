@@ -35,6 +35,7 @@ protected:
 	HRESULT				Add_Component() override;
 	//void				Set_OnTerrain();
 
+	virtual void		Move_ByCollision(COL_DIR& dir, _vec3 _diff);
 protected:
 	void				Free() override;
 	virtual void		ChangeState(_uint nextStateID) {};

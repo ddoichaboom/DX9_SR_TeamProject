@@ -58,6 +58,8 @@ class CWhiteMan :
 	public CMonster
 {
 protected:
+	enum { DEST_NONE, DEST_GROUND, DEST_WALL, DEST_END};
+protected:
 	explicit		CWhiteMan(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit		CWhiteMan(const CWhiteMan& rhs);
 	virtual			~CWhiteMan();
@@ -111,6 +113,11 @@ protected:
 	void			Slice();
 	void			Bomb();
 
+	void			FlyBack_Begin();
+	void			FlyBack();
+	void			Fly_BlockWall();
+	void			Fly_FallGournd();
+
 	void			OnAnimationChange(_float _animAspect);
 public:
 	void			Activate() override;
@@ -123,6 +130,10 @@ protected:
 protected:
 	_float			m_fAttackDelayTime = 3.0f;
 
+	_float			m_fFlyBackTime = 0.6f;
+	_float			m_fFlyBackSpeed= 2.0f;
+	_vec3			m_FlyDir = {};
+
 	CCollider*		m_pHeadCollider;
 	const _tchar*	m_szHeadColliderName = L"ColHead";
 	
@@ -133,6 +144,9 @@ protected:
 	static _uint ID_ELECT_DEAD;
 	static _uint ID_HEAD_DEAD;
 
+	static _uint ID_FLYBACK_BEGIN;
+	static _uint ID_FLYBACK_END_WALL;
+	static _uint ID_FLYBACK_END_GROUND;
 	bool m_bLaunchEnd = false;
 };
 

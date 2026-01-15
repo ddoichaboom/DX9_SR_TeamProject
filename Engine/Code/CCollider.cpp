@@ -102,6 +102,7 @@ _matrix  CCollider::GetWorldMatrix()
 
 void  CCollider::Collision(CollisionInfo info)
 {
+	if (!m_bCanCollision)  return;
 	if(m_BindFunc)	m_BindFunc(info);
 }
 

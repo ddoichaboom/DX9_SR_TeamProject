@@ -71,10 +71,12 @@ void CCollision::Collision_Base(CCollider* _aCol, CCollider* _bCol)
 	}
 }
 
+//지형 충돌은 캐릭터 CanCollision 체크 X . 무조건 충돌나도록 함
 void CCollision::Collision_Diff(CCollider* _obj, CCollider* _terrain)
 {
     if (!_obj || !_terrain) return;
-    if (!_obj->CanCollision() || !_terrain->CanCollision()) return;
+    //if (!_obj->CanCollision() || !_terrain->CanCollision()) return;
+    if (!_terrain->CanCollision()) return;
 
     _vec3 vDiff; 
     if (CheckCollision_Diff(_obj, _terrain, &vDiff))

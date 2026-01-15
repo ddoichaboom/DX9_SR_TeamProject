@@ -56,7 +56,7 @@ private:
 	void				Update_Jump(const _float& fTimeDelta);
 	void				Update_Dash(const _float& fTimeDelta);
 
-	void				Move_ByCollision(COL_DIR& dir, _vec3 _diff);
+	void				Move_ByCollision(COL_DIR& dir, _vec3 _diff) override;
 public:	
 	void				Intro_Func();
 	void				Fire_Func();

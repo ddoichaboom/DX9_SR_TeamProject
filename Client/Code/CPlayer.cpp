@@ -103,7 +103,8 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	if (m_bFall)
 	{
-		Gravity(fTimeDelta);
+		//TODO : 보스 스테이지 테스트용. 제거하기 
+		//Gravity(fTimeDelta);
 	}
 	else
 	{
@@ -714,7 +715,7 @@ void CPlayer::Kick_Func()
 
 void CPlayer::Slide_Func()
 {
-	CheckKickedMonster(TAG_KICK, m_fKickAttack);
+	CheckKickedMonster(TAG_SLIDE, m_fKickAttack);
 }
 
 void CPlayer::Shop_Func()
