@@ -107,6 +107,10 @@ protected:
 	void			Launch() override;
 	void			Dead();
 
+	void			Elect();
+	void			Slice();
+	void			Bomb();
+
 	void			OnAnimationChange(_float _animAspect);
 public:
 	void			Activate() override;
@@ -125,5 +129,10 @@ protected:
 	CCollider*		m_pBodyCollider;
 	const _tchar*	m_szBodyColliderName = L"ColBody";
 
+	static _uint ID_SLICE_DEAD;
+	static _uint ID_ELECT_DEAD;
+	static _uint ID_HEAD_DEAD;
+
+	bool m_bLaunchEnd = false;
 };
 

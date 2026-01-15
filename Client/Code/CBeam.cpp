@@ -154,6 +154,7 @@ void CBeam::SetShootDir(_vec3 _dir)
 	memcpy(&m_matRot.m[INFO_LOOK],	&vLook,		sizeof(_vec3));
 }
 
+
 void CBeam::SetScale(ROTATION _Axis, _float _scale)
 {
 	m_matScale.m[_Axis][_Axis] = _scale;

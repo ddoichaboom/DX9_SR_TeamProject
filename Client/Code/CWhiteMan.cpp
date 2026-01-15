@@ -8,6 +8,10 @@
 #include "CPoolMgr.h"
 
 
+_uint CWhiteMan::ID_SLICE_DEAD = CStateComponent::MakeStateID(MS_DEAD, SUB_NONE, SLICE);
+_uint CWhiteMan::ID_ELECT_DEAD = CStateComponent::MakeStateID(MS_DEAD, SUB_NONE, ELECT);
+_uint CWhiteMan::ID_HEAD_DEAD = CStateComponent::MakeStateID(MS_DEAD, SUB_NONE, HEAD);
+
 //-------------------------------------------------------------------------
 // Texture , Animation Data
 //-------------------------------------------------------------------------
@@ -20,18 +24,26 @@ vector<TextureSource> CWhiteMan::m_vTextureSource =
 	,{ MS_ATTACK,	L"../Bin/Resource/Texture/Monster/WhiteMan/white_Attack2_1024.dds" }
 	,{ MS_WALK,		L"../Bin/Resource/Texture/Monster/WhiteMan/white_Walk_1024.dds" }
 	,{ MS_HIT,		L"../Bin/Resource/Texture/Monster/WhiteMan/white_Hit_1024.dds" }
+	,{ MS_LAUNCH,	L"../Bin/Resource/Texture/Monster/WhiteMan/Launch_1024.dds" }
+	,{ ID_SLICE_DEAD, L"../Bin/Resource/Texture/Monster/WhiteMan/KatanaDead_1024.dds" }
+	,{ ID_ELECT_DEAD, L"../Bin/Resource/Texture/Monster/WhiteMan/Elect_End_1024.dds" }
+	,{ ID_HEAD_DEAD, L"../Bin/Resource/Texture/Monster/WhiteMan/headDead_512.dds" }
 	,{ MS_DEAD,		L"../Bin/Resource/Texture/Monster/WhiteMan/white_DeadBack_512.dds" }
 };
 //Loop 인 애니메이션은 Ratio 세팅 금지(디폴트로 두기) . Ratio먹이면 다음 애니메이션이 안나옴 
 vector<AnimationSource> CWhiteMan::m_vAnimSource =
 {
-	{  MS_IDLE ,1,5,5, true, 0.13f}					//IDLE
+	{  MS_IDLE ,1,5,5, true, 0.13f}						//IDLE
 	,{ CStateComponent::MakeStateID(MS_ATTACK_IDLE, SUB_BEGIN),1,4,3, false, 0.08f, 1.f}				//Aiming
-	,{ MS_ATTACK_IDLE,1,3,2, true, 0.11f}			//Attack_Idle
-	,{ MS_ATTACK,1,4,3, false, 0.08f}				//Attack
-	,{ MS_WALK,1,6,5, true, 0.11f}					//Walk
-	,{ MS_HIT,1,2,2, false, 0.09f, 1.f, true}		//Hit
-	,{ MS_DEAD,6,3,2, false, 0.06f, 1.f, true}			//DeadBack
+	,{ MS_ATTACK_IDLE,1,3,2, true, 0.11f}				//Attack_Idle
+	,{ MS_ATTACK,1,4,3, false, 0.08f}					//Attack
+	,{ MS_WALK,1,6,5, true, 0.11f}						//Walk
+	,{ MS_HIT,1,2,2, false, 0.09f, 1.f, true}			//Hit
+	,{ MS_LAUNCH,1,2,1, false, 0.06f, 1.f, true}		//Launch
+	,{ ID_SLICE_DEAD ,3,4,4, false, 0.11f, 1.f, true}	//Slice Dead
+	,{ ID_ELECT_DEAD ,3,3,2, false, 0.06f, 1.f, true}	//Elect Dead
+	,{ ID_HEAD_DEAD,5,3,1, false, 0.10f, 1.f, true}		//Head Dead
+	,{ MS_DEAD,6,3,2, false, 0.06f, 1.f, true}			//Dead
 };
 
 CWhiteMan::CWhiteMan(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -74,6 +86,18 @@ void CWhiteMan::CreateStateData()
 	//Launch State 
 	State = new CState<CWhiteMan>(nullptr, &CWhiteMan::Launch, nullptr);
 	Mgr->AddState(MS_LAUNCH, State);
+
+	//Dead State
+	State = new CState<CWhiteMan>(nullptr, &CWhiteMan::Slice, nullptr);
+	Mgr->AddState(ID_SLICE_DEAD, State);
+
+	//Dead State
+	State = new CState<CWhiteMan>(nullptr, &CWhiteMan::Elect, nullptr);
+	Mgr->AddState(ID_ELECT_DEAD, State);
+
+	//Dead State
+	State = new CState<CWhiteMan>(nullptr, &CWhiteMan::Dead, nullptr);
+	Mgr->AddState(ID_HEAD_DEAD, State);
 
 	//Dead State
 	State = new CState<CWhiteMan>(nullptr, &CWhiteMan::Dead, nullptr);
@@ -210,7 +234,6 @@ void CWhiteMan::ChangeState(_uint nextStateID)
 }
 
 
-//TODO : 헤드샷 죽음 상태 추가해서 변경하기 
 void CWhiteMan::OnHeadCollision(CollisionInfo info)
 {
 	if (info.eTag == TAG_KICK)
@@ -219,10 +242,10 @@ void CWhiteMan::OnHeadCollision(CollisionInfo info)
 	m_fHP -= info.fDamage;
 	if (m_fHP <= 0.f)
 	{
-		//TEST
-		//TODO : 애니메이션에 텍스처별 비율 조정 구현하기 
-		m_pTransformCom->m_vScale.x = m_pTransformCom->m_vScale.y;
-		ChangeState(MS_DEAD);
+		if (m_pHeadCollider) m_pHeadCollider->OffCollision();
+		if (m_pBodyCollider) m_pBodyCollider->OffCollision();
+		if (info.eTag == TAG_KATANA) ChangeState(ID_SLICE_DEAD);
+		else ChangeState(ID_HEAD_DEAD);
 	}
 	else ChangeState(MS_HIT);
 }
@@ -232,10 +255,10 @@ void CWhiteMan::OnBodyCollision(CollisionInfo info)
 	m_fHP -= info.fDamage;
 	if (m_fHP <= 0.f)
 	{
-		m_pTransformCom->m_vScale.x = m_pTransformCom->m_vScale.y;
 		if (m_pHeadCollider) m_pHeadCollider->OffCollision();
 		if (m_pBodyCollider) m_pBodyCollider->OffCollision();
-		ChangeState(MS_DEAD);
+		if (info.eTag == TAG_KATANA) ChangeState(ID_SLICE_DEAD);
+		else ChangeState(MS_DEAD);
 	}
 	else if (info.eTag == TAG_KICK)
 	{
@@ -258,7 +281,7 @@ void CWhiteMan::Begin_Attack()
 	_uint prevState = m_pStateCom->GetPrevStateID();
 	if (prevState == MS_HIT || prevState == MS_LAUNCH)
 	{
-		m_fTime = m_fAttackDelayTime * 0.7f;
+		m_fTime = m_fAttackDelayTime * 0.9f;
 	}
 	else m_fTime = m_fAttackDelayTime;
 }
@@ -290,7 +313,8 @@ void CWhiteMan::Shoot()
 	//TODO : 수치 테스트 후 상수 + 함수로 수정하기 
 	myPos.y += 6.f;
 	_vec3 otherPos = { 0.f,0.f,0.f };
-	if (GetPlayerTransform()) otherPos = *GetPlayerTransform()->Get_Info(INFO_POS);
+	//if (GetPlayerTransform()) otherPos = *GetPlayerTransform()->Get_Info(INFO_POS);
+	if (GetCameraTransform()) otherPos = *GetCameraTransform()->Get_Info(INFO_POS);
 	otherPos.y -= 1.0f;
 	pBullet->SetPos(myPos);
 
@@ -321,8 +345,25 @@ void CWhiteMan::Launch()
 
 	if (m_fTime >= m_fLaunchTime)
 	{
-		ChangeState(MS_ATTACK_IDLE);
+		if (m_bLaunchEnd)
+		{
+			if (m_pAnimationCom->IsEnd())
+			{
+				ChangeState(MS_ATTACK_IDLE);
+				m_pAnimationCom->PlayNextAnim();
+				m_bLaunchEnd = false;
+			}
+		}
+		else
+		{
+			m_pAnimationCom->Play();
+			m_bLaunchEnd = true;
+		}
 		return;
+	}
+	else
+	{
+		m_pAnimationCom->Pause();
 	}
 	// 플레이어가 몬스터를 바라보는 방향으로 밀기 
 	//_vec3 dir = *m_pTransformCom->Get_Info(INFO_POS) - *playerTransform->Get_Info(INFO_POS);
@@ -341,6 +382,19 @@ void CWhiteMan::Dead()
 	{
 		SetDead();
 	}
+}
+void CWhiteMan::Elect()
+{
+}
+void CWhiteMan::Slice()
+{
+	if (m_pAnimationCom->IsEnd())
+	{
+		SetDead();
+	}
+}
+void CWhiteMan::Bomb()
+{
 }
 // _animAspect = cutSize.x / cutSize.y 한 종횡비 
 // 애니메이션마다 크기가 다를경우 오브젝트의 scale을 조정하기위함

@@ -205,6 +205,7 @@ void CPlayer::Free()
 
 void CPlayer::OnCollision(CollisionInfo info)
 {
+	//방향값이 들어왔다면 지형 충돌
 	if (info.eDir != CDIR_NONE)
 	{
 		Move_ByCollision(info.eDir, info.vDiff);
@@ -217,8 +218,8 @@ void CPlayer::CheckPickedMonster()
 	list<pair<_float, CCollider*>> pickedList;
 
 	_float fAttack = m_mapWeapon[m_eWeaponState]->Get_Power();
-
-	CollisionInfo info = { NULL, {0,0,0}, fAttack };
+	//TODO : 몬스터 카타나 애니메이션 테스트로 일시적 TAG 삽입. 제거하기  
+	CollisionInfo info = { NULL, {0,0,0}, fAttack, TAG_KATANA};
 
 	CLayer* pLayer = CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer");
 	if (!pLayer) return;

@@ -78,6 +78,7 @@ protected:
 	_vec3			m_vEndDir;
 	_float			m_fBeamTime = 1.f;
 	bool			m_bBeamCollision;
+	_float			m_vBeamPosOffset = 4.f;
 
 
 

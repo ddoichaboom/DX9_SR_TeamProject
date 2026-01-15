@@ -169,10 +169,11 @@ void CFlyMon::OnBodyCollision(CollisionInfo info)
 void CFlyMon::TracePlayer(const _float& fTimeDelta)
 {
 	_vec3 dir;
-	_vec3 playerPos = *GetPlayerTransform()->Get_Info(INFO_POS);
+	//_vec3 playerPos = *GetPlayerTransform()->Get_Info(INFO_POS);
+	_vec3 cameraPos = *GetCameraTransform()->Get_Info(INFO_POS);
 	_vec3 myPos = *m_pTransformCom->Get_Info(INFO_POS);
 
-	dir = playerPos - myPos;
+	dir = cameraPos - myPos;
 	D3DXVec3Normalize(&dir, &dir);
 	m_pTransformCom->Move_Pos(&dir, fTimeDelta, m_fTraceSpeed);
 }
@@ -186,9 +187,10 @@ void CFlyMon::Idle()
 void CFlyMon::Attack_Idle()
 {
 	_vec3 vDist;
-	_vec3 playerPos = *GetPlayerTransform()->Get_Info(INFO_POS);
+	//_vec3 playerPos = *GetPlayerTransform()->Get_Info(INFO_POS);
+	_vec3 cameraPos = *GetCameraTransform()->Get_Info(INFO_POS);
 	_vec3 myPos = *m_pTransformCom->Get_Info(INFO_POS);
-	vDist = playerPos - myPos;
+	vDist = cameraPos - myPos;
 	if (D3DXVec3Length(&vDist) <= m_fAttackDist)
 	{
 		ChangeState(MS_ATTACK);
@@ -206,8 +208,9 @@ void CFlyMon::Attack()
 
 void CFlyMon::Launch()
 {
-	CTransform* playerTransform = GetPlayerTransform();
-	if (!playerTransform) return;
+	//CTransform* playerTransform = GetPlayerTransform();
+	CTransform* cameraTransform = GetCameraTransform();
+	if (!cameraTransform) return;
 
 	if (m_fTime >= m_fLaunchTime)
 	{
@@ -216,7 +219,7 @@ void CFlyMon::Launch()
 		return;
 	}
 	// 플레이어가 몬스터를 바라보는 방향으로 밀기 
-	_vec3 dir = *m_pTransformCom->Get_Info(INFO_POS) - *playerTransform->Get_Info(INFO_POS);
+	_vec3 dir = *m_pTransformCom->Get_Info(INFO_POS) - *cameraTransform->Get_Info(INFO_POS);
 	dir.y = 0.f;
 	D3DXVec3Normalize(&dir, &dir);
 

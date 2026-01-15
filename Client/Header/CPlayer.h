@@ -94,7 +94,7 @@ private:
 
 	void				Update_Jump(const _float& fTimeDelta);
 	void				Update_Dash(const _float& fTimeDelta);
-	//TODO : ¹æ½ÂÈñ Ãß°¡ 
+
 	void				Move_ByCollision(COL_DIR& dir, _vec3 _diff);
 public:
 	void				Intro();

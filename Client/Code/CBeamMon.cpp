@@ -96,6 +96,8 @@ HRESULT CBeamMon::Ready_GameObject()
 
 	m_pBeam = CBeam::Create(m_pGraphicDev);
 	if (!m_pBeam) return E_FAIL;
+	m_pBeam->SetScale(ROT_Y, 50.f);
+	m_pBeam->SetPrevTranslation({ 0,-m_pTransformCom->m_vScale.y * 0.5f,0 });
 
 	m_pBodyCollider = m_pCollisionCom->CreateCollider(this, m_szBodyColliderName);
 	if (!m_pBodyCollider) return E_FAIL;
@@ -236,6 +238,7 @@ void CBeamMon::Dead()
 void CBeamMon::ResetBeam()
 {
 	_vec3 pos = *m_pTransformCom->Get_Info(INFO_POS);
+	pos.y += m_vBeamPosOffset;
 	m_pBeam->SetPos(pos);
 	m_vStartDir = { 0,-1,0 };
 

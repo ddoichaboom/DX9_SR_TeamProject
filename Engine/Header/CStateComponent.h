@@ -18,6 +18,10 @@ public:
 	{
 		return ((_uint)_sub << 8) | (_uint)_state;
 	}
+	static _uint MakeStateID(_uint _state, SUBSTATE _sub, _uint _type)
+	{
+		return (_uint)_type << 16 | ((_uint)_sub << 8) | (_uint)_state;
+	}
 public:
 	_int Update_Component(const _float& fTimeDelta) override;
 	static CStateComponent* Create(LPDIRECT3DDEVICE9 pGraphicDev);

@@ -30,6 +30,8 @@
 #include "CDebugObject.h"
 
 CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev), m_pLoading(nullptr)
+, m_BaseResult(E_FAIL), m_TextureResult(E_FAIL), m_ObjectPoolResult(E_FAIL)
+, m_ReadyEnvResult(E_FAIL), m_ReadyGameResult(E_FAIL)
 {
 }
 
@@ -331,7 +333,7 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
         return E_FAIL;
 
 
-    pGameObject = CDebugObject::Create(m_pGraphicDev, _vec3(80.f, 45.f, 80.f), _vec3(25.f, 6.f, 45.f));
+  /*  pGameObject = CDebugObject::Create(m_pGraphicDev, _vec3(80.f, 45.f, 80.f), _vec3(25.f, 6.f, 45.f));
 
     if (nullptr == pGameObject)
         return E_FAIL;
@@ -339,7 +341,7 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
     if (FAILED(pLayer->Add_GameObject(pGameObject)))
         return E_FAIL;
 
-   
+   */
     pGameObject = CDebugObject::Create(m_pGraphicDev, _vec3(100.f, 8.f, 80.f), _vec3(4.f, 16.f, 80.f));
 
     if (nullptr == pGameObject)
@@ -347,14 +349,14 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
 
     if (FAILED(pLayer->Add_GameObject(pGameObject)))
         return E_FAIL;
-       
+       /*
     pGameObject = CDebugObject::Create(m_pGraphicDev, _vec3(100.f, 10.f, 200.f), _vec3(40.f, 6.f, 30.f));
 
     if (nullptr == pGameObject)
         return E_FAIL;
 
     if (FAILED(pLayer->Add_GameObject(pGameObject)))
-        return E_FAIL;
+        return E_FAIL;*/
 
     m_mapLayer.insert({ pLayerTag, pLayer });
 

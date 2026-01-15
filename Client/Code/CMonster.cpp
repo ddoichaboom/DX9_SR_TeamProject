@@ -8,7 +8,7 @@
 CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CCharacter(pGraphicDev), m_pAnimationCom(nullptr)
 	,m_fAttackableDist(100.f), m_vDir({0,0,0}), m_fSpeed(10.f)
-	, m_pPlayerTransformCom(nullptr), m_pPlayerCollisionCom(nullptr)
+	, m_pPlayerTransformCom(nullptr), m_pPlayerCollisionCom(nullptr), m_pCameraTransformCom(nullptr)
 {
 	m_eOBJ_ID = OBJ_MONSTER;
 	m_iID = Make_ID();	
@@ -17,7 +17,7 @@ CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev)
 CMonster::CMonster(const CMonster& rhs)
 	:CCharacter(rhs), m_pAnimationCom(nullptr), m_fAttackableDist(100.f)
 	, m_vDir(rhs.m_vDir), m_fSpeed(rhs.m_fSpeed)
-	, m_pPlayerTransformCom(nullptr), m_pPlayerCollisionCom(nullptr)
+	, m_pPlayerTransformCom(nullptr), m_pPlayerCollisionCom(nullptr), m_pCameraTransformCom(nullptr)
 {
 	m_eOBJ_ID = OBJ_MONSTER;
 	m_iID = Make_ID();
@@ -122,13 +122,24 @@ void CMonster::Free()
 
 HRESULT CMonster::GetDistVecToPlayer(_vec3& pOutDist)
 {
-	if (GetPlayerTransform() == nullptr) return E_FAIL;
+	if (GetCameraTransform() == nullptr) return E_FAIL;
 
- 	_vec3* playerPos = GetPlayerTransform()->Get_Info(INFO_POS);
+ 	//_vec3* playerPos = GetPlayerTransform()->Get_Info(INFO_POS);
+	_vec3* cameraPos = GetCameraTransform()->Get_Info(INFO_POS);
 	_vec3* myPos = m_pTransformCom->Get_Info(INFO_POS);
 
-	pOutDist = *playerPos - *myPos;
+	pOutDist = *cameraPos - *myPos;
 	return S_OK;
+}
+
+CTransform* CMonster::GetCameraTransform()
+{
+	if (!m_pCameraTransformCom)
+	{
+		m_pCameraTransformCom =
+			static_cast<CTransform*>(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"Environment_Layer", OBJ_CAM, L"Com_Transform"));
+	}
+	return m_pCameraTransformCom;
 }
 
 Engine::CTransform* CMonster::GetPlayerTransform()

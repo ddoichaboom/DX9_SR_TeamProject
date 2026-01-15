@@ -48,6 +48,7 @@ protected:
 	Engine::CTexture* m_pTextureCom;
 
 	_vec3			m_vPos;
+	_float			m_fLength;
 
 	_matrix			m_matScale;
 	_matrix			m_matTrans;
