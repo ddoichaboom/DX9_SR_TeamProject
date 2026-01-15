@@ -25,8 +25,8 @@ private:
 
 private:
     LPDIRECT3DDEVICE9		m_pGraphicDev;
-    CGraphicDev* m_pDeviceClass;
-    CManagement* m_pManagementClass;
+    CGraphicDev*            m_pDeviceClass;
+    CManagement*            m_pManagementClass;
 
 public:
     static CMainApp* Create();

@@ -18,7 +18,9 @@ protected:
 
 public:
 	void						Set_TextureIdx(_int iIdx) { m_iTextureIdx = iIdx; }
-	TERRAIN_TYPE				Get_TerrainType() const { return m_eTerrainType; }
+
+	COLLIDER_TAG				Get_ColliderTag() const { return m_eColliderTag; }
+	void						Set_ColliderTag(COLLIDER_TAG eColliderTag) { m_eColliderTag = eColliderTag; }
 
 	virtual void				SetPos(_vec3 _pos) override;
 	void						SetAngle(_vec3 _rot);
@@ -29,25 +31,27 @@ public:
 
 	// ========== GameObject 인터페이스 (자식에서 구현) ==========
 	virtual HRESULT				Ready_GameObject() PURE;
-	virtual _int				Update_GameObject(const _float& fTimeDelta) PURE;
+	virtual _int				Update_GameObject(const _float& fTimeDelta);
 	virtual void				LateUpdate_GameObject(const _float& fTimeDelta) PURE;
 	virtual void				Render_GameObject() PURE;
+	virtual HRESULT				Add_Component();
 
 protected:
 	Engine::CRcTex*				m_pBufferCom;
 	Engine::CTransform*			m_pTransformCom;
 	Engine::CTexture*			m_pTextureCom;
-	Engine::CAnimation*			m_pAnimationCom;
-	Engine::TERRAIN_TYPE		m_eTerrainType;
 
 	_bool						m_bIsAnimated;
 	_bool						m_bIsBlocked;
 	_int						m_iTextureIdx;
+	COLLIDER_TAG                m_eColliderTag;
+
 
 protected:
 	// 공통 Material 설정 (자식에서 색상 커스터마이징 가능)
 	virtual HRESULT Ready_Material(const D3DXCOLOR& diffuse = D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
 
 	virtual void Free() override;
+
 
 };

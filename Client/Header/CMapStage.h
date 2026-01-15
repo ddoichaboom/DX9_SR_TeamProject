@@ -33,14 +33,24 @@ protected:
     HRESULT     Ready_TerrainTextureProto();
     HRESULT     Ready_UITextureProto();
 
-protected:
-    CLoading* m_pLoading;
+    void        Update_RoomLoading(const _float& fTimeDelta);
+    void        Change_Room(_int iNewRoomIndex);
 
-    HRESULT	m_BaseResult;
-    HRESULT	m_TextureResult;
-    HRESULT	m_ObjectPoolResult;
-    HRESULT	m_ReadyEnvResult;
-    HRESULT	m_ReadyGameResult;
+protected:
+    CLayer*     m_pEnvironment_Layer;
+    CLayer*     m_pGameLogic_Layer;
+
+    wstring     m_wstrCurrentMapFile;       // 현재 맵 파일 경로 
+    _int        m_iCurrentRoomIndex;        // 현재 방 번호
+    set<_int>   m_setLoadedRooms;           // 로드된 방 번호 집합 (중복 X) 
+
+    CLoading*   m_pLoading;
+
+    HRESULT	    m_BaseResult;
+    HRESULT	    m_TextureResult;
+    HRESULT	    m_ObjectPoolResult;
+    HRESULT	    m_ReadyEnvResult;
+    HRESULT	    m_ReadyGameResult;
 
 private:
     virtual void Free();

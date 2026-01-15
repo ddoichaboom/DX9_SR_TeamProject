@@ -8,7 +8,7 @@ namespace Engine
 	class CTexture;
 }
 
-class CEditorObject : public Engine::CGameObject
+class CEditorObject : public CGameObject
 {
 protected:
 	explicit        CEditorObject(LPDIRECT3DDEVICE9 pGraphicDev);

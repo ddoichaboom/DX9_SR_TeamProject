@@ -13,6 +13,10 @@ protected:
 	virtual ~CGameObject();
 
 public:
+	void Set_RoomIndex(_int iRoomIndex) { m_iRoomIndex = iRoomIndex; }
+	_int Get_RoomIndex() const { return m_iRoomIndex; }
+
+public:
 	virtual	HRESULT						Ready_GameObject();
 	virtual	_int						Update_GameObject(const _float& fTimeDelta);
 	virtual	void						LateUpdate_GameObject(const _float& fTimeDelta);
@@ -67,6 +71,9 @@ protected:
 	OBJ_ID								m_eOBJ_ID;
 	_uint								m_iID;
 	static _uint						m_iCount;
+
+	// 몇번 방에 속하는 객체인지 파악하기 위한 정보 
+	_int								m_iRoomIndex;		// -1은 전역 오브젝트
 };
 
 END

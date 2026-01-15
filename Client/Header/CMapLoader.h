@@ -52,10 +52,36 @@ public:
 		return vector<_vec3>();  // 빈 벡터 반환
 	}
 
+public:
+	// 모든 맵 데이터 사전 파싱 및 캐싱
+	HRESULT Preload_AllMapData(const wstring& wstrPath);
+
+	// 특정 방만 로드 (레이어별 분기 처리)
+	HRESULT Load_Room(const wstring& wstrPath,
+						_int iRoomIndex,
+						CLayer* pLayer,
+						LPDIRECT3DDEVICE9 pGraphicDev,
+						const wstring& pLayerTag);
+
+	// 특정 방 언로드
+	HRESULT Unload_Room(const wstring& wstrPath,
+						_int iRoomIndex,
+						CLayer* pLayer);
+
+	// 최대 오브젝트 수 계산 
+	_uint Get_MaxObjectCount(const wstring& wstrPath,
+							const string& objectType);
+
 private:
 	// JSON에서 GameObject 생성
 	CGameObject* Create_GameObject_FromJSON(const json& jObj,
 											LPDIRECT3DDEVICE9 pGraphicDev);
+	// ObjectData  생성
+	ObjectData Parse_ObjectData_FromJSON(const json& jObj);
+
+	// 풀에서 오브젝트 획득 및 설정
+	CGameObject* Get_GameObject_FromPool(const ObjectData& objData,
+										LPDIRECT3DDEVICE9 pGraphicDev);
 
 	// wstring -> string 변환
 	string WStringToString(const wstring& wstr);
@@ -65,16 +91,19 @@ private:
 
 private:
 	static const _uint FILE_VERSION = 3;  
-
 	_vec3								m_vPlayerSpawnPos;
 	_vec3								m_vTerrainPos;
-	map<TERRAIN_TYPE, vector<_vec3>>	m_mapTerrainPos;
-	map<string, vector<_vec3>>			m_mapMonsterSpawnPos;
 	_uint								m_iFloorCount;
 	_uint								m_iCeilingCount;
 	_uint								m_iWallCount;
 	_uint								m_iObstacleCount;
+	map<string, vector<_vec3>>			m_mapMonsterSpawnPos;
 
+	// 동적 방 로딩 시스템 
+	// Key 1 : 맵 파일 이름 
+	// Key 2 : 방 번호 (0, 1, 2 ... )
+	// Value : 해당 방의 오브젝트 데이터
+	map<string, map<int, RoomData>>		m_mapAllRooms;
 private:
 	virtual void Free() override;
 };

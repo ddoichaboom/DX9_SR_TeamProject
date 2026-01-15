@@ -1,6 +1,11 @@
 #pragma once
 #include "CEditorObject.h"
 
+namespace Engine
+{
+    class CTexture;
+}
+
 enum WALL_DIR
 {
     WALL_XY_FRONT,
@@ -17,6 +22,12 @@ private:
     virtual         ~CEditorWall();
 
 public:
+    static vector<TextureSource>& GetTextureSources()
+    {
+        return m_vTextureSource;
+    }
+
+public:
     virtual HRESULT Ready_GameObject() override;
     virtual _int    Update_GameObject(const _float& fTimeDelta) override;
     virtual void    LateUpdate_GameObject(const _float& fTimeDelta) override;
@@ -29,6 +40,18 @@ public:
 
 private:
     HRESULT         Add_Component();
+
+public:
+    void            Set_TextureIdx(_int iIdx);
+    _int            Get_TextureIdx() const { return m_iTextureIdx; }
+
+    void            Set_WallType(_uint iType);
+    _uint           Get_WallType() const { return m_iWallType; }
+
+protected:
+    CTexture*       m_pTextureCom;
+    _int            m_iTextureIdx;      // 0 ~ 2 (아틀라스 인덱스)
+    _uint           m_iWallType;       // enum 값 
 
 private:
     WALL_DIR        m_eWallDir;     // 벽 방향
@@ -43,7 +66,12 @@ public:
     // 전체 파라미터 지정 (맵 로드용)
     static CEditorWall* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, WALL_DIR eDir);
 
+    static CEditorWall* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, WALL_DIR eDir, _uint iType, _int iIdx);
+
 private:
+    static vector<TextureSource> m_vTextureSource;
+
+protected:
     virtual void    Free() override;
 };
 

@@ -14,6 +14,7 @@
 #include "CMousePicker.h"
 #include "CSelectionMgr.h"
 #include "CHierarchy.h"
+#include "CEditorDynamicFloor.h"
 
 CEditorScene::CEditorScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
@@ -236,8 +237,6 @@ void CEditorScene::Handle_Duplicate()
     if (Engine::CDInputMgr::GetInstance()->Key_Down(DIK_D) &&
         Engine::CDInputMgr::GetInstance()->Key_Pressing(DIK_LCONTROL))
     {
-
-
         list<CEditorObject*>& SelectedList = m_pSelectionMgr->Get_AllSelections();
 
         if (!SelectedList.empty())
@@ -255,20 +254,41 @@ void CEditorScene::Handle_Duplicate()
                 _vec3 vScale = pSelectedObj->Get_Scale();
 
                 CEditorObject* pNewObj = nullptr;
+                _uint iType(0);
+                _int iIdx(0);
+                _int iRoomIndex(0);
 
                 // 타입별 복제
-                if (dynamic_cast<CEditorFloor*>(pSelectedObj))
+                if (CEditorDynamicFloor* pDynamicFloor = dynamic_cast<CEditorDynamicFloor*>(pSelectedObj))
                 {
+                    iType = pDynamicFloor->Get_FloorType();
+                    iRoomIndex = pDynamicFloor->Get_RoomIndex();
+
                     vPos.x += 16.0f;
-                    pNewObj = CEditorFloor::Create(m_pGraphicDev, vPos, vRot, vScale);
+                    pNewObj = CEditorDynamicFloor::Create(m_pGraphicDev, vPos, vRot, vScale, iType, iRoomIndex);
                 }
-                else if (dynamic_cast<CEditorCeiling*>(pSelectedObj))
+                else if (CEditorFloor* pFloor = dynamic_cast<CEditorFloor*>(pSelectedObj))
                 {
+                    iType       =  pFloor->Get_FloorType();
+                    iIdx        = pFloor->Get_TextureIdx();
+                    iRoomIndex  = pFloor->Get_RoomIndex();
+
                     vPos.x += 16.0f;
-                    pNewObj = CEditorCeiling::Create(m_pGraphicDev, vPos, vRot, vScale);
+                    pNewObj = CEditorFloor::Create(m_pGraphicDev, vPos, vRot, vScale, iType, iIdx, iRoomIndex);
+                }
+                
+                else if (CEditorCeiling* pCeiling = dynamic_cast<CEditorCeiling*>(pSelectedObj))
+                {
+                    iType   = pCeiling->Get_CeilingType();
+                    iIdx    = pCeiling->Get_TextureIdx();
+                    iRoomIndex = pCeiling->Get_RoomIndex();
+
+                    vPos.x += 16.0f;
+                    pNewObj = CEditorCeiling::Create(m_pGraphicDev, vPos, vRot, vScale, iType, iIdx, iRoomIndex);
                 }
                 else if (dynamic_cast<CEditorCube*>(pSelectedObj))
                 {
+                    // TODO 자판기 구현 완료시 구현
                     vPos.x += 8.f;
                     pNewObj = CEditorCube::Create(m_pGraphicDev, vPos, vRot, vScale);
                 }
@@ -298,11 +318,15 @@ void CEditorScene::Handle_Duplicate()
                         vPos.x += 32.f;
                     }
 
-                    pNewObj = CEditorWall::Create(m_pGraphicDev, vPos, vRot, vScale, eDir);
+                    iType = pWall->Get_WallType();
+                    iIdx = pWall->Get_TextureIdx();
+
+                    pNewObj = CEditorWall::Create(m_pGraphicDev, vPos, vRot, vScale, eDir, iType, iIdx);
                 }
                 else if (CEditorSpawnPoint* pSpawn = dynamic_cast<CEditorSpawnPoint*>(pSelectedObj))
                 {
                     SPAWN_TYPE eType = pSpawn->Get_SpawnType();
+                    iRoomIndex = pSpawn->Get_RoomIndex();
 
                     // Player 타입은 복제 대신 위치 이동 옵션 제공
                     if (eType == SPAWN_PLAYER)
@@ -331,7 +355,7 @@ void CEditorScene::Handle_Duplicate()
                     // Monster 타입만 복제 허용
                     const string& strMonsterKey = pSpawn->Get_MonsterKey();
                     pNewObj = CEditorSpawnPoint::Create(m_pGraphicDev, vPos, vRot, vScale,
-                        eType, strMonsterKey);
+                        eType, strMonsterKey, iRoomIndex);
                 }
 
 
@@ -418,9 +442,10 @@ void CEditorScene::Handle_Left_Click()
         _vec3 vRayPos = m_pMousePicker->Get_RayPos();
         _vec3 vRayDir = m_pMousePicker->Get_RayDir();
 
-        if (eMode == MODE_PLACE_FLOOR || eMode == MODE_PLACE_CEILING ||
-            eMode == MODE_PLACE_CUBE || eMode == MODE_PLACE_WALL ||
-            eMode == MODE_PLACE_SPAWN_PLAYER || eMode == MODE_PLACE_SPAWN_MONSTER)
+        if (eMode == MODE_PLACE_FLOOR || eMode == MODE_PLACE_DYNAMIC_FLOOR || 
+            eMode == MODE_PLACE_CEILING || eMode == MODE_PLACE_CUBE || 
+            eMode == MODE_PLACE_WALL || eMode == MODE_PLACE_SPAWN_PLAYER || 
+            eMode == MODE_PLACE_SPAWN_MONSTER)
         {
 
             // Ray - Plane Intersection (Y = 0 평면)
@@ -429,6 +454,8 @@ void CEditorScene::Handle_Left_Click()
             // 오브젝트 배치
             if (eMode == MODE_PLACE_FLOOR)
                 Place_Floor(vPos);
+            else if (eMode == MODE_PLACE_DYNAMIC_FLOOR)
+                Place_Dynamic_Floor(vPos);
             else if (eMode == MODE_PLACE_CEILING)
                 Place_Ceiling(vPos);
             else if (eMode == MODE_PLACE_CUBE)
@@ -534,6 +561,17 @@ void CEditorScene::Place_Floor(const _vec3& vPos)
     {
         Add_Object(pFloor);
         Safe_Release(pFloor);
+    }
+}
+
+void CEditorScene::Place_Dynamic_Floor(const _vec3& vPos)
+{
+    CEditorDynamicFloor* pDynamicFloor = CEditorDynamicFloor::Create(m_pGraphicDev, vPos);
+
+    if (pDynamicFloor)
+    {
+        Add_Object(pDynamicFloor);
+        Safe_Release(pDynamicFloor);
     }
 }
 

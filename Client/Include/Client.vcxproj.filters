@@ -109,6 +109,15 @@
     <Filter Include="02. GameObject\99. Environment\01. Object\03. Obstacle">
       <UniqueIdentifier>{201c3123-c49d-4acf-adf8-a738fccb6dfc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\99. Environment\00. Terrain\02. Wall\DynamicWall">
+      <UniqueIdentifier>{74504ce0-cc7b-4945-b89a-008004b053ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Environment\00. Terrain\01. Ceiling\DynamicCeiling">
+      <UniqueIdentifier>{e863c7dc-ade1-42d1-9749-f5c8b5b2f1de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Environment\00. Terrain\00. Floor\DynamicFloor">
+      <UniqueIdentifier>{c8e19274-b2eb-4537-a138-2ab9653998a7}</UniqueIdentifier>
+    </Filter>
     <Filter Include="02. GameObject\999.DebugObject">
       <UniqueIdentifier>{bd545b88-97bc-4240-9694-3bc3967717b1}</UniqueIdentifier>
     </Filter>
@@ -234,6 +243,15 @@
     <ClInclude Include="..\Header\CTerrain.h">
       <Filter>02. GameObject\99. Environment\00. Terrain</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CDynamicFloor.h">
+      <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\DynamicFloor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDynamicCeiling.h">
+      <Filter>02. GameObject\99. Environment\00. Terrain\01. Ceiling\DynamicCeiling</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDynamicWall.h">
+      <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall\DynamicWall</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\CDebugObject.h">
       <Filter>02. GameObject\999.DebugObject</Filter>
     </ClInclude>
@@ -341,6 +359,15 @@
     <ClCompile Include="..\Code\CTerrain.cpp">
       <Filter>02. GameObject\99. Environment\00. Terrain</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\CDynamicFloor.cpp">
+      <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\DynamicFloor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDynamicCeiling.cpp">
+      <Filter>02. GameObject\99. Environment\00. Terrain\01. Ceiling\DynamicCeiling</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDynamicWall.cpp">
+      <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall\DynamicWall</Filter>
+	</ClCompile>
     <ClCompile Include="..\Code\CDebugObject.cpp">
       <Filter>02. GameObject\999.DebugObject</Filter>
     </ClCompile>

@@ -18,6 +18,7 @@
 #include "CEditorObject.h"
 #include "CEditorCube.h"
 #include "CEditorFloor.h"
+#include "CEditorDynamicFloor.h"
 #include "CEditorCeiling.h"
 #include "CEditorSpawnPoint.h"
 #include "CEditorWall.h"
@@ -74,6 +75,38 @@ void CFileIO::SaveTransformData(json& jObj, CEditorObject* pObj)
     jObj["name"] = WStringToString(pObj->Get_Name());
 }
 
+void CFileIO::SaveTextureData(json& jObj, CEditorObject* pObj)
+{
+    // Floor 객체
+    if (CEditorFloor* pFloor = dynamic_cast<CEditorFloor*>(pObj))
+    {
+        // Dynamic Floor 확인
+        if (CEditorDynamicFloor* pDynamicFloor = dynamic_cast<CEditorDynamicFloor*>(pObj))
+        {
+            jObj["isDynamic"] = true;
+            jObj["floorType"] = pDynamicFloor->Get_FloorType();
+        }
+        else
+        {
+            jObj["isDynamic"] = false;
+            jObj["floorType"] = pFloor->Get_FloorType();
+            jObj["textureIdx"] = pFloor->Get_TextureIdx();
+        }
+    }
+    // Ceiling 객체
+    else if (CEditorCeiling* pCeiling = dynamic_cast<CEditorCeiling*>(pObj))
+    {
+        jObj["ceilingType"] = pCeiling->Get_CeilingType();
+        jObj["textureIdx"] = pCeiling->Get_TextureIdx();
+    }
+    // Wall 객체
+    else if (CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj))
+    {
+        jObj["wallType"] = pWall->Get_WallType();
+        jObj["textureIdx"] = pWall->Get_TextureIdx();
+    }
+}
+
 HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
 {
     if (!pScene)
@@ -92,10 +125,11 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
 
         // 클래스별 카운트 집계
         _uint iFloorCount = 0;
+        _uint iDynamicFloorCount = 0;
         _uint iCeilingCount = 0;
         _uint iWallCount = 0;
         _uint iObstacleCount = 0;
-        
+
         auto& objectList = pScene->Get_ObjectList();
 
         // 객체 데이터 저장 
@@ -108,29 +142,31 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
             json jObj;
 
             // 타입 판별 및 저장
-            if (dynamic_cast<CEditorFloor*>(pObj))
+            if (CEditorFloor* pFloor = dynamic_cast<CEditorFloor*>(pObj))
             {
-                iFloorCount++;  // 카운트 증가
-                jObj["type"] = "Floor";
+                if (dynamic_cast<CEditorDynamicFloor*>(pObj))
+                {
+                    iDynamicFloorCount++;
+                    jObj["type"] = "DynamicFloor";  
+                }
+                else
+                {
+                    iFloorCount++;
+                    jObj["type"] = "Floor";
+                }
 
-                // Transform 데이터 저장
+                jObj["roomIndex"] = pObj->Get_RoomIndex();
                 SaveTransformData(jObj, pObj);
+                SaveTextureData(jObj, pObj);
             }
             else if (dynamic_cast<CEditorCeiling*>(pObj))
             {
                 iCeilingCount++;
                 jObj["type"] = "Ceiling";
 
-                // Transform 데이터 저장 (동일)
+                jObj["roomIndex"] = pObj->Get_RoomIndex();
                 SaveTransformData(jObj, pObj);
-            }
-            else if (dynamic_cast<CEditorCube*>(pObj))
-            {
-                iObstacleCount++;
-                jObj["type"] = "Cube";
-
-                // Transform 데이터 저장 (동일)
-                SaveTransformData(jObj, pObj);
+                SaveTextureData(jObj, pObj);
             }
             else if (dynamic_cast<CEditorWall*>(pObj))
             {
@@ -142,8 +178,18 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                 // Wall 전용 필드
                 jObj["wallDirection"] = static_cast<_int>(pWall->Get_WallDirection());
 
-                // Transform 데이터 저장 (동일)
+                jObj["roomIndex"] = pObj->Get_RoomIndex();
                 SaveTransformData(jObj, pObj);
+                SaveTextureData(jObj, pObj);
+            }
+            else if (dynamic_cast<CEditorCube*>(pObj))
+            {
+                iObstacleCount++;
+                jObj["type"] = "Cube";
+
+                jObj["roomIndex"] = pObj->Get_RoomIndex();
+                SaveTransformData(jObj, pObj);
+                //SaveTextureData(jObj, pObj);
             }
             else if (CEditorSpawnPoint* pSpawn = dynamic_cast<CEditorSpawnPoint*>(pObj))
             {
@@ -157,6 +203,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
 
                 jObj["monsterKey"] = pSpawn->Get_MonsterKey();
 
+                jObj["roomIndex"] = pObj->Get_RoomIndex();
                 // Transform 데이터 저장 (동일)
                 SaveTransformData(jObj, pObj);
             }
@@ -171,6 +218,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
 
         // 클래스별 카운트 저장
         jMap["floorCount"] = iFloorCount;
+        jMap["dynamicFloorCount"] = iDynamicFloorCount;
         jMap["ceilingCount"] = iCeilingCount;
         jMap["wallCount"] = iWallCount;
         jMap["obstacleCount"] = iObstacleCount;
@@ -249,6 +297,12 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
             return E_FAIL;
         }
 
+        if (iVersion < 4)
+        {
+            MessageBox(nullptr, L"Warning: This map was saved without texture data (v3 or older).\nTextures will use default values.",
+                L"Load Warning", MB_OK | MB_ICONWARNING);
+        }
+
         // 4. 기존 오브젝트 전부 삭제
         pScene->Clear_AllObjects();
 
@@ -259,6 +313,7 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
         {
             // 타입 읽기
             string strType = jObj["type"];
+            _int   iRoomIndex = jObj["roomIndex"];
 
             // Transform 읽기
             _vec3 vPos, vRot, vScale;
@@ -278,22 +333,61 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
             // 오브젝트 생성
             CEditorObject* pObj = nullptr;
 
-            if (strType == "Tile")
+            if (strType == "DynamicFloor")
             {
-                // v1 하위 호환성: Tile → Floor로 변환
-                pObj = CEditorFloor::Create(pGraphicDev, vPos, vRot, vScale);
+                pObj = CEditorDynamicFloor::Create(pGraphicDev, vPos, vRot, vScale);
+
+                // 텍스처 데이터 복원 (v4)
+                if (iVersion >= 4 && jObj.contains("floorType"))
+                {
+                    CEditorDynamicFloor* pDynamicFloor = dynamic_cast<CEditorDynamicFloor*>(pObj);
+                    if (pDynamicFloor)
+                    {
+                        _uint iFloorType = jObj["floorType"];
+                        pDynamicFloor->Set_FloorType(iFloorType);
+                    }
+                }
             }
             else if (strType == "Floor")
             {
                 pObj = CEditorFloor::Create(pGraphicDev, vPos, vRot, vScale);
+
+                if (iVersion >= 4 && jObj.contains("floorType"))
+                {
+                    CEditorFloor* pFloor = dynamic_cast<CEditorFloor*>(pObj);
+                    if (pFloor)
+                    {
+                        _uint iFloorType = jObj["floorType"];
+                        pFloor->Set_FloorType(iFloorType);
+
+                        if (jObj.contains("textureIdx"))
+                        {
+                            _int iTextureIdx = jObj["textureIdx"];
+                            pFloor->Set_TextureIdx(iTextureIdx);
+                        }
+
+                    }
+                }
             }
             else if (strType == "Ceiling")
             {
                 pObj = CEditorCeiling::Create(pGraphicDev, vPos, vRot, vScale);
-            }
-            else if (strType == "Cube")
-            {
-                pObj = CEditorCube::Create(pGraphicDev, vPos, vRot, vScale);
+
+                if (iVersion >= 4 && jObj.contains("ceilingType"))
+                {
+                    CEditorCeiling* pCeiling = dynamic_cast<CEditorCeiling*>(pObj);
+                    if (pCeiling)
+                    {
+                        _uint iCeilingType = jObj["ceilingType"];
+                        pCeiling->Set_CeilingType(iCeilingType);
+
+                        if (jObj.contains("textureIdx"))
+                        {
+                            _int iTextureIdx = jObj["textureIdx"];
+                            pCeiling->Set_TextureIdx(iTextureIdx);
+                        }
+                    }
+                }
             }
             else if (strType == "Wall")
             {
@@ -302,6 +396,26 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
                 WALL_DIR eDir = static_cast<WALL_DIR>(iWallDir);
 
                 pObj = CEditorWall::Create(pGraphicDev, vPos, vRot, vScale, eDir);
+
+                if (iVersion >= 4 && jObj.contains("wallType"))
+                {
+                    CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj);
+                    if (pWall)
+                    {
+                        _uint iWallType = jObj["wallType"];
+                        pWall->Set_WallType(iWallType);
+
+                        if (jObj.contains("textureIdx"))
+                        {
+                            _int iTextureIdx = jObj["textureIdx"];
+                            pWall->Set_TextureIdx(iTextureIdx);
+                        }
+                    }
+                }
+            }
+            else if (strType == "Cube")
+            {
+                pObj = CEditorCube::Create(pGraphicDev, vPos, vRot, vScale);
             }
             else if (strType == "SpawnPoint")
             {
@@ -331,7 +445,8 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
             // 이름 읽기
             string strName = jObj["name"];
             pObj->Set_Name(StringToWString(strName));
-
+            pObj->Set_RoomIndex(iRoomIndex);
+            
             // Scene에 추가
             pScene->Add_Object(pObj);
 
