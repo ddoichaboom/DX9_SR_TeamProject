@@ -44,10 +44,6 @@ public:
     static CEditorSpawnPoint* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale,
                                         SPAWN_TYPE eType, const string& strMonsterKey);
 
-    // 전체 파라미터 지정 (맵 로드용)
-    static CEditorSpawnPoint* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale,
-                                        SPAWN_TYPE eType, const string& strMonsterKey, _int iRoomIndex);
-
 private:
     virtual void    Free() override;
 };

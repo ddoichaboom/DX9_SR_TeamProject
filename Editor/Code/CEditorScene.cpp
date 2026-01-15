@@ -265,7 +265,7 @@ void CEditorScene::Handle_Duplicate()
                     iRoomIndex = pDynamicFloor->Get_RoomIndex();
 
                     vPos.x += 16.0f;
-                    pNewObj = CEditorDynamicFloor::Create(m_pGraphicDev, vPos, vRot, vScale, iType, iRoomIndex);
+                    pNewObj = CEditorDynamicFloor::Create(m_pGraphicDev, vPos, vRot, vScale, iType);
                 }
                 else if (CEditorFloor* pFloor = dynamic_cast<CEditorFloor*>(pSelectedObj))
                 {
@@ -274,7 +274,7 @@ void CEditorScene::Handle_Duplicate()
                     iRoomIndex  = pFloor->Get_RoomIndex();
 
                     vPos.x += 16.0f;
-                    pNewObj = CEditorFloor::Create(m_pGraphicDev, vPos, vRot, vScale, iType, iIdx, iRoomIndex);
+                    pNewObj = CEditorFloor::Create(m_pGraphicDev, vPos, vRot, vScale, iType, iIdx);
                 }
                 
                 else if (CEditorCeiling* pCeiling = dynamic_cast<CEditorCeiling*>(pSelectedObj))
@@ -284,13 +284,16 @@ void CEditorScene::Handle_Duplicate()
                     iRoomIndex = pCeiling->Get_RoomIndex();
 
                     vPos.x += 16.0f;
-                    pNewObj = CEditorCeiling::Create(m_pGraphicDev, vPos, vRot, vScale, iType, iIdx, iRoomIndex);
+                    pNewObj = CEditorCeiling::Create(m_pGraphicDev, vPos, vRot, vScale, iType, iIdx);
                 }
-                else if (dynamic_cast<CEditorCube*>(pSelectedObj))
+                else if (CEditorCube* pCube =  dynamic_cast<CEditorCube*>(pSelectedObj))
                 {
+                    iRoomIndex = pCube->Get_RoomIndex();
+
                     // TODO 자판기 구현 완료시 구현
                     vPos.x += 8.f;
                     pNewObj = CEditorCube::Create(m_pGraphicDev, vPos, vRot, vScale);
+                    pNewObj->Set_RoomIndex(iRoomIndex);
                 }
                 else if (CEditorWall* pWall = dynamic_cast<CEditorWall*>(pSelectedObj))
                 {
@@ -320,6 +323,7 @@ void CEditorScene::Handle_Duplicate()
 
                     iType = pWall->Get_WallType();
                     iIdx = pWall->Get_TextureIdx();
+                    iRoomIndex = pWall->Get_RoomIndex();
 
                     pNewObj = CEditorWall::Create(m_pGraphicDev, vPos, vRot, vScale, eDir, iType, iIdx);
                 }
@@ -355,12 +359,13 @@ void CEditorScene::Handle_Duplicate()
                     // Monster 타입만 복제 허용
                     const string& strMonsterKey = pSpawn->Get_MonsterKey();
                     pNewObj = CEditorSpawnPoint::Create(m_pGraphicDev, vPos, vRot, vScale,
-                        eType, strMonsterKey, iRoomIndex);
+                        eType, strMonsterKey);
                 }
 
 
                 if (pNewObj)
                 {
+                    pNewObj->Set_RoomIndex(iRoomIndex); // 방 정보 설정 
                     m_ObjectList.push_back(pNewObj);
                     newObjects.push_back(pNewObj);
                 }

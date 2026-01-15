@@ -49,7 +49,6 @@ public:
     _uint           Get_WallType() const { return m_iWallType; }
 
 protected:
-    CTexture*       m_pTextureCom;
     _int            m_iTextureIdx;      // 0 ~ 2 (아틀라스 인덱스)
     _uint           m_iWallType;       // enum 값 
 

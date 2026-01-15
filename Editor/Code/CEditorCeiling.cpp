@@ -21,7 +21,6 @@ vector<TextureSource> CEditorCeiling::m_vTextureSource =
 
 CEditorCeiling::CEditorCeiling(LPDIRECT3DDEVICE9 pGraphicDev)
     : CEditorObject(pGraphicDev)
-    , m_pTextureCom(nullptr)
     , m_iCeilingType(STATIC_CEILING)
     , m_iTextureIdx(0)
 {
@@ -189,7 +188,7 @@ CEditorCeiling* CEditorCeiling::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos
     return pInstance;
 }
 
-CEditorCeiling* CEditorCeiling::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, _uint iType, _int iIdx, _int iRoomIndex)
+CEditorCeiling* CEditorCeiling::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, _uint iType, _int iIdx)
 {
     CEditorCeiling* pInstance = new CEditorCeiling(pGraphicDev);
 

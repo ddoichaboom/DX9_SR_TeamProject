@@ -37,19 +37,16 @@ public:
 
 	// 이름
 	void				Set_Name(const wstring& wstrName) { m_wstrName = wstrName; }
-	const wstring& Get_Name() const { return m_wstrName; }
+	const wstring&		Get_Name() const { return m_wstrName; }
 
-	// 텍스처 (Phase 5+)
-	void				Set_Texture(Engine::CTexture* pTexture);
-	Engine::CTexture*	Get_Texture() { return m_pTextureCom; }
 
 	const _matrix*		Get_WorldMatrix() const;
 
 protected:
 	// Component
 	Engine::CTransform* m_pTransformCom;
-	Engine::CVIBuffer* m_pBufferCom;
-	Engine::CTexture* m_pTextureCom;
+	Engine::CVIBuffer*	m_pBufferCom;
+	Engine::CTexture*	m_pTextureCom;
 
 	// State
 	bool                    m_bSelected;
