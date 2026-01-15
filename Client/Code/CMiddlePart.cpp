@@ -33,17 +33,20 @@ vector<AnimationSource>  CMiddlePart::m_vAnimSource =
 CMiddlePart::CMiddlePart(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CPlayerPart(pGraphicDev), m_iLoopTime(3)
 	, m_fX(0.f), m_fY(0.f), m_fSizeX(0.f), m_fSizeY(0.f)
+	, m_fDelayTime(0.f), m_bDelay(false), m_bStateStop(false)
 {	
 }
 
 CMiddlePart::CMiddlePart(const CMiddlePart& rhs)
 	: CPlayerPart(rhs), m_iLoopTime(3)
 	, m_fX(0.f), m_fY(0.f), m_fSizeX(0.f), m_fSizeY(0.f)
+	, m_fDelayTime(0.f), m_bDelay(false), m_bStateStop(false)
 {
 }
 
 CMiddlePart::~CMiddlePart()
 {
+
 }
 
 void CMiddlePart::CreateStateData()
@@ -104,6 +107,10 @@ HRESULT CMiddlePart::Ready_GameObject()
 _int CMiddlePart::Update_GameObject(const _float& fTimeDelta)
 {
 	int iExit = CPlayerPart::Update_GameObject(fTimeDelta);	
+	m_fTime += fTimeDelta;
+
+	if (m_bDelay)
+		m_fDelayTime += fTimeDelta;
 
 	return iExit;
 }
@@ -155,6 +162,7 @@ void CMiddlePart::ChangeState(_uint nextStateID)
 
 void CMiddlePart::Begin_Idle()
 {
+	m_fTime = 0.f;
 	m_fSizeX = 512.f;
 	m_fSizeY = 512.f;
 	m_fX = WINCX * 0.5f;
@@ -299,21 +307,73 @@ void CMiddlePart::Intro2()
 
 void CMiddlePart::Begin_Shop()
 {
-	m_fSizeX = 1024.f;
-	m_fSizeY = 512.f;
-	m_fX = WINCX * 0.5f;
-	m_fY = WINCY - 50.f;
+	m_fSizeX = 800.f;
+	m_fSizeY = 400.f;
+	m_fX = 400.f;
+	m_fY = WINCY;
 	m_vStartPos = { m_fX, m_fY, 0.f };
-	m_vEndPos = { m_fX, m_fY, 0.f };
-	m_pTransformCom->Set_Scale(m_fSizeX * 0.5f, m_fSizeY * 0.5f, 1.f);
+	m_vEndPos = { m_fX, m_fY - 150.f , 0.f };
+
+	m_vStartScale = { m_fSizeX * 0.5f, m_fSizeY * 0.5f, 1.f };
+	m_vEndScale = { m_fSizeX * 0.6f, m_fSizeY * 0.6f, 1.f };
+	m_pTransformCom->Set_Scale(m_vStartScale);
 	m_pTransformCom->Set_Pos(m_fX - WINCX * 0.5f, -m_fY + WINCY * 0.5f, 0.f);
+
+	m_bDelay = true;
+	m_fDelayTime = 0.f;
+	m_bStateStop = false;
 }
 
 void CMiddlePart::Shopping()
 {
+	if (m_bStateStop)
+	{
+		CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+		return;
+	}
+
+	_vec3 vPos;
+	_vec3 vScale;
+	_float fTime;
+
+	if (m_bDelay)
+	{
+		if (m_fDelayTime < 1.f)
+		{
+			fTime = m_fTime * 2.f;
+			D3DXVec3Lerp(&vPos, &m_vStartPos, &m_vEndPos, fTime);
+			m_pTransformCom->Set_Pos(vPos.x - WINCX * 0.5f, -vPos.y + WINCY * 0.5f, 0.f);
+			CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+			return;
+		}
+		else
+		{
+			m_bDelay = false;
+			m_fTime = 0.f;
+		}
+	}	
+	
+	fTime = m_fTime * 2.f;
+	D3DXVec3Lerp(&vScale, &m_vStartScale, &m_vEndScale, fTime);
+
+	if (fTime < 1.f)
+	{
+		m_pTransformCom->Set_Scale(vScale);
+	}	
+	if (fTime > 1.f)
+	{
+		m_pTransformCom->Set_Scale(vScale);
+		// 상점 생성
+		m_pPlayer->Shop_Func();
+
+		m_bStateStop = true;
+	}
+
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 }
 
 void CMiddlePart::End_Shop()
 {
+	m_bStateStop = false;
 }
 	

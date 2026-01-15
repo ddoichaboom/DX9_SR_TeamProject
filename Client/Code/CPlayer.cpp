@@ -92,7 +92,8 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 	if (m_bDash)
 		Update_Dash(fTimeDelta);
 
-	m_mapWeapon[m_eWeaponState]->Update_GameObject(fTimeDelta);
+	if (m_eNowState != SHOP)
+		m_mapWeapon[m_eWeaponState]->Update_GameObject(fTimeDelta);
 
 	State_Update(fTimeDelta);
 
@@ -116,7 +117,8 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 
 	Set_OnFloor(fTimeDelta);
 
-	m_mapWeapon[m_eWeaponState]->LateUpdate_GameObject(fTimeDelta);
+	if (m_eNowState != SHOP)
+		m_mapWeapon[m_eWeaponState]->LateUpdate_GameObject(fTimeDelta);
 	State_LateUpdate(fTimeDelta);
 }
 
@@ -336,6 +338,11 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 		if (m_eWeaponState != WEAPON_PISTOL)
 			Change_Weapon(WEAPON_PISTOL);
 		return;
+	}
+
+	if (CDInputMgr::GetInstance()->Key_Down(DIK_2))
+	{
+		Change_State(SHOP);
 	}
 
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_3))
@@ -1119,7 +1126,7 @@ void CPlayer::Slide_Exit()
 
 void CPlayer::Shop_Enter()
 {
-	m_pMiddlePart->ChangeState(SLIDE);
+	m_pMiddlePart->ChangeState(SHOP);
 }
 
 void CPlayer::Shop_Update(const _float& fTimeDelta)
