@@ -35,7 +35,6 @@ public:
     _uint           Get_FloorType() const { return m_iFloorType; }
 
 protected:
-    CTexture*       m_pTextureCom;      // 텍스처 컴포넌트 (새로 추가)
     _int            m_iTextureIdx;      // 0 ~ 7 (아틀라스 인덱스)
     _uint           m_iFloorType;       // enum 값 
 
@@ -47,7 +46,7 @@ public:
     static CEditorFloor* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale);
     
     // 전체 파라미터 지정 - 텍스처 포함 
-    static CEditorFloor* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, _uint iType, _int iIdx, _int iRoomIndex);
+    static CEditorFloor* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, _uint iType, _int iIdx);
 
 protected:
     virtual void    Free() override;

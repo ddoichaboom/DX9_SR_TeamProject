@@ -53,7 +53,7 @@ public:
     static CEditorDynamicFloor* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale);
 
     // 전체 파라미터 생성 (맵 로드)
-    static CEditorDynamicFloor* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, _uint iType, _int iRoomIndex);
+    static CEditorDynamicFloor* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, _uint iType);
 
 private:
     static vector<TextureSource>    m_vTextureSource;

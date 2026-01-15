@@ -19,7 +19,8 @@ HRESULT CEditorTile::Ready_GameObject()
 {
     FAILED_CHECK_RETURN(CEditorObject::Ready_GameObject(), E_FAIL);
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-    if (m_pTextureCom) m_pTextureCom->Change_Texture(0);
+    //if (m_pTextureCom) 
+    //    m_pTextureCom->Change_Texture(0);
     // 기본 이름
     m_wstrName = L"Tile";
 

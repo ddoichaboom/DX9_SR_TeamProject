@@ -235,7 +235,7 @@ CEditorDynamicFloor* CEditorDynamicFloor::Create(LPDIRECT3DDEVICE9 pGraphicDev, 
 	return pInstance;
 }
 
-CEditorDynamicFloor* CEditorDynamicFloor::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, _uint iType, _int iRoomIndex)
+CEditorDynamicFloor* CEditorDynamicFloor::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, _uint iType)
 {
 	CEditorDynamicFloor* pInstance = new CEditorDynamicFloor(pGraphicDev);
 
@@ -250,7 +250,6 @@ CEditorDynamicFloor* CEditorDynamicFloor::Create(LPDIRECT3DDEVICE9 pGraphicDev, 
 	pInstance->Set_Rotation(vRot);
 	pInstance->Set_Position(vPos);
 	pInstance->Set_FloorType(iType);
-	pInstance->Set_RoomIndex(iRoomIndex);
 
 	return pInstance;
 }

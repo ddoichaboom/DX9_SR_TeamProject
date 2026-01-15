@@ -4,6 +4,7 @@
 #include "CMapLoader.h"
 #include "CPoolMgr.h"
 #include "CManagement.h"
+#include "CDInputMgr.h"
 
 // 환경 오브젝트 (필터링용, 실제 생성은 CMapLoader가 담당)
 #include "CFloor.h"
@@ -345,19 +346,29 @@ HRESULT CMapStage::Ready_UITextureProto()
 
 void CMapStage::Update_RoomLoading(const _float& fTimeDelta)
 {
-    CPlayer* pPlayer = nullptr;
+    //CPlayer* pPlayer = nullptr;
 
-    Engine::CTransform* pPlayerTransform = dynamic_cast<CTransform*>(Engine::CManagement::GetInstance()->
-        Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_PLAYER, L"Com_Transform"));
+    //Engine::CTransform* pPlayerTransform = dynamic_cast<CTransform*>(Engine::CManagement::GetInstance()->
+    //    Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_PLAYER, L"Com_Transform"));
 
-    if (pPlayerTransform == nullptr)
-        return;
+    //if (pPlayerTransform == nullptr)
+    //    return;
 
-    _vec3 vPlayerPos;
-    pPlayerTransform->Get_Info(INFO_POS, &vPlayerPos);
+    //_vec3 vPlayerPos;
+    //pPlayerTransform->Get_Info(INFO_POS, &vPlayerPos);
 
-    // Door 구현이 안되어 있어서 우선 플레이어의 Z축 좌표를 기준으로 방 인덱스 재설정
-    _int iNewRoomIndex = (_int)(vPlayerPos.z / 200.0f);      // 맵 찍으면서 설정해야 함(문 구현 전까지)
+    //// Door 구현이 안되어 있어서 우선 플레이어의 Z축 좌표를 기준으로 방 인덱스 재설정
+    //_int iNewRoomIndex = (_int)(vPlayerPos.z / 200.0f);      // 맵 찍으면서 설정해야 함(문 구현 전까지)
+
+    // 테스트용 ( U / I 키로 룸 인덱스 증감 )
+    _int iNewRoomIndex = m_iCurrentRoomIndex;
+
+    if (Engine::CDInputMgr::GetInstance()->Key_Down(DIK_U))
+        iNewRoomIndex++;
+    else if (Engine::CDInputMgr::GetInstance()->Key_Down(DIK_I) && (iNewRoomIndex > 0))
+    {
+         iNewRoomIndex--;
+    }
 
     // 방 변경 감지 
     if (iNewRoomIndex != m_iCurrentRoomIndex)
@@ -458,7 +469,7 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
     if (nullptr == pLayer)
         return E_FAIL;
 
-    m_wstrCurrentMapFile = L"../../Map/test02.json";
+    m_wstrCurrentMapFile = L"../../Map/Tutorial.json";
 
     // 0번방 로드 
     if (FAILED(CMapLoader::GetInstance()->Load_Room(

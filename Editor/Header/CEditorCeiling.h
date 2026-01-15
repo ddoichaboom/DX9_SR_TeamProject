@@ -35,7 +35,6 @@ public:
     _uint           Get_CeilingType() const { return m_iCeilingType; }
 
 protected:
-    CTexture*       m_pTextureCom;
     _int            m_iTextureIdx;      // 0 ~ 7 (아틀라스 인덱스)
     _uint           m_iCeilingType;       // enum 값 
 
@@ -47,7 +46,7 @@ public:
     static CEditorCeiling* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale);
 
     // 전체 파라미터 지정 텍스처 포함 
-    static CEditorCeiling* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, _uint iType, _int iIdx, _int iRoomIndex);
+    static CEditorCeiling* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale, _uint iType, _int iIdx);
 
 private:
     static vector<TextureSource> m_vTextureSource;
