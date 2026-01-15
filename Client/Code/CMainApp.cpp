@@ -7,6 +7,7 @@
 #include "CMapStage.h"
 #include "CBossTestStage.h"
 #include "CMapLoader.h"
+#include "CEventMgr.h"
 
 #include <ctime>
 
@@ -226,8 +227,8 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iBulletCount = 30;
 	_uint iBossBulletCount = 50;
 	_uint iBossRocketCount = 20;
-	_uint iWhiteManCount = 5;
-	_uint iBeamMonCount = 3;
+	_uint iWhiteManCount = 6;
+	_uint iBeamMonCount = 6;
 	_uint iFlyMonCount = 6;
 	_uint iTriggerCount = 7;
 
@@ -295,6 +296,7 @@ void CMainApp::Free()
 	Safe_Release(m_pGraphicDev);
 	Safe_Release(m_pDeviceClass);
 
+	CEventMgr::DestroyInstance();
 	CMapLoader::DestroyInstance();
 
 	CDInputMgr::DestroyInstance();

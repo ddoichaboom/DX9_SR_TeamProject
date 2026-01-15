@@ -1,8 +1,8 @@
 {
-  "ceilingCount": 284,
-  "dynamicFloorCount": 0,
-  "floorCount": 284,
-  "objectCount": 702,
+  "ceilingCount": 496,
+  "dynamicFloorCount": 56,
+  "floorCount": 444,
+  "objectCount": 1214,
   "objects": [
     {
       "floorType": 0,
@@ -15556,7 +15556,7 @@
       "textureIdx": 0,
       "type": "Wall",
       "wallDirection": 2,
-      "wallType": 8
+      "wallType": 2
     },
     {
       "name": "Wall",
@@ -15579,7 +15579,7 @@
       "textureIdx": 0,
       "type": "Wall",
       "wallDirection": 3,
-      "wallType": 8
+      "wallType": 2
     },
     {
       "ceilingType": 0,
@@ -15848,9 +15848,11506 @@
       ],
       "textureIdx": 5,
       "type": "Floor"
+    },
+    {
+      "floorType": 0,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        752.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "Floor"
+    },
+    {
+      "floorType": 0,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        736.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "Floor"
+    },
+    {
+      "floorType": 0,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        768.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "Floor"
+    },
+    {
+      "floorType": 0,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        784.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "Floor"
+    },
+    {
+      "floorType": 0,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        736.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "Floor"
+    },
+    {
+      "floorType": 0,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        752.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "Floor"
+    },
+    {
+      "floorType": 0,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        768.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        800.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "name": "Wall",
+      "position": [
+        8.0,
+        16.0,
+        744.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        8.0,
+        16.0,
+        776.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        40.0,
+        16.0,
+        744.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        40.0,
+        16.0,
+        776.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 2
+    },
+    {
+      "floorType": 0,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        784.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        816.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "name": "Wall",
+      "position": [
+        8.0,
+        16.0,
+        808.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        40.0,
+        16.0,
+        808.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 12
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        800.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        816.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        16.0,
+        0.0,
+        832.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        16.0,
+        0.0,
+        848.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "name": "Wall",
+      "position": [
+        8.0,
+        16.0,
+        840.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        40.0,
+        16.0,
+        840.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 12
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        32.0,
+        0.0,
+        832.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        32.0,
+        0.0,
+        848.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        864.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        880.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "name": "Wall",
+      "position": [
+        8.0,
+        16.0,
+        872.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        40.0,
+        16.0,
+        872.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 12
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        864.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        896.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        880.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        912.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        912.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        896.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "name": "Wall",
+      "position": [
+        8.0,
+        16.0,
+        904.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        40.0,
+        16.0,
+        904.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 12
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -48.0,
+        0.0,
+        928.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -48.0,
+        0.0,
+        1008.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -48.0,
+        0.0,
+        944.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -48.0,
+        0.0,
+        960.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -48.0,
+        0.0,
+        976.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -48.0,
+        0.0,
+        992.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        -8.0,
+        832.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        -8.0,
+        848.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        -8.0,
+        832.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        -8.0,
+        848.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -32.0,
+        0.0,
+        928.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -32.0,
+        0.0,
+        944.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -32.0,
+        0.0,
+        960.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -32.0,
+        0.0,
+        976.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -32.0,
+        0.0,
+        992.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -32.0,
+        0.0,
+        1008.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -48.0,
+        0.0,
+        1120.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        928.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        944.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        960.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        976.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -48.0,
+        0.0,
+        1136.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        928.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        944.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        960.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        976.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -48.0,
+        0.0,
+        1152.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -48.0,
+        0.0,
+        1168.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -48.0,
+        0.0,
+        1184.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        80.0,
+        0.0,
+        960.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        80.0,
+        0.0,
+        976.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        80.0,
+        0.0,
+        992.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        80.0,
+        0.0,
+        1008.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -48.0,
+        0.0,
+        1200.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        96.0,
+        0.0,
+        960.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        96.0,
+        0.0,
+        976.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        96.0,
+        0.0,
+        992.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        96.0,
+        0.0,
+        1008.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -56.0,
+        16.0,
+        936.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -56.0,
+        16.0,
+        968.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -56.0,
+        16.0,
+        1000.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -56.0,
+        16.0,
+        1032.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -56.0,
+        16.0,
+        1064.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 12
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -32.0,
+        0.0,
+        1120.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -32.0,
+        0.0,
+        1136.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -32.0,
+        0.0,
+        1152.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -32.0,
+        0.0,
+        1168.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -32.0,
+        0.0,
+        1184.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -32.0,
+        0.0,
+        1200.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -16.0,
+        0.0,
+        1120.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -16.0,
+        0.0,
+        1136.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -16.0,
+        0.0,
+        1184.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -16.0,
+        0.0,
+        1200.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1120.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1136.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1184.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1200.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        1120.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        1136.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        1152.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        1168.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        1184.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        1200.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        1120.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        1136.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        1152.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        1168.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        1184.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        1200.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        48.0,
+        0.0,
+        1120.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        48.0,
+        0.0,
+        1136.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        48.0,
+        0.0,
+        1184.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        48.0,
+        0.0,
+        1200.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1120.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1136.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1184.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1200.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        80.0,
+        0.0,
+        1120.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        80.0,
+        0.0,
+        1136.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        80.0,
+        0.0,
+        1152.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        80.0,
+        0.0,
+        1168.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        80.0,
+        0.0,
+        1184.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        80.0,
+        0.0,
+        1200.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        96.0,
+        0.0,
+        1120.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        96.0,
+        0.0,
+        1136.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        96.0,
+        0.0,
+        1152.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        96.0,
+        0.0,
+        1168.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        96.0,
+        0.0,
+        1184.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        96.0,
+        0.0,
+        1200.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -56.0,
+        16.0,
+        1096.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -56.0,
+        16.0,
+        1128.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -56.0,
+        16.0,
+        1160.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -56.0,
+        16.0,
+        1192.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        104.0,
+        16.0,
+        936.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        104.0,
+        16.0,
+        968.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        104.0,
+        16.0,
+        1000.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        104.0,
+        16.0,
+        1032.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        104.0,
+        16.0,
+        1064.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        104.0,
+        16.0,
+        1096.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        104.0,
+        16.0,
+        1128.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        104.0,
+        16.0,
+        1160.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        104.0,
+        16.0,
+        1192.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -8.0,
+        16.0,
+        920.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -40.0,
+        16.0,
+        920.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        56.0,
+        16.0,
+        920.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        88.0,
+        16.0,
+        920.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -40.0,
+        48.0,
+        952.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 2
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        32.0,
+        736.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        32.0,
+        752.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        32.0,
+        768.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        32.0,
+        784.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        32.0,
+        800.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        32.0,
+        816.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        32.0,
+        832.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        32.0,
+        848.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        32.0,
+        864.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        32.0,
+        880.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        32.0,
+        896.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        32.0,
+        912.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        32.0,
+        736.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        32.0,
+        752.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        32.0,
+        768.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        32.0,
+        784.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        32.0,
+        800.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        32.0,
+        816.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        32.0,
+        832.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        32.0,
+        848.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        32.0,
+        864.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        32.0,
+        880.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        32.0,
+        896.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        32.0,
+        912.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -48.0,
+        32.0,
+        928.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -48.0,
+        32.0,
+        944.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -32.0,
+        32.0,
+        928.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -32.0,
+        32.0,
+        944.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -16.0,
+        32.0,
+        928.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -16.0,
+        32.0,
+        944.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        0.0,
+        32.0,
+        928.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        0.0,
+        32.0,
+        944.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        32.0,
+        928.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        32.0,
+        944.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        32.0,
+        928.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        32.0,
+        944.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        48.0,
+        32.0,
+        928.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        48.0,
+        32.0,
+        944.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        64.0,
+        32.0,
+        928.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        64.0,
+        32.0,
+        944.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        80.0,
+        32.0,
+        928.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        80.0,
+        32.0,
+        944.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        96.0,
+        32.0,
+        928.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        96.0,
+        32.0,
+        944.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -48.0,
+        64.0,
+        960.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -48.0,
+        64.0,
+        976.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -48.0,
+        64.0,
+        992.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -48.0,
+        64.0,
+        1008.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -48.0,
+        64.0,
+        1024.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -48.0,
+        64.0,
+        1040.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -48.0,
+        32.0,
+        1056.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -48.0,
+        32.0,
+        1072.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -48.0,
+        64.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -48.0,
+        64.0,
+        1104.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -48.0,
+        64.0,
+        1120.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -48.0,
+        64.0,
+        1136.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -48.0,
+        64.0,
+        1152.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -48.0,
+        64.0,
+        1168.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -48.0,
+        32.0,
+        1184.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -48.0,
+        32.0,
+        1200.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -32.0,
+        64.0,
+        960.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -32.0,
+        64.0,
+        976.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -32.0,
+        64.0,
+        992.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -32.0,
+        64.0,
+        1008.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -32.0,
+        64.0,
+        1024.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -32.0,
+        64.0,
+        1040.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -32.0,
+        64.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -32.0,
+        64.0,
+        1104.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -32.0,
+        64.0,
+        1120.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -32.0,
+        64.0,
+        1136.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -32.0,
+        64.0,
+        1152.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -32.0,
+        64.0,
+        1168.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -16.0,
+        64.0,
+        960.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -16.0,
+        64.0,
+        976.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -16.0,
+        64.0,
+        992.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -16.0,
+        64.0,
+        1008.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -16.0,
+        64.0,
+        1024.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -16.0,
+        64.0,
+        1040.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -16.0,
+        64.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -16.0,
+        64.0,
+        1104.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -16.0,
+        64.0,
+        1120.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -16.0,
+        64.0,
+        1136.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -16.0,
+        64.0,
+        1152.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -16.0,
+        64.0,
+        1168.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        0.0,
+        64.0,
+        960.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        0.0,
+        64.0,
+        976.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        0.0,
+        64.0,
+        992.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        0.0,
+        64.0,
+        1008.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        0.0,
+        64.0,
+        1024.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        0.0,
+        64.0,
+        1040.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        0.0,
+        64.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        0.0,
+        64.0,
+        1104.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        0.0,
+        64.0,
+        1120.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        0.0,
+        64.0,
+        1136.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        0.0,
+        64.0,
+        1152.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        0.0,
+        64.0,
+        1168.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        64.0,
+        960.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        64.0,
+        976.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        64.0,
+        992.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        64.0,
+        1008.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        64.0,
+        1024.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        64.0,
+        1040.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        64.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        64.0,
+        1104.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        64.0,
+        1120.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        64.0,
+        1136.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        64.0,
+        1152.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        64.0,
+        1168.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        64.0,
+        960.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        64.0,
+        976.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        64.0,
+        992.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        64.0,
+        1008.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        64.0,
+        1024.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        64.0,
+        1040.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        64.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        64.0,
+        1104.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        64.0,
+        1120.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        64.0,
+        1136.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        64.0,
+        1152.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        64.0,
+        1168.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        48.0,
+        64.0,
+        960.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        48.0,
+        64.0,
+        976.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        48.0,
+        64.0,
+        992.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        48.0,
+        64.0,
+        1008.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        48.0,
+        64.0,
+        1024.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        48.0,
+        64.0,
+        1040.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        48.0,
+        64.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        48.0,
+        64.0,
+        1104.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        48.0,
+        64.0,
+        1120.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        48.0,
+        64.0,
+        1136.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        48.0,
+        64.0,
+        1152.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        48.0,
+        64.0,
+        1168.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        64.0,
+        64.0,
+        960.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        64.0,
+        64.0,
+        976.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        64.0,
+        64.0,
+        992.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        64.0,
+        64.0,
+        1008.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        64.0,
+        64.0,
+        1024.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        64.0,
+        64.0,
+        1040.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        64.0,
+        64.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        64.0,
+        64.0,
+        1104.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        64.0,
+        64.0,
+        1120.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        64.0,
+        64.0,
+        1136.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        64.0,
+        64.0,
+        1152.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        64.0,
+        64.0,
+        1168.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        80.0,
+        64.0,
+        960.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        80.0,
+        64.0,
+        976.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        80.0,
+        64.0,
+        992.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        80.0,
+        64.0,
+        1008.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        80.0,
+        64.0,
+        1024.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        80.0,
+        64.0,
+        1040.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        80.0,
+        64.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        80.0,
+        64.0,
+        1104.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        80.0,
+        64.0,
+        1120.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        80.0,
+        64.0,
+        1136.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        80.0,
+        64.0,
+        1152.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        80.0,
+        64.0,
+        1168.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        96.0,
+        64.0,
+        960.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        96.0,
+        64.0,
+        976.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        96.0,
+        64.0,
+        992.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        96.0,
+        64.0,
+        1008.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        96.0,
+        64.0,
+        1024.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        96.0,
+        64.0,
+        1040.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        96.0,
+        64.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        96.0,
+        64.0,
+        1104.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        96.0,
+        64.0,
+        1120.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        96.0,
+        64.0,
+        1136.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        96.0,
+        64.0,
+        1152.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        96.0,
+        64.0,
+        1168.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "name": "Wall",
+      "position": [
+        104.0,
+        48.0,
+        968.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -56.0,
+        48.0,
+        968.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -40.0,
+        48.0,
+        1048.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -40.0,
+        48.0,
+        1080.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -8.0,
+        48.0,
+        1048.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        24.0,
+        48.0,
+        1048.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        56.0,
+        48.0,
+        1048.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        88.0,
+        48.0,
+        1048.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        24.0,
+        48.0,
+        1080.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        56.0,
+        48.0,
+        1080.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        88.0,
+        48.0,
+        1080.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -8.0,
+        48.0,
+        952.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        24.0,
+        48.0,
+        952.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        56.0,
+        48.0,
+        952.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        88.0,
+        48.0,
+        952.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -56.0,
+        48.0,
+        1000.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -56.0,
+        48.0,
+        1032.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -56.0,
+        48.0,
+        1096.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -56.0,
+        48.0,
+        1128.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -56.0,
+        48.0,
+        1160.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        104.0,
+        48.0,
+        1000.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        104.0,
+        48.0,
+        1032.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        104.0,
+        48.0,
+        1096.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        104.0,
+        48.0,
+        1128.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        104.0,
+        48.0,
+        1160.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 2
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -32.0,
+        32.0,
+        1072.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -32.0,
+        32.0,
+        1056.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -16.0,
+        32.0,
+        1072.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -16.0,
+        32.0,
+        1056.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        0.0,
+        32.0,
+        1072.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        0.0,
+        32.0,
+        1056.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        32.0,
+        1072.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        32.0,
+        1056.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        32.0,
+        1072.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        32.0,
+        1056.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        48.0,
+        32.0,
+        1072.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        48.0,
+        32.0,
+        1056.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        64.0,
+        32.0,
+        1072.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        64.0,
+        32.0,
+        1056.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        80.0,
+        32.0,
+        1072.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        80.0,
+        32.0,
+        1056.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        96.0,
+        32.0,
+        1072.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        96.0,
+        32.0,
+        1056.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -40.0,
+        48.0,
+        1176.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -8.0,
+        48.0,
+        1176.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        24.0,
+        48.0,
+        1176.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        88.0,
+        48.0,
+        1176.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        56.0,
+        48.0,
+        1176.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 2
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -32.0,
+        32.0,
+        1184.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -32.0,
+        32.0,
+        1200.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -16.0,
+        32.0,
+        1184.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        -16.0,
+        32.0,
+        1200.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        0.0,
+        32.0,
+        1184.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        0.0,
+        32.0,
+        1200.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        32.0,
+        1184.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        32.0,
+        1200.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        32.0,
+        1184.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        32.0,
+        1200.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        48.0,
+        32.0,
+        1184.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        48.0,
+        32.0,
+        1200.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        64.0,
+        32.0,
+        1184.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        64.0,
+        32.0,
+        1200.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        80.0,
+        32.0,
+        1184.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        80.0,
+        32.0,
+        1200.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        96.0,
+        32.0,
+        1184.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        96.0,
+        32.0,
+        1200.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -40.0,
+        16.0,
+        1208.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -8.0,
+        16.0,
+        1208.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        56.0,
+        16.0,
+        1208.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        88.0,
+        16.0,
+        1208.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 12
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -16.0,
+        0.0,
+        928.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        928.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -16.0,
+        0.0,
+        944.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        944.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -16.0,
+        0.0,
+        992.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        992.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -16.0,
+        0.0,
+        1008.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1008.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        992.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        992.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        48.0,
+        0.0,
+        992.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        992.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        1008.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        1008.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        48.0,
+        0.0,
+        1008.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1008.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        48.0,
+        0.0,
+        944.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        944.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        80.0,
+        0.0,
+        944.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        96.0,
+        0.0,
+        944.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        48.0,
+        0.0,
+        928.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        928.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        80.0,
+        0.0,
+        928.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        96.0,
+        0.0,
+        928.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -16.0,
+        0.0,
+        1024.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -16.0,
+        0.0,
+        1040.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -16.0,
+        0.0,
+        1056.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -16.0,
+        0.0,
+        1072.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -16.0,
+        0.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -16.0,
+        0.0,
+        1104.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1024.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        48.0,
+        0.0,
+        1024.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1024.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1040.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        48.0,
+        0.0,
+        1040.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1040.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1056.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        48.0,
+        0.0,
+        1056.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1056.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1072.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        48.0,
+        0.0,
+        1072.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1072.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        48.0,
+        0.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1104.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        48.0,
+        0.0,
+        1104.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1104.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        -16.0,
+        0.0,
+        960.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        -16.0,
+        0.0,
+        976.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        0.0,
+        0.0,
+        960.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        0.0,
+        0.0,
+        976.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        48.0,
+        0.0,
+        976.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        48.0,
+        0.0,
+        960.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        64.0,
+        0.0,
+        960.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        64.0,
+        0.0,
+        976.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        -48.0,
+        0.0,
+        1024.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        -48.0,
+        0.0,
+        1040.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        -48.0,
+        0.0,
+        1056.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        -48.0,
+        0.0,
+        1072.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        -48.0,
+        0.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        -48.0,
+        0.0,
+        1104.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        -32.0,
+        0.0,
+        1024.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        -32.0,
+        0.0,
+        1040.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        -32.0,
+        0.0,
+        1056.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        -32.0,
+        0.0,
+        1072.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        -32.0,
+        0.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        -32.0,
+        0.0,
+        1104.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        16.0,
+        0.0,
+        1024.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        16.0,
+        0.0,
+        1040.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        80.0,
+        0.0,
+        1024.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        80.0,
+        0.0,
+        1040.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        80.0,
+        0.0,
+        1056.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        80.0,
+        0.0,
+        1072.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        80.0,
+        0.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        80.0,
+        0.0,
+        1104.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        96.0,
+        0.0,
+        1104.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        96.0,
+        0.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        96.0,
+        0.0,
+        1072.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        96.0,
+        0.0,
+        1056.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        96.0,
+        0.0,
+        1040.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        96.0,
+        0.0,
+        1024.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        16.0,
+        0.0,
+        1056.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        16.0,
+        0.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        16.0,
+        0.0,
+        1072.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        16.0,
+        0.0,
+        1104.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        32.0,
+        0.0,
+        1104.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        32.0,
+        0.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        32.0,
+        0.0,
+        1072.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        32.0,
+        0.0,
+        1056.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        32.0,
+        0.0,
+        1040.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        32.0,
+        0.0,
+        1024.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        -16.0,
+        0.0,
+        1168.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        -16.0,
+        0.0,
+        1152.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        0.0,
+        0.0,
+        1168.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        0.0,
+        0.0,
+        1152.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        48.0,
+        0.0,
+        1168.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        48.0,
+        0.0,
+        1152.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        64.0,
+        0.0,
+        1168.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 103,
+      "isDynamic": true,
+      "name": "DynamicFloor (ACID)",
+      "position": [
+        64.0,
+        0.0,
+        1152.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "type": "DynamicFloor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        1216.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        1232.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        1232.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "floorType": 1,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        1216.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Floor"
+    },
+    {
+      "name": "Wall",
+      "position": [
+        8.0,
+        16.0,
+        1224.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 12
+    },
+    {
+      "name": "Wall",
+      "position": [
+        40.0,
+        16.0,
+        1224.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 12
+    },
+    {
+      "floorType": 0,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        1248.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "Floor"
+    },
+    {
+      "floorType": 0,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        16.0,
+        0.0,
+        1264.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "Floor"
+    },
+    {
+      "floorType": 0,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        1264.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "Floor"
+    },
+    {
+      "floorType": 0,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        32.0,
+        0.0,
+        1248.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "Floor"
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -8.0,
+        48.0,
+        1080.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 2
+    },
+    {
+      "name": "Cube",
+      "position": [
+        -8.0,
+        76.0,
+        660.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        12.0,
+        4.0
+      ],
+      "type": "Cube"
+    },
+    {
+      "name": "Wall",
+      "position": [
+        8.0,
+        16.0,
+        1256.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 2
+    },
+    {
+      "name": "Wall",
+      "position": [
+        40.0,
+        16.0,
+        1256.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 2
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        32.0,
+        1216.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        32.0,
+        1232.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        32.0,
+        1232.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        32.0,
+        1216.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 7,
+      "type": "Ceiling"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        24.0,
+        13.0,
+        1000.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "FlyMon",
+      "name": "MonsterSpawn",
+      "position": [
+        -8.0,
+        20.0,
+        968.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "FlyMon",
+      "name": "MonsterSpawn",
+      "position": [
+        56.0,
+        20.0,
+        1160.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "BeamMon",
+      "name": "MonsterSpawn",
+      "position": [
+        -40.0,
+        26.0,
+        1064.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "BeamMon",
+      "name": "MonsterSpawn",
+      "position": [
+        24.0,
+        26.0,
+        1064.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "BeamMon",
+      "name": "MonsterSpawn",
+      "position": [
+        88.0,
+        26.0,
+        1064.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        24.0,
+        13.0,
+        1128.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "FlyMon",
+      "name": "MonsterSpawn",
+      "position": [
+        -8.0,
+        20.0,
+        1160.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        32.0,
+        1248.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        16.0,
+        32.0,
+        1264.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        32.0,
+        1264.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Ceiling"
+    },
+    {
+      "ceilingType": 0,
+      "name": "Ceiling",
+      "position": [
+        32.0,
+        32.0,
+        1248.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        -90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Ceiling"
+    },
+    {
+      "name": "Wall",
+      "position": [
+        24.0,
+        16.0,
+        1272.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 9
     }
   ],
-  "obstacleCount": 2,
+  "obstacleCount": 3,
   "version": 4,
-  "wallCount": 121
+  "wallCount": 196
 }

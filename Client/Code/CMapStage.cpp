@@ -689,16 +689,18 @@ void CMapStage::Check_Collision()
 
 void CMapStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
 {
-    if (_type == EVENT_DOOR_IN)
-    {
-        if (m_iCurrentRoomIndex == 0) Change_Room(m_iCurrentRoomIndex + 1);
-        Change_Room(m_iCurrentRoomIndex + 1);
-    }
-    
-    else if (_type == EVENT_DOOR_OUT)
-    {
-        Change_Room(m_iCurrentRoomIndex - 1);
-    }
+    //if (_type == EVENT_DOOR_IN)
+    //{
+    //    if (m_iCurrentRoomIndex == 0) // 방이 언로드 되는 것을 보기 위해 임의로 2번 증가 시키기
+    //        Change_Room(m_iCurrentRoomIndex + 1);
+    //    
+    //    Change_Room(m_iCurrentRoomIndex + 1);
+    //}
+    //
+    //else if (_type == EVENT_DOOR_OUT)
+    //{
+    //    Change_Room(m_iCurrentRoomIndex - 1);
+    //}
 }
 
 CMapStage* CMapStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)

@@ -16,10 +16,10 @@ vector<TextureSource> CWall::m_vTextureSource =
     {STATIC_WALL_8, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_8.dds", true, 0, 2, 2, {0.f, 0.f}},
     {STATIC_WALL_9, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_9.dds", true, 0, 2, 2, {0.f, 0.f}},
     {STATIC_WALL_10, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_10.dds", true, 0, 2, 2, {0.f, 0.f}},
-    //{STATIC_WALL_WATER, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_WATER.dds", true, 0, 1, 1, {0.f, 0.f}},
-    //{STATIC_WALL_LAVA, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_LAVA.dds", true, 0, 1, 1, {0.f, 0.f}},
-    //{STATIC_WALL_ACID, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_ACID.dds", true, 0, 1, 1, {0.f, 0.f}}
-
+    {STATIC_WALL_WATER, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_WATER.dds", true, 0, 1, 1, {0.f, 0.f}},
+    {STATIC_WALL_LAVA, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_LAVA.dds", true, 0, 1, 1, {0.f, 0.f}},
+    {STATIC_WALL_ACID, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_ACID.dds", true, 0, 1, 1, {0.f, 0.f}},
+    {STATIC_WALL_FENCE, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_FENCE.dds", false, 0, 0, 0, {0.f, 0.f}}
 };
 
 CWall::CWall(LPDIRECT3DDEVICE9 pGraphicDev)
