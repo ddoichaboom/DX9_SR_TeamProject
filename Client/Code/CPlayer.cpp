@@ -557,7 +557,7 @@ void CPlayer::Set_OnFloor(const _float& fTimeDelta)
 	_float fHeight = 0.f;
 	_vec3 vPosition = m_pTransformCom->m_vInfo[INFO_POS];
 	//_float fBottom = vPosition.y - m_pTransformCom->Get_Scale().y;
-	_float fBottom = vPosition.y - 15.f;
+	_float fBottom = vPosition.y - m_pMainCollider->Get_Scale().y;
 
 
 	if (CheckOnFloor(&fHeight))
@@ -569,7 +569,7 @@ void CPlayer::Set_OnFloor(const _float& fTimeDelta)
 		else if (m_bFall)
 		{
 			vPosition.y += m_fVelocity * fTimeDelta;
-			fBottom = vPosition.y - 15.f;
+			fBottom = vPosition.y - m_pMainCollider->Get_Scale().y;
 
 			if (fBottom <= fHeight)
 			{
@@ -581,9 +581,14 @@ void CPlayer::Set_OnFloor(const _float& fTimeDelta)
 		}
 		else
 		{
-			if (false == m_bOnCollision)
+			fBottom = vPosition.y - m_pMainCollider->Get_Scale().y;
+			if (fBottom > fHeight)
+			{				
+				m_bFall = true;
+				vPosition.y += m_fVelocity * fTimeDelta;
+			}
+			else
 			{
-				//vPosition.y = fHeight + m_pTransformCom->Get_Scale().y;
 				vPosition.y = fHeight + m_pMainCollider->Get_Scale().y;
 			}
 
@@ -592,12 +597,8 @@ void CPlayer::Set_OnFloor(const _float& fTimeDelta)
 	}
 	else
 	{
-		if (!m_bOnCollision)
-		{
-			vPosition.y += m_fVelocity * fTimeDelta;
-			m_bFall = true;
-		}
-
+		vPosition.y += m_fVelocity * fTimeDelta;
+		m_bFall = true;
 	}
 
 
