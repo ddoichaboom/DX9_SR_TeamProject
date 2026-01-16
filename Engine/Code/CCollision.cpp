@@ -6,12 +6,12 @@ CCollision::CCollision()
 }
 
 CCollision::CCollision(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CComponent(pGraphicDev)
+	:CComponent(pGraphicDev), m_pMainCollider(nullptr)
 {
 }
 
 CCollision::CCollision(const CCollision& rhs)
-	:CComponent(rhs)
+	:CComponent(rhs), m_pMainCollider(nullptr)
 {
 }
 
@@ -50,6 +50,13 @@ void CCollision::LateUpdate_Component()
 }
 
 
+void CCollision::SetMainCollider(const _tchar* _name)
+{
+    CCollider * col = GetCollider(_name);
+    if (!col) return;
+    m_pMainCollider = col;
+}
+
 void CCollision::SetCollision(CollisionInfo info, const _tchar* _name)
 {
     auto iter = m_mapCollider.find(_name);
@@ -71,10 +78,12 @@ void CCollision::Collision_Base(CCollider* _aCol, CCollider* _bCol)
 	}
 }
 
+//지형 충돌은 캐릭터 CanCollision 체크 X . 무조건 충돌나도록 함
 void CCollision::Collision_Diff(CCollider* _obj, CCollider* _terrain)
 {
     if (!_obj || !_terrain) return;
-    if (!_obj->CanCollision() || !_terrain->CanCollision()) return;
+    //if (!_obj->CanCollision() || !_terrain->CanCollision()) return;
+    if (!_terrain->CanCollision()) return;
 
     _vec3 vDiff; 
     if (CheckCollision_Diff(_obj, _terrain, &vDiff))

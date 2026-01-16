@@ -86,7 +86,8 @@ HRESULT CBeamMon::Ready_GameObject()
 {
 	if (FAILED(Add_Component())) return E_FAIL;
 
-	m_fAttackableDist = 50.f;
+	//m_fAttackableDist = 50.f;
+	m_fAttackableDist = 80.f;
 	m_pTransformCom->m_vScale = { 8.f, 6.f  ,1.f };
 	m_pAnimationCom->Bind_OnChangedFunc([&](_float _aspect) { OnAnimationChange(_aspect); });
 

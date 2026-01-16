@@ -12,6 +12,9 @@ class CRightPart;
 class CMiddlePart;
 class CWeapon;
 
+// 바꿔야할거같긴함
+class CShopBG;
+
 class CPlayer :
 	public CCharacter
 {
@@ -56,7 +59,7 @@ private:
 	void				Update_Jump(const _float& fTimeDelta);
 	void				Update_Dash(const _float& fTimeDelta);
 
-	void				Move_ByCollision(COL_DIR& dir, _vec3 _diff);
+	void				Move_ByCollision(COL_DIR& dir, _vec3 _diff) override;
 public:	
 	void				Intro_Func();
 	void				Fire_Func();
@@ -175,5 +178,9 @@ private:
 
 	map<_uint, _int> m_mapCallCnt = {};
 	//_int	m_iCallCnt;	
+
+
+	//UI
+	CShopBG*	m_pShopBG;
 };
 

@@ -21,7 +21,7 @@
 #include "CRightPart.h"
 #include "CMiddlePart.h"
 #include "CPistol.h"
-
+#include "CPhoneBG.h"
 
 CBossTestStage::CBossTestStage(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CStage(pGraphicDev), m_pEnvironment_Layer(nullptr), m_pGameLogic_Layer(nullptr)
@@ -95,6 +95,15 @@ HRESULT CBossTestStage::Ready_ObjectPool()
 		}
 	}
 
+	if (!CPoolMgr::GetInstance()->HasPool<CWhiteMan>())
+	{
+		if (FAILED(CPoolMgr::GetInstance()->CreatePool<CWhiteMan>(m_pGraphicDev)))
+		{
+			MSG_BOX("CWhiteMan Pool Create Failed");
+			return E_FAIL;
+		}
+	}
+
 	return S_OK;
 }
 
@@ -144,26 +153,6 @@ HRESULT CBossTestStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 	if (FAILED(pLayer->Add_GameObject(pGameObject)))
 		return E_FAIL;
 
-	pGameObject = CMiddlePart::Create(m_pGraphicDev);
-	pPlayer->Set_MiddlePart(dynamic_cast<CMiddlePart*>(pGameObject));
-	if (FAILED(pLayer->Add_GameObject(pGameObject)))
-		return E_FAIL;
-
-	pGameObject = CRightPart::Create(m_pGraphicDev);
-	pPlayer->Set_RightPart(dynamic_cast<CRightPart*>(pGameObject));
-	if (FAILED(pLayer->Add_GameObject(pGameObject)))
-		return E_FAIL;
-
-	pGameObject = CLeftPart::Create(m_pGraphicDev);
-	pPlayer->Set_LeftPart(dynamic_cast<CLeftPart*>(pGameObject));
-	if (FAILED(pLayer->Add_GameObject(pGameObject)))
-		return E_FAIL;
-
-	pGameObject = CPistol::Create(m_pGraphicDev);
-	pPlayer->Add_Weapon((byte)1, dynamic_cast<CPistol*>(pGameObject));
-	if (FAILED(pLayer->Add_GameObject(pGameObject)))
-		return E_FAIL;
-
 #pragma endregion
 
 	pGameObject = CPoolMgr::GetInstance()->Get_Object<CFlyMon>();
@@ -171,6 +160,13 @@ HRESULT CBossTestStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 
 	if (nullptr == pGameObject) return E_FAIL;
 	if (FAILED(pLayer->Add_GameObject(pGameObject))) return E_FAIL;
+
+	pGameObject = CPoolMgr::GetInstance()->Get_Object<CWhiteMan>();
+	pGameObject->SetPos({ 0.f, 10.f, 90.f });
+
+	if (nullptr == pGameObject) return E_FAIL;
+	if (FAILED(pLayer->Add_GameObject(pGameObject))) return E_FAIL;
+
 
 	pGameObject = CBoss::Create(m_pGraphicDev);
 
@@ -185,22 +181,35 @@ HRESULT CBossTestStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 
 HRESULT CBossTestStage::Ready_Prototype()
 {
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcTexUp", CRcTexUp::Create(m_pGraphicDev))))
-		return E_FAIL;
+	//if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcTexUp", CRcTexUp::Create(m_pGraphicDev))))
+	//	return E_FAIL;
 
 	CTexture* pCom_Texture = nullptr;
-	////FlyMon Texture
-	//pCom_Texture = CTexture::Create(m_pGraphicDev, CFlyMon::GetTextureSources());
-	//if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FlyMonTexture", pCom_Texture)))
-	//	return E_FAIL;
+	//Player Phone
+	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CPhoneBG::GetTextureSource());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_PhoneBGTexture", pCom_Texture)))
+		return E_FAIL;
 
-	//if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FlyMonAnimation", CAnimation::Create(m_pGraphicDev, pCom_Texture, CFlyMon::GetAnimSources()))))
-	//	return E_FAIL;
-	//
-	////Beam Texture
-	//pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBeam::GetTextureSources());
-	//if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BeamTexture", pCom_Texture)))
-	//	return E_FAIL;
+	//FlyMon Texture
+	pCom_Texture = CTexture::Create(m_pGraphicDev, CFlyMon::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FlyMonTexture", pCom_Texture)))
+		return E_FAIL;
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FlyMonAnimation", CAnimation::Create(m_pGraphicDev, pCom_Texture, CFlyMon::GetAnimSources()))))
+		return E_FAIL;
+	
+	//CWhiteMan Texture
+	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CWhiteMan::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WhiteManTexture", pCom_Texture)))
+		return E_FAIL;
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WhiteManAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CWhiteMan::GetAnimSources()))))
+		return E_FAIL;
+
+	//Beam Texture
+	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBeam::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BeamTexture", pCom_Texture)))
+		return E_FAIL;
 
 	//BOSS Texture
 	pCom_Texture = CTexture::Create(m_pGraphicDev, CBoss::GetTextureSources());

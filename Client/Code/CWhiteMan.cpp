@@ -12,6 +12,10 @@ _uint CWhiteMan::ID_SLICE_DEAD = CStateComponent::MakeStateID(MS_DEAD, SUB_NONE,
 _uint CWhiteMan::ID_ELECT_DEAD = CStateComponent::MakeStateID(MS_DEAD, SUB_NONE, ELECT);
 _uint CWhiteMan::ID_HEAD_DEAD = CStateComponent::MakeStateID(MS_DEAD, SUB_NONE, HEAD);
 
+_uint CWhiteMan::ID_FLYBACK_BEGIN = CStateComponent::MakeStateID(MS_FLYBACK, SUB_BEGIN);
+_uint CWhiteMan::ID_FLYBACK_END_WALL = CStateComponent::MakeStateID(MS_FLYBACK, SUB_NONE, DEST_WALL);
+_uint CWhiteMan::ID_FLYBACK_END_GROUND = CStateComponent::MakeStateID(MS_FLYBACK, SUB_NONE, DEST_GROUND);
+
 //-------------------------------------------------------------------------
 // Texture , Animation Data
 //-------------------------------------------------------------------------
@@ -25,9 +29,16 @@ vector<TextureSource> CWhiteMan::m_vTextureSource =
 	,{ MS_WALK,		L"../Bin/Resource/Texture/Monster/WhiteMan/white_Walk_1024.dds" }
 	,{ MS_HIT,		L"../Bin/Resource/Texture/Monster/WhiteMan/white_Hit_1024.dds" }
 	,{ MS_LAUNCH,	L"../Bin/Resource/Texture/Monster/WhiteMan/Launch_1024.dds" }
+
 	,{ ID_SLICE_DEAD, L"../Bin/Resource/Texture/Monster/WhiteMan/KatanaDead_1024.dds" }
 	,{ ID_ELECT_DEAD, L"../Bin/Resource/Texture/Monster/WhiteMan/Elect_End_1024.dds" }
 	,{ ID_HEAD_DEAD, L"../Bin/Resource/Texture/Monster/WhiteMan/headDead_512.dds" }
+
+	,{ MS_FLYBACK, L"../Bin/Resource/Texture/Monster/WhiteMan/FlyBack_1024.dds" }
+	,{ ID_FLYBACK_BEGIN, L"../Bin/Resource/Texture/Monster/WhiteMan/FlyBack_Begin_1024.dds" }
+	,{ ID_FLYBACK_END_WALL, L"../Bin/Resource/Texture/Monster/WhiteMan/FlyBack_End_Wall_1024.dds" }
+	,{ ID_FLYBACK_END_GROUND, L"../Bin/Resource/Texture/Monster/WhiteMan/FlyBack_End_Ground_1024.dds" }
+
 	,{ MS_DEAD,		L"../Bin/Resource/Texture/Monster/WhiteMan/white_DeadBack_512.dds" }
 };
 //Loop 인 애니메이션은 Ratio 세팅 금지(디폴트로 두기) . Ratio먹이면 다음 애니메이션이 안나옴 
@@ -40,9 +51,16 @@ vector<AnimationSource> CWhiteMan::m_vAnimSource =
 	,{ MS_WALK,1,6,5, true, 0.11f}						//Walk
 	,{ MS_HIT,1,2,2, false, 0.09f, 1.f, true}			//Hit
 	,{ MS_LAUNCH,1,2,1, false, 0.06f, 1.f, true}		//Launch
+
 	,{ ID_SLICE_DEAD ,3,4,4, false, 0.11f, 1.f, true}	//Slice Dead
 	,{ ID_ELECT_DEAD ,3,3,2, false, 0.06f, 1.f, true}	//Elect Dead
 	,{ ID_HEAD_DEAD,5,3,1, false, 0.10f, 1.f, true}		//Head Dead
+
+	,{ MS_FLYBACK,1,3,2, true, 0.04f}						//Fly Back
+	,{ ID_FLYBACK_BEGIN,1,3,2, false, 0.06f, 1.f, true}		//Fly Back Begin
+	,{ ID_FLYBACK_END_WALL,3,3,1, false, 0.07f, 1.f, true}	//Fly Back End To Wall
+	,{ ID_FLYBACK_END_GROUND,3,3,3, false, 0.07f, 1.f, true}//Fly Back End To Ground
+
 	,{ MS_DEAD,6,3,2, false, 0.06f, 1.f, true}			//Dead
 };
 
@@ -86,6 +104,17 @@ void CWhiteMan::CreateStateData()
 	//Launch State 
 	State = new CState<CWhiteMan>(nullptr, &CWhiteMan::Launch, nullptr);
 	Mgr->AddState(MS_LAUNCH, State);
+
+
+	//FlyBack State
+	State = new CState<CWhiteMan>(&CWhiteMan::FlyBack_Begin, &CWhiteMan::FlyBack, nullptr);
+	Mgr->AddState(MS_FLYBACK, State);
+
+	State = new CState<CWhiteMan>(nullptr, &CWhiteMan::Fly_BlockWall, nullptr);
+	Mgr->AddState(ID_FLYBACK_END_WALL, State);
+
+	State = new CState<CWhiteMan>(nullptr, &CWhiteMan::Fly_FallGournd, nullptr);
+	Mgr->AddState(ID_FLYBACK_END_GROUND, State);
 
 	//Dead State
 	State = new CState<CWhiteMan>(nullptr, &CWhiteMan::Slice, nullptr);
@@ -170,6 +199,7 @@ HRESULT CWhiteMan::Ready_GameObject()
 	m_pBodyCollider = m_pCollisionCom->CreateCollider(this, m_szBodyColliderName);
 	if (!m_pBodyCollider) return E_FAIL;
 
+	m_pCollisionCom->SetMainCollider(m_szBodyColliderName);
 	m_pBodyCollider->Set_RelativePos(_vec3(0, -2.5f, 0));
 	m_pBodyCollider->Set_Scale(_vec3(4,10,4));
 	m_pBodyCollider->BindFuncToCollision([&](CollisionInfo info)
@@ -236,7 +266,7 @@ void CWhiteMan::ChangeState(_uint nextStateID)
 
 void CWhiteMan::OnHeadCollision(CollisionInfo info)
 {
-	if (info.eTag == TAG_KICK)
+	if (info.eTag == TAG_KICK || info.eTag == TAG_SLIDE)
 		return;
 
 	m_fHP -= info.fDamage;
@@ -252,6 +282,26 @@ void CWhiteMan::OnHeadCollision(CollisionInfo info)
 
 void CWhiteMan::OnBodyCollision(CollisionInfo info)
 {
+	if (info.eDir != CDIR_NONE)
+	{
+		Move_ByCollision(info.eDir, info.vDiff);
+		//지형충돌 
+		if (m_pStateCom->GetCurrentStateID() == MS_FLYBACK )
+		{
+			ChangeState(ID_FLYBACK_END_WALL);
+			return;
+		}
+	}
+
+	if (info.eTag == TAG_SLIDE)
+	{
+		if (m_pHeadCollider) m_pHeadCollider->OffCollision();
+		if (m_pBodyCollider) m_pBodyCollider->OffCollision();
+		m_fHP = 0.f;
+		ChangeState(MS_FLYBACK);
+		return;
+	}
+
 	m_fHP -= info.fDamage;
 	if (m_fHP <= 0.f)
 	{
@@ -395,6 +445,41 @@ void CWhiteMan::Slice()
 }
 void CWhiteMan::Bomb()
 {
+}
+void CWhiteMan::FlyBack_Begin()
+{
+	CTransform* pCamTransform = GetCameraTransform();
+	if (!pCamTransform) return;
+	_vec3 vDir = *pCamTransform->Get_Info(INFO_LOOK);
+	vDir.y = 0.f;
+	D3DXVec3Normalize(&m_FlyDir, &vDir);
+
+
+}
+void CWhiteMan::FlyBack()
+{
+	if (m_fTime > m_fFlyBackTime)
+	{
+		ChangeState(ID_FLYBACK_END_GROUND);
+	}
+
+	float totalSpeed = easeOutQuint(m_fTime / m_fFlyBackTime) * m_fFlyBackSpeed;
+	m_pTransformCom->Move_Pos(&m_FlyDir, 1, totalSpeed);
+
+}
+void CWhiteMan::Fly_BlockWall()
+{
+	if (m_pAnimationCom->IsEnd())
+	{
+		SetDead();
+	}
+}
+void CWhiteMan::Fly_FallGournd()
+{
+	if (m_pAnimationCom->IsEnd())
+	{
+		SetDead();
+	}
 }
 // _animAspect = cutSize.x / cutSize.y 한 종횡비 
 // 애니메이션마다 크기가 다를경우 오브젝트의 scale을 조정하기위함

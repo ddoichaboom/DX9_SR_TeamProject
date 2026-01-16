@@ -39,7 +39,7 @@ protected:
     void        Change_Room(_int iNewRoomIndex);
 
     void        Check_Collision() override;
-
+    //메세지 Mgr에 구독한 이벤트에 대한 기능 정의 
     void        OnEvent(EVENT_TYPE _type, EventData* _pData) override;
 protected:
     CLayer*     m_pEnvironment_Layer;

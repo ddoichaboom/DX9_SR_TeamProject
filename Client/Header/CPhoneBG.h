@@ -8,7 +8,6 @@ namespace Engine
 	class CTexture;
 }
 
-
 class CPhoneBG : public CBaseUI    
 {
 protected:
@@ -39,7 +38,6 @@ protected :
 	static TextureSource    m_textureSource;
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTransform* m_pTransformCom;
-	Engine::CTexture* m_pTextureCom;
-
+	Engine::CTexture* m_pTextureCom;	
 };
 

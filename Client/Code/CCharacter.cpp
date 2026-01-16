@@ -112,6 +112,25 @@ HRESULT CCharacter::Add_Component()
 }
 
 
+void CCharacter::Move_ByCollision(COL_DIR& dir, _vec3 _diff)
+{
+	_vec3 vPos = *m_pTransformCom->Get_Info(INFO_POS);
+	if (dir == CDIR_X)
+	{
+		vPos.x += _diff.x;
+	}
+	else if (dir == CDIR_Y)
+	{
+		vPos.y += _diff.y;
+	}
+	else
+	{
+		vPos.z += _diff.z;
+	}
+
+	m_pTransformCom->Set_Pos(vPos);
+}
+
 void CCharacter::Free()
 {
 	CGameObject::Free();

@@ -56,6 +56,7 @@ protected:
 	static vector<TextureSource>	m_vTextureSource;
 	static vector<AnimationSource>	m_vAnimSource;
 
+	//UI
 	CGameObject*	m_pPhoneBG;
 
 	_vec3	m_vStartPos;

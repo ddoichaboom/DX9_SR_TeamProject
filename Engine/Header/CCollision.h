@@ -23,9 +23,10 @@ public:
 public:
 	//생성 + 컴포넌트가 보관CreateCollider
 	CCollider*			CreateCollider(CGameObject* _obj, const _tchar* _name);
-	CCollider* GetCollider()
+	CCollider*			GetCollider()
 	{
 		if (m_mapCollider.empty()) return nullptr;
+		else if (m_pMainCollider) return m_pMainCollider;
 		else return m_mapCollider.begin()->second;
 	}
 	CCollider*			GetCollider(const _tchar* _name) 
@@ -38,6 +39,8 @@ public:
 	{
 		return m_mapCollider;
 	}
+	//Main Collider 설정. 여러 콜라이더가 있을 때 GetCollider()에서 메인만 꺼내오기 위함
+	void				SetMainCollider(const _tchar* _name);
 
 	void				SetCollision(CollisionInfo info, const _tchar* _name);
 	
@@ -73,7 +76,7 @@ private:
 
 private:
 	map<const _tchar*, CCollider*> m_mapCollider;
-
+	CCollider* m_pMainCollider;
 };
 
 END

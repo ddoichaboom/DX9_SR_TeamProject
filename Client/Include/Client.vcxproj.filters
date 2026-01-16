@@ -166,6 +166,18 @@
     <Filter Include="02. GameObject\12. Trigger\StageEndTrigger">
       <UniqueIdentifier>{b457a555-07c9-4099-85f4-2704782f1090}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04.UI\02.DynamicUI\01.Shop_BG">
+      <UniqueIdentifier>{3ad2316d-f529-4f71-90d0-9126f7c2043a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\01.StaticUI\02.Shop_Item">
+      <UniqueIdentifier>{92278782-f580-497e-8e7d-57a0dc2b6129}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Bullet\Rocket">
+      <UniqueIdentifier>{fc7ab85c-a5ec-4c9d-93e3-0e115cbe301d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\01.StaticUI\03.Select_Item">
+      <UniqueIdentifier>{a64ef52c-e2cb-4cb3-96ae-8cb2e75da0b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -267,9 +279,6 @@
     <ClInclude Include="..\Header\CBossBullet.h">
       <Filter>02. GameObject\10. Bullet\BossBullet</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CRocket.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="..\header\CHeightMapTerrain.h">
       <Filter>999.Sample</Filter>
     </ClInclude>
@@ -308,6 +317,18 @@
     </ClInclude>
     <ClInclude Include="..\Header\CDoorTrigger.h">
       <Filter>02. GameObject\12. Trigger\DoorTrigger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CShopBG.h">
+      <Filter>04.UI\02.DynamicUI\01.Shop_BG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CShopItem.h">
+      <Filter>04.UI\01.StaticUI\02.Shop_Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CRocket.h">
+      <Filter>02. GameObject\10. Bullet\Rocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSelectBG.h">
+      <Filter>04.UI\01.StaticUI\03.Select_Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -398,9 +419,6 @@
     <ClCompile Include="..\Code\CBossBullet.cpp">
       <Filter>02. GameObject\10. Bullet\BossBullet</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CRocket.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CHeightMapTerrain.cpp">
       <Filter>999.Sample</Filter>
     </ClCompile>
@@ -442,6 +460,18 @@
     </ClCompile>
     <ClCompile Include="..\Code\CDoorTrigger.cpp">
       <Filter>02. GameObject\12. Trigger\DoorTrigger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CShopBG.cpp">
+      <Filter>04.UI\02.DynamicUI\01.Shop_BG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CShopItem.cpp">
+      <Filter>04.UI\01.StaticUI\02.Shop_Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CRocket.cpp">
+      <Filter>02. GameObject\10. Bullet\Rocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSelectBG.cpp">
+      <Filter>04.UI\01.StaticUI\03.Select_Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

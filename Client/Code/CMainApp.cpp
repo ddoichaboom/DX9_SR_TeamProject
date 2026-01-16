@@ -298,6 +298,7 @@ void CMainApp::Free()
 
 	CEventMgr::DestroyInstance();
 	CMapLoader::DestroyInstance();
+	
 
 	CDInputMgr::DestroyInstance();
 	CRenderer::DestroyInstance();
@@ -324,6 +325,8 @@ void CMainApp::Free()
 	CDataMgr<CMiddlePart>::DestroyInstance();
 	CDataMgr<CKatana>::DestroyInstance();
 
+	// MayBe ?
+	CEventMgr::DestroyInstance();
 
 	m_pDeviceClass->DestroyInstance();
 }
