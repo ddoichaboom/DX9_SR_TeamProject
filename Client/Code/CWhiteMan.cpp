@@ -269,7 +269,13 @@ void CWhiteMan::OnHeadCollision(CollisionInfo info)
 	if (info.eTag == TAG_KICK || info.eTag == TAG_SLIDE)
 		return;
 
-	m_fHP -= info.fDamage;
+	m_fHP = 0.f;
+	if (m_pHeadCollider) m_pHeadCollider->OffCollision();
+	if (m_pBodyCollider) m_pBodyCollider->OffCollision();
+	if (info.eTag == TAG_KATANA) ChangeState(ID_SLICE_DEAD);
+	else ChangeState(ID_HEAD_DEAD);
+
+	/*m_fHP -= info.fDamage;
 	if (m_fHP <= 0.f)
 	{
 		if (m_pHeadCollider) m_pHeadCollider->OffCollision();
@@ -277,7 +283,7 @@ void CWhiteMan::OnHeadCollision(CollisionInfo info)
 		if (info.eTag == TAG_KATANA) ChangeState(ID_SLICE_DEAD);
 		else ChangeState(ID_HEAD_DEAD);
 	}
-	else ChangeState(MS_HIT);
+	else ChangeState(MS_HIT);*/
 }
 
 void CWhiteMan::OnBodyCollision(CollisionInfo info)
