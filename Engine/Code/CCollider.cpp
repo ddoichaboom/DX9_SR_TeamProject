@@ -102,7 +102,8 @@ _matrix  CCollider::GetWorldMatrix()
 
 void  CCollider::Collision(CollisionInfo info)
 {
-	if (!m_bCanCollision)  return;
+	//들어온게 지형충돌이면 충돌처리함
+	if (info.eDir == CDIR_NONE && !m_bCanCollision)  return;
 	if(m_BindFunc)	m_BindFunc(info);
 }
 

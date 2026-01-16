@@ -111,8 +111,7 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	if (m_bFall)
 	{
-		//TODO : 보스 스테이지 테스트용. 제거하기 
-		//Gravity(fTimeDelta);
+		Gravity(fTimeDelta);
 	}
 	else
 	{

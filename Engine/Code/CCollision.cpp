@@ -6,12 +6,12 @@ CCollision::CCollision()
 }
 
 CCollision::CCollision(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CComponent(pGraphicDev)
+	:CComponent(pGraphicDev), m_pMainCollider(nullptr)
 {
 }
 
 CCollision::CCollision(const CCollision& rhs)
-	:CComponent(rhs)
+	:CComponent(rhs), m_pMainCollider(nullptr)
 {
 }
 
@@ -49,6 +49,13 @@ void CCollision::LateUpdate_Component()
     }
 }
 
+
+void CCollision::SetMainCollider(const _tchar* _name)
+{
+    CCollider * col = GetCollider(_name);
+    if (!col) return;
+    m_pMainCollider = col;
+}
 
 void CCollision::SetCollision(CollisionInfo info, const _tchar* _name)
 {

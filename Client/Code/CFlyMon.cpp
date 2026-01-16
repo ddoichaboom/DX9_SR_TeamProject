@@ -51,7 +51,7 @@ void CFlyMon::CreateStateData()
 	Mgr->AddState(MS_IDLE, State);
 
 	//Attack Idle State
-	State = new CState<CFlyMon>(nullptr, &CFlyMon::Attack_Idle, nullptr);
+	State = new CState<CFlyMon>(&CFlyMon::Attack_Idle_Begin, &CFlyMon::Attack_Idle, nullptr);
 	Mgr->AddState(MS_ATTACK_IDLE, State);
 
 	//Attack State
@@ -182,6 +182,15 @@ void CFlyMon::TracePlayer(const _float& fTimeDelta)
 void CFlyMon::Idle()
 {
 
+}
+
+void CFlyMon::Attack_Idle_Begin()
+{
+	//_float myColSizeX = m_pBodyCollider->Get_Scale().x; 
+	//CCollision* pPlayerCollision =	
+	//	 static_cast<CCollision*>(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_PLAYER, L"Com_Collision"));
+	//_float playerColSizeX = pPlayerCollision->GetCollider()->Get_Scale().x;
+	//m_fAttackableDist = myColSizeX + playerColSizeX;
 }
 
 void CFlyMon::Attack_Idle()

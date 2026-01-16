@@ -130,8 +130,8 @@ protected:
 protected:
 	_float			m_fAttackDelayTime = 3.0f;
 
-	_float			m_fFlyBackTime = 0.6f;
-	_float			m_fFlyBackSpeed= 2.0f;
+	_float			m_fFlyBackTime = 0.5f;
+	_float			m_fFlyBackSpeed= 4.f;
 	_vec3			m_FlyDir = {};
 
 	CCollider*		m_pHeadCollider;

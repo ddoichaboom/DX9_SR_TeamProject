@@ -28,6 +28,7 @@ HRESULT CDoorTrigger::Ready_GameObject()
 
 _int CDoorTrigger::Update_GameObject(const _float& fTimeDelta)
 {
+	if (IsDead()) return RET_DEAD;
 	_int iExit = CTrigger::Update_GameObject(fTimeDelta);
 	return iExit;
 }
@@ -68,12 +69,14 @@ void CDoorTrigger::OnBeginCollision()
 {
 	m_EventData.value = m_iRoomIndex;
 	CEventMgr::GetInstance()->Broadcast(EVENT_DOOR_IN, &m_EventData);
+	SetDead();
 }
 
 void CDoorTrigger::OnEndCollision()
 {
 	m_EventData.value = m_iRoomIndex;
 	CEventMgr::GetInstance()->Broadcast(EVENT_DOOR_OUT, &m_EventData);
+	SetDead();
 }
 
 void CDoorTrigger::Free()

@@ -56,7 +56,7 @@ vector<AnimationSource> CWhiteMan::m_vAnimSource =
 	,{ ID_ELECT_DEAD ,3,3,2, false, 0.06f, 1.f, true}	//Elect Dead
 	,{ ID_HEAD_DEAD,5,3,1, false, 0.10f, 1.f, true}		//Head Dead
 
-	,{ MS_FLYBACK,1,3,2, true, 0.08f}						//Fly Back
+	,{ MS_FLYBACK,1,3,2, true, 0.04f}						//Fly Back
 	,{ ID_FLYBACK_BEGIN,1,3,2, false, 0.06f, 1.f, true}		//Fly Back Begin
 	,{ ID_FLYBACK_END_WALL,3,3,1, false, 0.07f, 1.f, true}	//Fly Back End To Wall
 	,{ ID_FLYBACK_END_GROUND,3,3,3, false, 0.07f, 1.f, true}//Fly Back End To Ground
@@ -199,6 +199,7 @@ HRESULT CWhiteMan::Ready_GameObject()
 	m_pBodyCollider = m_pCollisionCom->CreateCollider(this, m_szBodyColliderName);
 	if (!m_pBodyCollider) return E_FAIL;
 
+	m_pCollisionCom->SetMainCollider(m_szBodyColliderName);
 	m_pBodyCollider->Set_RelativePos(_vec3(0, -2.5f, 0));
 	m_pBodyCollider->Set_Scale(_vec3(4,10,4));
 	m_pBodyCollider->BindFuncToCollision([&](CollisionInfo info)
@@ -265,7 +266,7 @@ void CWhiteMan::ChangeState(_uint nextStateID)
 
 void CWhiteMan::OnHeadCollision(CollisionInfo info)
 {
-	if (info.eTag == TAG_KICK)
+	if (info.eTag == TAG_KICK || info.eTag == TAG_SLIDE)
 		return;
 
 	m_fHP -= info.fDamage;
@@ -285,9 +286,10 @@ void CWhiteMan::OnBodyCollision(CollisionInfo info)
 	{
 		Move_ByCollision(info.eDir, info.vDiff);
 		//지형충돌 
-		if (m_pStateCom->GetCurrentStateID() == MS_FLYBACK)
+		if (m_pStateCom->GetCurrentStateID() == MS_FLYBACK )
 		{
 			ChangeState(ID_FLYBACK_END_WALL);
+			return;
 		}
 	}
 
@@ -391,7 +393,7 @@ void CWhiteMan::Launch()
 	CTransform* playerTransform = GetPlayerTransform();
 	if (!playerTransform) return;
 
-	if (m_fTime >= m_fFlyBackTime)
+	if (m_fTime >= m_fLaunchTime)
 	{
 		if (m_bLaunchEnd)
 		{
@@ -449,6 +451,7 @@ void CWhiteMan::FlyBack_Begin()
 	CTransform* pCamTransform = GetCameraTransform();
 	if (!pCamTransform) return;
 	_vec3 vDir = *pCamTransform->Get_Info(INFO_LOOK);
+	vDir.y = 0.f;
 	D3DXVec3Normalize(&m_FlyDir, &vDir);
 
 
@@ -459,6 +462,7 @@ void CWhiteMan::FlyBack()
 	{
 		ChangeState(ID_FLYBACK_END_GROUND);
 	}
+
 	float totalSpeed = easeOutQuint(m_fTime / m_fFlyBackTime) * m_fFlyBackSpeed;
 	m_pTransformCom->Move_Pos(&m_FlyDir, 1, totalSpeed);
 

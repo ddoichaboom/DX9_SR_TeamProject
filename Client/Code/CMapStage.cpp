@@ -546,14 +546,18 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
 
 
     //이 트리거가 있는 방의 번호 첫 인자로 입력
-    CDoorTrigger* trigger = CDoorTrigger::Create(m_pGraphicDev, 0, _vec3(28.f, 8.f, 250.f), _vec3(16.f, 16.f, 16.f));
-    
-    pGameObject = trigger;
-    if (nullptr == pGameObject)
-        return E_FAIL;
+    pGameObject = CDoorTrigger::Create(m_pGraphicDev, 0, _vec3(26.f, 10.f, 250.f), _vec3(16.f, 16.f, 16.f));
+    if (nullptr == pGameObject) return E_FAIL;
+    if (FAILED(pLayer->Add_GameObject(pGameObject))) return E_FAIL;
 
-    if (FAILED(pLayer->Add_GameObject(pGameObject)))
-        return E_FAIL;
+    pGameObject = CMapCollider::Create(m_pGraphicDev, _vec3(-72.f, 10.f, 120), _vec3(16.f, 16.f, 70.f));
+    if (nullptr == pGameObject) return E_FAIL;
+    if (FAILED(pLayer->Add_GameObject(pGameObject))) return E_FAIL;
+
+    pGameObject = CMapCollider::Create(m_pGraphicDev, _vec3(122.f, 10.f, 120), _vec3(16.f, 16.f, 70.f));
+    if (nullptr == pGameObject) return E_FAIL;
+    if (FAILED(pLayer->Add_GameObject(pGameObject))) return E_FAIL;
+
 
     m_mapLayer.insert({ pLayerTag, pLayer });
 
@@ -713,11 +717,6 @@ void CMapStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
             Change_Room(m_iCurrentRoomIndex + 1);
         
         Change_Room(m_iCurrentRoomIndex + 1);
-    }
-    
-    else if (_type == EVENT_DOOR_OUT)
-    {
-        Change_Room(m_iCurrentRoomIndex - 1);
     }
 }
 
