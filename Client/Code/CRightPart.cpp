@@ -74,7 +74,7 @@ CRightPart* CRightPart::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	}
 
 	return pRightPart;
-}
+}	
 
 _bool CRightPart::Get_ActionAble()
 {
@@ -196,6 +196,7 @@ void CRightPart::End_Attack()
 
 void CRightPart::Begin_Reload()
 {
+	m_bReload = true;
 	m_vConvertPos = m_vStartPos;
 	m_vConvertScale = { 512.f, 512.f, 1.f };
 
@@ -218,7 +219,7 @@ void CRightPart::Reload()
 
 void CRightPart::End_Reload()
 {
-
+	m_bReload = false;
 }
 
 void CRightPart::Begin_Intro()

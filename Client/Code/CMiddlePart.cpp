@@ -23,7 +23,7 @@ vector<AnimationSource>  CMiddlePart::m_vAnimSource =
 {
 	{ IDLE,0,3,3, true, 0.08f},
 	{ KICK,0,3,3, false, 0.08f, 1.f},
-	{ DRINK,0,6,6, false, 0.1f, 1.f},
+	{ DRINK,0,6,6, false, 0.1f, 0.8f},
 	{ SLIDE,1,0,0, true, 0.08f},
 	{ GetStateID(INTRO,WEAPON_PISTOL),1,2,2, false, 0.12f, 1.f},
 	{ INTRO,1,2,2, false, 0.12f, 1.f},
@@ -217,7 +217,6 @@ void CMiddlePart::Begin_Drink()
 	m_vEndPos = { m_fX, m_fY, 0.f };
 	m_pTransformCom->Set_Scale(m_fSizeX * 0.5f, m_fSizeY * 0.5f, 1.f);
 	m_pTransformCom->Set_Pos(m_fX - WINCX * 0.5f, -m_fY + WINCY * 0.5f, 0.f);
-
 }
 
 void CMiddlePart::Drink()

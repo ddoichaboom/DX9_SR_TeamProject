@@ -50,6 +50,14 @@ CPlayer::~CPlayer()
 {
 }
 
+void CPlayer::OnEvent(EVENT_TYPE _type, EventData* _pData)
+{
+	if (_type == EVENT_DOOR_IN)
+	{
+		Change_State(SHOP);
+	}
+}
+
 HRESULT CPlayer::Ready_GameObject()
 {
 	if (FAILED(Add_Component()))
@@ -58,7 +66,7 @@ HRESULT CPlayer::Ready_GameObject()
 	if (FAILED(Add_PlayerPart()))
 		return E_FAIL;
 
-
+	CEventMgr::GetInstance()->Subscribe(EVENT_DOOR_IN, this);
 
 
 	m_pTransformCom->m_vScale = { 6.f,6.f,6.f };
@@ -237,23 +245,6 @@ void CPlayer::Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _v
 		m_pTransformCom->Move_Pos(&vLook, fTimeDelta, -fMoveSpeed);
 		break;
 	}
-}
-
-void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
-{
-	// 일반 공격
-	if (CDInputMgr::GetInstance()->Mouse_Down(DIM_LB))
-	{
-		if (m_mapWeapon[m_eWeaponState]->Can_Fire())
-		{
-			if (m_eNowState == IDLE || m_eNowState == ATTACK)
-			{
-				Change_State(ATTACK);
-				return;
-			}
-
-		}
-	}
 
 	// 대쉬
 	if (CDInputMgr::GetInstance()->Mouse_Down(DIM_RB) && !m_bDash)
@@ -312,7 +303,33 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 		m_bJump = true;
 		return;
 	}
+}
 
+void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
+{
+	if (m_eNowState != IDLE && m_eNowState != DRINK)
+		return;
+
+	if (CDInputMgr::GetInstance()->Key_Down(DIK_R))
+	{
+		if (m_eNowState == IDLE && !m_pLeftPart->Get_Relaod() && !m_pRightPart->Get_Reload())
+			Change_State(RELOAD);
+		return;
+	}
+
+	// 일반 공격
+	if (CDInputMgr::GetInstance()->Mouse_Down(DIM_LB))
+	{
+		if (m_mapWeapon[m_eWeaponState]->Can_Fire())
+		{
+			if (m_eNowState == IDLE || m_eNowState == ATTACK)
+			{
+				Change_State(ATTACK);
+				return;
+			}
+
+		}
+	}
 
 	// 발차기
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_LSHIFT))
@@ -339,13 +356,6 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 	}
 
 	// 장전
-	if (CDInputMgr::GetInstance()->Key_Down(DIK_R))
-	{
-		if (m_eNowState == IDLE)
-			Change_State(RELOAD);
-		return;
-	}
-
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_1))
 	{
 		if (m_eWeaponState != WEAPON_PISTOL)
@@ -689,7 +699,6 @@ void CPlayer::Update_Dash(const _float& fTimeDelta)
 
 void CPlayer::Intro_Func()
 {
-	//m_pMiddlePart->ChangeState(GetStateID(INTRO, SW_END));
 	switch (m_eWeaponState)
 	{
 	case WEAPON_NONE:
@@ -706,15 +715,20 @@ void CPlayer::Intro_Func()
 	default:
 		break;
 	}
-
 }
 
+/// <summary>
+/// 공격 이벤트
+/// </summary>
 void CPlayer::Fire_Func()
 {
 	m_mapWeapon[m_eWeaponState]->Fire();
 	CheckPickedMonster();
 }
 
+/// <summary>
+/// 카타나 충돌 이벤트
+/// </summary>
 void CPlayer::Katana_Func()
 {
 	m_pKickCollider->OnCollision();
@@ -726,19 +740,38 @@ void CPlayer::Reload_Func()
 	m_mapWeapon[m_eWeaponState]->Reload();
 }
 
+
+/// <summary>
+/// 발차기 충돌 이벤트
+/// </summary>
 void CPlayer::Kick_Func()
 {
 	m_pKickCollider->OnCollision();
 	CheckKickedMonster(TAG_KICK, m_fKickAttack);
 }
 
+/// <summary>
+/// 슬라이딩 이벤트 ( 콜라이더 충돌 ) 
+/// </summary>
 void CPlayer::Slide_Func()
 {
 	CheckKickedMonster(TAG_SLIDE, m_fKickAttack);
 }
 
+/// <summary>
+/// 상점 이벤트 시작
+/// </summary>
 void CPlayer::Shop_Func()
 {
+	Change_State(SHOP);
+}
+
+/// <summary>
+/// 드링킹 이벤트
+/// </summary>
+void CPlayer::Drink_Func()
+{
+
 }
 
 void CPlayer::Change_State(_uint eState)
@@ -987,7 +1020,7 @@ void CPlayer::Reload_Enter()
 
 		break;
 	case WEAPON_PISTOL:
-		m_mapCallCnt[RELOAD] = 1;
+		m_mapCallCnt[RELOAD] = 2;
 		m_mapWeapon[m_eWeaponState]->Set_ShootAble(false);
 		m_pLeftPart->ChangeState(GetStateID(RELOAD, m_eWeaponState));
 		m_pRightPart->ChangeState(GetStateID(RELOAD, m_eWeaponState));
@@ -1092,7 +1125,7 @@ void CPlayer::Kick_Exit()
 
 void CPlayer::Drink_Enter()
 {
-	m_mapCallCnt[DRINK] = 1;
+	m_mapCallCnt[DRINK] = 0;
 	m_pMiddlePart->ChangeState(DRINK);
 }
 

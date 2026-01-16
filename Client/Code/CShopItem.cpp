@@ -5,6 +5,8 @@
 
 #include "CSelectBG.h"
 
+#include "CDInputMgr.h"
+
 
 vector<TextureSource> CShopItem::m_vTextureSource =
 {
@@ -147,6 +149,12 @@ _int CShopItem::Update_GameObject(const _float& fTimeDelta)
     if (m_bRender)
     {
         m_pSelectBG->Update_GameObject(fTimeDelta);
+    }
+
+    if (m_bRender && CDInputMgr::GetInstance()->Mouse_Down(DIM_LB))
+    {
+        // 선택완료
+
     }
 
     return iExit;
