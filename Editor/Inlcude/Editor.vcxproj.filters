@@ -97,6 +97,9 @@
     <Filter Include="04. Object\04. EditorFloor\DynamicFloor">
       <UniqueIdentifier>{a1528ea3-3528-4e92-a13e-488a85d3dc8e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Scene\03. EffectScene">
+      <UniqueIdentifier>{3511c0cc-eaff-4f55-b9c5-99bc5283809f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">

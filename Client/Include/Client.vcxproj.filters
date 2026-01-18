@@ -178,6 +178,9 @@
     <Filter Include="04.UI\01.StaticUI\03.Select_Item">
       <UniqueIdentifier>{a64ef52c-e2cb-4cb3-96ae-8cb2e75da0b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\999. TestEffect">
+      <UniqueIdentifier>{b0904e45-6482-43e5-8335-e9af254524c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -330,6 +333,9 @@
     <ClInclude Include="..\Header\CSelectBG.h">
       <Filter>04.UI\01.StaticUI\03.Select_Item</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CTestEffect.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -472,6 +478,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CSelectBG.cpp">
       <Filter>04.UI\01.StaticUI\03.Select_Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTestEffect.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

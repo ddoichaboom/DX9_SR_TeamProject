@@ -3,7 +3,7 @@
 
 namespace Engine
 {
-    class CAnimation;
+    class CScrollTexture;
 }
 
 class CDynamicFloor : public CFloor
@@ -18,10 +18,6 @@ public:
     {
         return m_vTextureSource;
     }
-    static vector<AnimationSource>& GetAnimSources()
-    {
-        return m_vAnimSource;
-    }
 
 public:
     virtual HRESULT     Ready_GameObject() override;
@@ -29,9 +25,8 @@ public:
     virtual void        LateUpdate_GameObject(const _float& fTimeDelta) override;
     virtual void        Render_GameObject() override;
     virtual void        Set_FloorType(_uint eFloorType) override;
-
 protected:
-    Engine::CAnimation* m_pAnimationCom;
+    Engine::CScrollTexture* m_pScrollTextureCom;
 
 protected:
     virtual HRESULT     Add_Component() override;
@@ -45,6 +40,5 @@ protected:
 
 private:
     static vector<TextureSource>    m_vTextureSource;
-    static vector<AnimationSource>  m_vAnimSource;
 };
 

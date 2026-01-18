@@ -718,7 +718,7 @@ void CPlayer::Fire_Func()
 void CPlayer::Katana_Func()
 {
 	m_pKickCollider->OnCollision();
-	CheckKickedMonster(TAG_NONE, m_mapWeapon[m_eWeaponState]->Get_Power());
+	CheckKickedMonster(TAG_KATANA, m_mapWeapon[m_eWeaponState]->Get_Power());
 }
 
 void CPlayer::Reload_Func()

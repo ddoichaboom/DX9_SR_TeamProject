@@ -27,6 +27,7 @@ void CRenderer::Render_GameObject(LPDIRECT3DDEVICE9& pGraphicDev)
 	pGraphicDev->SetTexture(0, nullptr);
 	Render_Priority(pGraphicDev);
 	Render_NonAlpha(pGraphicDev);
+	Render_NonAlpha_WRAP(pGraphicDev);
 	Render_Alpha(pGraphicDev);
 	Render_Alpha_UI(pGraphicDev);
 	Render_UI(pGraphicDev);
@@ -54,6 +55,18 @@ void CRenderer::Render_NonAlpha(LPDIRECT3DDEVICE9& pGraphicDev)
 {
 	for (auto& pObj : m_RenderGroup[RENDER_NONALPHA])
 		pObj->Render_GameObject();
+}
+
+void CRenderer::Render_NonAlpha_WRAP(LPDIRECT3DDEVICE9& pGraphicDev)
+{
+	pGraphicDev->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);
+	pGraphicDev->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);
+
+	for (auto& pObj : m_RenderGroup[RENDER_NONALPHA_WRAP])
+		pObj->Render_GameObject();
+
+	pGraphicDev->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP);
+	pGraphicDev->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_CLAMP);
 }
 
 void CRenderer::Render_Alpha(LPDIRECT3DDEVICE9& pGraphicDev)

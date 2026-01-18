@@ -33,6 +33,17 @@ namespace Engine
 
 	const _ulong	FVF_CUBE = D3DFVF_XYZ | D3DFVF_TEX1 | D3DFVF_TEXCOORDSIZE3(0); // 텍스처의 UV 좌표 값을 FLOAT형 3개로 표현하겠다는 매크로(괄호안의 숫자 0의 의미는 본래 버텍스에 텍스쳐 UV값이 여러개가 올 수 있는데 그중 0번째 값을 지정하겠다는 의미)
 
+
+	typedef struct tagVertexParticle
+	{
+		_vec3		vPosition;
+		_ulong		dwColor;
+		_vec2		vTexUV;
+
+	}VTXPTC;
+	//순서 고정 
+	const _ulong	FVF_PTC = D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1;
+
 	typedef struct tagIndex16
 	{
 		_ushort  _0;
@@ -180,6 +191,44 @@ namespace Engine
 		int value = -1;
 	}EventData;
 
+
+	typedef struct tagParticle
+	{
+		_vec3 vPosition;
+		_float fSize;
+		_vec3 vVelocity;
+		_float fLifeTime;
+		_float fAge;
+		D3DXCOLOR color;
+		_vec2 vStartUV;
+		_vec2 vEndUV;
+		bool bIsAlive;
+	}Particle;
+
+	struct BoundingBox
+	{
+		BoundingBox()
+		{
+			min.x = FLT_MIN;
+			min.y = FLT_MIN;
+			min.z = FLT_MIN;
+			max.x = FLT_MAX;
+			max.y = FLT_MAX;
+			max.z = FLT_MAX;
+		}
+		bool IsPointInside(D3DXVECTOR3& p)
+		{
+			if (p.x >= min.x && p.y >= min.y && p.z >= min.z &&
+				p.x <= max.x && p.y <= max.y && p.z <= max.z)
+			{
+				return true;
+			}
+			else return  false;
+		}
+
+		D3DXVECTOR3 min;
+		D3DXVECTOR3 max;
+	};
 
 }
 
