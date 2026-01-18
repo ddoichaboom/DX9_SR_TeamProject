@@ -1,6 +1,5 @@
 #pragma once
 #include "CBaseUI.h"
-#include "CEventMgr.h"
 
 namespace Engine
 {
@@ -11,26 +10,22 @@ namespace Engine
 	class CStateComponent;
 }
 
-class CShopItem;
-class CNoise;
-
-class CShopBG : public CBaseUI, public IListener
+class CPhonePlayer : public CBaseUI
 {
-private :
-	enum SHOPBG_STATE : _byte
+private:
+	enum PHONE_STATE : _byte
 	{
-		LOADING  = 1,
-		NOISE,
-		ONPAGE,
-		SHOP_END
+		PHONE_IDLE = 1,
+		STATE_END
 	};
+
 protected:
-	explicit	CShopBG(LPDIRECT3DDEVICE9 pGraphicDev);
-	explicit	CShopBG(const CShopBG& rhs);
-	virtual		~CShopBG();
+	explicit	CPhonePlayer(LPDIRECT3DDEVICE9 pGraphicDev);	
+	explicit	CPhonePlayer(const CPhonePlayer& rhs);
+	virtual		~CPhonePlayer();
 
 public:
-	static		CShopBG* Create(PDIRECT3DDEVICE9 pGraphicDev);
+	static		CPhonePlayer* Create(PDIRECT3DDEVICE9 pGraphicDev);
 	static _uint GetStateID(_byte _state, _byte _subState)
 	{
 		return ((_uint)_subState << 4) | (_uint)_state;
@@ -47,7 +42,6 @@ public:
 
 protected:
 	virtual		HRESULT		Add_Component();
-	virtual		HRESULT		Add_ShopItem();
 	virtual		void		Free();
 
 public:
@@ -61,21 +55,12 @@ public:
 	virtual		void        SetPos(_vec3 _pos) override;
 	virtual		void		SetScale(_float fCX, _float fCY);
 	virtual		void		ChangeState(_uint nextStateID);
-
-	void		OnEvent(EVENT_TYPE _type, EventData* _pData) override;
-	virtual		void		Set_On();
-
-	virtual		void		Set_Off()	{}
+	virtual		void		Set_On() { ChangeState(PHONE_IDLE); }
 
 protected:
 	void	Begin_Idle();
 	void	Idle();
 
-	void	Begin_Noise();
-	void	Noise();
-
-	void	Begin_OnPage();
-	void	OnPage();
 
 protected:
 	static vector<TextureSource>	m_vTextureSource;
@@ -85,20 +70,5 @@ protected:
 	Engine::CTexture* m_pTextureCom;
 	Engine::CAnimation* m_pAnimationCom;
 	Engine::CStateComponent* m_pStateCom;
-protected :
-	_vec3		m_vStartPos;
-	_vec3		m_vEndPos;
-	_vec3		m_vStartScale;
-	_vec3		m_vEndScale;
-
-	_float		m_fTime;
-	_float		m_fDelayTime;
-	_bool		m_bDelay;
-	_bool		m_bStateStop;
-
-	CShopItem* m_pItem[3];
-	CNoise* m_pNoise;
-	_bool	m_bRender;
-	_bool	m_bStop;
 };
 

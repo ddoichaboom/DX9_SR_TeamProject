@@ -1,6 +1,5 @@
 #pragma once
 #include "CBaseUI.h"
-#include "CEventMgr.h"
 
 namespace Engine
 {
@@ -11,26 +10,26 @@ namespace Engine
 	class CStateComponent;
 }
 
-class CShopItem;
 class CNoise;
 
-class CShopBG : public CBaseUI, public IListener
+class CMascot : public CBaseUI
 {
-private :
-	enum SHOPBG_STATE : _byte
+private:
+	enum DIR_STATE : _byte
 	{
-		LOADING  = 1,
-		NOISE,
-		ONPAGE,
-		SHOP_END
+		CENTER = 1,
+		LEFT,
+		RIGHT,
+		STATE_END
 	};
+
 protected:
-	explicit	CShopBG(LPDIRECT3DDEVICE9 pGraphicDev);
-	explicit	CShopBG(const CShopBG& rhs);
-	virtual		~CShopBG();
+	explicit	CMascot(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit	CMascot(const CMascot& rhs);
+	virtual		~CMascot();
 
 public:
-	static		CShopBG* Create(PDIRECT3DDEVICE9 pGraphicDev);
+	static		CMascot* Create(PDIRECT3DDEVICE9 pGraphicDev);
 	static _uint GetStateID(_byte _state, _byte _subState)
 	{
 		return ((_uint)_subState << 4) | (_uint)_state;
@@ -47,7 +46,6 @@ public:
 
 protected:
 	virtual		HRESULT		Add_Component();
-	virtual		HRESULT		Add_ShopItem();
 	virtual		void		Free();
 
 public:
@@ -61,21 +59,24 @@ public:
 	virtual		void        SetPos(_vec3 _pos) override;
 	virtual		void		SetScale(_float fCX, _float fCY);
 	virtual		void		ChangeState(_uint nextStateID);
-
-	void		OnEvent(EVENT_TYPE _type, EventData* _pData) override;
-	virtual		void		Set_On();
-
-	virtual		void		Set_Off()	{}
+	virtual		void		Set_On() 
+	{		
+		Get_Number();
+		ChangeState(m_iNumber);
+	}
 
 protected:
 	void	Begin_Idle();
 	void	Idle();
 
-	void	Begin_Noise();
-	void	Noise();
+	void	Get_Number()
+	{
+		m_iNumber++;
 
-	void	Begin_OnPage();
-	void	OnPage();
+		m_iNumber %= 3;
+		m_iNumber++;
+	}
+
 
 protected:
 	static vector<TextureSource>	m_vTextureSource;
@@ -85,20 +86,10 @@ protected:
 	Engine::CTexture* m_pTextureCom;
 	Engine::CAnimation* m_pAnimationCom;
 	Engine::CStateComponent* m_pStateCom;
-protected :
-	_vec3		m_vStartPos;
-	_vec3		m_vEndPos;
-	_vec3		m_vStartScale;
-	_vec3		m_vEndScale;
 
-	_float		m_fTime;
-	_float		m_fDelayTime;
-	_bool		m_bDelay;
-	_bool		m_bStateStop;
+	_uint	m_iNumber;
+	_float	m_fTime;
 
-	CShopItem* m_pItem[3];
 	CNoise* m_pNoise;
-	_bool	m_bRender;
-	_bool	m_bStop;
 };
 

@@ -178,6 +178,30 @@
     <Filter Include="04.UI\01.StaticUI\03.Select_Item">
       <UniqueIdentifier>{a64ef52c-e2cb-4cb3-96ae-8cb2e75da0b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04.UI\UIManager">
+      <UniqueIdentifier>{7965902d-4b4c-4aaf-8a8b-d2132956158f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\01.StaticUI\04.Stage_BG">
+      <UniqueIdentifier>{5111b033-3f16-4817-b57e-c762fba14185}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\02.DynamicUI\02.Chat">
+      <UniqueIdentifier>{04499492-2484-40c3-ad00-831a6a648c07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\02.DynamicUI\03.Mascot">
+      <UniqueIdentifier>{2e4fb4e1-1618-4ea8-b5a4-ff98c8e00a0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\02.DynamicUI\04.Heart">
+      <UniqueIdentifier>{a9e40874-5ebd-431e-800c-0293a7193fdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\01.StaticUI\05.Heart_Beat">
+      <UniqueIdentifier>{dc3e9daa-f1b7-4ae9-ae01-9ac4eaf4cff8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\02.DynamicUI\05.Noise">
+      <UniqueIdentifier>{aa71e2f7-aff5-4af9-8887-fa068b50f791}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\02.DynamicUI\06.Player_UI">
+      <UniqueIdentifier>{9de8e327-d18b-47ae-97ea-380981a2b116}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -330,6 +354,30 @@
     <ClInclude Include="..\Header\CSelectBG.h">
       <Filter>04.UI\01.StaticUI\03.Select_Item</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CUIManager.h">
+      <Filter>04.UI\UIManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CStageBG.h">
+      <Filter>04.UI\01.StaticUI\04.Stage_BG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CChat.h">
+      <Filter>04.UI\02.DynamicUI\02.Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMascot.h">
+      <Filter>04.UI\02.DynamicUI\03.Mascot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHeart.h">
+      <Filter>04.UI\02.DynamicUI\04.Heart</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHeartBeat.h">
+      <Filter>04.UI\01.StaticUI\05.Heart_Beat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CNoise.h">
+      <Filter>04.UI\02.DynamicUI\05.Noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPhonePlayer.h">
+      <Filter>04.UI\02.DynamicUI\06.Player_UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -472,6 +520,30 @@
     </ClCompile>
     <ClCompile Include="..\Code\CSelectBG.cpp">
       <Filter>04.UI\01.StaticUI\03.Select_Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CUIManager.cpp">
+      <Filter>04.UI\UIManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CStageBG.cpp">
+      <Filter>04.UI\01.StaticUI\04.Stage_BG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CChat.cpp">
+      <Filter>04.UI\02.DynamicUI\02.Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMascot.cpp">
+      <Filter>04.UI\02.DynamicUI\03.Mascot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHeart.cpp">
+      <Filter>04.UI\02.DynamicUI\04.Heart</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHeartBeat.cpp">
+      <Filter>04.UI\01.StaticUI\05.Heart_Beat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CNoise.cpp">
+      <Filter>04.UI\02.DynamicUI\05.Noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPhonePlayer.cpp">
+      <Filter>04.UI\02.DynamicUI\06.Player_UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

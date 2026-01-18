@@ -97,7 +97,8 @@ namespace Engine
 		DRINK = 6,
 		SLIDE = 7,
 		INTRO = 8,
-		SHOP  = 9,
+		SHOP = 9,
+		READY_NEXT = 10,
 		MAIN_END
 	};
 
@@ -113,6 +114,22 @@ namespace Engine
 	enum COL_DIR { CDIR_NONE, CDIR_X, CDIR_Y, CDIR_Z, CDIR_END };
 
 	//본게임에서는 EVENT_DOOR_OPEN, 지금은 임시로 In, out 으로 사용
-	enum EVENT_TYPE { EVENT_MONSTER_DEAD, EVENT_DOOR_IN, EVENT_DOOR_OUT, EVENT_STAGE_END, EVENT_END};
+	enum EVENT_TYPE 
+	{ 
+		EVENT_MONSTER_DEAD,
+		EVENT_DOOR_IN,
+		EVENT_DOOR_OUT,
+		EVENT_STAGE_END,
+		EVENT_READY_NEXT_STAGE,
+		EVENT_NEXT_STAGE,
+		EVENT_END
+	};
+
+	enum UI_STATE
+	{
+		UI_DEFAULT = 0,
+		UI_STAGE_CLEAR,
+		UI_END
+	};
 }
 #endif // Engine_Enum_h__

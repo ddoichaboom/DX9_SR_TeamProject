@@ -8,6 +8,8 @@ namespace Engine
 	class CTexture;
 }
 
+class CPhonePlayer;
+
 class CPhoneBG : public CBaseUI    
 {
 protected:
@@ -39,5 +41,8 @@ protected :
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTransform* m_pTransformCom;
 	Engine::CTexture* m_pTextureCom;	
+
+
+	CPhonePlayer* m_pPhonePlayer;
 };
 

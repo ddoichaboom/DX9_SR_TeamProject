@@ -8,19 +8,18 @@ namespace Engine
 	class CTexture;
 }
 
-class CSelectBG;
 
-class CShopItem : public CBaseUI
+class CHeartBeat : public CBaseUI
 {
 protected:
-	explicit	CShopItem(LPDIRECT3DDEVICE9 pGraphicDev);
-	explicit	CShopItem(LPDIRECT3DDEVICE9 pGraphicDev, _float fX, _float fY, _uint iTextureID);
-	explicit	CShopItem(const CShopItem& rhs);
-	virtual		~CShopItem();
+	explicit	CHeartBeat(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit	CHeartBeat(LPDIRECT3DDEVICE9 pGraphicDev, _float fX, _float fY, _uint iTextureID);
+	explicit	CHeartBeat(const CHeartBeat& rhs);
+	virtual		~CHeartBeat();
 
 public:
-	static		CShopItem* Create(PDIRECT3DDEVICE9 pGraphicDev);
-	static		CShopItem* Create(PDIRECT3DDEVICE9 pGraphicDev,_float fX, _float fY, _uint iTextureID);
+	static		CHeartBeat* Create(PDIRECT3DDEVICE9 pGraphicDev);
+	static		CHeartBeat* Create(PDIRECT3DDEVICE9 pGraphicDev, _float fX, _float fY, _uint iTextureID);
 	static vector<TextureSource>& GetTextureSources()
 	{
 		return m_vTextureSource;
@@ -42,8 +41,8 @@ protected:
 	virtual		void		SetScale(_float fCX, _float fCY);
 
 public :
-	void		Set_Render(_bool bRender) { m_bRender = bRender; }
-	virtual		void		Set_On();
+	virtual		void		Set_On() { m_fTime = 0.f;  }
+
 
 protected:
 	static vector<TextureSource>	m_vTextureSource;
@@ -51,15 +50,12 @@ protected:
 	Engine::CTransform* m_pTransformCom;
 	Engine::CTexture* m_pTextureCom;
 
+protected :
 	_uint	m_iTextureID;
-
-	_bool	m_bRender;
-	CSelectBG* m_pSelectBG;
-
-	EventData			m_EventData;
-
-	_float		m_fTime;
-	_float		m_fInterval;
-	_bool		m_bSelect;
+	_float	m_fTime;
+	
+	_vec3	m_vStartPos;
+	_vec3	m_vEndPos;
+	
 };
 

@@ -34,6 +34,7 @@
 #include "CKatana.h"
 #include "CBackGround.h"
 #include "CTrigger.h"
+#include "CUIManager.h"
 
 CMainApp::CMainApp() : m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
 , m_pManagementClass(CManagement::GetInstance())
@@ -327,6 +328,7 @@ void CMainApp::Free()
 
 	// MayBe ?
 	CEventMgr::DestroyInstance();
+	CUIManager::DestroyInstance();
 
 	m_pDeviceClass->DestroyInstance();
 }

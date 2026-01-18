@@ -120,6 +120,12 @@ private :
 	void				Shop_LateUpdate(const _float& fTimeDelta);
 	void				Shop_Exit();
 
+
+	void				Next_Enter();
+	void				Next_Update(const _float& fTimeDelta);
+	void				Next_LateUpdate(const _float& fTimeDelta);
+	void				Next_Exit();
+
 public:
 	static CPlayer*		Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	static CPlayer*		Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot = { 0.f, 0.f, 1.f }, _vec3 vScale = { 6.f, 6.f, 1.f });
@@ -182,6 +188,6 @@ private:
 
 
 	//UI
-	CShopBG*	m_pShopBG;
+	//CShopBG*	m_pShopBG;
 };
 

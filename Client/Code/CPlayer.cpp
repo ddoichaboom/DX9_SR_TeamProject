@@ -13,7 +13,8 @@
 #include "CPistol.h"
 #include "CKatana.h"
 
-#include "CShopBG.h"
+#include "CEventMgr.h"
+//#include "CShopBG.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCharacter(pGraphicDev, 15.f)
@@ -24,7 +25,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_bDash(false), m_fDashTime(0.f), m_fDashDuration(0.3f), m_fDashDistance(80.f)
 	, m_fKickAttack(1.f), m_pKickCollider(nullptr), m_pMainCollider(nullptr)
 	, m_eNowState(MAIN_END), m_bOnCollision(false)
-	, m_pShopBG(nullptr)
+	
 {
 
 	m_eOBJ_ID = OBJ_PLAYER;
@@ -40,7 +41,7 @@ CPlayer::CPlayer(const CPlayer& rhs)
 	, m_bDash(false), m_fDashTime(0.f), m_fDashDuration(0.3f), m_fDashDistance(80.f)
 	, m_fKickAttack(1.f), m_pKickCollider(nullptr), m_pMainCollider(nullptr)
 	, m_eNowState(MAIN_END), m_bOnCollision(false)
-	, m_pShopBG(nullptr)
+
 {
 	m_eOBJ_ID = OBJ_PLAYER;
 	m_iID = 0;
@@ -52,9 +53,14 @@ CPlayer::~CPlayer()
 
 void CPlayer::OnEvent(EVENT_TYPE _type, EventData* _pData)
 {
-	if (_type == EVENT_DOOR_IN)
+	if (_type == EVENT_STAGE_END)
 	{
 		Change_State(SHOP);
+	}
+
+	if (_type == EVENT_READY_NEXT_STAGE)
+	{
+		Change_State(READY_NEXT);
 	}
 }
 
@@ -67,6 +73,8 @@ HRESULT CPlayer::Ready_GameObject()
 		return E_FAIL;
 
 	CEventMgr::GetInstance()->Subscribe(EVENT_DOOR_IN, this);
+	CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_END, this);
+	CEventMgr::GetInstance()->Subscribe(EVENT_READY_NEXT_STAGE, this);
 
 
 	m_pTransformCom->m_vScale = { 6.f,6.f,6.f };
@@ -98,8 +106,8 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 	int iExit = CCharacter::Update_GameObject(fTimeDelta);
 
 
-
-	Key_Input(fTimeDelta);
+	if (m_eNowState != SHOP && m_eNowState != READY_NEXT)
+		Key_Input(fTimeDelta);
 
 	if (m_bJump)
 		Update_Jump(fTimeDelta);
@@ -107,7 +115,7 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 	if (m_bDash)
 		Update_Dash(fTimeDelta);
 
-	if (m_eNowState != SHOP)
+	if (m_eNowState != SHOP && m_eNowState != READY_NEXT)
 		m_mapWeapon[m_eWeaponState]->Update_GameObject(fTimeDelta);
 
 	State_Update(fTimeDelta);
@@ -132,7 +140,7 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 
 	Set_OnFloor(fTimeDelta);
 
-	if (m_eNowState != SHOP)
+	if (m_eNowState != SHOP && m_eNowState != READY_NEXT)
 		m_mapWeapon[m_eWeaponState]->LateUpdate_GameObject(fTimeDelta);
 	State_LateUpdate(fTimeDelta);
 }
@@ -183,10 +191,6 @@ HRESULT CPlayer::Add_PlayerPart()
 
 
 	// UI 
-	m_pShopBG = CShopBG::Create(m_pGraphicDev);
-	if (nullptr == m_pShopBG)
-		return E_FAIL;
-
 	return S_OK;
 }
 
@@ -307,9 +311,9 @@ void CPlayer::Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _v
 
 void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 {
-	if (m_eNowState != IDLE && m_eNowState != DRINK)
-		return;
-
+	//if (m_eNowState != IDLE && m_eNowState != DRINK)
+	//	return;
+	//
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_R))
 	{
 		if (m_eNowState == IDLE && !m_pLeftPart->Get_Relaod() && !m_pRightPart->Get_Reload())
@@ -362,10 +366,10 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 			Change_Weapon(WEAPON_PISTOL);
 		return;
 	}
-
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_2))
 	{
-		Change_State(SHOP);
+		CEventMgr::GetInstance()->Broadcast(EVENT_STAGE_END, nullptr);
+		return;
 	}
 
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_3))
@@ -817,6 +821,9 @@ void CPlayer::State_Enter()
 	case SHOP:
 		Shop_Enter();
 		break;
+	case READY_NEXT:
+		Next_Enter();
+		break;
 	}
 }
 
@@ -845,9 +852,11 @@ void CPlayer::State_Update(const _float& fTimeDelta)
 	case SLIDE:
 		Slide_Update(fTimeDelta);
 		break;
-
 	case SHOP:
 		Shop_Update(fTimeDelta);
+		break;
+	case READY_NEXT:
+		Next_Update(fTimeDelta);
 		break;
 	}
 }
@@ -880,6 +889,9 @@ void CPlayer::State_LateUpdate(const _float& fTimeDelta)
 	case SHOP:
 		Shop_LateUpdate(fTimeDelta);
 		break;
+	case READY_NEXT:
+		Next_LateUpdate(fTimeDelta);
+		break;
 	}
 }
 
@@ -910,6 +922,9 @@ void CPlayer::State_Exit()
 		break;
 	case SHOP:
 		Shop_Exit();
+		break;
+	case READY_NEXT:
+		Next_Exit();
 		break;
 	}
 }
@@ -1174,23 +1189,44 @@ void CPlayer::Shop_Enter()
 {
 	
 	m_pMiddlePart->ChangeState(SHOP);
-	m_pShopBG->ChangeState(SHOP);
+	//m_pShopBG->ChangeState(SHOP);
 }
 
 void CPlayer::Shop_Update(const _float& fTimeDelta)
 {
 	m_pMiddlePart->Update_GameObject(fTimeDelta);
-	m_pShopBG->Update_GameObject(fTimeDelta);
+	//m_pShopBG->Update_GameObject(fTimeDelta);
 }
 
 void CPlayer::Shop_LateUpdate(const _float& fTimeDelta)
 {
 	m_pMiddlePart->LateUpdate_GameObject(fTimeDelta);
-	m_pShopBG->LateUpdate_GameObject(fTimeDelta);
+	//m_pShopBG->LateUpdate_GameObject(fTimeDelta);
 }
 
 void CPlayer::Shop_Exit()
 {
+}
+
+void CPlayer::Next_Enter()
+{
+	m_pMiddlePart->ChangeState(READY_NEXT);
+}
+
+void CPlayer::Next_Update(const _float& fTimeDelta)
+{
+	m_pMiddlePart->Update_GameObject(fTimeDelta);
+
+}
+
+void CPlayer::Next_LateUpdate(const _float& fTimeDelta)
+{
+	m_pMiddlePart->LateUpdate_GameObject(fTimeDelta);
+}
+
+void CPlayer::Next_Exit()
+{
+	CEventMgr::GetInstance()->Broadcast(EVENT_NEXT_STAGE, nullptr);
 }
 
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -1326,8 +1362,7 @@ void CPlayer::Free()
 	CCharacter::Free();
 	Safe_Release(m_pLeftPart);
 	Safe_Release(m_pRightPart);
-	Safe_Release(m_pMiddlePart);
-	Safe_Release(m_pShopBG);
+	Safe_Release(m_pMiddlePart);	
 	for_each(m_mapWeapon.begin(), m_mapWeapon.end(), CDeleteMap());
 	m_mapWeapon.clear();
 }

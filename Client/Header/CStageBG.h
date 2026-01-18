@@ -8,19 +8,16 @@ namespace Engine
 	class CTexture;
 }
 
-class CSelectBG;
-
-class CShopItem : public CBaseUI
+class CStageBG : public CBaseUI    
 {
 protected:
-	explicit	CShopItem(LPDIRECT3DDEVICE9 pGraphicDev);
-	explicit	CShopItem(LPDIRECT3DDEVICE9 pGraphicDev, _float fX, _float fY, _uint iTextureID);
-	explicit	CShopItem(const CShopItem& rhs);
-	virtual		~CShopItem();
+	explicit	CStageBG(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit	CStageBG(LPDIRECT3DDEVICE9 pGraphicDev, _float fX, _float fY, _uint iStageNum);
+	explicit	CStageBG(const CStageBG& rhs);
+	virtual		~CStageBG();
 
 public:
-	static		CShopItem* Create(PDIRECT3DDEVICE9 pGraphicDev);
-	static		CShopItem* Create(PDIRECT3DDEVICE9 pGraphicDev,_float fX, _float fY, _uint iTextureID);
+	static		CStageBG* Create(PDIRECT3DDEVICE9 pGraphicDev);	
 	static vector<TextureSource>& GetTextureSources()
 	{
 		return m_vTextureSource;
@@ -41,9 +38,6 @@ protected:
 	virtual		void        SetPos(_vec3 _pos) override;
 	virtual		void		SetScale(_float fCX, _float fCY);
 
-public :
-	void		Set_Render(_bool bRender) { m_bRender = bRender; }
-	virtual		void		Set_On();
 
 protected:
 	static vector<TextureSource>	m_vTextureSource;
@@ -51,15 +45,7 @@ protected:
 	Engine::CTransform* m_pTransformCom;
 	Engine::CTexture* m_pTextureCom;
 
-	_uint	m_iTextureID;
-
 	_bool	m_bRender;
-	CSelectBG* m_pSelectBG;
-
-	EventData			m_EventData;
-
-	_float		m_fTime;
-	_float		m_fInterval;
-	_bool		m_bSelect;
+	_uint	m_iStageNum;
 };
 
