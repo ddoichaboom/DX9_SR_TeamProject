@@ -9,7 +9,6 @@ class CEditorWall;
 class CEditorSpawnPoint;
 class CEditorFloor;
 class CEditorCeiling;
-class CEditorSlopeFloor;
 
 class CInspector : public CBase
 {
@@ -27,7 +26,6 @@ private:
     void    Render_FloorTextureUI(CEditorFloor* pFloor);
     void    Render_CeilingTextureUI(CEditorCeiling* pCeiling);
     void    Render_WallTextureUI(CEditorWall* pWall);
-    //void    Render_SlopeFloorTextureUI(CEditorSlopeFloor* pSlopeFloor);
 
 
 private:

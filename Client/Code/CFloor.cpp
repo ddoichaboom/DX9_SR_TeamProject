@@ -12,7 +12,6 @@ vector<TextureSource> CFloor::m_vTextureSource =
 
 CFloor::CFloor(LPDIRECT3DDEVICE9 pGraphicDev)
     : CTerrain(pGraphicDev)
-    , m_iFloorType(0)
 {
     m_eOBJ_ID = OBJ_FLOOR;
     m_iID = Make_ID();
@@ -20,7 +19,6 @@ CFloor::CFloor(LPDIRECT3DDEVICE9 pGraphicDev)
 
 CFloor::CFloor(const CFloor& rhs)
     : CTerrain(rhs)
-    , m_iFloorType(rhs.m_iFloorType)
 {
     m_eOBJ_ID = OBJ_FLOOR;
     m_iID = Make_ID();
@@ -94,8 +92,6 @@ HRESULT CFloor::Add_Component()
 
 void CFloor::Set_FloorType(_uint eFloorType)
 {
-    m_iFloorType = eFloorType;
-
     if (m_pTextureCom)
     {
         m_pTextureCom->Change_Texture(eFloorType);

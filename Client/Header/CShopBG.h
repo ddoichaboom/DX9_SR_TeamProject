@@ -1,6 +1,5 @@
 #pragma once
 #include "CBaseUI.h"
-#include "CEventMgr.h"
 
 namespace Engine
 {
@@ -12,9 +11,8 @@ namespace Engine
 }
 
 class CShopItem;
-class CNoise;
 
-class CShopBG : public CBaseUI, public IListener
+class CShopBG : public CBaseUI
 {
 private :
 	enum SHOPBG_STATE : _byte
@@ -62,11 +60,6 @@ public:
 	virtual		void		SetScale(_float fCX, _float fCY);
 	virtual		void		ChangeState(_uint nextStateID);
 
-	void		OnEvent(EVENT_TYPE _type, EventData* _pData) override;
-	virtual		void		Set_On();
-
-	virtual		void		Set_Off()	{}
-
 protected:
 	void	Begin_Idle();
 	void	Idle();
@@ -97,8 +90,6 @@ protected :
 	_bool		m_bStateStop;
 
 	CShopItem* m_pItem[3];
-	CNoise* m_pNoise;
 	_bool	m_bRender;
-	_bool	m_bStop;
 };
 

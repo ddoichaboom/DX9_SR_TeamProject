@@ -97,10 +97,7 @@
     <Filter Include="04. Object\04. EditorFloor\DynamicFloor">
       <UniqueIdentifier>{a1528ea3-3528-4e92-a13e-488a85d3dc8e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. Object\04. EditorFloor\SlopeFloor">
-      <UniqueIdentifier>{dd48ba29-d43a-43a4-a9a2-f9b145dcf1fb}</UniqueIdentifier>
-	</Filter>
-	<Filter Include="03. Scene\03. EffectScene">
+    <Filter Include="03. Scene\03. EffectScene">
       <UniqueIdentifier>{3511c0cc-eaff-4f55-b9c5-99bc5283809f}</UniqueIdentifier>
     </Filter>
     <Filter Include="01. UI\04. EffectToolBar">
@@ -219,10 +216,7 @@
     <ClInclude Include="..\Header\CEditorDynamicFloor.h">
       <Filter>04. Object\04. EditorFloor\DynamicFloor</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CEditorSlopeFloor.h">
-      <Filter>04. Object\04. EditorFloor\SlopeFloor</Filter>
-	</ClInclude>
-	<ClInclude Include="..\Header\CEffectScene.h">
+    <ClInclude Include="..\Header\CEffectScene.h">
       <Filter>03. Scene\03. EffectScene</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CEffectToolBar.h">
@@ -323,10 +317,7 @@
     <ClCompile Include="..\Code\CEditorDynamicFloor.cpp">
       <Filter>04. Object\04. EditorFloor\DynamicFloor</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CEditorSlopeFloor.cpp">
-      <Filter>04. Object\04. EditorFloor\SlopeFloor</Filter>
-	</ClCompile>
-	<ClCompile Include="..\Code\CEffectScene.cpp">
+    <ClCompile Include="..\Code\CEffectScene.cpp">
       <Filter>03. Scene\03. EffectScene</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CEffectToolBar.cpp">

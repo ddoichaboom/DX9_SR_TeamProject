@@ -27324,6 +27324,29 @@
       "type": "Ceiling"
     },
     {
+      "name": "Wall",
+      "position": [
+        24.0,
+        16.0,
+        1272.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 9
+    },
+    {
       "monsterKey": "FlyMon",
       "name": "MonsterSpawn",
       "position": [
@@ -27344,33 +27367,9 @@
       ],
       "spawnType": "Monster",
       "type": "SpawnPoint"
-    },
-    {
-      "SlopeDirection": 0,
-      "floorType": 2,
-      "isDynamic": false,
-      "name": "SlopeFloor",
-      "position": [
-        24.0,
-        0.0,
-        1272.0
-      ],
-      "roomIndex": 4,
-      "rotation": [
-        60.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        8.0,
-        8.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "SlopeFloor"
     }
   ],
   "obstacleCount": 3,
   "version": 4,
-  "wallCount": 195
+  "wallCount": 196
 }

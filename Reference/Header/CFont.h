@@ -14,20 +14,15 @@ private:
 	LPDIRECT3DDEVICE9			m_pGraphicDev;
 	LPD3DXSPRITE				m_pSprite;		// 2d 텍스처 출력 담당
 	LPD3DXFONT					m_pFont;		// 폰트 출력 담당
-	_bool						m_bKorean;		
-	_bool						m_bCenter;
 
 public:
 	HRESULT			Ready_Font(const _tchar* pFontType,
 								const _uint& iWidth,
 								const _uint& iHeight,
-								const _uint& iWeight,
-								_bool	bKorean,
-								_bool	bCenter);
+								const _uint& iWeight);
 
-	void			Render_Font(const _tchar* pString,
-								_vec3& vPos,
-								_vec3& vSize,
+	void			Render_Font(const _tchar* pString, 
+								const _vec2* pPos,
 								D3DXCOLOR Color);
 
 
@@ -36,9 +31,7 @@ public:
 						const _tchar* pFontType, 
 						const _uint& iWidth, 
 						const _uint& iHeight, 
-						const _uint& iWeight,
-						_bool	bKorean,
-						_bool	bCenter);
+						const _uint& iWeight);
 
 private:
 	virtual void		Free();

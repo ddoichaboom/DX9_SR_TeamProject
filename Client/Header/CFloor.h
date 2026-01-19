@@ -20,18 +20,16 @@ public:
     virtual void        LateUpdate_GameObject(const _float& fTimeDelta) override;
     virtual void        Render_GameObject() override;
     virtual void        Set_FloorType(_uint eFloorType);
-    _uint               Get_FloorType() const { return m_iFloorType; }
 
 protected:
     virtual HRESULT     Add_Component() override;
 
 public:
     // 기본 생성 
-    static CFloor*      Create(LPDIRECT3DDEVICE9 pGraphicDev);
+    static CFloor* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 protected:
-    virtual void        Free() override;
-    _uint               m_iFloorType;
+    virtual void Free() override;
 
 private:
     static vector<TextureSource>    m_vTextureSource;

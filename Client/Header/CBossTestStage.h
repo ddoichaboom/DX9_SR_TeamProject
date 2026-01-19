@@ -34,10 +34,5 @@ protected:
 	CLayer* m_pEnvironment_Layer;
 	CLayer* m_pGameLogic_Layer;
 
-
-	
-	// CStage을(를) 통해 상속됨 ??
-	HRESULT Ready_Prototype_OnlyTexture() override;
-
 };
 

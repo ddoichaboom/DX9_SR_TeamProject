@@ -1,16 +1,12 @@
 #pragma once
 #include "CBaseUI.h"
 
-
 namespace Engine
 {
 	class CRcTex;
 	class CTransform;
 	class CTexture;
 }
-
-class CPhonePlayer;
-class CHPUI;
 
 class CPhoneBG : public CBaseUI    
 {
@@ -43,9 +39,5 @@ protected :
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTransform* m_pTransformCom;
 	Engine::CTexture* m_pTextureCom;	
-
-
-	CPhonePlayer* m_pPhonePlayer;
-	CHPUI* m_pHpUI;
 };
 

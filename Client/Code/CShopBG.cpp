@@ -5,8 +5,6 @@
 #include "CDInputMgr.h"
 
 #include "CShopItem.h"
-#include "CNoise.h"
-#include "CEventMgr.h"
 
 vector<TextureSource> CShopBG::m_vTextureSource =
 {
@@ -27,10 +25,9 @@ CShopBG::CShopBG(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
 	, m_pAnimationCom(nullptr), m_pStateCom(nullptr)
 	, m_fTime(0.f), m_fDelayTime(0.f), m_bDelay(false), m_bStateStop(false)
-	, m_bRender(false), m_bStop(false), m_pNoise(nullptr)
+	, m_bRender(false)
 {	
 	ZeroMemory(m_pItem, sizeof(m_pItem));
-	m_iOrder = 0;
 }
 
 CShopBG::CShopBG(const CShopBG& rhs)
@@ -38,10 +35,9 @@ CShopBG::CShopBG(const CShopBG& rhs)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
 	, m_pAnimationCom(nullptr), m_pStateCom(nullptr)
 	, m_fTime(0.f), m_fDelayTime(0.f), m_bDelay(false), m_bStateStop(false)
-	, m_bRender(false), m_bStop(false), m_pNoise(nullptr)
+	, m_bRender(false)
 {
 	ZeroMemory(m_pItem, sizeof(m_pItem));
-	m_iOrder = 0;
 }
 
 CShopBG::~CShopBG()
@@ -124,20 +120,15 @@ HRESULT CShopBG::Add_ShopItem()
 {
 	CShopItem* pItem = nullptr;
 
-	_float padding = 140.f;
-	_float startX = 400.f;
-	_float startY = 380.f;
+	_float padding = 125.f;
+	_float startX = 300.f;
+	_float startY = 300.f;
 
 	for (_int i = 0; i < 3; ++i)
 	{
 		pItem = CShopItem::Create(m_pGraphicDev, startX + (padding * i), startY, i);
 		m_pItem[i] = pItem;
 	}
-
-	m_pNoise=CNoise::Create(m_pGraphicDev, 510.f, 350.f, 500.f, 340.f);
-
-	if (nullptr == m_pNoise)
-		return E_FAIL;
 
 	return S_OK;
 }
@@ -147,7 +138,6 @@ void CShopBG::Free()
 	for (_int i = 0; i < 3; ++i)
 		Safe_Release(m_pItem[i]);
 	
-	Safe_Release(m_pNoise);
 	CDataMgr<CShopBG>::DestroyInstance();
 	CBaseUI::Free();
 }
@@ -162,16 +152,11 @@ HRESULT CShopBG::Ready_GameObject()
 
 	CreateStateData();
 
-	CEventMgr::GetInstance()->Subscribe(EVENT_READY_NEXT_STAGE, this);
-
     return S_OK;
 }
 
 _int CShopBG::Update_GameObject(const _float& fTimeDelta)
 {
-	if (m_bStop)
-		return 0;
-
 	int iExit = CBaseUI::Update_GameObject(fTimeDelta);
 	m_fTime += fTimeDelta;
 
@@ -182,27 +167,20 @@ _int CShopBG::Update_GameObject(const _float& fTimeDelta)
 	{
 		for (_int i = 0; i < 3; ++i)
 			m_pItem[i]->Update_GameObject(fTimeDelta);
-
-		m_pNoise->Update_GameObject(fTimeDelta);
 	}
 
 	
-	return iExit;
+    return _int();
 }
 
 void CShopBG::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-	if (m_bStop)
-		return;
-
 	CBaseUI::LateUpdate_GameObject(fTimeDelta);
 	m_pAnimationCom->Update_State(m_pStateCom->GetCurrentStateID());
 	if (m_bRender)
 	{
 		for (_int i = 0; i < 3; ++i)
 			m_pItem[i]->LateUpdate_GameObject(fTimeDelta);
-
-		m_pNoise->Update_GameObject(fTimeDelta);
 	}
 }
 
@@ -237,34 +215,18 @@ void CShopBG::ChangeState(_uint nextStateID)
 	m_pStateCom->ChangeState<CShopBG>(nextStateID);
 }
 
-void CShopBG::OnEvent(EVENT_TYPE _type, EventData* _pData)
-{
-	if (EVENT_READY_NEXT_STAGE == _type)
-	{
-		m_bStop = true;
-	}
-}
-
-void CShopBG::Set_On()
-{
-	m_bStop = false;
-	ChangeState(SHOP);
-	for (_int i = 0; i < 3; ++i)
-		m_pItem[i]->Set_On();
-}
-
 void CShopBG::Begin_Idle()
 {
 	m_bRender = false;
 	m_fSizeX = 340.f;
 	m_fSizeY = 195.f;
-	m_fX = 510.f;
+	m_fX = 404.f;
 	m_fY = WINCY -5.f;
 	m_vStartPos = { m_fX, m_fY, 0.f };
-	m_vEndPos = { m_fX, 350.f , 0.f };
+	m_vEndPos = { m_fX, m_fY - 150.f , 0.f };
 
 	m_vStartScale = { m_fSizeX * 0.5f, m_fSizeY * 0.5f, 1.f };
-	m_vEndScale = { m_fSizeX * 0.75f, m_fSizeY * 0.75f, 1.f };
+	m_vEndScale = { m_fSizeX * 0.7f, m_fSizeY * 0.7f, 1.f };
 	m_bDelay = true;
 	m_fDelayTime = 0.f;
 	SetPos(m_vStartPos);
@@ -279,10 +241,9 @@ void CShopBG::Idle()
 	
 	if (m_bDelay)
 	{
-		fTime = m_fDelayTime * 2.f;
-		if (fTime < 1.f)
+		if (m_fDelayTime < 1.f)
 		{
-			//fTime = m_fDelayTime * 3.f;
+			fTime = m_fTime * 3.f;
 			D3DXVec3Lerp(&vPos, &m_vStartPos, &m_vEndPos, fTime);
 			m_pTransformCom->Set_Pos(vPos.x - WINCX * 0.5f, -vPos.y + WINCY * 0.5f, 0.f);	
 			CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);

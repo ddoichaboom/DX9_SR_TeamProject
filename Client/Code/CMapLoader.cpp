@@ -3,7 +3,6 @@
 #include "CLayer.h"
 #include "CTransform.h"
 #include "CPoolMgr.h"
-#include "CManagement.h"
 
 // 환경 오브젝트
 #include "CFloor.h"
@@ -13,7 +12,6 @@
 #include "CWall.h"
 #include "CDynamicWall.h"
 #include "CObstacle.h"
-#include "CSlopeFloor.h"
 
 // 캐릭터,몬스터 (SpawnPoint 처리용)
 #include "CPlayer.h"
@@ -28,13 +26,14 @@ using namespace Engine;
 
 IMPLEMENT_SINGLETON(CMapLoader)
 
-vector<wstring> CMapLoader::m_vecMapFiles =
-{
-    {L"../../Map/Tutorial.json"}
-};
-
 CMapLoader::CMapLoader()
+    : m_vPlayerSpawnPos(0, 0, 0)
+    , m_iFloorCount(0)
+    , m_iCeilingCount(0)
+    , m_iWallCount(0)
+    , m_iObstacleCount(0)
 {
+    m_mapMonsterSpawnPos.clear();
 }     
 
 CMapLoader::~CMapLoader()
@@ -62,6 +61,148 @@ wstring CMapLoader::StringToWString(const string& str)
     wstring result(size - 1, 0);
     MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, &result[0], size);
     return result;
+}
+
+HRESULT CMapLoader::Parse_MapData(const wstring& wstrPath)
+{
+    try
+    {
+        std::ifstream file(wstrPath);
+        if (!file.is_open())
+        {
+            MSG_BOX("JSON File Open Failed");
+            return E_FAIL;
+        }
+
+        json jMap;
+        file >> jMap;
+        file.close();
+
+        _uint iVersion = jMap["version"];
+
+        // 클래스별 카운트 직접 읽기
+        if (iVersion >= 3 && jMap.contains("floorCount"))
+        {
+            m_iFloorCount = jMap["floorCount"];
+            m_iCeilingCount = jMap["ceilingCount"];
+            m_iWallCount = jMap["wallCount"];
+            m_iObstacleCount = jMap["obstacleCount"];
+        }
+        else  // 배열 순회하여 카운팅
+        {
+            m_iFloorCount = 0;
+            m_iCeilingCount = 0;
+            m_iWallCount = 0;
+            m_iObstacleCount = 0;
+
+            json jObjects = jMap["objects"];
+            for (auto& jObj : jObjects)
+            {
+                string strType = jObj["type"];
+                if (strType == "Floor") 
+                    m_iFloorCount++;
+                else if (strType == "Ceiling") 
+                    m_iCeilingCount++;
+                else if (strType == "Wall") 
+                    m_iWallCount++;
+                else if (strType == "Cube") 
+                    m_iObstacleCount++;
+            }
+        }
+
+        return S_OK;
+    }
+    catch (const json::exception& e)
+    {
+        char szError[512];
+        sprintf_s(szError, "JSON Parse Error: %s", e.what());
+        MessageBoxA(nullptr, szError, "Error", MB_OK);
+        return E_FAIL;
+    }
+}
+
+HRESULT CMapLoader::Load_MapData(const wstring& wstrPath,
+    Engine::CLayer* pLayer,
+    LPDIRECT3DDEVICE9 pGraphicDev)
+{
+    if (!pLayer || !pGraphicDev)
+    {
+        MSG_BOX("CMapLoader::Load_MapData - Invalid Parameters");
+        return E_FAIL;
+    }
+
+    try
+    {
+        // 1. 파일 열기
+        std::ifstream file(wstrPath);
+        if (!file.is_open())
+        {
+            wchar_t wszError[512];
+            swprintf_s(wszError, L"Failed to open map file:\n%s", wstrPath.c_str());
+            MessageBox(nullptr, wszError, L"Load Error", MB_OK | MB_ICONERROR);
+            return E_FAIL;
+        }
+
+        // 2. JSON 파싱
+        json jMap;
+        file >> jMap;
+        file.close();
+
+        // 3. 버전 확인 (버전 1과 2 모두 지원)
+        _uint iVersion = jMap["version"];
+        if (iVersion < 1 || iVersion > FILE_VERSION)
+        {
+            wchar_t wszError[256];
+            swprintf_s(wszError, L"Unsupported file version: %d\nCurrent version: %d",
+                iVersion, FILE_VERSION);
+            MessageBox(nullptr, wszError, L"Load Error", MB_OK | MB_ICONERROR);
+            return E_FAIL;
+        }
+
+        // 4. 오브젝트 로드
+        json jObjects = jMap["objects"];
+        _uint iLoadedCount = 0;
+
+        for (auto& jObj : jObjects)
+        {
+            // GameObject 생성
+            CGameObject* pGameObject = Create_GameObject_FromJSON(jObj, pGraphicDev);
+
+            if (pGameObject)
+            {
+                if (FAILED(pLayer->Add_GameObject(pGameObject)))
+                {
+                    // Pool 객체는 Safe_Release 하지 말고 반납
+                    pGameObject->ReturnToPool();
+                }
+                else
+                {
+                    iLoadedCount++;
+                }
+            }
+        }
+
+        // 5. 성공 메시지
+        wchar_t wszMsg[256];
+        swprintf_s(wszMsg, L"Map loaded successfully!\n%d objects loaded (v%d format).",
+            iLoadedCount, iVersion);
+        MessageBox(nullptr, wszMsg, L"Load Map", MB_OK);
+
+        return S_OK;
+    }
+    catch (const json::exception& e)
+    {
+        // JSON 파싱 오류
+        char szError[512];
+        sprintf_s(szError, "JSON Parse Error: %s", e.what());
+        MessageBoxA(nullptr, szError, "Load Error", MB_OK | MB_ICONERROR);
+        return E_FAIL;
+    }
+    catch (...)
+    {
+        MSG_BOX("Unknown error during map load");
+        return E_FAIL;
+    }
 }
 
 HRESULT CMapLoader::Preload_AllMapData(const wstring& wstrPath)
@@ -122,12 +263,10 @@ HRESULT CMapLoader::Preload_AllMapData(const wstring& wstrPath)
             roomMap[iRoomIndex].vObjects.push_back(objData);
 
             // 통계 업데이트
-            if (objData.sType == "Floor")
+            if (objData.sType == "Floor") 
                 roomMap[iRoomIndex].iFloorCount++;
             else if (objData.sType == "DynamicFloor")
                 roomMap[iRoomIndex].iDynamicFloorCount++;
-            else if (objData.sType == "SlopeFloor")
-                roomMap[iRoomIndex].iSlopeFloorCount++;
             else if (objData.sType == "Ceiling")
                 roomMap[iRoomIndex].iCeilingCount++;
             else if (objData.sType == "DynamicCeiling")
@@ -209,10 +348,11 @@ HRESULT CMapLoader::Load_Room(const wstring& wstrPath, _int iRoomIndex, CLayer* 
                 if (objData.sType == "SpawnPoint")
                     continue;
 
+                // Floor, Ceiling, Wall, Cube만 생성
                 if (objData.sType == "Floor" || objData.sType == "DynamicFloor" ||
-                    objData.sType == "SlopeFloor" || objData.sType == "Ceiling" ||
-                    objData.sType == "DynamicCeiling" || objData.sType == "Wall" || 
-                    objData.sType == "DynamicWall" || objData.sType == "Cube")
+                    objData.sType == "Ceiling" || objData.sType == "DynamicCeiling" ||
+                    objData.sType == "Wall" || objData.sType == "DynamicWall" ||
+                    objData.sType == "Cube")
                 {
                     // GameObject 획득 (풀에서)
                     CGameObject* pGameObject = Get_GameObject_FromPool(objData, pGraphicDev);
@@ -243,26 +383,7 @@ HRESULT CMapLoader::Load_Room(const wstring& wstrPath, _int iRoomIndex, CLayer* 
                     // Player SpawnPoint는 위치만 저장 (한 번만 생성됨)
                     if (objData.sSpawnType == "Player")
                     {
-                        CGameObject* pGameObject = pLayer->Get_Object(OBJ_PLAYER);
-
-                        if (nullptr == pGameObject)
-                        {
-                            CPlayer* pPlayer = nullptr;
-
-                            pGameObject = pPlayer = CPlayer::Create(pGraphicDev, objData.vPos);
-
-                            if (nullptr == pGameObject)
-                                return E_FAIL;
-
-                            if (FAILED(pLayer->Add_GameObject(pGameObject)))
-                                return E_FAIL;
-                        }
-                        else
-                        {
-                            pGameObject->SetPos(objData.vPos);
-                        }
-                        
-                        //m_vPlayerSpawnPos = objData.vPos;
+                        m_vPlayerSpawnPos = objData.vPos;
                     }
                     // Monster SpawnPoint는 바로 Monster 생성
                     else if (objData.sSpawnType == "Monster")
@@ -425,30 +546,11 @@ _uint CMapLoader::Get_MaxObjectCount(const wstring& wstrPath, const string& obje
                 break;
 
             // 해당 타입 오브젝트 수 카운트
-            //for (const auto& objData : iterTarget->second.vObjects)
-            //{
-            //    if (objData.sType == objectType)
-            //        iSum++;
-            //}
-
-            RoomData& roomData = iterTarget->second;
-
-            if (objectType == "Floor")
-                iSum += roomData.iFloorCount;
-            else if (objectType == "DynamicFloor")
-                iSum += roomData.iDynamicFloorCount;
-            else if (objectType == "SlopeFloor")
-                iSum += roomData.iSlopeFloorCount;
-            else if (objectType == "Ceiling")
-                iSum += roomData.iCeilingCount;
-            else if (objectType == "DynamicCeiling")
-                iSum += roomData.iDynamicCeilingCount;
-            else if (objectType == "Wall")
-                iSum += roomData.iWallCount;
-            else if (objectType == "DynamicWall")
-                iSum += roomData.iDynamicWallCount;
-            else if (objectType == "Cube")
-                iSum += roomData.iObstacleCount;
+            for (const auto& objData : iterTarget->second.vObjects)
+            {
+                if (objData.sType == objectType)
+                    iSum++;
+            }
         }
 
         if (iSum > iMaxCount)
@@ -458,7 +560,176 @@ _uint CMapLoader::Get_MaxObjectCount(const wstring& wstrPath, const string& obje
     return iMaxCount;
 }
 
+CGameObject* CMapLoader::Create_GameObject_FromJSON(const json& jObj,
+    LPDIRECT3DDEVICE9 pGraphicDev)
+{
+    try
+    {
+        // 타입 읽기
+        string strType = jObj["type"];
+        _int   iRoomIndex = jObj["roomindex"];
 
+        // Transform 읽기
+        _vec3 vPos, vRot, vScale;
+
+        vPos.x = jObj["position"][0];
+        vPos.y = jObj["position"][1];
+        vPos.z = jObj["position"][2];
+
+        vRot.x = jObj["rotation"][0];
+        vRot.y = jObj["rotation"][1];
+        vRot.z = jObj["rotation"][2];
+
+        vScale.x = jObj["scale"][0];
+        vScale.y = jObj["scale"][1];
+        vScale.z = jObj["scale"][2];
+
+        // 타입별 오브젝트 생성
+        CGameObject* pGameObject = nullptr;
+
+        if (strType == "Floor")
+        {
+            CFloor* pFloor = Engine::CPoolMgr::GetInstance()->Get_Object<CFloor>();
+            if (pFloor)
+            {
+                pFloor->SetPos(vPos);
+                pFloor->SetAngle(vRot);
+                pFloor->SetScale(vScale);
+
+                // TextureIdx, FloorType은 에디터에서 Json에 담을 예정
+                pFloor->Set_TextureIdx(0);      // 0 ~ 7
+                pFloor->Set_FloorType(STATIC_FLOOR);
+                pFloor->Set_RoomIndex(iRoomIndex);
+
+                pFloor->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
+                pGameObject = pFloor;
+            }
+        }
+        else if (strType == "DynamicFloor")
+        {
+            CDynamicFloor* pDynamicFloor = Engine::CPoolMgr::GetInstance()->Get_Object<CDynamicFloor>();
+            if (pDynamicFloor)
+            {
+                pDynamicFloor->SetPos(vPos);
+                pDynamicFloor->SetAngle(vRot);
+                pDynamicFloor->SetScale(vScale);
+                pDynamicFloor->Set_TextureIdx(0);   // 애니메이션은 인덱스 필요없을 수도?
+                pDynamicFloor->Set_FloorType(DYNAMIC_FLOOR_LAVA);     // JSON에서 읽어서 대입 임시로 하드코딩
+                pDynamicFloor->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
+               
+
+                pGameObject = pDynamicFloor;
+            }
+        }
+        else if (strType == "Ceiling")
+        {
+            CCeiling* pCeiling = Engine::CPoolMgr::GetInstance()->Get_Object<CCeiling>();
+            if (pCeiling)
+            {
+                pCeiling->SetPos(vPos);
+                pCeiling->SetAngle(vRot);
+                pCeiling->SetScale(vScale);
+
+                // TextureIdx, CeilingType은 에디터에서 Json에 담을 예정
+                pCeiling->Set_TextureIdx(2);    // 0 ~ 7 정적 텍스처만 인덱스 지정 필요 
+                pCeiling->Set_CeilingType(STATIC_CEILING);
+
+                pCeiling->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
+                pGameObject = pCeiling;
+            }
+        }
+        else if (strType == "DynamicCeiling")
+        {
+            CDynamicCeiling* pDynamicCeiling = Engine::CPoolMgr::GetInstance()->Get_Object<CDynamicCeiling>();
+            if (pDynamicCeiling)
+            {
+                pDynamicCeiling->SetPos(vPos);
+                pDynamicCeiling->SetAngle(vRot);
+                pDynamicCeiling->SetScale(vScale);
+                pDynamicCeiling->Set_TextureIdx(0);   // 애니메이션은 인덱스 필요없을 수도?
+                pDynamicCeiling->Set_CeilingType(DYNAMIC_CEILING);     // JSON에서 읽어서 대입 임시로 하드코딩
+                pDynamicCeiling->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
+
+                pGameObject = pDynamicCeiling;
+            }
+        }
+        else if (strType == "Wall")
+        {
+            CWall* pWall = Engine::CPoolMgr::GetInstance()->Get_Object<CWall>();
+            if (pWall)
+            {
+                pWall->SetPos(vPos);
+                pWall->SetAngle(vRot);
+                pWall->SetScale(vScale);
+
+                // TextureIdx, WallType은 에디터에서 Json에 담을 예정
+                pWall->Set_TextureIdx(0);   // 0~2
+                pWall->Set_WallType(STATIC_WALL_1);
+                pWall->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
+                pGameObject = pWall;
+            }
+        }
+        else if (strType == "DynamicWall")
+        {
+            CDynamicWall* pDynamicWall = Engine::CPoolMgr::GetInstance()->Get_Object<CDynamicWall>();
+            if (pDynamicWall)
+            {
+                pDynamicWall->SetPos(vPos);
+                pDynamicWall->SetAngle(vRot);
+                pDynamicWall->SetScale(vScale);
+
+                // TextureIdx, WallType은 에디터에서 Json에 담을 예정
+                pDynamicWall->Set_TextureIdx(0);   // 0~2
+                pDynamicWall->Set_WallType(DYNAMIC_WALL);
+                pDynamicWall->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
+                pGameObject = pDynamicWall;
+            }
+        }
+        else if (strType == "Cube")
+        {
+            CObstacle* pObstacle = Engine::CPoolMgr::GetInstance()->Get_Object<CObstacle>();
+            if (pObstacle)
+            {
+                pObstacle->SetPos(vPos);
+                pObstacle->SetAngle(vRot);
+                pObstacle->SetScale(vScale);
+                pObstacle->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
+                pGameObject = pObstacle;
+            }
+        }
+        else if (strType == "SpawnPoint")
+        {
+            if (jObj.contains("spawnType"))
+            {
+                string strSpawnType = jObj["spawnType"];
+
+                if (strSpawnType == "Player")
+                {
+                    m_vPlayerSpawnPos = vPos;
+                }
+                else if (strSpawnType == "Monster")
+                {
+                    string strMonsterKey = jObj["monsterKey"];
+
+                    if (jObj.contains("monsterKey"))
+                        strMonsterKey = jObj["monsterKey"];
+
+                    // map에 추가
+                    m_mapMonsterSpawnPos[strMonsterKey].push_back(vPos);
+                }
+            }
+
+            // SpawnPoint는 GameObject를 생성하지 않음
+            pGameObject = nullptr;
+        }
+
+        return pGameObject;
+    }
+    catch (...)
+    {
+        return nullptr;
+    }
+}
 
 ObjectData CMapLoader::Parse_ObjectData_FromJSON(const json& jObj)
 {
@@ -491,9 +762,6 @@ ObjectData CMapLoader::Parse_ObjectData_FromJSON(const json& jObj)
         objData.iCeilingType = jObj["ceilingType"];
     if (jObj.contains("wallType"))
         objData.iWallType = jObj["wallType"];
-
-    if (jObj.contains("SlopeDirection"))
-        objData.eSlopeDir = jObj["SlopeDirection"];
 
     // SpawnPoint 전용
     if (jObj.contains("spawnType"))
@@ -534,21 +802,6 @@ CGameObject* CMapLoader::Get_GameObject_FromPool(const ObjectData& objData, LPDI
             pDynamicFloor->Set_FloorType(objData.iFloorType);
             pDynamicFloor->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
             pGameObject = pDynamicFloor;
-        }
-    }
-    else if (objData.sType == "SlopeFloor")
-    {
-        CSlopeFloor* pSlopeFloor = Engine::CPoolMgr::GetInstance()->Get_Object<CSlopeFloor>();
-        if (pSlopeFloor)
-        {
-            pSlopeFloor->SetPos(objData.vPos);
-            pSlopeFloor->SetAngle(objData.vRot);
-            pSlopeFloor->SetScale(objData.vScale);
-            pSlopeFloor->Set_TextureIdx(objData.iTextureIdx);
-            pSlopeFloor->Set_FloorType(objData.iFloorType);
-            pSlopeFloor->Set_SlopeDirection(objData.eSlopeDir);
-            pSlopeFloor->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
-            pGameObject = pSlopeFloor;
         }
     }
     else if (objData.sType == "Ceiling")

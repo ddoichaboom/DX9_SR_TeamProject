@@ -21,6 +21,7 @@ public:
 	virtual void		Render_GameObject() PURE;
 
 public:
+
 	// Transform ฐüทร
 	void				Set_Position(_vec3 vPos);
 	void				Set_Rotation(_vec3 vRot);

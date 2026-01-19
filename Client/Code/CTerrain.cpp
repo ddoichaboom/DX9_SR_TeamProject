@@ -14,7 +14,6 @@ CTerrain::CTerrain(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_iTextureIdx(0)
     , m_bIsBlocked(true)
     , m_eColliderTag(TAG_NONE)
-    , m_pBufferUpCom(nullptr)
 {
 }
 
@@ -27,7 +26,6 @@ CTerrain::CTerrain(const CTerrain& rhs)
     , m_iTextureIdx(0)
     , m_bIsBlocked(true)
     , m_eColliderTag(TAG_NONE)
-    , m_pBufferUpCom(nullptr)
 {
 }
 

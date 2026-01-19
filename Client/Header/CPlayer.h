@@ -1,6 +1,5 @@
 #pragma once
 #include "CCharacter.h"
-#include "CEventMgr.h"
 
 namespace Engine
 {
@@ -16,7 +15,8 @@ class CWeapon;
 // 바꿔야할거같긴함
 class CShopBG;
 
-class CPlayer : public CCharacter, public IListener
+class CPlayer :
+	public CCharacter
 {
 public:
 
@@ -30,10 +30,10 @@ public:
 	{
 		return ((_uint)_subState << 4) | (_uint)_state;
 	}
+
 	_byte Get_WeaponState() { return (_byte)m_eWeaponState; }
 
-protected :
-	void        OnEvent(EVENT_TYPE _type, EventData* _pData) override;
+
 
 public:
 	HRESULT			Ready_GameObject() override;
@@ -68,7 +68,6 @@ public:
 	void				Kick_Func();
 	void				Slide_Func();
 	void				Shop_Func();
-	void				Drink_Func();
 
 public :
 	void				Change_State(_uint eState);
@@ -119,12 +118,6 @@ private :
 	void				Shop_Update(const _float& fTimeDelta);
 	void				Shop_LateUpdate(const _float& fTimeDelta);
 	void				Shop_Exit();
-
-
-	void				Next_Enter();
-	void				Next_Update(const _float& fTimeDelta);
-	void				Next_LateUpdate(const _float& fTimeDelta);
-	void				Next_Exit();
 
 public:
 	static CPlayer*		Create(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -184,5 +177,10 @@ private:
 	_bool	m_bOnCollision;
 
 	map<_uint, _int> m_mapCallCnt = {};
+	//_int	m_iCallCnt;	
+
+
+	//UI
+	CShopBG*	m_pShopBG;
 };
 

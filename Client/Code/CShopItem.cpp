@@ -2,10 +2,8 @@
 #include "CShopItem.h"
 #include "CProtoMgr.h"
 #include "CRenderer.h"
-#include "CEventMgr.h"
-#include "CSelectBG.h"
 
-#include "CDInputMgr.h"
+#include "CSelectBG.h"
 
 
 vector<TextureSource> CShopItem::m_vTextureSource =
@@ -18,8 +16,7 @@ vector<TextureSource> CShopItem::m_vTextureSource =
 CShopItem::CShopItem(LPDIRECT3DDEVICE9 pGraphicDev)
     : CBaseUI(pGraphicDev)
     , m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
-    , m_iTextureID(0), m_bRender(false), m_pSelectBG(nullptr)
-    , m_fTime(0.f), m_fInterval(0.f), m_bSelect(false)
+    , m_iTextureID(0), m_bRender(false)
 {
 
 }
@@ -27,8 +24,7 @@ CShopItem::CShopItem(LPDIRECT3DDEVICE9 pGraphicDev)
 CShopItem::CShopItem(LPDIRECT3DDEVICE9 pGraphicDev, _float fX, _float fY, _uint iTextureID)
     : CBaseUI(pGraphicDev)
     , m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
-    , m_iTextureID(iTextureID), m_bRender(false), m_pSelectBG(nullptr)
-    , m_fTime(0.f), m_fInterval(0.f), m_bSelect(false)
+    , m_iTextureID(iTextureID), m_bRender(false)
 {
     m_fX = fX;
     m_fY = fY;
@@ -37,8 +33,7 @@ CShopItem::CShopItem(LPDIRECT3DDEVICE9 pGraphicDev, _float fX, _float fY, _uint 
 CShopItem::CShopItem(const CShopItem& rhs)
     : CBaseUI(rhs)
     , m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
-    , m_iTextureID(0), m_bRender(false), m_pSelectBG(nullptr)
-    , m_fTime(0.f), m_fInterval(0.f), m_bSelect(false)
+    , m_iTextureID(0), m_bRender(false)
 {
 }
 
@@ -126,8 +121,8 @@ HRESULT CShopItem::Ready_GameObject()
         return E_FAIL;
 
 
-    m_fSizeX = 110.f;
-    m_fSizeY = 220.f;
+    m_fSizeX = 100.f;
+    m_fSizeY = 200.f;
 
     
     SetScale(m_fSizeX, m_fSizeY);
@@ -147,41 +142,12 @@ _int CShopItem::Update_GameObject(const _float& fTimeDelta)
     _int iExit = CGameObject::Update_GameObject(fTimeDelta);
     CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
     
-    if (m_bSelect == false)
-    {
-        m_bRender = MousePicking();
+    m_bRender = MousePicking();
 
-        if (m_bRender)
-        {
-            m_pSelectBG->Update_GameObject(fTimeDelta);
-        }
-
-        if (m_bRender && CDInputMgr::GetInstance()->Mouse_Down(DIM_LB))
-        {
-            // 선택완료
-            m_bSelect = true;
-        }
-    }
-    else
+    if (m_bRender)
     {
-        m_fTime += fTimeDelta;
-        m_fInterval += fTimeDelta;
-        if (m_fTime > 1.f)
-        {
-            m_fTime = 0.f;
-            m_EventData.value = m_iTextureID;
-            CEventMgr::GetInstance()->Broadcast(EVENT_READY_NEXT_STAGE, &m_EventData);
-        }
-        else
-        {
-            if (m_fInterval >= 0.1f)
-            {
-                m_fInterval = 0.f;
-                m_pSelectBG->Update_GameObject(fTimeDelta);
-            }
-        }
+        m_pSelectBG->Update_GameObject(fTimeDelta);
     }
-    
 
     return iExit;
 }
@@ -196,7 +162,7 @@ void CShopItem::LateUpdate_GameObject(const _float& fTimeDelta)
     if (m_bRender)
     {
         m_pSelectBG->LateUpdate_GameObject(fTimeDelta);
-    }    
+    }
 }
 
 void CShopItem::Render_GameObject()
@@ -219,11 +185,4 @@ void CShopItem::SetPos(_vec3 _pos)
 void CShopItem::SetScale(_float fCX, _float fCY)
 {
     m_pTransformCom->Set_Scale(fCX * 0.5f, fCY * 0.5f, 1.f);
-}
-
-void CShopItem::Set_On()
-{
-    m_fTime = 0.f;
-    m_fInterval = 0.f;
-    m_bSelect = false;
 }

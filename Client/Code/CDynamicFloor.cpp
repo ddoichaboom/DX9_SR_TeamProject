@@ -97,8 +97,7 @@ HRESULT CDynamicFloor::Add_Component()
 
 void CDynamicFloor::Set_FloorType(_uint eFloorType)
 {
-	if (m_pScrollTextureCom) 
-		m_pScrollTextureCom->Change_Texture(eFloorType);
+	if (m_pScrollTextureCom) m_pScrollTextureCom->Change_Texture(eFloorType);
 
 	switch (eFloorType)
 	{

@@ -21,15 +21,9 @@ protected :
 public :
 	virtual void            Rotate(ROTATION eType, const _float& fAngle) {};
 	virtual void            SetPos(_vec3 _pos) {};
-	virtual void			Set_On() {};
-	virtual void			Set_Off() {};
 
 protected :
 	_bool					MousePicking();
-
-public :
-	_uint		Get_Order() const { return m_iOrder; }
-	void		Set_Order(_uint iOrder) { m_iOrder = iOrder; }
 
 
 protected :
@@ -37,8 +31,6 @@ protected :
 	_float		m_fY;
 	_float		m_fSizeX;
 	_float		m_fSizeY;
-
-	_uint		m_iOrder;
 
 };
 

@@ -4,7 +4,6 @@
 namespace Engine
 {
 	class CRcTex;
-	class CRcTexUp;
 	class CTransform;
 	class CTexture;
 	class CAnimation;
@@ -39,7 +38,6 @@ public:
 
 protected:
 	Engine::CRcTex*				m_pBufferCom;
-	Engine::CRcTexUp*			m_pBufferUpCom;
 	Engine::CTransform*			m_pTransformCom;
 	Engine::CTexture*			m_pTextureCom;
 

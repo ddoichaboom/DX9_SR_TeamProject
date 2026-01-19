@@ -15,7 +15,6 @@
 #include "CDynamicWall.h"
 #include "CObstacle.h"
 #include "CDoorTrigger.h"
-#include "CSlopeFloor.h"
 
 // 게임 로직 오브젝트
 #include "CPlayer.h"
@@ -38,7 +37,11 @@
 #include "CMapCollider.h"
 
 
-#include "CUIManager.h"
+//UI
+#include "CPhoneBG.h"
+#include "CShopBG.h"
+#include "CShopItem.h"
+#include "CSelectBG.h"
 
 //Effect
 #include "CBlood.h"
@@ -84,20 +87,12 @@ _int CMapStage::Update_Scene(const _float& fTimeDelta)
     }
 
     int iExit = CStage::Update_Scene(fTimeDelta);
-    //UI 업데이트
-    CUIManager::GetInstance()->Update_GameObject(fTimeDelta);
-
-    
-
     return iExit;
 }
 
 void CMapStage::LateUpdate_Scene(const _float& fTimeDelta)
 {
     CStage::LateUpdate_Scene(fTimeDelta);
-
-    //UI 업데이트
-    CUIManager::GetInstance()->LateUpdate_GameObject(fTimeDelta);
 
     if(m_pLoading->IsEnd()) Check_Collision();
 }
@@ -127,15 +122,6 @@ HRESULT CMapStage::Ready_ObjectPool()
         if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CDynamicFloor>(m_pGraphicDev)))
         {
             MSG_BOX("DynamicFloor Pool Create Failed");
-            return E_FAIL;
-        }
-    }
-
-    if (!Engine::CPoolMgr::GetInstance()->HasPool<CSlopeFloor>())
-    {
-        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CSlopeFloor>(m_pGraphicDev)))
-        {
-            MSG_BOX("SlopeFloor Pool Create Failed");
             return E_FAIL;
         }
     }
@@ -295,10 +281,6 @@ HRESULT CMapStage::Ready_TerrainTextureProto()
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Static_FloorTexture", pCom_Texture)))
         return E_FAIL;
 
-    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CSlopeFloor::GetTextureSources());
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Slope_FloorTexture", pCom_Texture)))
-        return E_FAIL;
-
     //Dynamic Floor Proto
     pCom_Texture = Engine::CScrollTexture::Create(m_pGraphicDev, CDynamicFloor::GetTextureSources(),0.2f);
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Dynamic_FloorTexture", pCom_Texture)))
@@ -343,9 +325,28 @@ HRESULT CMapStage::Ready_TerrainTextureProto()
 
 HRESULT CMapStage::Ready_UITextureProto()
 {
-    
+    CTexture* pCom_Texture = nullptr;
 
-    CUIManager::GetInstance()->Ready_GameObject(m_pGraphicDev);
+    // Floor Proto 
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CPhoneBG::GetTextureSource());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_PhoneBGTexture", pCom_Texture)))
+        return E_FAIL;
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CShopBG::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_ShopBGTexture", pCom_Texture)))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_ShopBGAnimation",
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CShopBG::GetAnimSources()))))
+        return E_FAIL;
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CShopItem::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_ShopItemTexture", pCom_Texture)))
+        return E_FAIL;
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CSelectBG::GetTextureSource());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SelectBGTexture", pCom_Texture)))
+        return E_FAIL;
 
     return S_OK;
 }
@@ -377,14 +378,7 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
     if (nullptr == pLayer)
         return E_FAIL;
 
-    const vector<wstring>& vecMapFiles = CMapLoader::GetInstance()->Get_MapFiles();
-
-    if (!vecMapFiles.empty())
-        m_wstrCurrentMapFile = vecMapFiles[0];      // TODO : Tutorial Map의 끝 Trigger Box에 닿으면 다음 맵 Loading호출
-    else
-        return E_FAIL;
-
-    //m_wstrCurrentMapFile = L"../../Map/Tutorial.json";
+    m_wstrCurrentMapFile = L"../../Map/Tutorial.json";
 
     // 0번방 로드 
     if (FAILED(CMapLoader::GetInstance()->Load_Room(
@@ -417,22 +411,20 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
         m_setLoadedRooms.insert(1);
     }
 
-    CGameObject* pGameObject = nullptr;
+    // 카메라 생성 (PlayerSpawn 위치 사용)
+    _vec3 vPlayerSpawnPos = CMapLoader::GetInstance()->Get_PlayerSpawnPos();
 
-    // 카메라 생성 
-    //_vec3 vPlayerSpawnPos = CMapLoader::GetInstance()->Get_PlayerSpawnPos();
+    _vec3 vEye = vPlayerSpawnPos;
+    _vec3 vAt = { vPlayerSpawnPos.x, vPlayerSpawnPos.y, vPlayerSpawnPos.z };
+    _vec3 vUp = { 0.f, 1.f, 0.f };
 
-    //_vec3 vEye = vPlayerSpawnPos;
-    //_vec3 vAt = { vPlayerSpawnPos.x, vPlayerSpawnPos.y, vPlayerSpawnPos.z };
-    //_vec3 vUp = { 0.f, 1.f, 0.f };
+    CGameObject* pGameObject = CFirstCamera::Create(m_pGraphicDev, &vEye, &vAt, &vUp);
 
-    //CGameObject* pGameObject = CFirstCamera::Create(m_pGraphicDev, &vEye, &vAt, &vUp);
+    if (nullptr == pGameObject)
+        return E_FAIL;
 
-    //if (nullptr == pGameObject)
-    //    return E_FAIL;
-
-    //if (FAILED(pLayer->Add_GameObject(pGameObject)))
-    //    return E_FAIL;
+    if (FAILED(pLayer->Add_GameObject(pGameObject)))
+        return E_FAIL;
 
 
     //이 트리거가 있는 방의 번호 첫 인자로 입력
@@ -490,31 +482,20 @@ HRESULT CMapStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
         m_setLoadedRooms.insert(1);
     }
 
-    // 카메라 생성
-    CGameObject* pPlayerObj = pLayer->Get_Object(OBJ_PLAYER);
+    CGameObject* pGameObject = nullptr;
 
-    if (nullptr == pPlayerObj)
+#pragma region Player
+    CPlayer* pPlayer = nullptr;
+    _vec3 pPlayerSpawnPos = CMapLoader::GetInstance()->Get_PlayerSpawnPos();
+
+    pGameObject = pPlayer = CPlayer::Create(m_pGraphicDev, pPlayerSpawnPos);
+
+    if (nullptr == pGameObject)
         return E_FAIL;
 
-    CTransform* pTransform = dynamic_cast<CTransform*>(pPlayerObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
-
-    if (nullptr == pTransform)
+    if (FAILED(pLayer->Add_GameObject(pGameObject)))
         return E_FAIL;
-
-    _vec3 vPlayerPos = { 0.f, 0.f, 0.f };
-    pTransform->Get_Info(INFO_POS, &vPlayerPos);
-
-    _vec3 vEye = vPlayerPos;
-    _vec3 vAt = { vPlayerPos.x, vPlayerPos.y, vPlayerPos.z };
-    _vec3 vUp = { 0.f, 1.f, 0.f };
-
-    CGameObject* pCamera = CFirstCamera::Create(m_pGraphicDev, &vEye, &vAt, &vUp);
-
-    if (nullptr == pCamera)
-        return E_FAIL;
-
-    if (FAILED(pLayer->Add_GameObject(pCamera)))
-        return E_FAIL;
+#pragma endregion
 
     m_mapLayer.insert({ pLayerTag, pLayer });
     m_pGameLogic_Layer = pLayer;
@@ -586,8 +567,8 @@ void CMapStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
 {
     if (_type == EVENT_DOOR_IN)
     {
-        //if (m_iCurrentRoomIndex == 0) // 방이 언로드 되는 것을 보기 위해 임의로 2번 증가 시키기
-        //    Change_Room(m_iCurrentRoomIndex + 1);
+        if (m_iCurrentRoomIndex == 0) // 방이 언로드 되는 것을 보기 위해 임의로 2번 증가 시키기
+            Change_Room(m_iCurrentRoomIndex + 1);
         
         Change_Room(m_iCurrentRoomIndex + 1);
     }
