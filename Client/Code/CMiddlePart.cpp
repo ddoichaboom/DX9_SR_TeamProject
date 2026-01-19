@@ -204,7 +204,7 @@ void CMiddlePart::Kick()
 		m_pPlayer->Change_State(IDLE);
 		return;
 	}
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CMiddlePart::End_Kick()
@@ -233,7 +233,7 @@ void CMiddlePart::Drink()
 		m_pPlayer->Change_State(IDLE);
 		return;
 	}
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CMiddlePart::End_Drink()
@@ -256,7 +256,7 @@ void CMiddlePart::Begin_Slide()
 void CMiddlePart::Slide()
 {
 	m_pPlayer->Slide_Func();
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CMiddlePart::End_Slide()
@@ -283,7 +283,7 @@ void CMiddlePart::Intro()
 		ChangeState(INTRO);		
 		return;
 	}
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CMiddlePart::Begin_Intro2()
@@ -306,7 +306,7 @@ void CMiddlePart::Intro2()
 		m_pPlayer->Change_State(IDLE);
 		return;
 	}
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CMiddlePart::Begin_Shop()
@@ -332,7 +332,7 @@ void CMiddlePart::Shopping()
 {
 	if (m_bStateStop)
 	{
-		CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+		CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 		return;
 	}
 
@@ -348,7 +348,7 @@ void CMiddlePart::Shopping()
 			//fTime = m_fDelayTime * 3.f;
 			D3DXVec3Lerp(&vPos, &m_vStartPos, &m_vEndPos, fTime);
 			m_pTransformCom->Set_Pos(vPos.x - WINCX * 0.5f, -vPos.y + WINCY * 0.5f, 0.f);
-			CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+			CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 			return;
 		}
 		else
@@ -373,7 +373,7 @@ void CMiddlePart::Shopping()
 		m_bStateStop = true;
 	}
 
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CMiddlePart::End_Shop()

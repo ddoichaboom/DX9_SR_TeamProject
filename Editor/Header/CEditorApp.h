@@ -8,7 +8,7 @@ class CMainMenuBar;
 class CToolBar;
 class CHierarchy;
 class CInspector;
-
+class CEffectToolBar;
 
 class CEditorApp : public CBase
 {
@@ -43,7 +43,7 @@ private:
     CToolBar* m_pToolBar;
     CHierarchy* m_pHierarchy;
     CInspector* m_pInspector;
-
+    CEffectToolBar* m_pEffectToolBar;
 
     // ImGui State
     bool                    m_bShowDemo;

@@ -27,7 +27,7 @@ public:
 	void								Compute_ViewZ(const _vec3* pPos);
 	_float								Get_ViewZ()		{ return m_fViewZ; }
 
-	bool								IsDead()		{ return m_bDead; }
+	virtual bool						IsDead()		{ return m_bDead; }
 	void								SetDead()		{ m_bDead = true; }
 
 	//ObjectPool

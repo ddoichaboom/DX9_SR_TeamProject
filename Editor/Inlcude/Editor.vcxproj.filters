@@ -97,6 +97,18 @@
     <Filter Include="04. Object\04. EditorFloor\DynamicFloor">
       <UniqueIdentifier>{a1528ea3-3528-4e92-a13e-488a85d3dc8e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Scene\03. EffectScene">
+      <UniqueIdentifier>{3511c0cc-eaff-4f55-b9c5-99bc5283809f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. UI\04. EffectToolBar">
+      <UniqueIdentifier>{1cfb7e5c-c891-46ec-b7c4-0e6b50b330d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Effect">
+      <UniqueIdentifier>{2265b532-a674-4aff-8802-bad35e2e5e5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Effect\00. Blood">
+      <UniqueIdentifier>{94609920-62ee-446d-afab-7d51198d9e08}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -201,6 +213,15 @@
     <ClInclude Include="..\Header\CEditorDynamicFloor.h">
       <Filter>04. Object\04. EditorFloor\DynamicFloor</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CEffectScene.h">
+      <Filter>03. Scene\03. EffectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEffectToolBar.h">
+      <Filter>01. UI\04. EffectToolBar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBlood.h">
+      <Filter>07. Effect\00. Blood</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -289,6 +310,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\CEditorDynamicFloor.cpp">
       <Filter>04. Object\04. EditorFloor\DynamicFloor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEffectScene.cpp">
+      <Filter>03. Scene\03. EffectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEffectToolBar.cpp">
+      <Filter>01. UI\04. EffectToolBar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBlood.cpp">
+      <Filter>07. Effect\00. Blood</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

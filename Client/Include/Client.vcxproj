@@ -192,6 +192,7 @@
     <ClInclude Include="..\Header\CTerrain.h" />
     <ClInclude Include="..\Header\CStage.h" />
     <ClInclude Include="..\Header\CTestCharacter.h" />
+    <ClInclude Include="..\Header\CTestEffect.h" />
     <ClInclude Include="..\Header\CTrigger.h" />
     <ClInclude Include="..\Header\CUIManager.h" />
     <ClInclude Include="..\Header\CWall.h" />
@@ -253,6 +254,7 @@
     <ClCompile Include="..\Code\CStage.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
     <ClCompile Include="..\Code\CTestCharacter.cpp" />
+    <ClCompile Include="..\Code\CTestEffect.cpp" />
     <ClCompile Include="..\Code\CTrigger.cpp" />
     <ClCompile Include="..\Code\CUIManager.cpp" />
     <ClCompile Include="..\Code\CWall.cpp" />

@@ -130,7 +130,7 @@ _int CBeamMon::Update_GameObject(const _float& fTimeDelta)
 		m_pBeam->Update_GameObject(fTimeDelta);
 	}
 
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA, this);
 	m_fTime += fTimeDelta;
 
 	_vec3 pos;

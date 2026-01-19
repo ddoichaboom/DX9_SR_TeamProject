@@ -101,7 +101,7 @@ HRESULT CHPUI::Ready_GameObject()
 _int CHPUI::Update_GameObject(const _float& fTimeDelta)
 {
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 
 	m_fontData = { L"Font_Number", L"30",
 		m_vPos,m_vSize, D3DXCOLOR(0.f, 0.f, 0.f, 1.f) };

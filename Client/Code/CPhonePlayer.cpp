@@ -178,5 +178,5 @@ void CPhonePlayer::Begin_Idle()
 
 void CPhonePlayer::Idle()
 {
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }

@@ -205,6 +205,9 @@
     <Filter Include="04.UI\02.DynamicUI\07.HP_UI">
       <UniqueIdentifier>{4ba2c46f-d985-4030-bbd5-53d0cd01c888}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\999. TestEffect">
+      <UniqueIdentifier>{b0904e45-6482-43e5-8335-e9af254524c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -356,6 +359,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\CSelectBG.h">
       <Filter>04.UI\01.StaticUI\03.Select_Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTestEffect.h">
+      <Filter>02. GameObject\999. TestEffect</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CUIManager.h">
       <Filter>04.UI\UIManager</Filter>
@@ -526,6 +532,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CSelectBG.cpp">
       <Filter>04.UI\01.StaticUI\03.Select_Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTestEffect.cpp">
+      <Filter>02. GameObject\999. TestEffect</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CUIManager.cpp">
       <Filter>04.UI\UIManager</Filter>

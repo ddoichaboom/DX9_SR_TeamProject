@@ -110,6 +110,30 @@ namespace Engine
 		return 1 - powf(1 - _rate, 5);
 	}
 
+	static DWORD FtoDW(_float f)
+	{
+		return *((DWORD*)&f);
+	}
+
+	static _float GetRandomFloat(float lowBound, float highBound)
+	{
+		if (lowBound >= highBound) // 잘못된 입력
+			return lowBound;
+		float f = (rand() % 10000) * 0.0001f;
+		return (f * (highBound - lowBound)) + lowBound;
+	}
+
+	static 	void GetRandomVector(
+		D3DXVECTOR3* out,
+		D3DXVECTOR3* min,
+		D3DXVECTOR3* max)
+	{
+		out->x = GetRandomFloat(min->x, max->x);
+		out->y = GetRandomFloat(min->y, max->y);
+		out->z = GetRandomFloat(min->z, max->z);
+	}
+
+
 }
 
 #endif // Engine_Function_h__

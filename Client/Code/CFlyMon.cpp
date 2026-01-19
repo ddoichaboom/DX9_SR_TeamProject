@@ -107,7 +107,7 @@ _int CFlyMon::Update_GameObject(const _float& fTimeDelta)
 	int iExit = CMonster::Update_GameObject(fTimeDelta);
 	if (iExit == RET_DEAD) return iExit;
 
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA_QUALITY, this);
 	m_fTime += fTimeDelta;
 
 	_vec3 pos;

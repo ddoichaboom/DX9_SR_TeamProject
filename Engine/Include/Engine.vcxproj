@@ -152,6 +152,7 @@ call Copy.bat</Command>
     <ClInclude Include="..\Header\CCubeTexture.h" />
     <ClInclude Include="..\Header\CDataMgr.h" />
     <ClInclude Include="..\Header\CDInputMgr.h" />
+    <ClInclude Include="..\Header\CDVIBuffer.h" />
     <ClInclude Include="..\Header\CEventMgr.h" />
     <ClInclude Include="..\Header\CFont.h" />
     <ClInclude Include="..\Header\CFontMgr.h" />
@@ -164,6 +165,7 @@ call Copy.bat</Command>
     <ClInclude Include="..\Header\CLightMgr.h" />
     <ClInclude Include="..\Header\CManagement.h" />
     <ClInclude Include="..\Header\CObjectPool.h" />
+    <ClInclude Include="..\Header\CParticleEmitter.h" />
     <ClInclude Include="..\Header\CPipeline.h" />
     <ClInclude Include="..\Header\CPoolMgr.h" />
     <ClInclude Include="..\Header\CProtoMgr.h" />
@@ -173,6 +175,7 @@ call Copy.bat</Command>
     <ClInclude Include="..\Header\CRenderer.h" />
     <ClInclude Include="..\Header\CRenderStateGuard.h" />
     <ClInclude Include="..\Header\CScene.h" />
+    <ClInclude Include="..\Header\CScrollTexture.h" />
     <ClInclude Include="..\Header\CState.h" />
     <ClInclude Include="..\Header\CStateComponent.h" />
     <ClInclude Include="..\Header\CTerrainTex.h" />
@@ -201,6 +204,7 @@ call Copy.bat</Command>
     <ClCompile Include="..\Code\CCubeTex.cpp" />
     <ClCompile Include="..\Code\CCubeTexture.cpp" />
     <ClCompile Include="..\Code\CDInputMgr.cpp" />
+    <ClCompile Include="..\Code\CDVIBuffer.cpp" />
     <ClCompile Include="..\Code\CEventMgr.cpp" />
     <ClCompile Include="..\Code\CFont.cpp" />
     <ClCompile Include="..\Code\CFontMgr.cpp" />
@@ -212,6 +216,7 @@ call Copy.bat</Command>
     <ClCompile Include="..\Code\CLight.cpp" />
     <ClCompile Include="..\Code\CLightMgr.cpp" />
     <ClCompile Include="..\Code\CManagement.cpp" />
+    <ClCompile Include="..\Code\CParticleEmitter.cpp" />
     <ClCompile Include="..\Code\CPipeline.cpp" />
     <ClCompile Include="..\Code\CPoolMgr.cpp" />
     <ClCompile Include="..\Code\CProtoMgr.cpp" />
@@ -221,6 +226,7 @@ call Copy.bat</Command>
     <ClCompile Include="..\Code\CRenderer.cpp" />
     <ClCompile Include="..\Code\CRenderStateGuard.cpp" />
     <ClCompile Include="..\Code\CScene.cpp" />
+    <ClCompile Include="..\Code\CScrollTexture.cpp" />
     <ClCompile Include="..\Code\CStateComponent.cpp" />
     <ClCompile Include="..\Code\CTerrainTex.cpp" />
     <ClCompile Include="..\Code\CTerrainTexture.cpp" />
