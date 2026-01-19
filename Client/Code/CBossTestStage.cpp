@@ -254,7 +254,3 @@ void CBossTestStage::Free()
 	CScene::Free();
 }
 
-HRESULT CBossTestStage::Ready_Prototype_OnlyTexture()
-{
-	return E_NOTIMPL;
-}
