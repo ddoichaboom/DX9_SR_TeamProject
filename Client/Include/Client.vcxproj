@@ -147,6 +147,7 @@
     <ClInclude Include="..\Header\CBaseUI.h" />
     <ClInclude Include="..\Header\CBeam.h" />
     <ClInclude Include="..\Header\CBeamMon.h" />
+    <ClInclude Include="..\Header\CBlood.h" />
     <ClInclude Include="..\Header\CBoss.h" />
     <ClInclude Include="..\Header\CBossBullet.h" />
     <ClInclude Include="..\Header\CBossTestStage.h" />
@@ -184,7 +185,6 @@
     <ClInclude Include="..\Header\CTerrain.h" />
     <ClInclude Include="..\Header\CStage.h" />
     <ClInclude Include="..\Header\CTestCharacter.h" />
-    <ClInclude Include="..\Header\CTestEffect.h" />
     <ClInclude Include="..\Header\CTrigger.h" />
     <ClInclude Include="..\Header\CWall.h" />
     <ClInclude Include="..\Header\CWeapon.h" />
@@ -200,6 +200,7 @@
     <ClCompile Include="..\Code\CBaseUI.cpp" />
     <ClCompile Include="..\Code\CBeam.cpp" />
     <ClCompile Include="..\Code\CBeamMon.cpp" />
+    <ClCompile Include="..\Code\CBlood.cpp" />
     <ClCompile Include="..\Code\CBoss.cpp" />
     <ClCompile Include="..\Code\CBossBullet.cpp" />
     <ClCompile Include="..\Code\CBossTestStage.cpp" />
@@ -237,7 +238,6 @@
     <ClCompile Include="..\Code\CStage.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
     <ClCompile Include="..\Code\CTestCharacter.cpp" />
-    <ClCompile Include="..\Code\CTestEffect.cpp" />
     <ClCompile Include="..\Code\CTrigger.cpp" />
     <ClCompile Include="..\Code\CWall.cpp" />
     <ClCompile Include="..\Code\CWeapon.cpp" />

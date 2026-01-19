@@ -4,6 +4,7 @@
 #include "CProtoMgr.h"
 #include "CBlood.h"
 
+
 vector<TextureSource> CBlood::m_TextureSources
 {
 	{ 0, L"../Bin/Resource/Texture/Effect/Blood1.dds", true,3,3,3, {0.f, 0.f} }
@@ -11,22 +12,19 @@ vector<TextureSource> CBlood::m_TextureSources
 	,{ 2, L"../Bin/Resource/Texture/Effect/Blood3.dds", true,7,3,3, {0.f, 0.f} }
 };
 
-
-CBlood::CBlood(IDirect3DDevice9* device, _vec3* _origin, int numParticles)
-	:CParticleEmitter(device, numParticles)
+Particle CBlood::m_ParticleInfo[BLOOD_END] =
 {
-	m_vOrigin = *_origin;
+	{_vec3{},{	10.f,10.f }, {0.f,0.f,0.f}, 500.f, 1.f, 0.f, { 255,0,0,1 },{0.f, 0.f},{0.f, 0.f},false},
+	{_vec3{},{	1.f,1.f }, {0.f,0.f,0.f}, 500.f, 0.4f, 0.f, { 255,0,0,1 },{0.f, 0.f},{0.f, 0.f},false},
+	{_vec3{},{	10.f,7.f }, {0.f,0.f,0.f}, 500.f, 0.5f, 0.f, { 255,0,0,1 },{0.f, 0.f},{0.f, 0.f},false},
+};
+
+CBlood::CBlood(IDirect3DDevice9* devices)
+	:CParticleEmitter(devices, 1)
+{
+	m_vOrigin = { 0,0,0 };
 	m_vPos = m_vOrigin;
-	m_vSize = { 3.f, 3.f };
-	m_fAnimSpeed = 10.f;
-	m_iMaxParticle = 1;
 	m_iBatchSize = 1;
-	m_vVelocity = { 0,0,1 };
-	m_fLifeTime = 500.f;
-
-	m_bLoop = false;
-	m_color = { 255,0,0,1 };
-
 }
 
 CBlood::~CBlood()
@@ -38,15 +36,16 @@ HRESULT CBlood::Ready_GameObject()
 	if (FAILED(Add_Component())) return E_FAIL;
 	m_pBufferCom->SetBatchSize(m_iBatchSize);
 	m_pBufferCom->SetParticleCount(m_iMaxParticle);
-	ChangeState(1);
+	ChangeState(BLOOD1);
 
-	for (int i = 0; i < m_iMaxParticle ; i++) AddParticle();
+	for (int i = 0; i < m_iMaxParticle; i++) AddParticle();
 	return S_OK;
 }
 
-
 _int CBlood::Update_GameObject(const _float& fTimeDelta)
 {
+	if (IsDead()) return RET_DEAD;
+
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
 	for (auto iter = m_ActiveList.begin(); iter != m_ActiveList.end(); iter++)
 	{
@@ -69,6 +68,7 @@ _int CBlood::Update_GameObject(const _float& fTimeDelta)
 	Compute_ViewZ(&m_vPos);
 	return RET_NONE;
 }
+
 
 void CBlood::Render_GameObject()
 {
@@ -109,6 +109,10 @@ void CBlood::SetPostRenderState()
 	//텍스쳐 색으로 나타넴
 	m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
 	m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+
+	m_pGraphicDev->SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_DISABLE);
+	m_pGraphicDev->SetTextureStageState(1, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
+
 }
 
 HRESULT CBlood::Add_Component()
@@ -127,22 +131,24 @@ HRESULT CBlood::Add_Component()
 
 void CBlood::ResetParticle(Particle* particle)
 {
-	particle->bIsAlive = true;
+	if (m_iState < 0) return;
 
+	particle->bIsAlive = true;
 	particle->vPosition = m_vPos;
-	particle->vVelocity = m_vVelocity;
-	particle->color = m_color;
+	particle->vVelocity = m_ParticleInfo[m_iState].vVelocity;
+	particle->color = m_ParticleInfo[m_iState].color;
 	particle->vStartUV = { 0,0 };
 	if (m_pTextureDesc) particle->vEndUV = m_pTextureDesc->vUVoffset;
 	else particle->vEndUV = { 1.f,1.f };
-	particle->vSize = m_vSize;
+	particle->vSize = m_ParticleInfo[m_iState].vSize;
 	particle->fAge = 0.f;
-	particle->fLifeTime = m_fLifeTime;
+	particle->fLifeTime = m_ParticleInfo[m_iState].fLifeTime;
+
 }
 
-CBlood* CBlood::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3* _origin, int numParticles)
+CBlood* CBlood::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CBlood* effect = new CBlood(pGraphicDev, _origin, numParticles);
+	CBlood* effect = new CBlood(pGraphicDev);
 
 	if (FAILED(effect->Ready_GameObject()))
 	{

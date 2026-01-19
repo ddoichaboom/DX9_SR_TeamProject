@@ -31,6 +31,7 @@ protected:
     HRESULT     Ready_MonsterTextureProto();
     HRESULT     Ready_TerrainTextureProto();
     HRESULT     Ready_UITextureProto();
+    HRESULT     Ready_EffectTextureProto();
 
     void        Check_Collision() override;
 

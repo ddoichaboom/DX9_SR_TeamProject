@@ -19,6 +19,9 @@ public:
 	virtual void		Render_GameObject();
 
 public:
+	void				Activate() override;
+	//void				Deactivate() override;
+
 	virtual void		Reset();
 	virtual void		ResetParticle(Particle* pParticle) PURE;
 	virtual void		AddParticle();
@@ -26,6 +29,8 @@ public:
 	virtual void		SetPreRenderState();
 	virtual void		SetPostRenderState();
 
+	virtual _uint		GetTextureCnt() PURE;
+	void				ChangeState(_uint _state);
 public:
 	bool				IsEmpty();
 	bool				IsDead() override;
@@ -41,8 +46,8 @@ public:
 	void				SetPos(_vec3 _pos) { m_vPos = _pos; }
 	_vec3				GetPos() { return m_vPos; }
 
-	void				SetSize(_float _size) { m_fSize = _size; }
-	_float				GetSize() { return m_fSize; }
+	void				SetSize(_vec2 _size) { m_vSize = _size; }
+	_vec2				GetSize() { return m_vSize; }
 
 	void				SetVelocity(_vec3 _vel) { m_vVelocity = _vel; }
 	_vec3				GetVelocity() { return m_vVelocity; }
@@ -53,9 +58,13 @@ public:
 	void				SetColor(D3DXCOLOR _color) { m_color = _color; }
 	D3DXCOLOR			GetColor() { return m_color; }
 
-	void				SetLoop(bool _loop) { m_bLoop = _loop; }
-	bool				GetLoop() { return m_bLoop; }
+	void				SetLoop(_bool _loop) { m_bLoop = _loop; }
+	_bool				GetLoop() { return m_bLoop; }
 
+	void				SetAnimSpeed(_float _speed) { m_fAnimSpeed = _speed; }
+	_float				GetAnimSpeed() { return m_fAnimSpeed; }
+
+	_int				GetState() { return m_iState; }
 
 protected:
 	vector<Particle>	m_Particles;		// 파티클 속성 리스트 
@@ -68,14 +77,20 @@ protected:
 
 	CDVIBuffer*			m_pBufferCom;
 	CTexture*			m_pTextureCom;
+	TextureDesc*		m_pTextureDesc;
 
 protected:
+	//Particle Editor 용 
+	_uint				m_iState;
 	_vec3				m_vPos {};
-	_float				m_fSize = 1.f;
+	_vec2				m_vSize = { 1.f,1.f };
+	_float				m_fAnimSpeed = 1.f;
 	_vec3				m_vVelocity {};
 	_float				m_fLifeTime = 1.f;
 	D3DXCOLOR			m_color{};
-	bool				m_bLoop = false;;
+	bool				m_bLoop = false;
+
+
 };
 
 END

@@ -1,12 +1,11 @@
 #pragma once
 #include "CParticleEmitter.h"
-
 class CBlood :
-	public Engine::CParticleEmitter
+    public CParticleEmitter
 {
-	enum BLOOD_TYPE {BLOOD1, BLOOD2, BLOOD3, BLOOD_END};
+    enum BLOOD_TYPE { BLOOD1, BLOOD2, BLOOD3, BLOOD_END };
 public:
-	CBlood(IDirect3DDevice9* device, _vec3* _origin, int numParticles);
+	CBlood(IDirect3DDevice9* device);
 	virtual ~CBlood();
 
 	HRESULT		Ready_GameObject() override;
@@ -18,13 +17,13 @@ public:
 public:
 	_uint		GetTextureCnt() override
 	{
-		return (_uint) m_TextureSources.size();
+		return (_uint)m_TextureSources.size();
 	}
 protected:
 	HRESULT		Add_Component() override;
 	void		ResetParticle(Particle* particle) override;
 public:
-	static CBlood* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3* _origin, int numParticles);
+	static CBlood* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	static vector<TextureSource>& GetTextureSources()
 	{
 		return m_TextureSources;

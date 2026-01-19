@@ -6,7 +6,7 @@
 #include "CManagement.h"
 #include "CBullet.h"
 #include "CPoolMgr.h"
-
+#include "CBlood.h"
 
 _uint CWhiteMan::ID_SLICE_DEAD = CStateComponent::MakeStateID(MS_DEAD, SUB_NONE, SLICE);
 _uint CWhiteMan::ID_ELECT_DEAD = CStateComponent::MakeStateID(MS_DEAD, SUB_NONE, ELECT);
@@ -269,12 +269,26 @@ void CWhiteMan::OnHeadCollision(CollisionInfo info)
 	if (info.eTag == TAG_KICK || info.eTag == TAG_SLIDE)
 		return;
 
+	CBlood* blood = nullptr;
 	m_fHP = 0.f;
 	if (m_pHeadCollider) m_pHeadCollider->OffCollision();
 	if (m_pBodyCollider) m_pBodyCollider->OffCollision();
-	if (info.eTag == TAG_KATANA) ChangeState(ID_SLICE_DEAD);
-	else ChangeState(ID_HEAD_DEAD);
-
+	if (info.eTag == TAG_KATANA)
+	{
+		ChangeState(ID_SLICE_DEAD);
+		blood = CPoolMgr::GetInstance()->Get_Object<CBlood>();
+		blood->ChangeState(2);
+		blood->Reset();
+	}
+	else
+	{
+		ChangeState(ID_HEAD_DEAD);
+		blood = CPoolMgr::GetInstance()->Get_Object<CBlood>();
+		blood->ChangeState(1);
+		blood->Reset();
+	}
+	blood->SetPos(m_pHeadCollider->Get_WorldPos());
+	CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(blood);
 }
 
 void CWhiteMan::OnBodyCollision(CollisionInfo info)

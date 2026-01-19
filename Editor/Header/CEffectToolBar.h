@@ -3,6 +3,11 @@
 class CEditorCamera;
 class CEffectScene;
 
+namespace Engine
+{
+    class CParticleEmitter;
+}
+
 class CEffectToolBar :
     public CBase
 {
@@ -22,5 +27,6 @@ private:
 
 protected:
     CEffectScene*        m_pEffectScene;
+    Engine::CParticleEmitter*   m_pCurParticle;
 };
 

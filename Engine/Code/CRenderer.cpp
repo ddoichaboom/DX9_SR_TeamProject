@@ -98,6 +98,7 @@ void CRenderer::Render_NonAlpha_Quality(LPDIRECT3DDEVICE9& pGraphicDev)
 void CRenderer::Render_Alpha(LPDIRECT3DDEVICE9& pGraphicDev)
 {
 	CRenderStateGuard cGuard(pGraphicDev);
+
 	pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
 	pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 	

@@ -355,7 +355,7 @@ HRESULT CEditorApp::Ready_Texture_Prototype()
     }
 
     //Blood Texture
-    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBlood::GetTextureSource());
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBlood::GetTextureSources());
     if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_Blood_Texture", pCom_Texture)))
     {
         MSG_BOX("Proto Blood Ready Failed");

@@ -65,32 +65,32 @@ void CDVIBuffer::Render_Buffer(list<Particle*>& _particles)
 	{
 		if ((*iter)->bIsAlive)
 		{
-			_float halfSize = (*iter)->fSize * 0.5f;
+			_vec2 halfSize = (*iter)->vSize * 0.5f;
 
-			vp[0].vPosition = (*iter)->vPosition - (vRight * halfSize) + (vUp * halfSize);
+			vp[0].vPosition = (*iter)->vPosition - (vRight * halfSize.x) + (vUp * halfSize.y);
 			vp[0].dwColor = (*iter)->color;
 			vp[0].vTexUV = (*iter)->vStartUV;
 
-			vp[1].vPosition = (*iter)->vPosition + (vRight * halfSize) - (vUp * halfSize);
+			vp[1].vPosition = (*iter)->vPosition + (vRight * halfSize.x) - (vUp * halfSize.y);
 			vp[1].dwColor = (*iter)->color;
 			vp[1].vTexUV = (*iter)->vEndUV;
 
-			vp[2].vPosition = (*iter)->vPosition - (vRight * halfSize) - (vUp * halfSize);
+			vp[2].vPosition = (*iter)->vPosition - (vRight * halfSize.x) - (vUp * halfSize.y);
 			vp[2].dwColor = (*iter)->color;
 			vp[2].vTexUV.x = (*iter)->vStartUV.x;
 			vp[2].vTexUV.y = (*iter)->vEndUV.y;
 
 
-			vp[3].vPosition = (*iter)->vPosition - (vRight * halfSize) + (vUp * halfSize);
+			vp[3].vPosition = (*iter)->vPosition - (vRight * halfSize.x) + (vUp * halfSize.y);
 			vp[3].dwColor = (*iter)->color;
 			vp[3].vTexUV = (*iter)->vStartUV;
 
-			vp[4].vPosition = (*iter)->vPosition + (vRight * halfSize) + (vUp * halfSize);
+			vp[4].vPosition = (*iter)->vPosition + (vRight * halfSize.x) + (vUp * halfSize.y);
 			vp[4].dwColor = (*iter)->color;
 			vp[4].vTexUV.x = (*iter)->vEndUV.x;
 			vp[4].vTexUV.y = (*iter)->vStartUV.y;
 
-			vp[5].vPosition = (*iter)->vPosition + (vRight * halfSize) - (vUp * halfSize);
+			vp[5].vPosition = (*iter)->vPosition + (vRight * halfSize.x) - (vUp * halfSize.y);
 			vp[5].dwColor = (*iter)->color;
 			vp[5].vTexUV = (*iter)->vEndUV;
 

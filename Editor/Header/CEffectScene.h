@@ -6,6 +6,7 @@ class CToolBar;
 class CHierarchy;
 class CBlood;
 class CParticleEmitter;
+class CEditorFloor;
 
 class CEffectScene :
     public CEditorScene
@@ -37,7 +38,7 @@ private:
 
 protected:
 	CBlood*						m_pBlood;
-
+	CEditorFloor*				m_pFloor;
 
 };
 

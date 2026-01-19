@@ -35,6 +35,9 @@
 #include "CBackGround.h"
 #include "CTrigger.h"
 
+//Effect
+#include "CBlood.h"
+
 CMainApp::CMainApp() : m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
 , m_pManagementClass(CManagement::GetInstance())
 {
@@ -225,12 +228,15 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iMaxFloor(0), iMaxDynamicFloor(0),iMaxCeiling(0), iMaxDynamicCeiling(0), iMaxWall(0), iMaxDynamicWall(0);
 	_uint iMaxObstacle(0);
 	_uint iBulletCount = 30;
-	_uint iBossBulletCount = 50;
+	_uint iBossBulletCount = 30;
 	_uint iBossRocketCount = 20;
 	_uint iWhiteManCount = 6;
 	_uint iBeamMonCount = 6;
 	_uint iFlyMonCount = 6;
 	_uint iTriggerCount = 7;
+
+	//Effect
+	_uint iBloodCount = 10;
 
 	for (auto& wstrFile : vecMapFiles)
 	{
@@ -274,6 +280,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 	CPoolMgr::GetInstance()->SetPoolSize<CFlyMon>(iFlyMonCount);
 
 	CPoolMgr::GetInstance()->SetPoolSize<CTrigger>(iTriggerCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CBlood>(iBloodCount);
 	return S_OK;
 }
 
