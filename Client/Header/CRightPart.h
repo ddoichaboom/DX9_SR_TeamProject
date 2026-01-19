@@ -2,6 +2,7 @@
 #include "CPlayerPart.h"
 
 class CPlayer;
+class CTrail;
 
 class CRightPart : public CPlayerPart
 {

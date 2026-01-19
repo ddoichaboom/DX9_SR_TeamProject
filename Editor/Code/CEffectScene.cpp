@@ -5,11 +5,11 @@
 #include "CToolBar.h"
 #include "CHierarchy.h"
 #include "CBlood.h"
-#include "CParticleEmitter.h"
+#include "CTrail.h"
 #include "CEditorFloor.h"
 
 CEffectScene::CEffectScene(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CEditorScene(pGraphicDev), m_pBlood(nullptr)
+	: CEditorScene(pGraphicDev), m_pCurParticle(nullptr)
 {
 	m_pGraphicDev->AddRef();
 }
@@ -31,9 +31,11 @@ HRESULT CEffectScene::Ready_Scene()
     m_pCamera->Set_LookAt(_vec3(0.f, -1.f, 1.f));
 
     _vec3 pos = { 0,0,0 };
-    m_pBlood = CBlood::Create(m_pGraphicDev, &pos, 1);
-    m_pBlood->AddParticle();
-    
+    m_mapParticle[EF_BLOOD] = CBlood::Create(m_pGraphicDev, &pos, 1);
+    m_mapParticle[EF_TRAIL] = CTrail::Create(m_pGraphicDev);
+
+    m_pCurParticle = m_mapParticle[EF_TRAIL];
+
     m_pFloor = CEditorFloor::Create(m_pGraphicDev, { 0,0,0 });
     return S_OK;
 }
@@ -42,7 +44,8 @@ _int CEffectScene::Update_Scene(const _float& fTimeDelta)
 {
     if (m_pCamera)
         m_pCamera->Update_GameObject(fTimeDelta);
-    if (m_pBlood) m_pBlood->Update_GameObject(fTimeDelta);
+
+    if (m_pCurParticle) m_pCurParticle->Update_GameObject(fTimeDelta);
     if (m_pFloor) m_pFloor->Update_GameObject(fTimeDelta);
     return 0;
 }
@@ -63,12 +66,18 @@ void CEffectScene::Render_Scene()
     m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matProj);
 
 
-  //  if (m_pBlood) m_pBlood->Render_GameObject();
 }
 
-CBlood* CEffectScene::GetEmitter()
+void CEffectScene::SetEmitter(EFFECT_TYPE _type)
 {
-    return m_pBlood;
+    if (m_mapParticle.find(_type) == m_mapParticle.end()) return;
+    m_pCurParticle = m_mapParticle[_type];
+    m_pCurParticle->Reset();
+}
+
+CParticleEmitter* CEffectScene::GetEmitter()
+{
+    return m_pCurParticle;
 }
 
 CEffectScene* CEffectScene::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -87,8 +96,11 @@ CEffectScene* CEffectScene::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CEffectScene::Free()
 {
+    for (auto iter = m_mapParticle.begin(); iter != m_mapParticle.end(); iter++)
+    {
+        Safe_Release((*iter).second);
+    }
     Safe_Release(m_pFloor);
-    Safe_Release(m_pBlood);
     Safe_Release(m_pCamera);
     Safe_Release(m_pGraphicDev);
 

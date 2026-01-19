@@ -44,6 +44,7 @@ void CDVIBuffer::Render_Buffer(list<Particle*>& _particles)
 
 	_vec3 vRight(InvView._11, InvView._12, InvView._13);
 	_vec3 vUp(InvView._21, InvView._22, InvView._23);
+	_vec3 vLook(InvView._31, InvView._32, InvView._33);
 
 	m_pGraphicDev->SetStreamSource(0, m_pVB, 0, m_dwVtxSize);
 	m_pGraphicDev->SetFVF(FVF_PTC);
@@ -65,6 +66,14 @@ void CDVIBuffer::Render_Buffer(list<Particle*>& _particles)
 	{
 		if ((*iter)->bIsAlive)
 		{
+			//방향이 있다면 재구성
+			if ((*iter)->bDirection)
+			{
+				vUp = (*iter)->vDirection;
+				D3DXVec3Cross(&vRight, &vUp, &vLook);//vLook
+				D3DXVec3Normalize(&vRight, &vRight);
+			}
+
 			_vec2 halfSize = (*iter)->vSize * 0.5f;
 
 			vp[0].vPosition = (*iter)->vPosition - (vRight * halfSize.x) + (vUp * halfSize.y);

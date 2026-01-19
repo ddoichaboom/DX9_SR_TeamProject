@@ -45,7 +45,7 @@
 
 //Effect
 #include "CBlood.h"
-
+#include "CTrail.h"
 
 
 CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
@@ -207,6 +207,15 @@ HRESULT CMapStage::Ready_ObjectPool()
         }
     }
 
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CTrail>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CTrail>(m_pGraphicDev)))
+        {
+            MSG_BOX("Effect Trail Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
     return S_OK;
 }
 
@@ -350,6 +359,13 @@ HRESULT CMapStage::Ready_EffectTextureProto()
     if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_Blood_Texture", pCom_Texture)))
     {
         MSG_BOX("Proto Blood Ready Failed");
+        return E_FAIL;
+    }
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CTrail::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_Trail_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto Trail Ready Failed");
         return E_FAIL;
     }
 

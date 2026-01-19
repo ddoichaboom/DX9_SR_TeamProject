@@ -15,6 +15,7 @@ public:
 	void		SetPostRenderState() override;
 
 public:
+	void		Deactivate() override;
 	_uint		GetTextureCnt() override
 	{
 		return (_uint)m_TextureSources.size();
@@ -35,5 +36,7 @@ protected:
 protected:
 	static vector<TextureSource> m_TextureSources;
 	int			m_iBatchSize = 0;
+	_float		m_fTime = 0.f;
+
 };
 

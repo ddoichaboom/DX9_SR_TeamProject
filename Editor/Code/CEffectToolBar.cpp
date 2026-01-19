@@ -2,7 +2,7 @@
 #include "CEffectToolBar.h"
 #include "CEffectScene.h"
 #include "CBlood.h"
-#include "CParticleEmitter.h"
+#include "CTrail.h"
 
 CEffectToolBar::CEffectToolBar()
 {
@@ -26,6 +26,9 @@ void CEffectToolBar::Update_ToolBar()
 
 void CEffectToolBar::Render_ToolBar()
 {
+    static const char* emitters[] = { "BLOOD", "TRAIL"};
+    static int selectedIndex = -1;
+
     ImGui::Begin("Effect Bar", nullptr, ImGuiWindowFlags_NoCollapse);
     if (m_pEffectScene)
     {
@@ -38,16 +41,31 @@ void CEffectToolBar::Render_ToolBar()
             if (input) m_pCurParticle->Reset();
 
             ImGui::Separator();
+            ImVec2 imv = ImVec2(100, 100);
+            if (ImGui::BeginListBox("Emitter Type", imv))
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    bool isSelected = (selectedIndex == i);
 
+                    if (ImGui::Selectable(emitters[i], isSelected))
+                    {
+                        selectedIndex = i;
+                        m_pEffectScene->SetEmitter(EFFECT_TYPE(i));
+                        break;
+                    }
+                }
+                ImGui::EndListBox();
+            }
+
+            ImGui::Separator();
             _int textureCnt = m_pCurParticle->GetTextureCnt();
             _int textureState = m_pCurParticle->GetState();
 
             if (textureCnt && ImGui::DragInt("Texture State", &textureState, 1, 0, textureCnt-1))
             {
                 m_pCurParticle->ChangeState(textureState);
-              //  m_pCurParticle->Reset();
             }
-
 
             _vec3 vPos = m_pCurParticle->GetPos();
             _float fPos[3] = { vPos.x, vPos.y, vPos.z };
@@ -71,7 +89,7 @@ void CEffectToolBar::Render_ToolBar()
 
             D3DXCOLOR color = m_pCurParticle->GetColor();
             _float fColor[4] = { color.r, color.g, color.b ,color.a};
-            if (ImGui::DragFloat4("COLOR", fColor, 1.f, 1.f, 100.f))
+            if (ImGui::DragFloat4("COLOR", fColor, 0.01f, 0.f, 1.f))
             {
                 m_pCurParticle->SetColor(fColor);
             }
@@ -86,6 +104,22 @@ void CEffectToolBar::Render_ToolBar()
             if (ImGui::Checkbox("LOOP", &bLoop))
             {
                 m_pCurParticle->SetLoop(bLoop);
+            }
+
+            if (selectedIndex == 1)
+            {
+                CTrail* trail = (CTrail*)m_pCurParticle;
+                _vec3 vStart = trail->GetStartPos();
+                _vec3 vEnd = trail->GetEndPos();
+
+                if (ImGui::DragFloat3("Start Pos", vStart, 1.f, 1.f, 300.f))
+                {
+                    trail->SetTrailPos(vStart, vEnd);
+                }
+                if (ImGui::DragFloat3("End Pos", vEnd, 1.f, 1.f, 300.f))
+                {
+                    trail->SetTrailPos(vStart, vEnd);
+                }
             }
 
         }

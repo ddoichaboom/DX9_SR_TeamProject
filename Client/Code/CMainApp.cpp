@@ -37,6 +37,7 @@
 
 //Effect
 #include "CBlood.h"
+#include "CTrail.h"
 
 CMainApp::CMainApp() : m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
 , m_pManagementClass(CManagement::GetInstance())
@@ -237,6 +238,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 
 	//Effect
 	_uint iBloodCount = 10;
+	_uint iTrailCount = 5;
 
 	for (auto& wstrFile : vecMapFiles)
 	{
@@ -281,6 +283,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 
 	CPoolMgr::GetInstance()->SetPoolSize<CTrigger>(iTriggerCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CBlood>(iBloodCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CTrail>(iTrailCount);
 	return S_OK;
 }
 

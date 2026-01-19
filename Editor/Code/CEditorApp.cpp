@@ -23,6 +23,7 @@
 #include "CEffectScene.h"
 #include "CEffectToolBar.h"
 #include "CBlood.h"
+#include "CTrail.h"
 
 CEditorApp::CEditorApp()
     : m_pGraphicDev(nullptr)
@@ -362,6 +363,13 @@ HRESULT CEditorApp::Ready_Texture_Prototype()
         return E_FAIL;
     }
 
+    //Trail Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CTrail::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_Trail_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto Trail Ready Failed");
+        return E_FAIL;
+    }
 
     return S_OK;
 }

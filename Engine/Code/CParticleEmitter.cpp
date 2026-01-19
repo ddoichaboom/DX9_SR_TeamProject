@@ -4,8 +4,9 @@
 
 CParticleEmitter::CParticleEmitter(IDirect3DDevice9* device, _int _maxParticle)
 	:CGameObject(device), m_vOrigin{}, m_vSize(1.f, 1.f), m_iMaxParticle(_maxParticle)
-	, m_pBufferCom(nullptr), m_pTextureCom(nullptr), m_iState(0), m_pTextureDesc(nullptr)
+	, m_pBufferCom(nullptr), m_pTextureCom(nullptr), m_iState(-1), m_pTextureDesc(nullptr)
 {
+	m_eOBJ_ID = OBJ_EFFECT;
 	m_Particles.resize(m_iMaxParticle);
 }
 
@@ -35,7 +36,6 @@ void CParticleEmitter::Render_GameObject()
 void CParticleEmitter::Activate()
 {
 	CGameObject::Activate();
-	Reset();
 }
 void CParticleEmitter::Reset()
 {

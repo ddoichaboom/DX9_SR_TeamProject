@@ -3,6 +3,7 @@
 #include "CRenderer.h"
 #include "CProtoMgr.h"
 #include "CBlood.h"
+#include "CTrail.h"
 
 vector<TextureSource> CBlood::m_TextureSources
 {
@@ -21,7 +22,6 @@ CBlood::CBlood(IDirect3DDevice9* device, _vec3* _origin, int numParticles)
 	m_fAnimSpeed = 10.f;
 	m_iMaxParticle = 1;
 	m_iBatchSize = 1;
-	m_vVelocity = { 0,0,1 };
 	m_fLifeTime = 500.f;
 
 	m_bLoop = false;
@@ -54,7 +54,7 @@ _int CBlood::Update_GameObject(const _float& fTimeDelta)
 		{
 			(*iter)->fAge += fTimeDelta;
 			(*iter)->fAnimTime += fTimeDelta;
-			if (m_fAnimSpeed <= (*iter)->fAnimTime)
+			if ((*iter)->fAnimSpeed <= (*iter)->fAnimTime)
 			{
 				SetNextUV((*iter));
 				(*iter)->fAnimTime = 0.f;
@@ -130,8 +130,9 @@ void CBlood::ResetParticle(Particle* particle)
 	particle->bIsAlive = true;
 
 	particle->vPosition = m_vPos;
-	particle->vVelocity = m_vVelocity;
 	particle->color = m_color;
+	particle->fAnimSpeed = m_fAnimSpeed;
+	particle->fAnimTime = 0.f;
 	particle->vStartUV = { 0,0 };
 	if (m_pTextureDesc) particle->vEndUV = m_pTextureDesc->vUVoffset;
 	else particle->vEndUV = { 1.f,1.f };

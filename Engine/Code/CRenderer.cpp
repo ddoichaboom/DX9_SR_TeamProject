@@ -30,8 +30,8 @@ void CRenderer::Render_GameObject(LPDIRECT3DDEVICE9& pGraphicDev)
 	Render_NonAlpha_WRAP(pGraphicDev);
 	Render_NonAlpha_Quality(pGraphicDev);
 	Render_Alpha(pGraphicDev);
-	Render_Alpha_UI(pGraphicDev);
 	Render_UI(pGraphicDev);
+	Render_Alpha_UI(pGraphicDev);
 
 	if (CDInputMgr::GetInstance()->GetDebugState()) Render_DEBUG(pGraphicDev);
 

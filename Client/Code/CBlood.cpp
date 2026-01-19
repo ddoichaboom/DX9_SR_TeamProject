@@ -4,19 +4,19 @@
 #include "CProtoMgr.h"
 #include "CBlood.h"
 
-
+//3¹øÀº Æó±â
 vector<TextureSource> CBlood::m_TextureSources
 {
-	{ 0, L"../Bin/Resource/Texture/Effect/Blood1.dds", true,3,3,3, {0.f, 0.f} }
-	,{ 1, L"../Bin/Resource/Texture/Effect/Blood2.dds", true,7,7,7, {0.f, 0.f} }
-	,{ 2, L"../Bin/Resource/Texture/Effect/Blood3.dds", true,7,3,3, {0.f, 0.f} }
+	{ BLOOD1, L"../Bin/Resource/Texture/Effect/Blood1.dds", true,3,3,3, {0.f, 0.f} }
+	,{ BLOOD2, L"../Bin/Resource/Texture/Effect/Blood2.dds", true,7,7,7, {0.f, 0.f} }
+	,{ BLOOD3, L"../Bin/Resource/Texture/Effect/Blood3.dds", true,7,3,3, {0.f, 0.f} }
 };
 
 Particle CBlood::m_ParticleInfo[BLOOD_END] =
 {
-	{_vec3{},{	10.f,10.f }, {0.f,0.f,0.f}, 500.f, 1.f, 0.f, { 255,0,0,1 },{0.f, 0.f},{0.f, 0.f},false},
-	{_vec3{},{	1.f,1.f }, {0.f,0.f,0.f}, 500.f, 0.4f, 0.f, { 255,0,0,1 },{0.f, 0.f},{0.f, 0.f},false},
-	{_vec3{},{	10.f,7.f }, {0.f,0.f,0.f}, 500.f, 0.5f, 0.f, { 255,0,0,1 },{0.f, 0.f},{0.f, 0.f},false},
+	{_vec3{},_vec3{},{	20.f,20.f }, 10.f, 0.035f, 0.f, 0.f, { 0.7f,0.043f,0.043f,1.f },{0.f, 0.f},{0.f, 0.f},false}, // 1.f
+	{_vec3{},_vec3{},{	25.f,25.f }, 10.f, 0.01f,0.f, 0.f, { 0.7f,0.043f,0.043f,1.f },{0.f, 0.f},{0.f, 0.f},false},
+	{_vec3{},_vec3{},{	30.f,20.f },  10.f, 0.01f,0.f, 0.f,{ 0.7f,0.043f,0.043f,1.f },{0.f, 0.f},{0.f, 0.f},false}, // 0.5f
 };
 
 CBlood::CBlood(IDirect3DDevice9* devices)
@@ -25,6 +25,7 @@ CBlood::CBlood(IDirect3DDevice9* devices)
 	m_vOrigin = { 0,0,0 };
 	m_vPos = m_vOrigin;
 	m_iBatchSize = 1;
+	m_bLoop = false;
 }
 
 CBlood::~CBlood()
@@ -53,19 +54,19 @@ _int CBlood::Update_GameObject(const _float& fTimeDelta)
 		{
 			(*iter)->fAge += fTimeDelta;
 			(*iter)->fAnimTime += fTimeDelta;
-			if (m_fAnimSpeed <= (*iter)->fAnimTime)
+			if ((*iter)->fAnimSpeed <= (*iter)->fAnimTime)
 			{
 				SetNextUV((*iter));
 				(*iter)->fAnimTime = 0.f;
 			}
-			if ((*iter)->fAge >= m_fLifeTime)
+			if ((*iter)->fAge >= (*iter)->fLifeTime)
 			{
 				(*iter)->bIsAlive = false;
 			}
 		}
 	}
 
-	Compute_ViewZ(&m_vPos);
+	//Compute_ViewZ(&m_vPos);
 	return RET_NONE;
 }
 
@@ -115,6 +116,13 @@ void CBlood::SetPostRenderState()
 
 }
 
+void CBlood::Deactivate()
+{
+	CGameObject::Deactivate();
+	m_iState = -1;
+	m_pTextureDesc = nullptr;
+}
+
 HRESULT CBlood::Add_Component()
 {
 	//Vertex
@@ -131,16 +139,27 @@ HRESULT CBlood::Add_Component()
 
 void CBlood::ResetParticle(Particle* particle)
 {
+	static _vec3 vMin = { -2,-1,0 };
+	static _vec3 vMax = { 2,1,0 };
+	_float m_fRand = 1.f;
+	_vec3 posOffset = { 0,0,0 };
 	if (m_iState < 0) return;
 
 	particle->bIsAlive = true;
-	particle->vPosition = m_vPos;
-	particle->vVelocity = m_ParticleInfo[m_iState].vVelocity;
+	if (m_iState != BLOOD2)
+	{
+		m_fRand = GetRandomFloat(0.7f, 1.3f);
+		GetRandomVector(&posOffset, &vMin, &vMax);
+	}
+	particle->vPosition = m_vPos + posOffset;
 	particle->color = m_ParticleInfo[m_iState].color;
+	particle->fAnimTime = 0.f;
+	particle->fAnimSpeed = m_ParticleInfo[m_iState].fAnimSpeed;
 	particle->vStartUV = { 0,0 };
 	if (m_pTextureDesc) particle->vEndUV = m_pTextureDesc->vUVoffset;
 	else particle->vEndUV = { 1.f,1.f };
 	particle->vSize = m_ParticleInfo[m_iState].vSize;
+	particle->vSize.x *= m_fRand;
 	particle->fAge = 0.f;
 	particle->fLifeTime = m_ParticleInfo[m_iState].fLifeTime;
 

@@ -12,6 +12,7 @@ namespace Engine
 }
 
 class CPlayerPart;
+class CTrail;
 
 class CKatana : public CWeapon    
 {
@@ -106,6 +107,7 @@ private :
 	_bool			m_bComboBuffered;
 
 	_float m_fAniSpeed;
-
+	//πÊΩ¬»Ò ¿Ã∆Â∆Æ √ﬂ∞° 
+	CTrail* m_pTrail = nullptr;
 };
 

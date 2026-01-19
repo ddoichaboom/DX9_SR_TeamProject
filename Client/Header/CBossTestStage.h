@@ -24,6 +24,9 @@ protected:
 	HRESULT						Ready_Environment_Layer(const _tchar* pLayerTag) override;
 	HRESULT						Ready_GameLogic_Layer(const _tchar* pLayerTag) override;
 	HRESULT						Ready_Prototype() override;
+
+	HRESULT						Ready_Prototype_OnlyTexture() { return S_OK; };
+
 protected:
 	virtual void				Free();
 
