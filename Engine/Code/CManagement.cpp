@@ -1,6 +1,7 @@
 #include "CManagement.h"
 #include "CRenderer.h"
 #include "CProtoMgr.h"
+#include "CFontMgr.h"
 
 IMPLEMENT_SINGLETON(CManagement)
 
@@ -55,7 +56,7 @@ void CManagement::LateUpdate_Scene(const _float& fTimeDelta)
 void CManagement::Render_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
     CRenderer::GetInstance()->Render_GameObject(pGraphicDev);
-
+    CFontMgr::GetInstance()->Render_FontGroup();
     // debug¿ë ·»´õ
     m_pScene->Render_Scene();
 }

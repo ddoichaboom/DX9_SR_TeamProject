@@ -3,6 +3,9 @@
 #include "CProtoMgr.h"
 #include "CRenderer.h"
 
+#include "CPhonePlayer.h"
+#include "CHPUI.h"
+
 TextureSource CPhoneBG::m_textureSource =
 {
 	0, L"../Bin/Resource/Texture/UI/PHONE_BACK.dds"
@@ -11,6 +14,7 @@ TextureSource CPhoneBG::m_textureSource =
 CPhoneBG::CPhoneBG(LPDIRECT3DDEVICE9 pGraphicDev)
     : CBaseUI(pGraphicDev)
 	,	m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
+	, m_pPhonePlayer(nullptr), m_pHpUI(nullptr)
 {
 	m_eOBJ_ID = OBJ_ITEM;
 }
@@ -18,6 +22,7 @@ CPhoneBG::CPhoneBG(LPDIRECT3DDEVICE9 pGraphicDev)
 CPhoneBG::CPhoneBG(const CPhoneBG& rhs)
     : CBaseUI(rhs)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
+	, m_pPhonePlayer(nullptr), m_pHpUI(nullptr)
 {
 	m_eOBJ_ID = OBJ_ITEM;
 }
@@ -75,6 +80,8 @@ HRESULT CPhoneBG::Add_Component()
 
 void CPhoneBG::Free()
 {
+	Safe_Release(m_pPhonePlayer);
+	Safe_Release(m_pHpUI);
 	CGameObject::Free();
 }
 
@@ -83,17 +90,27 @@ HRESULT CPhoneBG::Ready_GameObject()
 	if (FAILED(Add_Component()))
 		return E_FAIL;
 
-	m_fX = 260.f;
-	m_fY = WINCY - 205.f;
+	m_fX = 360.f;
+	m_fY = WINCY - 190.f;
 
 	m_fSizeX = 230.f;
 	m_fSizeY = 220.f;
 
-	Rotate(ROT_Z, 15.f);
+	//Rotate(ROT_Z, 15.f);
 	SetScale(m_fSizeX, m_fSizeY);
 	SetPos({ m_fX, m_fY, 0.f });
 	
 	m_pTextureCom->Change_Texture(0);
+
+	m_pPhonePlayer = CPhonePlayer::Create(m_pGraphicDev);
+
+	if (nullptr == m_pPhonePlayer)
+		return E_FAIL;
+
+	m_pHpUI = CHPUI::Create(m_pGraphicDev);
+
+	if (nullptr == m_pHpUI)
+		return E_FAIL;
 
     return S_OK;
 }
@@ -103,12 +120,18 @@ _int CPhoneBG::Update_GameObject(const _float& fTimeDelta)
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 
+	m_pPhonePlayer->Update_GameObject(fTimeDelta);
+	m_pHpUI->Update_GameObject(fTimeDelta);
+
     return iExit;
 }
 
 void CPhoneBG::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
+
+	m_pPhonePlayer->LateUpdate_GameObject(fTimeDelta);
+	m_pHpUI->LateUpdate_GameObject(fTimeDelta);
 }
 
 void CPhoneBG::Render_GameObject()

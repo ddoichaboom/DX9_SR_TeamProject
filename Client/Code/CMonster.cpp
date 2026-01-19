@@ -136,8 +136,11 @@ CTransform* CMonster::GetCameraTransform()
 {
 	if (!m_pCameraTransformCom)
 	{
+		//m_pCameraTransformCom =
+		//	static_cast<CTransform*>(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"Environment_Layer", OBJ_CAM, L"Com_Transform"));
 		m_pCameraTransformCom =
-			static_cast<CTransform*>(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"Environment_Layer", OBJ_CAM, L"Com_Transform"));
+			static_cast<CTransform*>(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_CAM, L"Com_Transform"));
+
 	}
 	return m_pCameraTransformCom;
 }

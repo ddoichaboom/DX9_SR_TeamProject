@@ -104,8 +104,8 @@ HRESULT CSelectBG::Ready_GameObject()
 	if (FAILED(Add_Component()))
 		return E_FAIL;
 
-	m_fSizeX = 100.f;
-	m_fSizeY = 200.f;
+	m_fSizeX = 115.f;
+	m_fSizeY = 225.f;
 
 	SetScale(m_fSizeX, m_fSizeY);
 	SetPos({ m_fX, m_fY, 0.f });

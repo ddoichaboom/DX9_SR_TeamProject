@@ -151,6 +151,8 @@ namespace Engine
 		_uint	iCeilingType;		// STATIC/DYNAMIC_CEILING_TYPE enum
 		_uint	iWallType;			// STATIC/DYNAMIC_WALL_TYPE enum
 
+		SLOPE_DIR eSlopeDir;
+
 		// SpawnPoint 전용
 		std::string sSpawnType;           // "Player", "Monster", "BossMonster"
 		std::string sMonsterKey;          // "WhiteMan", "BeamMon" 등
@@ -159,7 +161,7 @@ namespace Engine
 			: sType(""), sName(""),
 			vPos(0, 0, 0), vRot(0, 0, 0), vScale(1, 1, 1),
 			iTextureIdx(0), iFloorType(0), iCeilingType(0), iWallType(0),
-			sSpawnType(""), sMonsterKey("")
+			sSpawnType(""), sMonsterKey(""), eSlopeDir(SLOPE_DIR_END)
 		{}
 
 	}ObjectData;
@@ -171,6 +173,7 @@ namespace Engine
 		std::vector<ObjectData> vObjects;	// 해당 방의 모든 오브젝트
 		_uint iFloorCount;
 		_uint iDynamicFloorCount;
+		_uint iSlopeFloorCount;
 		_uint iCeilingCount;
 		_uint iDynamicCeilingCount;
 		_uint iWallCount;
@@ -180,6 +183,7 @@ namespace Engine
 		tagRoomData()
 			: iRoomIdx(-1), iFloorCount(0), iDynamicFloorCount(0), iCeilingCount(0),
 			iDynamicCeilingCount(0), iWallCount(0), iDynamicWallCount(0), iObstacleCount(0)
+			, iSlopeFloorCount(0)
 		{}
 
 	}RoomData;
@@ -233,6 +237,14 @@ namespace Engine
 		D3DXVECTOR3 max;
 	};
 
+	typedef struct tagFontData
+	{
+		const _tchar* pFontTag;
+		const _tchar* pString;
+		_vec3 pPos;
+		_vec3 pSize;
+		D3DXCOLOR Color;
+	}FontData;
 }
 
 

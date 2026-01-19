@@ -6,6 +6,7 @@
 #include "CEditorWall.h"
 #include "CEditorSpawnPoint.h"
 #include "CEditorFloor.h"
+#include "CEditorSlopeFloor.h"
 #include "CEditorCeiling.h"
 #include "CEditorDynamicFloor.h"
 #include "CTexture.h"
@@ -177,6 +178,96 @@ void CInspector::Render_FloorTextureUI(CEditorFloor* pFloor)
             "Dynamic floors have animated textures");
 
     }
+    else if (CEditorSlopeFloor* pSlopeFloor = dynamic_cast<CEditorSlopeFloor*>(pFloor))
+    {
+        ImGui::Text("Slope Floor Properties");
+        ImGui::Separator();
+
+        // 경사 각도 슬라이더
+        _float fSlopeAngle = pSlopeFloor->Get_SlopeAngle();
+        if (ImGui::SliderFloat("Slope Angle", &fSlopeAngle, 0.f, 89.f))
+        {
+            pSlopeFloor->Set_SlopeAngle(fSlopeAngle);
+        }
+
+        // 경사 방향 콤보박스
+        SLOPE_DIR eSlopeDir = pSlopeFloor->Get_SlopeDirection();
+        const char* szSlopeDirs[] = {
+            "+X Direction",
+            "-X Direction",
+            "+Z Direction",
+            "-Z Direction"
+        };
+
+        int iSlopeDir = static_cast<int>(eSlopeDir);
+        if (ImGui::Combo("Slope Direction", &iSlopeDir, szSlopeDirs, IM_ARRAYSIZE(szSlopeDirs)))
+        {
+            pSlopeFloor->Set_SlopeDirection(static_cast<SLOPE_DIR>(iSlopeDir));
+        }
+
+        ImGui::Spacing();
+        ImGui::Separator();
+
+        // 텍스처 설정 (CEditorFloor와 유사)
+        ImGui::Text("Texture Settings");
+        ImGui::Separator();
+
+        _uint iFloorType = pSlopeFloor->Get_FloorType();
+        const char* szSlopeFloorTypes[] = {
+            "STATIC_FLOOR",
+            "STATIC_FLOOR_FLUID",
+            "STATIC_FLOOR_SLOPE"
+        };
+
+        _int iTypeIdx(0);
+        if (iFloorType == STATIC_FLOOR)
+            iTypeIdx = 0;
+        else if (iFloorType == STATIC_FLOOR_FLUID)
+            iTypeIdx = 1;
+        else if (iFloorType == STATIC_FLOOR_SLOPE)
+            iTypeIdx = 2;
+
+        if (ImGui::Combo("Floor Type", &iTypeIdx, szSlopeFloorTypes, IM_ARRAYSIZE(szSlopeFloorTypes)))
+        {
+            // 콤보박스 인덱스를 enum 값으로 변환
+            _int eNewType = STATIC_FLOOR;
+            if (iTypeIdx == 0)
+                eNewType = STATIC_FLOOR;
+            else if (iTypeIdx == 1)
+                eNewType = STATIC_FLOOR_FLUID;
+            else if (iTypeIdx == 2)
+                eNewType = STATIC_FLOOR_SLOPE;
+
+            pSlopeFloor->Set_FloorType(eNewType);
+        }
+
+        // Texture Index 슬라이더
+        _int iTextureIdx = pSlopeFloor->Get_TextureIdx();
+
+        Engine::CTexture* pTextureCom = dynamic_cast<Engine::CTexture*>(
+            pSlopeFloor->Get_Component(ID_DYNAMIC, L"Com_Texture"));
+
+        _int iMaxIdx(0);
+
+        if (pTextureCom)
+        {
+            Engine::TextureDesc* pDesc = pTextureCom->GetTextureDesc(iFloorType);
+            if (pDesc)
+            {
+                iMaxIdx = (_int)pDesc->vMaxIdx.x;
+            }
+        }
+        if (ImGui::SliderInt("Texture Index", &iTextureIdx, 0, iMaxIdx))
+        {
+            pSlopeFloor->Set_TextureIdx(iTextureIdx);
+        }
+
+        pSlopeFloor->Calculate_Rotation();
+
+
+        ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),
+            "Slope floors use rotation to create inclines");
+    }
     else if (pFloor)
     {
         // Floor Type 콤보 박스    (현재는 STATIC_FLOOR만 지원)
@@ -312,6 +403,89 @@ void CInspector::Render_WallTextureUI(CEditorWall* pWall)
     ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),
         "Texture Index: 0 ~ 2 (3x1 atlas row)");
 }
+
+//void CInspector::Render_SlopeFloorTextureUI(CEditorSlopeFloor* pSlopeFloor)
+//{
+//    ImGui::Text("Slope Floor Properties");
+//    ImGui::Separator();
+//
+//    // 경사 각도 슬라이더
+//    _float fSlopeAngle = pSlopeFloor->Get_SlopeAngle();
+//    if (ImGui::SliderFloat("Slope Angle", &fSlopeAngle, 0.f, 89.f))
+//    {
+//        pSlopeFloor->Set_SlopeAngle(fSlopeAngle);
+//    }
+//
+//    // 경사 방향 콤보박스
+//    SLOPE_DIR eSlopeDir = pSlopeFloor->Get_SlopeDirection();
+//    const char* szSlopeDirs[] = {
+//        "+X Direction",
+//        "-X Direction",
+//        "+Z Direction",
+//        "-Z Direction"
+//    };
+//
+//    int iSlopeDir = static_cast<int>(eSlopeDir);
+//    if (ImGui::Combo("Slope Direction", &iSlopeDir, szSlopeDirs, IM_ARRAYSIZE(szSlopeDirs)))
+//    {
+//        pSlopeFloor->Set_SlopeDirection(static_cast<SLOPE_DIR>(iSlopeDir));
+//    }
+//
+//    ImGui::Spacing();
+//    ImGui::Separator();
+//
+//    // 텍스처 설정 (CEditorFloor와 유사)
+//    ImGui::Text("Texture Settings");
+//    ImGui::Separator();
+//
+//    _uint iFloorType = pSlopeFloor->Get_FloorType();
+//    const char* szSlopeFloorTypes[] = {
+//        "STATIC_FLOOR"
+//        "STATIC_FLOOR_SLOPE"
+//    };
+//    
+//    _int iTypeIdx(0);
+//    if (iFloorType == STATIC_FLOOR)
+//        iTypeIdx = 0;
+//    else if (iFloorType == STATIC_FLOOR_SLOPE)
+//        iTypeIdx = 1;
+//
+//    if (ImGui::Combo("Floor Type", &iTypeIdx, szSlopeFloorTypes, IM_ARRAYSIZE(szSlopeFloorTypes)))
+//    {
+//        // 콤보박스 인덱스를 enum 값으로 변환
+//        _int eNewType = STATIC_FLOOR;
+//        if (iTypeIdx == 0)
+//            eNewType = STATIC_FLOOR;
+//        else if (iTypeIdx == 1)
+//            eNewType = STATIC_FLOOR_SLOPE;
+//
+//        pSlopeFloor->Set_FloorType(eNewType);
+//    }
+//
+//    // Texture Index 슬라이더
+//    _int iTextureIdx = pSlopeFloor->Get_TextureIdx();
+//
+//    Engine::CTexture* pTextureCom = dynamic_cast<Engine::CTexture*>(
+//        pSlopeFloor->Get_Component(ID_DYNAMIC, L"Com_Texture"));
+//
+//    _int iMaxIdx(0);
+//
+//    if (pTextureCom)
+//    {
+//        Engine::TextureDesc* pDesc = pTextureCom->GetTextureDesc(iFloorType);
+//        if (pDesc)
+//        {
+//            iMaxIdx = (_int)pDesc->vMaxIdx.x;
+//        }
+//    }
+//    if (ImGui::SliderInt("Texture Index", &iTextureIdx, 0, iMaxIdx))
+//    {
+//        pSlopeFloor->Set_TextureIdx(iTextureIdx);
+//    }
+//
+//    ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),
+//        "Slope floors use rotation to create inclines");
+//}
 
 void CInspector::Render_ObjectProperties()
 {

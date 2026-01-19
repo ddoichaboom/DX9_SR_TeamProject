@@ -470,3 +470,4 @@ tmpclaude-*-cwd
 # 빌드 산출물 
 *.exp
 *.lib
+Editor/Inlcude/imgui.ini
