@@ -86,7 +86,6 @@ void CEditorFloor::Render_GameObject()
     m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, dwOldTextureFactor);
 
     m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_DISABLE);
-
 }
 
 HRESULT CEditorFloor::Add_Component()
@@ -115,6 +114,7 @@ HRESULT CEditorFloor::Add_Component()
         m_pTextureCom->Change_Texture(m_iFloorType);
         m_pTextureCom->Set_Frame(_vec2(m_iTextureIdx, 0));
     }
+
     return S_OK;
 }
 

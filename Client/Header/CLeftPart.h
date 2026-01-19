@@ -25,6 +25,7 @@ public:
 
 public:
 	virtual _bool	Get_ActionAble() override;
+	virtual _bool	Get_Relaod() { return m_bReload; }
 
 public:
 	HRESULT		Ready_GameObject() override;
@@ -43,6 +44,7 @@ protected:
 	//State Function 
 	void Begin_Idle();
 	void Idle();
+	void End_Idle();
 
 	void Begin_Reload();
 	void Reload();

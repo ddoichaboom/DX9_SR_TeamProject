@@ -8,6 +8,7 @@
 #include "CBossTestStage.h"
 #include "CMapLoader.h"
 #include "CEventMgr.h"
+#include "CFontMgr.h"
 
 #include <ctime>
 
@@ -27,6 +28,7 @@
 #include "CDynamicCeiling.h"
 #include "CDynamicWall.h"
 #include "CObstacle.h"
+#include "CSlopeFloor.h"
 
 #include "CLeftPart.h"
 #include "CRightPart.h"
@@ -34,6 +36,7 @@
 #include "CKatana.h"
 #include "CBackGround.h"
 #include "CTrigger.h"
+#include "CUIManager.h"
 
 //Effect
 #include "CBlood.h"
@@ -83,7 +86,7 @@ void CMainApp::LateUpdate_MainApp(const float& fTimeDelta)
 void CMainApp::Render_MainApp()
 {
 	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f, 0.f, 0.f, 1.f));
-	m_pManagementClass->Render_Scene(m_pGraphicDev);	
+	m_pManagementClass->Render_Scene(m_pGraphicDev);
 	m_pDeviceClass->Render_End();
 }
 
@@ -185,6 +188,14 @@ HRESULT CMainApp::Ready_DefaultProto()
 		Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CKatana::GetAnimSources()))))
 		return E_FAIL;
 
+
+	//Font
+	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Number", L"DS-Digital", 40, 40, FW_DONTCARE, false, true)))
+		return E_FAIL;
+
+	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Default", L"견명조", 20, 20, FW_HEAVY,false, false)))
+		return E_FAIL;
+
 	return S_OK;
 }
 
@@ -210,13 +221,11 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 HRESULT CMainApp::Ready_ObjectPool()
 {
 	// 모든 맵 파일 경로 수집
-	vector<wstring> vecMapFiles;
-	vecMapFiles.push_back(L"../../Map/Tutorial.json");		// 현재 사용중인 파일
-	//vecMapFiles.push_back(L"../../Map/TutorialStage.json");
-	//vecMapFiles.push_back(L"../../Map/Stage01.json");
-	//vecMapFiles.push_back(L"../../Map/BossStage.json");
+	//vector<wstring> vecMapFiles;
+	//vecMapFiles.push_back(L"../../Map/Tutorial.json");
 
-	for (auto& wstrFile : vecMapFiles)
+
+	for (auto& wstrFile : CMapLoader::GetInstance()->Get_MapFiles())
 	{
 		if (FAILED(CMapLoader::GetInstance()->Preload_AllMapData(wstrFile)))
 		{
@@ -226,7 +235,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 	}
 
 	// 타입별 최대값 초기화
-	_uint iMaxFloor(0), iMaxDynamicFloor(0),iMaxCeiling(0), iMaxDynamicCeiling(0), iMaxWall(0), iMaxDynamicWall(0);
+	_uint iMaxFloor(0), iMaxDynamicFloor(0),iMaxCeiling(0), iMaxDynamicCeiling(0), iMaxWall(0), iMaxDynamicWall(0), iMaxSlopeFloor(0);
 	_uint iMaxObstacle(0);
 	_uint iBulletCount = 30;
 	_uint iBossBulletCount = 30;
@@ -235,18 +244,18 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iBeamMonCount = 6;
 	_uint iFlyMonCount = 6;
 	_uint iTriggerCount = 7;
-
 	//Effect
 	_uint iBloodCount = 10;
 	_uint iTrailCount = 5;
-
-	for (auto& wstrFile : vecMapFiles)
+	for (auto& wstrFile : CMapLoader::GetInstance()->Get_MapFiles())
 	{
 		// 각 파일에서 타입별 최대 개수 추출 
 		iMaxFloor = max(iMaxFloor,
 			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "Floor"));
 		iMaxDynamicFloor = max(iMaxDynamicFloor,
 			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "DynamicFloor"));
+		iMaxSlopeFloor = max(iMaxSlopeFloor,
+			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "SlopeFloor"));
 
 		iMaxCeiling = max(iMaxCeiling,
 			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "Ceiling"));
@@ -265,6 +274,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 	// 풀 크기 설정 
 	CPoolMgr::GetInstance()->SetPoolSize<CFloor>(iMaxFloor);
 	CPoolMgr::GetInstance()->SetPoolSize<CDynamicFloor>(iMaxDynamicFloor);
+	CPoolMgr::GetInstance()->SetPoolSize<CSlopeFloor>(iMaxSlopeFloor);
 
 	CPoolMgr::GetInstance()->SetPoolSize<CCeiling>(iMaxCeiling);
 	CPoolMgr::GetInstance()->SetPoolSize<CDynamicCeiling>(iMaxDynamicCeiling);
@@ -337,6 +347,8 @@ void CMainApp::Free()
 
 	// MayBe ?
 	CEventMgr::DestroyInstance();
+	CUIManager::DestroyInstance();
+	CFontMgr::DestroyInstance();
 
 	m_pDeviceClass->DestroyInstance();
 }

@@ -8,6 +8,7 @@ namespace Engine
 	class CTexture;
 }
 
+class CSelectBG;
 
 class CShopItem : public CBaseUI
 {
@@ -42,6 +43,7 @@ protected:
 
 public :
 	void		Set_Render(_bool bRender) { m_bRender = bRender; }
+	virtual		void		Set_On();
 
 protected:
 	static vector<TextureSource>	m_vTextureSource;
@@ -52,6 +54,12 @@ protected:
 	_uint	m_iTextureID;
 
 	_bool	m_bRender;
-	CGameObject* m_pSelectBG;
+	CSelectBG* m_pSelectBG;
+
+	EventData			m_EventData;
+
+	_float		m_fTime;
+	_float		m_fInterval;
+	_bool		m_bSelect;
 };
 

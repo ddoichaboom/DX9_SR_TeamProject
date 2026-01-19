@@ -19,6 +19,7 @@
 #include "CEditorCube.h"
 #include "CEditorFloor.h"
 #include "CEditorDynamicFloor.h"
+#include "CEditorSlopeFloor.h"
 #include "CEditorCeiling.h"
 #include "CEditorSpawnPoint.h"
 #include "CEditorWall.h"
@@ -126,6 +127,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
         // 클래스별 카운트 집계
         _uint iFloorCount = 0;
         _uint iDynamicFloorCount = 0;
+        _uint iSlopeFloorCount = 0;
         _uint iCeilingCount = 0;
         _uint iWallCount = 0;
         _uint iObstacleCount = 0;
@@ -148,6 +150,13 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                 {
                     iDynamicFloorCount++;
                     jObj["type"] = "DynamicFloor";  
+                }
+                else if (CEditorSlopeFloor* pSlopeFloor = dynamic_cast<CEditorSlopeFloor*>(pObj))
+                {
+                    iSlopeFloorCount++;
+                    jObj["type"] = "SlopeFloor";
+
+                    jObj["SlopeDirection"] = pSlopeFloor->Get_SlopeDirection();
                 }
                 else
                 {
@@ -330,6 +339,7 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
             vScale.y = jObj["scale"][1];
             vScale.z = jObj["scale"][2];
 
+
             // 오브젝트 생성
             CEditorObject* pObj = nullptr;
 
@@ -347,6 +357,34 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
                         pDynamicFloor->Set_FloorType(iFloorType);
                     }
                 }
+            }
+            else if (strType == "SlopeFloor")
+            {
+                pObj = CEditorSlopeFloor::Create(pGraphicDev, vPos, vRot, vScale);
+
+                if (iVersion >= 4 && jObj.contains("floorType"))
+                {
+                    CEditorSlopeFloor* pSlopeFloor = dynamic_cast<CEditorSlopeFloor*>(pObj);
+                    if (pSlopeFloor)
+                    {
+                        _uint iFloorType = jObj["floorType"];
+                        pSlopeFloor->Set_FloorType(iFloorType);
+
+                        if (jObj.contains("textureIdx"))
+                        {
+                            _int iTextureIdx = jObj["textureIdx"];
+                            pSlopeFloor->Set_TextureIdx(iTextureIdx);
+                        }
+                        if (jObj.contains("SlopeDirection"))
+                        {
+                            SLOPE_DIR eSlopeDir = jObj["SlopeDirection"];
+                            pSlopeFloor->Set_SlopeDirection(eSlopeDir);
+
+                        }
+
+                    }
+                }
+
             }
             else if (strType == "Floor")
             {

@@ -151,9 +151,6 @@
     <Filter Include="02. GameObject\12. Trigger">
       <UniqueIdentifier>{c3e03a26-b888-4a42-8e23-5584f9799a14}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\99. Environment\00. Terrain\00. Floor\DynamicFloor">
-      <UniqueIdentifier>{13c447d0-1fdc-4d80-b15a-a10fd70a3a5d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\99. Environment\00. Terrain\01. Ceiling\DynamicCeiling">
       <UniqueIdentifier>{ee067c0b-8ac0-445b-8148-646b36677bcd}</UniqueIdentifier>
     </Filter>
@@ -178,6 +175,41 @@
     <Filter Include="04.UI\01.StaticUI\03.Select_Item">
       <UniqueIdentifier>{a64ef52c-e2cb-4cb3-96ae-8cb2e75da0b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\99. Environment\00. Terrain\00. Floor\01. SlopeFloor">
+      <UniqueIdentifier>{627e972f-e652-4c2e-8023-ca40db0c413d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Environment\00. Terrain\00. Floor\00. DynamicFloor">
+      <UniqueIdentifier>{13c447d0-1fdc-4d80-b15a-a10fd70a3a5d}</UniqueIdentifier>
+	</Filter>
+	<Filter Include="04.UI\UIManager">
+      <UniqueIdentifier>{7965902d-4b4c-4aaf-8a8b-d2132956158f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\01.StaticUI\04.Stage_BG">
+      <UniqueIdentifier>{5111b033-3f16-4817-b57e-c762fba14185}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\02.DynamicUI\02.Chat">
+      <UniqueIdentifier>{04499492-2484-40c3-ad00-831a6a648c07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\02.DynamicUI\03.Mascot">
+      <UniqueIdentifier>{2e4fb4e1-1618-4ea8-b5a4-ff98c8e00a0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\02.DynamicUI\04.Heart">
+      <UniqueIdentifier>{a9e40874-5ebd-431e-800c-0293a7193fdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\01.StaticUI\05.Heart_Beat">
+      <UniqueIdentifier>{dc3e9daa-f1b7-4ae9-ae01-9ac4eaf4cff8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\02.DynamicUI\05.Noise">
+      <UniqueIdentifier>{aa71e2f7-aff5-4af9-8887-fa068b50f791}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\02.DynamicUI\06.Player_UI">
+      <UniqueIdentifier>{9de8e327-d18b-47ae-97ea-380981a2b116}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\02.DynamicUI\07.HP_UI">
+      <UniqueIdentifier>{4ba2c46f-d985-4030-bbd5-53d0cd01c888}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\999. TestEffect">
+      <UniqueIdentifier>{b0904e45-6482-43e5-8335-e9af254524c2}</UniqueIdentifier>
     <Filter Include="02. GameObject\13. Effect">
       <UniqueIdentifier>{cb380492-a1bf-4e47-9d3c-8b3d8346702d}</UniqueIdentifier>
     </Filter>
@@ -316,7 +348,7 @@
       <Filter>02. GameObject\99. Environment\00. Terrain\01. Ceiling\DynamicCeiling</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CDynamicFloor.h">
-      <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\DynamicFloor</Filter>
+      <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\00. DynamicFloor</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CDynamicWall.h">
       <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall\DynamicWall</Filter>
@@ -344,6 +376,33 @@
     </ClInclude>
     <ClInclude Include="..\Header\CTrail.h">
       <Filter>02. GameObject\13. Effect\01. Trail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CUIManager.h">
+      <Filter>04.UI\UIManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CStageBG.h">
+      <Filter>04.UI\01.StaticUI\04.Stage_BG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CChat.h">
+      <Filter>04.UI\02.DynamicUI\02.Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMascot.h">
+      <Filter>04.UI\02.DynamicUI\03.Mascot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHeart.h">
+      <Filter>04.UI\02.DynamicUI\04.Heart</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHeartBeat.h">
+      <Filter>04.UI\01.StaticUI\05.Heart_Beat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CNoise.h">
+      <Filter>04.UI\02.DynamicUI\05.Noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPhonePlayer.h">
+      <Filter>04.UI\02.DynamicUI\06.Player_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHPUI.h">
+      <Filter>04.UI\02.DynamicUI\07.HP_UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -465,7 +524,7 @@
       <Filter>02. GameObject\99. Environment\00. Terrain\01. Ceiling\DynamicCeiling</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CDynamicFloor.cpp">
-      <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\DynamicFloor</Filter>
+      <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\00. DynamicFloor</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CDynamicWall.cpp">
       <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall\DynamicWall</Filter>
@@ -488,11 +547,43 @@
     <ClCompile Include="..\Code\CSelectBG.cpp">
       <Filter>04.UI\01.StaticUI\03.Select_Item</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\CSlopeFloor.cpp">
+      <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\01. SlopeFloor</Filter>
+	</ClCompile>
+	<ClCompile Include="..\Code\CTestEffect.cpp">
+      <Filter>02. GameObject\999. TestEffect</Filter>
     <ClCompile Include="..\Code\CBlood.cpp">
       <Filter>02. GameObject\13. Effect\00. Blood</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CTrail.cpp">
       <Filter>02. GameObject\13. Effect\01. Trail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CUIManager.cpp">
+      <Filter>04.UI\UIManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CStageBG.cpp">
+      <Filter>04.UI\01.StaticUI\04.Stage_BG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CChat.cpp">
+      <Filter>04.UI\02.DynamicUI\02.Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMascot.cpp">
+      <Filter>04.UI\02.DynamicUI\03.Mascot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHeart.cpp">
+      <Filter>04.UI\02.DynamicUI\04.Heart</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHeartBeat.cpp">
+      <Filter>04.UI\01.StaticUI\05.Heart_Beat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CNoise.cpp">
+      <Filter>04.UI\02.DynamicUI\05.Noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPhonePlayer.cpp">
+      <Filter>04.UI\02.DynamicUI\06.Player_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHPUI.cpp">
+      <Filter>04.UI\02.DynamicUI\07.HP_UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

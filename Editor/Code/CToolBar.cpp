@@ -44,6 +44,7 @@ void CToolBar::Render_ToolBar()
           "Select",
           "Place Floor",
           "Place Dynamic Floor",
+          "Place Slope Floor",
           "Place Ceiling",
           "Place Cube",
           "Place Wall",

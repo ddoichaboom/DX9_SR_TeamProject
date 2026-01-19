@@ -63,6 +63,10 @@ protected:
 	void Shopping();
 	void End_Shop();
 
+	void Begin_Next();
+	void ReadyNext();
+	void End_Next();
+
 protected:
 	static vector<TextureSource>	m_vTextureSource;
 	static vector<AnimationSource>	m_vAnimSource;

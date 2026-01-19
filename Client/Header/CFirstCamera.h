@@ -1,6 +1,7 @@
 #pragma once
 #include "CCamera.h"
 #include "Engine_Define.h"
+#include "CEventMgr.h"
 
 namespace Engine
 {
@@ -8,7 +9,7 @@ namespace Engine
 }
 
 
-class CFirstCamera : public CCamera
+class CFirstCamera : public CCamera, public IListener
 {
 private:
 	explicit CFirstCamera(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -19,6 +20,7 @@ public :
 	HRESULT		Set_Transform(INFO eInfo, _vec3* pVector);
 
 	void		Set_CamSetting();
+	void		OnEvent(EVENT_TYPE _type, EventData* _pData) override;
 
 
 public:
@@ -73,6 +75,5 @@ private:
 	_float		m_fShakeSpeed;
 	_float		m_fShakePower;
 
-	// Transform 추가해보자
 };
 
