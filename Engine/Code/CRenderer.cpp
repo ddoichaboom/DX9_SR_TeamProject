@@ -84,7 +84,7 @@ void CRenderer::Render_NonAlpha_Quality(LPDIRECT3DDEVICE9& pGraphicDev)
 	//좀 멀리 있어도 기본보다 더 높은 해상도의 밉맵을 사용하도록 
 	pGraphicDev->SetSamplerState(0, D3DSAMP_MIPMAPLODBIAS, *((DWORD*)&bias));
 
-	for (auto& pObj : m_RenderGroup[RENDER_NONALPHA])
+	for (auto& pObj : m_RenderGroup[RENDER_NONALPHA_QUALITY])
 		pObj->Render_GameObject();
 
 	//여기서 알파테스트 끔 
