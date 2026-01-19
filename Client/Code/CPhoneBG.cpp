@@ -101,7 +101,7 @@ HRESULT CPhoneBG::Ready_GameObject()
 _int CPhoneBG::Update_GameObject(const _float& fTimeDelta)
 {
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 
     return iExit;
 }

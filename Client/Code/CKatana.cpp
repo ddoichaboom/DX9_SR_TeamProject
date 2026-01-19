@@ -228,7 +228,7 @@ void CKatana::Begin_Idle()
 
 void CKatana::Idle()
 {
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CKatana::Begin_Intro()
@@ -254,7 +254,7 @@ void CKatana::Intro()
 
 	if (m_fDelayTime < 1.f)
 	{
-		CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+		CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
 		return;
 	}
 	else if (m_bDelay)
@@ -272,7 +272,7 @@ void CKatana::Intro()
 		m_pTransformCom->Set_Pos(m_vEndPos.x - WINCX * 0.5f, -m_vEndPos.y + WINCY * 0.5f, 0.f);		
 		ChangeState(IDLE);
 	}
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CKatana::End_Intro()
@@ -376,7 +376,7 @@ void CKatana::Attack()
 	D3DXVec3Lerp(&vPos, &m_vStartPos, &m_vEndPos, fTime);
 	m_pTransformCom->Set_Pos(vPos.x - WINCX * 0.5f, -vPos.y + WINCY * 0.5f, 0.f);
 	
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CKatana::End_Attack()

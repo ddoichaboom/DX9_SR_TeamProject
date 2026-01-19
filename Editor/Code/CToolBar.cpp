@@ -2,6 +2,7 @@
 #include "CToolBar.h"
 #include "CEditorCamera.h"
 #include "CGrid.h"
+#include "CEffectToolBar.h"
 
 CToolBar::CToolBar()
     : m_pCamera(nullptr)
@@ -24,6 +25,7 @@ HRESULT CToolBar::Ready_ToolBar(CEditorCamera* pCamera, CGrid* pGrid)
 
     return S_OK;
 }
+
 
 void CToolBar::Update_ToolBar()
 {

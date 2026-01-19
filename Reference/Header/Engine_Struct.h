@@ -203,6 +203,7 @@ namespace Engine
 		_vec2 vStartUV;
 		_vec2 vEndUV;
 		bool bIsAlive;
+		bool bLoop;
 	}Particle;
 
 	struct BoundingBox

@@ -246,7 +246,7 @@ void CShopBG::Idle()
 			fTime = m_fTime * 3.f;
 			D3DXVec3Lerp(&vPos, &m_vStartPos, &m_vEndPos, fTime);
 			m_pTransformCom->Set_Pos(vPos.x - WINCX * 0.5f, -vPos.y + WINCY * 0.5f, 0.f);	
-			CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+			CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 			return;
 		}
 		else
@@ -269,7 +269,7 @@ void CShopBG::Idle()
 		ChangeState(NOISE);
 		return;
 	}
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CShopBG::Begin_Noise()
@@ -284,7 +284,7 @@ void CShopBG::Noise()
 		ChangeState(ONPAGE);
 		return;
 	}
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CShopBG::Begin_OnPage()
@@ -295,5 +295,5 @@ void CShopBG::Begin_OnPage()
 
 void CShopBG::OnPage()
 {
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }

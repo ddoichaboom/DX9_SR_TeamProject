@@ -107,3 +107,25 @@ void CParticleEmitter::Free()
 	m_Particles.clear();
 	m_ActiveList.clear();
 }
+
+void CParticleEmitter::SetNextUV(Particle* pParticle)
+{
+	if (!pParticle) return;
+	_vec2 curUV = pParticle->vStartUV;
+	_vec2 uvOffset = m_pTextureCom->GetTextureDesc(0)->vUVoffset;
+	curUV.x += uvOffset.x;
+	if (curUV.x >= 1.f)
+	{
+		curUV.x = 0.f;
+		curUV.y += uvOffset.y;
+		if (curUV.y >= 1.f)
+		{
+			curUV.y = 0.f;
+			if (pParticle->bLoop == false) 
+				pParticle->bIsAlive = false;
+		}
+	}
+	pParticle->vStartUV = curUV;
+	pParticle->vEndUV = curUV + uvOffset;
+
+}

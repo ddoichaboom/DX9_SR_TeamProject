@@ -101,7 +101,7 @@ _int CLeftPart::Update_GameObject(const _float& fTimeDelta)
 	m_fTime += fTimeDelta;
 	if (m_bDelay)
 		m_fDelayTime += fTimeDelta;
-	//CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	//CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 
 	if (!m_bReload)
 	{
@@ -174,7 +174,7 @@ void CLeftPart::Begin_Idle()
 
 void CLeftPart::Idle()
 {
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CLeftPart::Begin_Reload()
@@ -208,7 +208,7 @@ void CLeftPart::Reload()
 			return;
 		}
 	}
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CLeftPart::End_Reload()
@@ -239,7 +239,7 @@ void CLeftPart::Intro()
 	_float fTime;
 	if (m_fDelayTime < 1.f)
 	{		
-		CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+		CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 		return;
 	}
 	else if(m_bDelay)
@@ -257,7 +257,7 @@ void CLeftPart::Intro()
 		m_pTransformCom->Set_Pos(m_vEndPos.x - WINCX * 0.5f, -m_vEndPos.y + WINCY * 0.5f, 0.f);
 		m_pPlayer->Change_State(IDLE);
 	}
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CLeftPart::End_Intro()

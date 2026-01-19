@@ -20,6 +20,9 @@
 #include "CEditorWall.h"
 #include "CEditorDynamicFloor.h"
 
+#include "CEffectScene.h"
+#include "CEffectToolBar.h"
+#include "CBlood.h"
 
 CEditorApp::CEditorApp()
     : m_pGraphicDev(nullptr)
@@ -118,6 +121,9 @@ void CEditorApp::Render_Editor()
 
     if (m_pInspector)
         m_pInspector->Render_Inspector();
+
+    if (m_pEffectToolBar)
+        m_pEffectToolBar->Render_ToolBar();
 
     //// ImGui Demo Window (테스트용)
     //if (m_bShowDemo)
@@ -243,7 +249,9 @@ HRESULT CEditorApp::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
 HRESULT CEditorApp::Ready_Scene()
 {
     // EditorScene 생성
-    m_pCurrentScene = CEditorScene::Create(m_pGraphicDev);
+    //m_pCurrentScene = CEditorScene::Create(m_pGraphicDev);
+    CEffectScene* scene;
+    m_pCurrentScene = scene = CEffectScene::Create(m_pGraphicDev);
 
     if (nullptr == m_pCurrentScene)
     {
@@ -290,6 +298,14 @@ HRESULT CEditorApp::Ready_Scene()
         MSG_BOX("Inspector Create Failed");
         return E_FAIL;
     }
+
+    m_pEffectToolBar = CEffectToolBar::Create(scene);
+    if (nullptr == m_pEffectToolBar)
+    {
+        MSG_BOX("EffectToolBar Create Failed");
+        return E_FAIL;
+    }
+
 
     return S_OK;
 }
@@ -338,6 +354,15 @@ HRESULT CEditorApp::Ready_Texture_Prototype()
         return E_FAIL;
     }
 
+    //Blood Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBlood::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_Blood_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto Blood Ready Failed");
+        return E_FAIL;
+    }
+
+
     return S_OK;
 }
 
@@ -366,6 +391,7 @@ void CEditorApp::Free()
     Safe_Release(m_pCurrentScene);
 
     // 3. UI 컴포넌트 정리
+    Safe_Release(m_pEffectToolBar);
     Safe_Release(m_pInspector);
     Safe_Release(m_pHierarchy);
     Safe_Release(m_pToolBar);

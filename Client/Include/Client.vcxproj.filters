@@ -334,7 +334,7 @@
       <Filter>04.UI\01.StaticUI\03.Select_Item</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CTestEffect.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>02. GameObject\999. TestEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -480,7 +480,7 @@
       <Filter>04.UI\01.StaticUI\03.Select_Item</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CTestEffect.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>02. GameObject\999. TestEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

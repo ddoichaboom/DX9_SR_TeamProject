@@ -7,6 +7,7 @@ class CTestEffect :
 {
 public:
 	CTestEffect(IDirect3DDevice9* device, _vec3* _origin, int numParticles);
+	virtual ~CTestEffect();
 
 	HRESULT		Ready_GameObject() override;
 	_int		Update_GameObject(const _float& fTimeDelta);

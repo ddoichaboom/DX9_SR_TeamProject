@@ -8,11 +8,12 @@ class CToolBar;
 class CMousePicker;
 class CSelectionMgr;
 class CHierarchy;
+class CEffectToolBar;
 
 class CEditorScene : public Engine::CScene
 {
 
-private:
+protected:
 	explicit CEditorScene(LPDIRECT3DDEVICE9 pGraphicDev);
 	virtual ~CEditorScene();
 
@@ -54,6 +55,7 @@ public:
 public:
 	void						Set_ToolBar(CToolBar* pToolBar) { m_pToolBar = pToolBar; }
 	void						Set_Hierarchy(CHierarchy* pHierarchy) { m_pHierarchy = pHierarchy; }
+	void						Set_EffectToolBar(CEffectToolBar* pEffectToolBar) { m_pEffectToolBar = pEffectToolBar; }
 
 private:
 	void						Handle_Input();		// ÀÔ·Â Ã³¸®
@@ -62,7 +64,7 @@ private:
 	void						Handle_Left_Click();
 	void						Handle_Arrow();
 
-private:
+protected:
 	LPDIRECT3DDEVICE9			m_pGraphicDev;
 
 	CEditorCamera*				m_pCamera;
@@ -73,6 +75,8 @@ private:
 	CSelectionMgr*				m_pSelectionMgr;
 	CHierarchy*					m_pHierarchy;
 
+	//¹æ½ÂÈñ ÀÌÆåÆ® Åø¹Ù Ãß°¡ 
+	CEffectToolBar*				m_pEffectToolBar;
 
 public:
 	static		CEditorScene* Create(LPDIRECT3DDEVICE9 pGraphicDev);

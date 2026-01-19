@@ -53,7 +53,7 @@ HRESULT CBeam::Ready_GameObject()
 _int CBeam::Update_GameObject(const _float& fTimeDelta)
 {
 	int iExit = CGameObject::Update_GameObject(fTimeDelta);
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA, this);
 	_vec3 pos;
 	memcpy(&pos,&m_matTrans.m[3], sizeof(_vec3));
 	Compute_ViewZ(&pos);
