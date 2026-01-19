@@ -257,7 +257,7 @@ void CKatana::Intro()
 
 	if (m_fDelayTime < 1.f)
 	{
-		CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
+		CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 		return;
 	}
 	else if (m_bDelay)

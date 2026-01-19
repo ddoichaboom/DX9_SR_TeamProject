@@ -160,6 +160,7 @@
     <ClInclude Include="..\Header\CEditorFloor.h" />
     <ClInclude Include="..\Header\CEditorObject.h" />
     <ClInclude Include="..\Header\CEditorScene.h" />
+    <ClInclude Include="..\Header\CEditorSlopeFloor.h" />
     <ClInclude Include="..\Header\CEditorSpawnPoint.h" />
     <ClInclude Include="..\Header\CEditorTile.h" />
     <ClInclude Include="..\Header\CEditorWall.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="..\Code\CEditorFloor.cpp" />
     <ClCompile Include="..\Code\CEditorObject.cpp" />
     <ClCompile Include="..\Code\CEditorScene.cpp" />
+    <ClCompile Include="..\Code\CEditorSlopeFloor.cpp" />
     <ClCompile Include="..\Code\CEditorSpawnPoint.cpp" />
     <ClCompile Include="..\Code\CEditorTile.cpp" />
     <ClCompile Include="..\Code\CEditorWall.cpp" />

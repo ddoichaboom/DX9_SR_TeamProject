@@ -34,5 +34,6 @@ protected:
 	CLayer* m_pEnvironment_Layer;
 	CLayer* m_pGameLogic_Layer;
 
+
 };
 
