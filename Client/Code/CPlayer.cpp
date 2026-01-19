@@ -13,7 +13,8 @@
 #include "CPistol.h"
 #include "CKatana.h"
 
-#include "CShopBG.h"
+#include "CEventMgr.h"
+//#include "CShopBG.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCharacter(pGraphicDev, 15.f)
@@ -24,7 +25,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_bDash(false), m_fDashTime(0.f), m_fDashDuration(0.3f), m_fDashDistance(80.f)
 	, m_fKickAttack(1.f), m_pKickCollider(nullptr), m_pMainCollider(nullptr)
 	, m_eNowState(MAIN_END), m_bOnCollision(false)
-	, m_pShopBG(nullptr)
+	
 {
 
 	m_eOBJ_ID = OBJ_PLAYER;
@@ -40,7 +41,7 @@ CPlayer::CPlayer(const CPlayer& rhs)
 	, m_bDash(false), m_fDashTime(0.f), m_fDashDuration(0.3f), m_fDashDistance(80.f)
 	, m_fKickAttack(1.f), m_pKickCollider(nullptr), m_pMainCollider(nullptr)
 	, m_eNowState(MAIN_END), m_bOnCollision(false)
-	, m_pShopBG(nullptr)
+
 {
 	m_eOBJ_ID = OBJ_PLAYER;
 	m_iID = 0;
@@ -48,6 +49,19 @@ CPlayer::CPlayer(const CPlayer& rhs)
 
 CPlayer::~CPlayer()
 {
+}
+
+void CPlayer::OnEvent(EVENT_TYPE _type, EventData* _pData)
+{
+	if (_type == EVENT_STAGE_END)
+	{
+		Change_State(SHOP);
+	}
+
+	if (_type == EVENT_READY_NEXT_STAGE)
+	{
+		Change_State(READY_NEXT);
+	}
 }
 
 HRESULT CPlayer::Ready_GameObject()
@@ -58,7 +72,9 @@ HRESULT CPlayer::Ready_GameObject()
 	if (FAILED(Add_PlayerPart()))
 		return E_FAIL;
 
-
+	CEventMgr::GetInstance()->Subscribe(EVENT_DOOR_IN, this);
+	CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_END, this);
+	CEventMgr::GetInstance()->Subscribe(EVENT_READY_NEXT_STAGE, this);
 
 
 	m_pTransformCom->m_vScale = { 6.f,6.f,6.f };
@@ -90,8 +106,8 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 	int iExit = CCharacter::Update_GameObject(fTimeDelta);
 
 
-
-	Key_Input(fTimeDelta);
+	if (m_eNowState != SHOP && m_eNowState != READY_NEXT)
+		Key_Input(fTimeDelta);
 
 	if (m_bJump)
 		Update_Jump(fTimeDelta);
@@ -99,7 +115,7 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 	if (m_bDash)
 		Update_Dash(fTimeDelta);
 
-	if (m_eNowState != SHOP)
+	if (m_eNowState != SHOP && m_eNowState != READY_NEXT)
 		m_mapWeapon[m_eWeaponState]->Update_GameObject(fTimeDelta);
 
 	State_Update(fTimeDelta);
@@ -124,7 +140,7 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 
 	Set_OnFloor(fTimeDelta);
 
-	if (m_eNowState != SHOP)
+	if (m_eNowState != SHOP && m_eNowState != READY_NEXT)
 		m_mapWeapon[m_eWeaponState]->LateUpdate_GameObject(fTimeDelta);
 	State_LateUpdate(fTimeDelta);
 }
@@ -175,10 +191,6 @@ HRESULT CPlayer::Add_PlayerPart()
 
 
 	// UI 
-	m_pShopBG = CShopBG::Create(m_pGraphicDev);
-	if (nullptr == m_pShopBG)
-		return E_FAIL;
-
 	return S_OK;
 }
 
@@ -238,23 +250,6 @@ void CPlayer::Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _v
 		m_pTransformCom->Move_Pos(&vLook, fTimeDelta, -fMoveSpeed);
 		break;
 	}
-}
-
-void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
-{
-	// 일반 공격
-	if (CDInputMgr::GetInstance()->Mouse_Down(DIM_LB))
-	{
-		if (m_mapWeapon[m_eWeaponState]->Can_Fire())
-		{
-			if (m_eNowState == IDLE || m_eNowState == ATTACK)
-			{
-				Change_State(ATTACK);
-				return;
-			}
-
-		}
-	}
 
 	// 대쉬
 	if (CDInputMgr::GetInstance()->Mouse_Down(DIM_RB) && !m_bDash)
@@ -313,7 +308,33 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 		m_bJump = true;
 		return;
 	}
+}
 
+void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
+{
+	//if (m_eNowState != IDLE && m_eNowState != DRINK)
+	//	return;
+	//
+	if (CDInputMgr::GetInstance()->Key_Down(DIK_R))
+	{
+		if (m_eNowState == IDLE && !m_pLeftPart->Get_Relaod() && !m_pRightPart->Get_Reload())
+			Change_State(RELOAD);
+		return;
+	}
+
+	// 일반 공격
+	if (CDInputMgr::GetInstance()->Mouse_Down(DIM_LB))
+	{
+		if (m_mapWeapon[m_eWeaponState]->Can_Fire())
+		{
+			if (m_eNowState == IDLE || m_eNowState == ATTACK)
+			{
+				Change_State(ATTACK);
+				return;
+			}
+
+		}
+	}
 
 	// 발차기
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_LSHIFT))
@@ -340,23 +361,16 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 	}
 
 	// 장전
-	if (CDInputMgr::GetInstance()->Key_Down(DIK_R))
-	{
-		if (m_eNowState == IDLE)
-			Change_State(RELOAD);
-		return;
-	}
-
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_1))
 	{
 		if (m_eWeaponState != WEAPON_PISTOL)
 			Change_Weapon(WEAPON_PISTOL);
 		return;
 	}
-
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_2))
 	{
-		Change_State(SHOP);
+		CEventMgr::GetInstance()->Broadcast(EVENT_STAGE_END, nullptr);
+		return;
 	}
 
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_3))
@@ -690,7 +704,6 @@ void CPlayer::Update_Dash(const _float& fTimeDelta)
 
 void CPlayer::Intro_Func()
 {
-	//m_pMiddlePart->ChangeState(GetStateID(INTRO, SW_END));
 	switch (m_eWeaponState)
 	{
 	case WEAPON_NONE:
@@ -707,19 +720,24 @@ void CPlayer::Intro_Func()
 	default:
 		break;
 	}
-
 }
 
+/// <summary>
+/// 공격 이벤트
+/// </summary>
 void CPlayer::Fire_Func()
 {
 	m_mapWeapon[m_eWeaponState]->Fire();
 	CheckPickedMonster();
 }
 
+/// <summary>
+/// 카타나 충돌 이벤트
+/// </summary>
 void CPlayer::Katana_Func()
 {
 	m_pKickCollider->OnCollision();
-	CheckKickedMonster(TAG_NONE, m_mapWeapon[m_eWeaponState]->Get_Power());
+	CheckKickedMonster(TAG_KATANA, m_mapWeapon[m_eWeaponState]->Get_Power());
 }
 
 void CPlayer::Reload_Func()
@@ -727,19 +745,38 @@ void CPlayer::Reload_Func()
 	m_mapWeapon[m_eWeaponState]->Reload();
 }
 
+
+/// <summary>
+/// 발차기 충돌 이벤트
+/// </summary>
 void CPlayer::Kick_Func()
 {
 	m_pKickCollider->OnCollision();
 	CheckKickedMonster(TAG_KICK, m_fKickAttack);
 }
 
+/// <summary>
+/// 슬라이딩 이벤트 ( 콜라이더 충돌 ) 
+/// </summary>
 void CPlayer::Slide_Func()
 {
 	CheckKickedMonster(TAG_SLIDE, m_fKickAttack);
 }
 
+/// <summary>
+/// 상점 이벤트 시작
+/// </summary>
 void CPlayer::Shop_Func()
 {
+	Change_State(SHOP);
+}
+
+/// <summary>
+/// 드링킹 이벤트
+/// </summary>
+void CPlayer::Drink_Func()
+{
+
 }
 
 void CPlayer::Change_State(_uint eState)
@@ -785,6 +822,9 @@ void CPlayer::State_Enter()
 	case SHOP:
 		Shop_Enter();
 		break;
+	case READY_NEXT:
+		Next_Enter();
+		break;
 	}
 }
 
@@ -813,9 +853,11 @@ void CPlayer::State_Update(const _float& fTimeDelta)
 	case SLIDE:
 		Slide_Update(fTimeDelta);
 		break;
-
 	case SHOP:
 		Shop_Update(fTimeDelta);
+		break;
+	case READY_NEXT:
+		Next_Update(fTimeDelta);
 		break;
 	}
 }
@@ -848,6 +890,9 @@ void CPlayer::State_LateUpdate(const _float& fTimeDelta)
 	case SHOP:
 		Shop_LateUpdate(fTimeDelta);
 		break;
+	case READY_NEXT:
+		Next_LateUpdate(fTimeDelta);
+		break;
 	}
 }
 
@@ -878,6 +923,9 @@ void CPlayer::State_Exit()
 		break;
 	case SHOP:
 		Shop_Exit();
+		break;
+	case READY_NEXT:
+		Next_Exit();
 		break;
 	}
 }
@@ -988,7 +1036,7 @@ void CPlayer::Reload_Enter()
 
 		break;
 	case WEAPON_PISTOL:
-		m_mapCallCnt[RELOAD] = 1;
+		m_mapCallCnt[RELOAD] = 2;
 		m_mapWeapon[m_eWeaponState]->Set_ShootAble(false);
 		m_pLeftPart->ChangeState(GetStateID(RELOAD, m_eWeaponState));
 		m_pRightPart->ChangeState(GetStateID(RELOAD, m_eWeaponState));
@@ -1093,7 +1141,7 @@ void CPlayer::Kick_Exit()
 
 void CPlayer::Drink_Enter()
 {
-	m_mapCallCnt[DRINK] = 1;
+	m_mapCallCnt[DRINK] = 0;
 	m_pMiddlePart->ChangeState(DRINK);
 }
 
@@ -1142,23 +1190,44 @@ void CPlayer::Shop_Enter()
 {
 	
 	m_pMiddlePart->ChangeState(SHOP);
-	m_pShopBG->ChangeState(SHOP);
+	//m_pShopBG->ChangeState(SHOP);
 }
 
 void CPlayer::Shop_Update(const _float& fTimeDelta)
 {
 	m_pMiddlePart->Update_GameObject(fTimeDelta);
-	m_pShopBG->Update_GameObject(fTimeDelta);
+	//m_pShopBG->Update_GameObject(fTimeDelta);
 }
 
 void CPlayer::Shop_LateUpdate(const _float& fTimeDelta)
 {
 	m_pMiddlePart->LateUpdate_GameObject(fTimeDelta);
-	m_pShopBG->LateUpdate_GameObject(fTimeDelta);
+	//m_pShopBG->LateUpdate_GameObject(fTimeDelta);
 }
 
 void CPlayer::Shop_Exit()
 {
+}
+
+void CPlayer::Next_Enter()
+{
+	m_pMiddlePart->ChangeState(READY_NEXT);
+}
+
+void CPlayer::Next_Update(const _float& fTimeDelta)
+{
+	m_pMiddlePart->Update_GameObject(fTimeDelta);
+
+}
+
+void CPlayer::Next_LateUpdate(const _float& fTimeDelta)
+{
+	m_pMiddlePart->LateUpdate_GameObject(fTimeDelta);
+}
+
+void CPlayer::Next_Exit()
+{
+	CEventMgr::GetInstance()->Broadcast(EVENT_NEXT_STAGE, nullptr);
 }
 
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -1294,8 +1363,7 @@ void CPlayer::Free()
 	CCharacter::Free();
 	Safe_Release(m_pLeftPart);
 	Safe_Release(m_pRightPart);
-	Safe_Release(m_pMiddlePart);
-	Safe_Release(m_pShopBG);
+	Safe_Release(m_pMiddlePart);	
 	for_each(m_mapWeapon.begin(), m_mapWeapon.end(), CDeleteMap());
 	m_mapWeapon.clear();
 }

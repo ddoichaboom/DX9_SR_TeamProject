@@ -75,7 +75,7 @@ _int CBullet::Update_GameObject(const _float& fTimeDelta)
 		return RET_NONE;
 	}
 
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA, this);
 	Compute_ViewZ(m_pTransformCom->Get_Info(INFO_POS));
 
 	return iExit;

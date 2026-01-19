@@ -8,6 +8,7 @@
 #include "CBossTestStage.h"
 #include "CMapLoader.h"
 #include "CEventMgr.h"
+#include "CFontMgr.h"
 
 #include <ctime>
 
@@ -35,6 +36,7 @@
 #include "CKatana.h"
 #include "CBackGround.h"
 #include "CTrigger.h"
+#include "CUIManager.h"
 
 CMainApp::CMainApp() : m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
 , m_pManagementClass(CManagement::GetInstance())
@@ -80,7 +82,7 @@ void CMainApp::LateUpdate_MainApp(const float& fTimeDelta)
 void CMainApp::Render_MainApp()
 {
 	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f, 0.f, 0.f, 1.f));
-	m_pManagementClass->Render_Scene(m_pGraphicDev);	
+	m_pManagementClass->Render_Scene(m_pGraphicDev);
 	m_pDeviceClass->Render_End();
 }
 
@@ -180,6 +182,14 @@ HRESULT CMainApp::Ready_DefaultProto()
 
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_KatanaAnimation",
 		Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CKatana::GetAnimSources()))))
+		return E_FAIL;
+
+
+	//Font
+	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Number", L"DS-Digital", 40, 40, FW_DONTCARE, false, true)))
+		return E_FAIL;
+
+	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Default", L"°ß¸íÁ¶", 20, 20, FW_HEAVY,false, false)))
 		return E_FAIL;
 
 	return S_OK;
@@ -329,6 +339,8 @@ void CMainApp::Free()
 
 	// MayBe ?
 	CEventMgr::DestroyInstance();
+	CUIManager::DestroyInstance();
+	CFontMgr::DestroyInstance();
 
 	m_pDeviceClass->DestroyInstance();
 }

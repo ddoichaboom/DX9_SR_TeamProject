@@ -24,38 +24,19 @@ protected:
 
     //스레드 전달 함수
     HRESULT     Ready_Prototype() override;
-    HRESULT     Ready_Prototype_OnlyTexture();
-    // TODO:상위 클래스에 담아서 스테이지마다 다르게 해도 될듯함 - 호준
-    HRESULT     Ready_ObjectPool();
+    HRESULT     Ready_Prototype_OnlyTexture() override;
+    HRESULT     Ready_ObjectPool() override;
     //
 
-    // Main으로 옮김
-    // HRESULT     Ready_PlayerTextureProto();
     HRESULT     Ready_MonsterTextureProto();
     HRESULT     Ready_TerrainTextureProto();
     HRESULT     Ready_UITextureProto();
 
-    void        Update_RoomLoading(const _float& fTimeDelta);
-    void        Change_Room(_int iNewRoomIndex);
-
     void        Check_Collision() override;
+
     //메세지 Mgr에 구독한 이벤트에 대한 기능 정의 
     void        OnEvent(EVENT_TYPE _type, EventData* _pData) override;
-protected:
-    CLayer*     m_pEnvironment_Layer;
-    CLayer*     m_pGameLogic_Layer;
 
-    wstring     m_wstrCurrentMapFile;       // 현재 맵 파일 경로 
-    _int        m_iCurrentRoomIndex;        // 현재 방 번호
-    set<_int>   m_setLoadedRooms;           // 로드된 방 번호 집합 (중복 X) 
-
-    CLoading*   m_pLoading;
-
-    HRESULT	    m_BaseResult;
-    HRESULT	    m_TextureResult;
-    HRESULT	    m_ObjectPoolResult;
-    HRESULT	    m_ReadyEnvResult;
-    HRESULT	    m_ReadyGameResult;
 
 private:
     virtual void Free();

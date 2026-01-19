@@ -38,16 +38,10 @@
 #include "CMapCollider.h"
 
 
-//UI
-#include "CPhoneBG.h"
-#include "CShopBG.h"
-#include "CShopItem.h"
-#include "CSelectBG.h"
+#include "CUIManager.h"
 
 
-CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev), m_pLoading(nullptr)
-, m_BaseResult(E_FAIL), m_TextureResult(E_FAIL), m_ObjectPoolResult(E_FAIL)
-, m_ReadyEnvResult(E_FAIL), m_ReadyGameResult(E_FAIL), m_iCurrentRoomIndex(0)
+CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
 {
 }
 
@@ -73,17 +67,6 @@ HRESULT CMapStage::Ready_Scene()
     CEventMgr::GetInstance()->Subscribe(EVENT_DOOR_IN, this);
     CEventMgr::GetInstance()->Subscribe(EVENT_DOOR_OUT, this);
 
-  /*  if (FAILED(Ready_Prototype()))
-        return E_FAIL;
-
-    if (FAILED(Ready_ObjectPool()))
-        return E_FAIL;
-
-    if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
-        return E_FAIL;
-
-    if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer")))
-        return E_FAIL;*/
     return S_OK;
 }
 
@@ -97,8 +80,10 @@ _int CMapStage::Update_Scene(const _float& fTimeDelta)
     }
 
     int iExit = CStage::Update_Scene(fTimeDelta);
+    //UI 업데이트
+    CUIManager::GetInstance()->Update_GameObject(fTimeDelta);
 
-    Update_RoomLoading(fTimeDelta);
+    
 
     return iExit;
 }
@@ -106,6 +91,9 @@ _int CMapStage::Update_Scene(const _float& fTimeDelta)
 void CMapStage::LateUpdate_Scene(const _float& fTimeDelta)
 {
     CStage::LateUpdate_Scene(fTimeDelta);
+
+    //UI 업데이트
+    CUIManager::GetInstance()->LateUpdate_GameObject(fTimeDelta);
 
     if(m_pLoading->IsEnd()) Check_Collision();
 }
@@ -233,36 +221,6 @@ HRESULT CMapStage::Ready_Prototype_OnlyTexture()
    return S_OK;
 }
 
-//HRESULT CMapStage::Ready_PlayerTextureProto()
-//{
-//    CTexture* pCom_Texture = nullptr;
-//
-//    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CLeftPart::GetTextureSources());
-//    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_LeftTexture", pCom_Texture)))
-//        return E_FAIL;
-//
-//    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_LeftAnimation",
-//        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CLeftPart::GetAnimSources()))))
-//        return E_FAIL;
-//
-//    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CRightPart::GetTextureSources());
-//    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RightTexture", pCom_Texture)))
-//        return E_FAIL;
-//
-//    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RightAnimation",
-//        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CRightPart::GetAnimSources()))))
-//        return E_FAIL;
-//
-//    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CMiddlePart::GetTextureSources());
-//    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_MiddleTexture", pCom_Texture)))
-//        return E_FAIL;
-//
-//    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_MiddleAnimation",
-//        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CMiddlePart::GetAnimSources()))))
-//        return E_FAIL;
-//
-//    return S_OK;
-//}
 
 HRESULT CMapStage::Ready_MonsterTextureProto()
 {
@@ -319,13 +277,18 @@ HRESULT CMapStage::Ready_TerrainTextureProto()
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Slope_FloorTexture", pCom_Texture)))
         return E_FAIL;
 
-    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CDynamicFloor::GetTextureSources());
+    //Dynamic Floor Proto
+    pCom_Texture = Engine::CScrollTexture::Create(m_pGraphicDev, CDynamicFloor::GetTextureSources(),0.2f);
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Dynamic_FloorTexture", pCom_Texture)))
         return E_FAIL;
 
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FloorAnimation", 
-        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CDynamicFloor::GetAnimSources()))))
-        return E_FAIL;
+    //pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CDynamicFloor::GetTextureSources());
+    //if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Dynamic_FloorTexture", pCom_Texture)))
+    //    return E_FAIL;
+
+    //if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FloorAnimation", 
+    //    Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CDynamicFloor::GetAnimSources()))))
+    //    return E_FAIL;
 
     // Ceiling Proto 
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CCeiling::GetTextureSources());
@@ -358,151 +321,12 @@ HRESULT CMapStage::Ready_TerrainTextureProto()
 
 HRESULT CMapStage::Ready_UITextureProto()
 {
-    CTexture* pCom_Texture = nullptr;
+    
 
-    // Floor Proto 
-    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CPhoneBG::GetTextureSource());
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_PhoneBGTexture", pCom_Texture)))
-        return E_FAIL;
-
-    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CShopBG::GetTextureSources());
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_ShopBGTexture", pCom_Texture)))
-        return E_FAIL;
-
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_ShopBGAnimation",
-        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CShopBG::GetAnimSources()))))
-        return E_FAIL;
-
-    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CShopItem::GetTextureSources());
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_ShopItemTexture", pCom_Texture)))
-        return E_FAIL;
-
-    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CSelectBG::GetTextureSource());
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SelectBGTexture", pCom_Texture)))
-        return E_FAIL;
+    CUIManager::GetInstance()->Ready_GameObject(m_pGraphicDev);
 
     return S_OK;
 }
-
-void CMapStage::Update_RoomLoading(const _float& fTimeDelta)
-{
-    //CPlayer* pPlayer = nullptr;
-
-    //Engine::CTransform* pPlayerTransform = dynamic_cast<CTransform*>(Engine::CManagement::GetInstance()->
-    //    Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_PLAYER, L"Com_Transform"));
-
-    //if (pPlayerTransform == nullptr)
-    //    return;
-
-    //_vec3 vPlayerPos;
-    //pPlayerTransform->Get_Info(INFO_POS, &vPlayerPos);
-
-    //// Door 구현이 안되어 있어서 우선 플레이어의 Z축 좌표를 기준으로 방 인덱스 재설정
-    //_int iNewRoomIndex = (_int)(vPlayerPos.z / 200.0f);      // 맵 찍으면서 설정해야 함(문 구현 전까지)
-
-    // 테스트용 ( U / I 키로 룸 인덱스 증감 )
-    _int iNewRoomIndex = m_iCurrentRoomIndex;
-
-    if (Engine::CDInputMgr::GetInstance()->Key_Down(DIK_U))
-        iNewRoomIndex++;
-    else if (Engine::CDInputMgr::GetInstance()->Key_Down(DIK_I) && (iNewRoomIndex > 0))
-    {
-         iNewRoomIndex--;
-    }
-
-    // 방 변경 감지 
-    if (iNewRoomIndex != m_iCurrentRoomIndex)
-    {
-        Change_Room(iNewRoomIndex);
-    }
-}
-
-void CMapStage::Change_Room(_int iNewRoomIndex)
-{
-    // 디버깅 용도
-    char szLog[256];
-    sprintf_s(szLog, "Room Change: %d → %d", m_iCurrentRoomIndex, iNewRoomIndex);
-    OutputDebugStringA(szLog);
-
-    // 언로드할 방 결정 
-    // 새 방 기준 +-1 벗어난 방 언로드
-    set<_int> roomsToUnload;
-    for (_int iLoadedRoom : m_setLoadedRooms)
-    {
-        if (iLoadedRoom < iNewRoomIndex - 1 || iLoadedRoom > iNewRoomIndex + 1)
-        {
-            roomsToUnload.insert(iLoadedRoom);
-        }
-    }
-
-    // 언로드 실행 (두 레이어 모두)
-    for (_int iRoomToUnload : roomsToUnload)
-    {
-        // Environment_Layer 언로드
-        CMapLoader::GetInstance()->Unload_Room(
-            m_wstrCurrentMapFile,
-            iRoomToUnload,
-            m_pEnvironment_Layer);
-
-        // GameLogic_Layer 언로드 (Monster)
-        CMapLoader::GetInstance()->Unload_Room(
-            m_wstrCurrentMapFile,
-            iRoomToUnload,
-            m_pGameLogic_Layer);
-
-        m_setLoadedRooms.erase(iRoomToUnload);
-    }
-
-    // 로드할 방 결정 
-    set<_int> roomsToLoad;
-    for (_int i = iNewRoomIndex - 1; i <= iNewRoomIndex + 1; ++i)
-    {
-        if (i < 0)
-            continue;  // 음수 방 번호 방지
-
-        if (m_setLoadedRooms.find(i) == m_setLoadedRooms.end())
-        {
-            roomsToLoad.insert(i);
-        }
-    }
-
-    // 로드 실행 (두 레이어 모두)
-    for (_int iRoomToLoad : roomsToLoad)
-    {
-        bool bSuccess = true;
-
-        // Environment_Layer 로드 (Floor, Ceiling, Wall, Cube)
-        if (FAILED(CMapLoader::GetInstance()->Load_Room(
-            m_wstrCurrentMapFile,
-            iRoomToLoad,
-            m_pEnvironment_Layer,
-            m_pGraphicDev,
-            L"Environment_Layer")))
-        {
-            bSuccess = false;
-        }
-
-        // GameLogic_Layer 로드 (Monster)
-        if (FAILED(CMapLoader::GetInstance()->Load_Room(
-            m_wstrCurrentMapFile,
-            iRoomToLoad,
-            m_pGameLogic_Layer,
-            m_pGraphicDev,
-            L"GameLogic_Layer")))
-        {
-            bSuccess = false;
-        }
-
-        if (bSuccess)
-        {
-            m_setLoadedRooms.insert(iRoomToLoad);
-        }
-    }
-
-    //  5단계: 현재 방 업데이트 
-    m_iCurrentRoomIndex = iNewRoomIndex;
-}
-
 
 HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
 {
@@ -623,17 +447,6 @@ HRESULT CMapStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
         m_setLoadedRooms.insert(1);
     }
 
-    //CPlayer* pPlayer = nullptr;
-
-//Engine::CTransform* pPlayerTransform = dynamic_cast<CTransform*>(Engine::CManagement::GetInstance()->
-//    Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_PLAYER, L"Com_Transform"));
-
-//if (pPlayerTransform == nullptr)
-//    return;
-
-//_vec3 vPlayerPos;
-//pPlayerTransform->Get_Info(INFO_POS, &vPlayerPos);
-
     // 카메라 생성
     CGameObject* pPlayerObj = pLayer->Get_Object(OBJ_PLAYER);
 
@@ -665,37 +478,9 @@ HRESULT CMapStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
     return S_OK;
 }
 
-//Main으로 옮김 
 HRESULT CMapStage::Ready_Prototype()
 {
-    // RcTex (CFloor, CCeiling, CWall에서 사용)
-    //if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcTex", Engine::CRcTex::Create(m_pGraphicDev))))
-    //    return E_FAIL;
-
-    // CubeTex (CObstacle에서 사용)
-    //if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_CubeTex", Engine::CCubeTex::Create(m_pGraphicDev))))
-    //    return E_FAIL;
-
-    // Transform (모든 오브젝트에서 사용)
-    //if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Transform", Engine::CTransform::Create(m_pGraphicDev))))
-    //    return E_FAIL;
-
-    // Collision 
-
-    //if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_StateComponent", Engine::CStateComponent::Create(m_pGraphicDev))))
-    //    return E_FAIL;
-
-    //if (FAILED(Ready_TerrainTextureProto()))
-    //    return E_FAIL;
-
-    //// 기존 몬스터 관련된 것들 패킹
-    //if (FAILED(Ready_MonsterProto()))
-    //    return E_FAIL;
-
-    //// 기존 플레이어 프로토 등록 로직들 패킹
-    //if (FAILED(Ready_PlayerTextureProto()))
-    //    return E_FAIL;
-
+    //Main으로 옮김 
     return S_OK;
 }
 
@@ -758,8 +543,8 @@ void CMapStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
 {
     if (_type == EVENT_DOOR_IN)
     {
-        if (m_iCurrentRoomIndex == 0) // 방이 언로드 되는 것을 보기 위해 임의로 2번 증가 시키기
-            Change_Room(m_iCurrentRoomIndex + 1);
+        //if (m_iCurrentRoomIndex == 0) // 방이 언로드 되는 것을 보기 위해 임의로 2번 증가 시키기
+        //    Change_Room(m_iCurrentRoomIndex + 1);
         
         Change_Room(m_iCurrentRoomIndex + 1);
     }

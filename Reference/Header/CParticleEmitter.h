@@ -1,0 +1,81 @@
+#pragma once
+#include "Engine_Define.h"
+#include "CGameObject.h"
+
+BEGIN(Engine)
+
+class CDVIBuffer;
+class CTransform;
+class CTexture;
+
+class ENGINE_DLL CParticleEmitter : public CGameObject
+{
+public:
+	CParticleEmitter(IDirect3DDevice9* device, _int _maxParticle);
+	virtual ~CParticleEmitter();
+
+	virtual HRESULT		Ready_GameObject();
+	virtual _int		Update_GameObject(const _float& fTimeDelta);
+	virtual void		Render_GameObject();
+
+public:
+	virtual void		Reset();
+	virtual void		ResetParticle(Particle* pParticle) PURE;
+	virtual void		AddParticle();
+	
+	virtual void		SetPreRenderState();
+	virtual void		SetPostRenderState();
+
+public:
+	bool				IsEmpty();
+	bool				IsDead() override;
+
+protected:
+	virtual void		RemoveDeadParticles();
+	virtual	HRESULT		Add_Component() PURE;
+	void				Free() override;
+
+	void				SetNextUV(Particle* pParticle);
+
+public:
+	void				SetPos(_vec3 _pos) { m_vPos = _pos; }
+	_vec3				GetPos() { return m_vPos; }
+
+	void				SetSize(_float _size) { m_fSize = _size; }
+	_float				GetSize() { return m_fSize; }
+
+	void				SetVelocity(_vec3 _vel) { m_vVelocity = _vel; }
+	_vec3				GetVelocity() { return m_vVelocity; }
+
+	void				SetLifeTime(_float _lifeTime) { m_fLifeTime = _lifeTime; }
+	_float				GetLifeTime() { return m_fLifeTime; }
+
+	void				SetColor(D3DXCOLOR _color) { m_color = _color; }
+	D3DXCOLOR			GetColor() { return m_color; }
+
+	void				SetLoop(bool _loop) { m_bLoop = _loop; }
+	bool				GetLoop() { return m_bLoop; }
+
+
+protected:
+	vector<Particle>	m_Particles;		// 파티클 속성 리스트 
+	list<Particle*>		m_ActiveList;
+
+	D3DXVECTOR3			m_vOrigin;
+	//_float m_fEmitRate;				// 새로운 파티클이 추가되는 비율
+	BoundingBox			m_pBoundingBox;			// 파티클의 경계상자
+	int					m_iMaxParticle;				// 최대 파티클 수 
+
+	CDVIBuffer*			m_pBufferCom;
+	CTexture*			m_pTextureCom;
+
+protected:
+	_vec3				m_vPos {};
+	_float				m_fSize = 1.f;
+	_vec3				m_vVelocity {};
+	_float				m_fLifeTime = 1.f;
+	D3DXCOLOR			m_color{};
+	bool				m_bLoop = false;;
+};
+
+END

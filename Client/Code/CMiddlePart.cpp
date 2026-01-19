@@ -16,6 +16,7 @@ vector<TextureSource> CMiddlePart::m_vTextureSource =
 
 	{ INTRO,  L"../Bin/Resource/Texture/Player/Player_Intro.dds" },
 	{ SHOP,  L"../Bin/Resource/Texture/Player/Player_Shop.dds" },
+	{ READY_NEXT,  L"../Bin/Resource/Texture/Player/Player_Shop.dds" },
 
 };
 
@@ -23,11 +24,12 @@ vector<AnimationSource>  CMiddlePart::m_vAnimSource =
 {
 	{ IDLE,0,3,3, true, 0.08f},
 	{ KICK,0,3,3, false, 0.08f, 1.f},
-	{ DRINK,0,6,6, false, 0.1f, 1.f},
+	{ DRINK,0,6,6, false, 0.1f, 0.8f},
 	{ SLIDE,1,0,0, true, 0.08f},
 	{ GetStateID(INTRO,WEAPON_PISTOL),1,2,2, false, 0.12f, 1.f},
 	{ INTRO,1,2,2, false, 0.12f, 1.f},
 	{ SHOP,1,0,0, true, 0.12f, 1.f},
+	{ READY_NEXT,1,0,0, true, 0.12f, 1.f},
 };
 
 CMiddlePart::CMiddlePart(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -74,6 +76,9 @@ void CMiddlePart::CreateStateData()
 
 	State = new CState<CMiddlePart>(&CMiddlePart::Begin_Shop, &CMiddlePart::Shopping, &CMiddlePart::End_Shop);
 	Mgr->AddState(SHOP, State);
+
+	State = new CState<CMiddlePart>(&CMiddlePart::Begin_Next, &CMiddlePart::ReadyNext, &CMiddlePart::End_Next);
+	Mgr->AddState(READY_NEXT, State);
 
 }
 
@@ -199,7 +204,7 @@ void CMiddlePart::Kick()
 		m_pPlayer->Change_State(IDLE);
 		return;
 	}
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CMiddlePart::End_Kick()
@@ -217,7 +222,6 @@ void CMiddlePart::Begin_Drink()
 	m_vEndPos = { m_fX, m_fY, 0.f };
 	m_pTransformCom->Set_Scale(m_fSizeX * 0.5f, m_fSizeY * 0.5f, 1.f);
 	m_pTransformCom->Set_Pos(m_fX - WINCX * 0.5f, -m_fY + WINCY * 0.5f, 0.f);
-
 }
 
 void CMiddlePart::Drink()
@@ -229,7 +233,7 @@ void CMiddlePart::Drink()
 		m_pPlayer->Change_State(IDLE);
 		return;
 	}
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CMiddlePart::End_Drink()
@@ -252,7 +256,7 @@ void CMiddlePart::Begin_Slide()
 void CMiddlePart::Slide()
 {
 	m_pPlayer->Slide_Func();
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CMiddlePart::End_Slide()
@@ -279,7 +283,7 @@ void CMiddlePart::Intro()
 		ChangeState(INTRO);		
 		return;
 	}
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CMiddlePart::Begin_Intro2()
@@ -302,20 +306,20 @@ void CMiddlePart::Intro2()
 		m_pPlayer->Change_State(IDLE);
 		return;
 	}
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CMiddlePart::Begin_Shop()
 {
 	m_fSizeX = 800.f;
 	m_fSizeY = 400.f;
-	m_fX = 400.f;
+	m_fX = 500.f;
 	m_fY = WINCY;
 	m_vStartPos = { m_fX, m_fY, 0.f };
-	m_vEndPos = { m_fX, m_fY - 150.f , 0.f };
+	m_vEndPos = { m_fX, 350.f , 0.f };
 
 	m_vStartScale = { m_fSizeX * 0.5f, m_fSizeY * 0.5f, 1.f };
-	m_vEndScale = { m_fSizeX * 0.7f, m_fSizeY * 0.7f, 1.f };
+	m_vEndScale = { m_fSizeX * 0.75f, m_fSizeY * 0.75f, 1.f };
 	m_pTransformCom->Set_Scale(m_vStartScale);
 	m_pTransformCom->Set_Pos(m_fX - WINCX * 0.5f, -m_fY + WINCY * 0.5f, 0.f);
 
@@ -328,7 +332,7 @@ void CMiddlePart::Shopping()
 {
 	if (m_bStateStop)
 	{
-		CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+		CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 		return;
 	}
 
@@ -338,12 +342,13 @@ void CMiddlePart::Shopping()
 
 	if (m_bDelay)
 	{
-		if (m_fDelayTime < 1.f)
+		fTime = m_fDelayTime * 2.f;
+		if (fTime < 1.f)
 		{
-			fTime = m_fTime * 3.f;
+			//fTime = m_fDelayTime * 3.f;
 			D3DXVec3Lerp(&vPos, &m_vStartPos, &m_vEndPos, fTime);
 			m_pTransformCom->Set_Pos(vPos.x - WINCX * 0.5f, -vPos.y + WINCY * 0.5f, 0.f);
-			CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+			CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 			return;
 		}
 		else
@@ -368,11 +373,49 @@ void CMiddlePart::Shopping()
 		m_bStateStop = true;
 	}
 
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CMiddlePart::End_Shop()
 {
 	m_bStateStop = false;
+}
+
+void CMiddlePart::Begin_Next()
+{
+	m_fSizeX = 800.f;
+	m_fSizeY = 400.f;
+	m_fX = 500.f;
+	m_fY = WINCY;
+
+	m_vStartPos =	{ m_fX,	350.f , 0.f };
+	m_vEndPos   =	{ m_fX,		m_fY+350.f, 0.f };
+	
+	m_pTransformCom->Set_Pos(m_fX - WINCX * 0.5f, -m_fY + WINCY * 0.5f, 0.f);
+
+	m_bDelay = false;
+	m_fDelayTime = 0.f;
+	m_bStateStop = false;
+}
+
+void CMiddlePart::ReadyNext()
+{
+	_vec3 vPos;
+	_vec3 vScale;
+	_float fTime;
+	fTime = m_fTime * 2.f;
+	D3DXVec3Lerp(&vPos, &m_vStartPos, &m_vEndPos, fTime);
+	m_pTransformCom->Set_Pos(vPos.x - WINCX * 0.5f, -vPos.y + WINCY * 0.5f, 0.f);
+	
+	if (fTime > 1.f)
+	{
+		m_pPlayer->Change_State(INTRO);
+		return;
+	}
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+}
+
+void CMiddlePart::End_Next()
+{
 }
 	

@@ -7,9 +7,11 @@
 #include "CCubeCol.h"
 #include "CTerrainTex.h"
 #include "CCubeTex.h"
+#include "CDVIBuffer.h"
 
 #include "CTexture.h"
 #include "CAnimation.h"
+#include "CScrollTexture.h"
 #include "CCubeTexture.h"
 #include "CCalculator.h"
 #include "CStateComponent.h"

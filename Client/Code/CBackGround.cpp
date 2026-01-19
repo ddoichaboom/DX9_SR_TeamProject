@@ -4,7 +4,7 @@
 #include "CRenderer.h"
 
 TextureSource CBackGround::m_TextureSource=
-    { 0,L"../Bin/Resource/Texture/Stage/Background_1024.dds",false };
+    { 0,L"../Bin/Resource/Texture/Stage/Background_Press.dds",false };
 
 CBackGround::CBackGround(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)

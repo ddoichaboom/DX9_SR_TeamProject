@@ -2,6 +2,7 @@
 #include "CCubeCol.h"
 #include "CTransform.h"
 #include "CRenderer.h"
+#include "CParticleEmitter.h"
 
 CCollider::CCollider(LPDIRECT3DDEVICE9 pGraphicDev)
 : CGameObject(pGraphicDev), m_pBufferCom(nullptr), m_pTransformCom(nullptr)
@@ -70,6 +71,7 @@ void CCollider::LateUpdate_GameObject(const _float& fTimeDelta)
 		}
 	}
 }
+
 
 void CCollider::Render_GameObject()
 {

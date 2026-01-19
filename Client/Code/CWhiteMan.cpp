@@ -213,7 +213,7 @@ HRESULT CWhiteMan::Ready_GameObject()
 _int CWhiteMan::Update_GameObject(const _float& fTimeDelta)
 {
 	int iExit = CMonster::Update_GameObject(fTimeDelta);
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA_QUALITY, this);
 
 	m_fTime += fTimeDelta;
 
@@ -269,15 +269,12 @@ void CWhiteMan::OnHeadCollision(CollisionInfo info)
 	if (info.eTag == TAG_KICK || info.eTag == TAG_SLIDE)
 		return;
 
-	m_fHP -= info.fDamage;
-	if (m_fHP <= 0.f)
-	{
-		if (m_pHeadCollider) m_pHeadCollider->OffCollision();
-		if (m_pBodyCollider) m_pBodyCollider->OffCollision();
-		if (info.eTag == TAG_KATANA) ChangeState(ID_SLICE_DEAD);
-		else ChangeState(ID_HEAD_DEAD);
-	}
-	else ChangeState(MS_HIT);
+	m_fHP = 0.f;
+	if (m_pHeadCollider) m_pHeadCollider->OffCollision();
+	if (m_pBodyCollider) m_pBodyCollider->OffCollision();
+	if (info.eTag == TAG_KATANA) ChangeState(ID_SLICE_DEAD);
+	else ChangeState(ID_HEAD_DEAD);
+
 }
 
 void CWhiteMan::OnBodyCollision(CollisionInfo info)

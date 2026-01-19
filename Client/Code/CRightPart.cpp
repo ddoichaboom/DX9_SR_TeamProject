@@ -74,7 +74,7 @@ CRightPart* CRightPart::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	}
 
 	return pRightPart;
-}
+}	
 
 _bool CRightPart::Get_ActionAble()
 {
@@ -163,7 +163,7 @@ void CRightPart::Begin_Idle()
 
 void CRightPart::Idle()
 {
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CRightPart::Begin_Attack()
@@ -186,7 +186,7 @@ void CRightPart::Attack()
 		m_pPlayer->Change_State(IDLE);
 	}
 
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CRightPart::End_Attack()
@@ -196,6 +196,7 @@ void CRightPart::End_Attack()
 
 void CRightPart::Begin_Reload()
 {
+	m_bReload = true;
 	m_vConvertPos = m_vStartPos;
 	m_vConvertScale = { 512.f, 512.f, 1.f };
 
@@ -213,12 +214,12 @@ void CRightPart::Reload()
 		m_pPlayer->Change_State(IDLE);
 	}
 	
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CRightPart::End_Reload()
 {
-
+	m_bReload = false;
 }
 
 void CRightPart::Begin_Intro()
@@ -243,7 +244,7 @@ void CRightPart::Intro()
 	_float fTime;
 	if (m_fDelayTime < 1.f)
 	{
-		CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+		CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 		return;
 	}
 	else if (m_bDelay)
@@ -262,7 +263,7 @@ void CRightPart::Intro()
 		m_pTransformCom->Set_Pos(m_vEndPos.x - WINCX * 0.5f, -m_vEndPos.y + WINCY * 0.5f, 0.f);
 		m_pPlayer->Change_State(IDLE);
 	}
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CRightPart::End_Intro()

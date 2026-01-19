@@ -88,9 +88,6 @@
     <Filter Include="02. ComponentEX\00. VIBuffer\02. TerrainTex">
       <UniqueIdentifier>{12d79c5e-19e5-424d-a7f0-dc3c4c1f704e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. ComponentEX\00. VIBuffer\03. CubeTex">
-      <UniqueIdentifier>{87d6c518-0f20-4398-b275-7fc093cd0683}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. ComponentEX\02. Texture\00. BaseTexture">
       <UniqueIdentifier>{1902b3ed-f2c6-4e6f-a1e6-1dc107b93f9c}</UniqueIdentifier>
     </Filter>
@@ -141,6 +138,18 @@
     </Filter>
     <Filter Include="02. ComponentEX\00. VIBuffer\05. RcTexUp">
       <UniqueIdentifier>{0c54f6b0-c306-49cc-bfd9-bdc5a7a2f30a}</UniqueIdentifier>
+	</Filter>
+	<Filter Include="02. ComponentEX\02. Texture\03. ScrollTexture">
+      <UniqueIdentifier>{3daae227-1d7a-493e-85da-95a351494d7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Structure\05. ParticleEmitter">
+      <UniqueIdentifier>{6ab945eb-1231-41c3-a391-4d0a073029f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. ComponentEX\07. DVIBuffer">
+      <UniqueIdentifier>{4fe7916b-72b4-4d13-ab36-fe73ad6bd3c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. ComponentEX\07. DVIBuffer\03. CubeTex">
+      <UniqueIdentifier>{87d6c518-0f20-4398-b275-7fc093cd0683}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -208,7 +217,7 @@
       <Filter>01. Structure\03. GameObject\Camera</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CCubeTex.h">
-      <Filter>02. ComponentEX\00. VIBuffer\03. CubeTex</Filter>
+      <Filter>02. ComponentEX\07. DVIBuffer\03. CubeTex</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CRcCol.h">
       <Filter>02. ComponentEX\00. VIBuffer\00. RcCol</Filter>
@@ -288,6 +297,15 @@
     <ClInclude Include="..\Header\CEventMgr.h">
       <Filter>00. Manager\11. EventMgr</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CScrollTexture.h">
+      <Filter>02. ComponentEX\02. Texture\03. ScrollTexture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CParticleEmitter.h">
+      <Filter>01. Structure\05. ParticleEmitter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDVIBuffer.h">
+      <Filter>02. ComponentEX\07. DVIBuffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -354,7 +372,7 @@
       <Filter>01. Structure\03. GameObject\Camera</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CCubeTex.cpp">
-      <Filter>02. ComponentEX\00. VIBuffer\03. CubeTex</Filter>
+      <Filter>02. ComponentEX\07. DVIBuffer\03. CubeTex</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CTerrainTex.cpp">
       <Filter>02. ComponentEX\00. VIBuffer\02. TerrainTex</Filter>
@@ -406,6 +424,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\CEventMgr.cpp">
       <Filter>00. Manager\11. EventMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CScrollTexture.cpp">
+      <Filter>02. ComponentEX\02. Texture\03. ScrollTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CParticleEmitter.cpp">
+      <Filter>01. Structure\05. ParticleEmitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDVIBuffer.cpp">
+      <Filter>02. ComponentEX\07. DVIBuffer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@
 #include "CManagement.h"
 #include "CTransform.h"
 
+
 CFirstCamera::CFirstCamera(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCamera(pGraphicDev), m_bFix(true), m_bCheck(true)
 	, m_pTransformCom(nullptr), m_fSpeed(0.f)
@@ -72,6 +73,12 @@ HRESULT CFirstCamera::Ready_GameObject(const _vec3* pEye,
 
 	if (FAILED(CCamera::Ready_GameObject()))
 		return E_FAIL;
+
+	// TEST
+	CEventMgr::GetInstance()->Subscribe(EVENT_DOOR_IN, this);
+
+	CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_END, this);
+	CEventMgr::GetInstance()->Subscribe(EVENT_NEXT_STAGE, this);
 
 	return S_OK;
 }
@@ -241,4 +248,22 @@ CFirstCamera* CFirstCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev,
 void CFirstCamera::Free()
 {
 	CCamera::Free();
+}
+
+void CFirstCamera::OnEvent(EVENT_TYPE _type, EventData* _pData)
+{
+	if (_type == EVENT_DOOR_IN)
+	{
+		m_bFix = false;
+	}
+
+	if (_type == EVENT_STAGE_END)
+	{
+		m_bFix = false;
+	}
+
+	if (_type == EVENT_NEXT_STAGE)
+	{
+		m_bFix = true;
+	}
 }

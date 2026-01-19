@@ -18,7 +18,7 @@ vector<TextureSource> CLeftPart::m_vTextureSource =
 vector<AnimationSource>  CLeftPart::m_vAnimSource =
 {
 	{ IDLE,1,3,3, true, 0.11f},
-	{ GetStateID(RELOAD,WEAPON_PISTOL),0,3,3, false, 0.11f, 1.f},
+	{ GetStateID(RELOAD,WEAPON_PISTOL),0,3,3, false, 0.11f,1.f},
 	{ GetStateID(RELOAD,WEAPON_SHOTGUN),0,3,3, false, 0.11f},
 	{ GetStateID(INTRO,WEAPON_KATANA),1,0,0, true, 0.11f}
 };
@@ -44,7 +44,7 @@ void CLeftPart::CreateStateData()
 	auto Mgr = CDataMgr<CLeftPart>::GetInstance();
 	if (Mgr->IsStateEmpty() == false) return;
 
-	CState<CLeftPart>* State = new CState<CLeftPart>(&CLeftPart::Begin_Idle, &CLeftPart::Idle, nullptr);
+	CState<CLeftPart>* State = new CState<CLeftPart>(&CLeftPart::Begin_Idle, &CLeftPart::Idle, &CLeftPart::End_Idle);
 	Mgr->AddState(IDLE, State);
 
 	State = new CState<CLeftPart>(&CLeftPart::Begin_Reload, &CLeftPart::Reload, &CLeftPart::End_Reload);
@@ -89,7 +89,8 @@ HRESULT CLeftPart::Ready_GameObject()
 		
 	m_vStartPos = { 200.f, WINCY - 200.f, 0.f };
 	m_vEndPos	= { WINCX - 200.f, WINCY - 200.f, 0.f };	
-
+	
+	m_pTransformCom->Set_Pos(m_vStartPos.x - WINCX * 0.5f, -m_vStartPos.y + WINCY * 0.5f, 0.f);
 	//ChangeState(IDLE);
 	return S_OK;
 }
@@ -101,7 +102,7 @@ _int CLeftPart::Update_GameObject(const _float& fTimeDelta)
 	m_fTime += fTimeDelta;
 	if (m_bDelay)
 		m_fDelayTime += fTimeDelta;
-	//CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	//CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 
 	if (!m_bReload)
 	{
@@ -164,17 +165,23 @@ void CLeftPart::Begin_Idle()
 {
 	m_bReload = false;
 
-	m_vConvertPos = m_vStartPos;
+	m_vStartPos = { 300.f, WINCY - 200.f, 0.f };
 	m_vConvertScale = { 512.f, 512.f, 1.f };
 	
-		
+	
+	m_pTransformCom->Rotation(ROT_Z, -15.f);
 	m_pTransformCom->Set_Scale(m_vConvertScale * 0.5f);
-	m_pTransformCom->Set_Pos(m_vConvertPos.x - WINCX * 0.5f, -m_vConvertPos.y + WINCY * 0.5f, 0.f);
+	m_pTransformCom->Set_Pos(m_vStartPos.x - WINCX * 0.5f, -m_vStartPos.y + WINCY * 0.5f, 0.f);
 }
 
 void CLeftPart::Idle()
 {
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
+}
+
+void CLeftPart::End_Idle()
+{
+	m_pTransformCom->Rotation(ROT_Z, 15.f);
 }
 
 void CLeftPart::Begin_Reload()
@@ -184,7 +191,7 @@ void CLeftPart::Begin_Reload()
 	m_vConvertPos = m_vStartPos;
 	m_vConvertScale = { 512.f, 512.f, 1.f };
 
-
+	m_pTransformCom->Rotation(ROT_Z, 0.f);
 	m_pTransformCom->Set_Scale(m_vConvertScale * 0.5f);
 	m_pTransformCom->Set_Pos(m_vConvertPos.x - WINCX * 0.5f, -m_vConvertPos.y + WINCY * 0.5f, 0.f);
 }
@@ -208,12 +215,12 @@ void CLeftPart::Reload()
 			return;
 		}
 	}
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CLeftPart::End_Reload()
 {
-
+	m_bReload = false;
 }
 
 void CLeftPart::Begin_Intro()
@@ -239,7 +246,7 @@ void CLeftPart::Intro()
 	_float fTime;
 	if (m_fDelayTime < 1.f)
 	{		
-		CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+		CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 		return;
 	}
 	else if(m_bDelay)
@@ -257,7 +264,7 @@ void CLeftPart::Intro()
 		m_pTransformCom->Set_Pos(m_vEndPos.x - WINCX * 0.5f, -m_vEndPos.y + WINCY * 0.5f, 0.f);
 		m_pPlayer->Change_State(IDLE);
 	}
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 }
 
 void CLeftPart::End_Intro()

@@ -7,29 +7,22 @@
 
 vector<TextureSource> CDynamicFloor::m_vTextureSource =
 {
-	{ DYNAMIC_FLOOR_WATER, L"../Bin/Resource/Texture/Terrain/Floor/DYNAMIC_FLOOR/WATER.dds"},
-	{ DYNAMIC_FLOOR_LAVA, L"../Bin/Resource/Texture/Terrain/Floor/DYNAMIC_FLOOR/LAVA.dds"},
-	{ DYNAMIC_FLOOR_ACID, L"../Bin/Resource/Texture/Terrain/Floor/DYNAMIC_FLOOR/ACID.dds"},
-};
-
-vector<AnimationSource> CDynamicFloor::m_vAnimSource =
-{
-	{ DYNAMIC_FLOOR_WATER, 0, 4, 4, true, 0.75f},
-	{ DYNAMIC_FLOOR_LAVA, 0, 4, 4, true, 0.75f},
-	{ DYNAMIC_FLOOR_ACID, 0, 4, 4, true, 0.75f}
+	{ DYNAMIC_FLOOR_WATER, L"../Bin/Resource/Texture/Terrain/Floor/DYNAMIC_FLOOR/WATER_Scroll.dds"},
+	{ DYNAMIC_FLOOR_LAVA, L"../Bin/Resource/Texture/Terrain/Floor/DYNAMIC_FLOOR/LAVA_Scroll.dds"},
+	{ DYNAMIC_FLOOR_ACID, L"../Bin/Resource/Texture/Terrain/Floor/DYNAMIC_FLOOR/ACID_Scroll.dds"},
 };
 
 
 CDynamicFloor::CDynamicFloor(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CFloor(pGraphicDev)
-	, m_pAnimationCom(nullptr)
+	, m_pScrollTextureCom(nullptr)
 {
 	m_bIsAnimated = true;
 }
 
 CDynamicFloor::CDynamicFloor(const CDynamicFloor& rhs)
 	: CFloor(rhs)
-	, m_pAnimationCom(nullptr)
+	, m_pScrollTextureCom(nullptr)
 {
 	m_bIsAnimated = true;
 }
@@ -53,10 +46,9 @@ _int CDynamicFloor::Update_GameObject(const _float& fTimeDelta)
 
 	_int iExit = CTerrain::Update_GameObject(fTimeDelta);
 
-	if (m_pAnimationCom)
-		m_pAnimationCom->Update_Component(fTimeDelta);
+	m_pScrollTextureCom->Update_Texture(fTimeDelta);
 
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA_WRAP, this);
 
 	return iExit;
 }
@@ -64,6 +56,7 @@ _int CDynamicFloor::Update_GameObject(const _float& fTimeDelta)
 void CDynamicFloor::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
+	m_pScrollTextureCom->Late_Update_Texture();
 }
 
 void CDynamicFloor::Render_GameObject()
@@ -74,8 +67,7 @@ void CDynamicFloor::Render_GameObject()
 	if (FAILED(Ready_Material(D3DXCOLOR(0.6f, 0.4f, 0.2f, 1.f))))
 		return;
 
-	if (m_bIsAnimated && m_pAnimationCom)
-		m_pAnimationCom->Render_Animation();		// 애니메이션 렌더링
+	m_pScrollTextureCom->Render_Texture();
 
 	m_pBufferCom->Render_Buffer();
 
@@ -91,7 +83,7 @@ HRESULT CDynamicFloor::Add_Component()
 	Engine::CComponent* pComponent = nullptr;
 
 	// Texture
-	pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>
+	pComponent = m_pScrollTextureCom = dynamic_cast<Engine::CScrollTexture*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Dynamic_FloorTexture"));
 
 	if (nullptr == pComponent)
@@ -99,22 +91,14 @@ HRESULT CDynamicFloor::Add_Component()
 
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Texture", pComponent });
 
-	// Animation
-	pComponent = m_pAnimationCom = dynamic_cast<Engine::CAnimation*>
-		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_FloorAnimation"));
-
-	if (nullptr == pComponent)
-		return E_FAIL;
-
-	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Animation", pComponent });
 
 	return S_OK;
 }
 
-void        CDynamicFloor::Set_FloorType(_uint eFloorType)
+void CDynamicFloor::Set_FloorType(_uint eFloorType)
 {
-	if (m_pAnimationCom)
-		m_pAnimationCom->Change_Animation(eFloorType);
+	if (m_pScrollTextureCom) 
+		m_pScrollTextureCom->Change_Texture(eFloorType);
 
 	switch (eFloorType)
 	{
@@ -132,6 +116,7 @@ void        CDynamicFloor::Set_FloorType(_uint eFloorType)
 		break;
 	}
 }
+
 
 CDynamicFloor* CDynamicFloor::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
