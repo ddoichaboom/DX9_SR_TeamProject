@@ -22,16 +22,26 @@ public:
 		const _uint& iHeight,
 		const _uint& iWeight);
 
-	void				Render_Font(const _tchar* pFontTag,
-									const _tchar* pString,
-									const _vec2* pPos,
-									D3DXCOLOR Color);
+	
+
+
+	void				Add_RenderFont(FontData* pFontData);
+	
+	void				Render_FontGroup();
+	void				Clear_RenderFont();
 
 private:
 	CFont* Find_Font(const _tchar* pFontTag);
+	void				Render_Font(const _tchar* pFontTag,
+									const _tchar* pString,
+									const _vec3* pPos,
+									D3DXCOLOR Color);
+	void				Render_Font(FontData* pData);
 
 private:
 	map<const _tchar*, CFont*>			m_mapFont;
+	list<FontData*>						m_RenderFont;
+
 
 private:
 	virtual void	Free();

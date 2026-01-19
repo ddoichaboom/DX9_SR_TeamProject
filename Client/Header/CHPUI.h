@@ -1,7 +1,6 @@
 #pragma once
 #include "CBaseUI.h"
 
-
 namespace Engine
 {
 	class CRcTex;
@@ -9,19 +8,17 @@ namespace Engine
 	class CTexture;
 }
 
-class CPhonePlayer;
-class CHPUI;
 
-class CPhoneBG : public CBaseUI    
+class CHPUI : public CBaseUI
 {
 protected:
-	explicit	CPhoneBG(LPDIRECT3DDEVICE9 pGraphicDev);
-	explicit	CPhoneBG(const CPhoneBG& rhs);
-	virtual		~CPhoneBG();
+	explicit	CHPUI(LPDIRECT3DDEVICE9 pGraphicDev);	
+	explicit	CHPUI(const CHPUI& rhs);
+	virtual		~CHPUI();
 
-public :
-	static		CPhoneBG*		Create(PDIRECT3DDEVICE9 pGraphicDev);
-	static		TextureSource&	GetTextureSource() { return m_textureSource; }
+public:
+	static		CHPUI* Create(PDIRECT3DDEVICE9 pGraphicDev);	
+	static		TextureSource& GetTextureSource() { return m_textureSource; }
 
 protected:
 	virtual		HRESULT		Add_Component();
@@ -35,17 +32,17 @@ public:
 
 protected:
 	virtual		void        Rotate(ROTATION eType, const _float& fAngle) override;
-	virtual		void        SetPos(_vec3 _pos) override;	
+	virtual		void        SetPos(_vec3 _pos) override;
 	virtual		void		SetScale(_float fCX, _float fCY);
 
-protected :
+protected:
 	static TextureSource    m_textureSource;
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTransform* m_pTransformCom;
-	Engine::CTexture* m_pTextureCom;	
+	Engine::CTexture* m_pTextureCom;
 
+	_vec3	m_vPos;
+	FontData m_fontData;
 
-	CPhonePlayer* m_pPhonePlayer;
-	CHPUI* m_pHpUI;
 };
 

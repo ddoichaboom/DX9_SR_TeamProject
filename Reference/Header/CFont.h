@@ -22,7 +22,7 @@ public:
 								const _uint& iWeight);
 
 	void			Render_Font(const _tchar* pString, 
-								const _vec2* pPos,
+								const _vec3* pPos,
 								D3DXCOLOR Color);
 
 

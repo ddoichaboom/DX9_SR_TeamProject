@@ -202,6 +202,9 @@
     <Filter Include="04.UI\02.DynamicUI\06.Player_UI">
       <UniqueIdentifier>{9de8e327-d18b-47ae-97ea-380981a2b116}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04.UI\02.DynamicUI\07.HP_UI">
+      <UniqueIdentifier>{4ba2c46f-d985-4030-bbd5-53d0cd01c888}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -378,6 +381,9 @@
     <ClInclude Include="..\Header\CPhonePlayer.h">
       <Filter>04.UI\02.DynamicUI\06.Player_UI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CHPUI.h">
+      <Filter>04.UI\02.DynamicUI\07.HP_UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -544,6 +550,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CPhonePlayer.cpp">
       <Filter>04.UI\02.DynamicUI\06.Player_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHPUI.cpp">
+      <Filter>04.UI\02.DynamicUI\07.HP_UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

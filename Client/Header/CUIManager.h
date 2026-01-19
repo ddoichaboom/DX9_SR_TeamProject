@@ -30,6 +30,7 @@ public :
 	
 
 private :
+	HRESULT			Add_ProtoType(LPDIRECT3DDEVICE9 pGraphicDev);
 	HRESULT			Add_UI(LPDIRECT3DDEVICE9 pGraphicDev);
 	void			Sort_UI(UI_STATE eState);
 	

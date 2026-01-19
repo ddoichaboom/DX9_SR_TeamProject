@@ -111,7 +111,6 @@ void CRenderer::Render_Alpha_UI(LPDIRECT3DDEVICE9& pGraphicDev)
 void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
 {
 	CRenderStateGuard cGuard(pGraphicDev);
-
 	_matrix mat, View;
 	D3DXMatrixIdentity(&View);
 	pGraphicDev->SetTransform(D3DTS_VIEW, &View);

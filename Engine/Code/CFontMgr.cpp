@@ -29,11 +29,38 @@ HRESULT CFontMgr::Ready_Font(LPDIRECT3DDEVICE9 pGraphicDev, const _tchar* pFontT
 }
 
 void CFontMgr::Render_Font(const _tchar* pFontTag, const _tchar* pString, 
-	const _vec2* pPos, D3DXCOLOR Color)
+	const _vec3* pPos, D3DXCOLOR Color)
 {
 	CFont* pFont = Find_Font(pFontTag);
 
-	pFont->Render_Font(pString, pPos, Color);
+	if(pFont != nullptr)
+		pFont->Render_Font(pString, pPos, Color);
+}
+
+void CFontMgr::Render_Font(FontData* pData)
+{
+	CFont* pFont = Find_Font(pData->pFontTag);
+
+	if (pFont != nullptr);
+		pFont->Render_Font(pData->pString, pData->pPos, pData->Color);
+}
+
+void CFontMgr::Add_RenderFont(FontData* pFontData)
+{
+	m_RenderFont.push_back(pFontData);
+}
+
+void CFontMgr::Render_FontGroup()
+{
+	for (auto* pObj : m_RenderFont)
+		Render_Font(pObj);
+
+	Clear_RenderFont();
+}
+
+void CFontMgr::Clear_RenderFont()
+{
+	m_RenderFont.clear();
 }
 
 CFont* CFontMgr::Find_Font(const _tchar* pFontTag)
@@ -48,6 +75,7 @@ CFont* CFontMgr::Find_Font(const _tchar* pFontTag)
 
 void CFontMgr::Free()
 {
+	Clear_RenderFont();
 	for_each(m_mapFont.begin(), m_mapFont.end(), CDeleteMap());
-	m_mapFont.clear();
+	m_mapFont.clear();	
 }

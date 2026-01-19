@@ -1,13 +1,20 @@
 #include "pch.h"
 #include "CUIManager.h"
+#include "CProtoMgr.h"
 
+#include "CPhoneBG.h"
 #include "CShopBG.h"
+#include "CShopItem.h"
+#include "CSelectBG.h"
 #include "CStageBG.h"
 #include "CChat.h"
 #include "CMascot.h"
 #include "CHeart.h"
 #include "CHeartBeat.h"
 #include "CNoise.h"
+#include "CPhonePlayer.h"
+#include "CHPUI.h"
+
 
 IMPLEMENT_SINGLETON(CUIManager)
 
@@ -38,6 +45,10 @@ void CUIManager::Free()
 
 HRESULT CUIManager::Ready_GameObject(LPDIRECT3DDEVICE9 pGraphicDev)
 {
+	if (FAILED(Add_ProtoType(pGraphicDev)))
+		return E_FAIL;
+
+
 	if (FAILED(Add_UI(pGraphicDev)))
 		return E_FAIL;
 
@@ -69,6 +80,84 @@ void CUIManager::LateUpdate_GameObject(const _float& fTimeDelta)
 		pUI->LateUpdate_GameObject(fTimeDelta);
 	};
 	
+}
+
+HRESULT CUIManager::Add_ProtoType(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+	CTexture* pCom_Texture = nullptr;
+
+	// Floor Proto 
+	pCom_Texture = Engine::CTexture::Create(pGraphicDev, CPhoneBG::GetTextureSource());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_PhoneBGTexture", pCom_Texture)))
+		return E_FAIL;
+
+	pCom_Texture = Engine::CTexture::Create(pGraphicDev, CShopItem::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_ShopItemTexture", pCom_Texture)))
+		return E_FAIL;
+
+	pCom_Texture = Engine::CTexture::Create(pGraphicDev, CSelectBG::GetTextureSource());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SelectBGTexture", pCom_Texture)))
+		return E_FAIL;
+
+	pCom_Texture = Engine::CTexture::Create(pGraphicDev, CStageBG::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_StageBGTexture", pCom_Texture)))
+		return E_FAIL;
+
+	pCom_Texture = Engine::CTexture::Create(pGraphicDev, CShopBG::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_ShopBGTexture", pCom_Texture)))
+		return E_FAIL;
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_ShopBGAnimation",
+		Engine::CAnimation::Create(pGraphicDev, pCom_Texture, CShopBG::GetAnimSources()))))
+		return E_FAIL;
+
+	pCom_Texture = Engine::CTexture::Create(pGraphicDev, CChat::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_ChatTexture", pCom_Texture)))
+		return E_FAIL;
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_ChatAnimation",
+		Engine::CAnimation::Create(pGraphicDev, pCom_Texture, CChat::GetAnimSources()))))
+		return E_FAIL;
+
+	pCom_Texture = Engine::CTexture::Create(pGraphicDev, CMascot::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_MascotTexture", pCom_Texture)))
+		return E_FAIL;
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_MascotAnimation",
+		Engine::CAnimation::Create(pGraphicDev, pCom_Texture, CMascot::GetAnimSources()))))
+		return E_FAIL;
+
+	pCom_Texture = Engine::CTexture::Create(pGraphicDev, CHeart::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_HeartTexture", pCom_Texture)))
+		return E_FAIL;
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_HeartAnimation",
+		Engine::CAnimation::Create(pGraphicDev, pCom_Texture, CHeart::GetAnimSources()))))
+		return E_FAIL;
+
+	pCom_Texture = Engine::CTexture::Create(pGraphicDev, CHeartBeat::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_HeartBeatTexture", pCom_Texture)))
+		return E_FAIL;
+
+	pCom_Texture = Engine::CTexture::Create(pGraphicDev, CNoise::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_NoiseTexture", pCom_Texture)))
+		return E_FAIL;
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_NoiseAnimation",
+		Engine::CAnimation::Create(pGraphicDev, pCom_Texture, CNoise::GetAnimSources()))))
+		return E_FAIL;
+
+	pCom_Texture = Engine::CTexture::Create(pGraphicDev, CPhonePlayer::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_PhonePlayerTexture", pCom_Texture)))
+		return E_FAIL;
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_PhonePlayerAnimation",
+		Engine::CAnimation::Create(pGraphicDev, pCom_Texture, CPhonePlayer::GetAnimSources()))))
+		return E_FAIL;
+
+	pCom_Texture = Engine::CTexture::Create(pGraphicDev, CHPUI::GetTextureSource());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_HPUITexture", pCom_Texture)))
+		return E_FAIL;
 }
 
 HRESULT CUIManager::Add_UI(LPDIRECT3DDEVICE9 pGraphicDev)

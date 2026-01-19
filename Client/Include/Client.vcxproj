@@ -157,6 +157,7 @@
     <ClInclude Include="..\Header\CDoorTrigger.h" />
     <ClInclude Include="..\Header\CHeart.h" />
     <ClInclude Include="..\Header\CHeartBeat.h" />
+    <ClInclude Include="..\Header\CHPUI.h" />
     <ClInclude Include="..\Header\CMapCollider.h" />
     <ClInclude Include="..\Header\CDynamicCeiling.h" />
     <ClInclude Include="..\Header\CDynamicFloor.h" />
@@ -217,6 +218,7 @@
     <ClCompile Include="..\Code\CDoorTrigger.cpp" />
     <ClCompile Include="..\Code\CHeart.cpp" />
     <ClCompile Include="..\Code\CHeartBeat.cpp" />
+    <ClCompile Include="..\Code\CHPUI.cpp" />
     <ClCompile Include="..\Code\CMapCollider.cpp" />
     <ClCompile Include="..\Code\CDynamicCeiling.cpp" />
     <ClCompile Include="..\Code\CDynamicFloor.cpp" />

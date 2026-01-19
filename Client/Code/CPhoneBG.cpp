@@ -4,6 +4,7 @@
 #include "CRenderer.h"
 
 #include "CPhonePlayer.h"
+#include "CHPUI.h"
 
 TextureSource CPhoneBG::m_textureSource =
 {
@@ -13,7 +14,7 @@ TextureSource CPhoneBG::m_textureSource =
 CPhoneBG::CPhoneBG(LPDIRECT3DDEVICE9 pGraphicDev)
     : CBaseUI(pGraphicDev)
 	,	m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
-	, m_pPhonePlayer(nullptr)
+	, m_pPhonePlayer(nullptr), m_pHpUI(nullptr)
 {
 	m_eOBJ_ID = OBJ_ITEM;
 }
@@ -21,7 +22,7 @@ CPhoneBG::CPhoneBG(LPDIRECT3DDEVICE9 pGraphicDev)
 CPhoneBG::CPhoneBG(const CPhoneBG& rhs)
     : CBaseUI(rhs)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
-	, m_pPhonePlayer(nullptr)
+	, m_pPhonePlayer(nullptr), m_pHpUI(nullptr)
 {
 	m_eOBJ_ID = OBJ_ITEM;
 }
@@ -80,6 +81,7 @@ HRESULT CPhoneBG::Add_Component()
 void CPhoneBG::Free()
 {
 	Safe_Release(m_pPhonePlayer);
+	Safe_Release(m_pHpUI);
 	CGameObject::Free();
 }
 
@@ -105,6 +107,11 @@ HRESULT CPhoneBG::Ready_GameObject()
 	if (nullptr == m_pPhonePlayer)
 		return E_FAIL;
 
+	m_pHpUI = CHPUI::Create(m_pGraphicDev);
+
+	if (nullptr == m_pHpUI)
+		return E_FAIL;
+
     return S_OK;
 }
 
@@ -114,6 +121,7 @@ _int CPhoneBG::Update_GameObject(const _float& fTimeDelta)
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 
 	m_pPhonePlayer->Update_GameObject(fTimeDelta);
+	m_pHpUI->Update_GameObject(fTimeDelta);
 
     return iExit;
 }
@@ -123,6 +131,7 @@ void CPhoneBG::LateUpdate_GameObject(const _float& fTimeDelta)
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
 
 	m_pPhonePlayer->LateUpdate_GameObject(fTimeDelta);
+	m_pHpUI->LateUpdate_GameObject(fTimeDelta);
 }
 
 void CPhoneBG::Render_GameObject()

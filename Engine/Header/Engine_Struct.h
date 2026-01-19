@@ -181,6 +181,13 @@ namespace Engine
 	}EventData;
 
 
+	typedef struct tagFontData
+	{
+		const _tchar* pFontTag;
+		const _tchar* pString;
+		const _vec3* pPos;
+		D3DXCOLOR Color;
+	}FontData;
 }
 
 
