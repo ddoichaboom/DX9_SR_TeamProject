@@ -151,9 +151,6 @@
     <Filter Include="02. GameObject\12. Trigger">
       <UniqueIdentifier>{c3e03a26-b888-4a42-8e23-5584f9799a14}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\99. Environment\00. Terrain\00. Floor\DynamicFloor">
-      <UniqueIdentifier>{13c447d0-1fdc-4d80-b15a-a10fd70a3a5d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\99. Environment\00. Terrain\01. Ceiling\DynamicCeiling">
       <UniqueIdentifier>{ee067c0b-8ac0-445b-8148-646b36677bcd}</UniqueIdentifier>
     </Filter>
@@ -177,6 +174,12 @@
     </Filter>
     <Filter Include="04.UI\01.StaticUI\03.Select_Item">
       <UniqueIdentifier>{a64ef52c-e2cb-4cb3-96ae-8cb2e75da0b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Environment\00. Terrain\00. Floor\01. SlopeFloor">
+      <UniqueIdentifier>{627e972f-e652-4c2e-8023-ca40db0c413d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Environment\00. Terrain\00. Floor\00. DynamicFloor">
+      <UniqueIdentifier>{13c447d0-1fdc-4d80-b15a-a10fd70a3a5d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -307,7 +310,7 @@
       <Filter>02. GameObject\99. Environment\00. Terrain\01. Ceiling\DynamicCeiling</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CDynamicFloor.h">
-      <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\DynamicFloor</Filter>
+      <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\00. DynamicFloor</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CDynamicWall.h">
       <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall\DynamicWall</Filter>
@@ -329,6 +332,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\CSelectBG.h">
       <Filter>04.UI\01.StaticUI\03.Select_Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSlopeFloor.h">
+      <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\01. SlopeFloor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -450,7 +456,7 @@
       <Filter>02. GameObject\99. Environment\00. Terrain\01. Ceiling\DynamicCeiling</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CDynamicFloor.cpp">
-      <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\DynamicFloor</Filter>
+      <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\00. DynamicFloor</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CDynamicWall.cpp">
       <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall\DynamicWall</Filter>
@@ -472,6 +478,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CSelectBG.cpp">
       <Filter>04.UI\01.StaticUI\03.Select_Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSlopeFloor.cpp">
+      <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\01. SlopeFloor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

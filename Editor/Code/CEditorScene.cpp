@@ -6,6 +6,7 @@
 #include "CGrid.h"
 #include "CEditorObject.h"
 #include "CEditorFloor.h"
+#include "CEditorSlopeFloor.h"
 #include "CEditorCube.h"
 #include "CEditorCeiling.h"
 #include "CEditorWall.h"
@@ -267,6 +268,18 @@ void CEditorScene::Handle_Duplicate()
                     vPos.x += 16.0f;
                     pNewObj = CEditorDynamicFloor::Create(m_pGraphicDev, vPos, vRot, vScale, iType);
                 }
+                else if (CEditorSlopeFloor* pSlopeFloor = dynamic_cast<CEditorSlopeFloor*>(pSelectedObj))
+                {
+                    iType = pSlopeFloor->Get_FloorType();
+                    _float fSlopeAngle = pSlopeFloor->Get_SlopeAngle();
+                    SLOPE_DIR eSlopeDir = pSlopeFloor->Get_SlopeDirection();
+                    iRoomIndex = pSlopeFloor->Get_RoomIndex();
+
+                    vPos = pSlopeFloor->Get_OppositeEndPosition();
+
+                    pNewObj = CEditorSlopeFloor::Create(m_pGraphicDev, vPos, vScale,
+                                                        iType, fSlopeAngle, eSlopeDir);
+                }
                 else if (CEditorFloor* pFloor = dynamic_cast<CEditorFloor*>(pSelectedObj))
                 {
                     iType       =  pFloor->Get_FloorType();
@@ -450,7 +463,7 @@ void CEditorScene::Handle_Left_Click()
         if (eMode == MODE_PLACE_FLOOR || eMode == MODE_PLACE_DYNAMIC_FLOOR || 
             eMode == MODE_PLACE_CEILING || eMode == MODE_PLACE_CUBE || 
             eMode == MODE_PLACE_WALL || eMode == MODE_PLACE_SPAWN_PLAYER || 
-            eMode == MODE_PLACE_SPAWN_MONSTER)
+            eMode == MODE_PLACE_SPAWN_MONSTER || eMode == MODE_PLACE_SLOPE_FLOOR)
         {
 
             // Ray - Plane Intersection (Y = 0 평면)
@@ -459,6 +472,8 @@ void CEditorScene::Handle_Left_Click()
             // 오브젝트 배치
             if (eMode == MODE_PLACE_FLOOR)
                 Place_Floor(vPos);
+            else if (eMode == MODE_PLACE_SLOPE_FLOOR)
+                Place_Slope_Floor(vPos);
             else if (eMode == MODE_PLACE_DYNAMIC_FLOOR)
                 Place_Dynamic_Floor(vPos);
             else if (eMode == MODE_PLACE_CEILING)
@@ -577,6 +592,22 @@ void CEditorScene::Place_Dynamic_Floor(const _vec3& vPos)
     {
         Add_Object(pDynamicFloor);
         Safe_Release(pDynamicFloor);
+    }
+}
+
+void CEditorScene::Place_Slope_Floor(_vec3 vPos)
+{
+    // 스냅 처리 ( 그리드 크기 : 16 )
+    vPos.x = floorf(vPos.x / 16.f) * 16.f + 8.f;
+    vPos.z = floorf(vPos.z / 16.f) * 16.f + 8.f;
+    vPos.y = 0.f;
+
+    CEditorSlopeFloor* pSlopeFloor = CEditorSlopeFloor::Create(m_pGraphicDev, vPos);
+
+    if (pSlopeFloor)
+    {
+        Add_Object(pSlopeFloor);
+        Safe_Release(pSlopeFloor);
     }
 }
 

@@ -15,6 +15,7 @@
 #include "CDynamicWall.h"
 #include "CObstacle.h"
 #include "CDoorTrigger.h"
+#include "CSlopeFloor.h"
 
 // 게임 로직 오브젝트
 #include "CPlayer.h"
@@ -46,7 +47,7 @@
 
 CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev), m_pLoading(nullptr)
 , m_BaseResult(E_FAIL), m_TextureResult(E_FAIL), m_ObjectPoolResult(E_FAIL)
-, m_ReadyEnvResult(E_FAIL), m_ReadyGameResult(E_FAIL)
+, m_ReadyEnvResult(E_FAIL), m_ReadyGameResult(E_FAIL), m_iCurrentRoomIndex(0)
 {
 }
 
@@ -134,6 +135,15 @@ HRESULT CMapStage::Ready_ObjectPool()
         if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CDynamicFloor>(m_pGraphicDev)))
         {
             MSG_BOX("DynamicFloor Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CSlopeFloor>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CSlopeFloor>(m_pGraphicDev)))
+        {
+            MSG_BOX("SlopeFloor Pool Create Failed");
             return E_FAIL;
         }
     }
@@ -303,6 +313,10 @@ HRESULT CMapStage::Ready_TerrainTextureProto()
     // Floor Proto 
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CFloor::GetTextureSources());
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Static_FloorTexture", pCom_Texture)))
+        return E_FAIL;
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CSlopeFloor::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Slope_FloorTexture", pCom_Texture)))
         return E_FAIL;
 
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CDynamicFloor::GetTextureSources());
@@ -496,7 +510,14 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
     if (nullptr == pLayer)
         return E_FAIL;
 
-    m_wstrCurrentMapFile = L"../../Map/Tutorial.json";
+    const vector<wstring>& vecMapFiles = CMapLoader::GetInstance()->Get_MapFiles();
+
+    if (!vecMapFiles.empty())
+        m_wstrCurrentMapFile = vecMapFiles[0];      // TODO : Tutorial Map의 끝 Trigger Box에 닿으면 다음 맵 Loading호출
+    else
+        return E_FAIL;
+
+    //m_wstrCurrentMapFile = L"../../Map/Tutorial.json";
 
     // 0번방 로드 
     if (FAILED(CMapLoader::GetInstance()->Load_Room(
@@ -529,20 +550,22 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
         m_setLoadedRooms.insert(1);
     }
 
-    // 카메라 생성 (PlayerSpawn 위치 사용)
-    _vec3 vPlayerSpawnPos = CMapLoader::GetInstance()->Get_PlayerSpawnPos();
+    CGameObject* pGameObject = nullptr;
 
-    _vec3 vEye = vPlayerSpawnPos;
-    _vec3 vAt = { vPlayerSpawnPos.x, vPlayerSpawnPos.y, vPlayerSpawnPos.z };
-    _vec3 vUp = { 0.f, 1.f, 0.f };
+    // 카메라 생성 
+    //_vec3 vPlayerSpawnPos = CMapLoader::GetInstance()->Get_PlayerSpawnPos();
 
-    CGameObject* pGameObject = CFirstCamera::Create(m_pGraphicDev, &vEye, &vAt, &vUp);
+    //_vec3 vEye = vPlayerSpawnPos;
+    //_vec3 vAt = { vPlayerSpawnPos.x, vPlayerSpawnPos.y, vPlayerSpawnPos.z };
+    //_vec3 vUp = { 0.f, 1.f, 0.f };
 
-    if (nullptr == pGameObject)
-        return E_FAIL;
+    //CGameObject* pGameObject = CFirstCamera::Create(m_pGraphicDev, &vEye, &vAt, &vUp);
 
-    if (FAILED(pLayer->Add_GameObject(pGameObject)))
-        return E_FAIL;
+    //if (nullptr == pGameObject)
+    //    return E_FAIL;
+
+    //if (FAILED(pLayer->Add_GameObject(pGameObject)))
+    //    return E_FAIL;
 
 
     //이 트리거가 있는 방의 번호 첫 인자로 입력
@@ -600,20 +623,42 @@ HRESULT CMapStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
         m_setLoadedRooms.insert(1);
     }
 
-    CGameObject* pGameObject = nullptr;
+    //CPlayer* pPlayer = nullptr;
 
-#pragma region Player
-    CPlayer* pPlayer = nullptr;
-    _vec3 pPlayerSpawnPos = CMapLoader::GetInstance()->Get_PlayerSpawnPos();
+//Engine::CTransform* pPlayerTransform = dynamic_cast<CTransform*>(Engine::CManagement::GetInstance()->
+//    Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_PLAYER, L"Com_Transform"));
 
-    pGameObject = pPlayer = CPlayer::Create(m_pGraphicDev, pPlayerSpawnPos);
+//if (pPlayerTransform == nullptr)
+//    return;
 
-    if (nullptr == pGameObject)
+//_vec3 vPlayerPos;
+//pPlayerTransform->Get_Info(INFO_POS, &vPlayerPos);
+
+    // 카메라 생성
+    CGameObject* pPlayerObj = pLayer->Get_Object(OBJ_PLAYER);
+
+    if (nullptr == pPlayerObj)
         return E_FAIL;
 
-    if (FAILED(pLayer->Add_GameObject(pGameObject)))
+    CTransform* pTransform = dynamic_cast<CTransform*>(pPlayerObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
+
+    if (nullptr == pTransform)
         return E_FAIL;
-#pragma endregion
+
+    _vec3 vPlayerPos = { 0.f, 0.f, 0.f };
+    pTransform->Get_Info(INFO_POS, &vPlayerPos);
+
+    _vec3 vEye = vPlayerPos;
+    _vec3 vAt = { vPlayerPos.x, vPlayerPos.y, vPlayerPos.z };
+    _vec3 vUp = { 0.f, 1.f, 0.f };
+
+    CGameObject* pCamera = CFirstCamera::Create(m_pGraphicDev, &vEye, &vAt, &vUp);
+
+    if (nullptr == pCamera)
+        return E_FAIL;
+
+    if (FAILED(pLayer->Add_GameObject(pCamera)))
+        return E_FAIL;
 
     m_mapLayer.insert({ pLayerTag, pLayer });
     m_pGameLogic_Layer = pLayer;

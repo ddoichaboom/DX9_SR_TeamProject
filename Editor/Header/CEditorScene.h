@@ -45,6 +45,7 @@ public:
 												_float fPlaneY = 0.f);
 	void                        Place_Floor(const _vec3& vPos);
 	void						Place_Dynamic_Floor(const _vec3& vPos);
+	void						Place_Slope_Floor(_vec3 vPos);
 	void                        Place_Cube(const _vec3& vPos);
 	void                        Place_Ceiling(const _vec3& vPos);
 	void                        Place_Wall(const _vec3& vPos);

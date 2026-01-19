@@ -181,6 +181,7 @@
     <ClInclude Include="..\Header\CShopBG.h" />
     <ClInclude Include="..\Header\CShopItem.h" />
     <ClInclude Include="..\Header\CSkyBox.h" />
+    <ClInclude Include="..\Header\CSlopeFloor.h" />
     <ClInclude Include="..\Header\CTerrain.h" />
     <ClInclude Include="..\Header\CStage.h" />
     <ClInclude Include="..\Header\CTestCharacter.h" />
@@ -232,6 +233,7 @@
     <ClCompile Include="..\Code\CShopBG.cpp" />
     <ClCompile Include="..\Code\CShopItem.cpp" />
     <ClCompile Include="..\Code\CSkyBox.cpp" />
+    <ClCompile Include="..\Code\CSlopeFloor.cpp" />
     <ClCompile Include="..\Code\CTerrain.cpp" />
     <ClCompile Include="..\Code\CStage.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />

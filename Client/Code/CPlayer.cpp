@@ -184,7 +184,8 @@ HRESULT CPlayer::Add_PlayerPart()
 
 void CPlayer::Key_Input(const _float& fTimeDelta)
 {
-	Engine::CTransform* pTransform = dynamic_cast<CTransform*>(Engine::CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"Environment_Layer", OBJ_CAM, L"Com_Transform"));
+	//Engine::CTransform* pTransform = dynamic_cast<CTransform*>(Engine::CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"Environment_Layer", OBJ_CAM, L"Com_Transform"));
+	Engine::CTransform* pTransform = dynamic_cast<CTransform*>(Engine::CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_CAM, L"Com_Transform"));
 	_vec3 vLook, vRight;
 	pTransform->Get_Info(INFO_LOOK, &vLook);
 

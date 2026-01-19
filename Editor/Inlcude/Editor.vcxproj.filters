@@ -97,6 +97,9 @@
     <Filter Include="04. Object\04. EditorFloor\DynamicFloor">
       <UniqueIdentifier>{a1528ea3-3528-4e92-a13e-488a85d3dc8e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Object\04. EditorFloor\SlopeFloor">
+      <UniqueIdentifier>{dd48ba29-d43a-43a4-a9a2-f9b145dcf1fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -201,6 +204,9 @@
     <ClInclude Include="..\Header\CEditorDynamicFloor.h">
       <Filter>04. Object\04. EditorFloor\DynamicFloor</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CEditorSlopeFloor.h">
+      <Filter>04. Object\04. EditorFloor\SlopeFloor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -289,6 +295,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CEditorDynamicFloor.cpp">
       <Filter>04. Object\04. EditorFloor\DynamicFloor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorSlopeFloor.cpp">
+      <Filter>04. Object\04. EditorFloor\SlopeFloor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

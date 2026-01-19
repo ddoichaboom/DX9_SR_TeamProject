@@ -9,6 +9,7 @@ enum EDITOR_MODE
     MODE_SELECT,               // 선택 모드
     MODE_PLACE_FLOOR,          // 바닥 배치 (Tile 대체)
     MODE_PLACE_DYNAMIC_FLOOR,
+    MODE_PLACE_SLOPE_FLOOR,
     MODE_PLACE_CEILING,        // 천장 배치 (새로 추가)
     MODE_PLACE_CUBE,           // 큐브 배치
     MODE_PLACE_WALL,           // 벽 배치 (새로 추가)

@@ -6,6 +6,7 @@
 #include "CDInputMgr.h"
 #include "CTransform.h"
 #include "CRcTex.h"
+#include "CRcTexUp.h"
 #include "CTexture.h"
 
 #include "CEditorScene.h"
@@ -19,6 +20,7 @@
 #include "CEditorCeiling.h"
 #include "CEditorWall.h"
 #include "CEditorDynamicFloor.h"
+#include "CEditorSlopeFloor.h"
 
 
 CEditorApp::CEditorApp()
@@ -226,6 +228,14 @@ HRESULT CEditorApp::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
         return E_FAIL;
     }
 
+    // RcTex Up 
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(
+        L"Proto_RcTexUp", Engine::CRcTexUp::Create(pGraphicDev))))
+    {
+        MSG_BOX("Proto_RcTexUp Create Failed");
+        return E_FAIL;
+    }
+
     // CubeTex
     if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(
         L"Proto_CubeTex", Engine::CCubeTex::Create(pGraphicDev))))
@@ -303,6 +313,14 @@ HRESULT CEditorApp::Ready_Texture_Prototype()
     if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Static_FloorTexture", pCom_Texture)))
     {
         MSG_BOX("Proto_Static_FloorTexture Ready Failed");
+        return E_FAIL;
+    }
+
+    // Slope Floor ÅØ½ºÃ³  
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CEditorSlopeFloor::GetTextureSources());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Slope_FloorTexture", pCom_Texture)))
+    {
+        MSG_BOX("Proto_Slope_FloorTexture Ready Failed");
         return E_FAIL;
     }
 

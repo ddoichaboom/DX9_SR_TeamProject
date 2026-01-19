@@ -45,35 +45,42 @@ void CEditorObject::LateUpdate_GameObject(const _float& fTimeDelta)
 // Transform Setter
 void CEditorObject::Set_Position(_vec3 vPos)
 {
-    if (m_pTransformCom)
-    {
-        m_pTransformCom->Set_Pos(vPos.x, vPos.y, vPos.z);
-    }
+    if (nullptr == m_pTransformCom)
+        return; 
+
+    m_pTransformCom->Set_Pos(vPos.x, vPos.y, vPos.z);
+
 }
 
 void CEditorObject::Set_Rotation(_vec3 vRot)
 {
-    if (m_pTransformCom)
-    {
-        m_pTransformCom->Set_Angle(vRot.x, vRot.y, vRot.z);
-    }
+    if (nullptr == m_pTransformCom)
+        return;
+
+    m_pTransformCom->Set_Angle(vRot.x, vRot.y, vRot.z);
+
 }
 
 void CEditorObject::Set_Scale(_vec3 vScale)
 {
-    if (m_pTransformCom)
-    {
-        m_pTransformCom->Set_Scale(vScale.x, vScale.y, vScale.z);
-    }
+    if (nullptr == m_pTransformCom)
+        return;
+
+    m_pTransformCom->Set_Scale(vScale.x, vScale.y, vScale.z);
+
 }
 
 // Transform Getter
-_vec3 CEditorObject::Get_Position()
+_vec3 CEditorObject::Get_Position() 
 {
     if (m_pTransformCom)
     {
-        return *m_pTransformCom->Get_Info(Engine::INFO_POS);
+        _vec3 vPos;
+        m_pTransformCom->Get_Info(INFO_POS, &vPos);
+        
+        return vPos;
     }
+
     return _vec3(0.f, 0.f, 0.f);
 }
 
