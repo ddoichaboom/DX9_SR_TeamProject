@@ -185,7 +185,8 @@ namespace Engine
 	{
 		const _tchar* pFontTag;
 		const _tchar* pString;
-		const _vec3* pPos;
+		_vec3 pPos;
+		_vec3 pSize;
 		D3DXCOLOR Color;
 	}FontData;
 }

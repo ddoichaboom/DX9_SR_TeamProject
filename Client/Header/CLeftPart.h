@@ -44,6 +44,7 @@ protected:
 	//State Function 
 	void Begin_Idle();
 	void Idle();
+	void End_Idle();
 
 	void Begin_Reload();
 	void Reload();

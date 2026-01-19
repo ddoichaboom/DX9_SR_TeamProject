@@ -83,15 +83,16 @@ HRESULT CHPUI::Ready_GameObject()
 	if (FAILED(Add_Component()))
 		return E_FAIL;
 
-	m_fX = 220.f;
-	m_fY = WINCY - 160.f;
+	m_fX = 310.f;
+	m_fY = WINCY - 150.f;
 	m_fSizeX = 120.f;
 	m_fSizeY = 120.f;
 
 	m_vPos = { m_fX, m_fY ,0 };
-	Rotate(ROT_Z, 15.f);
+	m_vSize = { m_fSizeX, m_fSizeY, 0.f };
+	//Rotate(ROT_Z, 15.f);
 	SetScale(m_fSizeX, m_fSizeY);
-	SetPos({ m_fX,m_fY, 0.f });
+	SetPos(m_vPos);
 
 	m_pTextureCom->Change_Texture(0);
 	return S_OK;
@@ -102,7 +103,8 @@ _int CHPUI::Update_GameObject(const _float& fTimeDelta)
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 
-	m_fontData = { L"Font_Number", L"30", &m_vPos, D3DXCOLOR(0.f, 0.f, 0.f, 1.f) };
+	m_fontData = { L"Font_Number", L"30",
+		m_vPos,m_vSize, D3DXCOLOR(0.f, 0.f, 0.f, 1.f) };
 	CFontMgr::GetInstance()->Add_RenderFont(&m_fontData);
 	return iExit;
 }

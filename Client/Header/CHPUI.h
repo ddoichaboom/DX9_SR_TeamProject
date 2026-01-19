@@ -42,6 +42,7 @@ protected:
 	Engine::CTexture* m_pTextureCom;
 
 	_vec3	m_vPos;
+	_vec3	m_vSize;
 	FontData m_fontData;
 
 };

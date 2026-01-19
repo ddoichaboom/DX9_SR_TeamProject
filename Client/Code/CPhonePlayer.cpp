@@ -116,12 +116,12 @@ HRESULT CPhonePlayer::Ready_GameObject()
 	CreateStateData();
 
 	
-	m_fX = 200.f;
-	m_fY = WINCY - 250.f;
+	m_fX = 310.f;
+	m_fY = WINCY - 240.f;
 	m_fSizeX = 70.f;
 	m_fSizeY = 70.f;
 
-	Rotate(ROT_Z, 15.f);
+	//Rotate(ROT_Z, 15.f);
 	SetScale(m_fSizeX, m_fSizeY);
 	SetPos({ m_fX, m_fY, 0.f });
 

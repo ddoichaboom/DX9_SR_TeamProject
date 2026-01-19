@@ -20,7 +20,10 @@ public:
 		const _tchar* pFontType,
 		const _uint& iWidth,
 		const _uint& iHeight,
-		const _uint& iWeight);
+		const _uint& iWeight,
+		_bool	bKorean,
+		_bool	bCenter
+	);
 
 	
 
@@ -32,10 +35,7 @@ public:
 
 private:
 	CFont* Find_Font(const _tchar* pFontTag);
-	void				Render_Font(const _tchar* pFontTag,
-									const _tchar* pString,
-									const _vec3* pPos,
-									D3DXCOLOR Color);
+
 	void				Render_Font(FontData* pData);
 
 private:

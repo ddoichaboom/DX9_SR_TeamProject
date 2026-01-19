@@ -90,13 +90,13 @@ HRESULT CPhoneBG::Ready_GameObject()
 	if (FAILED(Add_Component()))
 		return E_FAIL;
 
-	m_fX = 260.f;
-	m_fY = WINCY - 205.f;
+	m_fX = 360.f;
+	m_fY = WINCY - 190.f;
 
 	m_fSizeX = 230.f;
 	m_fSizeY = 220.f;
 
-	Rotate(ROT_Z, 15.f);
+	//Rotate(ROT_Z, 15.f);
 	SetScale(m_fSizeX, m_fSizeY);
 	SetPos({ m_fX, m_fY, 0.f });
 	

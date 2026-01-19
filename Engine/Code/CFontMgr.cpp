@@ -11,14 +11,14 @@ CFontMgr::~CFontMgr()
 	Free();
 }
 
-HRESULT CFontMgr::Ready_Font(LPDIRECT3DDEVICE9 pGraphicDev, const _tchar* pFontTag, const _tchar* pFontType, const _uint& iWidth, const _uint& iHeight, const _uint& iWeight)
+HRESULT CFontMgr::Ready_Font(LPDIRECT3DDEVICE9 pGraphicDev, const _tchar* pFontTag, const _tchar* pFontType, const _uint& iWidth, const _uint& iHeight, const _uint& iWeight, _bool	bKorean, _bool	bCenter)	
 {
 	CFont* pMyFont = Find_Font(pFontTag);
 
 	if (nullptr != pMyFont)
 		return E_FAIL;
 
-	pMyFont = CFont::Create(pGraphicDev, pFontType, iWidth, iHeight, iWeight);
+	pMyFont = CFont::Create(pGraphicDev, pFontType, iWidth, iHeight, iWeight, bKorean, bCenter);
 
 	if (nullptr == pMyFont)
 		return E_FAIL;
@@ -28,21 +28,13 @@ HRESULT CFontMgr::Ready_Font(LPDIRECT3DDEVICE9 pGraphicDev, const _tchar* pFontT
 	return S_OK;
 }
 
-void CFontMgr::Render_Font(const _tchar* pFontTag, const _tchar* pString, 
-	const _vec3* pPos, D3DXCOLOR Color)
-{
-	CFont* pFont = Find_Font(pFontTag);
-
-	if(pFont != nullptr)
-		pFont->Render_Font(pString, pPos, Color);
-}
 
 void CFontMgr::Render_Font(FontData* pData)
 {
 	CFont* pFont = Find_Font(pData->pFontTag);
 
 	if (pFont != nullptr);
-		pFont->Render_Font(pData->pString, pData->pPos, pData->Color);
+		pFont->Render_Font(pData->pString, pData->pPos, pData->pSize,pData->Color);
 }
 
 void CFontMgr::Add_RenderFont(FontData* pFontData)

@@ -184,10 +184,5 @@ private:
 	_bool	m_bOnCollision;
 
 	map<_uint, _int> m_mapCallCnt = {};
-	//_int	m_iCallCnt;	
-
-
-	//UI
-	//CShopBG*	m_pShopBG;
 };
 
