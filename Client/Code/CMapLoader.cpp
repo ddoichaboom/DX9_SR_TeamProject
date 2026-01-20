@@ -30,7 +30,8 @@ IMPLEMENT_SINGLETON(CMapLoader)
 
 vector<wstring> CMapLoader::m_vecMapFiles =
 {
-    {L"../../Map/Tutorial.json"}
+    {L"../../Map/Tutorial.json"},
+    {L"../../Map/Slope_Test.json"}
 };
 
 CMapLoader::CMapLoader()

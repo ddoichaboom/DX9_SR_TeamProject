@@ -64,6 +64,7 @@ private :
 
 private:
 	_float		m_fSpeed;
+	_bool		m_bStage;
 	_bool		m_bFix;
 	_bool		m_bCheck;
 

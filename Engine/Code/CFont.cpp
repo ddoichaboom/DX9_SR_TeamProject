@@ -67,7 +67,7 @@ void CFont::Render_Font(const _tchar* pString, _vec3& vPos, _vec3& vSize, D3DXCO
 		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
 
-		m_pFont->DrawTextW(m_pSprite, pString, lstrlen(pString), &rc, DT_CENTER | DT_VCENTER | DT_SINGLELINE, Color);
+		m_pFont->DrawTextW(m_pSprite, pString, lstrlen(pString), &rc, DT_CENTER | DT_VCENTER , Color);
 		m_pSprite->End();
 	}
 	

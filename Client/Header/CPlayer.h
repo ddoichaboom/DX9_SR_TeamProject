@@ -5,6 +5,7 @@
 namespace Engine
 {
 	class CCollider;
+	class CRcTexUp;
 }
 
 
@@ -56,6 +57,10 @@ private:
 	void				Set_OnFloor(const _float& fTimeDelta);
 	_bool				Get_OnFloor();
 
+	_bool				Picking_OnFloor(_vec3* pHit, CRcTexUp* pFloorBufferCom, CTransform* pFloorTransformCom);
+	_float				Compute_HeightOnFloor(const _vec3* pPos, const _vec3* pFloorVtxPos, const _ulong& dwCntX, const _ulong& dwCntZ);
+	
+
 	void				Update_Jump(const _float& fTimeDelta);
 	void				Update_Dash(const _float& fTimeDelta);
 
@@ -72,14 +77,14 @@ public:
 
 public :
 	void				Change_State(_uint eState);
-	
-private :
+
+#pragma region STATE_FUNC
+private:
 	void				State_Enter();
 	void				State_Update(const _float& fTimeDelta);
 	void				State_LateUpdate(const _float& fTimeDelta);
 	void				State_Exit();
 
-private :
 	void				Intro_Enter();
 	void				Intro_Update(const _float& fTimeDelta);
 	void				Intro_LateUpdate(const _float& fTimeDelta);
@@ -125,6 +130,9 @@ private :
 	void				Next_Update(const _float& fTimeDelta);
 	void				Next_LateUpdate(const _float& fTimeDelta);
 	void				Next_Exit();
+#pragma endregion
+
+
 
 public:
 	static CPlayer*		Create(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -137,11 +145,32 @@ public:
 	void				Set_MiddlePart(CMiddlePart* pMiddle);
 	void				Set_Jump(_bool bJump) { m_bJump = bJump; }
 	void				Set_Velocity(_float fVelocity) { m_fVelocity = fVelocity; }
-	void				Set_JumpTime(_float fJumpTime) { m_fJumpTime = fJumpTime; }
+	void				Set_JumpTime(_float fJumpTime) { m_fJumpTime = fJumpTime; }	
+
 
 	_bool				Get_Jump() { return m_bJump; }
 	_float				Get_Velocity() { return m_fVelocity; }
 	_float				Get_JumpTime() { return m_fJumpTime; }
+
+public :
+	_float				Get_HP() const { return m_fHP; }
+	_float				Get_MaxHP() const { return m_fMaxHP; }
+
+	void				Add_HP(_float fHp)
+	{
+		if (fHp > 0)
+		{
+			m_fHP = min(m_fHP + fHp, m_fMaxHP);
+		}
+		else
+		{
+			m_fHP = max(m_fHP + fHp, 0);
+		}		
+	}
+
+	void			Get_Hit(_float fDamage);
+	
+
 
 protected:
 	virtual void	Free();
@@ -161,6 +190,14 @@ private:
 
 	CCollider*			m_pKickCollider;
 	const	_tchar*		m_szKickColliderName = L"ColKick";
+
+private:
+	_float	m_fHP;
+	_float	m_fMaxHP;
+
+	_float	m_fTime;
+	_float  m_fStageTime;
+	_bool	m_bStage;
 
 	_bool	m_bFall;
 	_float	m_fVelocity;

@@ -238,7 +238,7 @@ namespace Engine
 	typedef struct tagFontData
 	{
 		const _tchar* pFontTag;
-		const _tchar* pString;
+		std::wstring pString;
 		_vec3 pPos;
 		_vec3 pSize;
 		D3DXCOLOR Color;

@@ -259,7 +259,6 @@ void CUIManager::OnEvent(EVENT_TYPE _type, EventData* _pData)
 	case Engine::EVENT_MONSTER_DEAD:
 		break;
 	case Engine::EVENT_DOOR_IN:
-		Change_UIState(UI_STAGE_CLEAR);
 		break;
 	case Engine::EVENT_DOOR_OUT:
 		break;

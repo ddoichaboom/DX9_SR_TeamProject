@@ -8,6 +8,8 @@ namespace Engine
 	class CTexture;
 }
 
+class CPlayer;
+
 
 class CHPUI : public CBaseUI
 {
@@ -40,6 +42,8 @@ protected:
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTransform* m_pTransformCom;
 	Engine::CTexture* m_pTextureCom;
+
+	CPlayer* m_pPlayer;
 
 	_vec3	m_vPos;
 	_vec3	m_vSize;

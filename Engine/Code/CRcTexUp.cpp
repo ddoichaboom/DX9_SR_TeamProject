@@ -5,12 +5,12 @@ CRcTexUp::CRcTexUp()
 }
 
 CRcTexUp::CRcTexUp(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CVIBuffer(pGraphicDev)
+	:CVIBuffer(pGraphicDev), m_pPos(nullptr)
 {
 }
 
 CRcTexUp::CRcTexUp(const CRcTexUp& rhs)
-	: CVIBuffer(rhs)
+	: CVIBuffer(rhs), m_pPos(rhs.m_pPos)
 {
 }
 
@@ -28,6 +28,8 @@ HRESULT CRcTexUp::Ready_Buffer()
 	m_dwIdxSize = sizeof(INDEX32);
 	m_IdxFmt = D3DFMT_INDEX32;
 
+	m_pPos = new _vec3[m_dwVtxCnt];
+
 	if (FAILED(CVIBuffer::Ready_Buffer()))
 		return E_FAIL;
 
@@ -40,15 +42,19 @@ HRESULT CRcTexUp::Ready_Buffer()
 	// 오른쪽 위
 	pVertex[0].vPosition = { -2.f, 2.f, 0.f };
 	pVertex[0].vTexUV = { 0.f, 0.f };
+	m_pPos[0] = pVertex[0].vPosition;
 
 	pVertex[1].vPosition = { 2.f, 2.f, 0.f };
 	pVertex[1].vTexUV = { 1.f, 0.f };
+	m_pPos[1] = pVertex[1].vPosition;
 
 	pVertex[2].vPosition = { 2.f, 0.f, 0.f };
 	pVertex[2].vTexUV = { 1.f, 1.f };
+	m_pPos[2] = pVertex[2].vPosition;
 
 	pVertex[3].vPosition = { -2.f, 0.f, 0.f };
 	pVertex[3].vTexUV = { 0.f, 1.f };
+	m_pPos[3] = pVertex[3].vPosition;
 
 	m_pVB->Unlock();
 
@@ -98,5 +104,7 @@ CComponent* CRcTexUp::Clone()
 
 void CRcTexUp::Free()
 {
+	if (m_bClone == false)
+		Safe_Delete_Array(m_pPos);
 	CVIBuffer::Free();
 }

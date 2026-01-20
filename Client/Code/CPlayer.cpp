@@ -14,7 +14,8 @@
 #include "CKatana.h"
 
 #include "CEventMgr.h"
-//#include "CShopBG.h"
+#include "CFloor.h"
+
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCharacter(pGraphicDev, 15.f)
@@ -25,6 +26,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_bDash(false), m_fDashTime(0.f), m_fDashDuration(0.3f), m_fDashDistance(80.f)
 	, m_fKickAttack(1.f), m_pKickCollider(nullptr), m_pMainCollider(nullptr)
 	, m_eNowState(MAIN_END), m_bOnCollision(false)
+	, m_fHP(20.f), m_fMaxHP(20.f), m_fTime(0.f), m_fStageTime(0.f), m_bStage(false)
 	
 {
 
@@ -41,6 +43,8 @@ CPlayer::CPlayer(const CPlayer& rhs)
 	, m_bDash(false), m_fDashTime(0.f), m_fDashDuration(0.3f), m_fDashDistance(80.f)
 	, m_fKickAttack(1.f), m_pKickCollider(nullptr), m_pMainCollider(nullptr)
 	, m_eNowState(MAIN_END), m_bOnCollision(false)
+	, m_fHP(20.f), m_fMaxHP(20.f), m_fTime(0.f), m_fStageTime(0.f), m_bStage(false)
+
 
 {
 	m_eOBJ_ID = OBJ_PLAYER;
@@ -53,8 +57,17 @@ CPlayer::~CPlayer()
 
 void CPlayer::OnEvent(EVENT_TYPE _type, EventData* _pData)
 {
+	if (_type == EVENT_STAGE_START)
+	{
+		m_fHP = m_fMaxHP;
+		m_fTime = 0.f;
+		m_fStageTime = 0.f;
+		m_bStage = true;
+	}
+
 	if (_type == EVENT_STAGE_END)
 	{
+		m_bStage = false;
 		Change_State(SHOP);
 	}
 
@@ -73,6 +86,7 @@ HRESULT CPlayer::Ready_GameObject()
 		return E_FAIL;
 
 	CEventMgr::GetInstance()->Subscribe(EVENT_DOOR_IN, this);
+	CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_START, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_END, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_READY_NEXT_STAGE, this);
 
@@ -96,8 +110,6 @@ HRESULT CPlayer::Ready_GameObject()
 
 	Change_State(INTRO);
 
-
-
 	return S_OK;
 }
 
@@ -105,8 +117,20 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
 	int iExit = CCharacter::Update_GameObject(fTimeDelta);
 
+	if (m_bStage)
+	{
+		m_fTime += fTimeDelta;
+		m_fStageTime += fTimeDelta;
 
-	if (m_eNowState != SHOP && m_eNowState != READY_NEXT)
+		if (m_fTime >= 1.f)
+		{
+			Add_HP(-1.f);
+			m_fTime = 0.f;
+		}
+	}
+
+	
+	if (m_eNowState != SHOP && m_eNowState != READY_NEXT && m_bStage)
 		Key_Input(fTimeDelta);
 
 	if (m_bJump)
@@ -580,8 +604,28 @@ _bool CPlayer::CheckOnFloor(_float* pHeight)
 	{
 		CTransform* pTransform = static_cast<CTransform*>(iter->second->Get_Component(ID_STATIC, L"Com_Transform"));
 
-		if (pTransform && pTransform->Check_OnRange(&vPosition, pHeight))
-			return true;
+		CGameObject* pGameObject = iter->second;
+
+		COLLIDER_TAG eTag = static_cast<CFloor*>(pGameObject)->Get_ColliderTag();
+
+		if ( eTag == TAG_NONE)
+		{
+			if (pTransform->Check_OnRange(&vPosition, pHeight))
+				return true;
+		}
+		else if (eTag == TAG_SLOPE)
+		{
+			if (pTransform->Check_OnRange(&vPosition, pHeight))
+			{
+				CRcTexUp* pRcTex = static_cast<CRcTexUp*>(iter->second->Get_Component(ID_STATIC, L"Com_Buffer"));
+				_vec3 vPickPos;
+				if (Picking_OnFloor(&vPickPos, pRcTex, pTransform) == false)
+					return false;
+				
+				*pHeight = vPickPos.y +1.f;
+				return true;
+			}
+		}			
 	}
 
 	return false;
@@ -663,6 +707,88 @@ _bool CPlayer::Get_OnFloor()
 		return false;
 	}
 
+}
+
+_bool CPlayer::Picking_OnFloor(_vec3* pHit, CRcTexUp* pFloorBufferCom, CTransform* pFloorTransformCom)
+{
+	_vec3       vRayPos = *m_pTransformCom->Get_Info(INFO_POS);
+	vRayPos.y += 10.f;
+	_vec3       vRayDir{ 0.f, -1.f, 0.f };
+	//_vec3		vLook = *m_pTransformCom->Get_Info(INFO_LOOK);
+	//vRayDir += vLook;
+	D3DXVec3Normalize(&vRayDir, &vRayDir);
+	
+
+	_matrix matWorld = *(pFloorTransformCom->Get_World());
+	D3DXMatrixInverse(&matWorld, 0, &matWorld);
+
+	D3DXVec3TransformCoord(&vRayPos, &vRayPos, &matWorld);
+	D3DXVec3TransformNormal(&vRayDir, &vRayDir, &matWorld);
+	D3DXVec3Normalize(&vRayDir, &vRayDir);
+
+	const _vec3* pTerrainVtxPos = pFloorBufferCom->Get_VtxPos();
+	_float  fU(0.f), fV(0.f), fDist(0.f);
+
+	_vec3 vHit{};
+	if (D3DXIntersectTri(
+		&pTerrainVtxPos[0],
+		&pTerrainVtxPos[2],
+		&pTerrainVtxPos[1],
+		&vRayPos, &vRayDir,
+		&fU, &fV, &fDist))
+	{
+		vHit = vRayPos + vRayDir * fDist;	
+		D3DXVec3TransformCoord(&vHit, &vHit, pFloorTransformCom->Get_World());
+		*pHit = vHit;
+		return true;
+	}
+
+
+	if (D3DXIntersectTri(
+		&pTerrainVtxPos[0],
+		&pTerrainVtxPos[3],
+		&pTerrainVtxPos[2],
+		&vRayPos, &vRayDir,
+		&fU, &fV, &fDist))
+	{
+		vHit = vRayPos + vRayDir * fDist;
+		D3DXVec3TransformCoord(&vHit, &vHit, pFloorTransformCom->Get_World());
+		*pHit = vHit;
+		return true;
+	}
+
+	
+	return false;
+}
+
+_float CPlayer::Compute_HeightOnFloor(const _vec3* pPos, const _vec3* pFloorVtxPos, const _ulong& dwCntX, const _ulong& dwCntZ)
+{
+	_ulong  dwIndex = _ulong(pPos->z / 1.f) * dwCntX + _ulong(pPos->x / 1.f);
+
+	_float  fRatioX = (pPos->x - pFloorVtxPos[dwIndex + dwCntX].x) / 1.f;
+	_float  fRatioZ = (pFloorVtxPos[dwIndex + dwCntX].z - pPos->z) / 1.f;
+
+	D3DXPLANE   Plane;
+
+	// 오른쪽 위
+	if (fRatioX > fRatioZ)
+	{
+		D3DXPlaneFromPoints(&Plane,
+			&pFloorVtxPos[dwIndex + dwCntX],
+			&pFloorVtxPos[dwIndex + dwCntX + 1],
+			&pFloorVtxPos[dwIndex + 1]);
+	}
+
+	// 왼쪽 아래
+	else
+	{
+		D3DXPlaneFromPoints(&Plane,
+			&pFloorVtxPos[dwIndex + dwCntX],
+			&pFloorVtxPos[dwIndex + 1],
+			&pFloorVtxPos[dwIndex]);
+	}
+
+	return (-Plane.a * pPos->x - Plane.c * pPos->z - Plane.d) / Plane.b;
 }
 
 void CPlayer::Update_Jump(const _float& fTimeDelta)
@@ -999,6 +1125,7 @@ void CPlayer::Intro_LateUpdate(const _float& fTimeDelta)
 
 void CPlayer::Intro_Exit()
 {
+	CEventMgr::GetInstance()->Broadcast(EVENT_STAGE_START, nullptr);
 }
 
 void CPlayer::Idle_Enter()
@@ -1357,6 +1484,13 @@ void CPlayer::OnCollision(CollisionInfo info)
 	}
 }
 
+
+void CPlayer::Get_Hit(_float fDamage)
+{
+	Add_HP(-fDamage);
+
+	// Effect
+}
 
 void CPlayer::Free()
 {

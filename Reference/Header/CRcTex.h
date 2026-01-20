@@ -12,6 +12,9 @@ protected:
 	explicit CRcTex(const CRcTex& rhs);
 	virtual ~CRcTex();
 
+public :
+	const _vec3* Get_VtxPos() { return m_pPos; }
+
 public:
 	virtual		HRESULT		Ready_Buffer();
 	virtual		void		Render_Buffer();
@@ -22,6 +25,9 @@ public:
 	virtual CComponent* Clone();
 private:
 	virtual		void	Free();
+
+private :
+	_vec3*		m_pPos;
 };
 
 END
