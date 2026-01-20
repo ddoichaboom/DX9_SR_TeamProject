@@ -41,6 +41,9 @@
 //Effect
 #include "CBlood.h"
 #include "CTrail.h"
+#include "CFlare.h"
+#include "CExplosion.h"
+#include "CBeamFlare.h"
 
 CMainApp::CMainApp() : m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
 , m_pManagementClass(CManagement::GetInstance())
@@ -247,8 +250,11 @@ HRESULT CMainApp::Ready_ObjectPool()
 
 
 	//Effect
-	_uint iBloodCount = 10;
-	_uint iTrailCount = 5;
+	_uint iBloodCount = 6;
+	_uint iTrailCount = 4;
+	_uint iFlareCount = 3;
+	_uint iExplosionCount = 6;
+	_uint iBeamFlareCount = 10;
 
 	for (auto& wstrFile : CMapLoader::GetInstance()->Get_MapFiles())
 	{
@@ -295,8 +301,12 @@ HRESULT CMainApp::Ready_ObjectPool()
 	CPoolMgr::GetInstance()->SetPoolSize<CFlyMon>(iFlyMonCount);
 
 	CPoolMgr::GetInstance()->SetPoolSize<CTrigger>(iTriggerCount);
+	//Effect
 	CPoolMgr::GetInstance()->SetPoolSize<CBlood>(iBloodCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CTrail>(iTrailCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CFlare>(iFlareCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CExplosion>(iExplosionCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CBeamFlare>(iBeamFlareCount);
 	return S_OK;
 }
 

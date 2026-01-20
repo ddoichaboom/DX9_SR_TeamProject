@@ -3,6 +3,10 @@
 #include "CEffectScene.h"
 #include "CBlood.h"
 #include "CTrail.h"
+#include "CFlare.h"
+#include "CExplosion.h"
+#include "CBeamFlare.h"
+
 
 CEffectToolBar::CEffectToolBar()
 {
@@ -26,7 +30,7 @@ void CEffectToolBar::Update_ToolBar()
 
 void CEffectToolBar::Render_ToolBar()
 {
-    static const char* emitters[] = { "BLOOD", "TRAIL"};
+    static const char* emitters[] = { "BLOOD", "TRAIL", "FLARE", "EXPLOSION", "BEAMFLARE"};
     static int selectedIndex = -1;
 
     ImGui::Begin("Effect Bar", nullptr, ImGuiWindowFlags_NoCollapse);
@@ -44,7 +48,7 @@ void CEffectToolBar::Render_ToolBar()
             ImVec2 imv = ImVec2(100, 100);
             if (ImGui::BeginListBox("Emitter Type", imv))
             {
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < size(emitters); i++)
                 {
                     bool isSelected = (selectedIndex == i);
 

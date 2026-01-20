@@ -146,6 +146,7 @@
     <ClInclude Include="..\Header\CBackGround.h" />
     <ClInclude Include="..\Header\CBaseUI.h" />
     <ClInclude Include="..\Header\CBeam.h" />
+    <ClInclude Include="..\Header\CBeamFlare.h" />
     <ClInclude Include="..\Header\CBeamMon.h" />
     <ClInclude Include="..\Header\CBlood.h" />
     <ClInclude Include="..\Header\CBoss.h" />
@@ -156,6 +157,8 @@
     <ClInclude Include="..\Header\CCharacter.h" />
     <ClInclude Include="..\Header\CChat.h" />
     <ClInclude Include="..\Header\CDoorTrigger.h" />
+    <ClInclude Include="..\Header\CExplosion.h" />
+    <ClInclude Include="..\Header\CFlare.h" />
     <ClInclude Include="..\Header\CHeart.h" />
     <ClInclude Include="..\Header\CHeartBeat.h" />
     <ClInclude Include="..\Header\CHPUI.h" />
@@ -210,6 +213,7 @@
     <ClCompile Include="..\Code\CBackGround.cpp" />
     <ClCompile Include="..\Code\CBaseUI.cpp" />
     <ClCompile Include="..\Code\CBeam.cpp" />
+    <ClCompile Include="..\Code\CBeamFlare.cpp" />
     <ClCompile Include="..\Code\CBeamMon.cpp" />
     <ClCompile Include="..\Code\CBlood.cpp" />
     <ClCompile Include="..\Code\CBoss.cpp" />
@@ -220,6 +224,8 @@
     <ClCompile Include="..\Code\CCharacter.cpp" />
     <ClCompile Include="..\Code\CChat.cpp" />
     <ClCompile Include="..\Code\CDoorTrigger.cpp" />
+    <ClCompile Include="..\Code\CExplosion.cpp" />
+    <ClCompile Include="..\Code\CFlare.cpp" />
     <ClCompile Include="..\Code\CHeart.cpp" />
     <ClCompile Include="..\Code\CHeartBeat.cpp" />
     <ClCompile Include="..\Code\CHPUI.cpp" />

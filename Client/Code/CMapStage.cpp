@@ -43,7 +43,9 @@
 //Effect
 #include "CBlood.h"
 #include "CTrail.h"
-
+#include "CFlare.h"
+#include "CExplosion.h"
+#include "CBeamFlare.h"
 
 CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
 {
@@ -230,6 +232,32 @@ HRESULT CMapStage::Ready_ObjectPool()
         }
     }
 
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CFlare>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CFlare>(m_pGraphicDev)))
+        {
+            MSG_BOX("Effect Flare Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CExplosion>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CExplosion>(m_pGraphicDev)))
+        {
+            MSG_BOX("Effect Explosion Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CBeamFlare>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CBeamFlare>(m_pGraphicDev)))
+        {
+            MSG_BOX("Effect BeamFlare Pool Create Failed");
+            return E_FAIL;
+        }
+    }
     return S_OK;
 }
 
@@ -361,10 +389,35 @@ HRESULT CMapStage::Ready_EffectTextureProto()
         return E_FAIL;
     }
 
+    //Trail 
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CTrail::GetTextureSource());
     if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_Trail_Texture", pCom_Texture)))
     {
         MSG_BOX("Proto Trail Ready Failed");
+        return E_FAIL;
+    }
+    
+    //Flare
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CFlare ::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_Flare_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto Flare Ready Failed");
+        return E_FAIL;
+    }
+
+    //Explosion
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CExplosion::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_EXP_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto Explosion Ready Failed");
+        return E_FAIL;
+    }
+
+    //BeamFlare
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBeamFlare::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_BeamFlare_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto BeamFlare Ready Failed");
         return E_FAIL;
     }
 

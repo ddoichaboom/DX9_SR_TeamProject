@@ -26,6 +26,9 @@
 #include "CEffectToolBar.h"
 #include "CBlood.h"
 #include "CTrail.h"
+#include "CFlare.h"
+#include "CExplosion.h"
+#include "CBeamFlare.h"
 
 CEditorApp::CEditorApp()
     : m_pGraphicDev(nullptr)
@@ -260,9 +263,9 @@ HRESULT CEditorApp::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
 HRESULT CEditorApp::Ready_Scene()
 {
     // EditorScene »ý¼º
-    m_pCurrentScene = CEditorScene::Create(m_pGraphicDev);
-    //CEffectScene* scene;
-    //m_pCurrentScene = scene = CEffectScene::Create(m_pGraphicDev);
+    //m_pCurrentScene = CEditorScene::Create(m_pGraphicDev);
+    CEffectScene* scene;
+    m_pCurrentScene = scene = CEffectScene::Create(m_pGraphicDev);
 
     if (nullptr == m_pCurrentScene)
     {
@@ -310,12 +313,12 @@ HRESULT CEditorApp::Ready_Scene()
         return E_FAIL;
     }
 
-    //m_pEffectToolBar = CEffectToolBar::Create(scene);
-    //if (nullptr == m_pEffectToolBar)
-    //{
-    //    MSG_BOX("EffectToolBar Create Failed");
-    //    return E_FAIL;
-    //}
+    m_pEffectToolBar = CEffectToolBar::Create(scene);
+    if (nullptr == m_pEffectToolBar)
+    {
+        MSG_BOX("EffectToolBar Create Failed");
+        return E_FAIL;
+    }
 
 
     return S_OK;
@@ -386,6 +389,31 @@ HRESULT CEditorApp::Ready_Texture_Prototype()
     if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_Trail_Texture", pCom_Texture)))
     {
         MSG_BOX("Proto Trail Ready Failed");
+        return E_FAIL;
+    }
+
+    //Flare Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CFlare::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_Flare_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto Flare Ready Failed");
+        return E_FAIL;
+    }
+
+    //Explore Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CExplosion::GetTextureSources());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_EXP_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto Explosion Ready Failed");
+        return E_FAIL;
+
+    }
+
+    //BeamFlare Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBeamFlare::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_BeamFlare_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto BeamFlare Ready Failed");
         return E_FAIL;
     }
 

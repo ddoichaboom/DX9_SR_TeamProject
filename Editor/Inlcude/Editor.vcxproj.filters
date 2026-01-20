@@ -99,8 +99,8 @@
     </Filter>
     <Filter Include="04. Object\04. EditorFloor\SlopeFloor">
       <UniqueIdentifier>{dd48ba29-d43a-43a4-a9a2-f9b145dcf1fb}</UniqueIdentifier>
-	</Filter>
-	<Filter Include="03. Scene\03. EffectScene">
+    </Filter>
+    <Filter Include="03. Scene\03. EffectScene">
       <UniqueIdentifier>{3511c0cc-eaff-4f55-b9c5-99bc5283809f}</UniqueIdentifier>
     </Filter>
     <Filter Include="01. UI\04. EffectToolBar">
@@ -114,6 +114,18 @@
     </Filter>
     <Filter Include="07. Effect\01. Trail">
       <UniqueIdentifier>{058dba63-f431-4d7d-9394-ce9ec25c99d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Effect\02. Flare">
+      <UniqueIdentifier>{6c30d27c-4cb6-4bf7-943d-5c0a19b5e107}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Effect\03. Explosion">
+      <UniqueIdentifier>{2a4ff037-f20c-4090-8f5c-5cc5b2436474}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Effect\04. BeamFlare">
+      <UniqueIdentifier>{3943d88a-0cba-403d-b956-80de54e4bfcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Effect\05. FlareCircle">
+      <UniqueIdentifier>{4a76c965-b8b7-4de3-bd7e-39e08d2de567}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -221,8 +233,8 @@
     </ClInclude>
     <ClInclude Include="..\Header\CEditorSlopeFloor.h">
       <Filter>04. Object\04. EditorFloor\SlopeFloor</Filter>
-	</ClInclude>
-	<ClInclude Include="..\Header\CEffectScene.h">
+    </ClInclude>
+    <ClInclude Include="..\Header\CEffectScene.h">
       <Filter>03. Scene\03. EffectScene</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CEffectToolBar.h">
@@ -233,6 +245,18 @@
     </ClInclude>
     <ClInclude Include="..\Header\CTrail.h">
       <Filter>07. Effect\01. Trail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CFlare.h">
+      <Filter>07. Effect\02. Flare</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CExplosion.h">
+      <Filter>07. Effect\03. Explosion</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CFlareCircle.h">
+      <Filter>07. Effect\05. FlareCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBeamFlare.h">
+      <Filter>07. Effect\04. BeamFlare</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -325,8 +349,8 @@
     </ClCompile>
     <ClCompile Include="..\Code\CEditorSlopeFloor.cpp">
       <Filter>04. Object\04. EditorFloor\SlopeFloor</Filter>
-	</ClCompile>
-	<ClCompile Include="..\Code\CEffectScene.cpp">
+    </ClCompile>
+    <ClCompile Include="..\Code\CEffectScene.cpp">
       <Filter>03. Scene\03. EffectScene</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CEffectToolBar.cpp">
@@ -337,6 +361,18 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTrail.cpp">
       <Filter>07. Effect\01. Trail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFlare.cpp">
+      <Filter>07. Effect\02. Flare</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CExplosion.cpp">
+      <Filter>07. Effect\03. Explosion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFlareCircle.cpp">
+      <Filter>07. Effect\05. FlareCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBeamFlare.cpp">
+      <Filter>07. Effect\04. BeamFlare</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

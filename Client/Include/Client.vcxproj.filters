@@ -180,8 +180,8 @@
     </Filter>
     <Filter Include="02. GameObject\99. Environment\00. Terrain\00. Floor\00. DynamicFloor">
       <UniqueIdentifier>{13c447d0-1fdc-4d80-b15a-a10fd70a3a5d}</UniqueIdentifier>
-	</Filter>
-	<Filter Include="04.UI\UIManager">
+    </Filter>
+    <Filter Include="04.UI\UIManager">
       <UniqueIdentifier>{7965902d-4b4c-4aaf-8a8b-d2132956158f}</UniqueIdentifier>
     </Filter>
     <Filter Include="04.UI\01.StaticUI\04.Stage_BG">
@@ -216,6 +216,15 @@
     </Filter>
     <Filter Include="02. GameObject\13. Effect\01. Trail">
       <UniqueIdentifier>{011cc0ed-92cc-4fa4-97f1-f58e2dc41719}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\02. Flare">
+      <UniqueIdentifier>{0ff748ef-1152-47ae-b8fe-6c6073b63079}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\03. Explosion">
+      <UniqueIdentifier>{2b73cbbc-e27f-4fbf-afe0-8564e5b20bd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\04. BeamFlare">
+      <UniqueIdentifier>{2e62c910-c363-40fc-ab85-4977833976ea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -377,7 +386,7 @@
     </ClInclude>
     <ClInclude Include="..\Header\CSlopeFloor.h">
       <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\01. SlopeFloor</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="..\Header\CUIManager.h">
       <Filter>04.UI\UIManager</Filter>
     </ClInclude>
@@ -404,6 +413,15 @@
     </ClInclude>
     <ClInclude Include="..\Header\CHPUI.h">
       <Filter>04.UI\02.DynamicUI\07.HP_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CFlare.h">
+      <Filter>02. GameObject\13. Effect\02. Flare</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CExplosion.h">
+      <Filter>02. GameObject\13. Effect\03. Explosion</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBeamFlare.h">
+      <Filter>02. GameObject\13. Effect\04. BeamFlare</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -550,7 +568,7 @@
     </ClCompile>
     <ClCompile Include="..\Code\CSlopeFloor.cpp">
       <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\01. SlopeFloor</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="..\Code\CBlood.cpp">
       <Filter>02. GameObject\13. Effect\00. Blood</Filter>
     </ClCompile>
@@ -583,6 +601,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\CHPUI.cpp">
       <Filter>04.UI\02.DynamicUI\07.HP_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFlare.cpp">
+      <Filter>02. GameObject\13. Effect\02. Flare</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CExplosion.cpp">
+      <Filter>02. GameObject\13. Effect\03. Explosion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBeamFlare.cpp">
+      <Filter>02. GameObject\13. Effect\04. BeamFlare</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

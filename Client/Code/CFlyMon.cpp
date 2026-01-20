@@ -4,7 +4,8 @@
 #include "CRenderer.h"
 #include "CDInputMgr.h"
 #include "CManagement.h"
-
+#include "CExplosion.h"
+#include "CPoolMgr.h"
 
 //-------------------------------------------------------------------------
 // Texture , Animation Data
@@ -238,6 +239,13 @@ void CFlyMon::Launch()
 
 void CFlyMon::Dead()
 {
+	CExplosion* exp = CPoolMgr::GetInstance()->Get_Object<CExplosion>();
+	if (exp)
+	{
+		CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(exp);
+		exp->SetPos(*m_pTransformCom->Get_Info(INFO_POS));
+		exp->Reset();
+	}
 	SetDead();
 }
 

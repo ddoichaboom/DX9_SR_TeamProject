@@ -12,7 +12,7 @@ namespace Engine
 {
 	class CParticleEmitter;
 }
-enum EFFECT_TYPE { EF_BLOOD, EF_TRAIL, EF_END };
+enum EFFECT_TYPE { EF_BLOOD, EF_TRAIL,EF_FLARE,EF_EXP, EF_BEAM_FLARE, EF_END };
 
 class CEffectScene :
     public CEditorScene

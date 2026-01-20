@@ -35,6 +35,7 @@ protected:
 
 public:
 	bool			CheckCollision(CCollider* _pCollider);
+	_vec3			GetScale();
 	void			SetPos(_vec3 _pos) override;
 	void			SetShootDir(_vec3 _dir); 
 	void			SetScale(ROTATION _Axis, _float _scale);

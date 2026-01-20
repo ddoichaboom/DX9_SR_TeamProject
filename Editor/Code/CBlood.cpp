@@ -1,9 +1,7 @@
 #include "pch.h"
-#include "CParticleEmitter.h"
 #include "CRenderer.h"
 #include "CProtoMgr.h"
 #include "CBlood.h"
-#include "CTrail.h"
 
 vector<TextureSource> CBlood::m_TextureSources
 {

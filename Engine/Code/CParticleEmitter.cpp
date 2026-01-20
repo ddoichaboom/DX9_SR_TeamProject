@@ -36,6 +36,8 @@ void CParticleEmitter::Render_GameObject()
 void CParticleEmitter::Activate()
 {
 	CGameObject::Activate();
+	//Reset();
+	//풀에서 꺼낸 후 직접 Reset 호출하기 
 }
 void CParticleEmitter::Reset()
 {
@@ -123,8 +125,11 @@ void CParticleEmitter::SetNextUV(Particle* pParticle)
 		curUV.y += uvOffset.y;
 		if (curUV.y >= 1.f)
 		{
-			curUV.y = 0.f;
-			if (m_bLoop == false) pParticle->bIsAlive = false;
+			if (m_bLoop == false)
+			{
+				pParticle->bIsAlive = false;
+				return;
+			}
 		}
 	}
 	pParticle->vStartUV = curUV;

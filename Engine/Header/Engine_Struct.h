@@ -210,6 +210,7 @@ namespace Engine
 		_vec2 vEndUV{};
 		bool bIsAlive = false;
 		bool bDirection = false;
+		bool bFlag = false;
 	}Particle;
 
 	struct BoundingBox

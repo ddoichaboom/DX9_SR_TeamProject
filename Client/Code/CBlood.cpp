@@ -45,13 +45,16 @@ HRESULT CBlood::Ready_GameObject()
 
 _int CBlood::Update_GameObject(const _float& fTimeDelta)
 {
-	if (IsDead()) return RET_DEAD;
+	if (m_bDead) return RET_DEAD;
 
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
+	bool bActive = false;
 	for (auto iter = m_ActiveList.begin(); iter != m_ActiveList.end(); iter++)
 	{
 		if ((*iter)->bIsAlive)
 		{
+			if(!bActive) bActive = true;
+
 			(*iter)->fAge += fTimeDelta;
 			(*iter)->fAnimTime += fTimeDelta;
 			if ((*iter)->fAnimSpeed <= (*iter)->fAnimTime)
@@ -66,7 +69,13 @@ _int CBlood::Update_GameObject(const _float& fTimeDelta)
 		}
 	}
 
-	//Compute_ViewZ(&m_vPos);
+	if (!bActive)
+	{
+		m_bDead = true;
+		return RET_DEAD;
+	}
+
+	Compute_ViewZ(&m_vPos);
 	return RET_NONE;
 }
 
@@ -110,6 +119,9 @@ void CBlood::SetPostRenderState()
 	//텍스쳐 색으로 나타넴
 	m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
 	m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+
+	m_pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_SELECTARG1);
+	m_pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
 
 	m_pGraphicDev->SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_DISABLE);
 	m_pGraphicDev->SetTextureStageState(1, D3DTSS_ALPHAOP, D3DTOP_DISABLE);

@@ -20,7 +20,7 @@ public:
 
 public:
 	void				Activate() override;
-	//void				Deactivate() override;
+	void				Deactivate() override;
 
 	virtual void		Reset();
 	virtual void		ResetParticle(Particle* pParticle) PURE;

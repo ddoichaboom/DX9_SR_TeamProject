@@ -81,6 +81,12 @@ bool CBeam::CheckCollision(CCollider* _pCollider)
 	return CCollision::Collision_Ray(_pCollider, m_vPos, m_vShootDir);
 }
 
+_vec3 CBeam::GetScale()
+{
+	if (!m_pTransformCom) return { 0,0,0 };
+	else return { m_matScale._11,m_matScale._22 ,m_matScale._33 };
+}
+
 HRESULT CBeam::Add_Component()
 {
 	Engine::CComponent* pComponent = nullptr;

@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Header\CBeamFlare.h" />
     <ClInclude Include="..\Header\CBlood.h" />
     <ClInclude Include="..\Header\CEditorApp.h" />
     <ClInclude Include="..\Header\CEditorCamera.h" />
@@ -166,7 +167,10 @@
     <ClInclude Include="..\Header\CEditorWall.h" />
     <ClInclude Include="..\Header\CEffectScene.h" />
     <ClInclude Include="..\Header\CEffectToolBar.h" />
+    <ClInclude Include="..\Header\CExplosion.h" />
     <ClInclude Include="..\Header\CFileIO.h" />
+    <ClInclude Include="..\Header\CFlare.h" />
+    <ClInclude Include="..\Header\CFlareCircle.h" />
     <ClInclude Include="..\Header\CGrid.h" />
     <ClInclude Include="..\Header\CHierarchy.h" />
     <ClInclude Include="..\Header\CInspector.h" />
@@ -197,6 +201,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Code\CBeamFlare.cpp" />
     <ClCompile Include="..\Code\CBlood.cpp" />
     <ClCompile Include="..\Code\CEditorApp.cpp" />
     <ClCompile Include="..\Code\CEditorCamera.cpp" />
@@ -212,10 +217,13 @@
     <ClCompile Include="..\Code\CEditorWall.cpp" />
     <ClCompile Include="..\Code\CEffectScene.cpp" />
     <ClCompile Include="..\Code\CEffectToolBar.cpp" />
+    <ClCompile Include="..\Code\CExplosion.cpp" />
     <ClCompile Include="..\Code\CFileIO.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\Code\CFlare.cpp" />
+    <ClCompile Include="..\Code\CFlareCircle.cpp" />
     <ClCompile Include="..\Code\CGrid.cpp" />
     <ClCompile Include="..\Code\CHierarchy.cpp" />
     <ClCompile Include="..\Code\CInspector.cpp" />
