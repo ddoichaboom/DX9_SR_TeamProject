@@ -198,16 +198,18 @@ namespace Engine
 
 	typedef struct tagParticle
 	{
-		_vec3 vPosition;
-		_float fSize;
-		_vec3 vVelocity;
-		_float fLifeTime;
-		_float fAge;
-		D3DXCOLOR color;
-		_vec2 vStartUV;
-		_vec2 vEndUV;
-		bool bIsAlive;
-		bool bLoop;
+		_vec3 vPosition{};
+		_vec3 vDirection{};
+		_vec2  vSize = { 1.0f, 1.0f };
+		_float fLifeTime = 0.f;
+		_float fAnimSpeed = 0.f;
+		_float fAnimTime = 0.f;
+		_float fAge = 0.f;
+		D3DXCOLOR color{};
+		_vec2 vStartUV{};
+		_vec2 vEndUV{};
+		bool bIsAlive = false;
+		bool bDirection = false;
 	}Particle;
 
 	struct BoundingBox

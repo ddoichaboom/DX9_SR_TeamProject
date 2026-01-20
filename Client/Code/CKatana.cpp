@@ -8,6 +8,9 @@
 
 
 #include "CPlayer.h"
+#include "CTrail.h"
+#include "CManagement.h"
+#include "CPoolMgr.h"
 
 
 vector<TextureSource> CKatana::m_vTextureSource =
@@ -301,6 +304,12 @@ void CKatana::Begin_Attack1()
 	m_pTransformCom->Set_Pos(m_vStartPos.x - WINCX * 0.5f, -m_vStartPos.y + WINCY * 0.5f, 0.f);
 	m_fAniSpeed = 6.f;
 
+	if (!m_pTrail)
+	{
+		m_pTrail = CPoolMgr::GetInstance()->Get_Object<CTrail>();
+		CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(m_pTrail);
+	}
+	m_pTrail->SetSize({ 80.f,3000.f });
 }
 
 void CKatana::Begin_Attack2()
@@ -320,6 +329,15 @@ void CKatana::Begin_Attack2()
 	m_fDelayTime = 0.f;
 	m_pTransformCom->Set_Pos(m_vStartPos.x - WINCX * 0.5f, -m_vStartPos.y + WINCY * 0.5f, 0.f);
 	m_fAniSpeed = 6.f;
+
+	if (!m_pTrail)
+	{
+		m_pTrail = CPoolMgr::GetInstance()->Get_Object<CTrail>();
+		CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(m_pTrail);
+	}
+	m_pTrail->SetSize({ 80.f,4000.f });
+
+
 }
 
 void CKatana::Begin_Attack3()
@@ -339,6 +357,14 @@ void CKatana::Begin_Attack3()
 	m_fDelayTime = 0.f;
 	m_pTransformCom->Set_Pos(m_vStartPos.x - WINCX * 0.5f, -m_vStartPos.y + WINCY * 0.5f, 0.f);
 	m_fAniSpeed = 6.f;
+
+	if (!m_pTrail)
+	{
+		m_pTrail = CPoolMgr::GetInstance()->Get_Object<CTrail>();
+		CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(m_pTrail);
+	}
+
+	m_pTrail->SetSize({ 80.f,3000.f });
 }
 
 void CKatana::Attack()
@@ -365,6 +391,8 @@ void CKatana::Attack()
 		}
 		else
 		{
+			m_pTrail->SetDead();
+			m_pTrail = nullptr;
 			//m_eCombo = COMBO_NONE;
 			ChangeState(IDLE);
 			m_pParentPart->Get_Player()->Katana_Func();
@@ -377,6 +405,17 @@ void CKatana::Attack()
 	m_pTransformCom->Set_Pos(vPos.x - WINCX * 0.5f, -vPos.y + WINCY * 0.5f, 0.f);
 	
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
+
+	_vec3 start = { m_vStartPos.x - WINCX * 0.5f, -m_vStartPos.y + WINCY * 0.5f, 0.f };
+	_vec3 end = { vPos.x - WINCX * 0.5f, -vPos.y + WINCY * 0.5f, 0.f };
+	if (m_eCombo == COMBO_3)
+	{
+		start.x -= m_pTrail->GetSize().x;
+		end.x -= m_pTrail->GetSize().x;
+	}
+	m_pTrail->SetTrailPos(start, end);
+	m_pTrail->Reset();
+
 }
 
 void CKatana::End_Attack()

@@ -6,7 +6,7 @@
 #include "CManagement.h"
 #include "CBullet.h"
 #include "CPoolMgr.h"
-
+#include "CBlood.h"
 
 _uint CWhiteMan::ID_SLICE_DEAD = CStateComponent::MakeStateID(MS_DEAD, SUB_NONE, SLICE);
 _uint CWhiteMan::ID_ELECT_DEAD = CStateComponent::MakeStateID(MS_DEAD, SUB_NONE, ELECT);
@@ -207,6 +207,8 @@ HRESULT CWhiteMan::Ready_GameObject()
 			OnBodyCollision(info);
 		});
 
+	//히트 로컬 위치 
+	m_vHitPos = { 0.f, 0.4f, 0.f };
 	return S_OK;
 }
 
@@ -269,12 +271,26 @@ void CWhiteMan::OnHeadCollision(CollisionInfo info)
 	if (info.eTag == TAG_KICK || info.eTag == TAG_SLIDE)
 		return;
 
+	CBlood* blood = nullptr;
+	blood = CPoolMgr::GetInstance()->Get_Object<CBlood>();
 	m_fHP = 0.f;
 	if (m_pHeadCollider) m_pHeadCollider->OffCollision();
 	if (m_pBodyCollider) m_pBodyCollider->OffCollision();
-	if (info.eTag == TAG_KATANA) ChangeState(ID_SLICE_DEAD);
-	else ChangeState(ID_HEAD_DEAD);
-
+	if (info.eTag == TAG_KATANA)
+	{
+		ChangeState(ID_SLICE_DEAD);
+		blood->ChangeState(1);
+	}
+	else
+	{
+		ChangeState(ID_HEAD_DEAD);
+		blood->ChangeState(1);
+	}
+	_vec3 pos = m_pHeadCollider->Get_WorldPos();
+	pos.y += m_fHeadPosOffset;
+	blood->SetPos(pos);
+	blood->Reset();
+	CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(blood);
 }
 
 void CWhiteMan::OnBodyCollision(CollisionInfo info)
@@ -290,6 +306,7 @@ void CWhiteMan::OnBodyCollision(CollisionInfo info)
 		}
 	}
 
+
 	if (info.eTag == TAG_SLIDE)
 	{
 		if (m_pHeadCollider) m_pHeadCollider->OffCollision();
@@ -299,20 +316,47 @@ void CWhiteMan::OnBodyCollision(CollisionInfo info)
 		return;
 	}
 
+	CBlood* blood = nullptr;
+
+	_vec3 pos;
+	D3DXVec3TransformCoord(&pos, &m_vHitPos, m_pTransformCom->Get_World());
+
+	_matrix* world = m_pTransformCom->Get_World();
+	_vec3 vLook = { world->_31,world->_32,world->_33 };
+	pos += vLook * -1.f *  m_pBodyCollider->Get_Scale().z;
+		
 	m_fHP -= info.fDamage;
 	if (m_fHP <= 0.f)
 	{
+		blood = CPoolMgr::GetInstance()->Get_Object<CBlood>();
 		if (m_pHeadCollider) m_pHeadCollider->OffCollision();
 		if (m_pBodyCollider) m_pBodyCollider->OffCollision();
-		if (info.eTag == TAG_KATANA) ChangeState(ID_SLICE_DEAD);
-		else ChangeState(MS_DEAD);
+		if (info.eTag == TAG_KATANA)
+		{
+			blood->ChangeState(1);
+			ChangeState(ID_SLICE_DEAD);
+		}
+		else
+		{
+			blood->ChangeState(0);
+			ChangeState(MS_DEAD);
+		}
 	}
 	else if (info.eTag == TAG_KICK)
 	{
 		SetLaunched();
+		return;
 	}
 	else
+	{
+		blood = CPoolMgr::GetInstance()->Get_Object<CBlood>();
 		ChangeState(MS_HIT);
+		blood->ChangeState(0);
+	}
+
+	blood->SetPos(pos);
+	blood->Reset();
+	CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(blood);
 }
 
 

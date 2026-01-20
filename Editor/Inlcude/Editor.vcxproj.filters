@@ -112,6 +112,9 @@
     <Filter Include="07. Effect\00. Blood">
       <UniqueIdentifier>{94609920-62ee-446d-afab-7d51198d9e08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07. Effect\01. Trail">
+      <UniqueIdentifier>{058dba63-f431-4d7d-9394-ce9ec25c99d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -228,6 +231,9 @@
     <ClInclude Include="..\Header\CBlood.h">
       <Filter>07. Effect\00. Blood</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CTrail.h">
+      <Filter>07. Effect\01. Trail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -328,6 +334,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CBlood.cpp">
       <Filter>07. Effect\00. Blood</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTrail.cpp">
+      <Filter>07. Effect\01. Trail</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

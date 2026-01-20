@@ -5,7 +5,14 @@ class CEditorCamera;
 class CToolBar;
 class CHierarchy;
 class CBlood;
-class CParticleEmitter;
+class CTrail;
+class CEditorFloor;
+
+namespace Engine
+{
+	class CParticleEmitter;
+}
+enum EFFECT_TYPE { EF_BLOOD, EF_TRAIL, EF_END };
 
 class CEffectScene :
     public CEditorScene
@@ -21,7 +28,8 @@ public:
 	virtual void				Render_Scene() override;
 
 public:
-	CBlood*						GetEmitter();
+	void						SetEmitter(EFFECT_TYPE _type);
+	CParticleEmitter*			GetEmitter();
 	CEditorCamera*				Get_Camera() { return m_pCamera; }
 	LPDIRECT3DDEVICE9			Get_GraphicDev() { return m_pGraphicDev; }
 
@@ -36,8 +44,9 @@ private:
 	virtual		void			Free() override;
 
 protected:
-	CBlood*						m_pBlood;
-
+	map<EFFECT_TYPE,CParticleEmitter*>	m_mapParticle;
+	CParticleEmitter*			m_pCurParticle;
+	CEditorFloor*				m_pFloor;
 
 };
 
