@@ -175,14 +175,6 @@
     <Filter Include="04.UI\01.StaticUI\03.Select_Item">
       <UniqueIdentifier>{a64ef52c-e2cb-4cb3-96ae-8cb2e75da0b6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\13. Effect">
-      <UniqueIdentifier>{cb380492-a1bf-4e47-9d3c-8b3d8346702d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\13. Effect\00. Blood">
-      <UniqueIdentifier>{29f334ed-3e3c-4276-9b69-4b269ab937be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\13. Effect\01. Trail">
-      <UniqueIdentifier>{011cc0ed-92cc-4fa4-97f1-f58e2dc41719}</UniqueIdentifier>
     <Filter Include="02. GameObject\99. Environment\00. Terrain\00. Floor\01. SlopeFloor">
       <UniqueIdentifier>{627e972f-e652-4c2e-8023-ca40db0c413d}</UniqueIdentifier>
     </Filter>
@@ -215,6 +207,15 @@
     </Filter>
     <Filter Include="04.UI\02.DynamicUI\07.HP_UI">
       <UniqueIdentifier>{4ba2c46f-d985-4030-bbd5-53d0cd01c888}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect">
+      <UniqueIdentifier>{cb380492-a1bf-4e47-9d3c-8b3d8346702d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\00. Blood">
+      <UniqueIdentifier>{29f334ed-3e3c-4276-9b69-4b269ab937be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\01. Trail">
+      <UniqueIdentifier>{011cc0ed-92cc-4fa4-97f1-f58e2dc41719}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -368,15 +369,15 @@
     <ClInclude Include="..\Header\CSelectBG.h">
       <Filter>04.UI\01.StaticUI\03.Select_Item</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CSlopeFloor.h">
-      <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\01. SlopeFloor</Filter>
-	</ClInclude>
     <ClInclude Include="..\Header\CBlood.h">
       <Filter>02. GameObject\13. Effect\00. Blood</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CTrail.h">
       <Filter>02. GameObject\13. Effect\01. Trail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CSlopeFloor.h">
+      <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\01. SlopeFloor</Filter>
+	</ClInclude>
     <ClInclude Include="..\Header\CUIManager.h">
       <Filter>04.UI\UIManager</Filter>
     </ClInclude>

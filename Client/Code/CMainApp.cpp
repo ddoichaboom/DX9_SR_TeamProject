@@ -245,6 +245,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iFlyMonCount = 6;
 	_uint iTriggerCount = 7;
 
+
 	//Effect
 	_uint iBloodCount = 10;
 	_uint iTrailCount = 5;

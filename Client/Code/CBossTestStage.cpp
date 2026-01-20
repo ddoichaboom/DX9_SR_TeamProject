@@ -253,4 +253,3 @@ void CBossTestStage::Free()
 {
 	CScene::Free();
 }
-
