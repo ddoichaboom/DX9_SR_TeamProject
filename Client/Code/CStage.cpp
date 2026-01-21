@@ -10,7 +10,7 @@
 
 CStage::CStage(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CScene(pGraphicDev), m_pBackGround(nullptr), m_pEnvironment_Layer(nullptr)
-    , m_pGameLogic_Layer(nullptr), m_pLoading(nullptr), m_iCurrentRoomIndex(-1)
+    , m_pGameLogic_Layer(nullptr), m_pLoadingEX(nullptr), m_iCurrentRoomIndex(-1)
     , m_BaseResult(E_FAIL), m_TextureResult(E_FAIL), m_ObjectPoolResult(E_FAIL)
     , m_ReadyEnvResult(E_FAIL), m_ReadyGameResult(E_FAIL)
 {

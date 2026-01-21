@@ -232,6 +232,12 @@
     <Filter Include="02. GameObject\13. Effect\06. HitUI">
       <UniqueIdentifier>{54ad4af8-86e9-4582-ae2b-9687cc7ed82f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\01. Stage\02. BossStage">
+      <UniqueIdentifier>{141d9027-a6aa-44b1-8e1c-254f682cdd09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\02. Loading\00. LoadingEX">
+      <UniqueIdentifier>{e0cc82bb-2528-4e70-95c7-4844d96bef68}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -432,8 +438,14 @@
     <ClInclude Include="..\Header\CBodyEmit.h">
       <Filter>02. GameObject\13. Effect\05. BodyEmit</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CBossStage.h">
+      <Filter>01. Scene\01. Stage\02. BossStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CLoadingEX.h">
+      <Filter>01. Scene\02. Loading\00. LoadingEX</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\CHitUI.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>02. GameObject\13. Effect\06. HitUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -626,8 +638,14 @@
     <ClCompile Include="..\Code\CBodyEmit.cpp">
       <Filter>02. GameObject\13. Effect\05. BodyEmit</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\CBossStage.cpp">
+      <Filter>01. Scene\01. Stage\02. BossStage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLoadingEX.cpp">
+      <Filter>01. Scene\02. Loading\00. LoadingEX</Filter>
+    </ClCompile>
     <ClCompile Include="..\Code\CHitUI.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>02. GameObject\13. Effect\06. HitUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

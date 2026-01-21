@@ -152,6 +152,7 @@
     <ClInclude Include="..\Header\CBodyEmit.h" />
     <ClInclude Include="..\Header\CBoss.h" />
     <ClInclude Include="..\Header\CBossBullet.h" />
+    <ClInclude Include="..\Header\CBossStage.h" />
     <ClInclude Include="..\Header\CBossTestStage.h" />
     <ClInclude Include="..\Header\CCeiling.h" />
     <ClInclude Include="..\Header\CBullet.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="..\Header\CHeartBeat.h" />
     <ClInclude Include="..\Header\CHitUI.h" />
     <ClInclude Include="..\Header\CHPUI.h" />
+    <ClInclude Include="..\Header\CLoadingEX.h" />
     <ClInclude Include="..\Header\CMapCollider.h" />
     <ClInclude Include="..\Header\CDynamicCeiling.h" />
     <ClInclude Include="..\Header\CDynamicFloor.h" />
@@ -221,6 +223,7 @@
     <ClCompile Include="..\Code\CBodyEmit.cpp" />
     <ClCompile Include="..\Code\CBoss.cpp" />
     <ClCompile Include="..\Code\CBossBullet.cpp" />
+    <ClCompile Include="..\Code\CBossStage.cpp" />
     <ClCompile Include="..\Code\CBossTestStage.cpp" />
     <ClCompile Include="..\Code\CCeiling.cpp" />
     <ClCompile Include="..\Code\CBullet.cpp" />
@@ -233,6 +236,7 @@
     <ClCompile Include="..\Code\CHeartBeat.cpp" />
     <ClCompile Include="..\Code\CHitUI.cpp" />
     <ClCompile Include="..\Code\CHPUI.cpp" />
+    <ClCompile Include="..\Code\CLoadingEX.cpp" />
     <ClCompile Include="..\Code\CMapCollider.cpp" />
     <ClCompile Include="..\Code\CDynamicCeiling.cpp" />
     <ClCompile Include="..\Code\CDynamicFloor.cpp" />

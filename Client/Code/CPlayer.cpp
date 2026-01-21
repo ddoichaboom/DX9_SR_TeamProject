@@ -588,6 +588,12 @@ _bool CPlayer::CheckOnFloor(_float* pHeight)
 		if (pTransform && pTransform->Check_OnRange(&vPosition, pHeight))
 			return true;
 	}
+	//TODO 제거하기 . BossSTage용 임시 코드 
+	if (pairIter.second == pairIter.first)
+	{
+		*pHeight = 0.f;
+		return true;
+	}
 
 	return false;
 }

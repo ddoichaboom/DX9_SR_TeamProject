@@ -10,7 +10,7 @@ vector<TextureSource> CBeam::m_vTextureSource =
 	 { 0, L"../Bin/Resource/Texture/Monster/BeamMon/Laser_512.dds" }
 };
 CBeam::CBeam(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CGameObject(pGraphicDev) , m_pBufferCom(nullptr), m_pTransformCom(nullptr),
+	:CGameObject(pGraphicDev) , m_pBufferUpCom(nullptr), m_pTransformCom(nullptr),
 	m_pTextureCom(nullptr), m_fTime(0.f)
 {
 	D3DXMatrixIdentity(&m_matScale);
@@ -73,7 +73,7 @@ void CBeam::Render_GameObject()
 	_matrix finalWorld =  m_matScale * m_matVtxTran* m_matRot * m_matTrans;
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, &finalWorld);
 	m_pTextureCom->Render_Texture();
-	m_pBufferCom->Render_Buffer();
+	m_pBufferUpCom->Render_Buffer();
 }
 
 bool CBeam::CheckCollision(CCollider* _pCollider)
@@ -91,7 +91,7 @@ HRESULT CBeam::Add_Component()
 {
 	Engine::CComponent* pComponent = nullptr;
 	//VIBuffer
-	pComponent = m_pBufferCom = dynamic_cast<Engine::CRcTexUp*>
+	pComponent = m_pBufferUpCom = dynamic_cast<Engine::CRcTexUp*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_RcTexUp"));
 
 	if (nullptr == pComponent)

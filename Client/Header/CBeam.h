@@ -44,7 +44,7 @@ public:
 protected:
 	static vector<TextureSource> m_vTextureSource;
 	//버텍스가 RcTexUp 타입임. 정의 참고 
-	Engine::CRcTexUp* m_pBufferCom;
+	Engine::CRcTexUp* m_pBufferUpCom;
 	Engine::CTransform* m_pTransformCom;
 	Engine::CTexture* m_pTextureCom;
 
