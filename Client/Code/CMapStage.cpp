@@ -249,14 +249,33 @@ HRESULT CMapStage::Ready_ObjectPool_Terrain()
         }
     }
 
-    if (!Engine::CPoolMgr::GetInstance()->HasPool<CTrigger>())
+    //if (!Engine::CPoolMgr::GetInstance()->HasPool<CTrigger>())
+    //{
+    //    if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CTrigger>(m_pGraphicDev)))
+    //    {
+    //        MSG_BOX("Trigger Pool Create Failed");
+    //        return E_FAIL;
+    //    }
+    //}
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CMapCollider>())
     {
-        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CTrigger>(m_pGraphicDev)))
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CMapCollider>(m_pGraphicDev)))
         {
-            MSG_BOX("Trigger Pool Create Failed");
+            MSG_BOX("MapCollider Pool Create Failed");
             return E_FAIL;
         }
     }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CDoorTrigger>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CDoorTrigger>(m_pGraphicDev)))
+        {
+            MSG_BOX("DoorTrigger Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
     return S_OK;
 }
 
@@ -308,24 +327,6 @@ HRESULT CMapStage::Ready_ObjectPool_Effect()
         if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CBeamFlare>(m_pGraphicDev)))
         {
             MSG_BOX("Effect BeamFlare Pool Create Failed");
-            return E_FAIL;
-        }
-    }
-    
-    if (!Engine::CPoolMgr::GetInstance()->HasPool<CMapCollider>())
-    {
-        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CMapCollider>(m_pGraphicDev)))
-        {
-            MSG_BOX("MapCollider Pool Create Failed");
-            return E_FAIL;
-        }
-    }
-
-    if (!Engine::CPoolMgr::GetInstance()->HasPool<CDoorTrigger>())
-    {
-        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CDoorTrigger>(m_pGraphicDev)))
-        {
-            MSG_BOX("DoorTrigger Pool Create Failed");
             return E_FAIL;
         }
     }
