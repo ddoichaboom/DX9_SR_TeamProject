@@ -381,7 +381,7 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
     const vector<wstring>& vecMapFiles = CMapLoader::GetInstance()->Get_MapFiles();
 
     if (!vecMapFiles.empty())
-        m_wstrCurrentMapFile = vecMapFiles[1];      // TODO : Tutorial Map의 끝 Trigger Box에 닿으면 다음 맵 Loading호출
+        m_wstrCurrentMapFile = vecMapFiles[2];      // TODO : Tutorial Map의 끝 Trigger Box에 닿으면 다음 맵 Loading호출
     else
         return E_FAIL;
 

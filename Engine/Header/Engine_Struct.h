@@ -200,6 +200,7 @@ namespace Engine
 	typedef struct tagEventData
 	{
 		int value = -1;
+		virtual ~tagEventData() {}
 	}EventData;
 
 
@@ -247,11 +248,16 @@ namespace Engine
 	typedef struct tagFontData
 	{
 		const _tchar* pFontTag;
-		const _tchar* pString;
+		std::wstring pString;
 		_vec3 pPos;
 		_vec3 pSize;
 		D3DXCOLOR Color;
 	}FontData;
+
+	typedef struct tagMonsterDeadData : public EventData
+	{
+		std::wstring wText;		
+	}MonsterData;
 }
 
 

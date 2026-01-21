@@ -285,6 +285,10 @@ void CWhiteMan::OnHeadCollision(CollisionInfo info)
 	{
 		ChangeState(ID_HEAD_DEAD);
 		blood->ChangeState(1);
+
+		// Test
+		wstring text = L"Çìµå¼¦";
+		Make_DeadText(text, 2);
 	}
 	_vec3 pos = m_pHeadCollider->Get_WorldPos();
 	pos.y += m_fHeadPosOffset;

@@ -8,18 +8,20 @@ namespace Engine
 	class CTexture;
 }
 
-class CPlayer;
-
-class CHPUI : public CBaseUI
+class CPlusUI : public CBaseUI    
 {
 protected:
-	explicit	CHPUI(LPDIRECT3DDEVICE9 pGraphicDev);	
-	explicit	CHPUI(const CHPUI& rhs);
-	virtual		~CHPUI();
+	explicit	CPlusUI(LPDIRECT3DDEVICE9 pGraphicDev);	
+	explicit	CPlusUI(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos);	
+	explicit	CPlusUI(const CPlusUI& rhs);
+	virtual		~CPlusUI();
 
 public:
-	static		CHPUI* Create(PDIRECT3DDEVICE9 pGraphicDev);	
+	static		CPlusUI* Create(PDIRECT3DDEVICE9 pGraphicDev);
+	static		CPlusUI* Create(PDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos);
 	static		TextureSource& GetTextureSource() { return m_textureSource; }
+	
+	void		Set_Parent(CBaseUI* pParent);
 
 protected:
 	virtual		HRESULT		Add_Component();
@@ -42,11 +44,8 @@ protected:
 	Engine::CTransform* m_pTransformCom;
 	Engine::CTexture* m_pTextureCom;
 
-	CPlayer* m_pPlayer;
+	CBaseUI* m_pParentUI;
 
-	_vec3	m_vPos;
-	_vec3	m_vSize;
-	FontData m_fontData;
-
+	_vec3 m_vLocalPos;
 };
 

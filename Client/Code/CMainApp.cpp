@@ -195,7 +195,7 @@ HRESULT CMainApp::Ready_DefaultProto()
 	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Number", L"DS-Digital", 40, 40, FW_DONTCARE, false, true)))
 		return E_FAIL;
 
-	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Default", L"견명조", 20, 20, FW_HEAVY,false, false)))
+	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Default", L"견명조", 15, 15, FW_HEAVY,false, false)))
 		return E_FAIL;
 
 	return S_OK;

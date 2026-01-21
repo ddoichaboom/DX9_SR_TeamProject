@@ -31,12 +31,16 @@ public :
 	_uint		Get_Order() const { return m_iOrder; }
 	void		Set_Order(_uint iOrder) { m_iOrder = iOrder; }
 
+	const _vec3&		Get_Pos() const { return m_vPos; }
+
 
 protected :
 	_float		m_fX;
 	_float		m_fY;
 	_float		m_fSizeX;
 	_float		m_fSizeY;
+
+	_vec3		m_vPos;
 
 	_uint		m_iOrder;
 

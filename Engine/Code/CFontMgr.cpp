@@ -34,7 +34,7 @@ void CFontMgr::Render_Font(FontData* pData)
 	CFont* pFont = Find_Font(pData->pFontTag);
 
 	if (pFont != nullptr);
-		pFont->Render_Font(pData->pString, pData->pPos, pData->pSize,pData->Color);
+		pFont->Render_Font(pData->pString.c_str(), pData->pPos, pData->pSize, pData->Color);
 }
 
 void CFontMgr::Add_RenderFont(FontData* pFontData)
@@ -66,7 +66,7 @@ CFont* CFontMgr::Find_Font(const _tchar* pFontTag)
 }
 
 void CFontMgr::Free()
-{
+{	
 	Clear_RenderFont();
 	for_each(m_mapFont.begin(), m_mapFont.end(), CDeleteMap());
 	m_mapFont.clear();	
