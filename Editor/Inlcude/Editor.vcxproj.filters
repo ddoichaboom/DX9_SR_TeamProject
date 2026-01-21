@@ -130,6 +130,9 @@
     <Filter Include="07. Effect\06. HitUI">
       <UniqueIdentifier>{a934a0d9-d1db-4866-9b17-0610833b960b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07. Effect\07. BossTrail">
+      <UniqueIdentifier>{dcefb232-8529-4623-ac14-7046227beb38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -264,6 +267,9 @@
     <ClInclude Include="..\Header\CHitUI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CBossTrail.h">
+      <Filter>07. Effect\07. BossTrail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -382,6 +388,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CHitUI.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossTrail.cpp">
+      <Filter>07. Effect\07. BossTrail</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
