@@ -217,9 +217,6 @@
     <Filter Include="02. GameObject\13. Effect\01. Trail">
       <UniqueIdentifier>{011cc0ed-92cc-4fa4-97f1-f58e2dc41719}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\99. Environment\00. Terrain\02. Wall\SideDashWall">
-      <UniqueIdentifier>{3a9e2c78-4499-4c73-a0df-3dba8718faef}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -380,7 +377,7 @@
     </ClInclude>
     <ClInclude Include="..\Header\CSlopeFloor.h">
       <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\01. SlopeFloor</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="..\Header\CUIManager.h">
       <Filter>04.UI\UIManager</Filter>
     </ClInclude>
@@ -407,9 +404,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\CHPUI.h">
       <Filter>04.UI\02.DynamicUI\07.HP_UI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CSideDashWall.h">
-      <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall\SideDashWall</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -556,7 +550,7 @@
     </ClCompile>
     <ClCompile Include="..\Code\CSlopeFloor.cpp">
       <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\01. SlopeFloor</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="..\Code\CBlood.cpp">
       <Filter>02. GameObject\13. Effect\00. Blood</Filter>
     </ClCompile>
@@ -589,9 +583,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\CHPUI.cpp">
       <Filter>04.UI\02.DynamicUI\07.HP_UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CSideDashWall.cpp">
-      <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall\SideDashWall</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
