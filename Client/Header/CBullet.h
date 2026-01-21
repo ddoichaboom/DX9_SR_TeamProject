@@ -42,6 +42,11 @@ public:
 
     void					Activate() override;
     void					Deactivate() override;
+
+    _float					GetAttackDamage() override
+    {
+        return m_fAttackDamage;
+    }
 protected:
     HRESULT                 Add_Component() override;
     virtual void	        Free();
@@ -68,6 +73,7 @@ protected:
 
     CCollider*              m_pCollider;
     const _tchar*           m_szColliderName = L"ColBody";
+    _float					m_fAttackDamage;
 
 };
 

@@ -4,15 +4,12 @@
 class CEditorCamera;
 class CToolBar;
 class CHierarchy;
-class CBlood;
-class CTrail;
 class CEditorFloor;
-
 namespace Engine
 {
 	class CParticleEmitter;
 }
-enum EFFECT_TYPE { EF_BLOOD, EF_TRAIL,EF_FLARE,EF_EXP, EF_BEAM_FLARE, EF_END };
+enum EFFECT_TYPE { EF_BLOOD, EF_TRAIL,EF_FLARE,EF_EXP, EF_BEAM_FLARE, EF_BODY, EF_HITUI, EF_END };
 
 class CEffectScene :
     public CEditorScene

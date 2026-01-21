@@ -40,8 +40,11 @@ protected:
 	virtual	HRESULT		Add_Component() PURE;
 	void				Free() override;
 
+	//UV 기준 offset 이동
 	void				SetNextUV(Particle* pParticle);
-
+	//Frame 기준 이동 
+	//Padding이 있는 텍스쳐는 아래 함수로 직접 넘겨주기 
+	bool				SetNextFrame(Particle* pParticle, _vec2& _Idx);
 public:
 	void				SetPos(_vec3 _pos) { m_vPos = _pos; }
 	_vec3				GetPos() { return m_vPos; }
@@ -67,13 +70,12 @@ public:
 	_int				GetState() { return m_iState; }
 
 protected:
-	vector<Particle>	m_Particles;		// 파티클 속성 리스트 
+	vector<Particle>	m_Particles;			// 파티클 속성 리스트 
 	list<Particle*>		m_ActiveList;
 
 	D3DXVECTOR3			m_vOrigin;
-	//_float m_fEmitRate;				// 새로운 파티클이 추가되는 비율
 	BoundingBox			m_pBoundingBox;			// 파티클의 경계상자
-	int					m_iMaxParticle;				// 최대 파티클 수 
+	int					m_iMaxParticle;			// 최대 파티클 수 
 
 	CDVIBuffer*			m_pBufferCom;
 	CTexture*			m_pTextureCom;

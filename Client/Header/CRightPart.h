@@ -70,5 +70,5 @@ protected:
 protected:
 	//πÊΩ¬»Ò ¿Ã∆Â∆Æ √ﬂ∞° 
 	CFlare* m_pFlare = nullptr;
-	_vec3 m_vFlarePosOffset = {-100.f, 180.f, 0.1f};
+	_vec3 m_vFlarePosOffset = {-100.f, 185.f, 0.1f};
 };

@@ -76,7 +76,7 @@ void CFlare::SetPreRenderState()
 {
 	m_pGraphicDev->SetTexture(1, m_pTextureDesc->pTexture);
 
-	//투명 배경 제거 
+	//투명 배경 제거 + 반투명x
 	m_pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 	m_pGraphicDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	m_pGraphicDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);

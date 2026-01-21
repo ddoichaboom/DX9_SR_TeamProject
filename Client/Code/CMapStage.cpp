@@ -46,7 +46,8 @@
 #include "CFlare.h"
 #include "CExplosion.h"
 #include "CBeamFlare.h"
-
+#include "CBodyEmit.h"
+#include "CHitUI.h"
 CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
 {
 }
@@ -258,7 +259,28 @@ HRESULT CMapStage::Ready_ObjectPool()
             return E_FAIL;
         }
     }
+
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CBodyEmit>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CBodyEmit>(m_pGraphicDev)))
+        {
+            MSG_BOX("Effect BodyEmit Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CHitUI>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CHitUI>(m_pGraphicDev)))
+        {
+            MSG_BOX("Effect HitUI Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
     return S_OK;
+
 }
 
 
@@ -418,6 +440,22 @@ HRESULT CMapStage::Ready_EffectTextureProto()
     if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_BeamFlare_Texture", pCom_Texture)))
     {
         MSG_BOX("Proto BeamFlare Ready Failed");
+        return E_FAIL;
+    }
+
+    //BodyEmit
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBodyEmit::GetTextureSources());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_BodyEmit_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto BodyEmit Ready Failed");
+        return E_FAIL;
+    }
+
+    //HitUI
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CHitUI::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_HitUI_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto HitUI Ready Failed");
         return E_FAIL;
     }
 
@@ -585,15 +623,16 @@ void CMapStage::Check_Collision()
 {
    auto iter_Map_Col = m_mapLayer[L"Environment_Layer"]->Get_Objects(OBJ_COL);
    auto iter_Map_Trigger = m_mapLayer[L"Environment_Layer"]->Get_Objects(OBJ_TRIGGER);
+   auto iter_Map_Bullet = m_mapLayer[L"GameLogic_Layer"]->Get_Objects(OBJ_BULLET);
    auto iter_Map_Mon = m_mapLayer[L"GameLogic_Layer"]->Get_Objects(OBJ_MONSTER);
    CGameObject* player = m_mapLayer[L"GameLogic_Layer"]->Get_Object(OBJ_PLAYER);
 
-   vector<CCollider*> PlayerColliders;
-
+   //vector<CCollider*> PlayerColliders;
+   CCollider* pPlayerCollider = nullptr;
    if (player) 
    {
        CCharacter * cPlayer = static_cast<CCharacter*>(player);
-       cPlayer->GetAllCollider(PlayerColliders);
+       pPlayerCollider = cPlayer->GetCollider(); // Main Collider 만 받아옴 
    }
 
    //Player, Monster - 맵 콜라이더 충돌
@@ -614,12 +653,17 @@ void CMapStage::Check_Collision()
            CCollision::Collision_Diff(monCollider, mapCollider);
        }
        //플레이어 
-       for (auto& collider : PlayerColliders)
-       {
-           CCollision::Collision_Diff(collider, mapCollider);
-       }
+       if(pPlayerCollider) CCollision::Collision_Diff(pPlayerCollider, mapCollider);
 
    }
+
+
+   //-------------------------------------------------------------------
+   //Player 충돌 
+   //-------------------------------------------------------------------
+
+   if (!pPlayerCollider) return;
+
    //Player- Trigger 충돌
    for (multimap<OBJ_ID, CGameObject*>::iterator it_tri = iter_Map_Trigger.first; it_tri != iter_Map_Trigger.second; it_tri++)
    {
@@ -627,12 +671,20 @@ void CMapStage::Check_Collision()
        CCollider* mapCollider = mapTrig_Collision->GetCollider();
        if (!mapCollider) continue;
 
-       for (auto& collider : PlayerColliders)
-       {
-           CCollision::Collision_Base(collider, mapCollider);
-       }
+       CCollision::Collision_Base(pPlayerCollider, mapCollider);
    }
 
+   //Player- Bullet 충돌
+   for (multimap<OBJ_ID, CGameObject*>::iterator it_bullet = iter_Map_Bullet.first; it_bullet != iter_Map_Bullet.second; it_bullet++)
+   {
+       CCollision* mapBul_Collision = static_cast<CCollision*>(it_bullet->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+       CCollider* mapCollider = mapBul_Collision->GetCollider();
+       if (!mapCollider) continue;
+
+       CCollision::Collision_Base(pPlayerCollider, mapCollider);
+   }
+   
+   // Player 충돌 End
 }
 
 void CMapStage::OnEvent(EVENT_TYPE _type, EventData* _pData)

@@ -128,12 +128,6 @@ void CBlood::SetPostRenderState()
 
 }
 
-void CBlood::Deactivate()
-{
-	CGameObject::Deactivate();
-	m_iState = -1;
-	m_pTextureDesc = nullptr;
-}
 
 HRESULT CBlood::Add_Component()
 {

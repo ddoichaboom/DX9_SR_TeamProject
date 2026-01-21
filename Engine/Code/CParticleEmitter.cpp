@@ -36,8 +36,14 @@ void CParticleEmitter::Render_GameObject()
 void CParticleEmitter::Activate()
 {
 	CGameObject::Activate();
+	ChangeState(0);
 	//Reset();
 	//풀에서 꺼낸 후 직접 Reset 호출하기 
+}
+void CParticleEmitter::Deactivate()
+{
+	CGameObject::Deactivate();
+	m_iState = -1;
 }
 void CParticleEmitter::Reset()
 {
@@ -135,6 +141,38 @@ void CParticleEmitter::SetNextUV(Particle* pParticle)
 	pParticle->vStartUV = curUV;
 	pParticle->vEndUV = curUV + uvOffset;
 
+}
+
+bool CParticleEmitter::SetNextFrame(Particle* pParticle, _vec2& _Idx)
+{
+	if (!pParticle || !m_pTextureDesc) return true;
+	_vec2 uvOffset = m_pTextureDesc->vUVoffset;
+	_vec2 maxIdx = m_pTextureDesc->vMaxIdx;
+	_float col = _Idx.x;
+	_float row = _Idx.y;
+
+	if (row == maxIdx.y && col == m_pTextureDesc->fEndFrameCol)
+	{
+		if (m_bLoop)
+		{
+			_Idx = { 0,0 };
+			return false;
+		}
+		//Frame End 
+		return true;
+	}
+
+	col+= 1.f;
+	if (col > maxIdx.x)
+	{
+		col = 0.f;
+		row +=1.f;
+	}
+	_Idx = { col, row };
+	pParticle->vStartUV = { col * uvOffset.x , row * uvOffset.y };
+	pParticle->vEndUV = pParticle->vStartUV + uvOffset;
+
+	return false;
 }
 
 void CParticleEmitter::ChangeState(_uint _state)

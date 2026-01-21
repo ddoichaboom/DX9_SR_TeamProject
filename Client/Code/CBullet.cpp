@@ -11,7 +11,7 @@ TextureSource CBullet::m_textureSource =
 CBullet::CBullet(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CGameObject(pGraphicDev), m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr),
 	m_pCollisionCom(nullptr), m_fSpeed(0.f), m_vDir{0,0,0}, m_STATE(DIR_END), m_fLifeTime(0.f), m_fTime(0.f)
-	, m_pCollider(nullptr)
+	, m_pCollider(nullptr), m_fAttackDamage(5.f)
 {
 	m_eOBJ_ID = OBJ_BULLET;
 	m_iID = Make_ID();
@@ -20,7 +20,7 @@ CBullet::CBullet(LPDIRECT3DDEVICE9 pGraphicDev)
 CBullet::CBullet(const CBullet& rhs)
 	:CGameObject(rhs), m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr),
 	m_pCollisionCom(nullptr), m_fSpeed(0.f), m_vDir{ 0,0,0 }, m_STATE(DIR_END), m_fLifeTime(0.f), m_fTime(0.f)
-	, m_pCollider(nullptr)
+	, m_pCollider(nullptr), m_fAttackDamage(5.f)
 {
 	m_eOBJ_ID = OBJ_BULLET;
 	m_iID = Make_ID();
@@ -59,7 +59,6 @@ HRESULT CBullet::Ready_GameObject()
 	m_pTextureCom->Change_Texture(0);
 	m_fSpeed = 300.f;
 	m_fLifeTime = 3.0f;
-
 	return S_OK;
 }
 

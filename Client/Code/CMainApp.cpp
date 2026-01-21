@@ -44,6 +44,8 @@
 #include "CFlare.h"
 #include "CExplosion.h"
 #include "CBeamFlare.h"
+#include "CBodyEmit.h"
+#include "CHitUI.h"
 
 CMainApp::CMainApp() : m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
 , m_pManagementClass(CManagement::GetInstance())
@@ -254,7 +256,9 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iTrailCount = 4;
 	_uint iFlareCount = 3;
 	_uint iExplosionCount = 6;
-	_uint iBeamFlareCount = 10;
+	_uint iBeamFlareCount = 6;
+	_uint iBodyEmitCount = 6;
+	_uint iHitUICount = 2;
 
 	for (auto& wstrFile : CMapLoader::GetInstance()->Get_MapFiles())
 	{
@@ -307,6 +311,8 @@ HRESULT CMainApp::Ready_ObjectPool()
 	CPoolMgr::GetInstance()->SetPoolSize<CFlare>(iFlareCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CExplosion>(iExplosionCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CBeamFlare>(iBeamFlareCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CBodyEmit>(iBodyEmitCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CHitUI>(iHitUICount);
 	return S_OK;
 }
 

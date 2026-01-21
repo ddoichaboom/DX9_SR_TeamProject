@@ -124,8 +124,11 @@
     <Filter Include="07. Effect\04. BeamFlare">
       <UniqueIdentifier>{3943d88a-0cba-403d-b956-80de54e4bfcb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="07. Effect\05. FlareCircle">
+    <Filter Include="07. Effect\05. BodyEmit">
       <UniqueIdentifier>{4a76c965-b8b7-4de3-bd7e-39e08d2de567}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Effect\06. HitUI">
+      <UniqueIdentifier>{a934a0d9-d1db-4866-9b17-0610833b960b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -252,11 +255,14 @@
     <ClInclude Include="..\Header\CExplosion.h">
       <Filter>07. Effect\03. Explosion</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CFlareCircle.h">
-      <Filter>07. Effect\05. FlareCircle</Filter>
+    <ClInclude Include="..\Header\CBodyEmit.h">
+      <Filter>07. Effect\05. BodyEmit</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CBeamFlare.h">
       <Filter>07. Effect\04. BeamFlare</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHitUI.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -368,11 +374,14 @@
     <ClCompile Include="..\Code\CExplosion.cpp">
       <Filter>07. Effect\03. Explosion</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CFlareCircle.cpp">
-      <Filter>07. Effect\05. FlareCircle</Filter>
+    <ClCompile Include="..\Code\CBodyEmit.cpp">
+      <Filter>07. Effect\05. BodyEmit</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CBeamFlare.cpp">
       <Filter>07. Effect\04. BeamFlare</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHitUI.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

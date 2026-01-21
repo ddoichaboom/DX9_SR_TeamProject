@@ -226,6 +226,12 @@
     <Filter Include="02. GameObject\13. Effect\04. BeamFlare">
       <UniqueIdentifier>{2e62c910-c363-40fc-ab85-4977833976ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\13. Effect\05. BodyEmit">
+      <UniqueIdentifier>{0bf218cc-17d3-474e-97ed-44f39b53bde1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\06. HitUI">
+      <UniqueIdentifier>{54ad4af8-86e9-4582-ae2b-9687cc7ed82f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -423,6 +429,12 @@
     <ClInclude Include="..\Header\CBeamFlare.h">
       <Filter>02. GameObject\13. Effect\04. BeamFlare</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CBodyEmit.h">
+      <Filter>02. GameObject\13. Effect\05. BodyEmit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHitUI.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -610,6 +622,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CBeamFlare.cpp">
       <Filter>02. GameObject\13. Effect\04. BeamFlare</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBodyEmit.cpp">
+      <Filter>02. GameObject\13. Effect\05. BodyEmit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHitUI.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,7 @@
 #include "CBeam.h"
 #include "CExplosion.h"
 #include "CBeamFlare.h"
+#include "CBodyEmit.h"
 
 //-------------------------------------------------------------------------
 // Texture , Animation Data
@@ -109,6 +110,7 @@ HRESULT CBeamMon::Ready_GameObject()
 			OnBodyCollision(info);
 		});
 
+	m_fAttackDamage = 5.f;
 	return S_OK;
 }
 
@@ -233,11 +235,19 @@ void CBeamMon::Attack()
 void CBeamMon::Dead()
 {
 	CExplosion * exp = CPoolMgr::GetInstance()->Get_Object<CExplosion>();
+	CBodyEmit* bodyEmit = CPoolMgr::GetInstance()->Get_Object<CBodyEmit>();
 	if (exp)
 	{
 		CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(exp);
 		exp->SetPos(*m_pTransformCom->Get_Info(INFO_POS));
 		exp->Reset();
+	}
+
+	if (bodyEmit)
+	{
+		CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(bodyEmit);
+		bodyEmit->SetPos(*m_pTransformCom->Get_Info(INFO_POS));
+		bodyEmit->Reset();
 	}
 	SetDead();
 }
@@ -284,6 +294,7 @@ bool CBeamMon::RunBeam(const _float& fTimeDelta)
 	D3DXVec3Lerp(&m_vShootDir, &m_vStartDir, &m_vEndDir, m_fTime / m_fBeamTime);
 	D3DXVec3Normalize(&m_vShootDir, &m_vShootDir);
 	m_pBeam->SetShootDir(m_vShootDir);
+	CollisionBeam();
 
 	return false;
 }
@@ -292,15 +303,16 @@ void CBeamMon::CollisionBeam()
 {
 	if (m_bBeamCollision) return;
 	CCollision* playerCollision = GetPlayerCollision();
-	auto& collidersMap = playerCollision->GetColliderMap();
-	for (auto &pairCollider : collidersMap)
+	if (!playerCollision) return;
+
+	CCollider * collider = playerCollision->GetCollider();
+	if (!collider) return;
+
+	bool bCollision = m_pBeam->CheckCollision(collider);
+	if (bCollision)
 	{
-		bool bCollision = m_pBeam->CheckCollision(pairCollider.second);
-		if (bCollision)
-		{
-			m_bBeamCollision = bCollision;
-			return;
-		}
+		m_bBeamCollision = bCollision;
+		collider->Collision({ this,_vec3(),m_fAttackDamage });
 	}
 
 }

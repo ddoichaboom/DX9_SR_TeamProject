@@ -170,9 +170,10 @@
     <ClInclude Include="..\Header\CExplosion.h" />
     <ClInclude Include="..\Header\CFileIO.h" />
     <ClInclude Include="..\Header\CFlare.h" />
-    <ClInclude Include="..\Header\CFlareCircle.h" />
+    <ClInclude Include="..\Header\CBodyEmit.h" />
     <ClInclude Include="..\Header\CGrid.h" />
     <ClInclude Include="..\Header\CHierarchy.h" />
+    <ClInclude Include="..\Header\CHitUI.h" />
     <ClInclude Include="..\Header\CInspector.h" />
     <ClInclude Include="..\Header\CMainMenuBar.h" />
     <ClInclude Include="..\Header\CMousePicker.h" />
@@ -223,9 +224,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\Code\CFlare.cpp" />
-    <ClCompile Include="..\Code\CFlareCircle.cpp" />
+    <ClCompile Include="..\Code\CBodyEmit.cpp" />
     <ClCompile Include="..\Code\CGrid.cpp" />
     <ClCompile Include="..\Code\CHierarchy.cpp" />
+    <ClCompile Include="..\Code\CHitUI.cpp" />
     <ClCompile Include="..\Code\CInspector.cpp" />
     <ClCompile Include="..\Code\CMainMenuBar.cpp" />
     <ClCompile Include="..\Code\CMousePicker.cpp" />

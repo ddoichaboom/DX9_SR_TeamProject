@@ -29,6 +29,9 @@
 #include "CFlare.h"
 #include "CExplosion.h"
 #include "CBeamFlare.h"
+#include "CBodyEmit.h"
+#include "CHitUI.h"
+
 
 CEditorApp::CEditorApp()
     : m_pGraphicDev(nullptr)
@@ -416,6 +419,23 @@ HRESULT CEditorApp::Ready_Texture_Prototype()
         MSG_BOX("Proto BeamFlare Ready Failed");
         return E_FAIL;
     }
+
+    //BodyEmit Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBodyEmit::GetTextureSources());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_BodyEmit_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto BodyEmit Ready Failed");
+        return E_FAIL;
+    }
+
+    //HitUI Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CHitUI::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_HitUI_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto HitUI Ready Failed");
+        return E_FAIL;
+    }
+
 
     return S_OK;
 }
