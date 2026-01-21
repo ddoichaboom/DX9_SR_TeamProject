@@ -2,7 +2,7 @@
   "ceilingCount": 296,
   "dynamicFloorCount": 8,
   "floorCount": 276,
-  "objectCount": 686,
+  "objectCount": 709,
   "objects": [
     {
       "floorType": 0,
@@ -13625,98 +13625,6 @@
     {
       "name": "Wall",
       "position": [
-        105.22962188720703,
-        16.0,
-        707.057861328125
-      ],
-      "roomIndex": 0,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Wall",
-      "wallDirection": 0,
-      "wallType": 0
-    },
-    {
-      "name": "Wall",
-      "position": [
-        -54.36043930053711,
-        16.0,
-        709.9041748046875
-      ],
-      "roomIndex": 0,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Wall",
-      "wallDirection": 0,
-      "wallType": 0
-    },
-    {
-      "name": "Wall",
-      "position": [
-        -50.93157958984375,
-        16.0,
-        858.5654296875
-      ],
-      "roomIndex": 0,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Wall",
-      "wallDirection": 0,
-      "wallType": 0
-    },
-    {
-      "name": "Wall",
-      "position": [
-        12.152769088745117,
-        16.0,
-        894.3523559570313
-      ],
-      "roomIndex": 0,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Wall",
-      "wallDirection": 0,
-      "wallType": 0
-    },
-    {
-      "name": "Wall",
-      "position": [
         0.0,
         16.0,
         16.0
@@ -15480,9 +15388,630 @@
       "type": "Wall",
       "wallDirection": 0,
       "wallType": 8
+    },
+    {
+      "name": "Wall",
+      "position": [
+        0.0,
+        -16.0,
+        651.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 8
+    },
+    {
+      "name": "Wall",
+      "position": [
+        32.0,
+        -16.0,
+        651.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 8
+    },
+    {
+      "name": "Wall",
+      "position": [
+        0.0,
+        -48.0,
+        651.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        0.0,
+        -48.0,
+        683.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        32.0,
+        -48.0,
+        651.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        32.0,
+        -48.0,
+        683.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -64.0,
+        -48.0,
+        715.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        96.0,
+        -48.0,
+        715.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -48.0,
+        -48.0,
+        699.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -16.0,
+        -48.0,
+        699.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        48.0,
+        -48.0,
+        699.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -64.0,
+        -48.0,
+        747.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -64.0,
+        -48.0,
+        779.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -64.0,
+        -48.0,
+        811.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        96.0,
+        -48.0,
+        747.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        96.0,
+        -48.0,
+        779.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        96.0,
+        -48.0,
+        811.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        96.0,
+        -48.0,
+        843.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -64.0,
+        -48.0,
+        843.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -48.0,
+        -48.0,
+        859.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -16.0,
+        -48.0,
+        859.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        48.0,
+        -48.0,
+        859.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        80.0,
+        -48.0,
+        859.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        0.0,
+        -48.0,
+        875.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        32.0,
+        -48.0,
+        875.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        80.0,
+        -48.0,
+        699.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 4
+    },
+    {
+      "name": "Wall",
+      "position": [
+        16.0,
+        -48.0,
+        891.7130126953125
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 4
     }
   ],
   "obstacleCount": 1,
   "version": 4,
-  "wallCount": 99
+  "wallCount": 122
 }

@@ -49,7 +49,9 @@ void CToolBar::Render_ToolBar()
           "Place Cube",
           "Place Wall",
           "Spawn Player",
-          "Spawn Monster"
+          "Spawn Monster",
+          "Place MapCollider",
+          "Place TriggerBox"
     };
 
     int iCurrentMode = (int)m_eEditorMode;

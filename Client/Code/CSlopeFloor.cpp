@@ -108,11 +108,16 @@ void CSlopeFloor::Set_SlopeDirection(SLOPE_DIR eDir)
 
 HRESULT CSlopeFloor::Add_Component()
 {
+	Engine::CComponent* pComponent = nullptr;
+
 	// Transform
-	if (FAILED(CTerrain::Add_Component()))
+	pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>
+		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
+
+	if (nullptr == pComponent)
 		return E_FAIL;
 
-	Engine::CComponent* pComponent = nullptr;
+	m_mapComponent[ID_STATIC].insert({ L"Com_Transform", pComponent });
 
 	// Buffer - RcTexUp
 	pComponent = m_pBufferUpCom = dynamic_cast<Engine::CRcTexUp*>

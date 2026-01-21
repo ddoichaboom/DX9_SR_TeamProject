@@ -16,6 +16,8 @@
 #include "CSelectionMgr.h"
 #include "CHierarchy.h"
 #include "CEditorDynamicFloor.h"
+#include "CEditorMapCollider.h"
+#include "CEditorTriggerBox.h"
 
 CEditorScene::CEditorScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
@@ -95,6 +97,10 @@ _int CEditorScene::Update_Scene(const _float& fTimeDelta)
 
 void CEditorScene::LateUpdate_Scene(const _float& fTimeDelta)
 {
+    for (auto& pObj : m_ObjectList)
+    {
+        pObj->LateUpdate_GameObject(fTimeDelta);
+    }
 }
 
 void CEditorScene::Render_Scene()
@@ -374,6 +380,19 @@ void CEditorScene::Handle_Duplicate()
                     pNewObj = CEditorSpawnPoint::Create(m_pGraphicDev, vPos, vRot, vScale,
                         eType, strMonsterKey);
                 }
+                else if (CEditorMapCollider* pMapCollider = dynamic_cast<CEditorMapCollider*>(pSelectedObj))
+                {
+                    vPos.x += 16.0f;
+                    _vec3 vColliderScale = pMapCollider->Get_ColliderScale();
+                    pNewObj = CEditorMapCollider::Create(m_pGraphicDev, vPos, vColliderScale);
+                    }
+                else if (CEditorTriggerBox* pTriggerBox = dynamic_cast<CEditorTriggerBox*>(pSelectedObj))
+                {
+                    vPos.x += 16.0f;
+                    _vec3 vColliderScale = pTriggerBox->Get_ColliderScale();
+                    TRIGGER_TYPE eType = pTriggerBox->Get_TriggerType();
+                    pNewObj = CEditorTriggerBox::Create(m_pGraphicDev, vPos, vColliderScale, eType);
+                    }
 
 
                 if (pNewObj)
@@ -463,7 +482,8 @@ void CEditorScene::Handle_Left_Click()
         if (eMode == MODE_PLACE_FLOOR || eMode == MODE_PLACE_DYNAMIC_FLOOR || 
             eMode == MODE_PLACE_CEILING || eMode == MODE_PLACE_CUBE || 
             eMode == MODE_PLACE_WALL || eMode == MODE_PLACE_SPAWN_PLAYER || 
-            eMode == MODE_PLACE_SPAWN_MONSTER || eMode == MODE_PLACE_SLOPE_FLOOR)
+            eMode == MODE_PLACE_SPAWN_MONSTER || eMode == MODE_PLACE_SLOPE_FLOOR ||
+            eMode == MODE_PLACE_MAPCOLLIDER || eMode == MODE_PLACE_TRIGGERBOX)
         {
 
             // Ray - Plane Intersection (Y = 0 평면)
@@ -488,6 +508,10 @@ void CEditorScene::Handle_Left_Click()
             }
             else if (eMode == MODE_PLACE_SPAWN_MONSTER)
                 Place_SpawnMonster(vPos);
+            else if (eMode == MODE_PLACE_MAPCOLLIDER)
+                Place_MapCollider(vPos);
+            else if (eMode == MODE_PLACE_TRIGGERBOX)
+                Place_TriggerBox(vPos);
         }
         else if (eMode == MODE_SELECT)
         {
@@ -704,6 +728,52 @@ void CEditorScene::Place_SpawnMonster(const _vec3& vPos)
 
         Add_Object(pSpawn);
         Safe_Release(pSpawn);
+    }
+}
+
+void CEditorScene::Place_MapCollider(const _vec3& vPos)
+{
+    // 그리드 스냅 (16 단위)
+    _vec3 vSnappedPos;
+    vSnappedPos.x = floorf(vPos.x / 16.f) * 16.f + 8.f;
+    vSnappedPos.y = 8.f;  // 기본 높이 (바닥에서 살짝 위)
+    vSnappedPos.z = floorf(vPos.z / 16.f) * 16.f + 8.f;
+
+    CEditorMapCollider* pMapCollider = CEditorMapCollider::Create(m_pGraphicDev, vSnappedPos);
+
+    if (pMapCollider)
+    {
+        // 기본 이름 설정
+        static _int s_iMapColliderIdx = 0;
+        wchar_t wszName[64];
+        swprintf_s(wszName, L"MapCollider_%d", s_iMapColliderIdx++);
+        pMapCollider->Set_Name(wszName);
+
+        Add_Object(pMapCollider);
+        Safe_Release(pMapCollider);
+    }
+}
+
+void CEditorScene::Place_TriggerBox(const _vec3& vPos)
+{
+    // 그리드 스냅 (16 단위)
+    _vec3 vSnappedPos;
+    vSnappedPos.x = floorf(vPos.x / 16.f) * 16.f + 8.f;
+    vSnappedPos.y = 8.f;  // 기본 높이
+    vSnappedPos.z = floorf(vPos.z / 16.f) * 16.f + 8.f;
+
+    CEditorTriggerBox* pTriggerBox = CEditorTriggerBox::Create(m_pGraphicDev, vSnappedPos);
+
+    if (pTriggerBox)
+    {
+        // 기본 이름 설정
+        static _int s_iTriggerBoxIdx = 0;
+        wchar_t wszName[64];
+        swprintf_s(wszName, L"TriggerBox_%d", s_iTriggerBoxIdx++);
+        pTriggerBox->Set_Name(wszName);
+
+        Add_Object(pTriggerBox);
+        Safe_Release(pTriggerBox);
     }
 }
 

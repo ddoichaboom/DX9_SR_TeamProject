@@ -9,6 +9,8 @@ class CMousePicker;
 class CSelectionMgr;
 class CHierarchy;
 class CEffectToolBar;
+class CEditorMapCollider;
+class CEditorTriggerBox;
 
 class CEditorScene : public Engine::CScene
 {
@@ -52,6 +54,9 @@ public:
 	void                        Place_Wall(const _vec3& vPos);
 	void                        Place_SpawnPlayer(const _vec3& vPos);
 	void                        Place_SpawnMonster(const _vec3& vPos);
+
+	void                        Place_MapCollider(const _vec3& vPos);
+	void                        Place_TriggerBox(const _vec3& vPos);
 
 public:
 	void						Set_ToolBar(CToolBar* pToolBar) { m_pToolBar = pToolBar; }

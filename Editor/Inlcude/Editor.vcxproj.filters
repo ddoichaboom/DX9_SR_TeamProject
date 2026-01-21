@@ -99,8 +99,8 @@
     </Filter>
     <Filter Include="04. Object\04. EditorFloor\SlopeFloor">
       <UniqueIdentifier>{dd48ba29-d43a-43a4-a9a2-f9b145dcf1fb}</UniqueIdentifier>
-	</Filter>
-	<Filter Include="03. Scene\03. EffectScene">
+    </Filter>
+    <Filter Include="03. Scene\03. EffectScene">
       <UniqueIdentifier>{3511c0cc-eaff-4f55-b9c5-99bc5283809f}</UniqueIdentifier>
     </Filter>
     <Filter Include="01. UI\04. EffectToolBar">
@@ -111,6 +111,12 @@
     </Filter>
     <Filter Include="07. Effect\00. Blood">
       <UniqueIdentifier>{94609920-62ee-446d-afab-7d51198d9e08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\07. EditorMapCollider">
+      <UniqueIdentifier>{77ea6093-000a-4a9e-871d-0eff17aeab19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\08. EditorTriggerBox">
+      <UniqueIdentifier>{524562fc-cbc6-4c07-bd4c-c72328ffd0df}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -218,8 +224,8 @@
     </ClInclude>
     <ClInclude Include="..\Header\CEditorSlopeFloor.h">
       <Filter>04. Object\04. EditorFloor\SlopeFloor</Filter>
-	</ClInclude>
-	<ClInclude Include="..\Header\CEffectScene.h">
+    </ClInclude>
+    <ClInclude Include="..\Header\CEffectScene.h">
       <Filter>03. Scene\03. EffectScene</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CEffectToolBar.h">
@@ -227,6 +233,12 @@
     </ClInclude>
     <ClInclude Include="..\Header\CBlood.h">
       <Filter>07. Effect\00. Blood</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEditorMapCollider.h">
+      <Filter>04. Object\07. EditorMapCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEditorTriggerBox.h">
+      <Filter>04. Object\08. EditorTriggerBox</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -319,8 +331,8 @@
     </ClCompile>
     <ClCompile Include="..\Code\CEditorSlopeFloor.cpp">
       <Filter>04. Object\04. EditorFloor\SlopeFloor</Filter>
-	</ClCompile>
-	<ClCompile Include="..\Code\CEffectScene.cpp">
+    </ClCompile>
+    <ClCompile Include="..\Code\CEffectScene.cpp">
       <Filter>03. Scene\03. EffectScene</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CEffectToolBar.cpp">
@@ -328,6 +340,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CBlood.cpp">
       <Filter>07. Effect\00. Blood</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorMapCollider.cpp">
+      <Filter>04. Object\07. EditorMapCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorTriggerBox.cpp">
+      <Filter>04. Object\08. EditorTriggerBox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

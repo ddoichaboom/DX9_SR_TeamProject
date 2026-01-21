@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -158,11 +158,13 @@
     <ClInclude Include="..\Header\CEditorCube.h" />
     <ClInclude Include="..\Header\CEditorDynamicFloor.h" />
     <ClInclude Include="..\Header\CEditorFloor.h" />
+    <ClInclude Include="..\Header\CEditorMapCollider.h" />
     <ClInclude Include="..\Header\CEditorObject.h" />
     <ClInclude Include="..\Header\CEditorScene.h" />
     <ClInclude Include="..\Header\CEditorSlopeFloor.h" />
     <ClInclude Include="..\Header\CEditorSpawnPoint.h" />
     <ClInclude Include="..\Header\CEditorTile.h" />
+    <ClInclude Include="..\Header\CEditorTriggerBox.h" />
     <ClInclude Include="..\Header\CEditorWall.h" />
     <ClInclude Include="..\Header\CEffectScene.h" />
     <ClInclude Include="..\Header\CEffectToolBar.h" />
@@ -203,11 +205,13 @@
     <ClCompile Include="..\Code\CEditorCube.cpp" />
     <ClCompile Include="..\Code\CEditorDynamicFloor.cpp" />
     <ClCompile Include="..\Code\CEditorFloor.cpp" />
+    <ClCompile Include="..\Code\CEditorMapCollider.cpp" />
     <ClCompile Include="..\Code\CEditorObject.cpp" />
     <ClCompile Include="..\Code\CEditorScene.cpp" />
     <ClCompile Include="..\Code\CEditorSlopeFloor.cpp" />
     <ClCompile Include="..\Code\CEditorSpawnPoint.cpp" />
     <ClCompile Include="..\Code\CEditorTile.cpp" />
+    <ClCompile Include="..\Code\CEditorTriggerBox.cpp" />
     <ClCompile Include="..\Code\CEditorWall.cpp" />
     <ClCompile Include="..\Code\CEffectScene.cpp" />
     <ClCompile Include="..\Code\CEffectToolBar.cpp" />

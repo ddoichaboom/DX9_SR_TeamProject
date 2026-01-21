@@ -3,7 +3,7 @@
 
 namespace Engine
 {
-	class CAnimation;
+	class CScrollTexture;
 }
 
 class CEditorDynamicFloor :public CEditorFloor
@@ -18,11 +18,6 @@ public:
         return m_vTextureSource;
     }
 
-    static vector<AnimationSource>& GetAnimSources()
-    {
-        return m_vAnimSource;
-    }
-
 public:
     virtual HRESULT Ready_GameObject() override;
     virtual _int    Update_GameObject(const _float& fTimeDelta) override;
@@ -35,16 +30,8 @@ private:
 public:
     virtual void    Set_FloorType(_uint iType) override;  
 
-    // 애니메이션 제어
-    void            Play_Animation();
-    void            Pause_Animation();
-    void            Set_AnimationSpeed(_float fSpeed);
-    _float          Get_AnimationSpeed() const { return m_fAnimSpeed; }
-    bool            Is_Playing() const;
-
 protected:
-    Engine::CAnimation*             m_pAnimationCom;
-    _float                          m_fAnimSpeed;
+    Engine::CScrollTexture*         m_pScrollTextureCom;
 
 public:
     // 기본 생성 (배치용)

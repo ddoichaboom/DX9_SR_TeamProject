@@ -157,11 +157,14 @@ namespace Engine
 		std::string sSpawnType;           // "Player", "Monster", "BossMonster"
 		std::string sMonsterKey;          // "WhiteMan", "BeamMon" µî
 
+		TRIGGER_TYPE iTriggerType;			// TRIGGER_TYPE enum
+
 		tagObjectData()
 			: sType(""), sName(""),
 			vPos(0, 0, 0), vRot(0, 0, 0), vScale(1, 1, 1),
 			iTextureIdx(0), iFloorType(0), iCeilingType(0), iWallType(0),
-			sSpawnType(""), sMonsterKey(""), eSlopeDir(SLOPE_DIR_END)
+			sSpawnType(""), sMonsterKey(""), eSlopeDir(SLOPE_DIR_END),
+			iTriggerType(TT_END)
 		{}
 
 	}ObjectData;
@@ -180,10 +183,14 @@ namespace Engine
 		_uint iDynamicWallCount;
 		_uint iObstacleCount;
 
+		_uint iMapColliderCount;
+		_uint iDoorTriggerBoxCount;
+		_uint iEventTriggerBoxCount;
+
 		tagRoomData()
 			: iRoomIdx(-1), iFloorCount(0), iDynamicFloorCount(0), iCeilingCount(0),
 			iDynamicCeilingCount(0), iWallCount(0), iDynamicWallCount(0), iObstacleCount(0)
-			, iSlopeFloorCount(0)
+			, iSlopeFloorCount(0), iMapColliderCount(0), iDoorTriggerBoxCount(0), iEventTriggerBoxCount(0)
 		{}
 
 	}RoomData;

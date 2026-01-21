@@ -180,8 +180,8 @@
     </Filter>
     <Filter Include="02. GameObject\99. Environment\00. Terrain\00. Floor\00. DynamicFloor">
       <UniqueIdentifier>{13c447d0-1fdc-4d80-b15a-a10fd70a3a5d}</UniqueIdentifier>
-	</Filter>
-	<Filter Include="04.UI\UIManager">
+    </Filter>
+    <Filter Include="04.UI\UIManager">
       <UniqueIdentifier>{7965902d-4b4c-4aaf-8a8b-d2132956158f}</UniqueIdentifier>
     </Filter>
     <Filter Include="04.UI\01.StaticUI\04.Stage_BG">
@@ -210,6 +210,9 @@
     </Filter>
     <Filter Include="02. GameObject\999. TestEffect">
       <UniqueIdentifier>{b0904e45-6482-43e5-8335-e9af254524c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Environment\00. Terrain\02. Wall\SideDashWall">
+      <UniqueIdentifier>{3a9e2c78-4499-4c73-a0df-3dba8718faef}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -365,8 +368,8 @@
     </ClInclude>
     <ClInclude Include="..\Header\CSlopeFloor.h">
       <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\01. SlopeFloor</Filter>
-	</ClInclude>
-	<ClInclude Include="..\Header\CTestEffect.h">
+    </ClInclude>
+    <ClInclude Include="..\Header\CTestEffect.h">
       <Filter>02. GameObject\999. TestEffect</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CUIManager.h">
@@ -395,6 +398,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\CHPUI.h">
       <Filter>04.UI\02.DynamicUI\07.HP_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSideDashWall.h">
+      <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall\SideDashWall</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -541,8 +547,8 @@
     </ClCompile>
     <ClCompile Include="..\Code\CSlopeFloor.cpp">
       <Filter>02. GameObject\99. Environment\00. Terrain\00. Floor\01. SlopeFloor</Filter>
-	</ClCompile>
-	<ClCompile Include="..\Code\CTestEffect.cpp">
+    </ClCompile>
+    <ClCompile Include="..\Code\CTestEffect.cpp">
       <Filter>02. GameObject\999. TestEffect</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CUIManager.cpp">
@@ -571,6 +577,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CHPUI.cpp">
       <Filter>04.UI\02.DynamicUI\07.HP_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSideDashWall.cpp">
+      <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall\SideDashWall</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

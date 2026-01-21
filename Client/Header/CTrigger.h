@@ -38,6 +38,9 @@ public:
 	void				Bind_OnEnd(function<void()> _func);
 
 public:
+	void				Set_ColliderScale(_vec3 _scale);
+
+public:
 	static CTrigger*	Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	static CTrigger*	Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vScale);
 

@@ -23,6 +23,8 @@
 #include "CEditorCeiling.h"
 #include "CEditorSpawnPoint.h"
 #include "CEditorWall.h"
+#include "CEditorMapCollider.h"
+#include "CEditorTriggerBox.h"
 
 using namespace std;
 using namespace Engine;
@@ -131,6 +133,9 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
         _uint iCeilingCount = 0;
         _uint iWallCount = 0;
         _uint iObstacleCount = 0;
+        _uint iMapColliderCount = 0;
+        _uint iTriggerBoxCount = 0;
+
 
         auto& objectList = pScene->Get_ObjectList();
 
@@ -216,6 +221,55 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                 // Transform 데이터 저장 (동일)
                 SaveTransformData(jObj, pObj);
             }
+            else if (CEditorMapCollider* pMapCollider = dynamic_cast<CEditorMapCollider*>(pObj))
+            {
+                iMapColliderCount++;
+                jObj["type"] = "MapCollider";
+
+                jObj["roomIndex"] = pObj->Get_RoomIndex();
+
+                // Position (Transform에서)
+                _vec3 vPos = pObj->Get_Position();
+                jObj["position"] = { vPos.x, vPos.y, vPos.z };
+
+                // Rotation (사용하지 않지만 호환성 위해 저장)
+                jObj["rotation"] = { 0.f, 0.f, 0.f };
+
+                // Scale (Collider Scale 저장)
+                _vec3 vColliderScale = pMapCollider->Get_ColliderScale();
+                jObj["scale"] = { vColliderScale.x, vColliderScale.y, vColliderScale.z };
+
+                // 이름
+                wstring wstrName = pObj->Get_Name();
+                string strName(wstrName.begin(), wstrName.end());
+                jObj["name"] = strName;
+            }
+            else if (CEditorTriggerBox* pTriggerBox = dynamic_cast<CEditorTriggerBox*>(pObj))
+            {
+                iTriggerBoxCount++;
+                jObj["type"] = "TriggerBox";
+
+                jObj["roomIndex"] = pObj->Get_RoomIndex();
+
+                // Position
+                _vec3 vPos = pObj->Get_Position();
+                jObj["position"] = { vPos.x, vPos.y, vPos.z };
+
+                // Rotation
+                jObj["rotation"] = { 0.f, 0.f, 0.f };
+
+                // Scale (Collider Scale)
+                _vec3 vColliderScale = pTriggerBox->Get_ColliderScale();
+                jObj["scale"] = { vColliderScale.x, vColliderScale.y, vColliderScale.z };
+
+                // 이름
+                wstring wstrName = pObj->Get_Name();
+                string strName(wstrName.begin(), wstrName.end());
+                jObj["name"] = strName;
+
+                // TriggerBox 전용 필드
+                jObj["triggerType"] = static_cast<_int>(pTriggerBox->Get_TriggerType());
+            }
             else
             {
                 continue;  // 알 수 없는 타입 - 건너뜀
@@ -231,6 +285,8 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
         jMap["ceilingCount"] = iCeilingCount;
         jMap["wallCount"] = iWallCount;
         jMap["obstacleCount"] = iObstacleCount;
+        jMap["mapColliderCount"] = iMapColliderCount;      
+        jMap["triggerBoxCount"] = iTriggerBoxCount;
 
         jMap["objects"] = jObjects;
         jMap["objectCount"] = jObjects.size();
@@ -475,6 +531,22 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
 
                 pObj = CEditorSpawnPoint::Create(pGraphicDev, vPos, vRot, vScale,
                     eSpawnType, strMonsterKey);
+            }
+            else if (strType == "MapCollider")
+            {
+                pObj = CEditorMapCollider::Create(pGraphicDev, vPos, vScale);
+        }
+            else if (strType == "TriggerBox")
+            {
+                // TriggerBox 전용 필드 읽기
+                TRIGGER_TYPE eTriggerType = TRIGGER_DOOR;
+
+                if (jObj.contains("triggerType"))
+                    eTriggerType = static_cast<TRIGGER_TYPE>((_int)jObj["triggerType"]);
+
+
+                pObj = CEditorTriggerBox::Create(pGraphicDev, vPos, vScale,
+                    eTriggerType);
             }
 
             if (!pObj)

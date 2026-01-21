@@ -50,6 +50,8 @@ HRESULT CMapCollider::Ready_GameObject()
 
 _int CMapCollider::Update_GameObject(const _float& fTimeDelta)
 {
+	if (IsDead()) 
+		return RET_DEAD;
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
 	return iExit;
 }
@@ -91,6 +93,16 @@ void CMapCollider::SetScale(_vec3 _scale)
 {
 	m_pTransformCom->Set_Scale(_scale);
 	m_pTransformCom->Update_Component(1.f);
+}
+
+void CMapCollider::Set_ColliderScale(_vec3 _scale)
+{
+	m_vScale = _scale;
+
+	if (m_pCollider)
+	{
+		m_pCollider->Set_Scale(m_vScale);
+	}
 }
 
 void CMapCollider::Activate()
