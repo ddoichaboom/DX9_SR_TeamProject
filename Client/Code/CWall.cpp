@@ -19,7 +19,8 @@ vector<TextureSource> CWall::m_vTextureSource =
     {STATIC_WALL_WATER, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_WATER.dds", true, 0, 1, 1, {0.f, 0.f}},
     {STATIC_WALL_LAVA, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_LAVA.dds", true, 0, 1, 1, {0.f, 0.f}},
     {STATIC_WALL_ACID, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_ACID.dds", true, 0, 1, 1, {0.f, 0.f}},
-    {STATIC_WALL_FENCE, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_FENCE.dds", false, 0, 0, 0, {0.f, 0.f}}
+    {STATIC_WALL_FENCE, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_FENCE.dds", false, 0, 0, 0, {0.f, 0.f}},
+    {STATIC_WALL_SIDEDASH, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/SIDE_DASH_WALL.dds", true, 0, 1, 1, {0.f, 0.f}}
 };
 
 CWall::CWall(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -27,6 +28,7 @@ CWall::CWall(LPDIRECT3DDEVICE9 pGraphicDev)
 {
     m_eOBJ_ID = OBJ_WALL;
     m_iID = Make_ID();
+    m_eColliderTag = TAG_NONE;
 }
 
 CWall::CWall(const CWall& rhs)
@@ -67,20 +69,45 @@ void CWall::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CWall::Render_GameObject()
 {
-    m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
-    m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
+    if (m_iWallType == STATIC_WALL_FENCE)
+    {
+        DWORD dOldCullMode;
+        m_pGraphicDev->GetRenderState(D3DRS_CULLMODE, &dOldCullMode);
 
-    if (FAILED(Ready_Material(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.f))))
-        return;
+        m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+        m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
+        m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 
-    if (!m_bIsAnimated && m_pTextureCom)
-        m_pTextureCom->Render_Texture();
+        if (FAILED(Ready_Material(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.f))))
+            return;
 
-    m_pBufferCom->Render_Buffer();
+        if (!m_bIsAnimated && m_pTextureCom)
+            m_pTextureCom->Render_Texture();
 
-    m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
+        m_pBufferCom->Render_Buffer();
 
-    m_pGraphicDev->SetTexture(0, nullptr);
+        m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
+        m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, dOldCullMode);
+
+        m_pGraphicDev->SetTexture(0, nullptr);
+    }
+    else
+    {
+        m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
+        m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
+
+        if (FAILED(Ready_Material(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.f))))
+            return;
+
+        if (!m_bIsAnimated && m_pTextureCom)
+            m_pTextureCom->Render_Texture();
+
+        m_pBufferCom->Render_Buffer();
+
+        m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
+
+        m_pGraphicDev->SetTexture(0, nullptr);
+    }
 }
 
 HRESULT CWall::Add_Component()
@@ -104,10 +131,22 @@ HRESULT CWall::Add_Component()
 
 void CWall::Set_WallType(_uint eWallType)
 {
+    m_iWallType = eWallType;
+
     if (m_pTextureCom)
     {
         m_pTextureCom->Change_Texture(eWallType);
         m_pTextureCom->Set_Frame(_vec2(m_iTextureIdx, 0));
+    }
+
+    switch (eWallType)
+    {
+    case STATIC_WALL_SIDEDASH:
+        Set_ColliderTag(TAG_SIDE_DASH);
+        break;
+    default:
+        Set_ColliderTag(TAG_NONE);
+        break;
     }
 }
 

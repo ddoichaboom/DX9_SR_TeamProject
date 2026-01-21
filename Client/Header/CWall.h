@@ -27,10 +27,11 @@ protected:
 
 public:
     // 기본 생성
-    static CWall* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+    static CWall*       Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 protected:
-    virtual void Free() override;
+    virtual void        Free() override;
+    _uint               m_iWallType;
 
 private:
     static vector<TextureSource>    m_vTextureSource;
