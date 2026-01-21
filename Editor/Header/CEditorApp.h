@@ -19,6 +19,7 @@ private:
 public:
     HRESULT Ready_Editor();
     void    Update_Editor(const _float& fTimeDelta);
+    void    LateUpdate_Editor(const _float& fTimeDelta);
     void    Render_Editor();
 
 private:

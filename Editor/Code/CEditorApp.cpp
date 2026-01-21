@@ -81,6 +81,12 @@ void CEditorApp::Update_Editor(const _float& fTimeDelta)
         m_pCurrentScene->Update_Scene(fTimeDelta);
 }
 
+void CEditorApp::LateUpdate_Editor(const _float& fTimeDelta)
+{
+    if (m_pCurrentScene)
+        m_pCurrentScene->LateUpdate_Scene(fTimeDelta);
+}
+
 void CEditorApp::Render_Editor()
 {
     // 1. ImGui 프레임 시작
@@ -257,6 +263,13 @@ HRESULT CEditorApp::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
         return E_FAIL;
     }
 
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(
+        L"Proto_Collision", Engine::CCollision::Create(m_pGraphicDev))))
+    {
+        MSG_BOX("Proto_Collision Create Failed");
+        return E_FAIL;
+    }
+
     if (FAILED(Ready_Texture_Prototype()))
         return E_FAIL;
 
@@ -348,18 +361,10 @@ HRESULT CEditorApp::Ready_Texture_Prototype()
     }
 
     // DynamicFloor Texture
-    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CEditorDynamicFloor::GetTextureSources());
-    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Dynamic_FloorTexture", pCom_Texture)))
+    pCom_Texture = Engine::CScrollTexture::Create(m_pGraphicDev, CEditorDynamicFloor::GetTextureSources(), 0.2f);
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Dynamic_FloorTexture", pCom_Texture)))
     {
         MSG_BOX("Proto_Dynamic_FloorTexture Ready Failed");
-        return E_FAIL;
-    }
-    
-    // Floor Animation
-    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FloorAnimation",
-        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CEditorDynamicFloor::GetAnimSources()))))
-    {
-        MSG_BOX("Proto_FloorAnimation Ready Failed");
         return E_FAIL;
     }
 

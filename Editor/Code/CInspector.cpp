@@ -10,6 +10,8 @@
 #include "CEditorCeiling.h"
 #include "CEditorDynamicFloor.h"
 #include "CTexture.h"
+#include "CEditorMapCollider.h"
+#include "CEditorTriggerBox.h"
 
 
 CInspector::CInspector()
@@ -155,23 +157,6 @@ void CInspector::Render_FloorTextureUI(CEditorFloor* pFloor)
             else if (iComboIdx == 2) eNewType = DYNAMIC_FLOOR_ACID;
 
             pDynamicFloor->Set_FloorType(eNewType);
-        }
-
-        // 애니메이션 속도 슬라이더
-        _float fSpeed = pDynamicFloor->Get_AnimationSpeed();
-        if (ImGui::SliderFloat("Animation Speed", &fSpeed, 0.1f, 3.0f))
-        {
-            pDynamicFloor->Set_AnimationSpeed(fSpeed);
-        }
-
-        // 재생/일시정지 체크박스
-        bool bIsPlaying = pDynamicFloor->Is_Playing();
-        if (ImGui::Checkbox("Playing", &bIsPlaying))
-        {
-            if (bIsPlaying)
-                pDynamicFloor->Play_Animation();
-            else
-                pDynamicFloor->Pause_Animation();
         }
 
         ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),
@@ -404,88 +389,110 @@ void CInspector::Render_WallTextureUI(CEditorWall* pWall)
         "Texture Index: 0 ~ 2 (3x1 atlas row)");
 }
 
-//void CInspector::Render_SlopeFloorTextureUI(CEditorSlopeFloor* pSlopeFloor)
-//{
-//    ImGui::Text("Slope Floor Properties");
-//    ImGui::Separator();
-//
-//    // 경사 각도 슬라이더
-//    _float fSlopeAngle = pSlopeFloor->Get_SlopeAngle();
-//    if (ImGui::SliderFloat("Slope Angle", &fSlopeAngle, 0.f, 89.f))
-//    {
-//        pSlopeFloor->Set_SlopeAngle(fSlopeAngle);
-//    }
-//
-//    // 경사 방향 콤보박스
-//    SLOPE_DIR eSlopeDir = pSlopeFloor->Get_SlopeDirection();
-//    const char* szSlopeDirs[] = {
-//        "+X Direction",
-//        "-X Direction",
-//        "+Z Direction",
-//        "-Z Direction"
-//    };
-//
-//    int iSlopeDir = static_cast<int>(eSlopeDir);
-//    if (ImGui::Combo("Slope Direction", &iSlopeDir, szSlopeDirs, IM_ARRAYSIZE(szSlopeDirs)))
-//    {
-//        pSlopeFloor->Set_SlopeDirection(static_cast<SLOPE_DIR>(iSlopeDir));
-//    }
-//
-//    ImGui::Spacing();
-//    ImGui::Separator();
-//
-//    // 텍스처 설정 (CEditorFloor와 유사)
-//    ImGui::Text("Texture Settings");
-//    ImGui::Separator();
-//
-//    _uint iFloorType = pSlopeFloor->Get_FloorType();
-//    const char* szSlopeFloorTypes[] = {
-//        "STATIC_FLOOR"
-//        "STATIC_FLOOR_SLOPE"
-//    };
-//    
-//    _int iTypeIdx(0);
-//    if (iFloorType == STATIC_FLOOR)
-//        iTypeIdx = 0;
-//    else if (iFloorType == STATIC_FLOOR_SLOPE)
-//        iTypeIdx = 1;
-//
-//    if (ImGui::Combo("Floor Type", &iTypeIdx, szSlopeFloorTypes, IM_ARRAYSIZE(szSlopeFloorTypes)))
-//    {
-//        // 콤보박스 인덱스를 enum 값으로 변환
-//        _int eNewType = STATIC_FLOOR;
-//        if (iTypeIdx == 0)
-//            eNewType = STATIC_FLOOR;
-//        else if (iTypeIdx == 1)
-//            eNewType = STATIC_FLOOR_SLOPE;
-//
-//        pSlopeFloor->Set_FloorType(eNewType);
-//    }
-//
-//    // Texture Index 슬라이더
-//    _int iTextureIdx = pSlopeFloor->Get_TextureIdx();
-//
-//    Engine::CTexture* pTextureCom = dynamic_cast<Engine::CTexture*>(
-//        pSlopeFloor->Get_Component(ID_DYNAMIC, L"Com_Texture"));
-//
-//    _int iMaxIdx(0);
-//
-//    if (pTextureCom)
-//    {
-//        Engine::TextureDesc* pDesc = pTextureCom->GetTextureDesc(iFloorType);
-//        if (pDesc)
-//        {
-//            iMaxIdx = (_int)pDesc->vMaxIdx.x;
-//        }
-//    }
-//    if (ImGui::SliderInt("Texture Index", &iTextureIdx, 0, iMaxIdx))
-//    {
-//        pSlopeFloor->Set_TextureIdx(iTextureIdx);
-//    }
-//
-//    ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),
-//        "Slope floors use rotation to create inclines");
-//}
+void CInspector::Render_MapColliderProperties(CEditorMapCollider* pCollider)
+{
+    if (!pCollider)
+        return;
+
+    ImGui::Text("MapCollider Properties");
+    ImGui::Separator();
+
+    ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "Collision Box (Invisible in Game)");
+
+    ImGui::Spacing();
+
+    // Collider Scale (Transform Scale과 별도)
+    _vec3 vColliderScale = pCollider->Get_ColliderScale();
+    _float fScale[3] = { vColliderScale.x, vColliderScale.y, vColliderScale.z };
+    if (ImGui::DragFloat3("Collider Scale", fScale, 0.5f, 1.0f, 200.f))
+    {
+        pCollider->Set_ColliderScale(_vec3(fScale[0], fScale[1], fScale[2]));
+    }
+
+    ImGui::Spacing();
+
+    // 편의 기능: 빠른 크기 프리셋
+    ImGui::Text("Quick Size Presets:");
+    if (ImGui::Button("Small (8x8x8)"))
+    {
+        pCollider->Set_ColliderScale(_vec3(8.f, 8.f, 8.f));
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("Medium (16x16x16)"))
+    {
+        pCollider->Set_ColliderScale(_vec3(16.f, 16.f, 16.f));
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("Large (32x32x32)"))
+    {
+        pCollider->Set_ColliderScale(_vec3(32.f, 32.f, 32.f));
+    }
+
+    // 벽 형태 프리셋
+    ImGui::Text("Wall Presets:");
+    if (ImGui::Button("Wall X (16x16x70)"))
+    {
+        pCollider->Set_ColliderScale(_vec3(16.f, 16.f, 70.f));
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("Wall Z (70x16x16)"))
+    {
+        pCollider->Set_ColliderScale(_vec3(70.f, 16.f, 16.f));
+    }
+}
+
+void CInspector::Render_TriggerBoxProperties(CEditorTriggerBox* pTrigger)
+{
+    if (!pTrigger)
+        return;
+
+    ImGui::Text("TriggerBox Properties");
+    ImGui::Separator();
+
+    // Collider Scale
+    _vec3 vColliderScale = pTrigger->Get_ColliderScale();
+    _float fScale[3] = { vColliderScale.x, vColliderScale.y, vColliderScale.z };
+    if (ImGui::DragFloat3("Collider Scale", fScale, 0.5f, 1.0f, 200.f))
+    {
+        pTrigger->Set_ColliderScale(_vec3(fScale[0], fScale[1], fScale[2]));
+    }
+
+    ImGui::Spacing();
+
+    // 트리거 타입 선택
+    TRIGGER_TYPE eType = pTrigger->Get_TriggerType();
+    const char* szTriggerTypes[] = {
+        "Door (Room Transition)",
+        "Event (General)",
+        "Damage (Hazard Zone)"
+    };
+
+    int iSelectedType = static_cast<int>(eType);
+    if (ImGui::Combo("Trigger Type", &iSelectedType, szTriggerTypes, IM_ARRAYSIZE(szTriggerTypes)))
+    {
+        pTrigger->Set_TriggerType(static_cast<TRIGGER_TYPE>(iSelectedType));
+    }
+
+
+    ImGui::Spacing();
+
+    // 편의 기능: 빠른 크기 프리셋
+    ImGui::Text("Quick Size Presets:");
+    if (ImGui::Button("Small (8x8x8)"))
+    {
+        pTrigger->Set_ColliderScale(_vec3(8.f, 8.f, 8.f));
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("Medium (16x16x16)"))
+    {
+        pTrigger->Set_ColliderScale(_vec3(16.f, 16.f, 16.f));
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("Large (32x32x32)"))
+    {
+        pTrigger->Set_ColliderScale(_vec3(32.f, 32.f, 32.f));
+    }
+}
 
 void CInspector::Render_ObjectProperties()
 {
@@ -568,6 +575,15 @@ void CInspector::Render_ObjectProperties()
 
     ImGui::Spacing();
     ImGui::Separator();
+
+    if (CEditorMapCollider* pMapCollider = dynamic_cast<CEditorMapCollider*>(pObj))
+    {
+        Render_MapColliderProperties(pMapCollider);
+    }
+    else if (CEditorTriggerBox* pTriggerBox = dynamic_cast<CEditorTriggerBox*>(pObj))
+    {
+        Render_TriggerBoxProperties(pTriggerBox);
+    }
 
     // 텍스처 
     ImGui::Text("Texture");

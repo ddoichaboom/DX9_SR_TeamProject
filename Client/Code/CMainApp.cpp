@@ -29,6 +29,8 @@
 #include "CDynamicWall.h"
 #include "CObstacle.h"
 #include "CSlopeFloor.h"
+#include "CDoorTrigger.h"
+#include "CMapCollider.h"
 
 #include "CLeftPart.h"
 #include "CRightPart.h"
@@ -226,11 +228,6 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CMainApp::Ready_ObjectPool()
 {
-	// 모든 맵 파일 경로 수집
-	//vector<wstring> vecMapFiles;
-	//vecMapFiles.push_back(L"../../Map/Tutorial.json");
-
-
 	for (auto& wstrFile : CMapLoader::GetInstance()->Get_MapFiles())
 	{
 		if (FAILED(CMapLoader::GetInstance()->Preload_AllMapData(wstrFile)))
@@ -243,13 +240,14 @@ HRESULT CMainApp::Ready_ObjectPool()
 	// 타입별 최대값 초기화
 	_uint iMaxFloor(0), iMaxDynamicFloor(0),iMaxCeiling(0), iMaxDynamicCeiling(0), iMaxWall(0), iMaxDynamicWall(0), iMaxSlopeFloor(0);
 	_uint iMaxObstacle(0);
+	_uint iMaxMapCollider(0), iMaxDoorTrigger(0);
 	_uint iBulletCount = 30;
 	_uint iBossBulletCount = 30;
 	_uint iBossRocketCount = 20;
 	_uint iWhiteManCount = 6;
 	_uint iBeamMonCount = 6;
 	_uint iFlyMonCount = 6;
-	_uint iTriggerCount = 7;
+	
 
 
 	//Effect
@@ -283,6 +281,12 @@ HRESULT CMainApp::Ready_ObjectPool()
 
 		iMaxObstacle = max(iMaxObstacle,
 			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "Cube"));
+
+		iMaxMapCollider = max(iMaxMapCollider,
+			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "MapCollider"));
+
+		iMaxDoorTrigger = max(iMaxDoorTrigger,
+			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "DoorTriggerBox"));
 	}
 
 	// 풀 크기 설정 
@@ -305,8 +309,8 @@ HRESULT CMainApp::Ready_ObjectPool()
 	CPoolMgr::GetInstance()->SetPoolSize<CBeamMon>(iBeamMonCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CFlyMon>(iFlyMonCount);
 
-	CPoolMgr::GetInstance()->SetPoolSize<CTrigger>(iTriggerCount);
-	//Effect
+	CPoolMgr::GetInstance()->SetPoolSize<CDoorTrigger>(iMaxDoorTrigger);
+
 	CPoolMgr::GetInstance()->SetPoolSize<CBlood>(iBloodCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CTrail>(iTrailCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CFlare>(iFlareCount);

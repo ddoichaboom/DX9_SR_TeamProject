@@ -70,6 +70,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         {
             // 고정 타임델타 (60 FPS 가정)
             pEditorApp->Update_Editor(1.f / 60.f);
+            pEditorApp->LateUpdate_Editor(1.f / 60.f);
             pEditorApp->Render_Editor();
         }
     }

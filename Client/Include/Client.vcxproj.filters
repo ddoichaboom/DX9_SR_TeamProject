@@ -238,6 +238,9 @@
     <Filter Include="01. Scene\02. Loading\00. LoadingEX">
       <UniqueIdentifier>{e0cc82bb-2528-4e70-95c7-4844d96bef68}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\99. Environment\00. Terrain\02. Wall\SideDashWall">
+      <UniqueIdentifier>{3a9e2c78-4499-4c73-a0df-3dba8718faef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -447,6 +450,9 @@
     <ClInclude Include="..\Header\CHitUI.h">
       <Filter>02. GameObject\13. Effect\06. HitUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CSideDashWall.h">
+      <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall\SideDashWall</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -646,6 +652,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CHitUI.cpp">
       <Filter>02. GameObject\13. Effect\06. HitUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSideDashWall.cpp">
+      <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall\SideDashWall</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

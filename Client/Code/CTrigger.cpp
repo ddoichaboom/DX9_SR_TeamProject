@@ -147,6 +147,16 @@ void CTrigger::Bind_OnEnd(function<void()> _func)
     m_FuncBind_End = _func;
 }
 
+void CTrigger::Set_ColliderScale(_vec3 _scale)
+{
+    m_vScale = _scale;
+
+    if (m_pCollider)
+    {
+        m_pCollider->Set_Scale(_scale);
+    }
+}
+
 
 CTrigger* CTrigger::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {

@@ -24,6 +24,9 @@ enum OBJECT_TYPE
 	OBJ_CUBE,        // 오브젝트
 	OBJ_WALL,        // 벽 
 	OBJ_SPAWNPOINT,  // 스폰 지점 
+
+	OBJ_MAPCOLLIDER,
+	OBJ_TRIGGERBOX,
 	OBJ_END
 };
 

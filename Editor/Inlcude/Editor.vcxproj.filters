@@ -133,6 +133,15 @@
     <Filter Include="07. Effect\07. BossTrail">
       <UniqueIdentifier>{dcefb232-8529-4623-ac14-7046227beb38}</UniqueIdentifier>
     </Filter>
+	  <Filter Include="07. Effect\01. Trail">
+		  <UniqueIdentifier>{058dba63-f431-4d7d-9394-ce9ec25c99d5}</UniqueIdentifier>
+	  </Filter>
+    <Filter Include="04. Object\07. EditorMapCollider">
+      <UniqueIdentifier>{77ea6093-000a-4a9e-871d-0eff17aeab19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\08. EditorTriggerBox">
+      <UniqueIdentifier>{524562fc-cbc6-4c07-bd4c-c72328ffd0df}</UniqueIdentifier>
+	</Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -249,7 +258,13 @@
     <ClInclude Include="..\Header\CBlood.h">
       <Filter>07. Effect\00. Blood</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CTrail.h">
+    <ClInclude Include="..\Header\CEditorMapCollider.h">
+      <Filter>04. Object\07. EditorMapCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEditorTriggerBox.h">
+      <Filter>04. Object\08. EditorTriggerBox</Filter>
+	</ClInclude>
+	<ClInclude Include="..\Header\CTrail.h">
       <Filter>07. Effect\01. Trail</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CFlare.h">
@@ -371,7 +386,13 @@
     <ClCompile Include="..\Code\CBlood.cpp">
       <Filter>07. Effect\00. Blood</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CTrail.cpp">
+    <ClCompile Include="..\Code\CEditorMapCollider.cpp">
+      <Filter>04. Object\07. EditorMapCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorTriggerBox.cpp">
+      <Filter>04. Object\08. EditorTriggerBox</Filter>
+	</ClCompile>
+	<ClCompile Include="..\Code\CTrail.cpp">
       <Filter>07. Effect\01. Trail</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CFlare.cpp">

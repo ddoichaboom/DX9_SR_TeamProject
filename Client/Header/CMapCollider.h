@@ -35,6 +35,10 @@ public:
 	void				Activate() override;
 	void				Deactivate() override;	
 
+	// CMapLoader에서 설정하며 쓸 함수
+public:
+	void				Set_ColliderScale(_vec3 _scale);
+
 public:
 	static CMapCollider* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	static CMapCollider* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vScale);

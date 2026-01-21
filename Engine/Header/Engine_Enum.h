@@ -134,5 +134,12 @@ namespace Engine
 		UI_STAGE_CLEAR,
 		UI_END
 	};
+
+	enum TRIGGER_TYPE
+	{
+		TRIGGER_DOOR,
+		TRIGGER_STAGE_END,
+		TT_END
+	};
 }
 #endif // Engine_Enum_h__

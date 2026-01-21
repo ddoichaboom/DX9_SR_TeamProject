@@ -311,6 +311,24 @@ HRESULT CMapStage::Ready_ObjectPool_Effect()
             return E_FAIL;
         }
     }
+    
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CMapCollider>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CMapCollider>(m_pGraphicDev)))
+        {
+            MSG_BOX("MapCollider Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CDoorTrigger>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CDoorTrigger>(m_pGraphicDev)))
+        {
+            MSG_BOX("DoorTrigger Pool Create Failed");
+            return E_FAIL;
+        }
+    }
 
 
     if (!Engine::CPoolMgr::GetInstance()->HasPool<CBodyEmit>())
@@ -403,14 +421,6 @@ HRESULT CMapStage::Ready_TerrainTextureProto()
     pCom_Texture = Engine::CScrollTexture::Create(m_pGraphicDev, CDynamicFloor::GetTextureSources(),0.2f);
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Dynamic_FloorTexture", pCom_Texture)))
         return E_FAIL;
-
-    //pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CDynamicFloor::GetTextureSources());
-    //if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Dynamic_FloorTexture", pCom_Texture)))
-    //    return E_FAIL;
-
-    //if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FloorAnimation", 
-    //    Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CDynamicFloor::GetAnimSources()))))
-    //    return E_FAIL;
 
     // Ceiling Proto 
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CCeiling::GetTextureSources());
@@ -521,11 +531,10 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
     const vector<wstring>& vecMapFiles = CMapLoader::GetInstance()->Get_MapFiles();
 
     if (!vecMapFiles.empty())
-        m_wstrCurrentMapFile = vecMapFiles[0];      // TODO : Tutorial Map의 끝 Trigger Box에 닿으면 다음 맵 Loading호출
+        m_wstrCurrentMapFile = vecMapFiles[1];      // TODO : Tutorial Map의 끝 Trigger Box에 닿으면 다음 맵 Loading호출
     else
         return E_FAIL;
 
-    //m_wstrCurrentMapFile = L"../../Map/Tutorial.json";
 
     // 0번방 로드 
     if (FAILED(CMapLoader::GetInstance()->Load_Room(
@@ -558,36 +567,21 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
         m_setLoadedRooms.insert(1);
     }
 
-    CGameObject* pGameObject = nullptr;
-
-    // 카메라 생성 
-    //_vec3 vPlayerSpawnPos = CMapLoader::GetInstance()->Get_PlayerSpawnPos();
-
-    //_vec3 vEye = vPlayerSpawnPos;
-    //_vec3 vAt = { vPlayerSpawnPos.x, vPlayerSpawnPos.y, vPlayerSpawnPos.z };
-    //_vec3 vUp = { 0.f, 1.f, 0.f };
-
-    //CGameObject* pGameObject = CFirstCamera::Create(m_pGraphicDev, &vEye, &vAt, &vUp);
-
-    //if (nullptr == pGameObject)
-    //    return E_FAIL;
-
-    //if (FAILED(pLayer->Add_GameObject(pGameObject)))
-    //    return E_FAIL;
+    //CGameObject* pGameObject = nullptr;
 
 
-    //이 트리거가 있는 방의 번호 첫 인자로 입력
-    pGameObject = CDoorTrigger::Create(m_pGraphicDev, 0, _vec3(26.f, 10.f, 250.f), _vec3(16.f, 16.f, 16.f));
-    if (nullptr == pGameObject) return E_FAIL;
-    if (FAILED(pLayer->Add_GameObject(pGameObject))) return E_FAIL;
+    ////이 트리거가 있는 방의 번호 첫 인자로 입력
+    //pGameObject = CDoorTrigger::Create(m_pGraphicDev, 0, _vec3(26.f, 10.f, 250.f), _vec3(16.f, 16.f, 16.f));
+    //if (nullptr == pGameObject) return E_FAIL;
+    //if (FAILED(pLayer->Add_GameObject(pGameObject))) return E_FAIL;
 
-    pGameObject = CMapCollider::Create(m_pGraphicDev, _vec3(-72.f, 10.f, 120), _vec3(16.f, 16.f, 70.f));
-    if (nullptr == pGameObject) return E_FAIL;
-    if (FAILED(pLayer->Add_GameObject(pGameObject))) return E_FAIL;
+    //pGameObject = CMapCollider::Create(m_pGraphicDev, _vec3(-72.f, 10.f, 120), _vec3(16.f, 16.f, 70.f));
+    //if (nullptr == pGameObject) return E_FAIL;
+    //if (FAILED(pLayer->Add_GameObject(pGameObject))) return E_FAIL;
 
-    pGameObject = CMapCollider::Create(m_pGraphicDev, _vec3(122.f, 10.f, 120), _vec3(16.f, 16.f, 70.f));
-    if (nullptr == pGameObject) return E_FAIL;
-    if (FAILED(pLayer->Add_GameObject(pGameObject))) return E_FAIL;
+    //pGameObject = CMapCollider::Create(m_pGraphicDev, _vec3(122.f, 10.f, 120), _vec3(16.f, 16.f, 70.f));
+    //if (nullptr == pGameObject) return E_FAIL;
+    //if (FAILED(pLayer->Add_GameObject(pGameObject))) return E_FAIL;
 
 
     m_mapLayer.insert({ pLayerTag, pLayer });
