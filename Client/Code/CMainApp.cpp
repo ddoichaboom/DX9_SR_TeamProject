@@ -40,6 +40,10 @@
 #include "CTrigger.h"
 #include "CUIManager.h"
 
+//Effect
+#include "CBlood.h"
+#include "CTrail.h"
+
 CMainApp::CMainApp() : m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
 , m_pManagementClass(CManagement::GetInstance())
 {
@@ -232,12 +236,17 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iMaxObstacle(0);
 	_uint iMaxMapCollider(0), iMaxDoorTrigger(0);
 	_uint iBulletCount = 30;
-	_uint iBossBulletCount = 50;
+	_uint iBossBulletCount = 30;
 	_uint iBossRocketCount = 20;
 	_uint iWhiteManCount = 6;
 	_uint iBeamMonCount = 6;
 	_uint iFlyMonCount = 6;
 	
+
+
+	//Effect
+	_uint iBloodCount = 10;
+	_uint iTrailCount = 5;
 
 	for (auto& wstrFile : CMapLoader::GetInstance()->Get_MapFiles())
 	{
@@ -290,6 +299,10 @@ HRESULT CMainApp::Ready_ObjectPool()
 	CPoolMgr::GetInstance()->SetPoolSize<CFlyMon>(iFlyMonCount);
 
 	CPoolMgr::GetInstance()->SetPoolSize<CDoorTrigger>(iMaxDoorTrigger);
+
+	CPoolMgr::GetInstance()->SetPoolSize<CBlood>(iBloodCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CTrail>(iTrailCount);
+
 	return S_OK;
 }
 

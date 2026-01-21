@@ -40,6 +40,10 @@
 
 #include "CUIManager.h"
 
+//Effect
+#include "CBlood.h"
+#include "CTrail.h"
+
 
 CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
 {
@@ -217,6 +221,24 @@ HRESULT CMapStage::Ready_ObjectPool()
         }
     }
 
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CBlood>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CBlood>(m_pGraphicDev)))
+        {
+            MSG_BOX("Effect Blood Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CTrail>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CTrail>(m_pGraphicDev)))
+        {
+            MSG_BOX("Effect Trail Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
     return S_OK;
 }
 
@@ -227,6 +249,7 @@ HRESULT CMapStage::Ready_Prototype_OnlyTexture()
    if(FAILED(Ready_MonsterTextureProto())) return E_FAIL;
    if(FAILED(Ready_TerrainTextureProto())) return E_FAIL;
    if (FAILED(Ready_UITextureProto())) return E_FAIL;
+   if (FAILED(Ready_EffectTextureProto())) return E_FAIL;
    return S_OK;
 }
 
@@ -268,7 +291,6 @@ HRESULT CMapStage::Ready_MonsterTextureProto()
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBullet::GetTextureSource());
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BulletTexture", pCom_Texture)))
         return E_FAIL;
-
 
     return S_OK;
 }
@@ -325,6 +347,27 @@ HRESULT CMapStage::Ready_UITextureProto()
     
 
     CUIManager::GetInstance()->Ready_GameObject(m_pGraphicDev);
+
+    return S_OK;
+}
+
+HRESULT CMapStage::Ready_EffectTextureProto()
+{
+    CTexture* pCom_Texture = nullptr;
+    //Blood Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBlood::GetTextureSources());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_Blood_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto Blood Ready Failed");
+        return E_FAIL;
+    }
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CTrail::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_Trail_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto Trail Ready Failed");
+        return E_FAIL;
+    }
 
     return S_OK;
 }

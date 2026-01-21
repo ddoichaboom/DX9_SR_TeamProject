@@ -133,7 +133,7 @@ protected:
 	_float			m_fFlyBackTime = 0.5f;
 	_float			m_fFlyBackSpeed= 4.f;
 	_vec3			m_FlyDir = {};
-
+	_float			m_fHeadPosOffset = -5.f;
 	CCollider*		m_pHeadCollider;
 	const _tchar*	m_szHeadColliderName = L"ColHead";
 	
@@ -147,6 +147,8 @@ protected:
 	static _uint ID_FLYBACK_BEGIN;
 	static _uint ID_FLYBACK_END_WALL;
 	static _uint ID_FLYBACK_END_GROUND;
+	
 	bool m_bLaunchEnd = false;
+
 };
 

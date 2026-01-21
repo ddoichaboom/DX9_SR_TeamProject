@@ -128,6 +128,12 @@ _vec3 CCollider::Get_Scale()
 }
 
 
+_vec3 CCollider::Get_WorldPos()
+{
+	_vec3 pos = { m_matWorld._41,m_matWorld._42,m_matWorld._43 };
+	return pos;
+}
+
 void CCollider::Set_RelativePos(_vec3 _pos)
 {
 	m_pTransformCom->Set_Pos(_pos);

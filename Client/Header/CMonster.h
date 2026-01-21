@@ -59,6 +59,8 @@ protected:
 	const _float m_fLaunchTime = 0.2f;
 	_float m_fLaunchSpeed = 2.f;
 
+	_vec3			m_vHitPos {};
+
 
 };
 
