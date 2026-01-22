@@ -41,7 +41,7 @@ protected:
 	void				Free() override;
 
 	//UV 기준 offset 이동
-	void				SetNextUV(Particle* pParticle);
+	virtual void		SetNextUV(Particle* pParticle);
 	//Frame 기준 이동 
 	//Padding이 있는 텍스쳐는 아래 함수로 직접 넘겨주기 
 	bool				SetNextFrame(Particle* pParticle, _vec2& _Idx);

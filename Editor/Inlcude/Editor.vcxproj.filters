@@ -139,6 +139,9 @@
     <Filter Include="04. Object\08. EditorTriggerBox">
       <UniqueIdentifier>{524562fc-cbc6-4c07-bd4c-c72328ffd0df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07. Effect\08. TakeDownBlood">
+      <UniqueIdentifier>{43f5b21b-5347-4be5-b0bf-66c124b94a1b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -276,11 +279,14 @@
     <ClInclude Include="..\Header\CBeamFlare.h">
       <Filter>07. Effect\04. BeamFlare</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CHitUI.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CBossTrail.h">
       <Filter>07. Effect\07. BossTrail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHitUI.h">
+      <Filter>07. Effect\06. HitUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTakeDownBlood.h">
+      <Filter>07. Effect\08. TakeDownBlood</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -404,11 +410,14 @@
     <ClCompile Include="..\Code\CBeamFlare.cpp">
       <Filter>07. Effect\04. BeamFlare</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CHitUI.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CBossTrail.cpp">
       <Filter>07. Effect\07. BossTrail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHitUI.cpp">
+      <Filter>07. Effect\06. HitUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTakeDownBlood.cpp">
+      <Filter>07. Effect\08. TakeDownBlood</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

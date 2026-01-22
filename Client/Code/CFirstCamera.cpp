@@ -203,7 +203,6 @@ void CFirstCamera::Mouse_Fix()
 
 	ClientToScreen(g_hWnd, &ptMouse);
 	SetCursorPos(ptMouse.x, ptMouse.y);
-
 }
 
 void CFirstCamera::Cam_Shake(const _float& fTimeDelta)

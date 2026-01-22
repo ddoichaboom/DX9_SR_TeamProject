@@ -25,7 +25,7 @@ public:
 	static		TextureSource& GetTextureSource() { return m_textureSource; }
 	
 	void		Set_Text(const wstring& wDeadText, const wstring& wDeadTime);
-
+	void		Set_StartPos(const _vec3& vPos);
 	void		Init();
 
 protected:
@@ -37,6 +37,9 @@ public:
 	virtual		_int		Update_GameObject(const _float& fTimeDelta)	override;
 	virtual		void		LateUpdate_GameObject(const _float& fTimeDelta)	override;
 	virtual		void		Render_GameObject()	override;
+
+	void					Activate() override;
+	void					Deactivate() override;
 
 protected:
 	virtual		void        Rotate(ROTATION eType, const _float& fAngle) override;

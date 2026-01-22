@@ -32,6 +32,7 @@ public :
 	void		Set_Order(_uint iOrder) { m_iOrder = iOrder; }
 
 	const _vec3&		Get_Pos() const { return m_vPos; }
+	const _vec3&		Get_ScreenPos() const { return m_vScreenPos; }
 
 
 protected :
@@ -41,8 +42,11 @@ protected :
 	_float		m_fSizeY;
 
 	_vec3		m_vPos;
+	_vec3		m_vScreenPos;
 
 	_uint		m_iOrder;
+
+	UI_STATE	m_eType;
 
 };
 

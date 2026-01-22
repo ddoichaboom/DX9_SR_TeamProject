@@ -13,6 +13,7 @@ CSelectBG::CSelectBG(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CBaseUI(pGraphicDev)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
 {
+	m_eType = UI_STAGE_CLEAR;
 }
 
 CSelectBG::CSelectBG(LPDIRECT3DDEVICE9 pGraphicDev, _float fX, _float fY)
@@ -21,12 +22,14 @@ CSelectBG::CSelectBG(LPDIRECT3DDEVICE9 pGraphicDev, _float fX, _float fY)
 {
 	m_fX = fX;
 	m_fY = fY;
+	m_eType = UI_STAGE_CLEAR;
 }
 
 CSelectBG::CSelectBG(const CSelectBG& rhs)
 	: CBaseUI(rhs)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
 {
+	m_eType = UI_STAGE_CLEAR;
 }
 
 CSelectBG::~CSelectBG()

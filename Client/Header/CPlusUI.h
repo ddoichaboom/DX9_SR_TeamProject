@@ -22,6 +22,7 @@ public:
 	static		TextureSource& GetTextureSource() { return m_textureSource; }
 	
 	void		Set_Parent(CBaseUI* pParent);
+	void		Set_Projection(bool bProj) { m_bProject = bProj; }
 
 protected:
 	virtual		HRESULT		Add_Component();
@@ -47,5 +48,6 @@ protected:
 	CBaseUI* m_pParentUI;
 
 	_vec3 m_vLocalPos;
+	_bool	m_bProject;
 };
 

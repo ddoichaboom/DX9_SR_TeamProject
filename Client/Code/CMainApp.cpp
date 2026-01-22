@@ -48,6 +48,7 @@
 #include "CBeamFlare.h"
 #include "CBodyEmit.h"
 #include "CHitUI.h"
+#include "CTakeDownBlood.h"
 
 CMainApp::CMainApp() : m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
 , m_pManagementClass(CManagement::GetInstance()), m_eCurSceneType(SCENE_NONE)
@@ -195,6 +196,14 @@ HRESULT CMainApp::Ready_DefaultProto()
 		Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CKatana::GetAnimSources()))))
 		return E_FAIL;
 
+	//TakeDownBlood
+	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CTakeDownBlood::GetTextureSource());
+	if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_TakeDownBlood_Texture", pCom_Texture)))
+	{
+		MSG_BOX("Proto TakeDownBlood Ready Failed");
+		return E_FAIL;
+	}
+
 
 	//Font
 	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Number", L"DS-Digital", 40, 40, FW_BOLD, false, true)))
@@ -204,7 +213,10 @@ HRESULT CMainApp::Ready_DefaultProto()
 		return E_FAIL;
 
 
-	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Word", L"Noto Sans KR", 30, 30, FW_HEAVY, false, true)))
+	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Word", L"Noto Sans KR", 30, 30, FW_HEAVY, false, true)))	
+		return E_FAIL;
+
+	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_LargeWord", L"Noto Sans KR", 70, 70, FW_HEAVY, true, true)))
 		return E_FAIL;
 
 	return S_OK;

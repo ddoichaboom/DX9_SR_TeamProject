@@ -41,29 +41,33 @@ protected:
 	CCollision*		GetPlayerCollision();
 //State
 	virtual	void	Launch(); 
+public:
 	void			SetLaunched();
 
-protected :
 //	void			Make_DeadText(const wstring& wText, _int iAddTime);
 	void			Make_DeadText(COLLIDER_TAG _eTag, _int iAddTime);
 
 public:
 	void			Activate() override;
 	void			Deactivate() override;
+
+	bool			CanTakeDown() { return m_bCanTakeDown; }
 protected:
 	CAnimation*		m_pAnimationCom;
 	CTransform*		m_pCameraTransformCom;
 	CTransform*		m_pPlayerTransformCom;
 	CCollision*		m_pPlayerCollisionCom;
 
-	_float m_fAttackableDist; 
-	_vec3 m_vDir;
-	_float m_fSpeed;
+	_float			m_fAttackableDist; 
+	_vec3			m_vDir;
+	_float			 m_fSpeed;
 
-	const _float m_fLaunchTime = 0.2f;
-	_float m_fLaunchSpeed = 2.f;
+	const _float		m_fLaunchTime = 0.2f;
+	_float			m_fLaunchSpeed = 2.f;
 
 	_vec3			m_vHitPos {};
+
+	bool			m_bCanTakeDown = false;
 
 
 };

@@ -15,6 +15,8 @@ protected:
 public:
 	static		CFontUI*	Create();
 	static		CFontUI*	Create(FONT_TYPE eType, const _vec3& vPos, const _vec3& vScale);
+
+	void		Set_Projection(bool bProj) { m_bProject = bProj; }
 	
 protected:
 	virtual		void		Free();
@@ -31,12 +33,15 @@ public :
 	void		Set_Text(const wstring& wText) { m_tData.pString = wText; }
 	void		Set_Parent(CBaseUI* pParent);
 
+	void		Set_Color(D3DXCOLOR eColor) { m_tData.Color = eColor; }
+
 	
 
 protected:
 	FontData	m_tData;
 	_vec3		m_vPosition;
 	_vec3		m_vScale;
+	_bool		m_bProject;
 
 	FONT_TYPE	m_eFontType;
 

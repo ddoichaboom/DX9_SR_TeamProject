@@ -3,13 +3,13 @@
 
 CBaseUI::CBaseUI(LPDIRECT3DDEVICE9 pGraphicDev)
     :   CGameObject(pGraphicDev)
-    ,   m_fX(0.f), m_fY(0.f), m_fSizeX(0.f), m_fSizeY(0.f), m_iOrder(0)
+    ,   m_fX(0.f), m_fY(0.f), m_fSizeX(0.f), m_fSizeY(0.f), m_iOrder(0), m_eType(UI_DEFAULT)
 {
 }
 
 CBaseUI::CBaseUI(const CBaseUI& rhs)
     :   CGameObject(rhs)
-    ,   m_fX(rhs.m_fX), m_fY(rhs.m_fY), m_fSizeX(rhs.m_fSizeX), m_fSizeY(rhs.m_fSizeY), m_iOrder(0)
+    ,   m_fX(rhs.m_fX), m_fY(rhs.m_fY), m_fSizeX(rhs.m_fSizeX), m_fSizeY(rhs.m_fSizeY), m_iOrder(0), m_eType(UI_DEFAULT)
 {
 }
 

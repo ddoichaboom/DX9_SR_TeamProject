@@ -211,11 +211,18 @@ HRESULT CWhiteMan::Ready_GameObject()
 	//히트 로컬 위치 
 	m_vHitPos = { 0.f, 0.4f, 0.f };
 	m_fAttackDamage = 5.f;
+
+	m_bCanTakeDown = true;
 	return S_OK;
 }
 
 _int CWhiteMan::Update_GameObject(const _float& fTimeDelta)
 {
+	if (m_bStopUpdate)
+	{
+		if (m_bDead) return RET_DEAD;
+		else return RET_NONE;
+	}
 	int iExit = CMonster::Update_GameObject(fTimeDelta);
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA_QUALITY, this);
 
