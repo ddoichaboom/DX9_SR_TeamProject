@@ -68,7 +68,13 @@ HRESULT CFontUI::Ready_Font()
 		m_tData.pFontTag = L"Font_Number";
 		m_tData.Color = D3DXCOLOR(0.f, 0.f, 0.f, 1.f);
 		break;
+	case Engine::FONT_WORD:
+		m_tData.pFontTag = L"Font_Word";
+		m_tData.Color = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
+		break;
 	}
+
+	m_tData.pSize = m_vScale;
 
     return S_OK;
 }

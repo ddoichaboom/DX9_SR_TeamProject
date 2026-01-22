@@ -127,7 +127,7 @@ HRESULT CTextBG::Ready_GameObject()
 	if (FAILED(Add_Component()))
 		return E_FAIL;
 
-	m_fSizeX = 280.f;
+	m_fSizeX = 400.f;
 	m_fSizeY = 60.f;
 	
 	SetPos(m_vPos);
@@ -137,24 +137,20 @@ HRESULT CTextBG::Ready_GameObject()
 	m_vStartPos = m_vPos;
 	m_vEndPos = m_vPos;
 	m_vEndPos.y += 200.f;
-		
-	_vec3 vZero = {0.f,0.f,0.f};
-	_vec3 vLeft = {-10.f,0.f,0.f};
-	_vec3 vRight = {50.f,0.f,0.f};
 
-	m_pPlusUI = CPlusUI::Create(m_pGraphicDev, vLeft);
+	m_pPlusUI = CPlusUI::Create(m_pGraphicDev, { 0.f,5.f,0.f });
 	if (nullptr == m_pPlusUI)
 		return E_FAIL;
 
 	m_pPlusUI->Set_Parent(this);
 
-	m_pDeadFontUI = CFontUI::Create(FONT_DEFAULT, { -150.f,0.f,0.f }, vZero);
+	m_pDeadFontUI = CFontUI::Create(FONT_WORD, { -90.f,0.f,0.f }, { 150.f,60.f,0.f });
 	if (nullptr == m_pDeadFontUI)
 		return E_FAIL;
 
 	m_pDeadFontUI->Set_Parent(this);
 
-	m_pTimeFontUI = CFontUI::Create(FONT_DEFAULT, { 40.f,0.f,0.f }, vZero);
+	m_pTimeFontUI = CFontUI::Create(FONT_WORD, { 80.f,0.f,0.f }, { 100.f,60.f,0.f });
 	if (nullptr == m_pTimeFontUI)
 		return E_FAIL;
 

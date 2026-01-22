@@ -268,7 +268,8 @@ void CWhiteMan::ChangeState(_uint nextStateID)
 	if (ID_HEAD_DEAD == nextStateID) Make_DeadText(TAG_HEAD, 2);
 	else if(ID_ELECT_DEAD == nextStateID) Make_DeadText(TAG_ELECTRIC, 2);
 	else if (MS_FLYBACK == nextStateID) Make_DeadText(TAG_KICK, 2);
-	else if (ID_SLICE_DEAD == nextStateID || MS_DEAD == nextStateID) Make_DeadText(TAG_NONE, 2);
+	else if (ID_SLICE_DEAD == nextStateID) Make_DeadText(TAG_KATANA, 2);
+	else if (MS_DEAD == nextStateID) Make_DeadText(TAG_NONE, 2);
 }
 
 

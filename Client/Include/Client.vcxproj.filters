@@ -465,20 +465,17 @@
     <ClInclude Include="..\Header\CHitUI.h">
       <Filter>02. GameObject\13. Effect\06. HitUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CSideDashWall.h">
-      <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall\SideDashWall</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CPlusUI.h">
       <Filter>04.UI\01.StaticUI\08.Plus_UI</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CTextBG.h">
       <Filter>04.UI\01.StaticUI\09.Text_BG</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CTextUI.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CFontUI.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>04.UI\01.StaticUI\10.Font_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTextUI.h">
+      <Filter>04.UI\01.StaticUI\06.Text_UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -680,20 +677,17 @@
     <ClCompile Include="..\Code\CHitUI.cpp">
       <Filter>02. GameObject\13. Effect\06. HitUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CSideDashWall.cpp">
-      <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall\SideDashWall</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CPlusUI.cpp">
       <Filter>04.UI\01.StaticUI\08.Plus_UI</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CTextBG.cpp">
       <Filter>04.UI\01.StaticUI\09.Text_BG</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CTextUI.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CFontUI.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>04.UI\01.StaticUI\10.Font_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTextUI.cpp">
+      <Filter>04.UI\01.StaticUI\06.Text_UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

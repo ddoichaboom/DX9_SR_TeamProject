@@ -148,6 +148,7 @@ namespace Engine
 	{
 		FONT_DEFAULT,
 		FONT_NUMBER,
+		FONT_WORD,
 		FONT_END
 	};
 }

@@ -197,10 +197,14 @@ HRESULT CMainApp::Ready_DefaultProto()
 
 
 	//Font
-	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Number", L"DS-Digital", 40, 40, FW_DONTCARE, false, true)))
+	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Number", L"DS-Digital", 40, 40, FW_BOLD, false, true)))
 		return E_FAIL;
 
 	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Default", L"°ß¸íÁ¶", 15, 15, FW_HEAVY,false, false)))
+		return E_FAIL;
+
+
+	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Word", L"Noto Sans KR", 30, 30, FW_HEAVY, false, true)))
 		return E_FAIL;
 
 	return S_OK;
