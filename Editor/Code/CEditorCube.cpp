@@ -44,6 +44,11 @@ void CEditorCube::Render_GameObject()
 {
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 
+    DWORD dOldAlphaTest;
+    m_pGraphicDev->GetRenderState(D3DRS_ALPHATESTENABLE, &dOldAlphaTest);
+
+    m_pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+
     if (nullptr == m_pTextureCom)
     {
         m_pGraphicDev->SetTexture(0, nullptr);
@@ -73,6 +78,7 @@ void CEditorCube::Render_GameObject()
     m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
     m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
     m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+    m_pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, dOldAlphaTest);
 }
 
 HRESULT CEditorCube::Add_Component()

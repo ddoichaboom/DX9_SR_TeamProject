@@ -488,6 +488,7 @@ ObjectData CMapLoader::Parse_ObjectData_FromJSON(const json& jObj)
             objData.sName = jObj["name"];
     }
 
+
     // Transform
     objData.vPos.x = jObj["position"][0];
     objData.vPos.y = jObj["position"][1];
@@ -519,6 +520,8 @@ ObjectData CMapLoader::Parse_ObjectData_FromJSON(const json& jObj)
         objData.sSpawnType = jObj["spawnType"];
     if (jObj.contains("monsterKey"))
         objData.sMonsterKey = jObj["monsterKey"];
+    if (jObj.contains("colliderTag"))
+        objData.eColliderTag = jObj["colliderTag"];
 
     return objData;
 }
@@ -646,6 +649,7 @@ CGameObject* CMapLoader::Get_GameObject_FromPool(const ObjectData& objData, LPDI
             pMapCollider->SetPos(objData.vPos);
             pMapCollider->Set_ColliderScale(objData.vScale);
             pMapCollider->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
+            pMapCollider->Set_ColliderTag(objData.eColliderTag);
             pMapCollider->Activate();
             pGameObject = pMapCollider;
         }

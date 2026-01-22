@@ -138,8 +138,8 @@
     </Filter>
     <Filter Include="02. ComponentEX\00. VIBuffer\05. RcTexUp">
       <UniqueIdentifier>{0c54f6b0-c306-49cc-bfd9-bdc5a7a2f30a}</UniqueIdentifier>
-	</Filter>
-	<Filter Include="02. ComponentEX\02. Texture\03. ScrollTexture">
+    </Filter>
+    <Filter Include="02. ComponentEX\02. Texture\03. ScrollTexture">
       <UniqueIdentifier>{3daae227-1d7a-493e-85da-95a351494d7c}</UniqueIdentifier>
     </Filter>
     <Filter Include="01. Structure\05. ParticleEmitter">
@@ -148,7 +148,7 @@
     <Filter Include="02. ComponentEX\07. DVIBuffer">
       <UniqueIdentifier>{4fe7916b-72b4-4d13-ab36-fe73ad6bd3c0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. ComponentEX\07. DVIBuffer\03. CubeTex">
+    <Filter Include="02. ComponentEX\00. VIBuffer\03. CubeTex">
       <UniqueIdentifier>{87d6c518-0f20-4398-b275-7fc093cd0683}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -217,7 +217,7 @@
       <Filter>01. Structure\03. GameObject\Camera</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CCubeTex.h">
-      <Filter>02. ComponentEX\07. DVIBuffer\03. CubeTex</Filter>
+      <Filter>02. ComponentEX\00. VIBuffer\03. CubeTex</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CRcCol.h">
       <Filter>02. ComponentEX\00. VIBuffer\00. RcCol</Filter>
@@ -372,7 +372,7 @@
       <Filter>01. Structure\03. GameObject\Camera</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CCubeTex.cpp">
-      <Filter>02. ComponentEX\07. DVIBuffer\03. CubeTex</Filter>
+      <Filter>02. ComponentEX\00. VIBuffer\03. CubeTex</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CTerrainTex.cpp">
       <Filter>02. ComponentEX\00. VIBuffer\02. TerrainTex</Filter>

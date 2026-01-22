@@ -412,33 +412,36 @@ void CInspector::Render_MapColliderProperties(CEditorMapCollider* pCollider)
 
     ImGui::Spacing();
 
-    // 편의 기능: 빠른 크기 프리셋
-    ImGui::Text("Quick Size Presets:");
-    if (ImGui::Button("Small (8x8x8)"))
+    // 트리거 타입 선택
+    COLLIDER_TAG eColliderTag = pCollider->Get_ColliderTag();
+    const char* szColliderTags[] = {
+        "TAG_NONE",
+        "TAG_SIDE_DASH"
+    };
+
+    int iSelectedTag(0);
+
+    switch (eColliderTag)
     {
-        pCollider->Set_ColliderScale(_vec3(8.f, 8.f, 8.f));
-    }
-    ImGui::SameLine();
-    if (ImGui::Button("Medium (16x16x16)"))
-    {
-        pCollider->Set_ColliderScale(_vec3(16.f, 16.f, 16.f));
-    }
-    ImGui::SameLine();
-    if (ImGui::Button("Large (32x32x32)"))
-    {
-        pCollider->Set_ColliderScale(_vec3(32.f, 32.f, 32.f));
+    case TAG_NONE:
+        iSelectedTag = 0;
+        break;
+    case TAG_SIDE_DASH:
+        iSelectedTag = 1;
+        break;
     }
 
-    // 벽 형태 프리셋
-    ImGui::Text("Wall Presets:");
-    if (ImGui::Button("Wall X (16x16x70)"))
+    if (ImGui::Combo("Collider Tag", &iSelectedTag, szColliderTags, IM_ARRAYSIZE(szColliderTags)))
     {
-        pCollider->Set_ColliderScale(_vec3(16.f, 16.f, 70.f));
-    }
-    ImGui::SameLine();
-    if (ImGui::Button("Wall Z (70x16x16)"))
-    {
-        pCollider->Set_ColliderScale(_vec3(70.f, 16.f, 16.f));
+        switch (iSelectedTag)
+        {
+        case 0:
+            pCollider->Set_ColliderTag(TAG_NONE);
+            break;
+        case 1:
+            pCollider->Set_ColliderTag(TAG_SIDE_DASH);
+            break;
+        }
     }
 }
 

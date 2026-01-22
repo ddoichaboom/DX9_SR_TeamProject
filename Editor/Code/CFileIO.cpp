@@ -243,6 +243,8 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                 wstring wstrName = pObj->Get_Name();
                 string strName(wstrName.begin(), wstrName.end());
                 jObj["name"] = strName;
+
+                jObj["colliderTag"] = pMapCollider->Get_ColliderTag();
             }
             else if (CEditorTriggerBox* pTriggerBox = dynamic_cast<CEditorTriggerBox*>(pObj))
             {
@@ -535,7 +537,16 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
             else if (strType == "MapCollider")
             {
                 pObj = CEditorMapCollider::Create(pGraphicDev, vPos, vScale);
-        }
+                if (pObj && jObj.contains("colliderTag"))
+                {
+                    CEditorMapCollider* pMapCollider = dynamic_cast<CEditorMapCollider*>(pObj);
+                    if (pMapCollider)
+                    {
+                        COLLIDER_TAG  eTag = static_cast<COLLIDER_TAG>((_int)jObj["colliderTag"]);
+                        pMapCollider->Set_ColliderTag(eTag);
+                    }
+                }
+            }
             else if (strType == "TriggerBox")
             {
                 // TriggerBox 전용 필드 읽기
