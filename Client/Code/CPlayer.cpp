@@ -32,7 +32,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_eNowState(MAIN_END), m_bOnCollision(false), m_pHitUI(nullptr)
 	, m_fHP(20.f), m_fMaxHP(20.f), m_fTime(0.f), m_fStageTime(0.f), m_bStage(false)
 	, m_bSlope(false), m_bSideDash(false)
-	
+	, m_pColHitObj(nullptr)
 {
 
 	m_eOBJ_ID = OBJ_PLAYER;
@@ -50,6 +50,7 @@ CPlayer::CPlayer(const CPlayer& rhs)
 	, m_eNowState(MAIN_END), m_bOnCollision(false), m_pHitUI(nullptr)
 	, m_fHP(20.f), m_fMaxHP(20.f), m_fTime(0.f), m_fStageTime(0.f), m_bStage(false)
 	, m_bSlope(false), m_bSideDash(false)
+	, m_pColHitObj(nullptr)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
 	m_iID = 0;
@@ -160,6 +161,9 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 	if (m_bDash)
 		Update_Dash(fTimeDelta);
 
+	if (m_bSideDash)
+		Update_SideDash(fTimeDelta);
+
 	if (m_eNowState != SHOP && m_eNowState != READY_NEXT)
 		m_mapWeapon[m_eWeaponState]->Update_GameObject(fTimeDelta);
 
@@ -182,11 +186,12 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 	CCharacter::LateUpdate_GameObject(fTimeDelta);
 
 	//CheckEnterCollider();
-
-	Set_OnFloor(fTimeDelta);
+	if (false == m_bSideDash)
+		Set_OnFloor(fTimeDelta);
 
 	if (m_eNowState != SHOP && m_eNowState != READY_NEXT)
 		m_mapWeapon[m_eWeaponState]->LateUpdate_GameObject(fTimeDelta);
+
 	State_LateUpdate(fTimeDelta);
 }
 
@@ -633,7 +638,7 @@ _bool CPlayer::CheckOnFloor(const _float& fTimeDelta,_float* pHeight)
 		_float fCurrentFloorY = 0.f;
 
 
-		if (eTag == TAG_NONE)
+		if (eTag == TAG_NONE || eTag == TAG_ACID)
 		{
 			if (pTransform->Check_OnRange(&vPosition, &fCurrentFloorY))
 			{
@@ -877,6 +882,15 @@ void CPlayer::Update_Dash(const _float& fTimeDelta)
 	_vec3 newPos = m_vDashStart + m_vDashDir * dashDistance;
 
 	m_pTransformCom->Set_Pos(newPos);
+}
+
+void CPlayer::Update_SideDash(const _float& fTimeDelta)
+{
+
+}
+
+void CPlayer::Update_TickDamagaed(const _float& fTimeDelta)
+{
 }
 
 void CPlayer::Intro_Func()
@@ -1532,6 +1546,12 @@ void CPlayer::OnCollision(CollisionInfo info)
 	if (info.eDir != CDIR_NONE)
 	{
 		Move_ByCollision(info.eDir, info.vDiff);
+
+		if (info.eTag == TAG_SIDE_DASH)
+		{
+			m_bSideDash = true;
+			m_pColHitObj = info.pTarget;
+		}		
 	}
 
 	//방승희 추가. 이펙트 용 임시 코드

@@ -61,6 +61,8 @@ private:
 
 	void				Update_Jump(const _float& fTimeDelta);
 	void				Update_Dash(const _float& fTimeDelta);
+	void				Update_SideDash(const _float& fTimeDelta);
+	void				Update_TickDamagaed(const _float& fTimeDelta);
 
 	void				Move_ByCollision(COL_DIR& dir, _vec3 _diff) override;
 public:	
@@ -220,5 +222,7 @@ private:
 
 	//πÊΩ¬»Ò √ﬂ∞° ¿Ã∆Â∆Æ
 	CHitUI* m_pHitUI;
+
+	CGameObject* m_pColHitObj;
 };
 
