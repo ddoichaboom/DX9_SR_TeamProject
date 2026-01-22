@@ -122,21 +122,19 @@ void CUIManager::Update_GameObject(const _float& fTimeDelta)
 
 		if (result ==  RET_DEAD)
 		{
+			//Take Down UI가 끝나면 Return Dead 후 디폴트로 돌아감 
+			if (m_eNowState == UI_TAKEDOWN)
+			{
+				CEventMgr::GetInstance()->Broadcast(EVENT_TAKEDOWN_END, NULL);
+				Change_UIState(UI_DEFAULT);
+				return;
+			}
+
 			IBasePool* pool = (*iter)->GetPool();
 			if (pool == nullptr) Safe_Release((*iter));
 			else (*iter)->ReturnToPool();
 
 			iter = m_mapUI[m_eNowState].erase(iter);
-		}
-		//Take Down UI가 끝나면 Return Dead 후 디폴트로 돌아감 
-		else if (result == RET_DEAD)
-		{
-			if (m_eNowState == UI_TAKEDOWN)
-			{
-				CEventMgr::GetInstance()->Broadcast(EVENT_TAKEDOWN_END, NULL);
-			}
-			Change_UIState(UI_DEFAULT);
-			return;
 		}
 		else iter++;
 	}

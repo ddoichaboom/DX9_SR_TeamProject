@@ -265,6 +265,9 @@
     <Filter Include="04.UI\02.DynamicUI\08. TakeDown">
       <UniqueIdentifier>{3332ea56-67ab-4011-9e52-2a8b361fafb8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\13. Effect\07. TakeDownBlood">
+      <UniqueIdentifier>{526d47fd-6ab6-451c-82fe-0798825648ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -499,7 +502,7 @@
       <Filter>04.UI\02.DynamicUI\08. TakeDown</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CTakeDownBlood.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>02. GameObject\13. Effect\07. TakeDownBlood</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -726,7 +729,7 @@
       <Filter>04.UI\02.DynamicUI\08. TakeDown</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CTakeDownBlood.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>02. GameObject\13. Effect\07. TakeDownBlood</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
