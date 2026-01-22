@@ -28,6 +28,9 @@ public:
 	void            Set_ColliderScale(_vec3 vScale);
 	_vec3           Get_ColliderScale() const { return m_vColliderScale; }
 
+	COLLIDER_TAG	Get_ColliderTag() const { return m_eColliderTag; }
+	void			Set_ColliderTag(COLLIDER_TAG eColliderTag) { m_eColliderTag = eColliderTag; }
+
 public:
 	// 기본 생성 (위치만)
 	static CEditorMapCollider* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos);
@@ -43,6 +46,8 @@ private:
 	_vec3               m_vColliderScale;   // Collider 크기 (Transform과 별도)
 
 	const _tchar* m_szColliderName = L"EditorMapCollider";
+
+	COLLIDER_TAG		m_eColliderTag;
 
 protected:
 	virtual void    Free() override;
