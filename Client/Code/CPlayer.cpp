@@ -19,6 +19,7 @@
 #include "CPoolMgr.h"
 #include "CFloor.h"
 #include "CUIManager.h"
+#include "CMapCollider.h"
 
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -151,6 +152,9 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 		Change_State(IDLE);
 	}
 
+	if (m_bSideDash)
+		Update_SideDash(fTimeDelta);
+
 
 	if (m_eNowState != SHOP && m_eNowState != READY_NEXT && m_bStage)
 		Key_Input(fTimeDelta);
@@ -161,8 +165,7 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 	if (m_bDash)
 		Update_Dash(fTimeDelta);
 
-	if (m_bSideDash)
-		Update_SideDash(fTimeDelta);
+
 
 	if (m_eNowState != SHOP && m_eNowState != READY_NEXT)
 		m_mapWeapon[m_eWeaponState]->Update_GameObject(fTimeDelta);
@@ -893,6 +896,23 @@ void CPlayer::Update_SideDash(const _float& fTimeDelta)
 	_vec3 vDirection = -m_vDiffDir;
 	D3DXVec3Normalize(&vDirection, &vDirection);	
 
+	_vec3 vPos = *m_pTransformCom->Get_Info(INFO_POS);
+	_vec3 vDir = { 0.f,0.f,0.f };
+	vPos.y = pTransform->Get_Info(INFO_POS)->y;
+
+	COLLIDER_TAG eTag = static_cast<CMapCollider*>(m_pColHitObj)->Get_ColliderTag();
+	if (eTag == TAG_SIDE_DASH_X)
+	{
+		vDir.x = 1.f;
+	}
+	else if (eTag == TAG_SIDE_DASH_Z)
+	{
+		vDir.z = 1.f;
+	}
+
+	vPos = vPos + vDir * m_fMoveSpeed * fTimeDelta;
+	m_pTransformCom->Set_Pos(vPos);
+
 	if (CCollision::Collision_Ray(pCollision->GetCollider(), *m_pTransformCom->Get_Info(INFO_POS), vDirection))
 	{
 		
@@ -900,10 +920,14 @@ void CPlayer::Update_SideDash(const _float& fTimeDelta)
 	}
 	else
 	{
-		m_bSideDash = false;
-		m_bFall = true;
+		m_bSideDash = false;		
 		m_pColHitObj = nullptr;
 		m_vDiffDir = {};
+
+		m_fJumpTime = 0.f;
+		m_fVelocity = 0.f;
+		m_fJumpStartY = m_pTransformCom->m_vInfo[INFO_POS].y;
+		m_bJump = true;
 	}
 
 }
@@ -1566,7 +1590,7 @@ void CPlayer::OnCollision(CollisionInfo info)
 	{
 		Move_ByCollision(info.eDir, info.vDiff);
 
-		if (info.eTag == TAG_SIDE_DASH)
+		if (info.eTag == TAG_SIDE_DASH_X || info.eTag == TAG_SIDE_DASH_Z)
 		{
 			m_bSideDash = true;
 			m_pColHitObj = info.pTarget;
