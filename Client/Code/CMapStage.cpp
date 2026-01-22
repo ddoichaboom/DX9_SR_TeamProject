@@ -532,7 +532,7 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
     const vector<wstring>& vecMapFiles = CMapLoader::GetInstance()->Get_MapFiles();
 
     if (!vecMapFiles.empty())
-        m_wstrCurrentMapFile = vecMapFiles[2];      // TODO : Tutorial Map의 끝 Trigger Box에 닿으면 다음 맵 Loading호출
+        m_wstrCurrentMapFile = vecMapFiles[1];      // TODO : Tutorial Map의 끝 Trigger Box에 닿으면 다음 맵 Loading호출
     else
         return E_FAIL;
 
@@ -679,6 +679,13 @@ void CMapStage::Check_Collision()
    //Player, Monster - 맵 콜라이더 충돌
    for (multimap<OBJ_ID, CGameObject*>::iterator it_col = iter_Map_Col.first; it_col != iter_Map_Col.second; it_col++)
    {
+       //객체 당 한번만 casting함. 
+       //OBJ_COL 에 들어있는 오브젝트는 모두 MapCollider만 넣는다는 전제하에 static_cast로  진행
+       COLLIDER_TAG eMapColliderTag = TAG_NONE;
+
+       CMapCollider* pMapCollider = static_cast<CMapCollider*>(it_col->second);
+       if (pMapCollider) eMapColliderTag = pMapCollider->Get_ColliderTag();
+
        //맵에 있는 콜라이더
        CCollision* mapCol_Collision = static_cast<CCollision*>(it_col->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
        CCollider * mapCollider =  mapCol_Collision->GetCollider();
@@ -694,7 +701,8 @@ void CMapStage::Check_Collision()
            CCollision::Collision_Diff(monCollider, mapCollider);
        }
        //플레이어 
-       if(pPlayerCollider) CCollision::Collision_Diff(pPlayerCollider, mapCollider);
+       //플레이어한테만 태그 전달 
+       if(pPlayerCollider) CCollision::Collision_Diff(pPlayerCollider, mapCollider, eMapColliderTag);
 
    }
 

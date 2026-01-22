@@ -86,7 +86,7 @@ void CCollision::Collision_Base(CCollider* _aCol, CCollider* _bCol)
 }
 
 //지형 충돌은 캐릭터 CanCollision 체크 X . 무조건 충돌나도록 함
-void CCollision::Collision_Diff(CCollider* _obj, CCollider* _terrain)
+void CCollision::Collision_Diff(CCollider* _obj, CCollider* _terrain, COLLIDER_TAG eTag)
 {
     if (!_obj || !_terrain) return;
     //if (!_obj->CanCollision() || !_terrain->CanCollision()) return;
@@ -109,7 +109,7 @@ void CCollision::Collision_Diff(CCollider* _obj, CCollider* _terrain)
         {
             eDir = CDIR_Z;
         }
-        _obj->Collision({ _terrain->Get_Owner(), vDiff,0.f,TAG_NONE,eDir});
+        _obj->Collision({ _terrain->Get_Owner(), vDiff,0.f,eTag,eDir});
     }
 }
 

@@ -44,7 +44,8 @@ protected:
 	void			SetLaunched();
 
 protected :
-	void			Make_DeadText(const wstring& wText, _int iAddTime);
+//	void			Make_DeadText(const wstring& wText, _int iAddTime);
+	void			Make_DeadText(COLLIDER_TAG _eTag, _int iAddTime);
 
 public:
 	void			Activate() override;
