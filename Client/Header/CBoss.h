@@ -28,6 +28,8 @@ public:
 	}
 
 	static CBoss* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CBoss* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos);
+
 
 protected:
 	HRESULT			Ready_GameObject() override;

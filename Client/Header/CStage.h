@@ -67,5 +67,7 @@ protected:
 	HRESULT						m_ReadyEnvResult;
 	HRESULT						m_ReadyGameResult;
 
+protected:
+	_bool						m_bStageEnd;		// Stage End 판단 하기 위한 변수
 };
 

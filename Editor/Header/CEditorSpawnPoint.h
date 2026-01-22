@@ -6,6 +6,7 @@ enum SPAWN_TYPE
 {
     SPAWN_PLAYER,   // 플레이어 스폰 지점
     SPAWN_MONSTER,  // 몬스터 스폰 지점
+    SPAWN_BOSSMONSTER,
     SPAWN_END
 };
 

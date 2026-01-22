@@ -50,6 +50,7 @@ void CToolBar::Render_ToolBar()
           "Place Wall",
           "Spawn Player",
           "Spawn Monster",
+          "Spawn BossMonster",
           "Place MapCollider",
           "Place TriggerBox"
     };

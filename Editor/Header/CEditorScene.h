@@ -12,6 +12,15 @@ class CEffectToolBar;
 class CEditorMapCollider;
 class CEditorTriggerBox;
 
+enum DUPPLICATE_DIR
+{
+	POSITIVE_X,
+	NEGATIVE_X,
+	POSITIVE_Z,
+	NEGATIVE_Z,
+	DD_END
+};
+
 class CEditorScene : public Engine::CScene
 {
 
@@ -54,6 +63,7 @@ public:
 	void                        Place_Wall(const _vec3& vPos);
 	void                        Place_SpawnPlayer(const _vec3& vPos);
 	void                        Place_SpawnMonster(const _vec3& vPos);
+	void						Place_SpawnBossMonster(const _vec3& vPos);
 
 	void                        Place_MapCollider(const _vec3& vPos);
 	void                        Place_TriggerBox(const _vec3& vPos);
@@ -86,6 +96,10 @@ protected:
 
 public:
 	static		CEditorScene* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+
+private:
+	DUPPLICATE_DIR				m_eDupplicateDir;
+	_vec3						m_vDupplicateDir;
 
 private:
 	virtual		void			Free() override;

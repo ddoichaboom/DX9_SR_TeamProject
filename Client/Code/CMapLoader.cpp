@@ -16,6 +16,7 @@
 #include "CSlopeFloor.h"
 #include "CMapCollider.h"
 #include "CDoorTrigger.h"
+#include "CStageEndTrigger.h"
 
 // 캐릭터,몬스터 (SpawnPoint 처리용)
 #include "CPlayer.h"
@@ -23,6 +24,7 @@
 #include "CBeamMon.h"
 #include "CFlyMon.h"
 #include "CTestCharacter.h"
+#include "CBoss.h"
 
 #include <fstream>
 
@@ -34,7 +36,7 @@ vector<wstring> CMapLoader::m_vecMapFiles =
 {
     {L"../../Map/TutorialStage.json"},
     {L"../../Map/MainStage.json"},
-    {L"../../Map/Slope_Test.json"}        // 슬로프 연장
+    {L"../../Map/BossStage.json"}        // 슬로프 연장
 };
 
 CMapLoader::CMapLoader()
@@ -226,21 +228,35 @@ HRESULT CMapLoader::Load_Room(const wstring& wstrPath, _int iRoomIndex, CLayer* 
                     // GameObject 획득 (풀에서)
                     CGameObject* pGameObject = Get_GameObject_FromPool(objData, pGraphicDev);
 
-                    if (pGameObject)
-                    {
-                        // RoomIndex 태그 설정
-                        pGameObject->Set_RoomIndex(iRoomIndex);
+                    if (nullptr == pGameObject)
+                        return E_FAIL;
 
-                        // Layer에 추가
-                        if (FAILED(pLayer->Add_GameObject(pGameObject)))
-                        {
-                            pGameObject->ReturnToPool();
-                        }
-                        else
-                        {
-                            iLoadedCount++;
-                        }
+                    // RoomIndex 태그 설정
+                    pGameObject->Set_RoomIndex(iRoomIndex);
+
+                    // Layer에 추가
+                    if (FAILED(pLayer->Add_GameObject(pGameObject)))
+                    {
+                        pGameObject->ReturnToPool();
                     }
+                    else
+                    {
+                        iLoadedCount++;
+                    }
+
+                }
+                else if (objData.sType == "StageEndTriggerBox")
+                {
+                    CGameObject* pGameObject = CStageEndTrigger::Create(pGraphicDev, objData.vPos, objData.vScale);
+
+                    if (nullptr == pGameObject)
+                        return E_FAIL;
+
+                    pGameObject->Set_RoomIndex(iRoomIndex);
+
+                    if (FAILED(pLayer->Add_GameObject(pGameObject)))
+                        return E_FAIL;
+
                 }
             }
             // ========== GameLogic_Layer 처리 ==========
@@ -270,6 +286,16 @@ HRESULT CMapLoader::Load_Room(const wstring& wstrPath, _int iRoomIndex, CLayer* 
                         {
                             pGameObject->SetPos(objData.vPos);
                         }
+                    }
+                    else if (objData.sSpawnType == "BossMonster")
+                    {
+                        CGameObject* pBoss = CBoss::Create(pGraphicDev, objData.vPos);
+
+                        if (nullptr == pBoss)
+                            return E_FAIL;
+
+                        if (FAILED(pLayer->Add_GameObject(pBoss)))
+                            return E_FAIL;
                     }
                     // Monster SpawnPoint는 바로 Monster 생성
                     else if (objData.sSpawnType == "Monster")
@@ -478,8 +504,13 @@ ObjectData CMapLoader::Parse_ObjectData_FromJSON(const json& jObj)
             if (jObj.contains("name"))
                 objData.sName = "DoorTriggerBox";
         }
+        else if (objData.iTriggerType == TRIGGER_STAGE_END)
+        {
+            objData.sType = "StageEndTriggerBox";
+            if (jObj.contains("name"))
+                objData.sName = "StageEndTriggerBox";
+        }
     }
-    // TODO : 별도 Event Trigger 추가시 else if 문으로 추가 필요 
     else
     {
         // 기본 정보
@@ -657,9 +688,7 @@ CGameObject* CMapLoader::Get_GameObject_FromPool(const ObjectData& objData, LPDI
     }
     else if (objData.sType == "DoorTriggerBox")
     {
-        // TriggerBox (현재는 DoorTrigger만 지원)
-        if (objData.iTriggerType == TRIGGER_DOOR)
-        {
+        // DoorTriggerBox 
             CDoorTrigger* pDoorTrigger = Engine::CPoolMgr::GetInstance()->Get_Object<CDoorTrigger>();
             if (pDoorTrigger)
             {
@@ -669,10 +698,8 @@ CGameObject* CMapLoader::Get_GameObject_FromPool(const ObjectData& objData, LPDI
                 pDoorTrigger->Activate();
                 pGameObject = pDoorTrigger;
             }
-        }
-        // 추후 다른 트리거 타입 추가 가능
-        // else if (objData.iTriggerType == TRIGGER_EVENT) { ... }
-        }
+    }
+
 
     return pGameObject;
 }

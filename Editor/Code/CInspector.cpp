@@ -476,8 +476,7 @@ void CInspector::Render_TriggerBoxProperties(CEditorTriggerBox* pTrigger)
     TRIGGER_TYPE eType = pTrigger->Get_TriggerType();
     const char* szTriggerTypes[] = {
         "Door (Room Transition)",
-        "Event (General)",
-        "Damage (Hazard Zone)"
+        "Event (STAGE_END)",
     };
 
     int iSelectedType = static_cast<int>(eType);

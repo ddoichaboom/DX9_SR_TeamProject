@@ -139,6 +139,28 @@ HRESULT CBossStage::Ready_Environment_Layer(const _tchar* pLayerTag)
     if (nullptr == pLayer)
         return E_FAIL;
 
+    const vector<wstring>& vecMapFiles = CMapLoader::GetInstance()->Get_MapFiles();
+
+    if (!vecMapFiles.empty())
+        m_wstrCurrentMapFile = vecMapFiles[2];      // Map/BossStage.json으로 저장
+    else
+    {
+        MSG_BOX("vecMapFiles is empty");
+        return E_FAIL;
+    }
+
+    // 보스 스테이지는 0번 방만 존재
+    if (FAILED(CMapLoader::GetInstance()->Load_Room(
+        m_wstrCurrentMapFile,
+        0,
+        pLayer,
+        m_pGraphicDev,
+        pLayerTag)))
+    {
+        MessageBox(nullptr, L"BossStage (Environment) Load Failed", L"Error", MB_OK);
+        return E_FAIL;
+    }
+
     m_mapLayer.insert({ pLayerTag, pLayer });
     m_pEnvironment_Layer = pLayer;
     return S_OK;
@@ -150,26 +172,31 @@ HRESULT CBossStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
     CLayer* pLayer = CLayer::Create();
     if (nullptr == pLayer)
         return E_FAIL;
-    //---------------------------------------------------------------
-    // 플레이어 임시 생성 
-    // TODO : Spawner로 생성하기
-    //---------------------------------------------------------------\
 
-    CPlayer* pPlayer = nullptr;
-    _vec3 pPlayerSpawnPos = { 0,0,0 };
-
-    pGameObject = pPlayer = CPlayer::Create(m_pGraphicDev, pPlayerSpawnPos);
-
-    if (nullptr == pGameObject)
+    // 보스 스테이지는 0번 방만 존재 
+    if (FAILED(CMapLoader::GetInstance()->Load_Room(
+        m_wstrCurrentMapFile,
+        0,
+        pLayer,
+        m_pGraphicDev,
+        pLayerTag)))
+    {
+        MessageBox(nullptr, L"BossStage (GameLogic) Load Failed", L"Erro", MB_OK);
         return E_FAIL;
+    }
 
-    if (FAILED(pLayer->Add_GameObject(pGameObject)))
-        return E_FAIL;
+    //CPlayer* pPlayer = nullptr;
+    //_vec3 pPlayerSpawnPos = { 0,0,0 };
 
+    //pGameObject = pPlayer = CPlayer::Create(m_pGraphicDev, pPlayerSpawnPos);
 
-    //---------------------------------------------------------------
+    //if (nullptr == pGameObject)
+    //    return E_FAIL;
+
+    //if (FAILED(pLayer->Add_GameObject(pGameObject)))
+    //    return E_FAIL;
+
     // 카메라 생성
-    //---------------------------------------------------------------
     CGameObject* pPlayerObj = pLayer->Get_Object(OBJ_PLAYER);
 
     if (nullptr == pPlayerObj)
@@ -195,15 +222,11 @@ HRESULT CBossStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
     if (FAILED(pLayer->Add_GameObject(pCamera)))
         return E_FAIL;
 
-    //---------------------------------------------------------------
     //  보스 임시 생성
-    // TODO : Spawner로 생성하기
-    //---------------------------------------------------------------
+    //pGameObject = CBoss::Create(m_pGraphicDev);
 
-    pGameObject = CBoss::Create(m_pGraphicDev);
-
-    if (nullptr == pGameObject) return E_FAIL;
-    if (FAILED(pLayer->Add_GameObject(pGameObject))) return E_FAIL;
+    //if (nullptr == pGameObject) return E_FAIL;
+    //if (FAILED(pLayer->Add_GameObject(pGameObject))) return E_FAIL;
 
 
     m_mapLayer.insert({ pLayerTag, pLayer });
@@ -224,6 +247,8 @@ HRESULT CBossStage::Remove_PrevObjectPool()
     CPoolMgr::GetInstance()->DeletePool<CBeamMon>();
     CPoolMgr::GetInstance()->DeletePool<CFlyMon>();
     CPoolMgr::GetInstance()->DeletePool<CBullet>();
+
+    // TODO : CMapStage에서 오브젝트 풀 생성했던거 여기서 안쓰면 해제하기 (아직 미정)
     return S_OK;
 }
 
@@ -251,6 +276,34 @@ HRESULT CBossStage::Ready_ObjectPool_Character()
 
 HRESULT CBossStage::Ready_ObjectPool_Terrain()
 {
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CFloor>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CFloor>(m_pGraphicDev)))
+        {
+            MSG_BOX("Floor Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CWall>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CWall>(m_pGraphicDev)))
+        {
+            MSG_BOX("Wall Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CMapCollider>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CMapCollider>(m_pGraphicDev)))
+        {
+            MSG_BOX("MapCollider Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+
     return S_OK;
 }
 
@@ -305,6 +358,16 @@ HRESULT CBossStage::Ready_CharacterTextureProto()
 HRESULT CBossStage::Ready_TerrainTextureProto()
 {
     CTexture* pCom_Texture = nullptr;
+
+    //// Floor Proto 
+    //pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CFloor::GetTextureSources());
+    //if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Static_FloorTexture", pCom_Texture)))
+    //    return E_FAIL;
+
+    //pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CWall::GetTextureSources());
+    //if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Static_WallTexture", pCom_Texture)))
+    //    return E_FAIL;
+
     return S_OK;
 }
 

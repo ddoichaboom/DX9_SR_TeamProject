@@ -477,6 +477,9 @@
     <ClInclude Include="..\Header\CTextUI.h">
       <Filter>04.UI\01.StaticUI\06.Text_UI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CStageEndTrigger.h">
+      <Filter>02. GameObject\12. Trigger\StageEndTrigger</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -688,6 +691,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTextUI.cpp">
       <Filter>04.UI\01.StaticUI\06.Text_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CStageEndTrigger.cpp">
+      <Filter>02. GameObject\12. Trigger\StageEndTrigger</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

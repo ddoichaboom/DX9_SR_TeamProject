@@ -148,7 +148,7 @@ HRESULT CBoss::Ready_GameObject()
 	//맵 반지름 값 
 	m_fMapRadius = 400.f;
 	m_pTransformCom->m_vScale = m_vScale;
-	m_pTransformCom->Set_Pos({ 0.f, 100.f ,m_fMapRadius});
+	//m_pTransformCom->Set_Pos({ 0.f, 100.f ,m_fMapRadius});			// CMapLoader에서 스포너 발견시 생성
 	
 	GetHandWorldPos(MON_LEFT_HAND);
 	GetHandWorldPos(MON_RIGHT_HAND);
@@ -167,6 +167,22 @@ CBoss* CBoss::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 		MSG_BOX("BOSS Create Failed");
 		return nullptr;
 	}
+
+	return pBoss;
+}
+
+CBoss* CBoss::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
+{
+	CBoss* pBoss = new CBoss(pGraphicDev);
+
+	if (FAILED(pBoss->Ready_GameObject()))
+	{
+		Safe_Release(pBoss);
+		MSG_BOX("BOSS Create Failed");
+		return nullptr;
+	}
+
+	pBoss->SetPos(vPos);
 
 	return pBoss;
 }

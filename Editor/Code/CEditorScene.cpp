@@ -28,6 +28,8 @@ CEditorScene::CEditorScene(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_pMousePicker(nullptr)
     , m_pSelectionMgr(nullptr)
     , m_pHierarchy(nullptr)
+    , m_eDupplicateDir(POSITIVE_X)
+    , m_vDupplicateDir(1.f, 0.f, 0.f)
 {
     m_pGraphicDev->AddRef();
 }
@@ -92,6 +94,7 @@ _int CEditorScene::Update_Scene(const _float& fTimeDelta)
         pObj->Update_GameObject(fTimeDelta);
     }
 
+    Handle_Arrow();
     return 0;
 }
 
@@ -270,8 +273,8 @@ void CEditorScene::Handle_Duplicate()
                 {
                     iType = pDynamicFloor->Get_FloorType();
                     iRoomIndex = pDynamicFloor->Get_RoomIndex();
-
-                    vPos.x += 16.0f;
+                    
+                    vPos += m_vDupplicateDir * 16.f;
                     pNewObj = CEditorDynamicFloor::Create(m_pGraphicDev, vPos, vRot, vScale, iType);
                 }
                 else if (CEditorSlopeFloor* pSlopeFloor = dynamic_cast<CEditorSlopeFloor*>(pSelectedObj))
@@ -292,7 +295,7 @@ void CEditorScene::Handle_Duplicate()
                     iIdx        = pFloor->Get_TextureIdx();
                     iRoomIndex  = pFloor->Get_RoomIndex();
 
-                    vPos.x += 16.0f;
+                    vPos += m_vDupplicateDir * 16.f;
                     pNewObj = CEditorFloor::Create(m_pGraphicDev, vPos, vRot, vScale, iType, iIdx);
                 }
                 
@@ -302,7 +305,7 @@ void CEditorScene::Handle_Duplicate()
                     iIdx    = pCeiling->Get_TextureIdx();
                     iRoomIndex = pCeiling->Get_RoomIndex();
 
-                    vPos.x += 16.0f;
+                    vPos += m_vDupplicateDir * 16.f;
                     pNewObj = CEditorCeiling::Create(m_pGraphicDev, vPos, vRot, vScale, iType, iIdx);
                 }
                 else if (CEditorCube* pCube =  dynamic_cast<CEditorCube*>(pSelectedObj))
@@ -310,7 +313,7 @@ void CEditorScene::Handle_Duplicate()
                     iRoomIndex = pCube->Get_RoomIndex();
 
                     // TODO 자판기 구현 완료시 구현
-                    vPos.x += 8.f;
+                    vPos += m_vDupplicateDir * 16.f;
                     pNewObj = CEditorCube::Create(m_pGraphicDev, vPos, vRot, vScale);
                     pNewObj->Set_RoomIndex(iRoomIndex);
                 }
@@ -318,7 +321,7 @@ void CEditorScene::Handle_Duplicate()
                 {
                     WALL_DIR eDir = pWall->Get_WallDirection();
 
-                    switch (eDir)
+                    /*switch (eDir)
                     {
                     case WALL_XY_FRONT:
                         vPos.x += 32.f;
@@ -338,7 +341,9 @@ void CEditorScene::Handle_Duplicate()
 
                     default:
                         vPos.x += 32.f;
-                    }
+                    }*/
+
+                    vPos += m_vDupplicateDir * 32.f;
 
                     iType = pWall->Get_WallType();
                     iIdx = pWall->Get_TextureIdx();
@@ -382,13 +387,13 @@ void CEditorScene::Handle_Duplicate()
                 }
                 else if (CEditorMapCollider* pMapCollider = dynamic_cast<CEditorMapCollider*>(pSelectedObj))
                 {
-                    vPos.x += 16.0f;
+                    vPos += m_vDupplicateDir * 16.f;
                     _vec3 vColliderScale = pMapCollider->Get_ColliderScale();
                     pNewObj = CEditorMapCollider::Create(m_pGraphicDev, vPos, vColliderScale);
                     }
                 else if (CEditorTriggerBox* pTriggerBox = dynamic_cast<CEditorTriggerBox*>(pSelectedObj))
                 {
-                    vPos.x += 16.0f;
+                    vPos += m_vDupplicateDir * 16.f;
                     _vec3 vColliderScale = pTriggerBox->Get_ColliderScale();
                     TRIGGER_TYPE eType = pTriggerBox->Get_TriggerType();
                     pNewObj = CEditorTriggerBox::Create(m_pGraphicDev, vPos, vColliderScale, eType);
@@ -483,7 +488,8 @@ void CEditorScene::Handle_Left_Click()
             eMode == MODE_PLACE_CEILING || eMode == MODE_PLACE_CUBE || 
             eMode == MODE_PLACE_WALL || eMode == MODE_PLACE_SPAWN_PLAYER || 
             eMode == MODE_PLACE_SPAWN_MONSTER || eMode == MODE_PLACE_SLOPE_FLOOR ||
-            eMode == MODE_PLACE_MAPCOLLIDER || eMode == MODE_PLACE_TRIGGERBOX)
+            eMode == MODE_PLACE_MAPCOLLIDER || eMode == MODE_PLACE_TRIGGERBOX ||
+            eMode == MODE_PLACE_SPAWN_BOSSMONSTER)
         {
 
             // Ray - Plane Intersection (Y = 0 평면)
@@ -503,15 +509,15 @@ void CEditorScene::Handle_Left_Click()
             else if (eMode == MODE_PLACE_WALL)
                 Place_Wall(vPos);
             else if (eMode == MODE_PLACE_SPAWN_PLAYER)
-            {
                 Place_SpawnPlayer(vPos);
-            }
             else if (eMode == MODE_PLACE_SPAWN_MONSTER)
                 Place_SpawnMonster(vPos);
             else if (eMode == MODE_PLACE_MAPCOLLIDER)
                 Place_MapCollider(vPos);
             else if (eMode == MODE_PLACE_TRIGGERBOX)
                 Place_TriggerBox(vPos);
+            else if (eMode == MODE_PLACE_SPAWN_BOSSMONSTER)
+                Place_SpawnBossMonster(vPos);
         }
         else if (eMode == MODE_SELECT)
         {
@@ -566,7 +572,33 @@ void CEditorScene::Handle_Left_Click()
 
 void CEditorScene::Handle_Arrow()
 {
-    // TODO : 복제 할 때 어느 방향으로 오프셋 설정해서 복사할지 결정 구현
+    if (CDInputMgr::GetInstance()->Key_Down(DIK_UP))
+        m_eDupplicateDir = POSITIVE_X;
+    else if (CDInputMgr::GetInstance()->Key_Down(DIK_DOWN))
+        m_eDupplicateDir = NEGATIVE_X;
+    else if (CDInputMgr::GetInstance()->Key_Down(DIK_RIGHT))
+        m_eDupplicateDir = POSITIVE_Z;
+    else if (CDInputMgr::GetInstance()->Key_Down(DIK_LEFT))
+        m_eDupplicateDir = NEGATIVE_Z;
+
+    switch (m_eDupplicateDir)
+    {
+    case POSITIVE_X:
+        m_vDupplicateDir = { 1.f, 0.f, 0.f };
+        break;
+    case NEGATIVE_X:
+        m_vDupplicateDir = { -1.f, 0.f, 0.f };
+        break;
+    case POSITIVE_Z:
+        m_vDupplicateDir = { 0.f, 0.f, 1.f };
+        break;
+    case NEGATIVE_Z:
+        m_vDupplicateDir = { 0.f, 0.f, -1.f };
+        break;
+    default:
+        m_vDupplicateDir = { 1.f, 0.f, 0.f };
+        break;
+    }
 }
 
 _vec3 CEditorScene::Pick_OnPlane(const _vec3& vRayPos, const _vec3& vRayDir, _float fPlaneY)
@@ -704,7 +736,7 @@ void CEditorScene::Place_SpawnPlayer(const _vec3& vPos)
     if (pSpawn)
     {
         _vec3 vAdjustedPos = vPos;
-        vAdjustedPos.y = vPos.y + 0.5f;  
+        vAdjustedPos.y = vPos.y + 20.f;  
         pSpawn->Set_Position(vAdjustedPos);
 
         Add_Object(pSpawn);
@@ -725,6 +757,21 @@ void CEditorScene::Place_SpawnMonster(const _vec3& vPos)
 
         // 기본 몬스터 키 설정 (Inspector에서 변경 가능하도록 향후 확장)
         pSpawn->Set_MonsterKey("DefaultMonster");
+
+        Add_Object(pSpawn);
+        Safe_Release(pSpawn);
+    }
+}
+
+void CEditorScene::Place_SpawnBossMonster(const _vec3& vPos)
+{
+    CEditorSpawnPoint* pSpawn = CEditorSpawnPoint::Create(m_pGraphicDev, vPos, SPAWN_BOSSMONSTER);
+
+    if (pSpawn)
+    {
+        _vec3 vAdjustedPos = vPos;
+        vAdjustedPos.y = vPos.y + 100.f;
+        pSpawn->Set_Position(vAdjustedPos);
 
         Add_Object(pSpawn);
         Safe_Release(pSpawn);

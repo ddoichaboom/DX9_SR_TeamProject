@@ -214,6 +214,8 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                     jObj["spawnType"] = "Player";
                 else if (pSpawn->Get_SpawnType() == SPAWN_MONSTER)
                     jObj["spawnType"] = "Monster";
+                else if (pSpawn->Get_SpawnType() == SPAWN_BOSSMONSTER)
+                    jObj["spawnType"] = "BossMonster";
 
                 jObj["monsterKey"] = pSpawn->Get_MonsterKey();
 
@@ -523,6 +525,8 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
                     eSpawnType = SPAWN_PLAYER;
                 else if (strSpawnType == "Monster")
                     eSpawnType = SPAWN_MONSTER;
+                else if (strSpawnType == "BossMonster")
+                    eSpawnType == SPAWN_BOSSMONSTER;
 
                 // 몬스터 키 읽기 (옵션)
                 string strMonsterKey = "";

@@ -45,7 +45,7 @@ CDoorTrigger* CDoorTrigger::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	if (FAILED(pTrigger->Ready_GameObject()))
 	{
 		Safe_Release(pTrigger);
-		MSG_BOX("Trigger Man Create Failed");
+		MSG_BOX("Door Trigger Create Failed");
 		return nullptr;
 	}
 	return pTrigger;
@@ -58,7 +58,7 @@ CDoorTrigger* CDoorTrigger::Create(LPDIRECT3DDEVICE9 pGraphicDev, _int _roomNum,
 	if (FAILED(pTrigger->Ready_GameObject()))
 	{
 		Safe_Release(pTrigger);
-		MSG_BOX("Trigger Man Create Failed");
+		MSG_BOX("Door Trigger  Create Failed");
 		return nullptr;
 	}
 	return pTrigger;

@@ -85,6 +85,11 @@ void CEditorSpawnPoint::Render_GameObject()
             // 몬스터: 빨강색
             dwColor = D3DCOLOR_ARGB(255, 255, 0, 0);
         }
+        else if (m_eSpawnType == SPAWN_BOSSMONSTER)
+        {
+            // 보스 몬스터 : 파란색 
+            dwColor = D3DCOLOR_ARGB(255, 0, 0, 255);
+        }
     }
 
     m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG2);
@@ -143,6 +148,8 @@ CEditorSpawnPoint* CEditorSpawnPoint::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec
         pInstance->Set_Name(L"PlayerSpawn");
     else if (eType == SPAWN_MONSTER)
         pInstance->Set_Name(L"MonsterSpawn");
+    else if (eType == SPAWN_BOSSMONSTER)
+        pInstance->Set_Name(L"BossMonsterSpawn");
 
     return pInstance;
 }
@@ -172,6 +179,8 @@ CEditorSpawnPoint* CEditorSpawnPoint::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec
         pInstance->Set_Name(L"PlayerSpawn");
     else if (eType == SPAWN_MONSTER)
         pInstance->Set_Name(L"MonsterSpawn");
+    else if (eType == SPAWN_BOSSMONSTER)
+        pInstance->Set_Name(L"BossMonsterSpawn");
 
     return pInstance;
 }
