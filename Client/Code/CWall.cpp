@@ -138,16 +138,6 @@ void CWall::Set_WallType(_uint eWallType)
         m_pTextureCom->Change_Texture(eWallType);
         m_pTextureCom->Set_Frame(_vec2(m_iTextureIdx, 0));
     }
-
-    switch (eWallType)
-    {
-    case STATIC_WALL_SIDEDASH:
-        Set_ColliderTag(TAG_SIDE_DASH);
-        break;
-    default:
-        Set_ColliderTag(TAG_NONE);
-        break;
-    }
 }
 
 
