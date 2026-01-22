@@ -217,6 +217,27 @@
     <Filter Include="02. GameObject\13. Effect\01. Trail">
       <UniqueIdentifier>{011cc0ed-92cc-4fa4-97f1-f58e2dc41719}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\13. Effect\02. Flare">
+      <UniqueIdentifier>{0ff748ef-1152-47ae-b8fe-6c6073b63079}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\03. Explosion">
+      <UniqueIdentifier>{2b73cbbc-e27f-4fbf-afe0-8564e5b20bd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\04. BeamFlare">
+      <UniqueIdentifier>{2e62c910-c363-40fc-ab85-4977833976ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\05. BodyEmit">
+      <UniqueIdentifier>{0bf218cc-17d3-474e-97ed-44f39b53bde1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\06. HitUI">
+      <UniqueIdentifier>{54ad4af8-86e9-4582-ae2b-9687cc7ed82f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\01. Stage\02. BossStage">
+      <UniqueIdentifier>{141d9027-a6aa-44b1-8e1c-254f682cdd09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\02. Loading\00. LoadingEX">
+      <UniqueIdentifier>{e0cc82bb-2528-4e70-95c7-4844d96bef68}</UniqueIdentifier>
+    </Filter>
     <Filter Include="02. GameObject\99. Environment\00. Terrain\02. Wall\SideDashWall">
       <UniqueIdentifier>{3a9e2c78-4499-4c73-a0df-3dba8718faef}</UniqueIdentifier>
     </Filter>
@@ -423,6 +444,27 @@
     <ClInclude Include="..\Header\CHPUI.h">
       <Filter>04.UI\02.DynamicUI\07.HP_UI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CFlare.h">
+      <Filter>02. GameObject\13. Effect\02. Flare</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CExplosion.h">
+      <Filter>02. GameObject\13. Effect\03. Explosion</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBeamFlare.h">
+      <Filter>02. GameObject\13. Effect\04. BeamFlare</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBodyEmit.h">
+      <Filter>02. GameObject\13. Effect\05. BodyEmit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossStage.h">
+      <Filter>01. Scene\01. Stage\02. BossStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CLoadingEX.h">
+      <Filter>01. Scene\02. Loading\00. LoadingEX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHitUI.h">
+      <Filter>02. GameObject\13. Effect\06. HitUI</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\CSideDashWall.h">
       <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall\SideDashWall</Filter>
     </ClInclude>
@@ -616,6 +658,27 @@
     </ClCompile>
     <ClCompile Include="..\Code\CHPUI.cpp">
       <Filter>04.UI\02.DynamicUI\07.HP_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFlare.cpp">
+      <Filter>02. GameObject\13. Effect\02. Flare</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CExplosion.cpp">
+      <Filter>02. GameObject\13. Effect\03. Explosion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBeamFlare.cpp">
+      <Filter>02. GameObject\13. Effect\04. BeamFlare</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBodyEmit.cpp">
+      <Filter>02. GameObject\13. Effect\05. BodyEmit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossStage.cpp">
+      <Filter>01. Scene\01. Stage\02. BossStage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLoadingEX.cpp">
+      <Filter>01. Scene\02. Loading\00. LoadingEX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHitUI.cpp">
+      <Filter>02. GameObject\13. Effect\06. HitUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CSideDashWall.cpp">
       <Filter>02. GameObject\99. Environment\00. Terrain\02. Wall\SideDashWall</Filter>

@@ -354,7 +354,8 @@ void CInspector::Render_WallTextureUI(CEditorWall* pWall)
         "STATIC_WALL_WATER",
         "STATIC_WALL_LAVA",
         "STATIC_WALL_ACID",
-        "STATIC_WALL_FENCE"
+        "STATIC_WALL_FENCE",
+        "STATIC_WALL_SIDEDASH"
     };
 
     int iSelectedType = iWallType;  // STATIC_WALL_1 = 0, STATIC_WALL_2 = 1, ...

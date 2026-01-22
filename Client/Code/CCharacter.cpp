@@ -6,7 +6,7 @@ CCharacter::CCharacter(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
 	, m_pStateCom(nullptr), m_pCollisionCom(nullptr), m_fTime(0.f)
-	, m_fMaxHP(10.f), m_fHP(10.f)
+	, m_fMaxHP(10.f), m_fHP(10.f), m_fAttackDamage(0.f)
 {
 }
 
@@ -14,7 +14,7 @@ CCharacter::CCharacter(LPDIRECT3DDEVICE9 pGraphicDev, _float fHP)
 	: CGameObject(pGraphicDev)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
 	, m_pStateCom(nullptr), m_pCollisionCom(nullptr), m_fTime(0.f)
-	, m_fMaxHP(fHP), m_fHP(fHP)
+	, m_fMaxHP(fHP), m_fHP(fHP), m_fAttackDamage(0.f)
 {
 }
 
@@ -22,7 +22,7 @@ CCharacter::CCharacter(const CCharacter& rhs)
 	: CGameObject(rhs)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
 	, m_pStateCom(nullptr), m_pCollisionCom(nullptr), m_fTime(0.f)
-	, m_fMaxHP(10.f), m_fHP(10.f)
+	, m_fMaxHP(10.f), m_fHP(10.f), m_fAttackDamage(0.f)
 {
 }
 
@@ -134,6 +134,11 @@ void CCharacter::Move_ByCollision(COL_DIR& dir, _vec3 _diff)
 void CCharacter::Free()
 {
 	CGameObject::Free();
+}
+
+_float CCharacter::GetAttackDamage()
+{
+	return m_fAttackDamage;
 }
 
 void CCharacter::Activate()

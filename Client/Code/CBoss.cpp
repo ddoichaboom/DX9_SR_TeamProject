@@ -115,12 +115,12 @@ HRESULT CBoss::Ready_GameObject()
 	m_pBeam[MON_LEFT_HAND] = CBeam::Create(m_pGraphicDev);
 	if (!m_pBeam[MON_LEFT_HAND]) return E_FAIL;
 	m_pBeam[MON_LEFT_HAND]->SetScale(ROT_X, 0.5f);
-	m_pBeam[MON_LEFT_HAND]->SetPrevTranslation({ 0,-m_vScale.y,0 });
+	m_pBeam[MON_LEFT_HAND]->SetPrevTranslation({ 0,-m_vScale.y - 40.f,0 });
 
 	m_pBeam[MON_RIGHT_HAND] = CBeam::Create(m_pGraphicDev);
 	if (!m_pBeam[MON_RIGHT_HAND]) return E_FAIL;
 	m_pBeam[MON_RIGHT_HAND]->SetScale(ROT_X, 0.5f);
-	m_pBeam[MON_RIGHT_HAND]->SetPrevTranslation({ 0,-m_vScale.y,0 });
+	m_pBeam[MON_RIGHT_HAND]->SetPrevTranslation({ 0,-m_vScale.y - 40.f,0 });
 
 	//손 소켓 위치 
 	m_vHandPos[MON_LEFT_HAND] = { -0.53f, 0.2f,0.f };

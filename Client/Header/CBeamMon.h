@@ -7,6 +7,7 @@ namespace Engine
 }
 
 class CBeam;
+class CBeamFlare;
 class CBeamMon :
     public CMonster
 {
@@ -80,7 +81,7 @@ protected:
 	bool			m_bBeamCollision;
 	_float			m_vBeamPosOffset = 4.f;
 
-
+	CBeamFlare*		m_pBeamFlare = nullptr;
 
 };
 

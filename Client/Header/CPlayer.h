@@ -13,6 +13,9 @@ class CLeftPart;
 class CRightPart;
 class CMiddlePart;
 class CWeapon;
+class CHitUI;
+// πŸ≤„æﬂ«“∞≈∞∞±‰«‘
+//class CShopBG;
 
 class CPlayer : public CCharacter, public IListener
 {
@@ -214,5 +217,8 @@ private:
 	_bool	m_bOnCollision;
 
 	map<_uint, _int> m_mapCallCnt = {};
+
+	//πÊΩ¬»Ò √ﬂ∞° ¿Ã∆Â∆Æ
+	CHitUI* m_pHitUI;
 };
 

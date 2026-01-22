@@ -43,6 +43,10 @@ public:
 	static CMapCollider* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	static CMapCollider* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vScale);
 
+public:
+	COLLIDER_TAG	Get_ColliderTag() const { return m_eColliderTag; }
+	void			Set_ColliderTag(COLLIDER_TAG eColliderTag) { m_eColliderTag = eColliderTag; }
+
 protected : 
 	virtual		void	Free();
 
@@ -55,5 +59,8 @@ protected:
 
 	_vec3	m_vPos;
 	_vec3	m_vScale;
+
+private:
+	COLLIDER_TAG	m_eColliderTag;
 };
 

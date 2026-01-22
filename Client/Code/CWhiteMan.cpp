@@ -187,8 +187,9 @@ HRESULT CWhiteMan::Ready_GameObject()
 
 	if (!m_pHeadCollider) return E_FAIL;
 
-	m_pHeadCollider->Set_RelativePos(_vec3(0,9.5f,0));
-	m_pHeadCollider->Set_Scale(_vec3(2,2,2));
+	m_pHeadCollider->Set_RelativePos(_vec3(0,10.f,0));
+	//m_pHeadCollider->Set_Scale(_vec3(2,2,2));
+	m_pHeadCollider->Set_Scale(_vec3(2.5f, 2.5f, 2.5f));
 	//콜라이더가 충돌되면 호출될 함수를 바인딩하기. CollisionInfo는 충돌 정보 
 	//웬만하면 아래처럼 람다로 넣기
 	m_pHeadCollider->BindFuncToCollision([&](CollisionInfo info)
@@ -209,6 +210,7 @@ HRESULT CWhiteMan::Ready_GameObject()
 
 	//히트 로컬 위치 
 	m_vHitPos = { 0.f, 0.4f, 0.f };
+	m_fAttackDamage = 5.f;
 	return S_OK;
 }
 
@@ -410,7 +412,6 @@ void CWhiteMan::Shoot()
 	_vec3 otherPos = { 0.f,0.f,0.f };
 	//if (GetPlayerTransform()) otherPos = *GetPlayerTransform()->Get_Info(INFO_POS);
 	if (GetCameraTransform()) otherPos = *GetCameraTransform()->Get_Info(INFO_POS);
-	otherPos.y -= 1.0f;
 	pBullet->SetPos(myPos);
 
 	_vec3 dir = otherPos - myPos;

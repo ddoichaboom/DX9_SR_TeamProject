@@ -37,13 +37,19 @@
 #include "CBackGround.h"
 #include "CMapCollider.h"
 
-
+#include "CFontMgr.h"
 #include "CUIManager.h"
 
 //Effect
 #include "CBlood.h"
 #include "CTrail.h"
+#include "CFlare.h"
+#include "CExplosion.h"
+#include "CBeamFlare.h"
+#include "CBodyEmit.h"
+#include "CHitUI.h"
 
+#include "CLoadingEX.h"
 
 CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
 {
@@ -53,19 +59,43 @@ CMapStage::~CMapStage()
 {
 }
 
+//각 단계 내의 Task 마다 임계영역이 겹치지 않아야 함
 HRESULT CMapStage::Ready_Scene()
 {
     m_pBackGround = CBackGround::Create(m_pGraphicDev);
+    m_pLoadingEX = CLoadingEX::Create(m_pGraphicDev);
 
+    if (!m_pLoadingEX) return E_FAIL;
+    //1단계
+    //이전 스테이지 이후 필요없는 오브젝트 풀 제거  
+    m_pLoadingEX->AddTask(CLoadingEX::Lv1_INIT, [this]() { this->Remove_PrevObjectPool(); });
+    //텍스쳐 제외 프로토타입 생성
+    m_pLoadingEX->AddTask(CLoadingEX::Lv1_INIT, [this]() { this->Ready_Prototype(); });
+    //캐릭터 텍스쳐 생성 
+    m_pLoadingEX->AddTask(CLoadingEX::Lv1_INIT, [this]() { this->Ready_CharacterTextureProto(); });
 
-    //각 함수를 Loading에서 처리하도록 함 
-    m_pLoading = CLoading::Create(m_pGraphicDev,
-        [&]() {  m_BaseResult = Ready_Prototype(); },
-        [&]() {  m_TextureResult = Ready_Prototype_OnlyTexture(); },
-        [&]() {  m_ObjectPoolResult = Ready_ObjectPool(); },
-        [&]() {  m_ReadyEnvResult = Ready_Environment_Layer(L"Environment_Layer"); },
-        [&]() {  m_ReadyGameResult = Ready_GameLogic_Layer(L"GameLogic_Layer"); }
-    );
+    //2단계
+    //1단계에서 만들어진 텍스쳐로 캐릭터 오브젝트 풀 생성 
+    m_pLoadingEX->AddTask(CLoadingEX::Lv2_CHAR_RES, [this]() { this->Ready_ObjectPool_Character(); });
+    m_pLoadingEX->AddTask(CLoadingEX::Lv2_CHAR_RES, [this]() { this->Ready_TerrainTextureProto(); });
+
+    //3단계
+    m_pLoadingEX->AddTask(CLoadingEX::Lv3_TERRAIN_RES, [this]() { this->Ready_ObjectPool_Terrain(); });
+    m_pLoadingEX->AddTask(CLoadingEX::Lv3_TERRAIN_RES, [this]() { this->Ready_UITextureProto(); });
+
+    //4단계
+    m_pLoadingEX->AddTask(CLoadingEX::Lv4_UI_RES, [this]() { this->Ready_ObjectPool_UI(); });
+    m_pLoadingEX->AddTask(CLoadingEX::Lv4_UI_RES, [this]() { this->Ready_EffectTextureProto(); });
+
+    //5단계
+    m_pLoadingEX->AddTask(CLoadingEX::Lv5_EFFECT_RES, [this]() { this->Ready_ObjectPool_Effect(); });
+
+    //6단계 맵 - 환경 로드
+    m_pLoadingEX->AddTask(CLoadingEX::Lv6_MAP_ENV_LOAD, [this]() { this->Ready_Environment_Layer(L"Environment_Layer"); });
+
+    //7단계 맵 - 게임로직 로드 
+    m_pLoadingEX->AddTask(CLoadingEX::Lv7_MAP_GAME_LOAD, [this]() { this->Ready_GameLogic_Layer(L"GameLogic_Layer"); });
+
     
     //메세지 구독 신청
     CEventMgr::GetInstance()->Subscribe(EVENT_DOOR_IN, this);
@@ -76,18 +106,20 @@ HRESULT CMapStage::Ready_Scene()
 
 _int CMapStage::Update_Scene(const _float& fTimeDelta)
 {
-    if (m_pLoading->IsEnd() == false)
+    if (m_pLoadingEX->IsEnd() == false)
     {
         m_pBackGround->Update_GameObject(fTimeDelta);
-        m_pLoading->Update_Loading();
+        m_pLoadingEX->Update_Loading();
         return 0;
     }
-
     int iExit = CStage::Update_Scene(fTimeDelta);
     //UI 업데이트
     CUIManager::GetInstance()->Update_GameObject(fTimeDelta);
 
-    
+    if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_P))
+    {
+        return RET_DEAD;
+    }
 
     return iExit;
 }
@@ -99,20 +131,70 @@ void CMapStage::LateUpdate_Scene(const _float& fTimeDelta)
     //UI 업데이트
     CUIManager::GetInstance()->LateUpdate_GameObject(fTimeDelta);
 
-    if(m_pLoading->IsEnd()) Check_Collision();
+    if (m_pLoadingEX->IsEnd()) Check_Collision();
 }
 
 void CMapStage::Render_Scene()
 {
-    if (m_pLoading->IsEnd() == false)
+    if (m_pLoadingEX->IsEnd() == false)
     {
         m_pBackGround->Render_GameObject();
     }
 }
 
-HRESULT CMapStage::Ready_ObjectPool()
+HRESULT CMapStage::Ready_Prototype()
 {
-    // ========== Pool 생성 ==========
+    //Main으로 옮김 
+    return S_OK;
+}
+
+HRESULT CMapStage::Remove_PrevObjectPool()
+{
+    return S_OK;
+}
+
+HRESULT CMapStage::Ready_ObjectPool_Character()
+{
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CBullet>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CBullet>(m_pGraphicDev)))
+        {
+            MSG_BOX("Bullet Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CWhiteMan>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CWhiteMan>(m_pGraphicDev)))
+        {
+            MSG_BOX("WhiteMan Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CBeamMon>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CBeamMon>(m_pGraphicDev)))
+        {
+            MSG_BOX("BeamMon Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CFlyMon>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CFlyMon>(m_pGraphicDev)))
+        {
+            MSG_BOX("FlyMon Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+    return S_OK;
+}
+
+HRESULT CMapStage::Ready_ObjectPool_Terrain()
+{
     if (!Engine::CPoolMgr::GetInstance()->HasPool<CFloor>())
     {
         if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CFloor>(m_pGraphicDev)))
@@ -167,41 +249,14 @@ HRESULT CMapStage::Ready_ObjectPool()
         }
     }
 
-    if (!Engine::CPoolMgr::GetInstance()->HasPool<CBullet>())
-    {
-        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CBullet>(m_pGraphicDev)))
-        {
-            MSG_BOX("Bullet Pool Create Failed");
-            return E_FAIL;
-        }
-    }
-
-    if (!Engine::CPoolMgr::GetInstance()->HasPool<CWhiteMan>())
-    {
-        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CWhiteMan>(m_pGraphicDev)))
-        {
-            MSG_BOX("WhiteMan Pool Create Failed");
-            return E_FAIL;
-        }
-    }
-
-    if (!Engine::CPoolMgr::GetInstance()->HasPool<CBeamMon>())
-    {
-        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CBeamMon>(m_pGraphicDev)))
-        {
-            MSG_BOX("BeamMon Pool Create Failed");
-            return E_FAIL;
-        }
-    }
-
-    if (!Engine::CPoolMgr::GetInstance()->HasPool<CFlyMon>())
-    {
-        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CFlyMon>(m_pGraphicDev)))
-        {
-            MSG_BOX("FlyMon Pool Create Failed");
-            return E_FAIL;
-        }
-    }
+    //if (!Engine::CPoolMgr::GetInstance()->HasPool<CTrigger>())
+    //{
+    //    if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CTrigger>(m_pGraphicDev)))
+    //    {
+    //        MSG_BOX("Trigger Pool Create Failed");
+    //        return E_FAIL;
+    //    }
+    //}
 
     if (!Engine::CPoolMgr::GetInstance()->HasPool<CMapCollider>())
     {
@@ -221,6 +276,16 @@ HRESULT CMapStage::Ready_ObjectPool()
         }
     }
 
+    return S_OK;
+}
+
+HRESULT CMapStage::Ready_ObjectPool_UI()
+{
+    return S_OK;
+}
+
+HRESULT CMapStage::Ready_ObjectPool_Effect()
+{
     if (!Engine::CPoolMgr::GetInstance()->HasPool<CBlood>())
     {
         if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CBlood>(m_pGraphicDev)))
@@ -239,22 +304,67 @@ HRESULT CMapStage::Ready_ObjectPool()
         }
     }
 
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CFlare>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CFlare>(m_pGraphicDev)))
+        {
+            MSG_BOX("Effect Flare Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CExplosion>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CExplosion>(m_pGraphicDev)))
+        {
+            MSG_BOX("Effect Explosion Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CBeamFlare>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CBeamFlare>(m_pGraphicDev)))
+        {
+            MSG_BOX("Effect BeamFlare Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CBodyEmit>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CBodyEmit>(m_pGraphicDev)))
+        {
+            MSG_BOX("Effect BodyEmit Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CHitUI>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CHitUI>(m_pGraphicDev)))
+        {
+            MSG_BOX("Effect HitUI Pool Create Failed");
+            return E_FAIL;
+        }
+    }
     return S_OK;
 }
 
 
-HRESULT CMapStage::Ready_Prototype_OnlyTexture()
-{
-   //if(FAILED(Ready_PlayerTextureProto())) return E_FAIL;
-   if(FAILED(Ready_MonsterTextureProto())) return E_FAIL;
-   if(FAILED(Ready_TerrainTextureProto())) return E_FAIL;
-   if (FAILED(Ready_UITextureProto())) return E_FAIL;
-   if (FAILED(Ready_EffectTextureProto())) return E_FAIL;
-   return S_OK;
-}
+//HRESULT CMapStage::Ready_Prototype_OnlyTexture()
+//{
+//   //if(FAILED(Ready_PlayerTextureProto())) return E_FAIL;
+//   if(FAILED(Ready_MonsterTextureProto())) return E_FAIL;
+//   if(FAILED(Ready_TerrainTextureProto())) return E_FAIL;
+//   if (FAILED(Ready_UITextureProto())) return E_FAIL;
+//   if (FAILED(Ready_EffectTextureProto())) return E_FAIL;
+//   return S_OK;
+//}
 
 
-HRESULT CMapStage::Ready_MonsterTextureProto()
+HRESULT CMapStage::Ready_CharacterTextureProto()
 {
     CTexture* pCom_Texture = nullptr;
 
@@ -362,10 +472,51 @@ HRESULT CMapStage::Ready_EffectTextureProto()
         return E_FAIL;
     }
 
+    //Trail 
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CTrail::GetTextureSource());
     if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_Trail_Texture", pCom_Texture)))
     {
         MSG_BOX("Proto Trail Ready Failed");
+        return E_FAIL;
+    }
+    
+    //Flare
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CFlare ::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_Flare_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto Flare Ready Failed");
+        return E_FAIL;
+    }
+
+    //Explosion
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CExplosion::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_EXP_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto Explosion Ready Failed");
+        return E_FAIL;
+    }
+
+    //BeamFlare
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBeamFlare::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_BeamFlare_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto BeamFlare Ready Failed");
+        return E_FAIL;
+    }
+
+    //BodyEmit
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBodyEmit::GetTextureSources());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_BodyEmit_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto BodyEmit Ready Failed");
+        return E_FAIL;
+    }
+
+    //HitUI
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CHitUI::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_HitUI_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto HitUI Ready Failed");
         return E_FAIL;
     }
 
@@ -506,26 +657,23 @@ HRESULT CMapStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
     return S_OK;
 }
 
-HRESULT CMapStage::Ready_Prototype()
-{
-    //Main으로 옮김 
-    return S_OK;
-}
+
 
 
 void CMapStage::Check_Collision()
 {
    auto iter_Map_Col = m_mapLayer[L"Environment_Layer"]->Get_Objects(OBJ_COL);
    auto iter_Map_Trigger = m_mapLayer[L"Environment_Layer"]->Get_Objects(OBJ_TRIGGER);
+   auto iter_Map_Bullet = m_mapLayer[L"GameLogic_Layer"]->Get_Objects(OBJ_BULLET);
    auto iter_Map_Mon = m_mapLayer[L"GameLogic_Layer"]->Get_Objects(OBJ_MONSTER);
    CGameObject* player = m_mapLayer[L"GameLogic_Layer"]->Get_Object(OBJ_PLAYER);
 
-   vector<CCollider*> PlayerColliders;
-
+   //vector<CCollider*> PlayerColliders;
+   CCollider* pPlayerCollider = nullptr;
    if (player) 
    {
        CCharacter * cPlayer = static_cast<CCharacter*>(player);
-       cPlayer->GetAllCollider(PlayerColliders);
+       pPlayerCollider = cPlayer->GetCollider(); // Main Collider 만 받아옴 
    }
 
    //Player, Monster - 맵 콜라이더 충돌
@@ -546,12 +694,17 @@ void CMapStage::Check_Collision()
            CCollision::Collision_Diff(monCollider, mapCollider);
        }
        //플레이어 
-       for (auto& collider : PlayerColliders)
-       {
-           CCollision::Collision_Diff(collider, mapCollider);
-       }
+       if(pPlayerCollider) CCollision::Collision_Diff(pPlayerCollider, mapCollider);
 
    }
+
+
+   //-------------------------------------------------------------------
+   //Player 충돌 
+   //-------------------------------------------------------------------
+
+   if (!pPlayerCollider) return;
+
    //Player- Trigger 충돌
    for (multimap<OBJ_ID, CGameObject*>::iterator it_tri = iter_Map_Trigger.first; it_tri != iter_Map_Trigger.second; it_tri++)
    {
@@ -559,12 +712,20 @@ void CMapStage::Check_Collision()
        CCollider* mapCollider = mapTrig_Collision->GetCollider();
        if (!mapCollider) continue;
 
-       for (auto& collider : PlayerColliders)
-       {
-           CCollision::Collision_Base(collider, mapCollider);
-       }
+       CCollision::Collision_Base(pPlayerCollider, mapCollider);
    }
 
+   //Player- Bullet 충돌
+   for (multimap<OBJ_ID, CGameObject*>::iterator it_bullet = iter_Map_Bullet.first; it_bullet != iter_Map_Bullet.second; it_bullet++)
+   {
+       CCollision* mapBul_Collision = static_cast<CCollision*>(it_bullet->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+       CCollider* mapCollider = mapBul_Collision->GetCollider();
+       if (!mapCollider) continue;
+
+       CCollision::Collision_Base(pPlayerCollider, mapCollider);
+   }
+   
+   // Player 충돌 End
 }
 
 void CMapStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
@@ -575,6 +736,9 @@ void CMapStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
         //    Change_Room(m_iCurrentRoomIndex + 1);
         
         Change_Room(m_iCurrentRoomIndex + 1);
+    }
+    else if (_type == EVENT_STAGE_END)
+    {
     }
 }
 
@@ -596,6 +760,7 @@ CMapStage* CMapStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CMapStage::Free()
 {
     Safe_Release(m_pBackGround);
-    Safe_Release(m_pLoading);
+    Safe_Release(m_pLoadingEX);
     CScene::Free();
+    CFontMgr::GetInstance()->Clear_RenderFont();
 }

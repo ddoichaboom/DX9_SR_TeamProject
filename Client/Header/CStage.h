@@ -3,6 +3,7 @@
 
 class CBackGround;
 class CLoading;
+class CLoadingEX;
 
 class CStage : public CScene
 {
@@ -23,8 +24,19 @@ protected:
 	//HRESULT					Ready_Light();
 
 	virtual HRESULT				Ready_Prototype() PURE;
-	virtual	HRESULT				Ready_Prototype_OnlyTexture() PURE;
-	virtual	HRESULT				Ready_ObjectPool() PURE;
+	virtual HRESULT				Remove_PrevObjectPool()			{ return S_OK; };
+
+	virtual HRESULT				Ready_ObjectPool_Character()	{ return S_OK; }
+	virtual HRESULT				Ready_ObjectPool_Terrain()		{ return S_OK; }
+	virtual HRESULT				Ready_ObjectPool_UI()			{ return S_OK; }
+	virtual HRESULT				Ready_ObjectPool_Effect()		{ return S_OK; }
+
+
+	virtual HRESULT				Ready_CharacterTextureProto()	{ return S_OK; }
+	virtual HRESULT				Ready_TerrainTextureProto()		{ return S_OK; }
+	virtual HRESULT				Ready_UITextureProto()			{ return S_OK; }
+	virtual HRESULT				Ready_EffectTextureProto()		{ return S_OK; }
+
 
 protected:
 	virtual	void				Check_Collision() {} ;
@@ -46,8 +58,8 @@ protected:
 	set<_int>					m_setLoadedRooms;           // 로드된 방 번호 집합 (중복 X) 
 
 protected:
-	CLoading*					m_pLoading;
-
+	//CLoading*					m_pLoading;
+	CLoadingEX*					m_pLoadingEX;
 	//Loading 결과값 
 	HRESULT						m_BaseResult;
 	HRESULT						m_TextureResult;

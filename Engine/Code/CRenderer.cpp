@@ -120,6 +120,9 @@ void CRenderer::Render_Alpha_UI(LPDIRECT3DDEVICE9& pGraphicDev)
 	CRenderStateGuard cGuard(pGraphicDev);
 	pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
 	pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	
+	pGraphicDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	pGraphicDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
 	_matrix mat, View;
 	D3DXMatrixIdentity(&View);
@@ -154,6 +157,8 @@ void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
 		pObj->Render_GameObject();
 
 	pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+	pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
+	pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
 }
 
 void CRenderer::Render_DEBUG(LPDIRECT3DDEVICE9& pGraphicDev)

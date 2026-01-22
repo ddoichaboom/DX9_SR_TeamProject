@@ -7,7 +7,7 @@
 CMapCollider::CMapCollider(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CGameObject(pGraphicDev) 
 	, m_pTransformCom(nullptr), m_pCollisionCom(nullptr), m_pCollider(nullptr),
-	m_vPos{0.f,0.f,0.f}, m_vScale{1.f,1.f,1.f}
+	m_vPos{0.f,0.f,0.f}, m_vScale{1.f,1.f,1.f}, m_eColliderTag(TAG_NONE)
 {
 	m_eOBJ_ID = OBJ_COL;
 }

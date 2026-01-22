@@ -4,6 +4,7 @@
 
 class CLoading : public CBase
 {
+
 public:
 	explicit CLoading(LPDIRECT3DDEVICE9 pGraphicDev);
 	virtual ~CLoading();

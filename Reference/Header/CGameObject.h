@@ -45,6 +45,8 @@ public:
 	IBasePool*							GetPool() { return m_pPool; }
 	void								ReturnToPool();
 
+	//공격 데미지가 있는 타입에서는 재정의하기 
+	virtual _float						GetAttackDamage() { return 0.f; }
 	//TranformCom이 있는 하위 클래스에서 재정의하기 
 	virtual void						SetPos(_vec3 _pos) {};
 	virtual void						Rotate(ROTATION _Axis, _float _degree) {};
@@ -77,6 +79,7 @@ protected:
 
 	// 몇번 방에 속하는 객체인지 파악하기 위한 정보 
 	_int								m_iRoomIndex;		// -1은 전역 오브젝트
+	
 };
 
 END
