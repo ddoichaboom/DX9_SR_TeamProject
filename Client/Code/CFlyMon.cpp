@@ -141,6 +141,10 @@ void CFlyMon::ChangeState(_uint nextStateID)
 	m_fTime = 0.f;
 	m_pAnimationCom->Update_State(nextStateID);
 	m_pStateCom->ChangeState<CFlyMon>(nextStateID);
+
+	if (MS_FLYBACK == nextStateID) Make_DeadText(TAG_KICK, 2);
+	else if (MS_DEAD == nextStateID) Make_DeadText(TAG_NONE, 2);
+
 }
 
 HRESULT CFlyMon::Add_Component()

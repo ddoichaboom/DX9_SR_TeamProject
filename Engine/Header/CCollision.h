@@ -49,7 +49,7 @@ public:
 	static void			Collision_Base(CCollider* _aCol, CCollider * _bCol);
 	
 	//충돌 처리 후 미는 범위를 전달 함수
-	static void			Collision_Diff(CCollider* _obj, CCollider* _terrain);
+	static void			Collision_Diff(CCollider* _obj, CCollider* _terrain, COLLIDER_TAG eTag = TAG_NONE);
 
 	//충돌 여부만 판단하는 AABB 함수 
 	static bool			CheckCollision(CCollider* _aCol, CCollider* _bCol );

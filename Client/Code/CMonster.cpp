@@ -179,11 +179,11 @@ void CMonster::SetLaunched()
 	ChangeState(MS_LAUNCH);
 }
 
-void CMonster::Make_DeadText(const wstring& wText, _int iAddTime)
+void CMonster::Make_DeadText(COLLIDER_TAG _eTag, _int iAddTime)
 {
 	MonsterData tData;
 	tData.value = iAddTime;
-	tData.wText = wText;
+	tData.eTag = _eTag;
 
 	CEventMgr::GetInstance()->Broadcast(EVENT_MONSTER_DEAD, &tData);
 }
