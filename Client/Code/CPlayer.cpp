@@ -88,6 +88,11 @@ void CPlayer::OnEvent(EVENT_TYPE _type, EventData* _pData)
 		CUIManager::GetInstance()->Create_TextUI(m_pGraphicDev, pData->eTag, pData->value);
 		Add_HP(pData->value);
 	}
+	
+	if (_type == EVENT_DRINK)
+	{
+		Drink_Func();
+	}
 }
 
 HRESULT CPlayer::Ready_GameObject()
@@ -103,6 +108,7 @@ HRESULT CPlayer::Ready_GameObject()
 	CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_START, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_END, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_READY_NEXT_STAGE, this);
+	CEventMgr::GetInstance()->Subscribe(EVENT_DRINK, this);
 
 	m_pTransformCom->m_vScale = { 6.f,6.f,6.f };
 	m_pTransformCom->Set_Pos(0.f, 0.f, 0.f);
@@ -408,8 +414,9 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_Q))
 	{
-		if (m_eNowState == IDLE)
-			Change_State(DRINK);
+
+		CEventMgr::GetInstance()->Broadcast(EVENT_DRINK, nullptr);
+		
 		return;
 	}
 
@@ -1010,7 +1017,10 @@ void CPlayer::Shop_Func()
 /// </summary>
 void CPlayer::Drink_Func()
 {
+	Add_HP(m_fMaxHP);
 
+	if (m_eNowState == IDLE)
+		Change_State(DRINK);
 }
 
 void CPlayer::Change_State(_uint eState)

@@ -6,6 +6,8 @@
 #include "CBaseUI.h"
 
 class CBaseUI;
+class CEffectUI;
+class CCursor;
 
 
 class CUIManager : public CBase, public IListener
@@ -23,6 +25,7 @@ public :
 	void		OnEvent(EVENT_TYPE _type, EventData* _pData) override;
 	void		Change_UIState(UI_STATE eState);
 	void		Create_TextUI(LPDIRECT3DDEVICE9 pGraphicDev, COLLIDER_TAG eTag, _int iTimes);
+	void		Create_TextEffect(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _int iTimes);
 public :
 	HRESULT Ready_GameObject(LPDIRECT3DDEVICE9 pGraphicDev);
 	void	Update_GameObject(const _float& fTimeDelta);
@@ -36,11 +39,19 @@ private :
 
 
 	
-
+public :
+	void			Set_RenderEffect(_bool bRender) { m_bRenderEffectUI = bRender; }
+	void			Set_OnEffectUI(_bool  bDrink);
 	
 private :	
 	UI_STATE	m_eNowState;
 	map<UI_STATE, list<CBaseUI*>> m_mapUI;
 
+	
+
+	CEffectUI*	m_pEffectUI;
+	_bool		m_bRenderEffectUI;
+
+	//CCursor*	m_pCursor;
 };
 

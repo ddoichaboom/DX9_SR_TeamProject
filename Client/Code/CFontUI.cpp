@@ -5,17 +5,17 @@
 #include "CBaseUI.h"
 
 CFontUI::CFontUI()
-	: m_eFontType(FONT_DEFAULT), m_pParentUI(nullptr)
+	: m_eFontType(FONT_DEFAULT), m_pParentUI(nullptr), m_bProject(false)
 {
 }
 
 CFontUI::CFontUI(FONT_TYPE eType, const _vec3& vPos, const _vec3& vScale)
-	: m_eFontType(eType), m_vPosition(vPos), m_vScale(vScale), m_pParentUI(nullptr)
+	: m_eFontType(eType), m_vPosition(vPos), m_vScale(vScale), m_pParentUI(nullptr), m_bProject(false)
 {
 }
 
 CFontUI::CFontUI(const CFontUI& rhs)
-	: m_eFontType(rhs.m_eFontType), m_vPosition(rhs.m_vPosition), m_vScale(rhs.m_vScale), m_pParentUI(nullptr)
+	: m_eFontType(rhs.m_eFontType), m_vPosition(rhs.m_vPosition), m_vScale(rhs.m_vScale), m_pParentUI(nullptr), m_bProject(false)
 {
 }
 
@@ -72,6 +72,10 @@ HRESULT CFontUI::Ready_Font()
 		m_tData.pFontTag = L"Font_Word";
 		m_tData.Color = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
 		break;
+	case Engine::FONT_LARGEWORD:
+		m_tData.pFontTag = L"Font_LargeWord";
+		m_tData.Color = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
+		break;
 	}
 
 	m_tData.pSize = m_vScale;
@@ -89,9 +93,19 @@ void CFontUI::LateUpdate_GameObject(const _float& fTimeDelta)
 	if (nullptr == m_pParentUI)
 		return;
 
-	_vec3 vPos = m_pParentUI->Get_Pos();
-	vPos += m_vPosition;
-	m_tData.pPos = vPos;
+	if (false == m_bProject)
+	{
+		_vec3 vPos = m_pParentUI->Get_Pos();
+		vPos += m_vPosition;
+		m_tData.pPos = vPos;
+	}
+	else
+	{
+		_vec3 vPos = m_pParentUI->Get_ScreenPos();
+		vPos += m_vPosition;
+		m_tData.pPos = vPos;
+	}
+	
 	CFontMgr::GetInstance()->Add_RenderFont(&m_tData);
 }
 

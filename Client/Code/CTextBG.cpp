@@ -74,10 +74,19 @@ void CTextBG::Set_Text(const wstring& wDeadText, const wstring& wDeadTime)
 	m_pTimeFontUI->Set_Text(wDeadTime);
 }
 
-void CTextBG::Init()
+void CTextBG::Set_StartPos(const _vec3& vPos)
 {
-	m_vPos = m_vStartPos;
+	m_vPos = vPos;
+	SetPos(m_vPos);
+	m_vStartPos = m_vPos;
+	m_vEndPos = m_vPos;
+	m_vEndPos.y += 200.f;
+}
+
+void CTextBG::Init()
+{	
 	m_fTime = 0.f;
+	m_pTextureCom->Change_Texture(0);
 }
 
 HRESULT CTextBG::Add_Component()
@@ -127,16 +136,14 @@ HRESULT CTextBG::Ready_GameObject()
 	if (FAILED(Add_Component()))
 		return E_FAIL;
 
-	m_fSizeX = 400.f;
+	m_fSizeX = 300.f;
 	m_fSizeY = 60.f;
 	
-	SetPos(m_vPos);
+	
 	SetScale(m_fSizeX, m_fSizeY);
 	m_pTextureCom->Change_Texture(0);
 
-	m_vStartPos = m_vPos;
-	m_vEndPos = m_vPos;
-	m_vEndPos.y += 200.f;
+
 
 	m_pPlusUI = CPlusUI::Create(m_pGraphicDev, { 0.f,5.f,0.f });
 	if (nullptr == m_pPlusUI)
@@ -161,6 +168,7 @@ HRESULT CTextBG::Ready_GameObject()
 
 _int CTextBG::Update_GameObject(const _float& fTimeDelta)
 {
+	if (IsDead()) return RET_DEAD;
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
 	
 	m_fTime += fTimeDelta;
@@ -168,19 +176,18 @@ _int CTextBG::Update_GameObject(const _float& fTimeDelta)
 	
 	if (m_fTime > 1.f)
 	{
-		m_fTime = 0.f;
-		return -1;
+		m_bDead = true;
+		return RET_NONE;
 	}
 	else
 	{
 		D3DXVec3Lerp(&m_vPos, &m_vStartPos, &m_vEndPos, m_fTime);
 		SetPos(m_vPos);
+		m_pPlusUI->Update_GameObject(fTimeDelta);
+		m_pDeadFontUI->Update_GameObject(fTimeDelta);
+		m_pTimeFontUI->Update_GameObject(fTimeDelta);
 		CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 	}
-
-	m_pPlusUI->Update_GameObject(fTimeDelta);
-	m_pDeadFontUI->Update_GameObject(fTimeDelta);
-	m_pTimeFontUI->Update_GameObject(fTimeDelta);
 
 	return iExit;
 }
@@ -200,6 +207,17 @@ void CTextBG::Render_GameObject()
 	m_pBufferCom->Render_Buffer();
 
 	m_pPlusUI->Render_GameObject();
+}
+
+void CTextBG::Activate()
+{
+	CGameObject::Activate();
+	Init();
+}
+
+void CTextBG::Deactivate()
+{
+	CGameObject::Deactivate();
 }
 
 void CTextBG::Rotate(ROTATION eType, const _float& fAngle)

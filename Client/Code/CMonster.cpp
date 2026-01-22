@@ -6,6 +6,7 @@
 #include "CManagement.h"
 
 #include "CEventMgr.h"
+#include "CUIManager.h"
 
 CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CCharacter(pGraphicDev), m_pAnimationCom(nullptr)
@@ -184,7 +185,9 @@ void CMonster::Make_DeadText(COLLIDER_TAG _eTag, _int iAddTime)
 	MonsterData tData;
 	tData.value = iAddTime;
 	tData.eTag = _eTag;
-
+	_vec3	vWorldPos = *m_pTransformCom->Get_Info(INFO_POS);
+	vWorldPos.y += 20.f;
+	CUIManager::GetInstance()->Create_TextEffect(m_pGraphicDev, vWorldPos, iAddTime);
 	CEventMgr::GetInstance()->Broadcast(EVENT_MONSTER_DEAD, &tData);
 }
 

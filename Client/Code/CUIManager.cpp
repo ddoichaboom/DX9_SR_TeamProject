@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CUIManager.h"
 #include "CProtoMgr.h"
+#include "CPoolMgr.h"
 
 #include "CPhoneBG.h"
 #include "CShopBG.h"
@@ -16,13 +17,16 @@
 #include "CHPUI.h"
 #include "CPlusUI.h"
 #include "CTextBG.h"
+#include "CTextUI.h"
+#include "CEffectUI.h"
+#include "CCursor.h"
 
 
 IMPLEMENT_SINGLETON(CUIManager)
 
 CUIManager::CUIManager()
-	: m_eNowState(UI_DEFAULT)
-{
+	: m_eNowState(UI_DEFAULT), m_pEffectUI(nullptr), m_bRenderEffectUI(false)	
+{	
 }
 
 CUIManager::~CUIManager()
@@ -40,6 +44,8 @@ void CUIManager::Free()
 	}
 	
 	m_mapUI.clear();
+
+	Safe_Release(m_pEffectUI);	
 }
 
 HRESULT CUIManager::Ready_GameObject(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -51,10 +57,14 @@ HRESULT CUIManager::Ready_GameObject(LPDIRECT3DDEVICE9 pGraphicDev)
 	if (FAILED(Add_UI(pGraphicDev)))
 		return E_FAIL;
 
+	m_pEffectUI = CEffectUI::Create(pGraphicDev);
+	if (m_pEffectUI == nullptr)
+		return E_FAIL;
+
 	CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_END, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_DOOR_IN, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_NEXT_STAGE, this);
-	//CEventMgr::GetInstance()->Subscribe(EVENT_MONSTER_DEAD, this);
+	CEventMgr::GetInstance()->Subscribe(EVENT_DRINK, this);
 
 	return S_OK;
 }
@@ -88,15 +98,36 @@ void CUIManager::Update_GameObject(const _float& fTimeDelta)
 	//	}
 	//}
 
+	//for (auto iter = m_mapUI[m_eNowState].begin(); iter != m_mapUI[m_eNowState].end(); )
+	//{
+	//	_int result = (*iter)->Update_GameObject(fTimeDelta);
+	//	if (result < 0)
+	//	{
+	//		m_mapUI[UI_DEACTIVATE].push_back(*iter);
+	//		iter = m_mapUI[m_eNowState].erase(iter);
+	//	}
+	//	else iter++;
+	//}
+
 	for (auto iter = m_mapUI[m_eNowState].begin(); iter != m_mapUI[m_eNowState].end(); )
 	{
 		_int result = (*iter)->Update_GameObject(fTimeDelta);
-		if (result < 0)
+
+		if (result ==  RET_DEAD)
 		{
-			m_mapUI[UI_DEACTIVATE].push_back(*iter);
+			IBasePool* pool = (*iter)->GetPool();
+			if (pool == nullptr) Safe_Release((*iter));
+			else (*iter)->ReturnToPool();
+
 			iter = m_mapUI[m_eNowState].erase(iter);
 		}
 		else iter++;
+	}
+
+
+	if (m_bRenderEffectUI)
+	{
+		m_pEffectUI->Update_GameObject(fTimeDelta);
 	}
 }
 
@@ -110,6 +141,10 @@ void CUIManager::LateUpdate_GameObject(const _float& fTimeDelta)
 		pUI->LateUpdate_GameObject(fTimeDelta);
 	};
 	
+	if (m_bRenderEffectUI)
+	{
+		m_pEffectUI->LateUpdate_GameObject(fTimeDelta);
+	}
 }
 
 HRESULT CUIManager::Add_ProtoType(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -195,6 +230,14 @@ HRESULT CUIManager::Add_ProtoType(LPDIRECT3DDEVICE9 pGraphicDev)
 
 	pCom_Texture = Engine::CTexture::Create(pGraphicDev, CTextBG::GetTextureSource());
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TextBGTexture", pCom_Texture)))
+		return E_FAIL;
+
+	pCom_Texture = Engine::CTexture::Create(pGraphicDev, CEffectUI::GetTextureSource());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_EffectUITexture", pCom_Texture)))
+		return E_FAIL;
+
+	pCom_Texture = Engine::CTexture::Create(pGraphicDev, CCursor::GetTextureSource());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_CursorTexture", pCom_Texture)))
 		return E_FAIL;
 
 	return S_OK;
@@ -297,13 +340,18 @@ void CUIManager::Sort_UI(UI_STATE eState)
 		});
 }
 
+void CUIManager::Set_OnEffectUI(_bool bDrink)
+{		
+	wstring wText = bDrink ? L"생 명 소 다" : L"즉 결 처 형";	
+	m_pEffectUI->Init();
+	m_pEffectUI->Set_Text(wText);	
+
+	m_bRenderEffectUI = true;
+}
+
 void CUIManager::Create_TextUI(LPDIRECT3DDEVICE9 pGraphicDev, COLLIDER_TAG eTag, _int iTimes)
 {
-	CTextBG* pUI = nullptr;
-	UI_STATE eTargetState = UI_DEFAULT;
-	UI_STATE eDeactiveState = UI_DEACTIVATE;
-
-	_vec3 vPos = { 180.f,200.f, 0.f };
+	_vec3 vPos = { 150.f,200.f, 0.f };
 	wstring deadSign;
 	switch (eTag)
 	{
@@ -336,22 +384,28 @@ void CUIManager::Create_TextUI(LPDIRECT3DDEVICE9 pGraphicDev, COLLIDER_TAG eTag,
 	}
 	wstring timeText = to_wstring(iTimes) + L" sec";
 
-	if (!m_mapUI[eDeactiveState].empty())
-	{
-		pUI = static_cast<CTextBG*>(m_mapUI[eDeactiveState].back());
-		m_mapUI[eDeactiveState].pop_back();
-		static_cast<CTextBG*>(pUI)->Init();
-	}
-	else
-	{
-		pUI = CTextBG::Create(pGraphicDev, vPos);
-	}
-	
-	if (pUI == nullptr)
+	CTextBG* pUI = CPoolMgr::GetInstance()->Get_Object<CTextBG>();
+	if (!pUI)
 		return;
 
-	pUI->Set_Text(deadSign, timeText);
+	pUI->Set_Text(deadSign,timeText);
+	pUI->Set_StartPos(vPos);
 
+	UI_STATE eTargetState = UI_DEFAULT;
+	m_mapUI[eTargetState].push_back(pUI);
+}
+
+void CUIManager::Create_TextEffect(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _int iTimes)
+{
+	CTextUI* pUI = CPoolMgr::GetInstance()->Get_Object<CTextUI>();
+	if (!pUI) 
+		return;
+
+	wstring timeText = to_wstring(iTimes) + L" sec";
+	pUI->Set_Text(timeText);
+	pUI->Set_StartPos(vPos);
+
+	UI_STATE eTargetState = UI_DEFAULT;
 	m_mapUI[eTargetState].push_back(pUI);
 }
 
@@ -360,9 +414,9 @@ void CUIManager::OnEvent(EVENT_TYPE _type, EventData* _pData)
 
 	switch (_type)
 	{
-	case Engine::EVENT_MONSTER_DEAD:
+	case Engine::EVENT_DRINK:
 	{
-		
+		Set_OnEffectUI(true);
 		break;
 	}		
 	case Engine::EVENT_DOOR_IN:

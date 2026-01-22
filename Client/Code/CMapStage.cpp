@@ -51,6 +51,10 @@
 
 #include "CLoadingEX.h"
 
+#include "CCursor.h"
+#include "CTextBG.h"
+#include "CTextUI.h"
+
 CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
 {
 }
@@ -278,6 +282,24 @@ HRESULT CMapStage::Ready_ObjectPool_Terrain()
 
 HRESULT CMapStage::Ready_ObjectPool_UI()
 {
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CTextBG>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CTextBG>(m_pGraphicDev)))
+        {
+            MSG_BOX("UI TextBG Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CTextUI>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CTextUI>(m_pGraphicDev)))
+        {
+            MSG_BOX("UI TextUI Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
     return S_OK;
 }
 
@@ -647,6 +669,15 @@ HRESULT CMapStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
         return E_FAIL;
 
     if (FAILED(pLayer->Add_GameObject(pCamera)))
+        return E_FAIL;
+
+
+    CGameObject* pGameObject = CCursor::Create(m_pGraphicDev);
+
+    if (pGameObject == nullptr)
+        return E_FAIL;
+
+    if (FAILED(pLayer->Add_GameObject(pGameObject)))
         return E_FAIL;
 
     m_mapLayer.insert({ pLayerTag, pLayer });

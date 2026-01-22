@@ -21,7 +21,7 @@ CShopItem::CShopItem(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_iTextureID(0), m_bRender(false), m_pSelectBG(nullptr)
     , m_fTime(0.f), m_fInterval(0.f), m_bSelect(false)
 {
-
+    m_eType = UI_STAGE_CLEAR;
 }
 
 CShopItem::CShopItem(LPDIRECT3DDEVICE9 pGraphicDev, _float fX, _float fY, _uint iTextureID)
@@ -32,6 +32,7 @@ CShopItem::CShopItem(LPDIRECT3DDEVICE9 pGraphicDev, _float fX, _float fY, _uint 
 {
     m_fX = fX;
     m_fY = fY;
+    m_eType = UI_STAGE_CLEAR;
 }
 
 CShopItem::CShopItem(const CShopItem& rhs)
@@ -40,6 +41,7 @@ CShopItem::CShopItem(const CShopItem& rhs)
     , m_iTextureID(0), m_bRender(false), m_pSelectBG(nullptr)
     , m_fTime(0.f), m_fInterval(0.f), m_bSelect(false)
 {
+    m_eType = UI_STAGE_CLEAR;
 }
 
 CShopItem::~CShopItem()

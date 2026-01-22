@@ -158,7 +158,9 @@
     <ClInclude Include="..\Header\CBullet.h" />
     <ClInclude Include="..\Header\CCharacter.h" />
     <ClInclude Include="..\Header\CChat.h" />
+    <ClInclude Include="..\Header\CCursor.h" />
     <ClInclude Include="..\Header\CDoorTrigger.h" />
+    <ClInclude Include="..\Header\CEffectUI.h" />
     <ClInclude Include="..\Header\CFontUI.h" />
     <ClInclude Include="..\Header\CExplosion.h" />
     <ClInclude Include="..\Header\CFlare.h" />
@@ -233,7 +235,9 @@
     <ClCompile Include="..\Code\CBullet.cpp" />
     <ClCompile Include="..\Code\CCharacter.cpp" />
     <ClCompile Include="..\Code\CChat.cpp" />
+    <ClCompile Include="..\Code\CCursor.cpp" />
     <ClCompile Include="..\Code\CDoorTrigger.cpp" />
+    <ClCompile Include="..\Code\CEffectUI.cpp" />
     <ClCompile Include="..\Code\CFontUI.cpp" />
     <ClCompile Include="..\Code\CExplosion.cpp" />
     <ClCompile Include="..\Code\CFlare.cpp" />
