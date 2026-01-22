@@ -354,7 +354,7 @@ void CPlayer::Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _v
 		D3DXVec3Normalize(&m_vDashDir, &m_vDashDir);
 		m_vDashDir.y = 0.f;
 		m_bDash = true;
-		CUIManager::GetInstance()->Set_OnDashUI();
+		CUIManager::GetInstance()->Set_OnDashUI(true);
 		return;
 	}
 
@@ -886,6 +886,8 @@ void CPlayer::Update_Dash(const _float& fTimeDelta)
 		t = 1.f;
 		m_bDash = false;
 		m_bFall = true;
+
+		CUIManager::GetInstance()->Set_OnDashUI(false);
 	}
 	float easeOutQuad = 1.f - (1.f - t) * (1.f - t);
 	_float dashDistance = easeOutQuad * m_fDashDistance;
@@ -934,6 +936,7 @@ void CPlayer::Update_SideDash(const _float& fTimeDelta)
 		m_fJumpTime = 0.f;
 		m_fVelocity = 0.f;
 		m_fJumpStartY = m_pTransformCom->m_vInfo[INFO_POS].y;
+		CUIManager::GetInstance()->Set_OnDashUI(false);
 		m_bJump = true;
 	}
 
@@ -1410,6 +1413,7 @@ void CPlayer::Slide_Enter()
 {
 	m_mapCallCnt[SLIDE] = 1;
 	m_pMiddlePart->ChangeState(SLIDE);
+	CUIManager::GetInstance()->Set_OnDashUI(true);
 }
 
 void CPlayer::Slide_Update(const _float& fTimeDelta)
@@ -1429,6 +1433,7 @@ void CPlayer::Slide_LateUpdate(const _float& fTimeDelta)
 void CPlayer::Slide_Exit()
 {
 	m_pMiddlePart->ChangeState(IDLE);
+	CUIManager::GetInstance()->Set_OnDashUI(false);
 }
 
 void CPlayer::Shop_Enter()
@@ -1620,7 +1625,7 @@ void CPlayer::OnCollision(CollisionInfo info)
 			default:
 				break;
 			}
-
+			CUIManager::GetInstance()->Set_OnDashUI(true);
 			m_bJump = false;
 			m_bFall = false;
 		}		

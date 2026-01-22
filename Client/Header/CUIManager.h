@@ -43,7 +43,7 @@ private :
 public :
 	void			Set_RenderEffect(_bool bRender) { m_bRenderEffectUI = bRender; }
 	void			Set_OnEffectUI(_bool  bDrink);
-	void			Set_OnDashUI();
+	void			Set_OnDashUI(_bool bDash);
 	
 private :	
 	UI_STATE	m_eNowState;

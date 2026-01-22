@@ -132,17 +132,17 @@ HRESULT CDashUI::Ready_GameObject()
 
 _int CDashUI::Update_GameObject(const _float& fTimeDelta)
 {
-	if (IsDead()) return RET_DEAD;
+	//if (IsDead()) return RET_DEAD;
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
 
-	m_fTime += fTimeDelta;
-
-	if (m_fTime > 0.4f)
-	{
-		m_bDead = true;		
-		return RET_NONE;
-	}
-
+	//m_fTime += fTimeDelta;
+	//
+	//if (m_fTime > 0.4f)
+	//{
+	//	m_bDead = true;		
+	//	return RET_NONE;
+	//}
+	//
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 
 	return iExit;

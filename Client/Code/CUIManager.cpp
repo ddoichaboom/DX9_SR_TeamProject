@@ -375,10 +375,18 @@ void CUIManager::Set_OnEffectUI(_bool bDrink)
 	m_bRenderEffectUI = true;
 }
 
-void CUIManager::Set_OnDashUI()
+void CUIManager::Set_OnDashUI(_bool bDash)
 {
-	m_pDashUI->Activate();
-	m_bDash = true;
+	if (bDash)
+	{
+		m_pDashUI->Activate();
+		m_bDash = true;
+	}
+	else
+	{
+		m_bDash = false;
+	}
+	
 
 }
 
