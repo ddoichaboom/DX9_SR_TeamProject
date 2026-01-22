@@ -43,6 +43,9 @@ protected:
 	virtual	void	Launch(); 
 	void			SetLaunched();
 
+protected :
+	void			Make_DeadText(const wstring& wText, _int iAddTime);
+
 public:
 	void			Activate() override;
 	void			Deactivate() override;

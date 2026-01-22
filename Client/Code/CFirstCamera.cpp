@@ -11,7 +11,7 @@ CFirstCamera::CFirstCamera(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCamera(pGraphicDev), m_bFix(true), m_bCheck(true)
 	, m_pTransformCom(nullptr), m_fSpeed(0.f)
 	, m_fPitch(0.f), m_fYaw(0.f)
-	, m_fShakeTime(0.f), m_fShakeSpeed(12.f), m_fShakePower(0.5f)
+	, m_fShakeTime(0.f), m_fShakeSpeed(12.f), m_fShakePower(0.5f), m_bStage(false)
 	
 {
 	m_eOBJ_ID = OBJ_CAM;
@@ -22,7 +22,7 @@ CFirstCamera::CFirstCamera(const CFirstCamera& rhs)
 	: CCamera(rhs), m_bFix(true), m_bCheck(true)
 	, m_pTransformCom(nullptr), m_fSpeed(0.f)
 	, m_fPitch(0.f), m_fYaw(0.f)
-	, m_fShakeTime(0.f), m_fShakeSpeed(10.f), m_fShakePower(0.5f)
+	, m_fShakeTime(0.f), m_fShakeSpeed(10.f), m_fShakePower(0.5f), m_bStage(false)
 {
 	m_eOBJ_ID = OBJ_CAM;
 	m_iID = Make_ID();
@@ -74,9 +74,8 @@ HRESULT CFirstCamera::Ready_GameObject(const _vec3* pEye,
 	if (FAILED(CCamera::Ready_GameObject()))
 		return E_FAIL;
 
-	// TEST
-	CEventMgr::GetInstance()->Subscribe(EVENT_DOOR_IN, this);
 
+	CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_START, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_END, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_NEXT_STAGE, this);
 
@@ -126,7 +125,8 @@ void CFirstCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 		Mouse_Move();
 	}
 
-	Cam_Shake(fTimeDelta);
+	if (m_bStage)
+		Cam_Shake(fTimeDelta);
 
 }
 
@@ -252,9 +252,10 @@ void CFirstCamera::Free()
 
 void CFirstCamera::OnEvent(EVENT_TYPE _type, EventData* _pData)
 {
-	if (_type == EVENT_DOOR_IN)
+	if (_type == EVENT_STAGE_START)
 	{
-		m_bFix = false;
+		m_bStage = true;
+		m_bFix = true;
 	}
 
 	if (_type == EVENT_STAGE_END)

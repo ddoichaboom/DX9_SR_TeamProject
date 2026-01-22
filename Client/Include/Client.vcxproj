@@ -159,6 +159,7 @@
     <ClInclude Include="..\Header\CCharacter.h" />
     <ClInclude Include="..\Header\CChat.h" />
     <ClInclude Include="..\Header\CDoorTrigger.h" />
+    <ClInclude Include="..\Header\CFontUI.h" />
     <ClInclude Include="..\Header\CExplosion.h" />
     <ClInclude Include="..\Header\CFlare.h" />
     <ClInclude Include="..\Header\CHeart.h" />
@@ -190,6 +191,7 @@
     <ClInclude Include="..\Header\CPistol.h" />
     <ClInclude Include="..\Header\CPlayer.h" />
     <ClInclude Include="..\Header\CPlayerPart.h" />
+    <ClInclude Include="..\Header\CPlusUI.h" />
     <ClInclude Include="..\Header\CRightPart.h" />
     <ClInclude Include="..\Header\CRocket.h" />
     <ClInclude Include="..\Header\CSelectBG.h" />
@@ -201,6 +203,8 @@
     <ClInclude Include="..\Header\CTerrain.h" />
     <ClInclude Include="..\Header\CStage.h" />
     <ClInclude Include="..\Header\CTestCharacter.h" />
+    <ClInclude Include="..\Header\CTextBG.h" />
+    <ClInclude Include="..\Header\CTextUI.h" />
     <ClInclude Include="..\Header\CTrail.h" />
     <ClInclude Include="..\Header\CTrigger.h" />
     <ClInclude Include="..\Header\CUIManager.h" />
@@ -230,6 +234,7 @@
     <ClCompile Include="..\Code\CCharacter.cpp" />
     <ClCompile Include="..\Code\CChat.cpp" />
     <ClCompile Include="..\Code\CDoorTrigger.cpp" />
+    <ClCompile Include="..\Code\CFontUI.cpp" />
     <ClCompile Include="..\Code\CExplosion.cpp" />
     <ClCompile Include="..\Code\CFlare.cpp" />
     <ClCompile Include="..\Code\CHeart.cpp" />
@@ -260,6 +265,7 @@
     <ClCompile Include="..\Code\CPistol.cpp" />
     <ClCompile Include="..\Code\CPlayer.cpp" />
     <ClCompile Include="..\Code\CPlayerPart.cpp" />
+    <ClCompile Include="..\Code\CPlusUI.cpp" />
     <ClCompile Include="..\Code\CRightPart.cpp" />
     <ClCompile Include="..\Code\CRocket.cpp" />
     <ClCompile Include="..\Code\CSelectBG.cpp" />
@@ -272,6 +278,8 @@
     <ClCompile Include="..\Code\CStage.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
     <ClCompile Include="..\Code\CTestCharacter.cpp" />
+    <ClCompile Include="..\Code\CTextBG.cpp" />
+    <ClCompile Include="..\Code\CTextUI.cpp" />
     <ClCompile Include="..\Code\CTrail.cpp" />
     <ClCompile Include="..\Code\CTrigger.cpp" />
     <ClCompile Include="..\Code\CUIManager.cpp" />

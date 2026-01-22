@@ -5,12 +5,12 @@ CRcTexUp::CRcTexUp()
 }
 
 CRcTexUp::CRcTexUp(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CVIBuffer(pGraphicDev)
+	:CVIBuffer(pGraphicDev), m_pPos(nullptr)
 {
 }
 
 CRcTexUp::CRcTexUp(const CRcTexUp& rhs)
-	: CVIBuffer(rhs)
+	: CVIBuffer(rhs), m_pPos(rhs.m_pPos)
 {
 }
 
@@ -27,6 +27,8 @@ HRESULT CRcTexUp::Ready_Buffer()
 
 	m_dwIdxSize = sizeof(INDEX32);
 	m_IdxFmt = D3DFMT_INDEX32;
+
+	m_pPos = new _vec3[m_dwVtxCnt];
 
 	if (FAILED(CVIBuffer::Ready_Buffer()))
 		return E_FAIL;
@@ -49,6 +51,11 @@ HRESULT CRcTexUp::Ready_Buffer()
 
 	pVertex[3].vPosition = { -2.f, 0.f, 0.f };
 	pVertex[3].vTexUV = { 0.f, 1.f };
+
+	for (_int i = 0; i < 4; ++i)
+	{
+		m_pPos[i] = pVertex[i].vPosition;
+	}
 
 	m_pVB->Unlock();
 
@@ -98,5 +105,7 @@ CComponent* CRcTexUp::Clone()
 
 void CRcTexUp::Free()
 {
+	if (m_bClone == false)
+		Safe_Delete_Array(m_pPos);
 	CVIBuffer::Free();
 }

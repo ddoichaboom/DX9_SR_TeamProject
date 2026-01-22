@@ -5,6 +5,8 @@
 #include "CDInputMgr.h"
 #include "CManagement.h"
 
+#include "CEventMgr.h"
+
 CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CCharacter(pGraphicDev), m_pAnimationCom(nullptr)
 	,m_fAttackableDist(100.f), m_vDir({0,0,0}), m_fSpeed(10.f)
@@ -175,6 +177,15 @@ void CMonster::SetLaunched()
 	_uint curState = m_pStateCom->GetCurrentStateID();
 	if (curState == MS_HIT || curState == MS_DEAD) return;
 	ChangeState(MS_LAUNCH);
+}
+
+void CMonster::Make_DeadText(const wstring& wText, _int iAddTime)
+{
+	MonsterData tData;
+	tData.value = iAddTime;
+	tData.wText = wText;
+
+	CEventMgr::GetInstance()->Broadcast(EVENT_MONSTER_DEAD, &tData);
 }
 
 void CMonster::Activate()

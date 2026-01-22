@@ -8,18 +8,25 @@ namespace Engine
 	class CTexture;
 }
 
-class CPlayer;
+class CPlusUI;
+class CFontUI;
 
-class CHPUI : public CBaseUI
+class CTextBG : public CBaseUI    
 {
 protected:
-	explicit	CHPUI(LPDIRECT3DDEVICE9 pGraphicDev);	
-	explicit	CHPUI(const CHPUI& rhs);
-	virtual		~CHPUI();
+	explicit	CTextBG(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit	CTextBG(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos);
+	explicit	CTextBG(const CTextBG& rhs);
+	virtual		~CTextBG();
 
 public:
-	static		CHPUI* Create(PDIRECT3DDEVICE9 pGraphicDev);	
+	static		CTextBG* Create(PDIRECT3DDEVICE9 pGraphicDev);
+	static		CTextBG* Create(PDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos);
 	static		TextureSource& GetTextureSource() { return m_textureSource; }
+	
+	void		Set_Text(const wstring& wDeadText, const wstring& wDeadTime);
+
+	void		Init();
 
 protected:
 	virtual		HRESULT		Add_Component();
@@ -41,12 +48,13 @@ protected:
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTransform* m_pTransformCom;
 	Engine::CTexture* m_pTextureCom;
+	CPlusUI* m_pPlusUI;
+	CFontUI* m_pDeadFontUI;
+	CFontUI* m_pTimeFontUI;
 
-	CPlayer* m_pPlayer;
-
-	_vec3	m_vPos;
-	_vec3	m_vSize;
-	FontData m_fontData;
+	_float	m_fTime = 0.f;
+	_vec3	m_vStartPos;
+	_vec3	m_vEndPos;
 
 };
 

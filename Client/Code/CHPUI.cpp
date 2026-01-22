@@ -3,6 +3,9 @@
 #include "CProtoMgr.h"
 #include "CRenderer.h"
 #include "CFontMgr.h"
+#include "CManagement.h"
+
+#include "CPlayer.h"
 
 TextureSource CHPUI::m_textureSource =
 {
@@ -12,14 +15,16 @@ TextureSource CHPUI::m_textureSource =
 CHPUI::CHPUI(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CBaseUI(pGraphicDev)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
-{	
+	, m_pPlayer(nullptr)
+{
 }
 
 CHPUI::CHPUI(const CHPUI& rhs)
 	: CBaseUI(rhs)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
+	, m_pPlayer(nullptr)
 {
-	
+
 }
 
 CHPUI::~CHPUI()
@@ -94,17 +99,28 @@ HRESULT CHPUI::Ready_GameObject()
 	SetScale(m_fSizeX, m_fSizeY);
 	SetPos(m_vPos);
 
+
+
 	m_pTextureCom->Change_Texture(0);
 	return S_OK;
 }
 
 _int CHPUI::Update_GameObject(const _float& fTimeDelta)
 {
+	if (m_pPlayer == nullptr)
+	{
+		CGameObject* player = CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Get_Object(OBJ_PLAYER);
+		m_pPlayer = static_cast<CPlayer*>(player);
+	}
+
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 
-	m_fontData = { L"Font_Number", L"30",
-		m_vPos,m_vSize, D3DXCOLOR(0.f, 0.f, 0.f, 1.f) };
+	_int iHP = static_cast<_int>(m_pPlayer->Get_HP());
+	wstring wHP = to_wstring(iHP);
+
+	m_fontData = { L"Font_Number", wHP,m_vPos,m_vSize, D3DXCOLOR(0.f, 0.f, 0.f, 1.f) };
+		
 	CFontMgr::GetInstance()->Add_RenderFont(&m_fontData);
 	return iExit;
 }

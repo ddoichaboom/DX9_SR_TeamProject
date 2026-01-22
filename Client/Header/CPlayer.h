@@ -5,6 +5,7 @@
 namespace Engine
 {
 	class CCollider;
+	class CRcTexUp;
 }
 
 
@@ -14,7 +15,7 @@ class CMiddlePart;
 class CWeapon;
 class CHitUI;
 // 바꿔야할거같긴함
-class CShopBG;
+//class CShopBG;
 
 class CPlayer : public CCharacter, public IListener
 {
@@ -52,9 +53,11 @@ private:
 	void				Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _vec3& vLook);
 	void				Action_Input(const _float& fTimeDelta, const _vec3& vLook);
 	void				Gravity(const _float& fTimeDelta);
-	_bool				CheckOnFloor(_float* pHeight);
+	_bool				CheckOnFloor(const _float& fTimeDelta,_float* pHeight);
 	void				Set_OnFloor(const _float& fTimeDelta);
-	_bool				Get_OnFloor();
+
+	_bool				Picking_OnFloor(_vec3* pHit, CRcTexUp* pFloorBufferCom, CTransform* pFloorTransformCom);
+	_float				Compute_HeightOnFloor(const _vec3* pPos, const _vec3* pFloorVtxPos, const _ulong& dwCntX, const _ulong& dwCntZ);
 
 	void				Update_Jump(const _float& fTimeDelta);
 	void				Update_Dash(const _float& fTimeDelta);
@@ -143,6 +146,25 @@ public:
 	_float				Get_Velocity() { return m_fVelocity; }
 	_float				Get_JumpTime() { return m_fJumpTime; }
 
+public:
+	_float				Get_HP() const { return m_fHP; }
+	_float				Get_MaxHP() const { return m_fMaxHP; }
+
+	void				Add_HP(_float fHp)
+	{
+		if (fHp > 0)
+		{
+			m_fHP = min(m_fHP + fHp, m_fMaxHP);
+		}
+		else
+		{
+			m_fHP = max(m_fHP + fHp, 0);
+		}
+	}
+
+	void			Get_Hit(_float fDamage);
+
+
 protected:
 	virtual void	Free();
 	void			OnCollision(CollisionInfo info);
@@ -161,6 +183,17 @@ private:
 
 	CCollider*			m_pKickCollider;
 	const	_tchar*		m_szKickColliderName = L"ColKick";
+
+
+	_float	m_fHP;
+	_float	m_fMaxHP;
+
+	_bool	m_bSlope;
+	_bool	m_bSideDash;
+
+	_float	m_fTime;
+	_float  m_fStageTime;
+	_bool	m_bStage;
 
 	_bool	m_bFall;
 	_float	m_fVelocity;

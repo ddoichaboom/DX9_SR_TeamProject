@@ -185,12 +185,14 @@ _bool CTransform::Check_OnRange(_vec3* pPosition, _float* pHeight)
 {    
     _float fHalfX = m_vScale.x;
     _float fHalfZ = m_vScale.y;
+
     _float fMinX = m_vInfo[INFO_POS].x - fHalfX;
     _float fMaxX = m_vInfo[INFO_POS].x + fHalfX;
     _float fMinZ = m_vInfo[INFO_POS].z - fHalfZ;    
     _float fMaxZ = m_vInfo[INFO_POS].z + fHalfZ;
 
-    if (pPosition->x <= fMaxX && pPosition->x >= fMinX && pPosition->z <= fMaxZ && pPosition->z >= fMinZ)
+    if (pPosition->x <= fMaxX && pPosition->x >= fMinX &&
+        pPosition->z <= fMaxZ && pPosition->z >= fMinZ)
     {    
         if (pPosition->y >= m_vInfo[INFO_POS].y)
         {
