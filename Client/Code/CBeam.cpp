@@ -7,7 +7,7 @@
 
 vector<TextureSource> CBeam::m_vTextureSource =
 {
-	 { 0, L"../Bin/Resource/Texture/Monster/BeamMon/Laser_512.dds" }
+	 { 0, L"../Bin/Resource/Texture/Monster/BeamMon/Laser2_512.dds" }
 };
 CBeam::CBeam(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CGameObject(pGraphicDev) , m_pBufferUpCom(nullptr), m_pTransformCom(nullptr),
@@ -41,10 +41,10 @@ HRESULT CBeam::Ready_GameObject()
 {
 	if (FAILED(Add_Component())) return E_FAIL;
 	m_pTextureCom->Change_Texture(0);
-	//m_pTransformCom->m_vScale = { 0.1f, 40.f ,1.f };
+	//m_pTransformCom->m_vScale = { 0.1f, 500.f ,1.f };
 	
 	m_matScale._11 = 0.1f;
-	m_matScale._22 = 500.f;
+	m_matScale._22 = 1600.f;
 	m_matScale._33 = 1.f;
 
 	return S_OK;

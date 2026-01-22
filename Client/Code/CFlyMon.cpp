@@ -170,6 +170,12 @@ void CFlyMon::OnAnimationChange(_float _animAspect)
 
 void CFlyMon::OnBodyCollision(CollisionInfo info)
 {
+	if (info.eDir != CDIR_NONE)
+	{
+		Move_ByCollision(info.eDir, info.vDiff);
+		return;
+	}
+
 	m_pBodyCollider->OffCollision();
 	ChangeState(MS_DEAD);
 }

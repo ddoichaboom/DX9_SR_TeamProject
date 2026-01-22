@@ -64,28 +64,39 @@ void CUIManager::Update_GameObject(const _float& fTimeDelta)
 	if (m_mapUI.count(m_eNowState) == 0)
 		return;
 
-	_int result;
-	list<CBaseUI*> listMove;
-	for(auto* pUI : m_mapUI[m_eNowState])
-	{
-		result = pUI->Update_GameObject(fTimeDelta);
+	//_int result;
+	//list<CBaseUI*> listMove;
+	//for(auto* pUI : m_mapUI[m_eNowState])
+	//{
+	//	result = pUI->Update_GameObject(fTimeDelta);
 
+	//	if (result < 0)
+	//	{
+	//		listMove.push_back(pUI);
+	//	}
+	//};
+
+	//for (auto* pUI : listMove)
+	//{
+	//	auto it = find(m_mapUI[m_eNowState].begin(), m_mapUI[m_eNowState].end(), pUI);
+
+	//	if (it != m_mapUI[m_eNowState].end())
+	//	{
+
+	//		m_mapUI[m_eNowState].erase(it);			
+	//		m_mapUI[UI_DEACTIVATE].push_back(pUI);
+	//	}
+	//}
+
+	for (auto iter = m_mapUI[m_eNowState].begin(); iter != m_mapUI[m_eNowState].end(); )
+	{
+		_int result = (*iter)->Update_GameObject(fTimeDelta);
 		if (result < 0)
 		{
-			listMove.push_back(pUI);
+			m_mapUI[UI_DEACTIVATE].push_back(*iter);
+			iter = m_mapUI[m_eNowState].erase(iter);
 		}
-	};
-
-	for (auto* pUI : listMove)
-	{
-		auto it = find(m_mapUI[m_eNowState].begin(), m_mapUI[m_eNowState].end(), pUI);
-
-		if (it != m_mapUI[m_eNowState].end())
-		{
-
-			m_mapUI[m_eNowState].erase(it);			
-			m_mapUI[UI_DEACTIVATE].push_back(pUI);
-		}
+		else iter++;
 	}
 }
 

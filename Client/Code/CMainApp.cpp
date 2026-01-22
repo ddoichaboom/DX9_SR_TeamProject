@@ -343,7 +343,8 @@ HRESULT CMainApp::SetNextScene()
 	default:
 		return E_FAIL;
 	}
-
+	//Event Mgr 구독 전체 초기화
+	CEventMgr::GetInstance()->ClearAllSubscribe();
 	if (FAILED(CManagement::GetInstance()->Set_Scene(nextScene)))
 	{
 		Safe_Release(nextScene);
