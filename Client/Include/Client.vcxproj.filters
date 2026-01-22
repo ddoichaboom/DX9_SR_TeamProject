@@ -256,6 +256,9 @@
     <Filter Include="04.UI\01.StaticUI\10.Font_UI">
       <UniqueIdentifier>{3cfc8eee-fc39-4283-9e73-eaecd50d69d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04.UI\02.DynamicUI\08. TakeDown">
+      <UniqueIdentifier>{3332ea56-67ab-4011-9e52-2a8b361fafb8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -477,6 +480,12 @@
     <ClInclude Include="..\Header\CTextUI.h">
       <Filter>04.UI\01.StaticUI\06.Text_UI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CTakeDown.h">
+      <Filter>04.UI\02.DynamicUI\08. TakeDown</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTakeDownBlood.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -688,6 +697,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTextUI.cpp">
       <Filter>04.UI\01.StaticUI\06.Text_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTakeDown.cpp">
+      <Filter>04.UI\02.DynamicUI\08. TakeDown</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTakeDownBlood.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

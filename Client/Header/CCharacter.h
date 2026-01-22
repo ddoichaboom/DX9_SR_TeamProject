@@ -47,6 +47,8 @@ public:
 	void				SetPos(_vec3 _pos) override;
 	void				Rotate(ROTATION _Axis, _float _degree)  override;
 
+	void				StopUpdate() { m_bStopUpdate = true; }
+	void				StartUpdate() { m_bStopUpdate = false; }
 protected:
 	CRcTex*		m_pBufferCom;
 	CTransform* m_pTransformCom;
@@ -59,5 +61,8 @@ protected:
 	const _float m_fMaxHP;
 	_float m_fHP;
 	_float m_fAttackDamage;
+
+	bool m_bStopUpdate;
+
 };
 

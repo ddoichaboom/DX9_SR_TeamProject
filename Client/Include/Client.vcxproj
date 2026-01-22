@@ -200,6 +200,8 @@
     <ClInclude Include="..\Header\CSkyBox.h" />
     <ClInclude Include="..\Header\CSlopeFloor.h" />
     <ClInclude Include="..\Header\CStageBG.h" />
+    <ClInclude Include="..\Header\CTakeDown.h" />
+    <ClInclude Include="..\Header\CTakeDownBlood.h" />
     <ClInclude Include="..\Header\CTerrain.h" />
     <ClInclude Include="..\Header\CStage.h" />
     <ClInclude Include="..\Header\CTestCharacter.h" />
@@ -274,6 +276,8 @@
     <ClCompile Include="..\Code\CSkyBox.cpp" />
     <ClCompile Include="..\Code\CSlopeFloor.cpp" />
     <ClCompile Include="..\Code\CStageBG.cpp" />
+    <ClCompile Include="..\Code\CTakeDown.cpp" />
+    <ClCompile Include="..\Code\CTakeDownBlood.cpp" />
     <ClCompile Include="..\Code\CTerrain.cpp" />
     <ClCompile Include="..\Code\CStage.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />

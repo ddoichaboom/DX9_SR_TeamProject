@@ -31,6 +31,7 @@
 #include "CBeamFlare.h"
 #include "CBodyEmit.h"
 #include "CHitUI.h"
+#include "CTakeDownBlood.h"
 
 
 CEditorApp::CEditorApp()
@@ -279,9 +280,9 @@ HRESULT CEditorApp::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
 HRESULT CEditorApp::Ready_Scene()
 {
     // EditorScene »ý¼º
-    m_pCurrentScene = CEditorScene::Create(m_pGraphicDev);
-    //CEffectScene* scene;
-    //m_pCurrentScene = scene = CEffectScene::Create(m_pGraphicDev);
+   // m_pCurrentScene = CEditorScene::Create(m_pGraphicDev);
+    CEffectScene* scene;
+    m_pCurrentScene = scene = CEffectScene::Create(m_pGraphicDev);
 
     if (nullptr == m_pCurrentScene)
     {
@@ -329,12 +330,12 @@ HRESULT CEditorApp::Ready_Scene()
         return E_FAIL;
     }
 
-    //m_pEffectToolBar = CEffectToolBar::Create(scene);
-    //if (nullptr == m_pEffectToolBar)
-    //{
-    //    MSG_BOX("EffectToolBar Create Failed");
-    //    return E_FAIL;
-    //}
+    m_pEffectToolBar = CEffectToolBar::Create(scene);
+    if (nullptr == m_pEffectToolBar)
+    {
+        MSG_BOX("EffectToolBar Create Failed");
+        return E_FAIL;
+    }
 
 
     return S_OK;
@@ -438,6 +439,14 @@ HRESULT CEditorApp::Ready_Texture_Prototype()
     if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_HitUI_Texture", pCom_Texture)))
     {
         MSG_BOX("Proto HitUI Ready Failed");
+        return E_FAIL;
+    }
+
+    //HitUI Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CTakeDownBlood::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_TakeDownBlood_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto TakeDownBlood Ready Failed");
         return E_FAIL;
     }
 

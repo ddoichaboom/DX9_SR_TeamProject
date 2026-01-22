@@ -12,7 +12,7 @@
 #include "CBeamFlare.h"
 #include "CBodyEmit.h"
 #include "CHitUI.h"
-
+#include "CTakeDownBlood.h"
 
 CEffectScene::CEffectScene(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CEditorScene(pGraphicDev), m_pCurParticle(nullptr)
@@ -44,8 +44,9 @@ HRESULT CEffectScene::Ready_Scene()
     m_mapParticle[EF_BEAM_FLARE] = CBeamFlare::Create(m_pGraphicDev);
     m_mapParticle[EF_BODY] = CBodyEmit::Create(m_pGraphicDev);
     m_mapParticle[EF_HITUI] = CHitUI::Create(m_pGraphicDev);
+    m_mapParticle[EF_TAKEDOWN] = CTakeDownBlood::Create(m_pGraphicDev);
 
-    m_pCurParticle = m_mapParticle[EF_HITUI];
+    m_pCurParticle = m_mapParticle[EF_TAKEDOWN];
 
     m_pFloor = CEditorFloor::Create(m_pGraphicDev, { 0,0,0 });
     return S_OK;

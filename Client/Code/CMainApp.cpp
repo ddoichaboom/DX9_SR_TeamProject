@@ -48,6 +48,7 @@
 #include "CBeamFlare.h"
 #include "CBodyEmit.h"
 #include "CHitUI.h"
+#include "CTakeDownBlood.h"
 
 CMainApp::CMainApp() : m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
 , m_pManagementClass(CManagement::GetInstance()), m_eCurSceneType(SCENE_NONE)
@@ -194,6 +195,14 @@ HRESULT CMainApp::Ready_DefaultProto()
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_KatanaAnimation",
 		Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CKatana::GetAnimSources()))))
 		return E_FAIL;
+
+	//TakeDownBlood
+	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CTakeDownBlood::GetTextureSource());
+	if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_TakeDownBlood_Texture", pCom_Texture)))
+	{
+		MSG_BOX("Proto TakeDownBlood Ready Failed");
+		return E_FAIL;
+	}
 
 
 	//Font

@@ -14,6 +14,7 @@ class CRightPart;
 class CMiddlePart;
 class CWeapon;
 class CHitUI;
+class CMonster;
 // ¹Ù²ã¾ßÇÒ°Å°°±äÇÔ
 //class CShopBG;
 
@@ -49,6 +50,8 @@ private:
 	void				CheckPickedMonster();
 	void				CheckKickedMonster(COLLIDER_TAG eTag, _float fAttack);
 	void				CheckEnterCollider();
+	//¹æ½ÂÈñ Ãß°¡
+	bool				CheckTakeDownMonster(CMonster** _pOut, CCollider** _pOutCollider);
 	
 	void				Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _vec3& vLook);
 	void				Action_Input(const _float& fTimeDelta, const _vec3& vLook);
@@ -222,6 +225,11 @@ private:
 
 	//¹æ½ÂÈñ Ãß°¡ ÀÌÆåÆ®
 	CHitUI* m_pHitUI;
+	//¹æ½ÂÈñ Ãß°¡ 
+	bool m_bTakeDown;
+	CMonster* m_pTakeDownObject; 
+	CCollider* m_pTakeDownCollider;
+
 
 	CGameObject* m_pColHitObj;
 	_vec3		 m_vDiffDir;

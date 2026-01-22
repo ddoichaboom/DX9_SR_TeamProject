@@ -20,7 +20,7 @@
 #include "CFloor.h"
 #include "CUIManager.h"
 #include "CMapCollider.h"
-
+#include "CMonster.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCharacter(pGraphicDev, 15.f)
@@ -33,7 +33,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_eNowState(MAIN_END), m_bOnCollision(false), m_pHitUI(nullptr)
 	, m_fHP(20.f), m_fMaxHP(20.f), m_fTime(0.f), m_fStageTime(0.f), m_bStage(false)
 	, m_bSlope(false), m_bSideDash(false)
-	, m_pColHitObj(nullptr)
+	, m_pColHitObj(nullptr),m_pTakeDownObject(nullptr), m_pTakeDownCollider(nullptr)
 {
 
 	m_eOBJ_ID = OBJ_PLAYER;
@@ -51,7 +51,7 @@ CPlayer::CPlayer(const CPlayer& rhs)
 	, m_eNowState(MAIN_END), m_bOnCollision(false), m_pHitUI(nullptr)
 	, m_fHP(20.f), m_fMaxHP(20.f), m_fTime(0.f), m_fStageTime(0.f), m_bStage(false)
 	, m_bSlope(false), m_bSideDash(false)
-	, m_pColHitObj(nullptr)
+	, m_pColHitObj(nullptr), m_pTakeDownObject(nullptr), m_pTakeDownCollider(nullptr)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
 	m_iID = 0;
@@ -71,23 +71,36 @@ void CPlayer::OnEvent(EVENT_TYPE _type, EventData* _pData)
 		m_bStage = true;
 	}
 
-	if (_type == EVENT_STAGE_END)
+	else if (_type == EVENT_STAGE_END)
 	{
 		m_bStage = false;
 		Change_State(SHOP);
 	}
 
-	if (_type == EVENT_READY_NEXT_STAGE)
+	else if (_type == EVENT_READY_NEXT_STAGE)
 	{
 		Change_State(READY_NEXT);
 	}
 
-	if (_type == EVENT_MONSTER_DEAD)
+	else if (_type == EVENT_MONSTER_DEAD)
 	{
 		MonsterData* pData = static_cast<MonsterData*>(_pData);
 		CUIManager::GetInstance()->Create_TextUI(m_pGraphicDev, pData->eTag, pData->value);
 		Add_HP(pData->value);
 	}
+
+	else if (_type == EVENT_TAKEDOWN_END )
+	{
+		m_pTakeDownObject->StartUpdate();
+
+		//처형 후 Slide로 이어짐 
+		CollisionInfo info = { this, _vec3(),10,TAG_SLIDE };
+		m_pTakeDownCollider->Collision(info);
+		//m_pTakeDownObject->Make_DeadText(TAG_TAKEDOWN, 10);
+		m_pTakeDownObject = nullptr;
+		m_pTakeDownCollider = nullptr;
+	}
+
 }
 
 HRESULT CPlayer::Ready_GameObject()
@@ -103,6 +116,7 @@ HRESULT CPlayer::Ready_GameObject()
 	CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_START, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_END, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_READY_NEXT_STAGE, this);
+	CEventMgr::GetInstance()->Subscribe(EVENT_TAKEDOWN_END, this);
 
 	m_pTransformCom->m_vScale = { 6.f,6.f,6.f };
 	m_pTransformCom->Set_Pos(0.f, 0.f, 0.f);
@@ -413,6 +427,20 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 		return;
 	}
 
+	//방승희 추가 
+	//근접 처형 Take Down
+	if (CDInputMgr::GetInstance()->Key_Down(DIK_F))
+	{
+		if (CheckTakeDownMonster(&m_pTakeDownObject, &m_pTakeDownCollider))
+		{
+			CUIManager::GetInstance()->Change_UIState(UI_TAKEDOWN);
+			//TOOD : 이벤트 끝날 때까지 키 입력 막기 
+			//몬스터 업데이트 중단을 통해 랜더 + 액션 증딘시킴 
+			m_pTakeDownObject->StopUpdate();
+		}
+	}
+
+
 	// 장전
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_1))
 	{
@@ -612,6 +640,55 @@ void CPlayer::CheckEnterCollider()
 	}
 
 	m_bOnCollision = iCallCount > 0;
+}
+
+bool CPlayer::CheckTakeDownMonster(CMonster** _pOut, CCollider** _pOutCollider)
+{
+	_vec3	vLook, vPos;
+	_float cosFov = cosf(D3DXToRadian(60.f));
+	vLook = *m_pTransformCom->Get_Info(INFO_LOOK);
+	vPos = *m_pTransformCom->Get_Info(INFO_POS);
+
+	D3DXVec3Normalize(&vLook, &vLook);
+
+	CLayer* pLayer = CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer");
+	if (!pLayer) return false;
+
+	auto pairIter = pLayer->Get_Objects(OBJ_MONSTER);
+	//multimap<OBJ_ID, CGameObject*> 에 대한 반복자
+	//OBJ_ID를 키로 가진 오브젝트들의 반복자 범위를 반환 = 몬스터 전체 목록
+	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
+	{
+		CMonster* monster = static_cast<CMonster*>(iter->second);
+		if (!monster || !monster->CanTakeDown()) continue;
+
+		CCollision* pCollision = static_cast<CCollision*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+		CTransform* pTransform = static_cast<CTransform*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Transform"));
+
+		if (!pCollision) continue;
+		if (!pTransform) continue;
+
+		_vec3 vDir = *pTransform->Get_Info(INFO_POS) - vPos;
+		D3DXVec3Normalize(&vDir, &vDir);
+
+		_float fDot = D3DXVec3Dot(&vLook, &vDir);
+
+		CCollider * monCollider = pCollision->GetCollider();
+		if (!monCollider) continue;
+
+		bool bPicked = CCollision::CheckCollision(m_pKickCollider, monCollider);
+		if (bPicked)
+		{
+			if (fDot >= cosFov)
+			{
+				*_pOut = monster;
+				*_pOutCollider = monCollider;
+				return true;
+			}
+		}
+	}
+
+	return false;
 }
 
 void CPlayer::Gravity(const _float& fTimeDelta)

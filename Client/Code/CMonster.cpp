@@ -38,6 +38,7 @@ HRESULT CMonster::Ready_GameObject()
 _int CMonster::Update_GameObject(const _float& fTimeDelta)
 {
 	if (IsDead()) return RET_DEAD;
+
 	int iExit = CCharacter::Update_GameObject(fTimeDelta);
 
 	MONSTER_STATE state = (MONSTER_STATE)(m_pStateCom->GetCurrentStateID());

@@ -16,7 +16,8 @@
 #include "CHPUI.h"
 #include "CPlusUI.h"
 #include "CTextBG.h"
-
+#include "CTakeDown.h"
+#include "CEventMgr.h"
 
 IMPLEMENT_SINGLETON(CUIManager)
 
@@ -95,6 +96,16 @@ void CUIManager::Update_GameObject(const _float& fTimeDelta)
 		{
 			m_mapUI[UI_DEACTIVATE].push_back(*iter);
 			iter = m_mapUI[m_eNowState].erase(iter);
+		}
+		//Take Down UI가 끝나면 Return Dead 후 디폴트로 돌아감 
+		else if (result == RET_DEAD)
+		{
+			if (m_eNowState == UI_TAKEDOWN)
+			{
+				CEventMgr::GetInstance()->Broadcast(EVENT_TAKEDOWN_END, NULL);
+			}
+			Change_UIState(UI_DEFAULT);
+			return;
 		}
 		else iter++;
 	}
@@ -197,6 +208,16 @@ HRESULT CUIManager::Add_ProtoType(LPDIRECT3DDEVICE9 pGraphicDev)
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TextBGTexture", pCom_Texture)))
 		return E_FAIL;
 
+	//TakeDown 
+	pCom_Texture = Engine::CTexture::Create(pGraphicDev, CTakeDown::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TakeDownTexture", pCom_Texture)))
+		return E_FAIL;
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TakeDownAnimation",
+		Engine::CAnimation::Create(pGraphicDev, pCom_Texture, CTakeDown::GetAnimSources()))))
+		return E_FAIL;
+
+
 	return S_OK;
 }
 
@@ -283,6 +304,9 @@ HRESULT CUIManager::Add_UI(LPDIRECT3DDEVICE9 pGraphicDev)
 	Sort_UI(eState);
 #pragma endregion
 
+	//Take Down
+	pUI = CTakeDown::Create(pGraphicDev);
+	m_mapUI[UI_TAKEDOWN].push_back(pUI);
 	
 
 	return S_OK;

@@ -48,6 +48,7 @@
 #include "CBeamFlare.h"
 #include "CBodyEmit.h"
 #include "CHitUI.h"
+#include "CTakeDownBlood.h"
 
 #include "CLoadingEX.h"
 
@@ -119,6 +120,12 @@ _int CMapStage::Update_Scene(const _float& fTimeDelta)
     if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_P))
     {
         return RET_DEAD;
+    }
+
+
+    if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_K))
+    {
+        CUIManager::GetInstance()->Change_UIState(UI_TAKEDOWN);
     }
 
     return iExit;
@@ -517,6 +524,8 @@ HRESULT CMapStage::Ready_EffectTextureProto()
         return E_FAIL;
     }
 
+
+
     return S_OK;
 }
 
@@ -701,6 +710,15 @@ void CMapStage::Check_Collision()
        //플레이어한테만 태그 전달 
        if(pPlayerCollider) CCollision::Collision_Diff(pPlayerCollider, mapCollider, eMapColliderTag);
 
+       //총알
+       for (multimap<OBJ_ID, CGameObject*>::iterator it_bullet = iter_Map_Bullet.first; it_bullet != iter_Map_Bullet.second; it_bullet++)
+       {
+           CCollision* mapBul_Collision = static_cast<CCollision*>(it_bullet->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+           CCollider* bulletCollider = mapBul_Collision->GetCollider();
+           if (!bulletCollider) continue;
+
+           CCollision::Collision_Base(mapCollider, bulletCollider);
+       }
    }
 
 
