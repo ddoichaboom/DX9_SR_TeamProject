@@ -416,7 +416,8 @@ void CInspector::Render_MapColliderProperties(CEditorMapCollider* pCollider)
     COLLIDER_TAG eColliderTag = pCollider->Get_ColliderTag();
     const char* szColliderTags[] = {
         "TAG_NONE",
-        "TAG_SIDE_DASH"
+        "TAG_SIDE_DASH_X",
+        "TAG_SIDE_DASH_Z"
     };
 
     int iSelectedTag(0);
@@ -426,9 +427,14 @@ void CInspector::Render_MapColliderProperties(CEditorMapCollider* pCollider)
     case TAG_NONE:
         iSelectedTag = 0;
         break;
-    case TAG_SIDE_DASH:
+    case TAG_SIDE_DASH_X:
         iSelectedTag = 1;
         break;
+    case TAG_SIDE_DASH_Z:
+        iSelectedTag = 2;
+        break;
+    default:
+        iSelectedTag = 0;
     }
 
     if (ImGui::Combo("Collider Tag", &iSelectedTag, szColliderTags, IM_ARRAYSIZE(szColliderTags)))
@@ -439,7 +445,10 @@ void CInspector::Render_MapColliderProperties(CEditorMapCollider* pCollider)
             pCollider->Set_ColliderTag(TAG_NONE);
             break;
         case 1:
-            pCollider->Set_ColliderTag(TAG_SIDE_DASH);
+            pCollider->Set_ColliderTag(TAG_SIDE_DASH_X);
+            break;
+        case 2:
+            pCollider->Set_ColliderTag(TAG_SIDE_DASH_Z);
             break;
         }
     }
