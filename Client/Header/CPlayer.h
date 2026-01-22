@@ -224,5 +224,6 @@ private:
 	CHitUI* m_pHitUI;
 
 	CGameObject* m_pColHitObj;
+	_vec3		 m_vDiffDir;
 };
 

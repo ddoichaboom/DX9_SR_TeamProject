@@ -887,6 +887,25 @@ void CPlayer::Update_Dash(const _float& fTimeDelta)
 void CPlayer::Update_SideDash(const _float& fTimeDelta)
 {
 
+	CTransform* pTransform = static_cast<CTransform*>(m_pColHitObj->Get_Component(ID_STATIC, L"Com_Transform"));
+	CCollision* pCollision = static_cast<CCollision*>(m_pColHitObj->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+
+	_vec3 vDirection = -m_vDiffDir;
+	D3DXVec3Normalize(&vDirection, &vDirection);	
+
+	if (CCollision::Collision_Ray(pCollision->GetCollider(), *m_pTransformCom->Get_Info(INFO_POS), vDirection))
+	{
+		
+
+	}
+	else
+	{
+		m_bSideDash = false;
+		m_bFall = true;
+		m_pColHitObj = nullptr;
+		m_vDiffDir = {};
+	}
+
 }
 
 void CPlayer::Update_TickDamagaed(const _float& fTimeDelta)
@@ -1551,6 +1570,25 @@ void CPlayer::OnCollision(CollisionInfo info)
 		{
 			m_bSideDash = true;
 			m_pColHitObj = info.pTarget;
+
+			m_vDiffDir = info.vDiff;
+
+			switch (info.eDir)
+			{
+			case CDIR_NONE:
+				break;
+			case CDIR_X:
+				m_vDiffDir = { info.vDiff.x, 0.f,0.f };
+				break;
+			case CDIR_Z:
+				m_vDiffDir = { 0.f, 0.f,info.vDiff.z };
+				break;
+			default:
+				break;
+			}
+
+			m_bJump = false;
+			m_bFall = false;
 		}		
 	}
 
