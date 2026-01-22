@@ -265,6 +265,10 @@ void CWhiteMan::ChangeState(_uint nextStateID)
 	//ÅÛÇÃ¸´ ¸â¹öÇÔ¼ö! ÁÖÀÇ ! 
 	m_pStateCom->ChangeState<CWhiteMan>(nextStateID);
 
+	if (ID_HEAD_DEAD == nextStateID) Make_DeadText(TAG_HEAD, 2);
+	else if(ID_ELECT_DEAD == nextStateID) Make_DeadText(TAG_ELECTRIC, 2);
+	else if (MS_FLYBACK == nextStateID) Make_DeadText(TAG_KICK, 2);
+	else if (ID_SLICE_DEAD == nextStateID || MS_DEAD == nextStateID) Make_DeadText(TAG_NONE, 2);
 }
 
 
@@ -289,8 +293,8 @@ void CWhiteMan::OnHeadCollision(CollisionInfo info)
 		blood->ChangeState(1);
 
 		// Test
-		wstring text = L"Çìµå¼¦";
-		Make_DeadText(text, 2);
+		//wstring text = L"Çìµå¼¦";
+		//Make_DeadText(TAG_HEAD, 2);
 	}
 	_vec3 pos = m_pHeadCollider->Get_WorldPos();
 	pos.y += m_fHeadPosOffset;

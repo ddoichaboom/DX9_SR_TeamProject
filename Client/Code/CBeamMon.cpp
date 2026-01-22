@@ -169,6 +169,8 @@ void CBeamMon::ChangeState(_uint nextStateID)
 	m_fTime = 0.f;
 	m_pAnimationCom->Update_State(nextStateID);
 	m_pStateCom->ChangeState<CBeamMon>(nextStateID);
+
+	if (MS_DEAD == nextStateID) Make_DeadText(TAG_NONE, 2);
 }
 
 HRESULT CBeamMon::Add_Component()

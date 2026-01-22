@@ -258,7 +258,8 @@ namespace Engine
 
 	typedef struct tagMonsterDeadData : public EventData
 	{
-		std::wstring wText;		
+		std::wstring wText;
+		COLLIDER_TAG eTag;
 	}MonsterData;
 }
 
