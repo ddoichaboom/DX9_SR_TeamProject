@@ -136,10 +136,7 @@ void CMapStage::LateUpdate_Scene(const _float& fTimeDelta)
 
 void CMapStage::Render_Scene()
 {
-    if (m_pLoadingEX->IsEnd() == false)
-    {
-        m_pBackGround->Render_GameObject();
-    }
+
 }
 
 HRESULT CMapStage::Ready_Prototype()

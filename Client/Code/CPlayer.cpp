@@ -85,7 +85,7 @@ void CPlayer::OnEvent(EVENT_TYPE _type, EventData* _pData)
 	if (_type == EVENT_MONSTER_DEAD)
 	{
 		MonsterData* pData = static_cast<MonsterData*>(_pData);
-		CUIManager::GetInstance()->Create_TextUI(m_pGraphicDev, pData->wText, pData->value);
+		CUIManager::GetInstance()->Create_TextUI(m_pGraphicDev, pData->eTag, pData->value);
 		Add_HP(pData->value);
 	}
 }

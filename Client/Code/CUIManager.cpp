@@ -64,28 +64,39 @@ void CUIManager::Update_GameObject(const _float& fTimeDelta)
 	if (m_mapUI.count(m_eNowState) == 0)
 		return;
 
-	_int result;
-	list<CBaseUI*> listMove;
-	for(auto* pUI : m_mapUI[m_eNowState])
-	{
-		result = pUI->Update_GameObject(fTimeDelta);
+	//_int result;
+	//list<CBaseUI*> listMove;
+	//for(auto* pUI : m_mapUI[m_eNowState])
+	//{
+	//	result = pUI->Update_GameObject(fTimeDelta);
 
+	//	if (result < 0)
+	//	{
+	//		listMove.push_back(pUI);
+	//	}
+	//};
+
+	//for (auto* pUI : listMove)
+	//{
+	//	auto it = find(m_mapUI[m_eNowState].begin(), m_mapUI[m_eNowState].end(), pUI);
+
+	//	if (it != m_mapUI[m_eNowState].end())
+	//	{
+
+	//		m_mapUI[m_eNowState].erase(it);			
+	//		m_mapUI[UI_DEACTIVATE].push_back(pUI);
+	//	}
+	//}
+
+	for (auto iter = m_mapUI[m_eNowState].begin(); iter != m_mapUI[m_eNowState].end(); )
+	{
+		_int result = (*iter)->Update_GameObject(fTimeDelta);
 		if (result < 0)
 		{
-			listMove.push_back(pUI);
+			m_mapUI[UI_DEACTIVATE].push_back(*iter);
+			iter = m_mapUI[m_eNowState].erase(iter);
 		}
-	};
-
-	for (auto* pUI : listMove)
-	{
-		auto it = find(m_mapUI[m_eNowState].begin(), m_mapUI[m_eNowState].end(), pUI);
-
-		if (it != m_mapUI[m_eNowState].end())
-		{
-
-			m_mapUI[m_eNowState].erase(it);			
-			m_mapUI[UI_DEACTIVATE].push_back(pUI);
-		}
+		else iter++;
 	}
 }
 
@@ -286,13 +297,43 @@ void CUIManager::Sort_UI(UI_STATE eState)
 		});
 }
 
-void CUIManager::Create_TextUI(LPDIRECT3DDEVICE9 pGraphicDev, const wstring& wText, _int iTimes)
+void CUIManager::Create_TextUI(LPDIRECT3DDEVICE9 pGraphicDev, COLLIDER_TAG eTag, _int iTimes)
 {
 	CTextBG* pUI = nullptr;
 	UI_STATE eTargetState = UI_DEFAULT;
 	UI_STATE eDeactiveState = UI_DEACTIVATE;
 
 	_vec3 vPos = { 180.f,200.f, 0.f };
+	wstring deadSign;
+	switch (eTag)
+	{
+	case Engine::TAG_NONE:
+		deadSign = L"Ã³Ä¡";
+		break;
+	case Engine::TAG_KICK:
+		deadSign = L"¹ßÂ÷±â";
+		break;
+	case Engine::TAG_SLIDE:
+		deadSign = L"½½¶óÀÌµù";
+		break;
+	case Engine::TAG_LAVA:
+		deadSign = L"¿ë¾Ï±¸ÀÌ";
+		break;
+	case Engine::TAG_ACID:
+		deadSign = L"»ê¼º¹«Ä§";
+		break;
+	case Engine::TAG_ELECTRIC:
+		deadSign = L"Âî¸´Âî¸´";
+		break;
+	case Engine::TAG_KATANA:
+		deadSign = L"½º°Ï½º°Ï";
+		break;
+	case Engine::TAG_HEAD:
+		deadSign = L"Çìµå¼¦";
+		break;
+	default:
+		break;
+	}
 	wstring timeText = to_wstring(iTimes) + L" sec";
 
 	if (!m_mapUI[eDeactiveState].empty())
@@ -309,7 +350,7 @@ void CUIManager::Create_TextUI(LPDIRECT3DDEVICE9 pGraphicDev, const wstring& wTe
 	if (pUI == nullptr)
 		return;
 
-	pUI->Set_Text(wText, timeText);
+	pUI->Set_Text(deadSign, timeText);
 
 	m_mapUI[eTargetState].push_back(pUI);
 }

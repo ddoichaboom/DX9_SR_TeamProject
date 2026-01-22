@@ -22,7 +22,7 @@ private :
 public :	
 	void		OnEvent(EVENT_TYPE _type, EventData* _pData) override;
 	void		Change_UIState(UI_STATE eState);
-	void		Create_TextUI(LPDIRECT3DDEVICE9 pGraphicDev,const wstring& wText, _int iTimes);
+	void		Create_TextUI(LPDIRECT3DDEVICE9 pGraphicDev, COLLIDER_TAG eTag, _int iTimes);
 public :
 	HRESULT Ready_GameObject(LPDIRECT3DDEVICE9 pGraphicDev);
 	void	Update_GameObject(const _float& fTimeDelta);

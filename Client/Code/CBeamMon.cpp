@@ -100,7 +100,7 @@ HRESULT CBeamMon::Ready_GameObject()
 	m_pBeam = CBeam::Create(m_pGraphicDev);
 	if (!m_pBeam) return E_FAIL;
 
-	m_pBeam->SetPrevTranslation({ 0,-94.f, 0 });
+	//m_pBeam->SetPrevTranslation({ 0,-94.f, 0 });
 
 	m_pBodyCollider = m_pCollisionCom->CreateCollider(this, m_szBodyColliderName);
 	if (!m_pBodyCollider) return E_FAIL;

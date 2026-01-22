@@ -25,7 +25,8 @@ HRESULT CBackGround::Ready_GameObject()
 	if (FAILED(Add_Component()))
 		return E_FAIL;
 
-	m_pTransformCom->Set_Scale({ WINCX * 0.5f,WINCY * 0.5f,1.f });
+	m_pTransformCom->Set_Scale({ WINCX * 0.5f ,WINCY * 0.5f ,1.f });
+	m_pTransformCom->Set_Pos({0, 0, 0 });
 	m_pTextureCom->Change_Texture(0);
 	return S_OK;
 }
@@ -46,6 +47,7 @@ void CBackGround::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CBackGround::Render_GameObject()
 {
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 	m_pTextureCom->Render_Texture();
 	m_pBufferCom->Render_Buffer();
 }
