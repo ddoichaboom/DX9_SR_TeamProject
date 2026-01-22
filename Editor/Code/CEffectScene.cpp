@@ -7,6 +7,12 @@
 #include "CBlood.h"
 #include "CTrail.h"
 #include "CEditorFloor.h"
+#include "CFlare.h"
+#include "CExplosion.h"
+#include "CBeamFlare.h"
+#include "CBodyEmit.h"
+#include "CHitUI.h"
+
 
 CEffectScene::CEffectScene(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CEditorScene(pGraphicDev), m_pCurParticle(nullptr)
@@ -33,8 +39,13 @@ HRESULT CEffectScene::Ready_Scene()
     _vec3 pos = { 0,0,0 };
     m_mapParticle[EF_BLOOD] = CBlood::Create(m_pGraphicDev, &pos, 1);
     m_mapParticle[EF_TRAIL] = CTrail::Create(m_pGraphicDev);
+    m_mapParticle[EF_FLARE] = CFlare::Create(m_pGraphicDev);
+    m_mapParticle[EF_EXP] = CExplosion::Create(m_pGraphicDev);
+    m_mapParticle[EF_BEAM_FLARE] = CBeamFlare::Create(m_pGraphicDev);
+    m_mapParticle[EF_BODY] = CBodyEmit::Create(m_pGraphicDev);
+    m_mapParticle[EF_HITUI] = CHitUI::Create(m_pGraphicDev);
 
-    m_pCurParticle = m_mapParticle[EF_TRAIL];
+    m_pCurParticle = m_mapParticle[EF_HITUI];
 
     m_pFloor = CEditorFloor::Create(m_pGraphicDev, { 0,0,0 });
     return S_OK;

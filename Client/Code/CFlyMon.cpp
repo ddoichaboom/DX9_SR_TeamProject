@@ -4,7 +4,10 @@
 #include "CRenderer.h"
 #include "CDInputMgr.h"
 #include "CManagement.h"
-
+#include "CExplosion.h"
+#include "CPoolMgr.h"
+#include "CBodyEmit.h"
+#include "CPlayer.h"
 
 //-------------------------------------------------------------------------
 // Texture , Animation Data
@@ -99,6 +102,7 @@ HRESULT CFlyMon::Ready_GameObject()
 		});
 
 	m_fLaunchSpeed = 4.f;
+	m_fAttackDamage = 5.f;
 	return S_OK;
 }
 
@@ -186,11 +190,6 @@ void CFlyMon::Idle()
 
 void CFlyMon::Attack_Idle_Begin()
 {
-	//_float myColSizeX = m_pBodyCollider->Get_Scale().x; 
-	//CCollision* pPlayerCollision =	
-	//	 static_cast<CCollision*>(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_PLAYER, L"Com_Collision"));
-	//_float playerColSizeX = pPlayerCollision->GetCollider()->Get_Scale().x;
-	//m_fAttackableDist = myColSizeX + playerColSizeX;
 }
 
 void CFlyMon::Attack_Idle()
@@ -210,6 +209,11 @@ void CFlyMon::Attack()
 {
 	if (m_pAnimationCom->IsEnd())
 	{
+		CCollision* playerCollision =  GetPlayerCollision();
+		if (playerCollision && playerCollision->GetCollider())
+		{
+			playerCollision->GetCollider()->Collision({ this,_vec3(),m_fAttackDamage });
+		}
 		ChangeState(MS_LAUNCH);
 		m_pAnimationCom->Pause();
 	}
@@ -238,6 +242,21 @@ void CFlyMon::Launch()
 
 void CFlyMon::Dead()
 {
+	CExplosion* exp = CPoolMgr::GetInstance()->Get_Object<CExplosion>();
+	CBodyEmit* bodyEmit = CPoolMgr::GetInstance()->Get_Object<CBodyEmit>();
+	if (exp)
+	{
+		CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(exp);
+		exp->SetPos(*m_pTransformCom->Get_Info(INFO_POS));
+		exp->Reset();
+	}
+	if (bodyEmit)
+	{
+		CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(bodyEmit);
+		bodyEmit->SetPos(*m_pTransformCom->Get_Info(INFO_POS));
+		bodyEmit->Reset();
+	}
+
 	SetDead();
 }
 

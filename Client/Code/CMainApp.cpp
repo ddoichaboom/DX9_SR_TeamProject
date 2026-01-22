@@ -5,7 +5,7 @@
 #include "CDInputMgr.h"
 #include "CPoolMgr.h"
 #include "CMapStage.h"
-#include "CBossTestStage.h"
+#include "CBossStage.h"
 #include "CMapLoader.h"
 #include "CEventMgr.h"
 #include "CFontMgr.h"
@@ -43,9 +43,14 @@
 //Effect
 #include "CBlood.h"
 #include "CTrail.h"
+#include "CFlare.h"
+#include "CExplosion.h"
+#include "CBeamFlare.h"
+#include "CBodyEmit.h"
+#include "CHitUI.h"
 
 CMainApp::CMainApp() : m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
-, m_pManagementClass(CManagement::GetInstance())
+, m_pManagementClass(CManagement::GetInstance()), m_eCurSceneType(SCENE_NONE)
 {
 }
 
@@ -75,8 +80,8 @@ HRESULT CMainApp::Ready_MainApp()
 int CMainApp::Update_MainApp(const float& fTimeDelta)
 {
 	CDInputMgr::GetInstance()->Update_InputDev();
-	m_pManagementClass->Update_Scene(fTimeDelta);
-		
+	_int iExit = m_pManagementClass->Update_Scene(fTimeDelta);
+	if (iExit == RET_DEAD) SetNextScene();
 	return 0;
 }
 
@@ -205,6 +210,7 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	//Engine::CScene* pInitScene = CTestStage::Create(pGraphicDev);
 	Engine::CScene* pInitScene = CMapStage::Create(pGraphicDev);
+	m_eCurSceneType = SCENE_BATTLE;
 	//Engine::CScene* pInitScene = CBossTestStage::Create(pGraphicDev);
 
 	if (nullptr == pInitScene)
@@ -245,8 +251,13 @@ HRESULT CMainApp::Ready_ObjectPool()
 
 
 	//Effect
-	_uint iBloodCount = 10;
-	_uint iTrailCount = 5;
+	_uint iBloodCount = 6;
+	_uint iTrailCount = 4;
+	_uint iFlareCount = 3;
+	_uint iExplosionCount = 6;
+	_uint iBeamFlareCount = 6;
+	_uint iBodyEmitCount = 6;
+	_uint iHitUICount = 2;
 
 	for (auto& wstrFile : CMapLoader::GetInstance()->Get_MapFiles())
 	{
@@ -293,7 +304,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 
 	CPoolMgr::GetInstance()->SetPoolSize<CBullet>(iBulletCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CBossBullet>(iBossBulletCount);
-	CPoolMgr::GetInstance()->SetPoolSize<CBossBullet>(iBossRocketCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CRocket>(iBossRocketCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CWhiteMan>(iWhiteManCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CBeamMon>(iBeamMonCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CFlyMon>(iFlyMonCount);
@@ -302,7 +313,43 @@ HRESULT CMainApp::Ready_ObjectPool()
 
 	CPoolMgr::GetInstance()->SetPoolSize<CBlood>(iBloodCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CTrail>(iTrailCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CFlare>(iFlareCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CExplosion>(iExplosionCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CBeamFlare>(iBeamFlareCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CBodyEmit>(iBodyEmitCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CHitUI>(iHitUICount);
+	return S_OK;
+}
 
+HRESULT CMainApp::SetNextScene()
+{
+	SCENE_TYPE nextSceneType = SCENE_TYPE((_int)m_eCurSceneType + 1);
+	if (nextSceneType == SCENE_END) return E_FAIL;
+	CScene* nextScene = nullptr;
+
+	switch (nextSceneType)
+	{
+	case CMainApp::SCENE_NONE: return E_FAIL;
+	case CMainApp::SCENE_MENU:
+		break;
+	case CMainApp::SCENE_TUTORIAL:
+		break;
+	case CMainApp::SCENE_BATTLE:
+		nextScene = CMapStage::Create(m_pGraphicDev);
+		break;
+	case CMainApp::SCENE_BOSS:
+		nextScene = CBossStage::Create(m_pGraphicDev);
+		break;
+	default:
+		return E_FAIL;
+	}
+
+	if (FAILED(CManagement::GetInstance()->Set_Scene(nextScene)))
+	{
+		Safe_Release(nextScene);
+		MSG_BOX("Next Scene Setting Failed");
+		return E_FAIL;
+	}
 	return S_OK;
 }
 

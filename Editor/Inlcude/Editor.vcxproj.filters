@@ -112,6 +112,27 @@
     <Filter Include="07. Effect\00. Blood">
       <UniqueIdentifier>{94609920-62ee-446d-afab-7d51198d9e08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07. Effect\01. Trail">
+      <UniqueIdentifier>{058dba63-f431-4d7d-9394-ce9ec25c99d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Effect\02. Flare">
+      <UniqueIdentifier>{6c30d27c-4cb6-4bf7-943d-5c0a19b5e107}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Effect\03. Explosion">
+      <UniqueIdentifier>{2a4ff037-f20c-4090-8f5c-5cc5b2436474}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Effect\04. BeamFlare">
+      <UniqueIdentifier>{3943d88a-0cba-403d-b956-80de54e4bfcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Effect\05. BodyEmit">
+      <UniqueIdentifier>{4a76c965-b8b7-4de3-bd7e-39e08d2de567}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Effect\06. HitUI">
+      <UniqueIdentifier>{a934a0d9-d1db-4866-9b17-0610833b960b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Effect\07. BossTrail">
+      <UniqueIdentifier>{dcefb232-8529-4623-ac14-7046227beb38}</UniqueIdentifier>
+    </Filter>
 	  <Filter Include="07. Effect\01. Trail">
 		  <UniqueIdentifier>{058dba63-f431-4d7d-9394-ce9ec25c99d5}</UniqueIdentifier>
 	  </Filter>
@@ -246,6 +267,24 @@
 	<ClInclude Include="..\Header\CTrail.h">
       <Filter>07. Effect\01. Trail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CFlare.h">
+      <Filter>07. Effect\02. Flare</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CExplosion.h">
+      <Filter>07. Effect\03. Explosion</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBodyEmit.h">
+      <Filter>07. Effect\05. BodyEmit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBeamFlare.h">
+      <Filter>07. Effect\04. BeamFlare</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHitUI.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossTrail.h">
+      <Filter>07. Effect\07. BossTrail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -355,6 +394,24 @@
 	</ClCompile>
 	<ClCompile Include="..\Code\CTrail.cpp">
       <Filter>07. Effect\01. Trail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFlare.cpp">
+      <Filter>07. Effect\02. Flare</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CExplosion.cpp">
+      <Filter>07. Effect\03. Explosion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBodyEmit.cpp">
+      <Filter>07. Effect\05. BodyEmit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBeamFlare.cpp">
+      <Filter>07. Effect\04. BeamFlare</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHitUI.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossTrail.cpp">
+      <Filter>07. Effect\07. BossTrail</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

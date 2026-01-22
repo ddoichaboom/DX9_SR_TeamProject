@@ -15,7 +15,6 @@ public:
 	void		SetPostRenderState() override;
 
 public:
-	void		Deactivate() override;
 	_uint		GetTextureCnt() override
 	{
 		return (_uint)m_TextureSources.size();

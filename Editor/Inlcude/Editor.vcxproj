@@ -151,7 +151,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Header\CBeamFlare.h" />
     <ClInclude Include="..\Header\CBlood.h" />
+    <ClInclude Include="..\Header\CBossTrail.h" />
     <ClInclude Include="..\Header\CEditorApp.h" />
     <ClInclude Include="..\Header\CEditorCamera.h" />
     <ClInclude Include="..\Header\CEditorCeiling.h" />
@@ -168,9 +170,13 @@
     <ClInclude Include="..\Header\CEditorWall.h" />
     <ClInclude Include="..\Header\CEffectScene.h" />
     <ClInclude Include="..\Header\CEffectToolBar.h" />
+    <ClInclude Include="..\Header\CExplosion.h" />
     <ClInclude Include="..\Header\CFileIO.h" />
+    <ClInclude Include="..\Header\CFlare.h" />
+    <ClInclude Include="..\Header\CBodyEmit.h" />
     <ClInclude Include="..\Header\CGrid.h" />
     <ClInclude Include="..\Header\CHierarchy.h" />
+    <ClInclude Include="..\Header\CHitUI.h" />
     <ClInclude Include="..\Header\CInspector.h" />
     <ClInclude Include="..\Header\CMainMenuBar.h" />
     <ClInclude Include="..\Header\CMousePicker.h" />
@@ -199,7 +205,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Code\CBeamFlare.cpp" />
     <ClCompile Include="..\Code\CBlood.cpp" />
+    <ClCompile Include="..\Code\CBossTrail.cpp" />
     <ClCompile Include="..\Code\CEditorApp.cpp" />
     <ClCompile Include="..\Code\CEditorCamera.cpp" />
     <ClCompile Include="..\Code\CEditorCeiling.cpp" />
@@ -216,12 +224,16 @@
     <ClCompile Include="..\Code\CEditorWall.cpp" />
     <ClCompile Include="..\Code\CEffectScene.cpp" />
     <ClCompile Include="..\Code\CEffectToolBar.cpp" />
+    <ClCompile Include="..\Code\CExplosion.cpp" />
     <ClCompile Include="..\Code\CFileIO.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\Code\CFlare.cpp" />
+    <ClCompile Include="..\Code\CBodyEmit.cpp" />
     <ClCompile Include="..\Code\CGrid.cpp" />
     <ClCompile Include="..\Code\CHierarchy.cpp" />
+    <ClCompile Include="..\Code\CHitUI.cpp" />
     <ClCompile Include="..\Code\CInspector.cpp" />
     <ClCompile Include="..\Code\CMainMenuBar.cpp" />
     <ClCompile Include="..\Code\CMousePicker.cpp" />

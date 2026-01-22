@@ -5,6 +5,9 @@
 #include "CDInputMgr.h"
 
 #include "CPlayer.h"
+#include "CFlare.h"
+#include "CPoolMgr.h"
+#include "CManagement.h"
 
 vector<TextureSource> CRightPart::m_vTextureSource =
 {
@@ -175,6 +178,16 @@ void CRightPart::Begin_Attack()
 	m_pTransformCom->Set_Scale(m_vConvertScale * 0.5f);
 	m_pTransformCom->Set_Pos(m_vConvertPos.x - WINCX * 0.5f, -m_vConvertPos.y + WINCY * 0.5f, 0.f);
 
+
+	CFlare* flare = CPoolMgr::GetInstance()->Get_Object<CFlare>();
+	if (flare)
+	{
+		CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(flare);
+		_vec3 FlarePos = *m_pTransformCom->Get_Info(INFO_POS) + m_vFlarePosOffset; 
+		flare->SetPos(FlarePos);
+		flare->Reset();
+
+	}
 }
 
 void CRightPart::Attack()

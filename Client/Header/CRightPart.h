@@ -2,7 +2,7 @@
 #include "CPlayerPart.h"
 
 class CPlayer;
-class CTrail;
+class CFlare;
 
 class CRightPart : public CPlayerPart
 {
@@ -67,4 +67,8 @@ protected:
 	_bool	m_bReload;
 	_bool	m_bAttack;
 
+protected:
+	//πÊΩ¬»Ò ¿Ã∆Â∆Æ √ﬂ∞° 
+	CFlare* m_pFlare = nullptr;
+	_vec3 m_vFlarePosOffset = {-100.f, 185.f, 0.1f};
 };

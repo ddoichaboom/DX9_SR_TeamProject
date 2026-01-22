@@ -41,6 +41,7 @@ protected:
 	virtual void		ChangeState(_uint nextStateID) {};
 
 public:
+	_float				GetAttackDamage() override;
 	void				Activate() override;
 	void				Deactivate() override;
 	void				SetPos(_vec3 _pos) override;
@@ -57,5 +58,6 @@ protected:
 	_float m_fTime;
 	const _float m_fMaxHP;
 	_float m_fHP;
+	_float m_fAttackDamage;
 };
 

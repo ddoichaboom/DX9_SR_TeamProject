@@ -33,7 +33,7 @@ void CFontMgr::Render_Font(FontData* pData)
 {
 	CFont* pFont = Find_Font(pData->pFontTag);
 
-	if (pFont != nullptr);
+	if (pFont != nullptr)
 		pFont->Render_Font(pData->pString, pData->pPos, pData->pSize,pData->Color);
 }
 

@@ -86,13 +86,13 @@ void CBossBullet::Render_GameObject()
 
 HRESULT CBossBullet::Add_Component()
 {
-	CComponent* pComponent = nullptr;
+	CComponent* pComponent = NULL;
 
 	//VIBuffer
 	pComponent = m_pBufferCom = dynamic_cast<Engine::CRcTex*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_RcTex"));
 
-	if (nullptr == pComponent)
+	if (NULL == pComponent)
 		return E_FAIL;
 
 	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
@@ -101,7 +101,7 @@ HRESULT CBossBullet::Add_Component()
 	pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
 
-	if (nullptr == pComponent)
+	if (NULL == pComponent)
 		return E_FAIL;
 
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
@@ -110,7 +110,7 @@ HRESULT CBossBullet::Add_Component()
 	pComponent = m_pCollisionCom = dynamic_cast<Engine::CCollision*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Collision"));
 
-	if (nullptr == pComponent)
+	if (NULL == pComponent)
 		return E_FAIL;
 
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collision", pComponent });
@@ -119,7 +119,7 @@ HRESULT CBossBullet::Add_Component()
 	pComponent = m_pAnimationCom = dynamic_cast<Engine::CAnimation*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_BossBulletAnimation"));
 
-	if (nullptr == pComponent)
+	if (NULL == pComponent)
 		return E_FAIL;
 
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Animation", pComponent });

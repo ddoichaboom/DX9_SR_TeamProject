@@ -15,6 +15,9 @@
 
 #include "CEventMgr.h"
 //#include "CShopBG.h"
+#include "CHitUI.h"
+#include "CPoolMgr.h"
+
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCharacter(pGraphicDev, 15.f)
@@ -24,7 +27,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_bJump(false), m_fJumpStartY(0.f), m_fJumpDuration(0.6f), m_fJumpHeight(20.f)
 	, m_bDash(false), m_fDashTime(0.f), m_fDashDuration(0.3f), m_fDashDistance(80.f)
 	, m_fKickAttack(1.f), m_pKickCollider(nullptr), m_pMainCollider(nullptr)
-	, m_eNowState(MAIN_END), m_bOnCollision(false)
+	, m_eNowState(MAIN_END), m_bOnCollision(false), m_pHitUI(nullptr)
 	
 {
 
@@ -40,7 +43,7 @@ CPlayer::CPlayer(const CPlayer& rhs)
 	, m_bJump(false), m_fJumpStartY(0.f), m_fJumpDuration(0.6f), m_fJumpHeight(20.f)
 	, m_bDash(false), m_fDashTime(0.f), m_fDashDuration(0.3f), m_fDashDistance(80.f)
 	, m_fKickAttack(1.f), m_pKickCollider(nullptr), m_pMainCollider(nullptr)
-	, m_eNowState(MAIN_END), m_bOnCollision(false)
+	, m_eNowState(MAIN_END), m_bOnCollision(false), m_pHitUI(nullptr)
 
 {
 	m_eOBJ_ID = OBJ_PLAYER;
@@ -76,7 +79,6 @@ HRESULT CPlayer::Ready_GameObject()
 	CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_END, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_READY_NEXT_STAGE, this);
 
-
 	m_pTransformCom->m_vScale = { 6.f,6.f,6.f };
 	m_pTransformCom->Set_Pos(0.f, 0.f, 0.f);
 
@@ -86,6 +88,9 @@ HRESULT CPlayer::Ready_GameObject()
 		{
 			OnCollision(info);
 		});
+	//TODO : 추가 (방)
+	m_pCollisionCom->SetMainCollider(m_szMainColliderName);
+
 
 	m_pKickCollider = m_pCollisionCom->CreateCollider(this, m_szKickColliderName);
 	m_pKickCollider->Set_Scale(_vec3(15.f, 15.f, 15.f));
@@ -96,7 +101,7 @@ HRESULT CPlayer::Ready_GameObject()
 
 	Change_State(INTRO);
 
-
+	if (m_pHitUI) return E_FAIL;
 
 	return S_OK;
 }
@@ -582,6 +587,12 @@ _bool CPlayer::CheckOnFloor(_float* pHeight)
 
 		if (pTransform && pTransform->Check_OnRange(&vPosition, pHeight))
 			return true;
+	}
+	//TODO 제거하기 . BossSTage용 임시 코드 
+	if (pairIter.second == pairIter.first)
+	{
+		*pHeight = 0.f;
+		return true;
 	}
 
 	return false;
@@ -1355,6 +1366,19 @@ void CPlayer::OnCollision(CollisionInfo info)
 	{
 		Move_ByCollision(info.eDir, info.vDiff);
 	}
+
+	//방승희 추가. 이펙트 용 임시 코드
+	//TODO : Damage에 따라 상태 변경 또는 함수 호출하기. 
+	if (info.fDamage > 0.f)
+	{
+		if (m_pHitUI==nullptr || m_pHitUI->IsDead())
+		{
+			m_pHitUI = CPoolMgr::GetInstance()->Get_Object<CHitUI>();
+			m_pHitUI->Reset();
+			CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(m_pHitUI);
+		}
+	}
+
 }
 
 

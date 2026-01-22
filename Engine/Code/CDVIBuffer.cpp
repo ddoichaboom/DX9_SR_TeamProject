@@ -131,7 +131,7 @@ void CDVIBuffer::Render_Buffer(list<Particle*>& _particles)
 	//세그먼트를 모두 채우지 못하여 남아있는 정점이 있다면 
 	if (numParticlesInBatch)
 	{
-		m_pGraphicDev->DrawPrimitive(D3DPT_TRIANGLELIST, m_dwVtxOffset * VtxN, m_dwVtxBatchSize * 2);
+		m_pGraphicDev->DrawPrimitive(D3DPT_TRIANGLELIST, m_dwVtxOffset * VtxN, numParticlesInBatch * 2);
 	}
 	m_dwVtxOffset += m_dwVtxBatchSize;
 

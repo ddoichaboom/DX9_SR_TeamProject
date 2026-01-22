@@ -73,8 +73,15 @@ void CCollision::Collision_Base(CCollider* _aCol, CCollider* _bCol)
 
 	if (CheckCollision(_aCol, _bCol))
 	{
-        _aCol->Collision({ _bCol->Get_Owner(),{0,0,0}});
-        _bCol->Collision({ _aCol->Get_Owner(),{0,0,0}});
+        CGameObject* aOwner = _aCol->Get_Owner();
+        CGameObject* bOwner = _bCol->Get_Owner();
+        _float aAtk = 0.f, bAtk = 0.f;
+
+        if (aOwner) aAtk = aOwner->GetAttackDamage();
+        if (bOwner) bAtk = bOwner->GetAttackDamage();
+
+        _aCol->Collision({ bOwner,{0,0,0}, bAtk});
+        _bCol->Collision({ aOwner,{0,0,0}, aAtk});
 	}
 }
 

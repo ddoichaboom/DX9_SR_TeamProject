@@ -35,6 +35,7 @@ protected:
 
 public:
 	bool			CheckCollision(CCollider* _pCollider);
+	_vec3			GetScale();
 	void			SetPos(_vec3 _pos) override;
 	void			SetShootDir(_vec3 _dir); 
 	void			SetScale(ROTATION _Axis, _float _scale);
@@ -43,7 +44,7 @@ public:
 protected:
 	static vector<TextureSource> m_vTextureSource;
 	//버텍스가 RcTexUp 타입임. 정의 참고 
-	Engine::CRcTexUp* m_pBufferCom;
+	Engine::CRcTexUp* m_pBufferUpCom;
 	Engine::CTransform* m_pTransformCom;
 	Engine::CTexture* m_pTextureCom;
 
