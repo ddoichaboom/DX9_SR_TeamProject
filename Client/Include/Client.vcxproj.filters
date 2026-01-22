@@ -256,6 +256,12 @@
     <Filter Include="04.UI\01.StaticUI\10.Font_UI">
       <UniqueIdentifier>{3cfc8eee-fc39-4283-9e73-eaecd50d69d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04.UI\01.StaticUI\11.Effect_UI">
+      <UniqueIdentifier>{ce128bb6-e85d-4b80-8140-a18be913badf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\02.DynamicUI\08.Dash_UI">
+      <UniqueIdentifier>{9f2642ed-025f-4b70-8805-290049735241}</UniqueIdentifier>
+    </Filter>
     <Filter Include="04.UI\02.DynamicUI\08. TakeDown">
       <UniqueIdentifier>{3332ea56-67ab-4011-9e52-2a8b361fafb8}</UniqueIdentifier>
     </Filter>
@@ -480,6 +486,15 @@
     <ClInclude Include="..\Header\CTextUI.h">
       <Filter>04.UI\01.StaticUI\06.Text_UI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CEffectUI.h">
+      <Filter>04.UI\01.StaticUI\11.Effect_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCursor.h">
+      <Filter>04.UI\01.StaticUI\07.Cursor_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDashUI.h">
+      <Filter>04.UI\02.DynamicUI\08.Dash_UI</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\CTakeDown.h">
       <Filter>04.UI\02.DynamicUI\08. TakeDown</Filter>
     </ClInclude>
@@ -697,6 +712,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTextUI.cpp">
       <Filter>04.UI\01.StaticUI\06.Text_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEffectUI.cpp">
+      <Filter>04.UI\01.StaticUI\11.Effect_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCursor.cpp">
+      <Filter>04.UI\01.StaticUI\07.Cursor_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDashUI.cpp">
+      <Filter>04.UI\02.DynamicUI\08.Dash_UI</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CTakeDown.cpp">
       <Filter>04.UI\02.DynamicUI\08. TakeDown</Filter>

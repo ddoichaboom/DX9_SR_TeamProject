@@ -11,6 +11,7 @@ TextureSource CPlusUI::m_textureSource =
 CPlusUI::CPlusUI(LPDIRECT3DDEVICE9 pGraphicDev)
     : CBaseUI(pGraphicDev)
     , m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr), m_pParentUI(nullptr)
+	, m_bProject(false)
 {
 	
 }
@@ -18,7 +19,7 @@ CPlusUI::CPlusUI(LPDIRECT3DDEVICE9 pGraphicDev)
 CPlusUI::CPlusUI(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
 	: CBaseUI(pGraphicDev)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr), m_pParentUI(nullptr)
-	, m_vLocalPos(vPos)
+	, m_vLocalPos(vPos), m_bProject(false)
 {
 	
 }
@@ -26,6 +27,7 @@ CPlusUI::CPlusUI(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
 CPlusUI::CPlusUI(const CPlusUI& rhs)
     : CBaseUI(rhs)
     , m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr), m_pParentUI(nullptr)
+	, m_bProject(false)
 {
 }
 
@@ -133,9 +135,20 @@ void CPlusUI::LateUpdate_GameObject(const _float& fTimeDelta)
 	if (m_pParentUI == nullptr)
 		return;
 
-	_vec3 vParentPos = m_pParentUI->Get_Pos();
-	vParentPos += m_vLocalPos;
-	SetPos(vParentPos);
+	if (false == m_bProject)
+	{
+		_vec3 vParentPos = m_pParentUI->Get_Pos();
+		vParentPos += m_vLocalPos;
+		SetPos(vParentPos);
+	}
+	else
+	{
+		_vec3 vParentPos = m_pParentUI->Get_ScreenPos();
+		vParentPos += m_vLocalPos;
+		SetPos(vParentPos);
+	}
+
+	
 }
 
 void CPlusUI::Render_GameObject()

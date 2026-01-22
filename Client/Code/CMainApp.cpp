@@ -213,7 +213,10 @@ HRESULT CMainApp::Ready_DefaultProto()
 		return E_FAIL;
 
 
-	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Word", L"Noto Sans KR", 30, 30, FW_HEAVY, false, true)))
+	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Word", L"Noto Sans KR", 30, 30, FW_HEAVY, false, true)))	
+		return E_FAIL;
+
+	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_LargeWord", L"Noto Sans KR", 70, 70, FW_HEAVY, true, true)))
 		return E_FAIL;
 
 	return S_OK;

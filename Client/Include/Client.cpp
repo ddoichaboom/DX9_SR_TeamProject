@@ -159,6 +159,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
+   ShowCursor(FALSE);
 
    return TRUE;
 }
@@ -211,7 +212,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         }
 
         break;
-
     case WM_DESTROY:
         PostQuitMessage(0);
         break;

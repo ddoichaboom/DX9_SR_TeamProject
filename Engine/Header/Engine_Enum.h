@@ -126,6 +126,7 @@ namespace Engine
 		EVENT_READY_NEXT_STAGE,
 		EVENT_NEXT_STAGE,
 		EVENT_TAKEDOWN_END,
+		EVENT_DRINK,
 		EVENT_END };
 
 	// SLOPE 방향 설정
@@ -159,6 +160,7 @@ namespace Engine
 		FONT_DEFAULT,
 		FONT_NUMBER,
 		FONT_WORD,
+		FONT_LARGEWORD,
 		FONT_END
 	};
 }

@@ -8,21 +8,23 @@ namespace Engine
 	class CTexture;
 }
 
-class CPlusUI : public CBaseUI    
+class CPlusUI;
+class CFontUI;
+
+class CEffectUI : public CBaseUI
 {
 protected:
-	explicit	CPlusUI(LPDIRECT3DDEVICE9 pGraphicDev);	
-	explicit	CPlusUI(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos);	
-	explicit	CPlusUI(const CPlusUI& rhs);
-	virtual		~CPlusUI();
+	explicit	CEffectUI(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit	CEffectUI(const CEffectUI& rhs);
+	virtual		~CEffectUI();
 
 public:
-	static		CPlusUI* Create(PDIRECT3DDEVICE9 pGraphicDev);
-	static		CPlusUI* Create(PDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos);
+	static		CEffectUI* Create(PDIRECT3DDEVICE9 pGraphicDev);
 	static		TextureSource& GetTextureSource() { return m_textureSource; }
-	
-	void		Set_Parent(CBaseUI* pParent);
-	void		Set_Projection(bool bProj) { m_bProject = bProj; }
+
+	void		Set_Text(const wstring& wDeadTime);
+
+	void		Init();
 
 protected:
 	virtual		HRESULT		Add_Component();
@@ -45,9 +47,9 @@ protected:
 	Engine::CTransform* m_pTransformCom;
 	Engine::CTexture* m_pTextureCom;
 
-	CBaseUI* m_pParentUI;
+	CFontUI* m_pEffectText;
 
-	_vec3 m_vLocalPos;
-	_bool	m_bProject;
+	_float	m_fTime = 0.f;
+
 };
 
