@@ -2,8 +2,8 @@
   "ceilingCount": 496,
   "dynamicFloorCount": 56,
   "floorCount": 689,
-  "mapColliderCount": 31,
-  "objectCount": 1750,
+  "mapColliderCount": 40,
+  "objectCount": 1761,
   "objects": [
     {
       "floorType": 0,
@@ -28049,30 +28049,6 @@
       "isDynamic": false,
       "name": "SlopeFloor",
       "position": [
-        8.0,
-        -40.0,
-        1437.2822265625
-      ],
-      "roomIndex": 4,
-      "rotation": [
-        60.0,
-        180.0,
-        0.0
-      ],
-      "scale": [
-        8.0,
-        8.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "SlopeFloor"
-    },
-    {
-      "SlopeDirection": 1,
-      "floorType": 2,
-      "isDynamic": false,
-      "name": "SlopeFloor",
-      "position": [
         40.0,
         -40.0,
         1437.2822265625
@@ -29841,7 +29817,7 @@
       "name": "MapCollider_13",
       "position": [
         -64.0,
-        16.0,
+        32.0,
         1064.0
       ],
       "roomIndex": 3,
@@ -29852,7 +29828,7 @@
       ],
       "scale": [
         8.0,
-        16.0,
+        32.0,
         144.0
       ],
       "type": "MapCollider"
@@ -29862,7 +29838,7 @@
       "name": "MapCollider",
       "position": [
         112.0,
-        16.0,
+        32.0,
         1064.0
       ],
       "roomIndex": 3,
@@ -29873,7 +29849,7 @@
       ],
       "scale": [
         8.0,
-        16.0,
+        32.0,
         144.0
       ],
       "type": "MapCollider"
@@ -39684,6 +39660,263 @@
         8.0
       ],
       "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        24.0,
+        32.0,
+        680.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        32.0,
+        16.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        24.0,
+        64.0,
+        736.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        32.0,
+        8.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        24.0,
+        -16.0,
+        820.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        4.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        24.0,
+        -16.0,
+        860.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        4.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        44.0,
+        -16.0,
+        840.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        4.0,
+        16.0,
+        16.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        4.0,
+        -16.0,
+        840.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        4.0,
+        16.0,
+        16.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        24.0,
+        48.0,
+        1064.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        80.0,
+        16.0,
+        16.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        24.0,
+        48.0,
+        936.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        80.0,
+        16.0,
+        16.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        24.0,
+        48.0,
+        1192.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        80.0,
+        16.0,
+        16.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        8.746766090393066,
+        -30.0,
+        1445.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        36.05292510986328,
+        -83.0,
+        1538.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "SlopeDirection": 1,
+      "floorType": 2,
+      "isDynamic": false,
+      "name": "SlopeFloor",
+      "position": [
+        8.0,
+        -40.0,
+        1437.2822265625
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        60.0,
+        180.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "SlopeFloor"
     }
   ],
   "obstacleCount": 4,
