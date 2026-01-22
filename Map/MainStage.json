@@ -39623,7 +39623,7 @@
       "type": "Floor"
     },
     {
-      "colliderTag": 9,
+      "colliderTag": 10,
       "name": "MapCollider",
       "position": [
         56.0,
@@ -39644,7 +39644,7 @@
       "type": "MapCollider"
     },
     {
-      "colliderTag": 9,
+      "colliderTag": 10,
       "name": "MapCollider",
       "position": [
         -8.0,

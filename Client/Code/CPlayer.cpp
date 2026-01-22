@@ -19,6 +19,7 @@
 #include "CPoolMgr.h"
 #include "CFloor.h"
 #include "CUIManager.h"
+#include "CMapCollider.h"
 
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -32,7 +33,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_eNowState(MAIN_END), m_bOnCollision(false), m_pHitUI(nullptr)
 	, m_fHP(20.f), m_fMaxHP(20.f), m_fTime(0.f), m_fStageTime(0.f), m_bStage(false)
 	, m_bSlope(false), m_bSideDash(false)
-	
+	, m_pColHitObj(nullptr)
 {
 
 	m_eOBJ_ID = OBJ_PLAYER;
@@ -50,6 +51,7 @@ CPlayer::CPlayer(const CPlayer& rhs)
 	, m_eNowState(MAIN_END), m_bOnCollision(false), m_pHitUI(nullptr)
 	, m_fHP(20.f), m_fMaxHP(20.f), m_fTime(0.f), m_fStageTime(0.f), m_bStage(false)
 	, m_bSlope(false), m_bSideDash(false)
+	, m_pColHitObj(nullptr)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
 	m_iID = 0;
@@ -83,7 +85,7 @@ void CPlayer::OnEvent(EVENT_TYPE _type, EventData* _pData)
 	if (_type == EVENT_MONSTER_DEAD)
 	{
 		MonsterData* pData = static_cast<MonsterData*>(_pData);
-		CUIManager::GetInstance()->Create_TextUI(m_pGraphicDev, pData->wText, pData->value);
+		CUIManager::GetInstance()->Create_TextUI(m_pGraphicDev, pData->eTag, pData->value);
 		Add_HP(pData->value);
 	}
 }
@@ -150,6 +152,9 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 		Change_State(IDLE);
 	}
 
+	if (m_bSideDash)
+		Update_SideDash(fTimeDelta);
+
 
 	if (m_eNowState != SHOP && m_eNowState != READY_NEXT && m_bStage)
 		Key_Input(fTimeDelta);
@@ -159,6 +164,8 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 
 	if (m_bDash)
 		Update_Dash(fTimeDelta);
+
+
 
 	if (m_eNowState != SHOP && m_eNowState != READY_NEXT)
 		m_mapWeapon[m_eWeaponState]->Update_GameObject(fTimeDelta);
@@ -182,11 +189,12 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 	CCharacter::LateUpdate_GameObject(fTimeDelta);
 
 	//CheckEnterCollider();
-
-	Set_OnFloor(fTimeDelta);
+	if (false == m_bSideDash)
+		Set_OnFloor(fTimeDelta);
 
 	if (m_eNowState != SHOP && m_eNowState != READY_NEXT)
 		m_mapWeapon[m_eWeaponState]->LateUpdate_GameObject(fTimeDelta);
+
 	State_LateUpdate(fTimeDelta);
 }
 
@@ -633,7 +641,7 @@ _bool CPlayer::CheckOnFloor(const _float& fTimeDelta,_float* pHeight)
 		_float fCurrentFloorY = 0.f;
 
 
-		if (eTag == TAG_NONE)
+		if (eTag == TAG_NONE || eTag == TAG_ACID)
 		{
 			if (pTransform->Check_OnRange(&vPosition, &fCurrentFloorY))
 			{
@@ -877,6 +885,55 @@ void CPlayer::Update_Dash(const _float& fTimeDelta)
 	_vec3 newPos = m_vDashStart + m_vDashDir * dashDistance;
 
 	m_pTransformCom->Set_Pos(newPos);
+}
+
+void CPlayer::Update_SideDash(const _float& fTimeDelta)
+{
+
+	CTransform* pTransform = static_cast<CTransform*>(m_pColHitObj->Get_Component(ID_STATIC, L"Com_Transform"));
+	CCollision* pCollision = static_cast<CCollision*>(m_pColHitObj->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+
+	_vec3 vDirection = -m_vDiffDir;
+	D3DXVec3Normalize(&vDirection, &vDirection);	
+
+	_vec3 vPos = *m_pTransformCom->Get_Info(INFO_POS);
+	_vec3 vDir = { 0.f,0.f,0.f };
+	vPos.y = pTransform->Get_Info(INFO_POS)->y;
+
+	COLLIDER_TAG eTag = static_cast<CMapCollider*>(m_pColHitObj)->Get_ColliderTag();
+	if (eTag == TAG_SIDE_DASH_X)
+	{
+		vDir.x = 1.f;
+	}
+	else if (eTag == TAG_SIDE_DASH_Z)
+	{
+		vDir.z = 1.f;
+	}
+
+	vPos = vPos + vDir * m_fMoveSpeed * fTimeDelta;
+	m_pTransformCom->Set_Pos(vPos);
+
+	if (CCollision::Collision_Ray(pCollision->GetCollider(), *m_pTransformCom->Get_Info(INFO_POS), vDirection))
+	{
+		
+
+	}
+	else
+	{
+		m_bSideDash = false;		
+		m_pColHitObj = nullptr;
+		m_vDiffDir = {};
+
+		m_fJumpTime = 0.f;
+		m_fVelocity = 0.f;
+		m_fJumpStartY = m_pTransformCom->m_vInfo[INFO_POS].y;
+		m_bJump = true;
+	}
+
+}
+
+void CPlayer::Update_TickDamagaed(const _float& fTimeDelta)
+{
 }
 
 void CPlayer::Intro_Func()
@@ -1532,6 +1589,31 @@ void CPlayer::OnCollision(CollisionInfo info)
 	if (info.eDir != CDIR_NONE)
 	{
 		Move_ByCollision(info.eDir, info.vDiff);
+
+		if (info.eTag == TAG_SIDE_DASH_X || info.eTag == TAG_SIDE_DASH_Z)
+		{
+			m_bSideDash = true;
+			m_pColHitObj = info.pTarget;
+
+			m_vDiffDir = info.vDiff;
+
+			switch (info.eDir)
+			{
+			case CDIR_NONE:
+				break;
+			case CDIR_X:
+				m_vDiffDir = { info.vDiff.x, 0.f,0.f };
+				break;
+			case CDIR_Z:
+				m_vDiffDir = { 0.f, 0.f,info.vDiff.z };
+				break;
+			default:
+				break;
+			}
+
+			m_bJump = false;
+			m_bFall = false;
+		}		
 	}
 
 	//방승희 추가. 이펙트 용 임시 코드
