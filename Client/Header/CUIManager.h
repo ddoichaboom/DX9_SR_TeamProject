@@ -8,6 +8,7 @@
 class CBaseUI;
 class CEffectUI;
 class CCursor;
+class CDashUI;
 
 
 class CUIManager : public CBase, public IListener
@@ -42,6 +43,7 @@ private :
 public :
 	void			Set_RenderEffect(_bool bRender) { m_bRenderEffectUI = bRender; }
 	void			Set_OnEffectUI(_bool  bDrink);
+	void			Set_OnDashUI();
 	
 private :	
 	UI_STATE	m_eNowState;
@@ -52,6 +54,7 @@ private :
 	CEffectUI*	m_pEffectUI;
 	_bool		m_bRenderEffectUI;
 
-	//CCursor*	m_pCursor;
+	CDashUI*		m_pDashUI;
+	_bool		m_bDash;
 };
 

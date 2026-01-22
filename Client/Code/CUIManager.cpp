@@ -20,12 +20,13 @@
 #include "CTextUI.h"
 #include "CEffectUI.h"
 #include "CCursor.h"
+#include "CDashUI.h"
 
 
 IMPLEMENT_SINGLETON(CUIManager)
 
 CUIManager::CUIManager()
-	: m_eNowState(UI_DEFAULT), m_pEffectUI(nullptr), m_bRenderEffectUI(false)	
+	: m_eNowState(UI_DEFAULT), m_pEffectUI(nullptr), m_bRenderEffectUI(false), m_pDashUI(nullptr),m_bDash(false)
 {	
 }
 
@@ -46,6 +47,7 @@ void CUIManager::Free()
 	m_mapUI.clear();
 
 	Safe_Release(m_pEffectUI);	
+	Safe_Release(m_pDashUI);
 }
 
 HRESULT CUIManager::Ready_GameObject(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -59,6 +61,10 @@ HRESULT CUIManager::Ready_GameObject(LPDIRECT3DDEVICE9 pGraphicDev)
 
 	m_pEffectUI = CEffectUI::Create(pGraphicDev);
 	if (m_pEffectUI == nullptr)
+		return E_FAIL;
+
+	m_pDashUI = CDashUI::Create(pGraphicDev);
+	if (m_pDashUI == nullptr)
 		return E_FAIL;
 
 	CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_END, this);
@@ -129,6 +135,13 @@ void CUIManager::Update_GameObject(const _float& fTimeDelta)
 	{
 		m_pEffectUI->Update_GameObject(fTimeDelta);
 	}
+
+	if (m_bDash)
+	{
+		_int iResult = m_pDashUI->Update_GameObject(fTimeDelta);
+		if (iResult == RET_DEAD)
+			m_bDash = false;
+	}
 }
 
 void CUIManager::LateUpdate_GameObject(const _float& fTimeDelta)
@@ -144,6 +157,11 @@ void CUIManager::LateUpdate_GameObject(const _float& fTimeDelta)
 	if (m_bRenderEffectUI)
 	{
 		m_pEffectUI->LateUpdate_GameObject(fTimeDelta);
+	}
+
+	if (m_bDash)
+	{
+		m_pDashUI->LateUpdate_GameObject(fTimeDelta);
 	}
 }
 
@@ -238,6 +256,14 @@ HRESULT CUIManager::Add_ProtoType(LPDIRECT3DDEVICE9 pGraphicDev)
 
 	pCom_Texture = Engine::CTexture::Create(pGraphicDev, CCursor::GetTextureSource());
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_CursorTexture", pCom_Texture)))
+		return E_FAIL;
+
+	pCom_Texture = Engine::CTexture::Create(pGraphicDev, CDashUI::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_DashTexture", pCom_Texture)))
+		return E_FAIL;
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_DashAnimation",
+		Engine::CAnimation::Create(pGraphicDev, pCom_Texture, CDashUI::GetAnimSources()))))
 		return E_FAIL;
 
 	return S_OK;
@@ -347,6 +373,13 @@ void CUIManager::Set_OnEffectUI(_bool bDrink)
 	m_pEffectUI->Set_Text(wText);	
 
 	m_bRenderEffectUI = true;
+}
+
+void CUIManager::Set_OnDashUI()
+{
+	m_pDashUI->Activate();
+	m_bDash = true;
+
 }
 
 void CUIManager::Create_TextUI(LPDIRECT3DDEVICE9 pGraphicDev, COLLIDER_TAG eTag, _int iTimes)

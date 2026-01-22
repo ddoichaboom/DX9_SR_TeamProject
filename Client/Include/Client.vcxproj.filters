@@ -259,6 +259,9 @@
     <Filter Include="04.UI\01.StaticUI\11.Effect_UI">
       <UniqueIdentifier>{ce128bb6-e85d-4b80-8140-a18be913badf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04.UI\02.DynamicUI\08.Dash_UI">
+      <UniqueIdentifier>{9f2642ed-025f-4b70-8805-290049735241}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -486,6 +489,9 @@
     <ClInclude Include="..\Header\CCursor.h">
       <Filter>04.UI\01.StaticUI\07.Cursor_UI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CDashUI.h">
+      <Filter>04.UI\02.DynamicUI\08.Dash_UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -703,6 +709,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CCursor.cpp">
       <Filter>04.UI\01.StaticUI\07.Cursor_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDashUI.cpp">
+      <Filter>04.UI\02.DynamicUI\08.Dash_UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

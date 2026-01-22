@@ -354,7 +354,7 @@ void CPlayer::Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _v
 		D3DXVec3Normalize(&m_vDashDir, &m_vDashDir);
 		m_vDashDir.y = 0.f;
 		m_bDash = true;
-
+		CUIManager::GetInstance()->Set_OnDashUI();
 		return;
 	}
 
