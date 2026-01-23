@@ -283,6 +283,18 @@
     <Filter Include="02. GameObject\03.MapObject\01.InteractiveObj">
       <UniqueIdentifier>{fefab657-5085-4905-a68d-433b193a3e95}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\03.MapObject\02.VendingMachine">
+      <UniqueIdentifier>{910535e6-2a4e-4a48-a252-241eeb0c6fdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\03.MapObject\03.Soda">
+      <UniqueIdentifier>{fe8e2a7f-6321-4c19-bf53-9db8f3e7840a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\03.MapObject\04.Axe">
+      <UniqueIdentifier>{935eac77-4a1d-4389-a3e2-b44d79d021e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\03.MapObject\05.Extinguisher">
+      <UniqueIdentifier>{e07de885-8743-4e17-ad6f-09ecac3dd9e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
