@@ -16,7 +16,7 @@ CToonFog::CToonFog(IDirect3DDevice9* device)
 	m_vSize = { 10.f, 30.f };
 	m_fAnimSpeed = 0.05f;
 	m_iMaxParticle = 20;
-	m_iBatchSize = 20;
+	m_iBatchSize = 5;
 	m_fLifeTime = 2.f;
 	m_bLoop = false;
 	m_color = { 0,0,0,1 };

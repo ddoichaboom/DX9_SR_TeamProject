@@ -166,10 +166,12 @@ namespace Engine
 		FONT_END
 	};
 
-	enum ITEM_TYPE
+	enum OBJ_ITEM_TYPE
 	{
-		ITEM_DRINK,
-		ITEM_TAKEDOWN,
+		ITEM_NONE,
+		ITEM_SODA,
+		ITEM_SODAMACHINE,
+		ITEM_AXE,
 		ITEM_END
 	};
 }
