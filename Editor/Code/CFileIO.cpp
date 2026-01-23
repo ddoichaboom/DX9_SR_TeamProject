@@ -526,7 +526,7 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
                 else if (strSpawnType == "Monster")
                     eSpawnType = SPAWN_MONSTER;
                 else if (strSpawnType == "BossMonster")
-                    eSpawnType == SPAWN_BOSSMONSTER;
+                    eSpawnType = SPAWN_BOSSMONSTER;
 
                 // 몬스터 키 읽기 (옵션)
                 string strMonsterKey = "";

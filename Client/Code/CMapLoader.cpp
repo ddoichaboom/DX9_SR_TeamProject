@@ -36,7 +36,7 @@ vector<wstring> CMapLoader::m_vecMapFiles =
 {
     {L"../../Map/TutorialStage.json"},
     {L"../../Map/MainStage.json"},
-    {L"../../Map/BossStage.json"}        // 슬로프 연장
+    {L"../../Map/BossStage.json"}        
 };
 
 CMapLoader::CMapLoader()
