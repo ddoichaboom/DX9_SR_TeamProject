@@ -169,6 +169,7 @@
     <ClInclude Include="..\Header\CHeartBeat.h" />
     <ClInclude Include="..\Header\CHitUI.h" />
     <ClInclude Include="..\Header\CHPUI.h" />
+    <ClInclude Include="..\Header\CHudUI.h" />
     <ClInclude Include="..\Header\CLoadingEX.h" />
     <ClInclude Include="..\Header\CMapCollider.h" />
     <ClInclude Include="..\Header\CDynamicCeiling.h" />
@@ -202,6 +203,7 @@
     <ClInclude Include="..\Header\CShopItem.h" />
     <ClInclude Include="..\Header\CSkyBox.h" />
     <ClInclude Include="..\Header\CSlopeFloor.h" />
+    <ClInclude Include="..\Header\CSlotUI.h" />
     <ClInclude Include="..\Header\CStageBG.h" />
     <ClInclude Include="..\Header\CStageEndTrigger.h" />
     <ClInclude Include="..\Header\CTakeDown.h" />
@@ -250,6 +252,7 @@
     <ClCompile Include="..\Code\CHeartBeat.cpp" />
     <ClCompile Include="..\Code\CHitUI.cpp" />
     <ClCompile Include="..\Code\CHPUI.cpp" />
+    <ClCompile Include="..\Code\CHudUI.cpp" />
     <ClCompile Include="..\Code\CLoadingEX.cpp" />
     <ClCompile Include="..\Code\CMapCollider.cpp" />
     <ClCompile Include="..\Code\CDynamicCeiling.cpp" />
@@ -282,6 +285,7 @@
     <ClCompile Include="..\Code\CShopItem.cpp" />
     <ClCompile Include="..\Code\CSkyBox.cpp" />
     <ClCompile Include="..\Code\CSlopeFloor.cpp" />
+    <ClCompile Include="..\Code\CSlotUI.cpp" />
     <ClCompile Include="..\Code\CStageBG.cpp" />
     <ClCompile Include="..\Code\CStageEndTrigger.cpp" />
     <ClCompile Include="..\Code\CTakeDown.cpp" />

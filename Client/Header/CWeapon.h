@@ -47,6 +47,7 @@ public:
 
 public:
 	virtual		_bool		Can_Fire() PURE;
+	virtual		_bool		Rest_Bullet() { return m_iNowBullet > 0; }
 	virtual		void		Fire() {}
 	virtual		void		Reload() {}
 

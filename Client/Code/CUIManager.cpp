@@ -23,11 +23,16 @@
 #include "CDashUI.h"
 #include "CTakeDown.h"
 #include "CEventMgr.h"
+#include "CSlotUI.h"
+#include "CHudUI.h"
 
 IMPLEMENT_SINGLETON(CUIManager)
 
 CUIManager::CUIManager()
-	: m_eNowState(UI_DEFAULT), m_pEffectUI(nullptr), m_bRenderEffectUI(false), m_pDashUI(nullptr),m_bDash(false)
+	: m_eNowState(UI_DEFAULT)
+	, m_pEffectUI(nullptr), m_bRenderEffectUI(false)
+	, m_pDashUI(nullptr),m_bDash(false)
+	, m_pSlotUI(nullptr), m_bSlot(false)
 {	
 }
 
@@ -49,6 +54,7 @@ void CUIManager::Free()
 
 	Safe_Release(m_pEffectUI);	
 	Safe_Release(m_pDashUI);
+	Safe_Release(m_pSlotUI);
 }
 
 HRESULT CUIManager::Ready_GameObject(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -68,10 +74,15 @@ HRESULT CUIManager::Ready_GameObject(LPDIRECT3DDEVICE9 pGraphicDev)
 	if (m_pDashUI == nullptr)
 		return E_FAIL;
 
+	m_pSlotUI = CSlotUI::Create(pGraphicDev);
+	if (m_pSlotUI == nullptr)
+		return E_FAIL;
+
 	CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_END, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_DOOR_IN, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_NEXT_STAGE, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_DRINK, this);
+	CEventMgr::GetInstance()->Subscribe(EVENT_TAKEDOWN, this);
 
 	return S_OK;
 }
@@ -151,6 +162,11 @@ void CUIManager::Update_GameObject(const _float& fTimeDelta)
 		if (iResult == RET_DEAD)
 			m_bDash = false;
 	}
+
+	if (m_bSlot)
+	{
+		m_pSlotUI->Update_GameObject(fTimeDelta);
+	}
 }
 
 void CUIManager::LateUpdate_GameObject(const _float& fTimeDelta)
@@ -171,6 +187,11 @@ void CUIManager::LateUpdate_GameObject(const _float& fTimeDelta)
 	if (m_bDash)
 	{
 		m_pDashUI->LateUpdate_GameObject(fTimeDelta);
+	}
+
+	if (m_bSlot)
+	{
+		m_pSlotUI->LateUpdate_GameObject(fTimeDelta);
 	}
 }
 
@@ -285,6 +306,14 @@ HRESULT CUIManager::Add_ProtoType(LPDIRECT3DDEVICE9 pGraphicDev)
 		Engine::CAnimation::Create(pGraphicDev, pCom_Texture, CDashUI::GetAnimSources()))))
 		return E_FAIL;
 
+	pCom_Texture = Engine::CTexture::Create(pGraphicDev, CSlotUI::GetTextureSource());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SlotUITexture", pCom_Texture)))
+		return E_FAIL;
+
+	pCom_Texture = Engine::CTexture::Create(pGraphicDev, CHudUI::GetTextureSource());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_HudUITexture", pCom_Texture)))
+		return E_FAIL;
+
 	return S_OK;
 }
 
@@ -390,7 +419,7 @@ void CUIManager::Sort_UI(UI_STATE eState)
 
 void CUIManager::Set_OnEffectUI(_bool bDrink)
 {		
-	wstring wText = bDrink ? L"생 명 소 다" : L"즉 결 처 형";	
+	wstring wText = bDrink ? L"생명 소다" : L"즉결 처형";	
 	m_pEffectUI->Init();
 	m_pEffectUI->Set_Text(wText);	
 
@@ -410,6 +439,19 @@ void CUIManager::Set_OnDashUI(_bool bDash)
 	}
 	
 
+}
+
+void CUIManager::Set_OnSlotUI(_bool bSlot)
+{
+	if (bSlot)
+	{
+		m_pSlotUI->Activate();
+		m_bSlot = true;
+	}
+	else
+	{
+		m_bSlot = false;
+	}
 }
 
 void CUIManager::Create_TextUI(LPDIRECT3DDEVICE9 pGraphicDev, COLLIDER_TAG eTag, _int iTimes)
@@ -493,7 +535,8 @@ void CUIManager::OnEvent(EVENT_TYPE _type, EventData* _pData)
 	case Engine::EVENT_NEXT_STAGE:
 		Change_UIState(UI_DEFAULT);
 		break;
-	case Engine::EVENT_END:
+	case Engine::EVENT_TAKEDOWN:
+		Set_OnEffectUI(false);
 		break;
 	default:
 		break;

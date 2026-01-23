@@ -41,6 +41,7 @@ CKatana::CKatana(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_vStartPos(), m_vEndPos(), m_vConvertScale()
 	, m_eCombo(COMBO_NONE), m_bCanCombo(false), m_bComboBuffered(false), m_fAniSpeed(1.f)
 {
+	m_iNowBullet = 1;
 }
 
 CKatana::CKatana(const CKatana& rhs)
@@ -51,6 +52,7 @@ CKatana::CKatana(const CKatana& rhs)
 	, m_vStartPos(), m_vEndPos(), m_vConvertScale()
 	, m_eCombo(COMBO_NONE), m_bCanCombo(false), m_bComboBuffered(false), m_fAniSpeed(1.f)
 {
+	m_iNowBullet = 1;
 }
 
 CKatana::~CKatana()

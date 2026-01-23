@@ -77,6 +77,7 @@ public:
 	void				Slide_Func();
 	void				Shop_Func();
 	void				Drink_Func();
+	void				TakeDown_Func();
 
 public :
 	void				Change_State(_uint eState);
@@ -151,6 +152,8 @@ public:
 	_float				Get_Velocity() { return m_fVelocity; }
 	_float				Get_JumpTime() { return m_fJumpTime; }
 
+	void				Add_Item(COLLIDER_TAG eColliderTag);
+
 public:
 	_float				Get_HP() const { return m_fHP; }
 	_float				Get_MaxHP() const { return m_fMaxHP; }
@@ -160,10 +163,12 @@ public:
 		if (fHp > 0)
 		{
 			m_fHP = min(m_fHP + fHp, m_fMaxHP);
+			m_fTime = 0.f;
 		}
 		else
 		{
 			m_fHP = max(m_fHP + fHp, 0);
+			m_fTime = 0.f;
 		}
 	}
 
@@ -233,5 +238,8 @@ private:
 
 	CGameObject* m_pColHitObj;
 	_vec3		 m_vDiffDir;
+
+	_bool		m_bMoveStop;
+	_bool		m_bAbleTakeDown;
 };
 
