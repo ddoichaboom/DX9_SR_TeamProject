@@ -102,7 +102,9 @@ protected:
 
 	_vec3			m_vScale;
 	_float			m_fDirAngle = 0.f;
-	const _vec2		m_vHeightRange = { 30.f, 200.f };
+	//높이 제한 
+	//const _vec2		m_vHeightRange = { 30.f, 200.f };
+	const _vec2		m_vHeightRange = { 100.f, 250.f };
 	const _vec2		m_vAngleABSRange = { 10.f, 30.f };
 
 	_float			m_fStateRatio = 1.f;
@@ -127,8 +129,8 @@ protected:
 	//Attack Rocket
 	_vec3			m_vRocektPos[MON_END_HAND];
 	_vec3			m_vWorldRocketPos[MON_END_HAND];
-	_float			m_fAttack_Rocket_Time = 3.f;
-	_float			m_fRocketShoot_time = 0.5f;
+	_float			m_fAttack_Rocket_Time = 2.f;
+	_float			m_fRocketShoot_time = 0.25f;
 
 	//Random
 	random_device	rd;

@@ -146,7 +146,8 @@ HRESULT CBoss::Ready_GameObject()
 		});
 
 	//맵 반지름 값 
-	m_fMapRadius = 400.f;
+	//m_fMapRadius = 400.f;
+	m_fMapRadius = 500.f;
 	m_pTransformCom->m_vScale = m_vScale;
 	//m_pTransformCom->Set_Pos({ 0.f, 100.f ,m_fMapRadius});			// CMapLoader에서 스포너 발견시 생성
 	
@@ -251,8 +252,50 @@ void CBoss::ChangeState(_uint nextStateID)
 
 HRESULT CBoss::Add_Component()
 {
-	if (FAILED(CMonster::Add_Component())) return E_FAIL;
-	CComponent* pComponent = nullptr;
+	//if (FAILED(CMonster::Add_Component())) return E_FAIL;
+	Engine::CComponent* pComponent = nullptr;
+
+	//VIBuffer
+	pComponent = m_pBufferCom = dynamic_cast<Engine::CRcTex*>
+		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_RcTex"));
+
+	if (nullptr == pComponent)
+		return E_FAIL;
+
+	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
+
+	// Transform
+	pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>
+		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
+
+	if (nullptr == pComponent)
+		return E_FAIL;
+
+	m_mapComponent[ID_STATIC].insert({ L"Com_Transform", pComponent });
+
+	//Collision
+	pComponent = m_pCollisionCom = dynamic_cast<Engine::CCollision*>
+		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Collision"));
+
+	if (nullptr == pComponent)
+		return E_FAIL;
+
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collision", pComponent });
+
+	//StateComponent
+	pComponent = m_pStateCom = dynamic_cast<Engine::CStateComponent*>
+		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_StateComponent"));
+
+	//Owner 지정해주기!! 
+	m_pStateCom->SetOnwer(this);
+
+	if (nullptr == pComponent)
+		return E_FAIL;
+
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_StateComponent", pComponent });
+
+
+	//CComponent* pComponent = nullptr;
 
 	// Animation
 	pComponent = m_pAnimationCom = dynamic_cast<CAnimation*>
@@ -463,7 +506,15 @@ void CBoss::Attack_Rocket()
 	if (m_fSubTime >= m_fRocketShoot_time)
 	{
 		m_fSubTime = 0.f;
-		for (int i = 0; i < MON_END_HAND; i++)
+		_vec3 vRight{}, vUp{}, vPos{};
+		_float randX{}, randY{};
+
+		memcpy(&vRight, &m_pTransformCom->Get_World()->m[INFO_RIGHT], sizeof(_vec3));
+		memcpy(&vUp, &m_pTransformCom->Get_World()->m[INFO_UP], sizeof(_vec3));
+		memcpy(&vPos, &m_pTransformCom->Get_World()->m[INFO_POS], sizeof(_vec3));
+		D3DXVec3Normalize(&vRight, &vRight);
+		D3DXVec3Normalize(&vUp, &vUp);
+		for (int i = 0; i < 3; i++)
 		{
 			CRocket* pRocket = CPoolMgr::GetInstance()->Get_Object<CRocket>();
 			if (pRocket)
@@ -472,17 +523,20 @@ void CBoss::Attack_Rocket()
 				CTransform* playerTransform = GetPlayerTransform();
 				if (layer && playerTransform)
 				{
-					_vec3 vPos = m_vWorldRocketPos[i];
+					randX = GetRandomFloat(-100.f, 100.f);
+					randY = GetRandomFloat(-30.f, 80.f);
+					
+					_vec3 vRocketPos = vPos + vRight * randX + vUp * randY;
 					_vec3 vDest = *playerTransform->Get_Info(INFO_POS);
 
 					vDest.x += (dis(gen) - m_vRandomRange.x * 0.5f);
 					vDest.y += (dis(gen) - m_vRandomRange.y * 0.5f);
 
-					_vec3 vLook = vDest - vPos;
+					_vec3 vLook = vDest - vRocketPos;
 
 					D3DXVec3Normalize(&vLook, &vLook);
 					pRocket->SetDirection(vLook);
-					pRocket->SetPos(vPos);
+					pRocket->SetPos(vRocketPos);
 					layer->Add_GameObject(pRocket);
 				}
 				else

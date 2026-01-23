@@ -183,6 +183,7 @@
     <ClInclude Include="..\Header\CSelectionMgr.h" />
     <ClInclude Include="..\Header\CTakeDownBlood.h" />
     <ClInclude Include="..\Header\CToolBar.h" />
+    <ClInclude Include="..\Header\CToonFlash.h" />
     <ClInclude Include="..\Header\CTrail.h" />
     <ClInclude Include="..\Header\json.hpp" />
     <!-- <ClInclude Include="..\ImGuizmo\GraphEditor.h" /> -->
@@ -241,6 +242,7 @@
     <ClCompile Include="..\Code\CSelectionMgr.cpp" />
     <ClCompile Include="..\Code\CTakeDownBlood.cpp" />
     <ClCompile Include="..\Code\CToolBar.cpp" />
+    <ClCompile Include="..\Code\CToonFlash.cpp" />
     <ClCompile Include="..\Code\CTrail.cpp" />
     <!-- <ClCompile Include="..\ImGuizmo\GraphEditor.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>

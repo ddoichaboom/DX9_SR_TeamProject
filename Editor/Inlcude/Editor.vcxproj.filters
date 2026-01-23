@@ -142,6 +142,9 @@
     <Filter Include="07. Effect\08. TakeDownBlood">
       <UniqueIdentifier>{43f5b21b-5347-4be5-b0bf-66c124b94a1b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07. Effect\09. ToonFlash">
+      <UniqueIdentifier>{799b6730-6cc3-4593-a688-6f2cc7f9c7e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -288,6 +291,9 @@
     <ClInclude Include="..\Header\CTakeDownBlood.h">
       <Filter>07. Effect\08. TakeDownBlood</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CToonFlash.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -418,6 +424,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTakeDownBlood.cpp">
       <Filter>07. Effect\08. TakeDownBlood</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CToonFlash.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
