@@ -2,7 +2,7 @@
 #include "CParticleEmitter.h"
 
 class CBossTrail :
-    public CParticleEmitter
+	public CParticleEmitter
 {
 public:
 	CBossTrail(IDirect3DDevice9* device);
@@ -47,7 +47,7 @@ protected:
 
 	D3DXCOLOR m_Colors[3] =
 	{
-		{0.8f, 0.f,0.f,1.f},{0.f, 0.8f,0.f,1.f},{0.f, 0.f,0.8f,1.f}
+		{0.7f, 0.f,0.f,1.f},{0.f, 0.7f,0.f,1.f},{0.f, 0.f,0.7f,1.f}
 	};
 	int m_iIdx = 0;
 

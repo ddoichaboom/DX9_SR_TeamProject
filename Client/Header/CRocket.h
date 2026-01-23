@@ -10,6 +10,9 @@ namespace Engine
     class CCollider;
 }
 
+class CToonFlash;
+class CToonFog;
+
 class CRocket :
     public CGameObject
 {
@@ -41,7 +44,10 @@ public:
 
     void					Activate() override;
     void					Deactivate() override;
-
+    _float					GetAttackDamage() override
+    {
+        return m_fAttackDamage;
+    }
 protected:
     HRESULT                 Add_Component() override;
     virtual void	        Free();
@@ -66,5 +72,13 @@ protected:
     _float                  m_fVerticalAngle;
     _float                  m_fHorizonAngle;
     _vec2                   m_vCurFrame = { 0,0 };
+
+protected:
+    //Effect
+    CToonFlash*             m_pToonFlash;
+    _vec3                   vToonFlashPos{};
+    _vec3                   vToonFlashLocalPos = { 0,0,-0.1f };
+    CToonFog*               m_pToonFog;
+    _float					m_fAttackDamage;
 };
 

@@ -1,12 +1,11 @@
 #pragma once
 #include "CParticleEmitter.h"
-
-class CBossTrail :
-    public CParticleEmitter
+class CToonFog :
+	public CParticleEmitter
 {
 public:
-	CBossTrail(IDirect3DDevice9* device);
-	virtual ~CBossTrail();
+	CToonFog(IDirect3DDevice9* device);
+	virtual ~CToonFog();
 
 	HRESULT		Ready_GameObject() override;
 	_int		Update_GameObject(const _float& fTimeDelta);
@@ -15,19 +14,21 @@ public:
 	void		SetPostRenderState() override;
 
 public:
-	void		Reset() override;
 	_uint		GetTextureCnt() override { return 1; }
 	void		SetOwnerTransform(CTransform* _ownerTrans)
 	{
 		m_pOwnerTransform = _ownerTrans;
 	}
-
+	void		SetFogCreateTime(_float _time)
+	{
+		m_fFogCreateTime = _time;
+	}
 protected:
+	void		Set_Pos(_vec3 _pos);
 	HRESULT		Add_Component() override;
 	void		ResetParticle(Particle* particle) override;
-
 public:
-	static CBossTrail* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CToonFog* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	static TextureSource& GetTextureSource()
 	{
 		return m_TextureSource;
@@ -36,20 +37,13 @@ protected:
 	void		Free() override;
 
 protected:
-	static TextureSource m_TextureSource;
 	CTransform* m_pOwnerTransform;
-	_float		m_fCreateTime = 0.f;
+	static TextureSource m_TextureSource;
+	_float		m_fFogCreateTime = 0.f;
 	_float		m_fTime = 0.f;
 	int			m_iBatchSize = 0;
 
-	_float		m_fFadeSpeed;
 	_vec3 m_vDebugPos = { 0,5,0 };
-
-	D3DXCOLOR m_Colors[3] =
-	{
-		{0.8f, 0.f,0.f,1.f},{0.f, 0.8f,0.f,1.f},{0.f, 0.f,0.8f,1.f}
-	};
-	int m_iIdx = 0;
 
 };
 

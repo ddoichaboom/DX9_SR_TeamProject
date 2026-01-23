@@ -99,6 +99,11 @@ bool CParticleEmitter::IsEmpty()
 	return m_Particles.empty();
 }
 
+bool CParticleEmitter::IsActiveEmpty()
+{
+	return m_ActiveList.empty();
+}
+
 bool CParticleEmitter::IsDead()
 {
 	if (m_bDead) return m_bDead;

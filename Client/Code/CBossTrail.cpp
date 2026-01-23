@@ -4,20 +4,20 @@
 #include "CProtoMgr.h"
 
 TextureSource CBossTrail::m_TextureSource =
-	{ 0, L"../Bin/Resource/Texture/Effect/Boss_Img.dds", false };
+{ 0, L"../Bin/Resource/Texture/Effect/Boss_Img.dds", false };
 
 
 CBossTrail::CBossTrail(IDirect3DDevice9* device)
-	:CParticleEmitter(device, 10), m_fCreateTime(10.f), m_pOwnerTransform(nullptr)
+	:CParticleEmitter(device, 10), m_fCreateTime(0.06f), m_pOwnerTransform(nullptr)
 {
 	m_vPos = { 0,0,0 };
-	m_vSize = { 5.f, 5.f };
+	m_vSize = { 100.f,100.f };
 	m_fAnimSpeed = 0.f;
 	m_iMaxParticle = 10;
 	m_iBatchSize = 10;
 	m_fLifeTime = 50.f;
 	m_bLoop = false;
-	m_fFadeSpeed = 0.06f;
+	m_fFadeSpeed = 2.f;
 	m_color = { 0,0,0,1 };
 }
 
@@ -37,7 +37,7 @@ HRESULT CBossTrail::Ready_GameObject()
 
 _int CBossTrail::Update_GameObject(const _float& fTimeDelta)
 {
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA, this);
 
 	m_fTime += fTimeDelta;
 	if (m_fTime >= m_fCreateTime)
@@ -53,7 +53,7 @@ _int CBossTrail::Update_GameObject(const _float& fTimeDelta)
 			Particle* particle = *iter;
 			particle->fAge += fTimeDelta;
 			particle->color.a -= fTimeDelta * m_fFadeSpeed;
-			if (particle->color.a <=  0.f)
+			if (particle->color.a <= 0.f)
 			{
 				particle->bIsAlive = false;
 			}
@@ -160,18 +160,20 @@ void CBossTrail::ResetParticle(Particle* particle)
 	particle->vSize = m_vSize;
 	particle->fAge = 0.f;
 	particle->fLifeTime = m_fLifeTime;
-	particle->bDirection = true;
+	particle->bDirection = false;
+	particle->vDirection = { 0,1,0 };
 	//Editor ¿ë 
 	if (!m_pOwnerTransform)
 	{
-		particle->vDirection = { 0,1,0 };
 		particle->vPosition = m_vDebugPos;
 		m_vDebugPos += {0.5f, 0, 0};
 	}
 	else
 	{
-		memcpy(&particle->vDirection, m_pOwnerTransform->Get_World()->m[INFO_UP], sizeof(_vec3));
-		particle->vPosition = *m_pOwnerTransform->Get_Info(INFO_POS);
+		_vec3 vLook;
+		memcpy(&vLook, m_pOwnerTransform->Get_World()->m[INFO_LOOK], sizeof(_vec3));
+		D3DXVec3Normalize(&vLook, &vLook);
+		particle->vPosition = *m_pOwnerTransform->Get_Info(INFO_POS) + vLook*2;
 	}
 
 }

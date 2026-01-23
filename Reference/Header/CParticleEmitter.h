@@ -33,6 +33,7 @@ public:
 	void				ChangeState(_uint _state);
 public:
 	bool				IsEmpty();
+	bool				IsActiveEmpty();
 	bool				IsDead() override;
 
 protected:

@@ -138,7 +138,7 @@ void CBlood::ResetParticle(Particle* particle)
 	particle->fAnimSpeed = m_fAnimSpeed;
 	particle->fAnimTime = 0.f;
 	particle->vStartUV = { 0,0 };
-	if (m_pTextureDesc) particle->vEndUV = m_pTextureDesc->vUVoffset;
+	if (m_pTextureDesc) particle->vEndUV = { m_pTextureDesc->vUVoffset.x ,0 };
 	else particle->vEndUV = { 1.f,1.f };
 	particle->vSize = m_vSize;
 	particle->fAge = 0.f;

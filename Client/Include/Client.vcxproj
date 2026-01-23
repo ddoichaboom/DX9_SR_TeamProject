@@ -154,6 +154,7 @@
     <ClInclude Include="..\Header\CBossBullet.h" />
     <ClInclude Include="..\Header\CBossStage.h" />
     <ClInclude Include="..\Header\CBossTestStage.h" />
+    <ClInclude Include="..\Header\CBossTrail.h" />
     <ClInclude Include="..\Header\CCeiling.h" />
     <ClInclude Include="..\Header\CBullet.h" />
     <ClInclude Include="..\Header\CCharacter.h" />
@@ -213,6 +214,8 @@
     <ClInclude Include="..\Header\CTestCharacter.h" />
     <ClInclude Include="..\Header\CTextBG.h" />
     <ClInclude Include="..\Header\CTextUI.h" />
+    <ClInclude Include="..\Header\CToonFlash.h" />
+    <ClInclude Include="..\Header\CToonFog.h" />
     <ClInclude Include="..\Header\CTrail.h" />
     <ClInclude Include="..\Header\CTrigger.h" />
     <ClInclude Include="..\Header\CUIManager.h" />
@@ -237,6 +240,7 @@
     <ClCompile Include="..\Code\CBossBullet.cpp" />
     <ClCompile Include="..\Code\CBossStage.cpp" />
     <ClCompile Include="..\Code\CBossTestStage.cpp" />
+    <ClCompile Include="..\Code\CBossTrail.cpp" />
     <ClCompile Include="..\Code\CCeiling.cpp" />
     <ClCompile Include="..\Code\CBullet.cpp" />
     <ClCompile Include="..\Code\CCharacter.cpp" />
@@ -296,6 +300,8 @@
     <ClCompile Include="..\Code\CTestCharacter.cpp" />
     <ClCompile Include="..\Code\CTextBG.cpp" />
     <ClCompile Include="..\Code\CTextUI.cpp" />
+    <ClCompile Include="..\Code\CToonFlash.cpp" />
+    <ClCompile Include="..\Code\CToonFog.cpp" />
     <ClCompile Include="..\Code\CTrail.cpp" />
     <ClCompile Include="..\Code\CTrigger.cpp" />
     <ClCompile Include="..\Code\CUIManager.cpp" />

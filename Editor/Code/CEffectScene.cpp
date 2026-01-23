@@ -13,6 +13,9 @@
 #include "CBodyEmit.h"
 #include "CHitUI.h"
 #include "CTakeDownBlood.h"
+#include "CToonFlash.h"
+#include "CToonFog.h"
+#include "CBossTrail.h"
 
 CEffectScene::CEffectScene(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CEditorScene(pGraphicDev), m_pCurParticle(nullptr)
@@ -44,9 +47,12 @@ HRESULT CEffectScene::Ready_Scene()
     m_mapParticle[EF_BEAM_FLARE] = CBeamFlare::Create(m_pGraphicDev);
     m_mapParticle[EF_BODY] = CBodyEmit::Create(m_pGraphicDev);
     m_mapParticle[EF_HITUI] = CHitUI::Create(m_pGraphicDev);
+    m_mapParticle[EF_BOSS_TRAIL] = CBossTrail::Create(m_pGraphicDev);
     m_mapParticle[EF_TAKEDOWN] = CTakeDownBlood::Create(m_pGraphicDev);
+    m_mapParticle[EF_TOONFLASH] = CToonFlash::Create(m_pGraphicDev);
+    m_mapParticle[EF_TOONFOG] = CToonFog::Create(m_pGraphicDev);
 
-    m_pCurParticle = m_mapParticle[EF_TAKEDOWN];
+    m_pCurParticle = m_mapParticle[EF_BOSS_TRAIL];
 
     m_pFloor = CEditorFloor::Create(m_pGraphicDev, { 0,0,0 });
     return S_OK;

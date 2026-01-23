@@ -8,7 +8,7 @@
 #include "CBossBullet.h"
 #include "CBeam.h"
 #include "CRocket.h"
-
+#include "CBossTrail.h"
 
 //-------------------------------------------------------------------------
 // Texture , Animation Data
@@ -16,7 +16,7 @@
 vector<TextureSource> CBoss::m_vTextureSource =
 {
 	{ MS_IDLE,	L"../Bin/Resource/Texture/BOSS/Boss_Idle_256.dds" }
-
+	,{ MS_WALK,	L"../Bin/Resource/Texture/BOSS/Boss_Idle_256.dds" }
 	,{ CStateComponent::MakeStateID(MS_ATTACK, SUB_BEGIN),
 		L"../Bin/Resource/Texture/BOSS/Boss_Shoot_Idle_256.dds"}
 	,{ MS_ATTACK, L"../Bin/Resource/Texture/BOSS/Boss_Shoot_256.dds"}
@@ -33,7 +33,7 @@ vector<TextureSource> CBoss::m_vTextureSource =
 vector<AnimationSource> CBoss::m_vAnimSource =
 {
 	{  MS_IDLE ,1,2,2, true, 0.12f}					//IDLE
-
+	,{  MS_WALK ,1,2,2, true, 0.12f}				//DASH
 	,{ CStateComponent::MakeStateID(MS_ATTACK, SUB_BEGIN),1,2,2, false, 0.03f, 1.f, true}
 	,{ MS_ATTACK,1,2,2, true, 0.09f}	//Bullet Shoot
 
@@ -47,7 +47,7 @@ vector<AnimationSource> CBoss::m_vAnimSource =
 _vec2	CBoss::m_vRandomRange = { 0.f, 10.f };
 
 CBoss::CBoss(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CMonster(pGraphicDev), m_pBodyCollider(nullptr), m_fMapRadius(0.f), m_fDirOffset(1.f), m_bDash(false)
+	:CMonster(pGraphicDev), m_pBodyCollider(nullptr), m_fMapRadius(0.f), m_fDirOffset(1.f)
 	, m_vScale({ 50.f,50.f,1.f }), gen(rd())
 	, dis((_int)m_vRandomRange.x, (_int)m_vRandomRange.y)
 	, floatDis(m_vAngleABSRange.x, m_vAngleABSRange.y)
@@ -59,7 +59,7 @@ CBoss::CBoss(LPDIRECT3DDEVICE9 pGraphicDev)
 }
 
 CBoss::CBoss(const CBoss& rhs)
-	:CMonster(rhs), m_pBodyCollider(nullptr), m_fMapRadius(0.f), m_fDirOffset(1.f), m_bDash(false)
+	:CMonster(rhs), m_pBodyCollider(nullptr), m_fMapRadius(0.f), m_fDirOffset(1.f)
 	, m_vScale({ 50.f,50.f,1.f }), gen(rd())
 	, dis((_int)m_vRandomRange.x, (_int)m_vRandomRange.y)
 	, floatDis(m_vAngleABSRange.x, m_vAngleABSRange.y)
@@ -82,6 +82,10 @@ void CBoss::CreateStateData()
 	//IdleState
 	CState<CBoss>* State = new CState<CBoss>(&CBoss::Idle_Begin, &CBoss::Idle, nullptr);
 	Mgr->AddState(MS_IDLE, State);
+
+	//Walk == Dash
+	State = new CState<CBoss>(&CBoss::Dash_Begin, &CBoss::Dash, nullptr);
+	Mgr->AddState(MS_WALK, State);
 
 	//Attack_Idle
 	State = new CState<CBoss>(nullptr, &CBoss::Attack_Idle, nullptr);
@@ -154,6 +158,11 @@ HRESULT CBoss::Ready_GameObject()
 	GetHandWorldPos(MON_LEFT_HAND);
 	GetHandWorldPos(MON_RIGHT_HAND);
 
+	//Effect
+	m_pBossTrail = CBossTrail::Create(m_pGraphicDev);
+	m_pBossTrail->SetOwnerTransform(m_pTransformCom);
+
+	m_fAttackDamage = 5.f;
 	//m_fSpeed = m_fBaseSpeed;
 	return S_OK;
 }
@@ -195,7 +204,11 @@ _int CBoss::Update_GameObject(const _float& fTimeDelta)
 
 	Move(fTimeDelta, m_fDirAngle, m_fStateRatio);
 
-	if (m_pStateCom->GetCurrentStateID() == MS_ATTACK3)
+	if (m_pStateCom->GetCurrentStateID() == MS_WALK)
+	{
+		m_pBossTrail->Update_GameObject(fTimeDelta);
+	}
+	else if (m_pStateCom->GetCurrentStateID() == MS_ATTACK3)
 	{
 		m_pBeam[MON_LEFT_HAND]->Update_GameObject(fTimeDelta);
 		m_pBeam[MON_RIGHT_HAND]->Update_GameObject(fTimeDelta);
@@ -308,6 +321,29 @@ HRESULT CBoss::Add_Component()
 	return S_OK;
 }
 
+void CBoss::Collision_Beam()
+{
+	if (m_bBeamCollision) return;
+
+	CCollision* playerCollision = GetPlayerCollision();
+	if (!playerCollision) return;
+
+	CCollider* collider = playerCollision->GetCollider();
+	if (!collider) return;
+
+	for (int i = 0; i < MON_END_HAND; i++)
+	{
+		bool bCollision = m_pBeam[i]->CheckCollision(collider);
+		if (bCollision)
+		{
+			m_bBeamCollision = bCollision;
+			collider->Collision({ this,_vec3(),m_fAttackDamage });
+		}
+		return;
+	}
+
+}
+
 
 
 void CBoss::OnBodyCollision(CollisionInfo info)
@@ -352,6 +388,8 @@ void CBoss::Move(const _float& fTimeDelta, _float& _dirAngle, _float ratio)
 
 	pos = *m_pTransformCom->Get_Info(INFO_POS);
 	_float value = (ratio>= 1.f? 1.f : easeOutQuint(ratio));
+
+
 	pos += dir * fTimeDelta * m_fSpeed * value * m_fDirOffset;
 
 	if (pos.y >= m_vHeightRange.y) pos.y = m_vHeightRange.y;
@@ -368,7 +406,7 @@ void CBoss::Move(const _float& fTimeDelta, _float& _dirAngle, _float ratio)
 void CBoss::Idle_Begin()
 {
 	m_fStateRatio = 0.f;
-	m_fSpeed = m_fDashSpeed;
+	m_fSpeed = m_fIdleSpeed;
 }
 
 void CBoss::Idle()
@@ -377,8 +415,28 @@ void CBoss::Idle()
 	if (m_fTime >= m_fIdle_Time)
 	{
 		m_fSpeed = m_fBaseSpeed;
+		int CanDash = rand() % 3;
+		if (CanDash >= 1) ChangeState(MS_WALK); // Dash
+		else ChangeState(MS_ATTACK_IDLE);
+		m_fStateRatio = 1.f;
+	}
+}
+
+void CBoss::Dash_Begin()
+{
+	m_fStateRatio = 0.f;
+	m_fSpeed = m_fDashSpeed;
+}
+
+void CBoss::Dash()
+{
+	m_fStateRatio = m_fTime / m_fDash_Time;
+	if (m_fTime >= m_fDash_Time)
+	{
+		m_fSpeed = m_fBaseSpeed;
 		ChangeState(MS_ATTACK_IDLE);
 		m_fStateRatio = 1.f;
+		m_pBossTrail->Reset();
 	}
 }
 
@@ -466,6 +524,7 @@ void CBoss::Reset_Beam()
 		m_pBeam[i]->SetShootDir(dir);
 	}
 	m_fTime = 0.f;
+	m_bBeamCollision = false;
 }
 
 void CBoss::Run_Beam(_float _ratio)
@@ -481,6 +540,7 @@ void CBoss::Run_Beam(_float _ratio)
 		D3DXVec3Normalize(&shootDir, &shootDir);
 		m_pBeam[i]->SetShootDir(shootDir);
 	}
+	Collision_Beam();
 }
 
 _vec3 CBoss::GetHandWorldPos(MON_HAND _eHand)
@@ -532,7 +592,7 @@ void CBoss::Attack_Rocket()
 					vDest.x += (dis(gen) - m_vRandomRange.x * 0.5f);
 					vDest.y += (dis(gen) - m_vRandomRange.y * 0.5f);
 
-					_vec3 vLook = vDest - vRocketPos;
+					_vec3 vLook = vDest - vPos;
 
 					D3DXVec3Normalize(&vLook, &vLook);
 					pRocket->SetDirection(vLook);
@@ -569,11 +629,13 @@ void CBoss::Dead()
 void CBoss::Activate()
 {
 	CMonster::Activate();
+	m_pBossTrail->Reset();
 	ChangeState(MS_IDLE);
 }
 
 void CBoss::Free()
 {
+	Safe_Release(m_pBossTrail);
 	Safe_Release(m_pBeam[MON_LEFT_HAND]);
 	Safe_Release(m_pBeam[MON_RIGHT_HAND]);
 	CMonster::Free();

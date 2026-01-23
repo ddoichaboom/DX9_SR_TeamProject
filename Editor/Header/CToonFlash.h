@@ -34,7 +34,6 @@ protected:
 
 	D3DXCOLOR	m_Color[2] = { {1.f,0.f,0.f,1.f}, {1.f,1.f,0.f,1.f} };
 	_int		m_curColorIdx;
-	_float		m_fFlareTime;
 
 	bool		m_bFlag = false;
 

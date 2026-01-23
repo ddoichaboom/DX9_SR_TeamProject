@@ -12,11 +12,11 @@ CToonFlash::CToonFlash(IDirect3DDevice9* device)
 	:CParticleEmitter(device, 1), m_curColorIdx(0)
 {
 	m_vPos = { 0,0,0 };
-	m_vSize = { 3.f, 3.f }; 
+	m_vSize = { 22.f, 22.f };
 	m_fAnimSpeed = 0.f;
 	m_iMaxParticle = 1;
 	m_iBatchSize = 1;
-	m_fLifeTime = 3.f;
+	m_fLifeTime = 0.08f;
 	m_bLoop = true;
 	m_color = { 0,0,0,1 };
 }
@@ -43,6 +43,7 @@ _int CToonFlash::Update_GameObject(const _float& fTimeDelta)
 		if ((*iter)->bIsAlive)
 		{
 			Particle* particle = *iter;
+			particle->vPosition = m_vPos;
 			particle->fAge += fTimeDelta;
 			if (particle->fAge >= particle->fLifeTime)
 			{
@@ -67,19 +68,32 @@ void CToonFlash::Render_GameObject()
 void CToonFlash::SetPreRenderState()
 {
 	m_pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-	m_pGraphicDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
+	m_pGraphicDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	m_pGraphicDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
 	m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
 	m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
 	m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+
+	m_pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+	m_pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+	m_pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
 }
+
 
 void CToonFlash::SetPostRenderState()
 {
 	m_pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
 	m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
 	m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+
+	m_pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_SELECTARG1);
+	m_pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+}
+
+void CToonFlash::SetFlashPos(_vec3 _pos)
+{
+	m_vPos = _pos;
 }
 
 HRESULT CToonFlash::Add_Component()

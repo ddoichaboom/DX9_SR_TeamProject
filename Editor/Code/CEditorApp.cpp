@@ -32,7 +32,9 @@
 #include "CBodyEmit.h"
 #include "CHitUI.h"
 #include "CTakeDownBlood.h"
-
+#include "CToonFlash.h"
+#include "CToonFog.h"
+#include "CBossTrail.h"
 
 CEditorApp::CEditorApp()
     : m_pGraphicDev(nullptr)
@@ -442,7 +444,15 @@ HRESULT CEditorApp::Ready_Texture_Prototype()
         return E_FAIL;
     }
 
-    //HitUI Texture
+    //BossTrail Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBossTrail::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_BossTrail_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto BossTrail Ready Failed");
+        return E_FAIL;
+    }
+
+    //TakeDownBlood Texture
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CTakeDownBlood::GetTextureSource());
     if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_TakeDownBlood_Texture", pCom_Texture)))
     {
@@ -450,6 +460,21 @@ HRESULT CEditorApp::Ready_Texture_Prototype()
         return E_FAIL;
     }
 
+    //ToonFlash Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CToonFlash::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_ToonFlash_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto ToonFlash Ready Failed");
+        return E_FAIL;
+    }
+
+    //ToonFog Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CToonFog::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_ToonFog_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto ToonFog Ready Failed");
+        return E_FAIL;
+    }
 
     return S_OK;
 }
