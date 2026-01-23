@@ -105,6 +105,7 @@ HRESULT CMapStage::Ready_Scene()
     //메세지 구독 신청
     CEventMgr::GetInstance()->Subscribe(EVENT_DOOR_IN, this);
     CEventMgr::GetInstance()->Subscribe(EVENT_DOOR_OUT, this);
+    CEventMgr::GetInstance()->Subscribe(EVENT_NEXT_STAGE, this);
     CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_END, this);
 
     return S_OK;
@@ -763,7 +764,7 @@ void CMapStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
     {
         Change_Room(m_iCurrentRoomIndex + 1);
     }
-    else if (_type == EVENT_STAGE_END)
+    else if (_type == EVENT_NEXT_STAGE)
     {
         m_bStageEnd = true;
     }
