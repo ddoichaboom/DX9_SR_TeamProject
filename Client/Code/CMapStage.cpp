@@ -106,7 +106,6 @@ HRESULT CMapStage::Ready_Scene()
     CEventMgr::GetInstance()->Subscribe(EVENT_DOOR_IN, this);
     CEventMgr::GetInstance()->Subscribe(EVENT_DOOR_OUT, this);
     CEventMgr::GetInstance()->Subscribe(EVENT_NEXT_STAGE, this);
-    CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_END, this);
 
     return S_OK;
 }
