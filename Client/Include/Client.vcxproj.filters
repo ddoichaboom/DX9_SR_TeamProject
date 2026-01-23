@@ -274,6 +274,15 @@
     <Filter Include="04.UI\01.StaticUI\13.Hud_UI">
       <UniqueIdentifier>{21f156da-8fa9-42f6-9936-f443dbf39648}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\03.MapObject">
+      <UniqueIdentifier>{33a14dc2-ed97-43ef-b7be-b80a9133598f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\03.MapObject\00.DisPlayObj">
+      <UniqueIdentifier>{8ed5038e-29d9-43bb-9b0e-ace133dd3df5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\03.MapObject\01.InteractiveObj">
+      <UniqueIdentifier>{fefab657-5085-4905-a68d-433b193a3e95}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -519,6 +528,12 @@
     <ClInclude Include="..\Header\CHudUI.h">
       <Filter>04.UI\01.StaticUI\13.Hud_UI</Filter>
     </ClInclude>
+    <ClInclude Include="CDisplayObject.h">
+      <Filter>02. GameObject\03.MapObject\00.DisPlayObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CInteractObject.h">
+      <Filter>02. GameObject\03.MapObject\01.InteractiveObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -754,6 +769,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CHudUI.cpp">
       <Filter>04.UI\01.StaticUI\13.Hud_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CDisplayObject.cpp">
+      <Filter>02. GameObject\03.MapObject\00.DisPlayObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CInteractObject.cpp">
+      <Filter>02. GameObject\03.MapObject\01.InteractiveObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
