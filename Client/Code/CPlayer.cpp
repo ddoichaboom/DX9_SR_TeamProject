@@ -34,6 +34,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_fHP(20.f), m_fMaxHP(20.f), m_fTime(0.f), m_fStageTime(0.f), m_bStage(false)
 	, m_bSlope(false), m_bSideDash(false)
 	, m_pColHitObj(nullptr),m_pTakeDownObject(nullptr), m_pTakeDownCollider(nullptr)
+	, m_bMoveStop(false), m_bAbleTakeDown(false)
 {
 
 	m_eOBJ_ID = OBJ_PLAYER;
@@ -52,6 +53,7 @@ CPlayer::CPlayer(const CPlayer& rhs)
 	, m_fHP(20.f), m_fMaxHP(20.f), m_fTime(0.f), m_fStageTime(0.f), m_bStage(false)
 	, m_bSlope(false), m_bSideDash(false)
 	, m_pColHitObj(nullptr), m_pTakeDownObject(nullptr), m_pTakeDownCollider(nullptr)
+	, m_bMoveStop(false), m_bAbleTakeDown(false)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
 	m_iID = 0;
@@ -89,10 +91,6 @@ void CPlayer::OnEvent(EVENT_TYPE _type, EventData* _pData)
 		Add_HP(pData->value);
 	}
 	
-	else if (_type == EVENT_DRINK)
-	{
-		Drink_Func();
-	}
 
 	else if (_type == EVENT_TAKEDOWN_END )
 	{
@@ -104,6 +102,8 @@ void CPlayer::OnEvent(EVENT_TYPE _type, EventData* _pData)
 		//m_pTakeDownObject->Make_DeadText(TAG_TAKEDOWN, 10);
 		m_pTakeDownObject = nullptr;
 		m_pTakeDownCollider = nullptr;
+		Change_State(IDLE);
+		m_bMoveStop = false;		
 	}
 
 }
@@ -121,7 +121,7 @@ HRESULT CPlayer::Ready_GameObject()
 	CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_START, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_END, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_READY_NEXT_STAGE, this);
-	CEventMgr::GetInstance()->Subscribe(EVENT_DRINK, this);
+	//CEventMgr::GetInstance()->Subscribe(EVENT_DRINK, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_TAKEDOWN_END, this);
 
 	m_pTransformCom->m_vScale = { 6.f,6.f,6.f };
@@ -154,6 +154,9 @@ HRESULT CPlayer::Ready_GameObject()
 _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
 	int iExit = CCharacter::Update_GameObject(fTimeDelta);
+
+	if (m_bMoveStop)
+		return iExit;
 
 	if (m_bStage)
 	{
@@ -207,6 +210,9 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 	}
 
 	CCharacter::LateUpdate_GameObject(fTimeDelta);
+
+	if (m_bMoveStop)
+		return;
 
 	//CheckEnterCollider();
 	if (false == m_bSideDash)
@@ -404,20 +410,23 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 			{
 				Change_State(ATTACK);
 				return;
-			}
-
+			}			
+		}
+		else if (m_eNowState == IDLE && !m_pLeftPart->Get_Relaod() && !m_pRightPart->Get_Reload())
+		{
+			if(m_mapWeapon[m_eWeaponState]->Rest_Bullet() == false)
+				Change_State(RELOAD);
 		}
 	}
 
-	// 발차기
-	if (CDInputMgr::GetInstance()->Key_Down(DIK_LSHIFT))
-	{
-		if (m_eNowState == IDLE)
-			Change_State(SLIDE);
-		else
-			Change_State(IDLE);
-		return;
-	}
+	//if (CDInputMgr::GetInstance()->Key_Down(DIK_LSHIFT))
+	//{
+	//	if (m_eNowState == IDLE)
+	//		Change_State(SLIDE);
+	//	else
+	//		Change_State(IDLE);
+	//	return;
+	//}
 
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_E))
 	{
@@ -428,9 +437,7 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_Q))
 	{
-
-		CEventMgr::GetInstance()->Broadcast(EVENT_DRINK, nullptr);
-		
+		Add_Item(TAG_DRINK);
 		return;
 	}
 
@@ -438,13 +445,12 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 	//근접 처형 Take Down
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_F))
 	{
-		if (CheckTakeDownMonster(&m_pTakeDownObject, &m_pTakeDownCollider))
+		if (m_bAbleTakeDown)
 		{
-			CUIManager::GetInstance()->Change_UIState(UI_TAKEDOWN);
-			//TOOD : 이벤트 끝날 때까지 키 입력 막기 
-			//몬스터 업데이트 중단을 통해 랜더 + 액션 증딘시킴 
-			m_pTakeDownObject->StopUpdate();
+			TakeDown_Func();
 		}
+		
+		
 	}
 
 
@@ -457,7 +463,8 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 	}
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_2))
 	{
-		CEventMgr::GetInstance()->Broadcast(EVENT_STAGE_END, nullptr);
+		//CEventMgr::GetInstance()->Broadcast(EVENT_STAGE_END, nullptr);
+		Add_Item(TAG_AXE);
 		return;
 	}
 
@@ -1103,6 +1110,22 @@ void CPlayer::Drink_Func()
 		Change_State(DRINK);
 }
 
+void CPlayer::TakeDown_Func()
+{
+	if (CheckTakeDownMonster(&m_pTakeDownObject, &m_pTakeDownCollider))
+	{
+		Change_State(TAKEDOWN);
+		CUIManager::GetInstance()->Change_UIState(UI_TAKEDOWN);
+		//TOOD : 이벤트 끝날 때까지 키 입력 막기 
+		//몬스터 업데이트 중단을 통해 랜더 + 액션 증딘시킴 
+		m_pTakeDownObject->StopUpdate();
+		CEventMgr::GetInstance()->Broadcast(EVENT_TAKEDOWN, nullptr);
+		m_bMoveStop = true;
+		CUIManager::GetInstance()->Set_OnSlotUI(false);
+		m_bAbleTakeDown = false;
+	}
+}
+
 void CPlayer::Change_State(_uint eState)
 {
 	if (eState == m_eNowState)
@@ -1149,6 +1172,8 @@ void CPlayer::State_Enter()
 	case READY_NEXT:
 		Next_Enter();
 		break;
+	default:
+		break;
 	}
 }
 
@@ -1182,6 +1207,8 @@ void CPlayer::State_Update(const _float& fTimeDelta)
 		break;
 	case READY_NEXT:
 		Next_Update(fTimeDelta);
+		break;
+	default:
 		break;
 	}
 }
@@ -1217,6 +1244,8 @@ void CPlayer::State_LateUpdate(const _float& fTimeDelta)
 	case READY_NEXT:
 		Next_LateUpdate(fTimeDelta);
 		break;
+	default:
+		break;
 	}
 }
 
@@ -1250,6 +1279,8 @@ void CPlayer::State_Exit()
 		break;
 	case READY_NEXT:
 		Next_Exit();
+		break;
+	default:
 		break;
 	}
 }
@@ -1637,6 +1668,28 @@ void CPlayer::Set_MiddlePart(CMiddlePart* pMiddle)
 	m_pMiddlePart->SetParent(this);
 }
 
+void CPlayer::Add_Item(COLLIDER_TAG eColliderTag)
+{
+	switch (eColliderTag)
+	{
+	case Engine::TAG_AXE:
+		if (m_bAbleTakeDown == false)
+		{
+			CUIManager::GetInstance()->Set_OnSlotUI(true);
+			m_bAbleTakeDown = true;
+		}
+
+		break;
+	case Engine::TAG_DRINK:
+		Drink_Func();
+		CEventMgr::GetInstance()->Broadcast(EVENT_DRINK, nullptr);
+		break;
+	default:
+		break;
+	}
+
+}
+
 
 void CPlayer::Move_ByCollision(COL_DIR& dir, _vec3 _diff)
 {
@@ -1680,6 +1733,12 @@ void CPlayer::OnCollision(CollisionInfo info)
 {
 	if (info.eDir != CDIR_NONE)
 	{
+		if (m_bDash)
+		{
+			m_bDash = false;
+			CUIManager::GetInstance()->Set_OnDashUI(false);
+		}
+
 		Move_ByCollision(info.eDir, info.vDiff);
 
 		if (info.eTag == TAG_SIDE_DASH_X || info.eTag == TAG_SIDE_DASH_Z)

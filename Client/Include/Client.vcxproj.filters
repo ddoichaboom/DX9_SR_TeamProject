@@ -259,14 +259,20 @@
     <Filter Include="04.UI\01.StaticUI\11.Effect_UI">
       <UniqueIdentifier>{ce128bb6-e85d-4b80-8140-a18be913badf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04.UI\02.DynamicUI\08.Dash_UI">
-      <UniqueIdentifier>{9f2642ed-025f-4b70-8805-290049735241}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04.UI\02.DynamicUI\08. TakeDown">
       <UniqueIdentifier>{3332ea56-67ab-4011-9e52-2a8b361fafb8}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\13. Effect\07. TakeDownBlood">
       <UniqueIdentifier>{526d47fd-6ab6-451c-82fe-0798825648ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\02.DynamicUI\09.Dash_UI">
+      <UniqueIdentifier>{9f2642ed-025f-4b70-8805-290049735241}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\01.StaticUI\12.Slot_UI">
+      <UniqueIdentifier>{c05f0e5d-0d6c-4893-bce4-0e7cb119f9a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\01.StaticUI\13.Hud_UI">
+      <UniqueIdentifier>{21f156da-8fa9-42f6-9936-f443dbf39648}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -491,21 +497,27 @@
     </ClInclude>
     <ClInclude Include="..\Header\CStageEndTrigger.h">
       <Filter>02. GameObject\12. Trigger\StageEndTrigger</Filter>
-	</ClInclude>
-	<ClInclude Include="..\Header\CEffectUI.h">
+    </ClInclude>
+    <ClInclude Include="..\Header\CEffectUI.h">
       <Filter>04.UI\01.StaticUI\11.Effect_UI</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CCursor.h">
       <Filter>04.UI\01.StaticUI\07.Cursor_UI</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CDashUI.h">
-      <Filter>04.UI\02.DynamicUI\08.Dash_UI</Filter>
+      <Filter>04.UI\02.DynamicUI\09.Dash_UI</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CTakeDown.h">
       <Filter>04.UI\02.DynamicUI\08. TakeDown</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CTakeDownBlood.h">
       <Filter>02. GameObject\13. Effect\07. TakeDownBlood</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSlotUI.h">
+      <Filter>04.UI\01.StaticUI\12.Slot_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHudUI.h">
+      <Filter>04.UI\01.StaticUI\13.Hud_UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -721,21 +733,27 @@
     </ClCompile>
     <ClCompile Include="..\Code\CStageEndTrigger.cpp">
       <Filter>02. GameObject\12. Trigger\StageEndTrigger</Filter>
-	</ClCompile>
-	<ClCompile Include="..\Code\CEffectUI.cpp">
+    </ClCompile>
+    <ClCompile Include="..\Code\CEffectUI.cpp">
       <Filter>04.UI\01.StaticUI\11.Effect_UI</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CCursor.cpp">
       <Filter>04.UI\01.StaticUI\07.Cursor_UI</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CDashUI.cpp">
-      <Filter>04.UI\02.DynamicUI\08.Dash_UI</Filter>
+      <Filter>04.UI\02.DynamicUI\09.Dash_UI</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CTakeDown.cpp">
       <Filter>04.UI\02.DynamicUI\08. TakeDown</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CTakeDownBlood.cpp">
       <Filter>02. GameObject\13. Effect\07. TakeDownBlood</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSlotUI.cpp">
+      <Filter>04.UI\01.StaticUI\12.Slot_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHudUI.cpp">
+      <Filter>04.UI\01.StaticUI\13.Hud_UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
