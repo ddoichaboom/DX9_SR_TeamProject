@@ -172,6 +172,7 @@ namespace Engine
 		ITEM_SODA,
 		ITEM_SODAMACHINE,
 		ITEM_AXE,
+		ITEM_EXTINGUISHER,
 		ITEM_END
 	};
 }

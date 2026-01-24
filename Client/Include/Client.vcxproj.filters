@@ -567,6 +567,12 @@
     <ClInclude Include="..\Header\CSoda.h">
       <Filter>02. GameObject\03.MapObject\03.Soda</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CAxe.h">
+      <Filter>02. GameObject\03.MapObject\04.Axe</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CExtinguisher.h">
+      <Filter>02. GameObject\03.MapObject\05.Extinguisher</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -820,6 +826,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CSoda.cpp">
       <Filter>02. GameObject\03.MapObject\03.Soda</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CAxe.cpp">
+      <Filter>02. GameObject\03.MapObject\04.Axe</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CExtinguisher.cpp">
+      <Filter>02. GameObject\03.MapObject\05.Extinguisher</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

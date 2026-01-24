@@ -127,6 +127,12 @@ void CInteractObject::SetTexture(_uint iTextureID)
     m_pTextureCom->Change_Texture(iTextureID);
 }
 
+void CInteractObject::SetTransformMatrix()
+{
+    if (!m_pTransformCom) return;
+    m_pTransformCom->Update_Component(0.f);
+}
+
 void CInteractObject::Activate()
 {
     CGameObject::Activate();

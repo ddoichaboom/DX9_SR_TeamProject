@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Header\CAxe.h" />
     <ClInclude Include="..\Header\CBackGround.h" />
     <ClInclude Include="..\Header\CBaseUI.h" />
     <ClInclude Include="..\Header\CBeam.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="..\Header\CDashUI.h" />
     <ClInclude Include="..\Header\CDoorTrigger.h" />
     <ClInclude Include="..\Header\CEffectUI.h" />
+    <ClInclude Include="..\Header\CExtinguisher.h" />
     <ClInclude Include="..\Header\CFontUI.h" />
     <ClInclude Include="..\Header\CExplosion.h" />
     <ClInclude Include="..\Header\CFlare.h" />
@@ -233,6 +235,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Code\CAxe.cpp" />
     <ClCompile Include="..\Code\CBackGround.cpp" />
     <ClCompile Include="..\Code\CBaseUI.cpp" />
     <ClCompile Include="..\Code\CBeam.cpp" />
@@ -253,6 +256,7 @@
     <ClCompile Include="..\Code\CDashUI.cpp" />
     <ClCompile Include="..\Code\CDoorTrigger.cpp" />
     <ClCompile Include="..\Code\CEffectUI.cpp" />
+    <ClCompile Include="..\Code\CExtinguisher.cpp" />
     <ClCompile Include="..\Code\CFontUI.cpp" />
     <ClCompile Include="..\Code\CExplosion.cpp" />
     <ClCompile Include="..\Code\CFlare.cpp" />

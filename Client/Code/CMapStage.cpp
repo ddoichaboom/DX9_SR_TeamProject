@@ -29,6 +29,8 @@
 #include "CBeam.h"
 
 #include "CSoda.h"
+#include "CAxe.h"
+#include "CExtinguisher.h"
 
 
 //Player
@@ -214,6 +216,17 @@ HRESULT CMapStage::Ready_ObjectPool_Character()
         }
     }
 
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CAxe>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CAxe>(m_pGraphicDev)))
+        {
+            MSG_BOX("Axe Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+
+
     return S_OK;
 
 
@@ -291,9 +304,7 @@ HRESULT CMapStage::Ready_ObjectPool_Terrain()
             MSG_BOX("DoorTrigger Pool Create Failed");
             return E_FAIL;
         }
-    }
-
-    return S_OK;
+    }    
 
     //if (!Engine::CPoolMgr::GetInstance()->HasPool<CDisplayObject>())
     //{
@@ -303,6 +314,16 @@ HRESULT CMapStage::Ready_ObjectPool_Terrain()
     //        return E_FAIL;
     //    }
     //}
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CExtinguisher>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CExtinguisher>(m_pGraphicDev)))
+        {
+            MSG_BOX("Extinguisher Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
     return S_OK;
 }
 
@@ -453,6 +474,13 @@ HRESULT CMapStage::Ready_CharacterTextureProto()
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SodaTexture", pCom_Texture)))
         return E_FAIL;
 
+    //Axe Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CAxe::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_AxeTexture", pCom_Texture)))
+        return E_FAIL;
+
+
+
     return S_OK;
 }
 
@@ -503,6 +531,12 @@ HRESULT CMapStage::Ready_TerrainTextureProto()
     //Display
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CDisplayObject::GetTextureSources());
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_DisplayTexture", pCom_Texture)))
+        return E_FAIL;
+
+
+    // Extinguisher
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CExtinguisher::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_ExtinguisherTexture", pCom_Texture)))
         return E_FAIL;
 
     return S_OK;
