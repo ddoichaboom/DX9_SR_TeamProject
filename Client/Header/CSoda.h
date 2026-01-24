@@ -30,7 +30,7 @@ protected:
 
 public :
 	virtual		void				Activate() override;
-	virtual		void				Deactivate() override;
+	virtual		void				Deactivate() override;	
 
 protected :
 	void			OnCollision(CollisionInfo info);
@@ -40,6 +40,9 @@ protected :
 	void				Set_OnFloor(const _float& fTimeDelta);
 	void				Update_Jump(const _float& fTimeDelta);
 
+public :
+	void				Set_JumpDir();
+
 protected:
 	static TextureSource    m_vTextureSource;
 
@@ -48,11 +51,14 @@ protected:
 
 	_bool	m_bJump;
 	_bool	m_bFall;
+	_bool   m_bGround;
 	_float	m_fVelocity;
 
+
+	_vec3	m_vJumpStartPos;
+	_vec3	m_vJumpDir;
+
 	_float	m_fJumpTime;
-	_float	m_fJumpStartY;
-	
 	_float	m_fJumpDuration;
 	_float	m_fJumpHeight;
 };

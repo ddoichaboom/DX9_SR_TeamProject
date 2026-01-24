@@ -1800,12 +1800,12 @@ void CPlayer::CreateSoda()
 	CSoda* pSoda = CPoolMgr::GetInstance()->Get_Object<CSoda>();
 	if (!pSoda) return;
 
-	_vec3 myPos = *m_pTransformCom->Get_Info(INFO_POS);
+	_vec3 vMyPos = *m_pTransformCom->Get_Info(INFO_POS);		
+	vMyPos.z += 50.f;
 
-	myPos.y += 5.f;
-	myPos.z += 50.f;
 
-	pSoda->SetPos(myPos);
+	pSoda->SetPos(vMyPos);
+	pSoda->Set_JumpDir();
 	
 	CLayer* layer = CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer");
 	if (!layer) pSoda->ReturnToPool();
