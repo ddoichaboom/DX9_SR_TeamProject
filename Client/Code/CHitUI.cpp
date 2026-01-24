@@ -37,8 +37,6 @@ HRESULT CHitUI::Ready_GameObject()
 
 _int CHitUI::Update_GameObject(const _float& fTimeDelta)
 {
-	if (IsDead()) return RET_DEAD;
-
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 	for (auto iter = m_ActiveList.begin(); iter != m_ActiveList.end(); iter++)
 	{
@@ -55,7 +53,12 @@ _int CHitUI::Update_GameObject(const _float& fTimeDelta)
 			if ((*iter)->fAge >= (*iter)->fLifeTime)
 			{
 				(*iter)->bIsAlive = false;
+
 			}
+		}
+		if ((*iter)->bIsAlive == false)
+		{
+			m_bDead = true;
 		}
 	}
 
@@ -88,6 +91,7 @@ void CHitUI::SetPostRenderState()
 
 void CHitUI::Reset()
 {
+	m_bDead = false;
 	m_vCurFrame = { 0,0 };
 	CParticleEmitter::Reset();
 }

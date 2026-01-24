@@ -158,6 +158,10 @@ HRESULT CPlayer::Ready_GameObject()
 	//m_eWeaponState = WEAPON_KATANA;
 
 	Change_State(INTRO);
+
+	m_pHitUI = CHitUI::Create(m_pGraphicDev);
+	m_pHitUI->SetDead();
+
 	m_pSodaUI = CSodaUI::Create(m_pGraphicDev);
 	m_pSodaUI->SetDead();
 
@@ -225,10 +229,11 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 
 	State_Update(fTimeDelta);
 
-	if (m_pHitUI && m_pHitUI->IsDead())
+	if (m_pHitUI && m_pHitUI->IsDead() == false)
 	{
-		m_pHitUI = nullptr;
+		m_pHitUI->Update_GameObject(fTimeDelta);
 	}
+
 	if (m_pSodaUI&& m_pSodaUI->IsDead() == false)
 	{
 		m_pSodaUI->Update_GameObject(fTimeDelta);
@@ -1853,11 +1858,9 @@ void CPlayer::OnCollision(CollisionInfo info)
 	//TODO : Damage에 따라 상태 변경 또는 함수 호출하기. 
 	if (info.fDamage > 0.f)
 	{
-		if (m_pHitUI == nullptr)
+		if (m_pHitUI->IsDead())
 		{
-			m_pHitUI = CPoolMgr::GetInstance()->Get_Object<CHitUI>();
 			m_pHitUI->Reset();
-			CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(m_pHitUI);
 		}
 		Add_HP(-1.f);
 	}
@@ -1932,6 +1935,7 @@ void CPlayer::Free()
 	Safe_Release(m_pRightPart);
 	Safe_Release(m_pMiddlePart);	
 	Safe_Release(m_pSodaUI);
+	Safe_Release(m_pHitUI);
 	for_each(m_mapWeapon.begin(), m_mapWeapon.end(), CDeleteMap());
 	m_mapWeapon.clear();
 }

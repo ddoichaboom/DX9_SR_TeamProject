@@ -17,6 +17,10 @@ public:
 public:
 	void		Reset() override;
 	_uint		GetTextureCnt() override { return 1; }
+	bool		IsDead() override
+	{
+		return m_bDead;
+	}
 protected:
 	HRESULT		Add_Component() override;
 	void		ResetParticle(Particle* particle) override;

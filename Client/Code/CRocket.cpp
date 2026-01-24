@@ -80,6 +80,7 @@ HRESULT CRocket::Ready_GameObject()
 	m_pToonFog = CToonFog::Create(m_pGraphicDev);
 	m_pToonFog->SetOwnerTransform(m_pTransformCom);
 
+	m_fAttackDamage = 5.f;
 
 	return S_OK;
 }

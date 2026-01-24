@@ -1,6 +1,6 @@
 #include "CScene.h"
 #include "CSoundMgr.h"
-
+#include "CEventMgr.h"
 CScene::CScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : m_pGraphicDev(pGraphicDev)
 {
@@ -54,6 +54,6 @@ void CScene::Free()
     for_each(m_mapLayer.begin(), m_mapLayer.end(), CDeleteMap());
     m_mapLayer.clear();
 
-    CSoundMgr::GetInstance()->StopAll();
+
     Safe_Release(m_pGraphicDev);
 }
