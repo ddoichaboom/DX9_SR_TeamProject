@@ -2,6 +2,8 @@
 #include "CRocket.h"
 #include "CProtoMgr.h"
 #include "CRenderer.h"
+#include "CToonFlash.h"
+#include "CToonFog.h"
 
 TextureSource CRocket::m_textureSource =
 {
@@ -16,7 +18,8 @@ _vec2 CRocket::m_DirFrame[DIR_END] =
 CRocket::CRocket(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CGameObject(pGraphicDev), m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr),
 	m_pCollisionCom(nullptr), m_fSpeed(0.f), m_vDir{ 0,0,0 }, m_fLifeTime(0.f), m_fTime(0.f)
-	, m_pCollider(nullptr), m_fVerticalAngle(0.f),m_fHorizonAngle(0.f)
+	, m_pCollider(nullptr), m_fVerticalAngle(0.f),m_fHorizonAngle(0.f),
+	m_pToonFlash(nullptr),m_pToonFog(nullptr), m_fAttackDamage(5.f)
 {
 	m_eOBJ_ID = OBJ_BULLET;
 	m_iID = Make_ID();
@@ -25,7 +28,8 @@ CRocket::CRocket(LPDIRECT3DDEVICE9 pGraphicDev)
 CRocket::CRocket(const CRocket& rhs)
 	:CGameObject(rhs), m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr),
 	m_pCollisionCom(nullptr), m_fSpeed(0.f), m_vDir{ 0,0,0 },  m_fLifeTime(0.f), m_fTime(0.f)
-	, m_pCollider(nullptr), m_fVerticalAngle(0.f), m_fHorizonAngle(0.f)
+	, m_pCollider(nullptr), m_fVerticalAngle(0.f), m_fHorizonAngle(0.f),
+	m_pToonFlash(nullptr), m_pToonFog(nullptr), m_fAttackDamage(5.f)
 {
 	m_eOBJ_ID = OBJ_BULLET;
 	m_iID = Make_ID();
@@ -55,17 +59,23 @@ HRESULT CRocket::Ready_GameObject()
 	m_pCollider = m_pCollisionCom->CreateCollider(this, m_szColliderName);
 	if (!m_pCollider) return E_FAIL;
 
-	m_pCollider->Set_Scale({ 3.f, 3.f, 3.f });
+	m_pCollider->Set_Scale({ 7.f, 7.f, 7.f });
 	m_pCollider->BindFuncToCollision([&](CollisionInfo info)
 		{
 			SetDead();
 		});
 
 
-	m_pTransformCom->Set_Scale(8.f,8.f, 3.f);
+	m_pTransformCom->Set_Scale(10.f, 10.f, 3.f);
+	//m_pTransformCom->Set_Scale(6.f, 6.f, 3.f);
 	m_pTextureCom->Change_Texture(0);
 	m_fSpeed = 300.f;
 	m_fLifeTime = 3.0f;
+
+	m_pToonFlash = CToonFlash::Create(m_pGraphicDev);
+	m_pToonFog = CToonFog::Create(m_pGraphicDev);
+	m_pToonFog->SetOwnerTransform(m_pTransformCom);
+
 
 	return S_OK;
 }
@@ -81,7 +91,13 @@ _int CRocket::Update_GameObject(const _float& fTimeDelta)
 		SetDead();
 		return RET_NONE;
 	}
-	
+
+
+	D3DXVec3TransformCoord(&vToonFlashPos, &vToonFlashLocalPos, m_pTransformCom->Get_World());
+	m_pToonFlash->SetFlashPos(vToonFlashPos);
+	m_pToonFlash->Update_GameObject(fTimeDelta);
+	m_pToonFog->Update_GameObject(fTimeDelta);
+
 	m_pTransformCom->Move_Pos(&m_vDir, fTimeDelta, m_fSpeed);
 
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA, this);
@@ -112,18 +128,22 @@ void CRocket::SetPos(_vec3 _pos)
 void CRocket::SetDirection(_vec3 _dir)
 {
 	m_vDir = _dir;
+	m_pToonFog->SetDirection(_dir);
 }
 
 void CRocket::Activate()
 {
 	CGameObject::Activate();
 	m_pTextureCom->Change_Texture(0);
+
 	m_fTime = 0.f;
 }
 
 void CRocket::Deactivate()
 {
 	CGameObject::Deactivate();
+	m_pToonFog->Reset();
+	m_pToonFlash->Reset();
 }
 
 HRESULT CRocket::Add_Component()
@@ -208,6 +228,11 @@ void CRocket::SetBillboard()
 	memcpy(&matBill.m[3], &myPos, sizeof(_vec3));
 	m_pTransformCom->Set_World(&matBill);
 
+
+
+
+
+
 	//각도별 텍스쳐 선택
 	_vec3 Front = look * -1.f;
 	_vec3 dir =  m_vDir;
@@ -261,5 +286,7 @@ void CRocket::SetBillboard()
 
 void CRocket::Free()
 {
+	Safe_Release(m_pToonFlash);
+	Safe_Release(m_pToonFog);
 	CGameObject::Free();
 }

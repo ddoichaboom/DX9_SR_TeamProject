@@ -274,6 +274,15 @@
     <Filter Include="04.UI\01.StaticUI\13.Hud_UI">
       <UniqueIdentifier>{21f156da-8fa9-42f6-9936-f443dbf39648}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\13. Effect\08. ToonFlash">
+      <UniqueIdentifier>{0049b41c-1e5c-43b4-8057-952fd929a8b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\09. ToonFog">
+      <UniqueIdentifier>{ed28494c-3a87-482d-8e67-b8dbb93569e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\10. BossTrail">
+      <UniqueIdentifier>{ec648dc8-8940-46b6-bc08-3865092bb19a}</UniqueIdentifier>
+    </Filter>
     <Filter Include="02. GameObject\03.MapObject">
       <UniqueIdentifier>{33a14dc2-ed97-43ef-b7be-b80a9133598f}</UniqueIdentifier>
     </Filter>
@@ -540,6 +549,15 @@
     <ClInclude Include="..\Header\CHudUI.h">
       <Filter>04.UI\01.StaticUI\13.Hud_UI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CToonFlash.h">
+      <Filter>02. GameObject\13. Effect\08. ToonFlash</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CToonFog.h">
+      <Filter>02. GameObject\13. Effect\09. ToonFog</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossTrail.h">
+      <Filter>02. GameObject\13. Effect\10. BossTrail</Filter>
+    </ClInclude>
     <ClInclude Include="CDisplayObject.h">
       <Filter>02. GameObject\03.MapObject\00.DisPlayObj</Filter>
     </ClInclude>
@@ -784,6 +802,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\CHudUI.cpp">
       <Filter>04.UI\01.StaticUI\13.Hud_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CToonFlash.cpp">
+      <Filter>02. GameObject\13. Effect\08. ToonFlash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CToonFog.cpp">
+      <Filter>02. GameObject\13. Effect\09. ToonFog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossTrail.cpp">
+      <Filter>02. GameObject\13. Effect\10. BossTrail</Filter>
     </ClCompile>
     <ClCompile Include="CDisplayObject.cpp">
       <Filter>02. GameObject\03.MapObject\00.DisPlayObj</Filter>

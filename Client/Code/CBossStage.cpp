@@ -49,6 +49,9 @@
 #include "CBeamFlare.h"
 #include "CBodyEmit.h"
 #include "CHitUI.h"
+#include "CToonFlash.h"
+#include "CToonFog.h"
+#include "CBossTrail.h"
 
 #include "CLoadingEX.h"
 
@@ -222,13 +225,6 @@ HRESULT CBossStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
     if (FAILED(pLayer->Add_GameObject(pCamera)))
         return E_FAIL;
 
-    //  보스 임시 생성
-    //pGameObject = CBoss::Create(m_pGraphicDev);
-
-    //if (nullptr == pGameObject) return E_FAIL;
-    //if (FAILED(pLayer->Add_GameObject(pGameObject))) return E_FAIL;
-
-
     m_mapLayer.insert({ pLayerTag, pLayer });
     m_pGameLogic_Layer = pLayer;
     return S_OK;
@@ -247,6 +243,9 @@ HRESULT CBossStage::Remove_PrevObjectPool()
     CPoolMgr::GetInstance()->DeletePool<CBeamMon>();
     CPoolMgr::GetInstance()->DeletePool<CFlyMon>();
     CPoolMgr::GetInstance()->DeletePool<CBullet>();
+    //Effect Pool
+    CPoolMgr::GetInstance()->DeletePool<CBeamFlare>();
+    CPoolMgr::GetInstance()->DeletePool<CBodyEmit>();
 
     // TODO : CMapStage에서 오브젝트 풀 생성했던거 여기서 안쓰면 해제하기 (아직 미정)
     return S_OK;
@@ -271,6 +270,7 @@ HRESULT CBossStage::Ready_ObjectPool_Character()
             return E_FAIL;
         }
     }
+
     return S_OK;
 }
 
@@ -351,6 +351,21 @@ HRESULT CBossStage::Ready_CharacterTextureProto()
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RocketTexture", pCom_Texture)))
         return E_FAIL;
 
+    //Boss ToonFlash Texture
+    pCom_Texture = CTexture::Create(m_pGraphicDev, CToonFlash::GetTextureSource());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_ToonFlash_Texture", pCom_Texture)))
+        return E_FAIL;
+
+    //Boss ToonFog Texture
+    pCom_Texture = CTexture::Create(m_pGraphicDev, CToonFog::GetTextureSource());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_ToonFog_Texture", pCom_Texture)))
+        return E_FAIL;
+
+    //BossTrail Texture
+    pCom_Texture = CTexture::Create(m_pGraphicDev, CBossTrail::GetTextureSource());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_BossTrail_Texture", pCom_Texture)))
+        return E_FAIL;
+
     return S_OK;
 }
 
@@ -406,6 +421,17 @@ void CBossStage::Check_Collision()
 
         //플레이어 
         if (pPlayerCollider) CCollision::Collision_Diff(pPlayerCollider, mapCollider);
+
+        //총알
+        for (multimap<OBJ_ID, CGameObject*>::iterator it_bullet = iter_Map_Bullet.first; it_bullet != iter_Map_Bullet.second; it_bullet++)
+        {
+            CCollision* mapBul_Collision = static_cast<CCollision*>(it_bullet->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+            CCollider* bulletCollider = mapBul_Collision->GetCollider();
+            if (!bulletCollider) continue;
+
+            CCollision::Collision_Base(mapCollider, bulletCollider);
+        }
+
     }
 
     //Player- Bullet 충돌

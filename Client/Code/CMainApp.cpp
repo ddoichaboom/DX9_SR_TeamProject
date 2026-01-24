@@ -49,6 +49,9 @@
 #include "CBodyEmit.h"
 #include "CHitUI.h"
 #include "CTakeDownBlood.h"
+#include "CToonFlash.h"
+#include "CToonFog.h"
+
 
 CMainApp::CMainApp() : m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
 , m_pManagementClass(CManagement::GetInstance()), m_eCurSceneType(SCENE_NONE)
@@ -257,9 +260,9 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iMaxFloor(0), iMaxDynamicFloor(0),iMaxCeiling(0), iMaxDynamicCeiling(0), iMaxWall(0), iMaxDynamicWall(0), iMaxSlopeFloor(0);
 	_uint iMaxObstacle(0);
 	_uint iMaxMapCollider(0), iMaxDoorTrigger(0);
-	_uint iBulletCount = 30;
+	_uint iBulletCount = 20;
 	_uint iBossBulletCount = 30;
-	_uint iBossRocketCount = 20;
+	_uint iBossRocketCount = 30;
 	_uint iWhiteManCount = 6;
 	_uint iBeamMonCount = 6;
 	_uint iFlyMonCount = 6;
