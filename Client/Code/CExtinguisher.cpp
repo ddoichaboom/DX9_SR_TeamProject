@@ -116,6 +116,8 @@ HRESULT CExtinguisher::Add_Component()
     pComponent = m_pBufferCom = dynamic_cast<Engine::CRcTex*>
         (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_RcTex"));
 
+    m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
+
     if (nullptr == pComponent)
         return E_FAIL;
 
