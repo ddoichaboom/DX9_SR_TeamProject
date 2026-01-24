@@ -10,11 +10,21 @@ class CEffectUI;
 class CCursor;
 class CDashUI;
 class CSlotUI;
+class CShopBG;
 
 
 class CUIManager : public CBase, public IListener
 {
 	DECLARE_SINGLETON(CUIManager)
+
+public :
+	enum EFFECT_STATE
+	{
+		ES_DRINK,
+		ES_TAKEDOWN,
+		ES_CLEAR
+	};
+
 private :
 	explicit CUIManager();
 	virtual ~CUIManager();
@@ -42,10 +52,11 @@ private :
 
 	
 public :
-	void			Set_RenderEffect(_bool bRender) { m_bRenderEffectUI = bRender; }
-	void			Set_OnEffectUI(_bool  bDrink);
+	void			Set_RenderEffect(_bool bRender) { m_bRenderEffectUI = bRender; }	
+	void			Set_OnEffectUI(EFFECT_STATE eState);
 	void			Set_OnDashUI(_bool bDash);
 	void			Set_OnSlotUI(_bool bSlot);
+	void			Set_OnShopUI(_bool bShop);
 	
 private :	
 	UI_STATE	m_eNowState;
@@ -61,5 +72,8 @@ private :
 
 	CSlotUI*	m_pSlotUI;
 	_bool		m_bSlot;
+
+	CShopBG*	m_pShopUI;
+	_bool		m_bShop;
 };
 

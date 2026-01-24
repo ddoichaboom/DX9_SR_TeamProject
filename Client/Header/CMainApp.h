@@ -5,12 +5,10 @@
 #include "CTimerMgr.h"
 #include "CFrameMgr.h"
 #include "CManagement.h"
+#include "Engine_Define.h"
 
 class CMainApp : public CBase
 {
-public:
-    enum SCENE_TYPE { SCENE_NONE, SCENE_MENU, SCENE_TUTORIAL, SCENE_BATTLE, SCENE_BOSS, SCENE_END };
-
 private:
     explicit CMainApp();
     virtual ~CMainApp();
@@ -40,6 +38,7 @@ public:
 private:
     virtual void		    Free();
 
+  
 private:
     SCENE_TYPE              m_eCurSceneType;
 

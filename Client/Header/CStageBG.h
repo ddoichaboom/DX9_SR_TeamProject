@@ -32,7 +32,7 @@ public:
 	virtual		_int		Update_GameObject(const _float& fTimeDelta)	override;
 	virtual		void		LateUpdate_GameObject(const _float& fTimeDelta)	override;
 	virtual		void		Render_GameObject()	override;
-
+	virtual		void		Set_On() override;
 protected:
 	virtual		void        Rotate(ROTATION eType, const _float& fAngle) override;
 	virtual		void        SetPos(_vec3 _pos) override;

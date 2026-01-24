@@ -147,7 +147,7 @@ public:
 	void				Set_Jump(_bool bJump) { m_bJump = bJump; }
 	void				Set_Velocity(_float fVelocity) { m_fVelocity = fVelocity; }
 	void				Set_JumpTime(_float fJumpTime) { m_fJumpTime = fJumpTime; }
-
+	void				Set_BossStage(_bool bStage) { m_bBossStage = bStage; }
 	_bool				Get_Jump() { return m_bJump; }
 	_float				Get_Velocity() { return m_fVelocity; }
 	_float				Get_JumpTime() { return m_fJumpTime; }
@@ -157,6 +157,26 @@ public:
 public:
 	_float				Get_HP() const { return m_fHP; }
 	_float				Get_MaxHP() const { return m_fMaxHP; }
+
+	wstring				Get_HPText() const 
+	{
+		_int iHP = static_cast<_int>(m_fHP);
+		wstring wHP = to_wstring(iHP);
+		return wHP;
+	}
+	
+	wstring				Get_HPPercent() const
+	{
+		_tchar buffer[64];
+
+		_uint iPercent = static_cast<_uint>((m_fHP / m_fMaxHP) * 100.f);
+
+		swprintf_s(buffer, L"%02d", iPercent);
+
+		return wstring(buffer);
+
+	}
+
 
 	void				Add_HP(_float fHp)
 	{
@@ -246,5 +266,10 @@ private:
 
 	_bool		m_bMoveStop;
 	_bool		m_bAbleTakeDown;
+
+	_bool		m_bDelay;
+	_float		m_fDelayTime;
+
+	_bool		m_bBossStage;
 };
 

@@ -304,6 +304,9 @@
     <Filter Include="02. GameObject\03.MapObject\05.Extinguisher">
       <UniqueIdentifier>{e07de885-8743-4e17-ad6f-09ecac3dd9e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04.UI\01.StaticUI\14.StageInfo_UI">
+      <UniqueIdentifier>{4445672d-c988-4e69-8bf4-2bab20b9d751}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -573,6 +576,9 @@
     <ClInclude Include="..\Header\CExtinguisher.h">
       <Filter>02. GameObject\03.MapObject\05.Extinguisher</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CInfoUI.h">
+      <Filter>04.UI\01.StaticUI\14.StageInfo_UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -832,6 +838,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CExtinguisher.cpp">
       <Filter>02. GameObject\03.MapObject\05.Extinguisher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CInfoUI.cpp">
+      <Filter>04.UI\01.StaticUI\14.StageInfo_UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

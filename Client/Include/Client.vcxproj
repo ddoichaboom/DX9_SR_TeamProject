@@ -174,6 +174,7 @@
     <ClInclude Include="..\Header\CHitUI.h" />
     <ClInclude Include="..\Header\CHPUI.h" />
     <ClInclude Include="..\Header\CHudUI.h" />
+    <ClInclude Include="..\Header\CInfoUI.h" />
     <ClInclude Include="..\Header\CInteractObject.h" />
     <ClInclude Include="..\Header\CLoadingEX.h" />
     <ClInclude Include="..\Header\CMapCollider.h" />
@@ -265,6 +266,7 @@
     <ClCompile Include="..\Code\CHitUI.cpp" />
     <ClCompile Include="..\Code\CHPUI.cpp" />
     <ClCompile Include="..\Code\CHudUI.cpp" />
+    <ClCompile Include="..\Code\CInfoUI.cpp" />
     <ClCompile Include="..\Code\CInteractObject.cpp" />
     <ClCompile Include="..\Code\CLoadingEX.cpp" />
     <ClCompile Include="..\Code\CMapCollider.cpp" />

@@ -5,7 +5,7 @@
 
 IMPLEMENT_SINGLETON(CManagement)
 
-CManagement::CManagement() : m_pScene(nullptr)
+CManagement::CManagement() : m_pScene(nullptr), m_eCurrSceneType(SCENE_NONE)
 {
 }
 
@@ -45,6 +45,8 @@ _int CManagement::Update_Scene(const _float& fTimeDelta)
     if (nullptr == m_pScene)
         return -1;
 
+    Update_CountTime(fTimeDelta);
+
     return m_pScene->Update_Scene(fTimeDelta);
 }
 
@@ -64,4 +66,71 @@ void CManagement::Render_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 void CManagement::Free()
 {
     Safe_Release(m_pScene);
+}
+
+_uint CManagement::Get_FloorNumber()
+{
+    _uint iNumber = 1;
+
+    switch (m_eCurrSceneType)
+    {
+    case Engine::SCENE_TUTORIAL:
+        iNumber = 1;
+        break;
+    case Engine::SCENE_BATTLE:
+        iNumber = 2;
+        break;
+    case Engine::SCENE_BOSS:
+        break;
+    default:
+        break;
+    }
+
+    return iNumber;
+}
+
+wstring CManagement::Convert_PlayTime()
+{    
+    // MillSecond 단위 변환
+    _int iTotalTime = static_cast<int>(m_fTime * 1000.f);
+
+    _int iMinTime = (iTotalTime / 60000);
+    _int iSecTime = (iTotalTime % 60000) / 1000;
+    _int iMillSecTime = (iTotalTime % 1000) / 10;
+
+    _tchar buffer[64];
+
+    swprintf_s(buffer, L"%02d:%02d:%02d sec", iMinTime, iSecTime, iMillSecTime);
+
+    return wstring(buffer);
+}
+
+wstring CManagement::Convert_StageInfo()
+{
+    wstring wText;
+
+    switch (m_eCurrSceneType)
+    {
+    case Engine::SCENE_TUTORIAL:
+        wText = L"FLOOR 1";
+        break;
+    case Engine::SCENE_BATTLE:
+        wText = L"FLOOR 2";
+        break;
+    case Engine::SCENE_BOSS:
+        break;
+    default:
+        break;
+    }
+
+
+    return wText;
+}
+
+void CManagement::Update_CountTime(const _float& fTimeDelta)
+{
+    if (m_bCountTime)
+    {
+        m_fTime += fTimeDelta;
+    }
 }

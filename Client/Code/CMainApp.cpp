@@ -212,6 +212,12 @@ HRESULT CMainApp::Ready_DefaultProto()
 	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Number", L"DS-Digital", 40, 40, FW_BOLD, false, true)))
 		return E_FAIL;
 
+	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_SmallNumber", L"DS-Digital", 35, 35, FW_BOLD, false, true)))
+		return E_FAIL;
+
+	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_LargeNumber", L"DS-Digital", 50, 50, FW_DONTCARE, false, false)))
+		return E_FAIL;
+
 	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Default", L"°ß¸íÁ¶", 15, 15, FW_HEAVY,false, false)))
 		return E_FAIL;
 
@@ -242,6 +248,8 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 		return E_FAIL;
 	}
 
+	m_pManagementClass->Set_CurrSceneType(m_eCurSceneType);
+	m_pManagementClass->Reset_CountTime();
 	return S_OK;
 }
 
@@ -347,16 +355,15 @@ HRESULT CMainApp::SetNextScene()
 	CScene* nextScene = nullptr;
 
 	switch (nextSceneType)
-	{
-	case CMainApp::SCENE_NONE: return E_FAIL;
-	case CMainApp::SCENE_MENU:
+	{	
+	case SCENE_MENU:
 		break;
-	case CMainApp::SCENE_TUTORIAL:
+	case SCENE_TUTORIAL:
 		break;
-	case CMainApp::SCENE_BATTLE:
-		nextScene = CMapStage::Create(m_pGraphicDev);
+	case SCENE_BATTLE:
+		nextScene = CMapStage::Create(m_pGraphicDev);		
 		break;
-	case CMainApp::SCENE_BOSS:
+	case SCENE_BOSS:
 		nextScene = CBossStage::Create(m_pGraphicDev);
 		break;
 	default:
@@ -370,6 +377,11 @@ HRESULT CMainApp::SetNextScene()
 		MSG_BOX("Next Scene Setting Failed");
 		return E_FAIL;
 	}
+
+	m_eCurSceneType = nextSceneType;
+	m_pManagementClass->Set_CurrSceneType(m_eCurSceneType);
+	m_pManagementClass->Reset_CountTime();
+
 	return S_OK;
 }
 

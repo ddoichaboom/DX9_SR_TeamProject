@@ -39,8 +39,9 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_eNowState(MAIN_END), m_bOnCollision(false), m_pHitUI(nullptr)
 	, m_fHP(20.f), m_fMaxHP(20.f), m_fTime(0.f), m_fStageTime(0.f), m_bStage(false)
 	, m_bSlope(false), m_bSideDash(false)
-	, m_pColHitObj(nullptr),m_pTakeDownObject(nullptr), m_pTakeDownCollider(nullptr)
-	, m_bMoveStop(false), m_bAbleTakeDown(false)
+	, m_pColHitObj(nullptr), m_pTakeDownObject(nullptr), m_pTakeDownCollider(nullptr)
+	, m_bMoveStop(false), m_bAbleTakeDown(false), m_bDelay(false), m_fDelayTime(0.f)
+	, m_bBossStage(true)
 {
 
 	m_eOBJ_ID = OBJ_PLAYER;
@@ -59,7 +60,8 @@ CPlayer::CPlayer(const CPlayer& rhs)
 	, m_fHP(20.f), m_fMaxHP(20.f), m_fTime(0.f), m_fStageTime(0.f), m_bStage(false)
 	, m_bSlope(false), m_bSideDash(false)
 	, m_pColHitObj(nullptr), m_pTakeDownObject(nullptr), m_pTakeDownCollider(nullptr)
-	, m_bMoveStop(false), m_bAbleTakeDown(false)
+	, m_bMoveStop(false), m_bAbleTakeDown(false), m_bDelay(false), m_fDelayTime(0.f)
+	, m_bBossStage(true)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
 	m_iID = 0;
@@ -82,11 +84,15 @@ void CPlayer::OnEvent(EVENT_TYPE _type, EventData* _pData)
 	else if (_type == EVENT_STAGE_END)
 	{
 		m_bStage = false;
-		Change_State(SHOP);
+		CManagement::GetInstance()->Set_CountTime(false);
+		m_bDelay = true;
+		m_fDelayTime = 0.f;
+		Change_State(TAKEDOWN);
 	}
 
 	else if (_type == EVENT_READY_NEXT_STAGE)
 	{
+		CUIManager::GetInstance()->Set_OnShopUI(false);
 		Change_State(READY_NEXT);
 	}
 
@@ -166,13 +172,30 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 
 	if (m_bStage)
 	{
-		m_fTime += fTimeDelta;
-		m_fStageTime += fTimeDelta;
-
-		if (m_fTime >= 1.f)
+		if (m_bBossStage == false)
 		{
-			Add_HP(-1.f);
-			m_fTime = 0.f;
+			m_fTime += fTimeDelta;			
+
+			if (m_fTime >= 1.f)
+			{
+				Add_HP(-1.f);
+				m_fTime = 0.f;
+			}
+		}		
+	}
+	else
+	{
+		if (m_bDelay)
+		{
+			m_fDelayTime += fTimeDelta;
+
+			if (m_fDelayTime > 1.5f)
+			{
+				Change_State(SHOP);
+				CUIManager::GetInstance()->Set_OnShopUI(true);
+				m_bDelay = false;
+				m_fDelayTime = 0.f;
+			}
 		}
 	}
 
@@ -469,8 +492,8 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 	}
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_2))
 	{
-		//CEventMgr::GetInstance()->Broadcast(EVENT_STAGE_END, nullptr);
-		Add_Item(TAG_AXE);
+		CEventMgr::GetInstance()->Broadcast(EVENT_STAGE_END, nullptr);
+		//Add_Item(TAG_AXE);
 		return;
 	}
 
@@ -1402,7 +1425,8 @@ void CPlayer::Intro_LateUpdate(const _float& fTimeDelta)
 
 void CPlayer::Intro_Exit()
 {
-	CEventMgr::GetInstance()->Broadcast(EVENT_STAGE_START, nullptr);
+	if(m_bStage == false)
+		CEventMgr::GetInstance()->Broadcast(EVENT_STAGE_START, nullptr);
 }
 
 void CPlayer::Idle_Enter()
@@ -1632,7 +1656,7 @@ void CPlayer::Next_LateUpdate(const _float& fTimeDelta)
 }
 
 void CPlayer::Next_Exit()
-{
+{	
 	CEventMgr::GetInstance()->Broadcast(EVENT_NEXT_STAGE, nullptr);
 }
 
@@ -1825,6 +1849,7 @@ void CPlayer::OnCollision(CollisionInfo info)
 			m_pHitUI->Reset();
 			CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(m_pHitUI);
 		}
+		Add_HP(-1.f);
 	}
 
 }

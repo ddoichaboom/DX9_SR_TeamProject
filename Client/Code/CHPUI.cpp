@@ -6,6 +6,7 @@
 #include "CManagement.h"
 
 #include "CPlayer.h"
+#include "CFontUI.h"
 
 TextureSource CHPUI::m_textureSource =
 {
@@ -15,14 +16,14 @@ TextureSource CHPUI::m_textureSource =
 CHPUI::CHPUI(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CBaseUI(pGraphicDev)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
-	, m_pPlayer(nullptr)
+	, m_pPlayer(nullptr), m_pFontUI(nullptr), m_bBossStage(true)
 {
 }
 
 CHPUI::CHPUI(const CHPUI& rhs)
 	: CBaseUI(rhs)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
-	, m_pPlayer(nullptr)
+	, m_pPlayer(nullptr), m_pFontUI(nullptr), m_bBossStage(true)
 {
 
 }
@@ -80,6 +81,7 @@ HRESULT CHPUI::Add_Component()
 
 void CHPUI::Free()
 {
+	Safe_Release(m_pFontUI);
 	CGameObject::Free();
 }
 
@@ -93,15 +95,23 @@ HRESULT CHPUI::Ready_GameObject()
 	m_fSizeX = 120.f;
 	m_fSizeY = 120.f;
 
-	m_vPos = { m_fX, m_fY ,0 };
+	m_vPos = { 310.f, WINCY - 150.f ,0 };
 	m_vSize = { m_fSizeX, m_fSizeY, 0.f };
-	//Rotate(ROT_Z, 15.f);
+	
 	SetScale(m_fSizeX, m_fSizeY);
 	SetPos(m_vPos);
 
 
 
 	m_pTextureCom->Change_Texture(0);
+
+	m_pFontUI = CFontUI::Create(FONT_NUMBER, { 0.f, 0.f, 0.f }, m_vSize);
+	if (nullptr == m_pFontUI)
+		return E_FAIL;
+
+	m_pFontUI->Set_Parent(this);
+	m_pFontUI->Set_Color(D3DXCOLOR(0.f, 0.f, 0.f, 1.f));
+	
 	return S_OK;
 }
 
@@ -111,23 +121,31 @@ _int CHPUI::Update_GameObject(const _float& fTimeDelta)
 	{
 		CGameObject* player = CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Get_Object(OBJ_PLAYER);
 		m_pPlayer = static_cast<CPlayer*>(player);
+		Check_Stage();
 	}
 
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
-
-	_int iHP = static_cast<_int>(m_pPlayer->Get_HP());
-	wstring wHP = to_wstring(iHP);
-
-	m_fontData = { L"Font_Number", wHP,m_vPos,m_vSize, D3DXCOLOR(0.f, 0.f, 0.f, 1.f) };
-		
-	CFontMgr::GetInstance()->Add_RenderFont(&m_fontData);
+	wstring wHP;
+	
+	if (m_bBossStage)
+	{
+		wHP = m_pPlayer->Get_HPPercent();
+	}
+	else
+	{
+		wHP = m_pPlayer->Get_HPText();		
+	}
+	
+	m_pFontUI->Set_Text(wHP);
+	
 	return iExit;
 }
 
 void CHPUI::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
+	m_pFontUI->LateUpdate_GameObject(fTimeDelta);
 }
 
 void CHPUI::Render_GameObject()
@@ -150,4 +168,19 @@ void CHPUI::SetPos(_vec3 _pos)
 void CHPUI::SetScale(_float fCX, _float fCY)
 {
 	m_pTransformCom->Set_Scale(fCX * 0.5f, fCY * 0.5f, 1.f);
+}
+
+void CHPUI::Check_Stage()
+{
+	if (SCENE_BOSS == CManagement::GetInstance()->Get_CurrSceneType())
+	{
+		m_bBossStage = true;		
+		m_pFontUI->Set_FontType(FONT_SMALLNUMBER);
+	}		
+	else
+	{
+		m_bBossStage = false;
+		m_pFontUI->Set_FontType(FONT_NUMBER);
+	}
+	m_pPlayer->Set_BossStage(m_bBossStage);
 }

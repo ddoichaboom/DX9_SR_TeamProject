@@ -8,24 +8,21 @@ namespace Engine
 	class CTexture;
 }
 
-class CPlusUI;
 class CFontUI;
 
-class CEffectUI : public CBaseUI
+class CInfoUI : public CBaseUI
 {
 protected:
-	explicit	CEffectUI(LPDIRECT3DDEVICE9 pGraphicDev);
-	explicit	CEffectUI(const CEffectUI& rhs);
-	virtual		~CEffectUI();
+	explicit	CInfoUI(LPDIRECT3DDEVICE9 pGraphicDev);	
+	explicit	CInfoUI(const CInfoUI& rhs);
+	virtual		~CInfoUI();
 
 public:
-	static		CEffectUI* Create(PDIRECT3DDEVICE9 pGraphicDev);
-	static		TextureSource& GetTextureSource() { return m_textureSource; }
-
-	void		Set_Text(const wstring& wDeadTime);
-
-	void		Init(_bool bRandomColor);
-	void		Init(D3DXCOLOR eColor);
+	static		CInfoUI* Create(PDIRECT3DDEVICE9 pGraphicDev);
+	static TextureSource& GetTextureSource()
+	{
+		return m_vTextureSource;
+	}
 
 protected:
 	virtual		HRESULT		Add_Component();
@@ -42,20 +39,24 @@ protected:
 	virtual		void        SetPos(_vec3 _pos) override;
 	virtual		void		SetScale(_float fCX, _float fCY);
 
+public :
+	virtual		void		Set_On();
+	virtual		void		Set_Off();
+
 protected:
-	static TextureSource    m_textureSource;
+	static TextureSource    m_vTextureSource;
 	Engine::CRcTex* m_pBufferCom;
 	Engine::CTransform* m_pTransformCom;
 	Engine::CTexture* m_pTextureCom;
 
-	CFontUI* m_pEffectText;
 
-	_float	m_fTime = 0.f;
+	_bool	m_bRender;
+	_float	m_fTime;
+	CFontUI* m_pTimeText;
+	CFontUI* m_pStageText;
 
-	_bool	m_bRandomColor;
-
-	_vec3   m_vEffectPos;
-	_vec3	m_vClearPos;
+	_vec3	m_vTimePos;
+	_vec3	m_vTimeScale;
 
 };
 
