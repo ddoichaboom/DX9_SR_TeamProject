@@ -54,8 +54,9 @@ HRESULT CBossBullet::Ready_GameObject()
 		});
 
 	//D3DXMatrixRotationX(&m_matPreRot, D3DXToRadian(m_RotXoffset));
-	m_pTransformCom->Set_Scale(6.f, 6.f, 6.f);
-	m_pCollider->Set_Scale({ 3.f, 3.f, 3.f });
+	//m_pTransformCom->Set_Scale(6.f, 6.f, 6.f);
+	m_pTransformCom->Set_Scale(10.f, 10.f, 10.f);
+	m_pCollider->Set_Scale({ 5.f, 5.f, 5.f });
 	m_fSpeed = 250.f;
 	m_fLifeTime = 3.0f;
 

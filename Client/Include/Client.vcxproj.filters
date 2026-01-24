@@ -259,14 +259,50 @@
     <Filter Include="04.UI\01.StaticUI\11.Effect_UI">
       <UniqueIdentifier>{ce128bb6-e85d-4b80-8140-a18be913badf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04.UI\02.DynamicUI\08.Dash_UI">
-      <UniqueIdentifier>{9f2642ed-025f-4b70-8805-290049735241}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04.UI\02.DynamicUI\08. TakeDown">
       <UniqueIdentifier>{3332ea56-67ab-4011-9e52-2a8b361fafb8}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\13. Effect\07. TakeDownBlood">
       <UniqueIdentifier>{526d47fd-6ab6-451c-82fe-0798825648ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\02.DynamicUI\09.Dash_UI">
+      <UniqueIdentifier>{9f2642ed-025f-4b70-8805-290049735241}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\01.StaticUI\12.Slot_UI">
+      <UniqueIdentifier>{c05f0e5d-0d6c-4893-bce4-0e7cb119f9a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\01.StaticUI\13.Hud_UI">
+      <UniqueIdentifier>{21f156da-8fa9-42f6-9936-f443dbf39648}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\08. ToonFlash">
+      <UniqueIdentifier>{0049b41c-1e5c-43b4-8057-952fd929a8b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\09. ToonFog">
+      <UniqueIdentifier>{ed28494c-3a87-482d-8e67-b8dbb93569e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\10. BossTrail">
+      <UniqueIdentifier>{ec648dc8-8940-46b6-bc08-3865092bb19a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\03.MapObject">
+      <UniqueIdentifier>{33a14dc2-ed97-43ef-b7be-b80a9133598f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\03.MapObject\00.DisPlayObj">
+      <UniqueIdentifier>{8ed5038e-29d9-43bb-9b0e-ace133dd3df5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\03.MapObject\01.InteractiveObj">
+      <UniqueIdentifier>{fefab657-5085-4905-a68d-433b193a3e95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\03.MapObject\02.VendingMachine">
+      <UniqueIdentifier>{910535e6-2a4e-4a48-a252-241eeb0c6fdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\03.MapObject\03.Soda">
+      <UniqueIdentifier>{fe8e2a7f-6321-4c19-bf53-9db8f3e7840a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\03.MapObject\04.Axe">
+      <UniqueIdentifier>{935eac77-4a1d-4389-a3e2-b44d79d021e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\03.MapObject\05.Extinguisher">
+      <UniqueIdentifier>{e07de885-8743-4e17-ad6f-09ecac3dd9e9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -491,21 +527,42 @@
     </ClInclude>
     <ClInclude Include="..\Header\CStageEndTrigger.h">
       <Filter>02. GameObject\12. Trigger\StageEndTrigger</Filter>
-	</ClInclude>
-	<ClInclude Include="..\Header\CEffectUI.h">
+    </ClInclude>
+    <ClInclude Include="..\Header\CEffectUI.h">
       <Filter>04.UI\01.StaticUI\11.Effect_UI</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CCursor.h">
       <Filter>04.UI\01.StaticUI\07.Cursor_UI</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CDashUI.h">
-      <Filter>04.UI\02.DynamicUI\08.Dash_UI</Filter>
+      <Filter>04.UI\02.DynamicUI\09.Dash_UI</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CTakeDown.h">
       <Filter>04.UI\02.DynamicUI\08. TakeDown</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CTakeDownBlood.h">
       <Filter>02. GameObject\13. Effect\07. TakeDownBlood</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSlotUI.h">
+      <Filter>04.UI\01.StaticUI\12.Slot_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHudUI.h">
+      <Filter>04.UI\01.StaticUI\13.Hud_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CToonFlash.h">
+      <Filter>02. GameObject\13. Effect\08. ToonFlash</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CToonFog.h">
+      <Filter>02. GameObject\13. Effect\09. ToonFog</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossTrail.h">
+      <Filter>02. GameObject\13. Effect\10. BossTrail</Filter>
+    </ClInclude>
+    <ClInclude Include="CDisplayObject.h">
+      <Filter>02. GameObject\03.MapObject\00.DisPlayObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CInteractObject.h">
+      <Filter>02. GameObject\03.MapObject\01.InteractiveObj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -721,21 +778,42 @@
     </ClCompile>
     <ClCompile Include="..\Code\CStageEndTrigger.cpp">
       <Filter>02. GameObject\12. Trigger\StageEndTrigger</Filter>
-	</ClCompile>
-	<ClCompile Include="..\Code\CEffectUI.cpp">
+    </ClCompile>
+    <ClCompile Include="..\Code\CEffectUI.cpp">
       <Filter>04.UI\01.StaticUI\11.Effect_UI</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CCursor.cpp">
       <Filter>04.UI\01.StaticUI\07.Cursor_UI</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CDashUI.cpp">
-      <Filter>04.UI\02.DynamicUI\08.Dash_UI</Filter>
+      <Filter>04.UI\02.DynamicUI\09.Dash_UI</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CTakeDown.cpp">
       <Filter>04.UI\02.DynamicUI\08. TakeDown</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CTakeDownBlood.cpp">
       <Filter>02. GameObject\13. Effect\07. TakeDownBlood</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSlotUI.cpp">
+      <Filter>04.UI\01.StaticUI\12.Slot_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHudUI.cpp">
+      <Filter>04.UI\01.StaticUI\13.Hud_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CToonFlash.cpp">
+      <Filter>02. GameObject\13. Effect\08. ToonFlash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CToonFog.cpp">
+      <Filter>02. GameObject\13. Effect\09. ToonFog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossTrail.cpp">
+      <Filter>02. GameObject\13. Effect\10. BossTrail</Filter>
+    </ClCompile>
+    <ClCompile Include="CDisplayObject.cpp">
+      <Filter>02. GameObject\03.MapObject\00.DisPlayObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CInteractObject.cpp">
+      <Filter>02. GameObject\03.MapObject\01.InteractiveObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

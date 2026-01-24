@@ -8,6 +8,7 @@ namespace Engine
 }
 
 class CBeam;
+class CBossTrail;
 class CBoss :
     public CMonster
 {
@@ -40,7 +41,7 @@ protected:
 protected:
 	void			ChangeState(_uint nextStateID) override;
 	HRESULT			Add_Component() override;
-
+	void			Collision_Beam();
 protected:
 	virtual void	Free();
 	void			OnBodyCollision(CollisionInfo info);
@@ -56,6 +57,10 @@ protected:
 
 	void			Idle_Begin();
 	void			Idle();
+
+	void			Dash_Begin();
+	void			Dash();
+
 	void			Attack_Idle();
 
 	//Attack Beam
@@ -92,24 +97,31 @@ protected:
 	const _tchar* m_szBodyColliderName = L"ColBody";
 
 protected:
+	bool			m_bBeamCollision = false;
 	_float			m_fMapRadius;
 	//방향 세팅값 -1 / 1
 	_float			m_fDirOffset;
-	bool			m_bDash;
+	//bool			m_bDash;
 
-	_float			m_fDashSpeed = 600.f;
+	_float			m_fDashSpeed = 800.f;
+	_float			m_fIdleSpeed = 200.f;
 	_float			m_fBaseSpeed = 50.f;
 
 	_vec3			m_vScale;
 	_float			m_fDirAngle = 0.f;
-	const _vec2		m_vHeightRange = { 30.f, 200.f };
+	//높이 제한 
+	//const _vec2		m_vHeightRange = { 30.f, 200.f };
+	const _vec2		m_vHeightRange = { 100.f, 250.f };
 	const _vec2		m_vAngleABSRange = { 10.f, 30.f };
 
 	_float			m_fStateRatio = 1.f;
 	_float			m_fSubTime = 0.f;
 
 	//Idle
-	_float			m_fIdle_Time = 0.7f;
+	_float			m_fIdle_Time = 1.f;
+
+	//Dash
+	_float			m_fDash_Time = 0.4f;
 
 	//Attack Bullet
 	_float			m_fAttack_Bullet_Time = 2.5f;
@@ -127,8 +139,8 @@ protected:
 	//Attack Rocket
 	_vec3			m_vRocektPos[MON_END_HAND];
 	_vec3			m_vWorldRocketPos[MON_END_HAND];
-	_float			m_fAttack_Rocket_Time = 3.f;
-	_float			m_fRocketShoot_time = 0.5f;
+	_float			m_fAttack_Rocket_Time = 2.f;
+	_float			m_fRocketShoot_time = 0.25f;
 
 	//Random
 	random_device	rd;
@@ -136,6 +148,9 @@ protected:
 	uniform_int_distribution<_int> dis;
 	uniform_real_distribution<_float> floatDis;
 	static _vec2	m_vRandomRange;
+
+	//Effect
+	CBossTrail*		m_pBossTrail;
 
 };
 

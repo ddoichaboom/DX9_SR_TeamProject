@@ -154,6 +154,7 @@
     <ClInclude Include="..\Header\CBossBullet.h" />
     <ClInclude Include="..\Header\CBossStage.h" />
     <ClInclude Include="..\Header\CBossTestStage.h" />
+    <ClInclude Include="..\Header\CBossTrail.h" />
     <ClInclude Include="..\Header\CCeiling.h" />
     <ClInclude Include="..\Header\CBullet.h" />
     <ClInclude Include="..\Header\CCharacter.h" />
@@ -169,6 +170,8 @@
     <ClInclude Include="..\Header\CHeartBeat.h" />
     <ClInclude Include="..\Header\CHitUI.h" />
     <ClInclude Include="..\Header\CHPUI.h" />
+    <ClInclude Include="..\Header\CHudUI.h" />
+    <ClInclude Include="..\Header\CInteractObject.h" />
     <ClInclude Include="..\Header\CLoadingEX.h" />
     <ClInclude Include="..\Header\CMapCollider.h" />
     <ClInclude Include="..\Header\CDynamicCeiling.h" />
@@ -202,6 +205,7 @@
     <ClInclude Include="..\Header\CShopItem.h" />
     <ClInclude Include="..\Header\CSkyBox.h" />
     <ClInclude Include="..\Header\CSlopeFloor.h" />
+    <ClInclude Include="..\Header\CSlotUI.h" />
     <ClInclude Include="..\Header\CStageBG.h" />
     <ClInclude Include="..\Header\CStageEndTrigger.h" />
     <ClInclude Include="..\Header\CTakeDown.h" />
@@ -211,12 +215,15 @@
     <ClInclude Include="..\Header\CTestCharacter.h" />
     <ClInclude Include="..\Header\CTextBG.h" />
     <ClInclude Include="..\Header\CTextUI.h" />
+    <ClInclude Include="..\Header\CToonFlash.h" />
+    <ClInclude Include="..\Header\CToonFog.h" />
     <ClInclude Include="..\Header\CTrail.h" />
     <ClInclude Include="..\Header\CTrigger.h" />
     <ClInclude Include="..\Header\CUIManager.h" />
     <ClInclude Include="..\Header\CWall.h" />
     <ClInclude Include="..\Header\CWeapon.h" />
     <ClInclude Include="..\Header\CWhiteMan.h" />
+    <ClInclude Include="CDisplayObject.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
@@ -235,6 +242,7 @@
     <ClCompile Include="..\Code\CBossBullet.cpp" />
     <ClCompile Include="..\Code\CBossStage.cpp" />
     <ClCompile Include="..\Code\CBossTestStage.cpp" />
+    <ClCompile Include="..\Code\CBossTrail.cpp" />
     <ClCompile Include="..\Code\CCeiling.cpp" />
     <ClCompile Include="..\Code\CBullet.cpp" />
     <ClCompile Include="..\Code\CCharacter.cpp" />
@@ -250,6 +258,8 @@
     <ClCompile Include="..\Code\CHeartBeat.cpp" />
     <ClCompile Include="..\Code\CHitUI.cpp" />
     <ClCompile Include="..\Code\CHPUI.cpp" />
+    <ClCompile Include="..\Code\CHudUI.cpp" />
+    <ClCompile Include="..\Code\CInteractObject.cpp" />
     <ClCompile Include="..\Code\CLoadingEX.cpp" />
     <ClCompile Include="..\Code\CMapCollider.cpp" />
     <ClCompile Include="..\Code\CDynamicCeiling.cpp" />
@@ -282,6 +292,7 @@
     <ClCompile Include="..\Code\CShopItem.cpp" />
     <ClCompile Include="..\Code\CSkyBox.cpp" />
     <ClCompile Include="..\Code\CSlopeFloor.cpp" />
+    <ClCompile Include="..\Code\CSlotUI.cpp" />
     <ClCompile Include="..\Code\CStageBG.cpp" />
     <ClCompile Include="..\Code\CStageEndTrigger.cpp" />
     <ClCompile Include="..\Code\CTakeDown.cpp" />
@@ -292,12 +303,15 @@
     <ClCompile Include="..\Code\CTestCharacter.cpp" />
     <ClCompile Include="..\Code\CTextBG.cpp" />
     <ClCompile Include="..\Code\CTextUI.cpp" />
+    <ClCompile Include="..\Code\CToonFlash.cpp" />
+    <ClCompile Include="..\Code\CToonFog.cpp" />
     <ClCompile Include="..\Code\CTrail.cpp" />
     <ClCompile Include="..\Code\CTrigger.cpp" />
     <ClCompile Include="..\Code\CUIManager.cpp" />
     <ClCompile Include="..\Code\CWall.cpp" />
     <ClCompile Include="..\Code\CWeapon.cpp" />
     <ClCompile Include="..\Code\CWhiteMan.cpp" />
+    <ClCompile Include="CDisplayObject.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

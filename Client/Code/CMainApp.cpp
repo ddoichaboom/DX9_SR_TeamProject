@@ -49,6 +49,9 @@
 #include "CBodyEmit.h"
 #include "CHitUI.h"
 #include "CTakeDownBlood.h"
+#include "CToonFlash.h"
+#include "CToonFog.h"
+
 
 CMainApp::CMainApp() : m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
 , m_pManagementClass(CManagement::GetInstance()), m_eCurSceneType(SCENE_NONE)
@@ -216,7 +219,7 @@ HRESULT CMainApp::Ready_DefaultProto()
 	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Word", L"Noto Sans KR", 30, 30, FW_HEAVY, false, true)))	
 		return E_FAIL;
 
-	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_LargeWord", L"Noto Sans KR", 70, 70, FW_HEAVY, true, true)))
+	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_LargeWord", L"Noto Sans KR", 60, 60, FW_HEAVY, true, true)))
 		return E_FAIL;
 
 	return S_OK;
@@ -257,9 +260,9 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iMaxFloor(0), iMaxDynamicFloor(0),iMaxCeiling(0), iMaxDynamicCeiling(0), iMaxWall(0), iMaxDynamicWall(0), iMaxSlopeFloor(0);
 	_uint iMaxObstacle(0);
 	_uint iMaxMapCollider(0), iMaxDoorTrigger(0);
-	_uint iBulletCount = 30;
+	_uint iBulletCount = 20;
 	_uint iBossBulletCount = 30;
-	_uint iBossRocketCount = 20;
+	_uint iBossRocketCount = 30;
 	_uint iWhiteManCount = 6;
 	_uint iBeamMonCount = 6;
 	_uint iFlyMonCount = 6;

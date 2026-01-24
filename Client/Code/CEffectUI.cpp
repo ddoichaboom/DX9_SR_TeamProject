@@ -102,16 +102,16 @@ HRESULT CEffectUI::Ready_GameObject()
 	if (FAILED(Add_Component()))
 		return E_FAIL;
 
-	m_vPos = { WINCX * 0.5f, 200.f, 0.f };
-	m_fSizeX = 480.f;
-	m_fSizeY = 240.f;
+	m_vPos = { WINCX * 0.5f, 100.f, 0.f };
+	m_fSizeX = 360.f;
+	m_fSizeY = 180.f;
 
 	SetPos(m_vPos);
 	SetScale(m_fSizeX, m_fSizeY);
 	m_pTextureCom->Change_Texture(0);
 
 
-	m_pEffectText = CFontUI::Create(FONT_LARGEWORD, { 0.f,0.f,0.f }, { 512.f,256.f,0.f });
+	m_pEffectText = CFontUI::Create(FONT_LARGEWORD, { 0.f,0.f,0.f }, { 360.f,180.f,0.f });
 	if (nullptr == m_pEffectText)
 		return E_FAIL;
 
