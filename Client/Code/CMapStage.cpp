@@ -17,6 +17,8 @@
 #include "CDoorTrigger.h"
 #include "CSlopeFloor.h"
 
+#include "CDisplayObject.h"
+
 // 게임 로직 오브젝트
 #include "CPlayer.h"
 #include "CFirstCamera.h"
@@ -25,6 +27,11 @@
 #include "CFlyMon.h"
 #include "CBullet.h"
 #include "CBeam.h"
+
+#include "CSoda.h"
+#include "CAxe.h"
+#include "CExtinguisher.h"
+
 
 //Player
 #include "CLeftPart.h"
@@ -215,7 +222,30 @@ HRESULT CMapStage::Ready_ObjectPool_Character()
             return E_FAIL;
         }
     }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CSoda>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CSoda>(m_pGraphicDev)))
+        {
+            MSG_BOX("Soda Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CAxe>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CAxe>(m_pGraphicDev)))
+        {
+            MSG_BOX("Axe Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+
+
     return S_OK;
+
+
 }
 
 HRESULT CMapStage::Ready_ObjectPool_Terrain()
@@ -288,6 +318,24 @@ HRESULT CMapStage::Ready_ObjectPool_Terrain()
         if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CDoorTrigger>(m_pGraphicDev)))
         {
             MSG_BOX("DoorTrigger Pool Create Failed");
+            return E_FAIL;
+        }
+    }    
+
+    //if (!Engine::CPoolMgr::GetInstance()->HasPool<CDisplayObject>())
+    //{
+    //    if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CDisplayObject>(m_pGraphicDev)))
+    //    {
+    //        MSG_BOX("Display Pool Create Failed");
+    //        return E_FAIL;
+    //    }
+    //}
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CExtinguisher>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CExtinguisher>(m_pGraphicDev)))
+        {
+            MSG_BOX("Extinguisher Pool Create Failed");
             return E_FAIL;
         }
     }
@@ -436,6 +484,19 @@ HRESULT CMapStage::Ready_CharacterTextureProto()
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BulletTexture", pCom_Texture)))
         return E_FAIL;
 
+
+    //Soda Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CSoda::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SodaTexture", pCom_Texture)))
+        return E_FAIL;
+
+    //Axe Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CAxe::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_AxeTexture", pCom_Texture)))
+        return E_FAIL;
+
+
+
     return S_OK;
 }
 
@@ -481,6 +542,17 @@ HRESULT CMapStage::Ready_TerrainTextureProto()
 
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WallAnimation",
         Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CDynamicWall::GetAnimSources()))))
+        return E_FAIL;
+
+    //Display
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CDisplayObject::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_DisplayTexture", pCom_Texture)))
+        return E_FAIL;
+
+
+    // Extinguisher
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CExtinguisher::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_ExtinguisherTexture", pCom_Texture)))
         return E_FAIL;
 
     return S_OK;
@@ -678,6 +750,7 @@ HRESULT CMapStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
         return E_FAIL;
 
 
+    // 커서 생성
     CGameObject* pGameObject = CCursor::Create(m_pGraphicDev);
 
     if (pGameObject == nullptr)
@@ -700,6 +773,7 @@ void CMapStage::Check_Collision()
    auto iter_Map_Trigger = m_mapLayer[L"Environment_Layer"]->Get_Objects(OBJ_TRIGGER);
    auto iter_Map_Bullet = m_mapLayer[L"GameLogic_Layer"]->Get_Objects(OBJ_BULLET);
    auto iter_Map_Mon = m_mapLayer[L"GameLogic_Layer"]->Get_Objects(OBJ_MONSTER);
+   auto iter_Map_Item = m_mapLayer[L"GameLogic_Layer"]->Get_Objects(OBJ_ITEM);
    CGameObject* player = m_mapLayer[L"GameLogic_Layer"]->Get_Object(OBJ_PLAYER);
 
    //vector<CCollider*> PlayerColliders;
@@ -771,6 +845,16 @@ void CMapStage::Check_Collision()
    {
        CCollision* mapBul_Collision = static_cast<CCollision*>(it_bullet->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
        CCollider* mapCollider = mapBul_Collision->GetCollider();
+       if (!mapCollider) continue;
+
+       CCollision::Collision_Base(pPlayerCollider, mapCollider);
+   }
+
+   //Player - ITEM 충돌
+   for (multimap<OBJ_ID, CGameObject*>::iterator it_Item = iter_Map_Item.first; it_Item != iter_Map_Item.second; it_Item++)
+   {
+       CCollision* mapItem_Collision = static_cast<CCollision*>(it_Item->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+       CCollider* mapCollider = mapItem_Collision->GetCollider();
        if (!mapCollider) continue;
 
        CCollision::Collision_Base(pPlayerCollider, mapCollider);

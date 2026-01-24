@@ -163,6 +163,8 @@ namespace Engine
 		FONT_NUMBER,
 		FONT_WORD,
 		FONT_LARGEWORD,
+		FONT_LARGENUMBER,
+		FONT_SMALLNUMBER,
 		FONT_END
 	};
 
@@ -172,6 +174,7 @@ namespace Engine
 		ITEM_SODA,
 		ITEM_SODAMACHINE,
 		ITEM_AXE,
+		ITEM_EXTINGUISHER,
 		ITEM_END
 	};
 
@@ -185,5 +188,7 @@ namespace Engine
 		SOUND_END
 	};
 
+
+	enum SCENE_TYPE { SCENE_NONE, SCENE_MENU, SCENE_TUTORIAL, SCENE_BATTLE, SCENE_BOSS, SCENE_END };
 }
 #endif // Engine_Enum_h__

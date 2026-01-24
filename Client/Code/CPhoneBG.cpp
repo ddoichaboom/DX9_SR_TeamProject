@@ -16,7 +16,7 @@ CPhoneBG::CPhoneBG(LPDIRECT3DDEVICE9 pGraphicDev)
 	,	m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
 	, m_pPhonePlayer(nullptr), m_pHpUI(nullptr)
 {
-	m_eOBJ_ID = OBJ_ITEM;
+	
 }
 
 CPhoneBG::CPhoneBG(const CPhoneBG& rhs)
@@ -24,7 +24,7 @@ CPhoneBG::CPhoneBG(const CPhoneBG& rhs)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
 	, m_pPhonePlayer(nullptr), m_pHpUI(nullptr)
 {
-	m_eOBJ_ID = OBJ_ITEM;
+	
 }
 
 CPhoneBG::~CPhoneBG()
@@ -139,6 +139,11 @@ void CPhoneBG::Render_GameObject()
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 	m_pTextureCom->Render_Texture();
 	m_pBufferCom->Render_Buffer();
+}
+
+void CPhoneBG::Set_On()
+{
+	m_pHpUI->Check_Stage();
 }
 
 void CPhoneBG::Rotate(ROTATION eType, const _float& fAngle)

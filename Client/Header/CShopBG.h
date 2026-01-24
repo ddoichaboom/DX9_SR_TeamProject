@@ -67,6 +67,9 @@ public:
 
 	virtual		void		Set_Off()	{}
 
+	virtual		void		Activate();
+	virtual		void		DeActivate();
+
 protected:
 	void	Begin_Idle();
 	void	Idle();

@@ -9,6 +9,7 @@ namespace Engine
 }
 
 class CPlayer;
+class CFontUI;
 
 class CHPUI : public CBaseUI
 {
@@ -31,10 +32,14 @@ public:
 	virtual		void		LateUpdate_GameObject(const _float& fTimeDelta)	override;
 	virtual		void		Render_GameObject()	override;
 
+
 protected:
 	virtual		void        Rotate(ROTATION eType, const _float& fAngle) override;
 	virtual		void        SetPos(_vec3 _pos) override;
 	virtual		void		SetScale(_float fCX, _float fCY);
+
+public :
+	void					Check_Stage();
 
 protected:
 	static TextureSource    m_textureSource;
@@ -42,11 +47,11 @@ protected:
 	Engine::CTransform* m_pTransformCom;
 	Engine::CTexture* m_pTextureCom;
 
-	CPlayer* m_pPlayer;
-
-	_vec3	m_vPos;
+	CPlayer* m_pPlayer;	
 	_vec3	m_vSize;
-	FontData m_fontData;
+	
+	CFontUI* m_pFontUI;
 
+	_bool	m_bBossStage;
 };
 

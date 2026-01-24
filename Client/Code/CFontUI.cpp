@@ -76,8 +76,15 @@ HRESULT CFontUI::Ready_Font()
 		m_tData.pFontTag = L"Font_LargeWord";
 		m_tData.Color = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
 		break;
+	case Engine::FONT_LARGENUMBER:
+		m_tData.pFontTag = L"Font_LargeNumber";
+		m_tData.Color = D3DXCOLOR(0.6f, 0.9f, 0.2f, 1.f);		
+		break;
+	case Engine::FONT_SMALLNUMBER:
+		m_tData.pFontTag = L"Font_SmallNumber";
+		m_tData.Color = D3DXCOLOR(0.f, 0.f, 0.f, 1.f);
+		break;
 	}
-
 	m_tData.pSize = m_vScale;
 
     return S_OK;
@@ -112,4 +119,10 @@ void CFontUI::LateUpdate_GameObject(const _float& fTimeDelta)
 void CFontUI::Set_Parent(CBaseUI* pParent)
 {
 	m_pParentUI = pParent;
+}
+
+void CFontUI::Set_FontType(FONT_TYPE eType)
+{
+	m_eFontType = eType;
+	Ready_Font();
 }

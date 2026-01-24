@@ -304,6 +304,9 @@
     <Filter Include="02. GameObject\03.MapObject\05.Extinguisher">
       <UniqueIdentifier>{e07de885-8743-4e17-ad6f-09ecac3dd9e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04.UI\01.StaticUI\14.StageInfo_UI">
+      <UniqueIdentifier>{4445672d-c988-4e69-8bf4-2bab20b9d751}</UniqueIdentifier>
+    </Filter>
     <Filter Include="02. GameObject\13. Effect\11. SodaUI">
       <UniqueIdentifier>{f304972e-13f1-4c77-a2b2-f6465196219e}</UniqueIdentifier>
     </Filter>
@@ -567,6 +570,18 @@
     <ClInclude Include="..\Header\CInteractObject.h">
       <Filter>02. GameObject\03.MapObject\01.InteractiveObj</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CSoda.h">
+      <Filter>02. GameObject\03.MapObject\03.Soda</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CAxe.h">
+      <Filter>02. GameObject\03.MapObject\04.Axe</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CExtinguisher.h">
+      <Filter>02. GameObject\03.MapObject\05.Extinguisher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CInfoUI.h">
+      <Filter>04.UI\01.StaticUI\14.StageInfo_UI</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\CSodaUI.h">
       <Filter>02. GameObject\13. Effect\11. SodaUI</Filter>
     </ClInclude>
@@ -820,6 +835,18 @@
     </ClCompile>
     <ClCompile Include="..\Code\CInteractObject.cpp">
       <Filter>02. GameObject\03.MapObject\01.InteractiveObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSoda.cpp">
+      <Filter>02. GameObject\03.MapObject\03.Soda</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CAxe.cpp">
+      <Filter>02. GameObject\03.MapObject\04.Axe</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CExtinguisher.cpp">
+      <Filter>02. GameObject\03.MapObject\05.Extinguisher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CInfoUI.cpp">
+      <Filter>04.UI\01.StaticUI\14.StageInfo_UI</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CSodaUI.cpp">
       <Filter>02. GameObject\13. Effect\11. SodaUI</Filter>

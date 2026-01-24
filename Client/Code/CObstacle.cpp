@@ -55,7 +55,7 @@ void CObstacle::LateUpdate_GameObject(const _float& fTimeDelta)
 void CObstacle::Render_GameObject()
 {
     //m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-
+    m_pGraphicDev->SetTexture(0, nullptr);
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 
@@ -64,7 +64,7 @@ void CObstacle::Render_GameObject()
 
     // 텍스처가 있으면 렌더링 
     //if (m_pTextureCom)
-    //    m_pTextureCom->Set_Texture(0);
+    //    m_pTextureCom->Set_Texture(0);    
 
     m_pBufferCom->Render_Buffer();
 

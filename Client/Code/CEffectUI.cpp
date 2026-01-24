@@ -16,7 +16,7 @@ TextureSource CEffectUI::m_textureSource =
 CEffectUI::CEffectUI(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CBaseUI(pGraphicDev)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
-	, m_pEffectText(nullptr)
+	, m_pEffectText(nullptr), m_bRandomColor(false)
 {
 
 }
@@ -24,7 +24,7 @@ CEffectUI::CEffectUI(LPDIRECT3DDEVICE9 pGraphicDev)
 CEffectUI::CEffectUI(const CEffectUI& rhs)
 	: CBaseUI(rhs)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
-	, m_pEffectText(nullptr)
+	, m_pEffectText(nullptr), m_bRandomColor(false)
 {
 
 }
@@ -52,9 +52,22 @@ void CEffectUI::Set_Text(const wstring& wDeadTime)
 	m_pEffectText->Set_Text(wDeadTime);
 }
 
-void CEffectUI::Init()
+void CEffectUI::Init(_bool bRandomColor)
 {
 	m_fTime = 0.f;
+	m_bRandomColor = true;
+
+	m_vPos = m_vEffectPos;	
+	SetPos(m_vPos);
+}
+
+void CEffectUI::Init(D3DXCOLOR eColor)
+{
+	m_fTime = 0.f;
+	m_bRandomColor = false;
+	m_pEffectText->Set_Color(eColor);	
+	m_vPos = m_vClearPos;
+	SetPos(m_vPos);
 }
 
 HRESULT CEffectUI::Add_Component()
@@ -102,10 +115,13 @@ HRESULT CEffectUI::Ready_GameObject()
 	if (FAILED(Add_Component()))
 		return E_FAIL;
 
-	m_vPos = { WINCX * 0.5f, 100.f, 0.f };
+	m_vEffectPos = { WINCX * 0.5f, 100.f, 0.f };
+	m_vClearPos = { 520.f, 140.f, 0.f };
+
 	m_fSizeX = 360.f;
 	m_fSizeY = 180.f;
 
+	m_vPos = m_vEffectPos;
 	SetPos(m_vPos);
 	SetScale(m_fSizeX, m_fSizeY);
 	m_pTextureCom->Change_Texture(0);
@@ -128,34 +144,35 @@ _int CEffectUI::Update_GameObject(const _float& fTimeDelta)
 	if (m_fTime > 1.5f)
 	{
 		CUIManager::GetInstance()->Set_RenderEffect(false);
-
 		return 0;
 	}
 	else
 	{
-
-		float fTime = fmodf(m_fTime, 1.5f);
-
-		float fSection = fTime / 0.5f;   // 0~4
-		int idx = (int)fSection;
-		float fLocalTime = fSection - idx; // 0~1
-
-		D3DXCOLOR colors[3] =
+		if (m_bRandomColor)
 		{
-			D3DXCOLOR(1, 0, 0, 1), 
-			D3DXCOLOR(0, 0, 1, 1), 
-			D3DXCOLOR(0, 1, 0, 1)
-			 
-		};
+			float fTime = fmodf(m_fTime, 1.5f);
 
-		int nextIdx = (idx + 1) % 3;
+			float fSection = fTime / 0.5f;   // 0~4
+			int idx = (int)fSection;
+			float fLocalTime = fSection - idx; // 0~1
 
-		D3DXCOLOR curColor =
-			colors[idx] * (1.0f - fLocalTime) +
-			colors[nextIdx] * fLocalTime;
+			D3DXCOLOR colors[3] =
+			{
+				D3DXCOLOR(1, 0, 0, 1),
+				D3DXCOLOR(0, 0, 1, 1),
+				D3DXCOLOR(0, 1, 0, 1)
 
-		m_pEffectText->Set_Color(curColor);
+			};
 
+			int nextIdx = (idx + 1) % 3;
+
+			D3DXCOLOR curColor =
+				colors[idx] * (1.0f - fLocalTime) +
+				colors[nextIdx] * fLocalTime;
+
+			m_pEffectText->Set_Color(curColor);
+		}
+		
 		m_pEffectText->Update_GameObject(fTimeDelta);
 		CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 	}
