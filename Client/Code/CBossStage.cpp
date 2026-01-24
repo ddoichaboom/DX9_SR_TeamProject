@@ -40,6 +40,7 @@
 
 
 #include "CUIManager.h"
+#include "CCursor.h"
 
 //Effect
 #include "CBlood.h"
@@ -224,6 +225,17 @@ HRESULT CBossStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 
     if (FAILED(pLayer->Add_GameObject(pCamera)))
         return E_FAIL;
+
+
+    // 커서 생성
+    pGameObject = CCursor::Create(m_pGraphicDev);
+
+    if (pGameObject == nullptr)
+        return E_FAIL;
+
+    if (FAILED(pLayer->Add_GameObject(pGameObject)))
+        return E_FAIL;
+
 
     m_mapLayer.insert({ pLayerTag, pLayer });
     m_pGameLogic_Layer = pLayer;

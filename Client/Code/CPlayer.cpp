@@ -22,6 +22,12 @@
 #include "CMapCollider.h"
 #include "CMonster.h"
 
+
+//Test
+#include "CSoda.h"
+#include "CAxe.h"
+#include "CExtinguisher.h"
+
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCharacter(pGraphicDev, 15.f)
 	, m_pLeftPart(nullptr), m_pRightPart(nullptr), m_pMiddlePart(nullptr)
@@ -474,6 +480,24 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 			Change_Weapon(WEAPON_KATANA);
 		return;
 	}
+
+	if (CDInputMgr::GetInstance()->Key_Down(DIK_4))
+	{
+		CreateSoda();
+		return;
+	}
+
+	if (CDInputMgr::GetInstance()->Key_Down(DIK_5))
+	{
+		CreateAxe();
+		return;
+	}
+
+	if (CDInputMgr::GetInstance()->Key_Down(DIK_6))
+	{
+		CreateExtinguisher();
+		return;
+	}
 }
 
 //몬스터 전체를 가져와서 마우스와 피킹 체크 
@@ -491,6 +515,30 @@ void CPlayer::CheckPickedMonster()
 	auto pairIter = pLayer->Get_Objects(OBJ_MONSTER);
 	//multimap<OBJ_ID, CGameObject*> 에 대한 반복자
 	//OBJ_ID를 키로 가진 오브젝트들의 반복자 범위를 반환 = 몬스터 전체 목록
+	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
+	{
+		CCollision* pCollision = static_cast<CCollision*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+		if (!pCollision) continue;
+
+		auto& mapCollider = pCollision->GetColliderMap();
+		if (mapCollider.empty()) continue;
+		//몬스터의 CollisionCom에 있는 전체 Collider 
+		for (auto& pairCollider : mapCollider)
+		{
+			bool bPicked = CCollision::Collision_Mouse(g_hWnd, m_pGraphicDev, pairCollider.second);
+			if (bPicked)
+			{
+				pickedList.push_back({ iter->second->Get_ViewZ() ,pairCollider.second });
+			}
+		}
+	}
+
+	// 소화기 등등 상호작용이지만 환경레이어에 들어갈애들 
+
+	pLayer = CManagement::GetInstance()->Get_Layer(L"Environment_Layer");
+	if (!pLayer) return;
+
+	pairIter = pLayer->Get_Objects(OBJ_ITEM);
 	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
 	{
 		CCollision* pCollision = static_cast<CCollision*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
@@ -1779,6 +1827,60 @@ void CPlayer::OnCollision(CollisionInfo info)
 		}
 	}
 
+}
+
+/// <summary>
+/// Test
+/// </summary>
+void CPlayer::CreateSoda()
+{
+	CSoda* pSoda = CPoolMgr::GetInstance()->Get_Object<CSoda>();
+	if (!pSoda) return;
+
+	_vec3 vMyPos = *m_pTransformCom->Get_Info(INFO_POS);		
+	vMyPos.z += 50.f;
+
+
+	pSoda->SetPos(vMyPos);
+	pSoda->Set_JumpDir();
+	
+	CLayer* layer = CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer");
+	if (!layer) pSoda->ReturnToPool();
+	else layer->Add_GameObject(pSoda);
+
+}
+
+void CPlayer::CreateAxe()
+{
+	CAxe* pAxe = CPoolMgr::GetInstance()->Get_Object<CAxe>();
+	if (!pAxe) return;
+
+	_vec3 vMyPos = *m_pTransformCom->Get_Info(INFO_POS);
+	vMyPos.z += 50.f;
+
+
+	pAxe->SetPos(vMyPos);
+	pAxe->Set_JumpDir();
+
+	CLayer* layer = CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer");
+	if (!layer) pAxe->ReturnToPool();
+	else layer->Add_GameObject(pAxe);
+}
+
+void CPlayer::CreateExtinguisher()
+{
+	CExtinguisher* pExting = CPoolMgr::GetInstance()->Get_Object<CExtinguisher>();
+	if (!pExting) return;
+
+	_vec3 vMyPos = *m_pTransformCom->Get_Info(INFO_POS);
+	vMyPos.z += 50.f;
+
+	pExting->SetPos(vMyPos);
+	pExting->SetTransformMatrix();
+
+	CLayer* layer = CManagement::GetInstance()->Get_Layer(L"Environment_Layer");
+	if (!layer) pExting->ReturnToPool();
+	else layer->Add_GameObject(pExting);
 }
 
 

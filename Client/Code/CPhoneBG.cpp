@@ -16,7 +16,7 @@ CPhoneBG::CPhoneBG(LPDIRECT3DDEVICE9 pGraphicDev)
 	,	m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
 	, m_pPhonePlayer(nullptr), m_pHpUI(nullptr)
 {
-	m_eOBJ_ID = OBJ_ITEM;
+	
 }
 
 CPhoneBG::CPhoneBG(const CPhoneBG& rhs)
@@ -24,7 +24,7 @@ CPhoneBG::CPhoneBG(const CPhoneBG& rhs)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
 	, m_pPhonePlayer(nullptr), m_pHpUI(nullptr)
 {
-	m_eOBJ_ID = OBJ_ITEM;
+	
 }
 
 CPhoneBG::~CPhoneBG()

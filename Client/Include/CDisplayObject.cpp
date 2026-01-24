@@ -5,7 +5,7 @@
 
 vector<TextureSource> CDisplayObject::m_vTextureSource =
 {
-    
+    {0, L"../Bin/Resource/Texture/UI/STAGE_UI_FLOOR1.dds"},
 };
 
 CDisplayObject::CDisplayObject(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -56,6 +56,10 @@ _int CDisplayObject::Update_GameObject(const _float& fTimeDelta)
         return RET_DEAD;
     int iExit = CGameObject::Update_GameObject(fTimeDelta);
     CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA, this);
+
+    _vec3 info;
+    m_pTransformCom->Get_Info(INFO_POS, &info);
+    Compute_ViewZ(&info);
 
     return iExit;
 }

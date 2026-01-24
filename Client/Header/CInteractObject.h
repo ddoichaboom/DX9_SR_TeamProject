@@ -34,6 +34,7 @@ public:
 	virtual		void	Rotate(ROTATION _Axis, _float _degree);
 	virtual		void	SetScale(_vec3 _scale);
 	virtual		void	SetTexture(_uint iTextureID);
+	virtual		void	SetTransformMatrix();
 
 
 	virtual		void	Activate() override;

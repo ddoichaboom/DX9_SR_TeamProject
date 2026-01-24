@@ -136,6 +136,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -143,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Header\CAxe.h" />
     <ClInclude Include="..\Header\CBackGround.h" />
     <ClInclude Include="..\Header\CBaseUI.h" />
     <ClInclude Include="..\Header\CBeam.h" />
@@ -163,6 +165,7 @@
     <ClInclude Include="..\Header\CDashUI.h" />
     <ClInclude Include="..\Header\CDoorTrigger.h" />
     <ClInclude Include="..\Header\CEffectUI.h" />
+    <ClInclude Include="..\Header\CExtinguisher.h" />
     <ClInclude Include="..\Header\CFontUI.h" />
     <ClInclude Include="..\Header\CExplosion.h" />
     <ClInclude Include="..\Header\CFlare.h" />
@@ -206,6 +209,7 @@
     <ClInclude Include="..\Header\CSkyBox.h" />
     <ClInclude Include="..\Header\CSlopeFloor.h" />
     <ClInclude Include="..\Header\CSlotUI.h" />
+    <ClInclude Include="..\Header\CSoda.h" />
     <ClInclude Include="..\Header\CStageBG.h" />
     <ClInclude Include="..\Header\CStageEndTrigger.h" />
     <ClInclude Include="..\Header\CTakeDown.h" />
@@ -231,6 +235,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Code\CAxe.cpp" />
     <ClCompile Include="..\Code\CBackGround.cpp" />
     <ClCompile Include="..\Code\CBaseUI.cpp" />
     <ClCompile Include="..\Code\CBeam.cpp" />
@@ -251,6 +256,7 @@
     <ClCompile Include="..\Code\CDashUI.cpp" />
     <ClCompile Include="..\Code\CDoorTrigger.cpp" />
     <ClCompile Include="..\Code\CEffectUI.cpp" />
+    <ClCompile Include="..\Code\CExtinguisher.cpp" />
     <ClCompile Include="..\Code\CFontUI.cpp" />
     <ClCompile Include="..\Code\CExplosion.cpp" />
     <ClCompile Include="..\Code\CFlare.cpp" />
@@ -293,6 +299,7 @@
     <ClCompile Include="..\Code\CSkyBox.cpp" />
     <ClCompile Include="..\Code\CSlopeFloor.cpp" />
     <ClCompile Include="..\Code\CSlotUI.cpp" />
+    <ClCompile Include="..\Code\CSoda.cpp" />
     <ClCompile Include="..\Code\CStageBG.cpp" />
     <ClCompile Include="..\Code\CStageEndTrigger.cpp" />
     <ClCompile Include="..\Code\CTakeDown.cpp" />
