@@ -72,6 +72,7 @@ HRESULT CSoda::Ready_GameObject()
             OnCollision(info);
         });
 
+    m_pMainCollider->OffCollision();
 
     m_pTextureCom->Change_Texture(m_iTextureID);
     return S_OK;
@@ -142,6 +143,7 @@ void CSoda::Activate()
     m_bGround = false;
     m_fVelocity = 0.f;
     m_fJumpTime = 0.f;    
+    m_pMainCollider->OffCollision();
     m_pTextureCom->Change_Texture(m_iTextureID);     
 }
 
@@ -224,6 +226,7 @@ void CSoda::Set_OnFloor(const _float& fTimeDelta)
                 m_bFall = false;
                 m_bGround = true;
                 vPosition.y = fHeight + m_pMainCollider->Get_Scale().y * 0.5f;
+                m_pMainCollider->OnCollision();
             }
         }
         else
@@ -237,7 +240,9 @@ void CSoda::Set_OnFloor(const _float& fTimeDelta)
             else
             {
                 m_bFall = false;
+                m_bGround = true;
                 vPosition.y = fHeight +  m_pMainCollider->Get_Scale().y * 0.5f;                
+                m_pMainCollider->OnCollision();
             }
         }
     }
