@@ -343,7 +343,6 @@ void CBoss::Collision_Beam()
 		}
 		return;
 	}
-
 }
 
 

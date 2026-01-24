@@ -9,6 +9,7 @@
 #include "CMapLoader.h"
 #include "CEventMgr.h"
 #include "CFontMgr.h"
+#include "CSoundMgr.h"
 
 #include <ctime>
 
@@ -84,6 +85,7 @@ HRESULT CMainApp::Ready_MainApp()
 int CMainApp::Update_MainApp(const float& fTimeDelta)
 {
 	CDInputMgr::GetInstance()->Update_InputDev();
+	CSoundMgr::GetInstance()->Update_Sound();
 	_int iExit = m_pManagementClass->Update_Scene(fTimeDelta);
 	if (iExit == RET_DEAD) SetNextScene();
 	return 0;
@@ -121,6 +123,8 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 
 	if (FAILED(CDInputMgr::GetInstance()->Ready_InputDev(g_hInst, g_hWnd)))
 		return E_FAIL;
+	
+	CSoundMgr::GetInstance()->Ready_Sound();
 
 	(*ppGraphicDev)->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_CLAMP);
 	(*ppGraphicDev)->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP);
@@ -425,6 +429,7 @@ void CMainApp::Free()
 	CEventMgr::DestroyInstance();
 	CUIManager::DestroyInstance();
 	CFontMgr::DestroyInstance();
+	CSoundMgr::DestroyInstance();
 
 	m_pDeviceClass->DestroyInstance();
 }

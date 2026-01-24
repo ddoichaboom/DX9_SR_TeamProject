@@ -1806,6 +1806,7 @@ void CPlayer::Free()
 	Safe_Release(m_pLeftPart);
 	Safe_Release(m_pRightPart);
 	Safe_Release(m_pMiddlePart);	
+	Safe_Release(m_pSodaUI);
 	for_each(m_mapWeapon.begin(), m_mapWeapon.end(), CDeleteMap());
 	m_mapWeapon.clear();
 }

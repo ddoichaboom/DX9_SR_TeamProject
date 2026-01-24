@@ -174,5 +174,16 @@ namespace Engine
 		ITEM_AXE,
 		ITEM_END
 	};
+
+	enum CHANNELID
+	{
+		SOUND_PLAYER,
+		SOUND_MONSTER,
+		SOUND_WEAPON,
+		SOUND_OBJECT,
+		SOUND_BGM,
+		SOUND_END
+	};
+
 }
 #endif // Engine_Enum_h__

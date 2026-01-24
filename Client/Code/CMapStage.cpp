@@ -57,6 +57,7 @@
 #include "CTextBG.h"
 #include "CTextUI.h"
 
+#include "CSoundMgr.h"
 
 CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
 {
@@ -118,6 +119,12 @@ _int CMapStage::Update_Scene(const _float& fTimeDelta)
     {
         m_pBackGround->Update_GameObject(fTimeDelta);
         m_pLoadingEX->Update_Loading();
+
+        //TODO : 사운드 매니저 예시. 제거하기 
+        if (m_pLoadingEX->IsEnd())
+        {
+            CSoundMgr::GetInstance()->PlayBGM(szMap1BGM.c_str());
+        }
         return 0;
     }
     int iExit = CStage::Update_Scene(fTimeDelta);
@@ -133,6 +140,13 @@ _int CMapStage::Update_Scene(const _float& fTimeDelta)
     if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_K))
     {
         CUIManager::GetInstance()->Change_UIState(UI_TAKEDOWN);
+    }
+
+    if (CDInputMgr::GetInstance()->Mouse_Down(DIM_LB))
+    {
+        //TODO : 사운드 매니저 예시. 제거하기 
+        //주소, 볼륨 - 현재 삽입하는 채널그룹의 전체 볼륨이 다같이 조정됨 
+        CSoundMgr::GetInstance()->PlayPlayerSound(szPlayerShoot.c_str(), 0.8f);
     }
 
     return iExit;

@@ -6,8 +6,12 @@ REM Engine Build Post-Event: Copy headers, dll, and lib files
 REM Copy Engine headers to Reference
 xcopy /y .\Engine\Header\*.h .\Reference\Header\
 
+REM Copy FMOD DLL to Engine
+xcopy /y .\_Library\FMOD\lib\x64\*.dll .\Engine\Bin\
+
 REM Copy Engine.dll to Client Bin
 xcopy /y .\Engine\Bin\Engine.dll .\Client\Bin\
+xcopy /y .\Engine\Bin\fmod*.dll .\Client\Bin\
 
 REM Copy Engine.dll to Editor Bin
 xcopy /y .\Engine\Bin\Engine.dll .\Editor\Bin\
