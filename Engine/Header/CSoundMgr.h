@@ -3,10 +3,10 @@
 #include <io.h>
 #include "Engine_Define.h"
 
-class FMOD_SOUND;
-class FMOD_CHANNEL;
-class FMOD_SYSTEM;
-class FMOD_CHANNELGROUP;
+struct FMOD_SOUND;
+struct FMOD_CHANNEL;
+struct FMOD_SYSTEM;
+struct FMOD_CHANNELGROUP;
 
 BEGIN(Engine)
 
