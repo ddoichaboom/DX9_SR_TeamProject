@@ -546,6 +546,9 @@
     <ClInclude Include="..\Header\CInteractObject.h">
       <Filter>02. GameObject\03.MapObject\01.InteractiveObj</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CSoda.h">
+      <Filter>02. GameObject\03.MapObject\03.Soda</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -787,6 +790,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CInteractObject.cpp">
       <Filter>02. GameObject\03.MapObject\01.InteractiveObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSoda.cpp">
+      <Filter>02. GameObject\03.MapObject\03.Soda</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

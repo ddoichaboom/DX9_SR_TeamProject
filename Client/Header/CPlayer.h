@@ -179,6 +179,9 @@ protected:
 	virtual void	Free();
 	void			OnCollision(CollisionInfo info);
 
+protected:
+	void			CreateSoda();
+
 private:
 	CLeftPart* m_pLeftPart;
 	CRightPart* m_pRightPart;

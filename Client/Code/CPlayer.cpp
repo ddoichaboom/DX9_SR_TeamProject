@@ -22,6 +22,11 @@
 #include "CMapCollider.h"
 #include "CMonster.h"
 
+
+//Test
+#include "CSoda.h"
+#include "CManagement.h"
+
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCharacter(pGraphicDev, 15.f)
 	, m_pLeftPart(nullptr), m_pRightPart(nullptr), m_pMiddlePart(nullptr)
@@ -472,6 +477,12 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 	{
 		if (m_eWeaponState != WEAPON_KATANA)
 			Change_Weapon(WEAPON_KATANA);
+		return;
+	}
+
+	if (CDInputMgr::GetInstance()->Key_Down(DIK_4))
+	{
+		CreateSoda();
 		return;
 	}
 }
@@ -1778,6 +1789,27 @@ void CPlayer::OnCollision(CollisionInfo info)
 			CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(m_pHitUI);
 		}
 	}
+
+}
+
+/// <summary>
+/// Test
+/// </summary>
+void CPlayer::CreateSoda()
+{
+	CSoda* pSoda = CPoolMgr::GetInstance()->Get_Object<CSoda>();
+	if (!pSoda) return;
+
+	_vec3 myPos = *m_pTransformCom->Get_Info(INFO_POS);
+
+	myPos.y += 5.f;
+	myPos.z += 50.f;
+
+	pSoda->SetPos(myPos);
+	
+	CLayer* layer = CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer");
+	if (!layer) pSoda->ReturnToPool();
+	else layer->Add_GameObject(pSoda);
 
 }
 

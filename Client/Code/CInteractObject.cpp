@@ -8,6 +8,7 @@ CInteractObject::CInteractObject(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr), m_pCollisionCom(nullptr)
     , m_eItemType(ITEM_NONE), m_iTextureID(0)
 {
+    m_eOBJ_ID = OBJ_ITEM;
 }
 
 CInteractObject::CInteractObject(const CInteractObject& rhs)
@@ -15,6 +16,7 @@ CInteractObject::CInteractObject(const CInteractObject& rhs)
     , m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr), m_pCollisionCom(nullptr)
     , m_eItemType(ITEM_NONE), m_iTextureID(0)
 {
+    m_eOBJ_ID = OBJ_ITEM;
 }
 
 CInteractObject::~CInteractObject()
