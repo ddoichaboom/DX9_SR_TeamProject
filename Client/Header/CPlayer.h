@@ -15,6 +15,7 @@ class CMiddlePart;
 class CWeapon;
 class CHitUI;
 class CMonster;
+class CSodaUI;
 // πŸ≤„æﬂ«“∞≈∞∞±‰«‘
 //class CShopBG;
 
@@ -230,6 +231,7 @@ private:
 
 	//πÊΩ¬»Ò √ﬂ∞° ¿Ã∆Â∆Æ
 	CHitUI* m_pHitUI;
+	CSodaUI* m_pSodaUI;
 	//πÊΩ¬»Ò √ﬂ∞° 
 	bool m_bTakeDown;
 	CMonster* m_pTakeDownObject; 

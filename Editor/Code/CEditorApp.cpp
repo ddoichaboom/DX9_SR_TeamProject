@@ -35,6 +35,7 @@
 #include "CToonFlash.h"
 #include "CToonFog.h"
 #include "CBossTrail.h"
+#include "CSodaUI.h"
 
 CEditorApp::CEditorApp()
     : m_pGraphicDev(nullptr)
@@ -473,6 +474,14 @@ HRESULT CEditorApp::Ready_Texture_Prototype()
     if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_ToonFog_Texture", pCom_Texture)))
     {
         MSG_BOX("Proto ToonFog Ready Failed");
+        return E_FAIL;
+    }
+
+    //SodaUI Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CSodaUI::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_SodaUI_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto SodaUI Ready Failed");
         return E_FAIL;
     }
 

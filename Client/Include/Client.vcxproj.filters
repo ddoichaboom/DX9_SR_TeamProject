@@ -304,6 +304,9 @@
     <Filter Include="02. GameObject\03.MapObject\05.Extinguisher">
       <UniqueIdentifier>{e07de885-8743-4e17-ad6f-09ecac3dd9e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\13. Effect\11. SodaUI">
+      <UniqueIdentifier>{f304972e-13f1-4c77-a2b2-f6465196219e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -564,6 +567,9 @@
     <ClInclude Include="..\Header\CInteractObject.h">
       <Filter>02. GameObject\03.MapObject\01.InteractiveObj</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CSodaUI.h">
+      <Filter>02. GameObject\13. Effect\11. SodaUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -814,6 +820,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CInteractObject.cpp">
       <Filter>02. GameObject\03.MapObject\01.InteractiveObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSodaUI.cpp">
+      <Filter>02. GameObject\13. Effect\11. SodaUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -9,6 +9,7 @@
 #include "CBeam.h"
 #include "CRocket.h"
 #include "CBossTrail.h"
+#include "CExplosion.h"
 
 //-------------------------------------------------------------------------
 // Texture , Animation Data
@@ -164,6 +165,7 @@ HRESULT CBoss::Ready_GameObject()
 
 	m_fAttackDamage = 5.f;
 	//m_fSpeed = m_fBaseSpeed;
+	m_fHP = 100.f;
 	return S_OK;
 }
 
@@ -349,6 +351,13 @@ void CBoss::Collision_Beam()
 void CBoss::OnBodyCollision(CollisionInfo info)
 {
 	m_fHP -= info.fDamage;
+	CExplosion* exp = CPoolMgr::GetInstance()->Get_Object<CExplosion>();
+	if (exp)
+	{
+		exp->SetPos(*m_pTransformCom->Get_Info(INFO_POS));
+		exp->Reset();
+		CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(exp);
+	}
 	if (m_fHP <= 0.f)
 	{
 		if (m_pBodyCollider) m_pBodyCollider->OffCollision();

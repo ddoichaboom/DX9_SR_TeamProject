@@ -30,7 +30,7 @@ void CEffectToolBar::Update_ToolBar()
 
 void CEffectToolBar::Render_ToolBar()
 {
-    static const char* emitters[] = { "BLOOD", "TRAIL", "FLARE", "EXPLOSION", "BEAMFLARE", "BODYEMIT","HITUI", "BOSSTRAIL","TAKEDOWN_BLOOD", "TOONFLASH", "TOONFOG"};
+    static const char* emitters[] = { "BLOOD", "TRAIL", "FLARE", "EXPLOSION", "BEAMFLARE", "BODYEMIT","HITUI", "BOSSTRAIL","TAKEDOWN_BLOOD", "TOONFLASH", "TOONFOG", "SODAUI"};
     static int selectedIndex = -1;
 
     ImGui::Begin("Effect Bar", nullptr, ImGuiWindowFlags_NoCollapse);

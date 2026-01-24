@@ -133,8 +133,9 @@ void CBullet::Explosion()
 	if (exp)
 	{
 		CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(exp);
-		_vec3 pos = *m_pTransformCom->Get_Info(INFO_POS) - m_vDir* 5.f;
+		_vec3 pos = *m_pTransformCom->Get_Info(INFO_POS) - m_vDir* 10.f;
 		exp->SetPos(pos);
+		exp->SetSize({ 0.5f, 0.5f });
 		exp->Reset();
 	}
 }

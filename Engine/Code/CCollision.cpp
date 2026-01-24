@@ -184,7 +184,7 @@ bool CCollision::Collision_Mouse(HWND hWnd, LPDIRECT3DDEVICE9 _pGraphicDev, CCol
     return Collision_Ray(_col, vRayPos, vRayDir);
 }
 
-bool CCollision::Collision_Ray(CCollider* _col, _vec3 _RayPos, _vec3 _RayDir)
+bool CCollision::Collision_Ray(CCollider* _col, _vec3 _RayPos, _vec3 _RayDir,_float* pOutCollisionTime)
 {
     static const float eps = 1e-6f;
     _matrix mat = _col->GetWorldMatrix();
@@ -242,6 +242,10 @@ bool CCollision::Collision_Ray(CCollider* _col, _vec3 _RayPos, _vec3 _RayDir)
     rMin = max(tMinx, max(tMiny, tMinz));
     rMax = min(tMaxx, min(tMaxy, tMaxz));
 
+    if (rMin <= rMax && pOutCollisionTime)
+    {
+        *pOutCollisionTime = rMin;
+    }
     return rMin <= rMax;
 }
 

@@ -21,6 +21,8 @@
 #include "CUIManager.h"
 #include "CMapCollider.h"
 #include "CMonster.h"
+#include "CSodaUI.h"
+
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCharacter(pGraphicDev, 15.f)
@@ -34,7 +36,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_fHP(20.f), m_fMaxHP(20.f), m_fTime(0.f), m_fStageTime(0.f), m_bStage(false)
 	, m_bSlope(false), m_bSideDash(false)
 	, m_pColHitObj(nullptr),m_pTakeDownObject(nullptr), m_pTakeDownCollider(nullptr)
-	, m_bMoveStop(false), m_bAbleTakeDown(false)
+	, m_bMoveStop(false), m_bAbleTakeDown(false), m_pSodaUI(nullptr)
 {
 
 	m_eOBJ_ID = OBJ_PLAYER;
@@ -53,7 +55,7 @@ CPlayer::CPlayer(const CPlayer& rhs)
 	, m_fHP(20.f), m_fMaxHP(20.f), m_fTime(0.f), m_fStageTime(0.f), m_bStage(false)
 	, m_bSlope(false), m_bSideDash(false)
 	, m_pColHitObj(nullptr), m_pTakeDownObject(nullptr), m_pTakeDownCollider(nullptr)
-	, m_bMoveStop(false), m_bAbleTakeDown(false)
+	, m_bMoveStop(false), m_bAbleTakeDown(false), m_pSodaUI(nullptr)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
 	m_iID = 0;
@@ -145,8 +147,8 @@ HRESULT CPlayer::Ready_GameObject()
 	//m_eWeaponState = WEAPON_KATANA;
 
 	Change_State(INTRO);
-
-	if (m_pHitUI) return E_FAIL;
+	m_pSodaUI = CSodaUI::Create(m_pGraphicDev);
+	m_pSodaUI->SetDead();
 
 	return S_OK;
 }
@@ -198,6 +200,10 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 	if (m_pHitUI && m_pHitUI->IsDead())
 	{
 		m_pHitUI = nullptr;
+	}
+	if (m_pSodaUI&& m_pSodaUI->IsDead() == false)
+	{
+		m_pSodaUI->Update_GameObject(fTimeDelta);
 	}
 	return iExit;
 }
@@ -1108,6 +1114,7 @@ void CPlayer::Shop_Func()
 /// </summary>
 void CPlayer::Drink_Func()
 {
+	if(m_pSodaUI) m_pSodaUI->Reset();
 	Add_HP(m_fMaxHP);
 
 	if (m_eNowState == IDLE)

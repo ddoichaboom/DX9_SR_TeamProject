@@ -206,6 +206,7 @@
     <ClInclude Include="..\Header\CSkyBox.h" />
     <ClInclude Include="..\Header\CSlopeFloor.h" />
     <ClInclude Include="..\Header\CSlotUI.h" />
+    <ClInclude Include="..\Header\CSodaUI.h" />
     <ClInclude Include="..\Header\CStageBG.h" />
     <ClInclude Include="..\Header\CStageEndTrigger.h" />
     <ClInclude Include="..\Header\CTakeDown.h" />
@@ -293,6 +294,7 @@
     <ClCompile Include="..\Code\CSkyBox.cpp" />
     <ClCompile Include="..\Code\CSlopeFloor.cpp" />
     <ClCompile Include="..\Code\CSlotUI.cpp" />
+    <ClCompile Include="..\Code\CSodaUI.cpp" />
     <ClCompile Include="..\Code\CStageBG.cpp" />
     <ClCompile Include="..\Code\CStageEndTrigger.cpp" />
     <ClCompile Include="..\Code\CTakeDown.cpp" />

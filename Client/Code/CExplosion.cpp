@@ -12,6 +12,7 @@ CExplosion::CExplosion(IDirect3DDevice9* device)
 	m_iMaxParticle = 10;
 	m_iBatchSize = 5;
 	m_fLifeTime = 1.2f;
+	m_vSize = { 1.f,1.f };
 	m_bLoop = false;
 }
 
@@ -121,6 +122,12 @@ void CExplosion::SetPostRenderState()
 	m_pGraphicDev->SetTextureStageState(1, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
 }
 
+void CExplosion::Deactivate()
+{
+	CParticleEmitter::Deactivate();
+	m_vSize = { 1.f,1.f };
+}
+
 void CExplosion::Reset()
 {
 	int idx = 0;
@@ -129,6 +136,7 @@ void CExplosion::Reset()
 		ResetParticle(&(*iter), idx);
 		idx++;
 	}
+
 }
 
 HRESULT CExplosion::Add_Component()
@@ -176,19 +184,19 @@ void CExplosion::ResetParticle(Particle* particle, int idx)
 
 	if (particle->bFlag)
 	{
-		randX = GetRandomFloat(-5.f, 5.f);
-		randY = GetRandomFloat(-5.f, 5.f);
-		randSizeX = GetRandomFloat(10.f, 20.f);
-		fSpeed = GetRandomFloat(m_fAnimSpeed, m_fAnimSpeed*1.5f);
+		randX = GetRandomFloat(vRedPosXOffset.x * m_vSize.x, vRedPosXOffset.y * m_vSize.y);
+		randY = GetRandomFloat(vRedPosYOffset.x * m_vSize.x, vRedPosYOffset.y * m_vSize.y);
+		randSizeX = GetRandomFloat(vRedSizeXOffset.x * m_vSize.x, vRedSizeXOffset.y * m_vSize.y);
+		fSpeed = GetRandomFloat(m_fAnimSpeed * vRedSpeedOffset.x * m_vSize.x, m_fAnimSpeed * vRedSpeedOffset.y * m_vSize.y);
 		particle->color = m_RedColor;
 		particle->fAnimSpeed = fSpeed;
 	}
 	else
 	{
-		randX = GetRandomFloat(-8.f, 8.f);
-		randY = GetRandomFloat(-8.f, 8.f);
-		randSizeX = GetRandomFloat(15.f, 25.f);
-		fSpeed = GetRandomFloat(m_fAnimSpeed * 2.f, m_fAnimSpeed * 3.f);
+		randX = GetRandomFloat(vGrayPosXOffset.x * m_vSize.x, vGrayPosXOffset.y * m_vSize.y);
+		randY = GetRandomFloat(vGrayPosYOffset.x * m_vSize.x, vGrayPosYOffset.y * m_vSize.y);
+		randSizeX = GetRandomFloat(vGraySizeXOffset.x * m_vSize.x, vGraySizeXOffset.y * m_vSize.y);
+		fSpeed = GetRandomFloat(m_fAnimSpeed * vGraySpeedOffset.x * m_vSize.x, m_fAnimSpeed * vGraySpeedOffset.y * m_vSize.y);
 		particle->color = m_GrayColor;
 		particle->fAnimSpeed = fSpeed;
 	}

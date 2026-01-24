@@ -76,9 +76,14 @@ void CBeam::Render_GameObject()
 	m_pBufferUpCom->Render_Buffer();
 }
 
-bool CBeam::CheckCollision(CCollider* _pCollider)
+bool CBeam::CheckCollision(CCollider* _pCollider, _float* _pOutCollisionTime, _vec3* _pOutPos)
 {
-	return CCollision::Collision_Ray(_pCollider, m_vPos, m_vShootDir);
+	bool bCollision = CCollision::Collision_Ray(_pCollider, m_vPos, m_vShootDir, _pOutCollisionTime);
+	if (bCollision && _pOutPos && _pOutCollisionTime)
+	{
+		*_pOutPos = m_vPos + m_vShootDir * (*_pOutCollisionTime)*10.f;
+	}
+	return bCollision;
 }
 
 _vec3 CBeam::GetScale()

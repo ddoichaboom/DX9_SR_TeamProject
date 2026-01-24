@@ -300,6 +300,9 @@
     <ClInclude Include="..\Header\CToonFog.h">
       <Filter>07. Effect\10. ToonFog</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CSodaUI.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -436,6 +439,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CToonFog.cpp">
       <Filter>07. Effect\10. ToonFog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSodaUI.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

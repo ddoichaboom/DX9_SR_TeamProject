@@ -49,12 +49,14 @@
 #include "CBodyEmit.h"
 #include "CHitUI.h"
 #include "CTakeDownBlood.h"
+#include "CSodaUI.h"
 
 #include "CLoadingEX.h"
 
 #include "CCursor.h"
 #include "CTextBG.h"
 #include "CTextUI.h"
+
 
 CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
 {
@@ -538,7 +540,13 @@ HRESULT CMapStage::Ready_EffectTextureProto()
         return E_FAIL;
     }
 
-
+    //SodaUI
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CSodaUI::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_SodaUI_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto SodaUI Ready Failed");
+        return E_FAIL;
+    }
 
     return S_OK;
 }
