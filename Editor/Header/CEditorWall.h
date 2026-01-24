@@ -17,7 +17,7 @@ enum WALL_DIR
 
 class CEditorWall : public CEditorObject
 {
-private:
+protected:
     explicit        CEditorWall(LPDIRECT3DDEVICE9 pGraphicDev);
     virtual         ~CEditorWall();
 
@@ -38,21 +38,21 @@ public:
     void            Set_WallDirection(WALL_DIR eDir);
     WALL_DIR        Get_WallDirection() const { return m_eWallDir; }
 
-private:
-    HRESULT         Add_Component();
+protected:
+    virtual HRESULT Add_Component();
 
 public:
-    void            Set_TextureIdx(_int iIdx);
+    virtual void    Set_TextureIdx(_int iIdx);
     _int            Get_TextureIdx() const { return m_iTextureIdx; }
 
-    void            Set_WallType(_uint iType);
+    virtual void    Set_WallType(_uint eWallType);
     _uint           Get_WallType() const { return m_iWallType; }
 
 protected:
     _int            m_iTextureIdx;      // 0 ~ 2 (아틀라스 인덱스)
     _uint           m_iWallType;       // enum 값 
 
-private:
+protected:
     WALL_DIR        m_eWallDir;     // 벽 방향
 
 public:

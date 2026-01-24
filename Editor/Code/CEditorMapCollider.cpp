@@ -123,17 +123,8 @@ void CEditorMapCollider::Set_ColliderScale(_vec3 vScale)
     if (m_pCollider)
     {
         m_pCollider->Set_Scale(vScale);
-
-        // 디버그: Scale이 실제로 설정되었는지 확인
-        char szDebug[256];
-        sprintf_s(szDebug, "Set_ColliderScale: (%.2f, %.2f, %.2f)\n",
-            vScale.x, vScale.y, vScale.z);
-        OutputDebugStringA(szDebug);
     }
-    else
-    {
-        OutputDebugStringA("Set_ColliderScale: m_pCollider is nullptr!\n");
-    }
+    
 }
 
 CEditorMapCollider* CEditorMapCollider::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)

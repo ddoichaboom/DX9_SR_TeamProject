@@ -653,7 +653,7 @@ CGameObject* CMapLoader::Get_GameObject_FromPool(const ObjectData& objData, LPDI
             pDynamicWall->SetPos(objData.vPos);
             pDynamicWall->SetAngle(objData.vRot);
             pDynamicWall->SetScale(objData.vScale);
-            pDynamicWall->Set_TextureIdx(objData.iTextureIdx);       // 동적 -> 정적 텍스처 변환 했을 때 사용할 텍스처 인덱스 
+            pDynamicWall->Set_TextureIdx(objData.iTextureIdx);
             pDynamicWall->Set_WallType(objData.iWallType);
             pDynamicWall->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
             pGameObject = pDynamicWall;

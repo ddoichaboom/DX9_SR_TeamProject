@@ -23,6 +23,7 @@
 #include "CEditorCeiling.h"
 #include "CEditorSpawnPoint.h"
 #include "CEditorWall.h"
+#include "CEditorDynamicWall.h"
 #include "CEditorMapCollider.h"
 #include "CEditorTriggerBox.h"
 
@@ -132,6 +133,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
         _uint iSlopeFloorCount = 0;
         _uint iCeilingCount = 0;
         _uint iWallCount = 0;
+        _uint iDynamicWallCount = 0;
         _uint iObstacleCount = 0;
         _uint iMapColliderCount = 0;
         _uint iTriggerBoxCount = 0;
@@ -182,12 +184,20 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                 SaveTransformData(jObj, pObj);
                 SaveTextureData(jObj, pObj);
             }
-            else if (dynamic_cast<CEditorWall*>(pObj))
+            else if (CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj))
             {
-                CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj);
+                CEditorDynamicWall* pDynamicWall = dynamic_cast<CEditorDynamicWall*>(pObj);
 
-                iWallCount++;
-                jObj["type"] = "Wall";
+                if (pDynamicWall)
+                {
+                    iDynamicWallCount++;
+                    jObj["type"] = "DynamicWall";
+                }
+                else
+                {
+                    iWallCount++;
+                    jObj["type"] = "Wall";
+                }
 
                 // Wall 전용 필드
                 jObj["wallDirection"] = static_cast<_int>(pWall->Get_WallDirection());
@@ -288,6 +298,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
         jMap["dynamicFloorCount"] = iDynamicFloorCount;
         jMap["ceilingCount"] = iCeilingCount;
         jMap["wallCount"] = iWallCount;
+        jMap["dynamicWallCount"] = iDynamicWallCount;
         jMap["obstacleCount"] = iObstacleCount;
         jMap["mapColliderCount"] = iMapColliderCount;      
         jMap["triggerBoxCount"] = iTriggerBoxCount;
@@ -487,15 +498,25 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
                     }
                 }
             }
-            else if (strType == "Wall")
+            else if (strType == "Wall" || strType == "DynamicWall")
             {
-                // Wall 방향 읽기
-                int iWallDir = jObj["wallDirection"];
-                WALL_DIR eDir = static_cast<WALL_DIR>(iWallDir);
+                WALL_DIR eDir = WALL_XY_FRONT;
+                if (jObj.contains("wallDirection"))
+                {
+                    int iWallDir = jObj["wallDirection"];
+                    eDir = static_cast<WALL_DIR>(iWallDir);
+                }
 
-                pObj = CEditorWall::Create(pGraphicDev, vPos, vRot, vScale, eDir);
+                if (strType == "DynamicWall")
+                {
+                    pObj = CEditorDynamicWall::Create(pGraphicDev, vPos, vRot, vScale, eDir);
+                }
+                else
+                {
+                    pObj = CEditorWall::Create(pGraphicDev, vPos, vRot, vScale, eDir);
+                }
 
-                if (iVersion >= 4 && jObj.contains("wallType"))
+                if (pObj)
                 {
                     CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj);
                     if (pWall)

@@ -159,6 +159,7 @@
     <ClInclude Include="..\Header\CEditorCeiling.h" />
     <ClInclude Include="..\Header\CEditorCube.h" />
     <ClInclude Include="..\Header\CEditorDynamicFloor.h" />
+    <ClInclude Include="..\Header\CEditorDynamicWall.h" />
     <ClInclude Include="..\Header\CEditorFloor.h" />
     <ClInclude Include="..\Header\CEditorMapCollider.h" />
     <ClInclude Include="..\Header\CEditorObject.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="..\Code\CEditorCeiling.cpp" />
     <ClCompile Include="..\Code\CEditorCube.cpp" />
     <ClCompile Include="..\Code\CEditorDynamicFloor.cpp" />
+    <ClCompile Include="..\Code\CEditorDynamicWall.cpp" />
     <ClCompile Include="..\Code\CEditorFloor.cpp" />
     <ClCompile Include="..\Code\CEditorMapCollider.cpp" />
     <ClCompile Include="..\Code\CEditorObject.cpp" />

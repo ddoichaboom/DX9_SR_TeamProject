@@ -249,6 +249,15 @@ HRESULT CMapStage::Ready_ObjectPool_Terrain()
         }
     }
 
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CDynamicWall>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CDynamicWall>(m_pGraphicDev)))
+        {
+            MSG_BOX("Dynamic Wall Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
     if (!Engine::CPoolMgr::GetInstance()->HasPool<CObstacle>())
     {
         if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CObstacle>(m_pGraphicDev)))
@@ -441,6 +450,19 @@ HRESULT CMapStage::Ready_TerrainTextureProto()
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Dynamic_FloorTexture", pCom_Texture)))
         return E_FAIL;
 
+    // Wall Proto 
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CWall::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Static_WallTexture", pCom_Texture)))
+        return E_FAIL;
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CDynamicWall::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Dynamic_WallTexture", pCom_Texture)))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WallAnimation",
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CDynamicWall::GetAnimSources()))))
+        return E_FAIL;
+
     // Ceiling Proto 
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CCeiling::GetTextureSources());
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Static_CeilingTexture", pCom_Texture)))
@@ -454,18 +476,7 @@ HRESULT CMapStage::Ready_TerrainTextureProto()
         Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CDynamicCeiling::GetAnimSources()))))
         return E_FAIL;
 
-    // Wall Proto 
-    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CWall::GetTextureSources());
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Static_WallTexture", pCom_Texture)))
-        return E_FAIL;
 
-    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CDynamicWall::GetTextureSources());
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Dynamic_WallTexture", pCom_Texture)))
-        return E_FAIL;
-
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WallAnimation",
-        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CDynamicWall::GetAnimSources()))))
-        return E_FAIL;
 
     return S_OK;
 }

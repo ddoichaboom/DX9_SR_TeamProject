@@ -142,6 +142,9 @@
     <Filter Include="07. Effect\08. TakeDownBlood">
       <UniqueIdentifier>{43f5b21b-5347-4be5-b0bf-66c124b94a1b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Object\03. EditorWall\DynamicWall">
+      <UniqueIdentifier>{fc4b4b76-49ff-4491-9e1f-1597048c5874}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -288,6 +291,9 @@
     <ClInclude Include="..\Header\CTakeDownBlood.h">
       <Filter>07. Effect\08. TakeDownBlood</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CEditorDynamicWall.h">
+      <Filter>04. Object\03. EditorWall\DynamicWall</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -418,6 +424,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTakeDownBlood.cpp">
       <Filter>07. Effect\08. TakeDownBlood</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorDynamicWall.cpp">
+      <Filter>04. Object\03. EditorWall\DynamicWall</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

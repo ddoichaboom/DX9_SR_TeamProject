@@ -6,12 +6,13 @@
 
 vector<TextureSource> CDynamicCeiling::m_vTextureSource =
 {
-	{ DYNAMIC_FLOOR_LAVA, L"../Bin/Resource/Texture/Terrain/Floor/DYNAMIC_FLOOR/LAVA.dds"}		// 임시 추가 
+		{DYNAMIC_WALL_FAN, L"../Bin/Resource/Texture/Terrain/WALL/DYNAMIC_WALL/FAN.dds"}
 };
 
 vector<AnimationSource> CDynamicCeiling::m_vAnimSource =
 {
-	{ DYNAMIC_FLOOR_LAVA, 0, 4, 4, true, 0.75f}		// 임시 추가 
+		{ DYNAMIC_WALL_FAN, 0, 2, 2, true, 0.5f}
+
 };
 
 CDynamicCeiling::CDynamicCeiling(LPDIRECT3DDEVICE9 pGraphicDev)

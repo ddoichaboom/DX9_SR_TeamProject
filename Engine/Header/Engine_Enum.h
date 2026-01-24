@@ -81,10 +81,8 @@ namespace Engine
 
 	enum DYNAMIC_WALL_TYPE 
 	{
-		// 나중에 앞부분에 정적 텍스처도 추가해야함 
-		// ( Collider에 동적 -> 정적 전환 함수 바인딩 (애니메이션 off, 별도 텍스처 출력)) 
-		DW_START = 100,
-		DYNAMIC_WALL,
+		DYNAMIC_WALL_FAN,
+		DYNAMIC_WALL_FAN_BLOOD,
 		DW_END
 	};
 

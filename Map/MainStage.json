@@ -1,6 +1,7 @@
 {
   "ceilingCount": 624,
   "dynamicFloorCount": 60,
+  "dynamicWallCount": 7,
   "floorCount": 761,
   "mapColliderCount": 56,
   "objectCount": 2082,
@@ -13860,29 +13861,6 @@
       "wallType": 5
     },
     {
-      "name": "Wall",
-      "position": [
-        56.0,
-        80.0,
-        664.0
-      ],
-      "roomIndex": 2,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Wall",
-      "wallDirection": 0,
-      "wallType": 5
-    },
-    {
       "floorType": 0,
       "isDynamic": false,
       "name": "Floor",
@@ -21410,53 +21388,7 @@
     {
       "name": "Wall",
       "position": [
-        -8.0,
-        48.0,
-        1048.0
-      ],
-      "roomIndex": 3,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Wall",
-      "wallDirection": 0,
-      "wallType": 2
-    },
-    {
-      "name": "Wall",
-      "position": [
         24.0,
-        48.0,
-        1048.0
-      ],
-      "roomIndex": 3,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Wall",
-      "wallDirection": 0,
-      "wallType": 2
-    },
-    {
-      "name": "Wall",
-      "position": [
-        56.0,
         48.0,
         1048.0
       ],
@@ -21525,29 +21457,6 @@
     {
       "name": "Wall",
       "position": [
-        56.0,
-        48.0,
-        1080.0
-      ],
-      "roomIndex": 3,
-      "rotation": [
-        180.0,
-        0.0,
-        180.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Wall",
-      "wallDirection": 1,
-      "wallType": 2
-    },
-    {
-      "name": "Wall",
-      "position": [
         88.0,
         48.0,
         1080.0
@@ -21572,29 +21481,6 @@
       "name": "Wall",
       "position": [
         -8.0,
-        48.0,
-        952.0
-      ],
-      "roomIndex": 3,
-      "rotation": [
-        180.0,
-        0.0,
-        180.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Wall",
-      "wallDirection": 1,
-      "wallType": 2
-    },
-    {
-      "name": "Wall",
-      "position": [
-        24.0,
         48.0,
         952.0
       ],
@@ -22313,29 +22199,6 @@
       "name": "Wall",
       "position": [
         -8.0,
-        48.0,
-        1176.0
-      ],
-      "roomIndex": 3,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Wall",
-      "wallDirection": 0,
-      "wallType": 2
-    },
-    {
-      "name": "Wall",
-      "position": [
-        24.0,
         48.0,
         1176.0
       ],
@@ -25366,29 +25229,6 @@
       ],
       "textureIdx": 7,
       "type": "Floor"
-    },
-    {
-      "name": "Wall",
-      "position": [
-        -8.0,
-        48.0,
-        1080.0
-      ],
-      "roomIndex": 3,
-      "rotation": [
-        180.0,
-        0.0,
-        180.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Wall",
-      "wallDirection": 1,
-      "wallType": 2
     },
     {
       "name": "Cube",
@@ -47116,10 +46956,171 @@
       ],
       "triggerType": 1,
       "type": "TriggerBox"
+    },
+    {
+      "name": "DynamicWall",
+      "position": [
+        56.0,
+        80.0,
+        664.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DynamicWall",
+      "wallDirection": 0,
+      "wallType": 0
+    },
+    {
+      "name": "DynamicWall",
+      "position": [
+        -8.0,
+        48.0,
+        1048.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DynamicWall",
+      "wallDirection": 0,
+      "wallType": 0
+    },
+    {
+      "name": "DynamicWall",
+      "position": [
+        56.0,
+        48.0,
+        1048.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DynamicWall",
+      "wallDirection": 0,
+      "wallType": 0
+    },
+    {
+      "name": "DynamicWall",
+      "position": [
+        56.0,
+        48.0,
+        1080.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DynamicWall",
+      "wallDirection": 1,
+      "wallType": 0
+    },
+    {
+      "name": "DynamicWall",
+      "position": [
+        -8.0,
+        48.0,
+        1080.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DynamicWall",
+      "wallDirection": 1,
+      "wallType": 0
+    },
+    {
+      "name": "DynamicWall",
+      "position": [
+        24.0,
+        48.0,
+        1176.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DynamicWall",
+      "wallDirection": 0,
+      "wallType": 0
+    },
+    {
+      "name": "DynamicWall",
+      "position": [
+        24.0,
+        48.0,
+        952.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DynamicWall",
+      "wallDirection": 1,
+      "wallType": 0
     }
   ],
   "obstacleCount": 6,
   "triggerBoxCount": 6,
   "version": 4,
-  "wallCount": 453
+  "wallCount": 446
 }
