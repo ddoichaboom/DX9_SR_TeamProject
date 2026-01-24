@@ -35,7 +35,7 @@ protected:
 	int			m_iBatchSize = 0;
 
 	D3DXCOLOR	m_RedColor = { 0.9f, 0.3f, 0.1f, 0.1f };
-	D3DXCOLOR	m_GrayColor = { 0.18f, 0.18f, 0.18f, 0.75f };
-
+	//D3DXCOLOR	m_GrayColor = { 0.18f, 0.18f, 0.18f, 0.75f };
+	D3DXCOLOR	m_GrayColor = { 0.15f, 0.15f, 0.15f, 0.75f };
 };
 

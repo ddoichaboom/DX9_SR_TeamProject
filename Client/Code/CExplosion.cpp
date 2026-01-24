@@ -161,8 +161,17 @@ void CExplosion::AddParticle()
 void CExplosion::ResetParticle(Particle* particle, int idx)
 {
 	particle->bIsAlive = true;
-	if (idx >= 6)  particle->bFlag = true;
-	else particle->bFlag = false;
+	//if (idx <= 6)  particle->bFlag = true;
+	//else particle->bFlag = false;
+	if(idx>=9) particle->bFlag = true;
+	else
+	{
+		int randv = rand() % 2;
+		if (randv) particle->bFlag = true;
+		else particle->bFlag = false;
+	}
+
+
 	_float randX, randY, randSizeX, fSpeed;
 
 	if (particle->bFlag)
@@ -178,7 +187,7 @@ void CExplosion::ResetParticle(Particle* particle, int idx)
 	{
 		randX = GetRandomFloat(-8.f, 8.f);
 		randY = GetRandomFloat(-8.f, 8.f);
-		randSizeX = GetRandomFloat(20.f, 30.f);
+		randSizeX = GetRandomFloat(15.f, 25.f);
 		fSpeed = GetRandomFloat(m_fAnimSpeed * 2.f, m_fAnimSpeed * 3.f);
 		particle->color = m_GrayColor;
 		particle->fAnimSpeed = fSpeed;

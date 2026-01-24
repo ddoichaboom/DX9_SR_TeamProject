@@ -178,7 +178,7 @@ void CFirstCamera::Mouse_Move()
 	_long	dwMouseMove(0);
 	if (dwMouseMove = CDInputMgr::GetInstance()->Get_DIMouseMove(DIMS_Y))
 	{
-		m_pTransformCom->m_vAngle.x += D3DXToDegree(dwMouseMove * 0.005f);
+		m_pTransformCom->m_vAngle.x += D3DXToDegree(dwMouseMove * 0.003f);
 
 		if (m_pTransformCom->m_vAngle.x > 50.f)
 			m_pTransformCom->m_vAngle.x = 50.f;
@@ -188,7 +188,7 @@ void CFirstCamera::Mouse_Move()
 
 	if (dwMouseMove = CDInputMgr::GetInstance()->Get_DIMouseMove(DIMS_X))
 	{				
-		m_pTransformCom->m_vAngle.y += D3DXToDegree(dwMouseMove * 0.005f);
+		m_pTransformCom->m_vAngle.y += D3DXToDegree(dwMouseMove * 0.003f);
 
 		if (m_pTransformCom->m_vAngle.y > 360.f)
 			m_pTransformCom->m_vAngle.y = 0.f;

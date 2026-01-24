@@ -63,6 +63,52 @@ void CEffectToolBar::Render_ToolBar()
             }
 
             ImGui::Separator();
+
+            if (selectedIndex == 3)
+            {
+                CExplosion* exp = (CExplosion*)m_pCurParticle;
+                _vec2 redPosX{ exp->vRedPosXOffset }, redPosY{ exp->vRedPosYOffset }, redSize{ exp->vRedSizeXOffset },
+                    redSpeed{ exp->vRedSpeedOffset }, GrayPosX{ exp->vGrayPosXOffset },
+                    GrayPosY{ exp->vGrayPosYOffset }, GraySize{ exp->vGraySizeXOffset }, GraySpeed{ exp->vGraySpeedOffset };
+                if (ImGui::DragFloat2("Red Pos X", redPosX, 1.f, -100.f, 100.f))
+                {
+                    exp->vRedPosXOffset = redPosX;
+                }
+                if (ImGui::DragFloat2("Red Pos Y", redPosY, 1.f, -100.f, 100.f))
+                {
+                    exp->vRedPosYOffset = redPosY;
+                }
+                if (ImGui::DragFloat2("Red Size", redSize, 1.f, -100.f, 100.f))
+                {
+                    exp->vRedSizeXOffset = redSize;
+                }
+                if (ImGui::DragFloat2("Red Speed", redSpeed, 1.f, -100.f, 100.f))
+                {
+                    exp->vRedSpeedOffset = redSpeed;
+                }
+
+                if (ImGui::DragFloat2("Gray Pos X", GrayPosX, 1.f, -100.f, 100.f))
+                {
+                    exp->vGrayPosXOffset = GrayPosX;
+                }
+                if (ImGui::DragFloat2("Gray Pos Y", GrayPosY, 1.f, -100.f, 100.f))
+                {
+                    exp->vGrayPosYOffset = GrayPosY;
+                }
+                if (ImGui::DragFloat2("Gray Size", GraySize, 1.f, -100.f, 100.f))
+                {
+                    exp->vGraySizeXOffset = GraySize;
+                }
+                if (ImGui::DragFloat2("Gray Speed", GraySpeed, 1.f, -100.f, 100.f))
+                {
+                    exp->vGraySpeedOffset = GraySpeed;
+                }
+                ImGui::End();
+                return;
+
+            }
+
+
             _int textureCnt = m_pCurParticle->GetTextureCnt();
             _int textureState = m_pCurParticle->GetState();
 
@@ -125,6 +171,7 @@ void CEffectToolBar::Render_ToolBar()
                     trail->SetTrailPos(vStart, vEnd);
                 }
             }
+
 
         }
     }

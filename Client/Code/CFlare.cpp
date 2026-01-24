@@ -108,6 +108,8 @@ void CFlare::SetPreRenderState()
 void CFlare::SetPostRenderState()
 {
 	m_pGraphicDev->SetTexture(1, NULL);
+	m_pGraphicDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	m_pGraphicDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 	//텍스쳐 색을 쓰기
 	m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
 	m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);

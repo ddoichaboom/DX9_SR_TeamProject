@@ -10,11 +10,11 @@ vector<TextureSource> CExplosion::m_TextureSources
 };
 
 CExplosion::CExplosion(IDirect3DDevice9* device)
-	:CParticleEmitter(device, 10)
+	:CParticleEmitter(device, 20)
 {
 	m_vPos = { 0,3,0 };
 	m_fAnimSpeed = 1.0f;
-	m_iMaxParticle = 10;
+	m_iMaxParticle = 20;
 	m_iBatchSize = 5;
 	m_fLifeTime = 25.f;
 	m_bLoop = false;
@@ -117,6 +117,9 @@ void CExplosion::SetPreRenderState()
 void CExplosion::SetPostRenderState()
 {
 	m_pGraphicDev->SetTexture(1, NULL);
+	m_pGraphicDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	m_pGraphicDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+
 	//텍스쳐 색을 쓰기
 	m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
 	m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
@@ -172,19 +175,19 @@ void CExplosion::ResetParticle(Particle* particle, int idx)
 
 	if (particle->bFlag)
 	{
-		randX = GetRandomFloat(-1.f, 1.f);
-		randY = GetRandomFloat(-1.f, 1.f);
-		randSizeX = GetRandomFloat(3.f, 6.f);
-		fSpeed = GetRandomFloat(m_fAnimSpeed*0.5f, m_fAnimSpeed);
+		randX = GetRandomFloat(vRedPosXOffset.x, vRedPosXOffset.y);
+		randY = GetRandomFloat(vRedPosYOffset.x, vRedPosYOffset.y);
+		randSizeX = GetRandomFloat(vRedSizeXOffset.x, vRedSizeXOffset.y);
+		fSpeed = GetRandomFloat(m_fAnimSpeed* vRedSpeedOffset.x, m_fAnimSpeed* vRedSpeedOffset.y);
 		particle->color = m_RedColor;
 		particle->fAnimSpeed = fSpeed;
 	}
 	else
 	{
-		randX = GetRandomFloat(-2.f, 2.f);
-		randY = GetRandomFloat(-2.f, 2.f);
-		randSizeX = GetRandomFloat(5.f, 10.f);
-		fSpeed = GetRandomFloat(m_fAnimSpeed*2.f, m_fAnimSpeed*3.f);
+		randX = GetRandomFloat(vGrayPosXOffset.x, vGrayPosXOffset.y);
+		randY = GetRandomFloat(vGrayPosYOffset.x, vGrayPosYOffset.y);
+		randSizeX = GetRandomFloat(vGraySizeXOffset.x, vGraySizeXOffset.y);
+		fSpeed = GetRandomFloat(m_fAnimSpeed * vGraySpeedOffset.x, m_fAnimSpeed * vGraySpeedOffset.y);
 		particle->color = m_GrayColor;
 		particle->fAnimSpeed = fSpeed;
 	}

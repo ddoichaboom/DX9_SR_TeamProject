@@ -90,6 +90,7 @@ HRESULT CBeamMon::Ready_GameObject()
 	if (FAILED(Add_Component())) return E_FAIL;
 
 	m_fAttackableDist = 80.f;
+	m_fTargetLoseDist = 100.f;
 	m_pTransformCom->m_vScale = { 8.f, 6.f  ,1.f };
 	m_pAnimationCom->Bind_OnChangedFunc([&](_float _aspect) { OnAnimationChange(_aspect); });
 
@@ -111,6 +112,7 @@ HRESULT CBeamMon::Ready_GameObject()
 		});
 
 	m_fAttackDamage = 5.f;
+
 	return S_OK;
 }
 
@@ -119,15 +121,27 @@ _int CBeamMon::Update_GameObject(const _float& fTimeDelta)
 	if (IsDead()) return RET_DEAD;
 
 	if (CCharacter::Update_GameObject(fTimeDelta) == RET_DEAD) return RET_DEAD;
+	_vec3 vDist{};
 	if (m_pStateCom->GetCurrentStateID() == MS_IDLE)
 	{
-		_vec3 vDist;
 		if (FAILED(GetDistVecToPlayer(vDist))) return RET_NONE;
 		_float distLen = D3DXVec3Length(&vDist);
 		D3DXVec3Normalize(&m_vDir, &vDist);
 
 		if (m_fAttackableDist >= distLen) ChangeState(MS_ATTACK);
 	}
+	else if (m_pStateCom->GetCurrentStateID() == MS_ATTACK)
+	{
+		if (FAILED(GetDistVecToPlayer(vDist))) return RET_NONE;
+		_float distLen = D3DXVec3Length(&vDist);
+		D3DXVec3Normalize(&m_vDir, &vDist);
+
+		if (m_fTargetLoseDist <= distLen)
+		{
+			ChangeState(MS_IDLE);
+		}
+	}
+
 	if (m_bShooting)
 	{
 		m_pBeam->Update_GameObject(fTimeDelta);
@@ -149,8 +163,6 @@ void CBeamMon::LateUpdate_GameObject(const _float& fTimeDelta)
 	if (m_bShooting)
 	{
 		m_pBeam->LateUpdate_GameObject(fTimeDelta);
-		//TODO : 플레이어에 콜라이더 생성되면 주석 풀기 
-		//CollisionBeam();
 
 		bool bBeamEnd = RunBeam(fTimeDelta);
 		if (bBeamEnd) m_bShooting = false;
@@ -194,7 +206,7 @@ void CBeamMon::OnAnimationChange(_float _animAspect)
 	//공격 애니메이션이 시작될 때 
 	if (m_pAnimationCom->Get_State() == MS_ATTACK && m_pAnimationCom->GetSubState() != SUB_END)
 	{
-		m_pTransformCom->m_vScale.y *= m_fYScaleOffset;
+		//m_pTransformCom->m_vScale.y *= m_fYScaleOffset;
 		m_bShooting = true;
 		ResetBeam();
 	}
@@ -288,8 +300,11 @@ bool CBeamMon::RunBeam(const _float& fTimeDelta)
 	if (!m_pBeam) return true;
 	if (m_fTime >= m_fBeamTime)
 	{
-		m_pBeamFlare->SetDead();
-		m_pBeamFlare = nullptr;
+		if (m_pBeamFlare)
+		{
+			m_pBeamFlare->SetDead();
+			m_pBeamFlare = nullptr;
+		}
 		return true;
 	}
 

@@ -12,6 +12,7 @@ CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CCharacter(pGraphicDev), m_pAnimationCom(nullptr)
 	,m_fAttackableDist(100.f), m_vDir({0,0,0}), m_fSpeed(10.f)
 	, m_pPlayerTransformCom(nullptr), m_pPlayerCollisionCom(nullptr), m_pCameraTransformCom(nullptr)
+	,m_fTargetLoseDist(200.f)
 {
 	m_eOBJ_ID = OBJ_MONSTER;
 	m_iID = Make_ID();	
@@ -21,6 +22,7 @@ CMonster::CMonster(const CMonster& rhs)
 	:CCharacter(rhs), m_pAnimationCom(nullptr), m_fAttackableDist(100.f)
 	, m_vDir(rhs.m_vDir), m_fSpeed(rhs.m_fSpeed)
 	, m_pPlayerTransformCom(nullptr), m_pPlayerCollisionCom(nullptr), m_pCameraTransformCom(nullptr)
+	, m_fTargetLoseDist(200.f)
 {
 	m_eOBJ_ID = OBJ_MONSTER;
 	m_iID = Make_ID();
@@ -41,11 +43,10 @@ _int CMonster::Update_GameObject(const _float& fTimeDelta)
 	if (IsDead()) return RET_DEAD;
 
 	int iExit = CCharacter::Update_GameObject(fTimeDelta);
-
+	_vec3 vDist{};
 	MONSTER_STATE state = (MONSTER_STATE)(m_pStateCom->GetCurrentStateID());
 	if (state == MS_IDLE)
 	{
-		_vec3 vDist;
 		if(FAILED(GetDistVecToPlayer(vDist))) return iExit;
 		_float distLen = D3DXVec3Length(&vDist);
 		D3DXVec3Normalize(&m_vDir, &vDist);
@@ -53,6 +54,17 @@ _int CMonster::Update_GameObject(const _float& fTimeDelta)
 		if (m_fAttackableDist >= distLen)
 		{
 			ChangeState(MS_ATTACK_IDLE);
+		}
+	}
+	else if (state == MS_ATTACK)
+	{
+		if (FAILED(GetDistVecToPlayer(vDist))) return iExit;
+		_float distLen = D3DXVec3Length(&vDist);
+		D3DXVec3Normalize(&m_vDir, &vDist);
+
+		if (m_fTargetLoseDist <= distLen)
+		{
+			ChangeState(MS_IDLE);
 		}
 	}
 	return iExit;

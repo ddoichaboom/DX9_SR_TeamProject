@@ -2,6 +2,9 @@
 #include "CBullet.h"
 #include "CProtoMgr.h"
 #include "CRenderer.h"
+#include "CExplosion.h"
+#include "CManagement.h"
+#include "CPoolMgr.h"
 
 TextureSource CBullet::m_textureSource =
 {
@@ -51,6 +54,7 @@ HRESULT CBullet::Ready_GameObject()
 	if (!m_pCollider) return E_FAIL;
 	m_pCollider->BindFuncToCollision([&](CollisionInfo info)
 		{
+			if (info.pTarget->GetOBJID() == OBJ_COL) Explosion();
 			SetDead();
 		});
 
@@ -71,7 +75,7 @@ _int CBullet::Update_GameObject(const _float& fTimeDelta)
 	if (m_fTime >= m_fLifeTime)
 	{
 		SetDead();
-		return RET_NONE;
+		return RET_DEAD;
 	}
 
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
@@ -123,6 +127,17 @@ void CBullet::SetDirection(_vec3 dir)
 }
 
 
+void CBullet::Explosion()
+{
+	CExplosion *exp =  CPoolMgr::GetInstance()->Get_Object<CExplosion>();
+	if (exp)
+	{
+		CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(exp);
+		_vec3 pos = *m_pTransformCom->Get_Info(INFO_POS) - m_vDir* 5.f;
+		exp->SetPos(pos);
+		exp->Reset();
+	}
+}
 
 void CBullet::Activate()
 {

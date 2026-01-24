@@ -195,6 +195,10 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 
 	State_Update(fTimeDelta);
 
+	if (m_pHitUI && m_pHitUI->IsDead())
+	{
+		m_pHitUI = nullptr;
+	}
 	return iExit;
 }
 
@@ -1771,12 +1775,13 @@ void CPlayer::OnCollision(CollisionInfo info)
 	//TODO : Damage에 따라 상태 변경 또는 함수 호출하기. 
 	if (info.fDamage > 0.f)
 	{
-		if (m_pHitUI==nullptr || m_pHitUI->IsDead())
+		if (m_pHitUI == nullptr)
 		{
 			m_pHitUI = CPoolMgr::GetInstance()->Get_Object<CHitUI>();
 			m_pHitUI->Reset();
 			CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(m_pHitUI);
 		}
+
 	}
 
 }
