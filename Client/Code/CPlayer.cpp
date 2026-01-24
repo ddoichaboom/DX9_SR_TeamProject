@@ -190,9 +190,9 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 		{
 			m_fDelayTime += fTimeDelta;
 
-			if (m_fDelayTime > 1.5f)
+			if (m_fDelayTime > 2.5f)
 			{
-				Change_State(SHOP);
+				Change_State(SHOP);				
 				CUIManager::GetInstance()->Set_OnShopUI(true);
 				m_bDelay = false;
 				m_fDelayTime = 0.f;

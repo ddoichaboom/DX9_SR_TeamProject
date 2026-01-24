@@ -5,6 +5,7 @@
 
 #include "CFontUI.h"
 #include "CManagement.h"
+#include "CUIManager.h"
 
 TextureSource CInfoUI::m_vTextureSource =
 {
@@ -15,7 +16,7 @@ CInfoUI::CInfoUI(LPDIRECT3DDEVICE9 pGraphicDev)
     : CBaseUI(pGraphicDev)
     , m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
     , m_fTime(0.f) , m_pTimeText(nullptr), m_bRender(false)
-    , m_pStageText(nullptr)
+    , m_pStageText(nullptr), m_bDelay(false)
     
 {
     m_iOrder = 1;    
@@ -26,7 +27,7 @@ CInfoUI::CInfoUI(const CInfoUI& rhs)
     : CBaseUI(rhs)
     , m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
     , m_fTime(0.f), m_pTimeText(nullptr), m_bRender(false)
-    , m_pStageText(nullptr)
+    , m_pStageText(nullptr), m_bDelay(false)
     
 {
     m_iOrder = 1;
@@ -131,13 +132,22 @@ _int CInfoUI::Update_GameObject(const _float& fTimeDelta)
     {
         m_fTime += fTimeDelta;
 
-        if (m_fTime > 1.5f)
+        if (m_fTime > 2.5f)
         {
             m_bRender = false;
             return iExit;
         }
-
-        CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+        else if (m_fTime > 1.f)
+        {
+            if (m_bDelay)
+            {
+                CUIManager::GetInstance()->Set_OnEffectUI(CUIManager::ES_CLEAR);
+                m_bDelay = false;
+            }
+            
+            CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
+        }
+        
     }   
   
 
@@ -149,8 +159,11 @@ void CInfoUI::LateUpdate_GameObject(const _float& fTimeDelta)
     if (m_bRender == false)
         return;
     CGameObject::LateUpdate_GameObject(fTimeDelta);   
-    m_pTimeText->LateUpdate_GameObject(fTimeDelta);
-    m_pStageText->LateUpdate_GameObject(fTimeDelta);
+    if (m_fTime > 1.f)
+    {
+        m_pTimeText->LateUpdate_GameObject(fTimeDelta);
+        m_pStageText->LateUpdate_GameObject(fTimeDelta);
+    }    
 }
 
 void CInfoUI::Render_GameObject()
@@ -179,6 +192,7 @@ void CInfoUI::Set_On()
 {
     m_fTime = 0.f;
     m_bRender = true;
+    m_bDelay = true;
     m_pTextureCom->Change_Texture(0);
     wstring wText = CManagement::GetInstance()->Convert_PlayTime();
     m_pTimeText->Set_Text(wText);

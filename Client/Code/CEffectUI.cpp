@@ -16,7 +16,7 @@ TextureSource CEffectUI::m_textureSource =
 CEffectUI::CEffectUI(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CBaseUI(pGraphicDev)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
-	, m_pEffectText(nullptr), m_bRandomColor(false)
+	, m_pEffectText(nullptr), m_bRandomColor(false), m_fDuration(1.5f)
 {
 
 }
@@ -24,7 +24,7 @@ CEffectUI::CEffectUI(LPDIRECT3DDEVICE9 pGraphicDev)
 CEffectUI::CEffectUI(const CEffectUI& rhs)
 	: CBaseUI(rhs)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
-	, m_pEffectText(nullptr), m_bRandomColor(false)
+	, m_pEffectText(nullptr), m_bRandomColor(false), m_fDuration(1.5f)
 {
 
 }
@@ -55,15 +55,18 @@ void CEffectUI::Set_Text(const wstring& wDeadTime)
 void CEffectUI::Init(_bool bRandomColor)
 {
 	m_fTime = 0.f;
+	m_fDuration = 1.5f;
 	m_bRandomColor = true;
 
 	m_vPos = m_vEffectPos;	
 	SetPos(m_vPos);
+	
 }
 
 void CEffectUI::Init(D3DXCOLOR eColor)
 {
 	m_fTime = 0.f;
+	m_fDuration = 1.5f;
 	m_bRandomColor = false;
 	m_pEffectText->Set_Color(eColor);	
 	m_vPos = m_vClearPos;
@@ -141,7 +144,7 @@ _int CEffectUI::Update_GameObject(const _float& fTimeDelta)
 
 	m_fTime += fTimeDelta;
 
-	if (m_fTime > 1.5f)
+	if (m_fTime > m_fDuration)
 	{
 		CUIManager::GetInstance()->Set_RenderEffect(false);
 		return 0;
@@ -150,7 +153,7 @@ _int CEffectUI::Update_GameObject(const _float& fTimeDelta)
 	{
 		if (m_bRandomColor)
 		{
-			float fTime = fmodf(m_fTime, 1.5f);
+			float fTime = fmodf(m_fTime, m_fDuration);
 
 			float fSection = fTime / 0.5f;   // 0~4
 			int idx = (int)fSection;

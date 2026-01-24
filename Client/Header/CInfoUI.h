@@ -58,5 +58,7 @@ protected:
 	_vec3	m_vTimePos;
 	_vec3	m_vTimeScale;
 
+	_bool	m_bDelay;
+
 };
 

@@ -595,7 +595,7 @@ void CUIManager::OnEvent(EVENT_TYPE _type, EventData* _pData)
 		break;
 	case Engine::EVENT_STAGE_END:
 		Change_UIState(UI_STAGE_CLEAR);
-		Set_OnEffectUI(ES_CLEAR);
+
 		break;		
 	case Engine::EVENT_NEXT_STAGE:
 		Set_OnShopUI(false);

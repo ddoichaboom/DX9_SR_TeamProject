@@ -57,5 +57,7 @@ protected:
 	_vec3   m_vEffectPos;
 	_vec3	m_vClearPos;
 
+	_float  m_fDuration;
+
 };
 
