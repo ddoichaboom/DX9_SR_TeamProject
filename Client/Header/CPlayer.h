@@ -199,6 +199,7 @@ public:
 protected:
 	virtual void	Free();
 	void			OnCollision(CollisionInfo info);
+	void			OnAttackCollision(CollisionInfo info);
 
 protected:
 	void			CreateSoda();
@@ -273,5 +274,16 @@ private:
 	_float		m_fDelayTime;
 
 	_bool		m_bBossStage;
+	_int		m_iFootStep;
+
+
+	static wstring	szTutorialBGM;
+	static wstring	szStageBGM;
+	static wstring	szBossBGM;
+	static wstring	szClearSFX;
+	static wstring	szHowlSFX;
+	
+	static vector<wstring> vecFootSteps;
+	
 };
 

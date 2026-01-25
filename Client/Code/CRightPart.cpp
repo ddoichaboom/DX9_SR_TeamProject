@@ -238,7 +238,7 @@ void CRightPart::End_Reload()
 void CRightPart::Begin_Intro()
 {
 	m_vStartPos = { 800.f, WINCY - 200.f, 0.f };
-	m_vEndPos = { 1900.f, WINCY - 200.f, 0.f };
+	m_vEndPos = { 2400.f, WINCY - 200.f, 0.f };
 
 	m_vConvertScale = { 1024.f, 512.f, 1.f };
 

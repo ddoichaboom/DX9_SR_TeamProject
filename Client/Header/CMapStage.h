@@ -49,6 +49,6 @@ private:
 
     //SoundMgr Test¿ë 
     wstring szMap1BGM = L"BGM_BossBGM.wav";
-    wstring szPlayerShoot = L"Hit_Monster.wav";
+    //wstring szPlayerShoot = L"Hit_Monster.wav";
 };
 

@@ -7,10 +7,12 @@
 #include "CBullet.h"
 #include "CPoolMgr.h"
 #include "CBlood.h"
+#include "CExplosion.h"
 
 _uint CWhiteMan::ID_SLICE_DEAD = CStateComponent::MakeStateID(MS_DEAD, SUB_NONE, SLICE);
 _uint CWhiteMan::ID_ELECT_DEAD = CStateComponent::MakeStateID(MS_DEAD, SUB_NONE, ELECT);
 _uint CWhiteMan::ID_HEAD_DEAD = CStateComponent::MakeStateID(MS_DEAD, SUB_NONE, HEAD);
+_uint CWhiteMan::ID_EXP_DEAD = CStateComponent::MakeStateID(MS_DEAD, SUB_NONE, EXP);
 
 _uint CWhiteMan::ID_FLYBACK_BEGIN = CStateComponent::MakeStateID(MS_FLYBACK, SUB_BEGIN);
 _uint CWhiteMan::ID_FLYBACK_END_WALL = CStateComponent::MakeStateID(MS_FLYBACK, SUB_NONE, DEST_WALL);
@@ -53,7 +55,7 @@ vector<AnimationSource> CWhiteMan::m_vAnimSource =
 	,{ MS_LAUNCH,1,2,1, false, 0.06f, 1.f, true}		//Launch
 
 	,{ ID_SLICE_DEAD ,3,4,4, false, 0.11f, 1.f, true}	//Slice Dead
-	,{ ID_ELECT_DEAD ,3,3,2, false, 0.06f, 1.f, true}	//Elect Dead
+	,{ ID_ELECT_DEAD ,3,3,2, false, 0.05f, 1.f, true}	//Elect Dead
 	,{ ID_HEAD_DEAD,5,3,1, false, 0.10f, 1.f, true}		//Head Dead
 
 	,{ MS_FLYBACK,1,3,2, true, 0.04f}						//Fly Back
@@ -116,15 +118,19 @@ void CWhiteMan::CreateStateData()
 	State = new CState<CWhiteMan>(nullptr, &CWhiteMan::Fly_FallGournd, nullptr);
 	Mgr->AddState(ID_FLYBACK_END_GROUND, State);
 
-	//Dead State
+	//Slice Dead State
 	State = new CState<CWhiteMan>(nullptr, &CWhiteMan::Slice, nullptr);
 	Mgr->AddState(ID_SLICE_DEAD, State);
 
-	//Dead State
+	//ELect Dead State
 	State = new CState<CWhiteMan>(nullptr, &CWhiteMan::Elect, nullptr);
 	Mgr->AddState(ID_ELECT_DEAD, State);
 
-	//Dead State
+	//ELect Dead State
+	State = new CState<CWhiteMan>(nullptr, &CWhiteMan::Explore, nullptr);
+	Mgr->AddState(ID_EXP_DEAD, State);
+
+	//Head Dead State
 	State = new CState<CWhiteMan>(nullptr, &CWhiteMan::Dead, nullptr);
 	Mgr->AddState(ID_HEAD_DEAD, State);
 
@@ -273,7 +279,7 @@ void CWhiteMan::ChangeState(_uint nextStateID)
 	m_pStateCom->ChangeState<CWhiteMan>(nextStateID);
 
 	if (ID_HEAD_DEAD == nextStateID) Make_DeadText(TAG_HEAD, 2);
-	else if(ID_ELECT_DEAD == nextStateID) Make_DeadText(TAG_ELECTRIC, 2);
+	else if (ID_ELECT_DEAD == nextStateID) Make_DeadText(TAG_ELECTRIC, 2);
 	else if (MS_FLYBACK == nextStateID) Make_DeadText(TAG_KICK, 2);
 	else if (ID_SLICE_DEAD == nextStateID) Make_DeadText(TAG_KATANA, 2);
 	else if (MS_DEAD == nextStateID) Make_DeadText(TAG_NONE, 2);
@@ -313,6 +319,24 @@ void CWhiteMan::OnHeadCollision(CollisionInfo info)
 
 void CWhiteMan::OnBodyCollision(CollisionInfo info)
 {
+	if (info.eTag == TAG_ELECTRIC || info.eTag == TAG_FAN)
+	{
+		//Collision Diff 는 콜리전 On/Off를 체크하지않아 맵콜라이더도 연속으로 들어옴 
+		//떄문에 이 곳에만 추가 적으로 충돌 on/off 체크함. 처음 들어오면 진행 
+		if (m_pBodyCollider->CanCollision() || m_pHeadCollider->CanCollision())
+		{
+			m_pBodyCollider->OffCollision();
+			m_pHeadCollider->OffCollision();
+		}
+		//충돌이 꺼져있다면 (이미 죽음) 
+		else return; 
+
+		m_fHP = 0.f;
+		if (info.eTag == TAG_ELECTRIC) ChangeState(ID_ELECT_DEAD);
+		else if (info.eTag == TAG_FAN) ChangeState(ID_EXP_DEAD);
+		return;
+	}
+
 	if (info.eDir != CDIR_NONE)
 	{
 		Move_ByCollision(info.eDir, info.vDiff);
@@ -375,6 +399,25 @@ void CWhiteMan::OnBodyCollision(CollisionInfo info)
 	blood->SetPos(pos);
 	blood->Reset();
 	CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(blood);
+}
+
+void CWhiteMan::CreateBloodAndExp()
+{
+	_vec3 pos = *m_pTransformCom->Get_Info(INFO_POS);
+
+	CBlood* blood = CPoolMgr::GetInstance()->Get_Object<CBlood>();
+	blood->ChangeState(1);
+	blood->SetSize({ 2.2f,2.2f });
+	blood->SetPos(pos);
+	blood->Reset();
+	CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(blood);
+
+
+	CExplosion * exp = CPoolMgr::GetInstance()->Get_Object<CExplosion>();
+	exp->SetSize({ 1.5f,1.5f });
+	exp->SetPos(pos);
+	exp->Reset();
+	CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(exp);
 }
 
 
@@ -491,9 +534,21 @@ void CWhiteMan::Dead()
 		SetDead();
 	}
 }
+
+void CWhiteMan::Explore()
+{
+	m_bDead = true;
+	CreateBloodAndExp();
+}
+
 void CWhiteMan::Elect()
 {
+	if (m_pAnimationCom->IsEnd())
+	{
+		SetDead();
+	}
 }
+
 void CWhiteMan::Slice()
 {
 	if (m_pAnimationCom->IsEnd())
@@ -501,9 +556,7 @@ void CWhiteMan::Slice()
 		SetDead();
 	}
 }
-void CWhiteMan::Bomb()
-{
-}
+
 void CWhiteMan::FlyBack_Begin()
 {
 	CTransform* pCamTransform = GetCameraTransform();

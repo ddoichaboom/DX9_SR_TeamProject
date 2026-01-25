@@ -6,6 +6,7 @@
 #include "CSelectBG.h"
 
 #include "CDInputMgr.h"
+#include "CSoundMgr.h"
 
 
 vector<TextureSource> CShopItem::m_vTextureSource =
@@ -15,11 +16,15 @@ vector<TextureSource> CShopItem::m_vTextureSource =
     {2, L"../Bin/Resource/Texture/UI/SHOP_ITEM2.dds"},
 };
 
+wstring  CShopItem::szItemHoverSFX = L"Item_Hover_SFX.wav";
+wstring  CShopItem::szItemSelectSFX = L"Item_Select_SFX.wav";
+wstring  CShopItem::szMascottCloseSFX = L"Mascott_End_SFX.wav";
+
 CShopItem::CShopItem(LPDIRECT3DDEVICE9 pGraphicDev)
     : CBaseUI(pGraphicDev)
     , m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
     , m_iTextureID(0), m_bRender(false), m_pSelectBG(nullptr)
-    , m_fTime(0.f), m_fInterval(0.f), m_bSelect(false)
+    , m_fTime(0.f), m_fInterval(0.f), m_bSelect(false), m_bPick(false)
 {
     m_eType = UI_STAGE_CLEAR;
 }
@@ -28,7 +33,7 @@ CShopItem::CShopItem(LPDIRECT3DDEVICE9 pGraphicDev, _float fX, _float fY, _uint 
     : CBaseUI(pGraphicDev)
     , m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
     , m_iTextureID(iTextureID), m_bRender(false), m_pSelectBG(nullptr)
-    , m_fTime(0.f), m_fInterval(0.f), m_bSelect(false)
+    , m_fTime(0.f), m_fInterval(0.f), m_bSelect(false), m_bPick(false)
 {
     m_fX = fX;
     m_fY = fY;
@@ -39,7 +44,7 @@ CShopItem::CShopItem(const CShopItem& rhs)
     : CBaseUI(rhs)
     , m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
     , m_iTextureID(0), m_bRender(false), m_pSelectBG(nullptr)
-    , m_fTime(0.f), m_fInterval(0.f), m_bSelect(false)
+    , m_fTime(0.f), m_fInterval(0.f), m_bSelect(false), m_bPick(false)
 {
     m_eType = UI_STAGE_CLEAR;
 }
@@ -151,7 +156,24 @@ _int CShopItem::Update_GameObject(const _float& fTimeDelta)
     
     if (m_bSelect == false)
     {
-        m_bRender = MousePicking();
+        
+        if (MousePicking())
+        {
+            m_bRender = true;
+            if (!m_bPick)
+            {
+                m_bPick = true;
+                CSoundMgr::GetInstance()->PlaySFXSound(szItemHoverSFX.c_str(), 0.5f);
+            }
+        }
+        else
+        {
+            m_bRender = false;
+            if (m_bPick)
+            {
+                m_bPick = false;
+            }
+        }
 
         if (m_bRender)
         {
@@ -162,16 +184,23 @@ _int CShopItem::Update_GameObject(const _float& fTimeDelta)
         {
             // 선택완료
             m_bSelect = true;
+            CSoundMgr::GetInstance()->PlaySFXSound(szItemSelectSFX.c_str(), 0.6f);
         }
     }
     else
     {
         m_fTime += fTimeDelta;
-        m_fInterval += fTimeDelta;
-        if (m_fTime > 1.f)
+        m_fInterval += fTimeDelta; 
+        if (m_bPick)
+        {
+            CSoundMgr::GetInstance()->PlaySFXSound(szMascottCloseSFX.c_str(), 1.f);
+            m_bPick = false;
+        }
+        if (m_fTime > 1.5f)
         {
             m_fTime = 0.f;
             m_EventData.value = m_iTextureID;
+
             CEventMgr::GetInstance()->Broadcast(EVENT_READY_NEXT_STAGE, &m_EventData);
         }
         else

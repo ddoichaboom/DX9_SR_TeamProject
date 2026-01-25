@@ -87,4 +87,7 @@ protected:
 	_bool	m_bDelay;
 
 	_bool	m_bStateStop;
+
+	static wstring	szHealEffectSound;
+	static wstring	szPistolIntroSFX;
 };

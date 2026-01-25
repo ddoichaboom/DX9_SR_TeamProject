@@ -27,6 +27,7 @@ CDoorLeft::CDoorLeft(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_vInitialScale(8.f, 16.f, 1.f)
     , m_eDoorType(DOOR_1)
 {
+    
 }
 
 CDoorLeft::CDoorLeft(const CDoorLeft& rhs)
@@ -44,6 +45,7 @@ CDoorLeft::CDoorLeft(const CDoorLeft& rhs)
     , m_vInitialScale(rhs.m_vInitialScale)
     , m_eDoorType(rhs.m_eDoorType)
 {
+    
 }
 
 CDoorLeft::~CDoorLeft()

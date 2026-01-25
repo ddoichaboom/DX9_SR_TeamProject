@@ -11,6 +11,7 @@
 #include "CTrail.h"
 #include "CManagement.h"
 #include "CPoolMgr.h"
+#include "CSoundMgr.h"
 
 
 vector<TextureSource> CKatana::m_vTextureSource =
@@ -32,6 +33,8 @@ vector<AnimationSource>  CKatana::m_vAnimSource =
 	{ GetStateID(ATTACK, COMBO_3),1,0,0, true, 0.11f},
 };
 
+wstring CKatana::szKatanaIntroSFX = L"Katana_Intro_SFX.wav";
+
 
 CKatana::CKatana(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CWeapon(pGraphicDev)
@@ -39,7 +42,7 @@ CKatana::CKatana(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_pAnimationCom(nullptr), m_pStateCom(nullptr)
 	, m_fAniTime(0.f), m_fDelayTime(0.f), m_bDelay(false)
 	, m_vStartPos(), m_vEndPos(), m_vConvertScale()
-	, m_eCombo(COMBO_NONE), m_bCanCombo(false), m_bComboBuffered(false), m_fAniSpeed(1.f)
+	, m_eCombo(COMBO_NONE), m_bCanCombo(false), m_bComboBuffered(false), m_fAniSpeed(1.5f)
 {
 	m_iNowBullet = 1;
 }
@@ -50,7 +53,7 @@ CKatana::CKatana(const CKatana& rhs)
 	, m_pAnimationCom(nullptr), m_pStateCom(nullptr)
 	, m_fAniTime(0.f), m_fDelayTime(0.f), m_bDelay(false)
 	, m_vStartPos(), m_vEndPos(), m_vConvertScale()
-	, m_eCombo(COMBO_NONE), m_bCanCombo(false), m_bComboBuffered(false), m_fAniSpeed(1.f)
+	, m_eCombo(COMBO_NONE), m_bCanCombo(false), m_bComboBuffered(false), m_fAniSpeed(1.5f)
 {
 	m_iNowBullet = 1;
 }
@@ -239,7 +242,7 @@ void CKatana::Idle()
 void CKatana::Begin_Intro()
 {
 	m_vStartPos =	{ 200.f, WINCY - 275.f, 0.f };
-	m_vEndPos =		{ 1300.f, WINCY - 275.f, 0.f };
+	m_vEndPos =		{ 1800.f, WINCY - 275.f, 0.f };
 	
 	m_vConvertScale = { 1600.f, 256.f, 1.f };
 	m_pTransformCom->Set_Angle(0, 0, 0);
@@ -250,6 +253,7 @@ void CKatana::Begin_Intro()
 	m_fDelayTime = 0.f;	
 	m_fAniSpeed = 1.5f;
 	m_bDelay = true;
+	
 }
 
 void CKatana::Intro()
@@ -266,6 +270,7 @@ void CKatana::Intro()
 	{
 		m_fAniTime = 0.f;
 		m_bDelay = false;
+		CSoundMgr::GetInstance()->PlaySoundByID(szKatanaIntroSFX.c_str(), SOUND_WEAPON, 1.f);
 	}
 									
 	fTime = m_fAniTime * m_fAniSpeed;

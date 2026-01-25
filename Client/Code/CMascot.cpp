@@ -3,12 +3,13 @@
 #include "CProtoMgr.h"
 #include "CRenderer.h"
 #include "CNoise.h"
+#include "CSoundMgr.h"
 
 vector<TextureSource> CMascot::m_vTextureSource =
 {
 	{ CENTER,  L"../Bin/Resource/Texture/UI/Mascot_Center.dds" },
 	{ LEFT,  L"../Bin/Resource/Texture/UI/Mascot_Left.dds" },
-	{ RIGHT,  L"../Bin/Resource/Texture/UI/Mascot_Right.dds" },
+	{ RIGHT,  L"../Bin/Resource/Texture/UI/Mascot_Right.dds" }
 
 };
 
@@ -198,7 +199,8 @@ void CMascot::Idle()
 	if (m_fTime > 2.f)
 	{
 		Get_Number();
-		ChangeState(m_iNumber);	
+		ChangeState(m_iNumber);			
+
 		return;	
 	}
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);	

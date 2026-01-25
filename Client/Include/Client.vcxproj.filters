@@ -309,8 +309,8 @@
     </Filter>
     <Filter Include="02. GameObject\99. Environment\01. Object\00. Door\DoorRight">
       <UniqueIdentifier>{365bff0c-da8b-4aea-a55e-0ac05e75ca56}</UniqueIdentifier>
-	</Filter>
-	<Filter Include="04.UI\01.StaticUI\14.StageInfo_UI">
+    </Filter>
+    <Filter Include="04.UI\01.StaticUI\14.StageInfo_UI">
       <UniqueIdentifier>{4445672d-c988-4e69-8bf4-2bab20b9d751}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\13. Effect\11. SodaUI">
@@ -321,6 +321,9 @@
     </Filter>
     <Filter Include="01. Scene\04. Ending">
       <UniqueIdentifier>{78f20e5d-5d36-4802-9eca-5394c9607f44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\12. BossHPUI">
+      <UniqueIdentifier>{c1693fc9-8335-40fb-b54f-129f7a50c815}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -590,7 +593,7 @@
     </ClInclude>
     <ClInclude Include="..\Header\CDoorLeft.h">
       <Filter>02. GameObject\99. Environment\01. Object\00. Door\DoorLeft</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="..\Header\CDoorRight.h">
       <Filter>02. GameObject\99. Environment\01. Object\00. Door\DoorRight</Filter>
     </ClInclude>
@@ -602,8 +605,8 @@
     </ClInclude>
     <ClInclude Include="..\Header\CVendingMachine.h">
       <Filter>02. GameObject\03.MapObject\02.VendingMachine</Filter>
-	</ClInclude>
-	<ClInclude Include="..\Header\CInfoUI.h">
+    </ClInclude>
+    <ClInclude Include="..\Header\CInfoUI.h">
       <Filter>04.UI\01.StaticUI\14.StageInfo_UI</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CSodaUI.h">
@@ -614,6 +617,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\CEnding.h">
       <Filter>01. Scene\04. Ending</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossHPUI.h">
+      <Filter>02. GameObject\13. Effect\12. BossHPUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -886,7 +892,7 @@
     </ClCompile>
     <ClCompile Include="..\Code\CVendingMachine.cpp">
       <Filter>02. GameObject\03.MapObject\02.VendingMachine</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="..\Code\CInfoUI.cpp">
       <Filter>04.UI\01.StaticUI\14.StageInfo_UI</Filter>
     </ClCompile>
@@ -898,6 +904,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CEnding.cpp">
       <Filter>01. Scene\04. Ending</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossHPUI.cpp">
+      <Filter>02. GameObject\13. Effect\12. BossHPUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

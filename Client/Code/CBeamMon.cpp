@@ -309,7 +309,6 @@ bool CBeamMon::RunBeam(const _float& fTimeDelta)
 
 void CBeamMon::CollisionBeam()
 {
-	//if (m_bBeamCollision) return;
 	CCollision* playerCollision = GetPlayerCollision();
 	if (!playerCollision) return;
 
@@ -356,7 +355,8 @@ void CBeamMon::CollisionBeam()
 		if(!m_bBeamCollision)
 			finalCollider->Collision({ this,_vec3(),m_fAttackDamage });
 		m_bBeamCollision = true;
-		m_pBeam->SetScale(ROT_Y, finalTime);
+		if(finalCollider->Get_Owner()->GetOBJID() == OBJ_PLAYER == false)
+			m_pBeam->SetScale(ROT_Y, finalTime);
 	}
 
 }

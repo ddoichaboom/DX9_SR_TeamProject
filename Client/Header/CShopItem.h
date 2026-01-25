@@ -61,5 +61,14 @@ protected:
 	_float		m_fTime;
 	_float		m_fInterval;
 	_bool		m_bSelect;
+	_bool		m_bPick;
+
+	static	wstring	 szItemHoverSFX;
+	static	wstring	 szItemSelectSFX;
+
+	
+	static	wstring	 szMascottCloseSFX;
+	
+
 };
 

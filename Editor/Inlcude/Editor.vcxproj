@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="..\Header\CBeamFlare.h" />
     <ClInclude Include="..\Header\CBlood.h" />
+    <ClInclude Include="..\Header\CBossHPUI.h" />
     <ClInclude Include="..\Header\CBossTrail.h" />
     <ClInclude Include="..\Header\CEditorApp.h" />
     <ClInclude Include="..\Header\CEditorCamera.h" />
@@ -213,6 +214,7 @@
   <ItemGroup>
     <ClCompile Include="..\Code\CBeamFlare.cpp" />
     <ClCompile Include="..\Code\CBlood.cpp" />
+    <ClCompile Include="..\Code\CBossHPUI.cpp" />
     <ClCompile Include="..\Code\CBossTrail.cpp" />
     <ClCompile Include="..\Code\CEditorApp.cpp" />
     <ClCompile Include="..\Code\CEditorCamera.cpp" />

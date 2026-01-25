@@ -35,6 +35,8 @@ public:
 	void StopAll();
 	void SetChannelVolume(CHANNELID eID, float fVolume);
 
+	bool IsPlayingGroup(CHANNELID eID);
+
 private:
 	void LoadSoundFile();
 

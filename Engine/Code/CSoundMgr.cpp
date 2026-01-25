@@ -133,6 +133,14 @@ void CSoundMgr::SetChannelVolume(CHANNELID eID, float fVolume)
 	FMOD_ChannelGroup_SetVolume(m_pChannelGroup[eID], fVolume);
 }
 
+bool CSoundMgr::IsPlayingGroup(CHANNELID eID)
+{
+	if (!m_pChannelGroup[eID]) return false;
+	FMOD_BOOL bIsPlaying = false;
+	FMOD_ChannelGroup_IsPlaying(m_pChannelGroup[eID], &bIsPlaying);
+	return bIsPlaying;
+}
+
 void CSoundMgr::LoadSoundFile()
 {
 	_finddata_t fd;

@@ -154,6 +154,7 @@
     <ClInclude Include="..\Header\CBodyEmit.h" />
     <ClInclude Include="..\Header\CBoss.h" />
     <ClInclude Include="..\Header\CBossBullet.h" />
+    <ClInclude Include="..\Header\CBossHPUI.h" />
     <ClInclude Include="..\Header\CBossStage.h" />
     <ClInclude Include="..\Header\CBossTestStage.h" />
     <ClInclude Include="..\Header\CBossTrail.h" />
@@ -253,6 +254,7 @@
     <ClCompile Include="..\Code\CBodyEmit.cpp" />
     <ClCompile Include="..\Code\CBoss.cpp" />
     <ClCompile Include="..\Code\CBossBullet.cpp" />
+    <ClCompile Include="..\Code\CBossHPUI.cpp" />
     <ClCompile Include="..\Code\CBossStage.cpp" />
     <ClCompile Include="..\Code\CBossTestStage.cpp" />
     <ClCompile Include="..\Code\CBossTrail.cpp" />

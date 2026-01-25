@@ -81,6 +81,7 @@ _uint CManagement::Get_FloorNumber()
         iNumber = 2;
         break;
     case Engine::SCENE_BOSS:
+        iNumber = 3;
         break;
     default:
         break;

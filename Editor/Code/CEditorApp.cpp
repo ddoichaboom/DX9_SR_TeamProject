@@ -38,6 +38,7 @@
 #include "CToonFog.h"
 #include "CBossTrail.h"
 #include "CSodaUI.h"
+#include "CBossHPUI.h"
 
 CEditorApp::CEditorApp()
     : m_pGraphicDev(nullptr)
@@ -287,7 +288,7 @@ HRESULT CEditorApp::Ready_Scene()
     // EditorScene »ý¼º
     m_pCurrentScene = CEditorScene::Create(m_pGraphicDev);
     //CEffectScene* scene;
-   // m_pCurrentScene = scene = CEffectScene::Create(m_pGraphicDev);
+    //m_pCurrentScene = scene = CEffectScene::Create(m_pGraphicDev);
 
     if (nullptr == m_pCurrentScene)
     {
@@ -500,6 +501,15 @@ HRESULT CEditorApp::Ready_Texture_Prototype()
     {
         MSG_BOX("Proto SodaUI Ready Failed");
         return E_FAIL;
+    }
+
+    //SodaUI Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBossHPUI::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_BOSSHPUI_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto BOSSHPUI Ready Failed");
+        return E_FAIL;
+
     }
 
     return S_OK;
