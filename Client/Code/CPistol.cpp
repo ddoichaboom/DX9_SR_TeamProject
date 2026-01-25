@@ -1,6 +1,16 @@
 #include "pch.h"
 #include "CPistol.h"
 
+#include "CFlare.h"
+#include "CSoundMgr.h"
+#include "CPoolMgr.h"
+#include "CManagement.h"
+
+
+wstring CPistol::szPistolReloadSFX	= L"Pistol_Reload_SFX.wav";
+wstring CPistol::szPistolShotSFX	= L"Pistol_Shot_SFX.wav";
+wstring CPistol::szBulletFallSFX	= L"Bullet_Fall_SFX.wav";
+
 CPistol::CPistol(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CWeapon(pGraphicDev)
 {
@@ -22,8 +32,12 @@ HRESULT CPistol::Ready_GameObject()
 	m_fPower = 3;
 	m_fCoolTime = 0.1f;
 	// ÃÖ´ë ºÒ·¿
-	m_iMaxBullet = 9;
+	m_iMaxBullet = 10;
 	m_iNowBullet = m_iMaxBullet;
+
+	m_vPos = { WINCX - 200.f, WINCY - 200.f, 0.f };
+	m_vPos = { m_vPos.x - WINCX * 0.5f, -m_vPos.y + WINCY * 0.5f, 0.f };
+	
 	return S_OK;
 }
 
@@ -83,6 +97,8 @@ _bool CPistol::Can_Fire()
 
 void CPistol::Fire()
 {	
+	CSoundMgr::GetInstance()->PlayWeaponSound(CPistol::szPistolShotSFX.c_str(),0.8f);
+	
 	m_fTime = 0.f;
 	m_iNowBullet--;
 
@@ -92,6 +108,15 @@ void CPistol::Fire()
 		m_bIsEmpty = true;
 	}
 
+	CFlare* flare = CPoolMgr::GetInstance()->Get_Object<CFlare>();
+	if (flare)
+	{
+		CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(flare);
+		_vec3 FlarePos = m_vPos + m_vFlarePosOffset;
+		flare->SetPos(FlarePos);
+		flare->Reset();
+	}
+	CSoundMgr::GetInstance()->PlayWeaponSound(CPistol::szBulletFallSFX.c_str());
 }
 
 void CPistol::Reload()
@@ -100,6 +125,8 @@ void CPistol::Reload()
 	m_iNowBullet = m_iMaxBullet;
 	m_bShootAble = true;
 	m_bIsEmpty = false;
+
+	
 }
 
 HRESULT CPistol::Add_Component()

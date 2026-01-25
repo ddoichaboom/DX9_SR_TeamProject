@@ -153,12 +153,15 @@
     </Filter>
     <Filter Include="04. Object\02. EditorVendingMachine">
       <UniqueIdentifier>{1d564abe-65a6-40f6-b3b5-caf177d508d0}</UniqueIdentifier>
-	</Filter>
-	<Filter Include="07. Effect\11. BossHPUI">
+    </Filter>
+    <Filter Include="07. Effect\11. BossHPUI">
       <UniqueIdentifier>{9503a0b2-d26a-4aa7-8f86-21ea756ddde5}</UniqueIdentifier>
     </Filter>
     <Filter Include="07. Effect\12. SodaUI">
       <UniqueIdentifier>{b7549046-d283-4417-8e4d-f6ef3387a57d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Effect\13. PhoneHPUI">
+      <UniqueIdentifier>{52e70447-d82d-439e-b570-669331b79978}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -324,6 +327,9 @@
     <ClInclude Include="..\Header\CSodaUI.h">
       <Filter>07. Effect\12. SodaUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CPhoneHPUI.h">
+      <Filter>07. Effect\13. PhoneHPUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -472,6 +478,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CSodaUI.cpp">
       <Filter>07. Effect\12. SodaUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPhoneHPUI.cpp">
+      <Filter>07. Effect\13. PhoneHPUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

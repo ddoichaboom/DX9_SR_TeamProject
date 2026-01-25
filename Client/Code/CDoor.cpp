@@ -5,6 +5,9 @@
 #include "CProtoMgr.h"
 #include "Engine_Enum.h"
 #include "CPoolMgr.h"
+#include "CSoundMgr.h"
+
+wstring CDoor::szDoorOpen = L"Door_Open_SFX.wav";
 
 CDoor::CDoor(LPDIRECT3DDEVICE9 pGraphicDev)
     : CGameObject(pGraphicDev)
@@ -142,6 +145,7 @@ void CDoor::OnCollision(CollisionInfo info)
         return;
 
     Open();
+    CSoundMgr::GetInstance()->PlaySFXSound(szDoorOpen.c_str());
 }
 
 HRESULT CDoor::Add_Component()

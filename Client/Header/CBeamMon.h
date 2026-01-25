@@ -82,6 +82,9 @@ protected:
 	_float			m_vBeamPosOffset = 4.f;
 
 	CBeamFlare*		m_pBeamFlare = nullptr;
+	
+public :
+	static wstring  szBeamSFX;
 
 };
 

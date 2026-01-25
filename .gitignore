@@ -471,3 +471,5 @@ tmpclaude-*-cwd
 *.exp
 *.lib
 Editor/Inlcude/imgui.ini
+Client/Bin/Resource/Sound/Stage_01_BGM.wav
+Client/Bin/Resource/Sound/Stage_Boss_BGM.wav

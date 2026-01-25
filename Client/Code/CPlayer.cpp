@@ -36,16 +36,12 @@ wstring CPlayer::szStageBGM		= L"Stage_02_BGM.wav";
 wstring CPlayer::szBossBGM		= L"Stage_Boss_BGM.wav";
 wstring CPlayer::szClearSFX		= L"Stage_Clear_SFX.wav";
 wstring CPlayer::szHowlSFX		= L"Player_Intro_SFX.wav";
-
-vector<wstring> CPlayer::vecFootSteps =
-{
-	L"FootStep_01_SFX.wav",
-	L"FootStep_02_SFX.wav",
-	L"FootStep_03_SFX.wav",
-	L"FootStep_04_SFX.wav",
-	L"FootStep_05_SFX.wav"
-};
-
+wstring CPlayer::szSlideBGM		= L"Player_Slide_BGM.wav";
+wstring CPlayer::szKickSFX		= L"Player_Kick_SFX.wav";
+wstring CPlayer::szDashSFX		= L"Player_Dash_SFX.wav";
+wstring CPlayer::szJumpSFX		= L"Player_Jump_SFX.wav";
+wstring CPlayer::szAcidSFX		= L"Player_Acid_SFX.wav";
+wstring CPlayer::szTakeDownSFX		= L"Player_TakeDown_SFX.wav";
 
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -61,7 +57,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_bSlope(false), m_bSideDash(false)
 	, m_pColHitObj(nullptr), m_pTakeDownObject(nullptr), m_pTakeDownCollider(nullptr)
 	, m_bMoveStop(false), m_bAbleTakeDown(false), m_bDelay(false), m_fDelayTime(0.f)
-	, m_bBossStage(true), m_pSodaUI(nullptr), m_iFootStep(0), m_bTakeDown(false)
+	, m_bBossStage(true), m_pSodaUI(nullptr), m_iFootStep(0), m_bTakeDown(false), m_bPoison(false)
 {
 
 	m_eOBJ_ID = OBJ_PLAYER;
@@ -81,7 +77,7 @@ CPlayer::CPlayer(const CPlayer& rhs)
 	, m_bSlope(false), m_bSideDash(false)
 	, m_pColHitObj(nullptr), m_pTakeDownObject(nullptr), m_pTakeDownCollider(nullptr)
 	, m_bMoveStop(false), m_bAbleTakeDown(false), m_bDelay(false), m_fDelayTime(0.f)
-	, m_bBossStage(true), m_pSodaUI(nullptr), m_iFootStep(0), m_bTakeDown(false)
+	, m_bBossStage(true), m_pSodaUI(nullptr), m_iFootStep(0), m_bTakeDown(false), m_bPoison(false)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
 	m_iID = 0;
@@ -206,11 +202,23 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 		if (m_bBossStage == false)
 		{
 			m_fTime += fTimeDelta;			
+			
 
 			if (m_fTime >= 1.f)
 			{
 				Add_HP(-1.f);
-				m_fTime = 0.f;
+				m_fTime = 0.f;				
+			}
+
+			if (m_bPoison)
+			{
+				m_fStageTime += fTimeDelta;
+				if (m_fStageTime >= 0.5f)
+				{
+					Add_HP(-0.5f);					
+					CSoundMgr::GetInstance()->PlayPlayerSound(szAcidSFX.c_str(), 0.5f);
+					m_fStageTime = 0.f;
+				}								
 			}
 		}		
 	}
@@ -289,13 +297,6 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 
 	if (m_eNowState != SHOP && m_eNowState != READY_NEXT)
 		m_mapWeapon[m_eWeaponState]->LateUpdate_GameObject(fTimeDelta);
-
-	if (CDInputMgr::GetInstance()->Get_Direction() != DIR_NONE && !m_bJump && !m_bFall && !m_bDash)
-	{
-		if(CSoundMgr::GetInstance()->IsPlayingGroup(SOUND_PLAYER) == false)
-			CSoundMgr::GetInstance()->PlayPlayerSound(vecFootSteps[m_iFootStep++].c_str(), 0.3f);
-		m_iFootStep %= vecFootSteps.size();
-	}
 
 	State_LateUpdate(fTimeDelta);
 }
@@ -451,6 +452,7 @@ void CPlayer::Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _v
 		m_vDashDir.y = 0.f;
 		m_bDash = true;
 		CUIManager::GetInstance()->Set_OnDashUI(true);
+		CSoundMgr::GetInstance()->PlayPlayerSound(szDashSFX.c_str());
 		return;
 	}
 
@@ -461,6 +463,7 @@ void CPlayer::Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _v
 		m_fVelocity = 0.f;
 		m_fJumpStartY = m_pTransformCom->m_vInfo[INFO_POS].y;
 		m_bJump = true;
+		CSoundMgr::GetInstance()->PlayPlayerSound(szJumpSFX.c_str());
 		return;
 	}
 }
@@ -472,7 +475,7 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 	//
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_R))
 	{
-		if (m_eNowState == IDLE && !m_pLeftPart->Get_Relaod() && !m_pRightPart->Get_Reload())
+		if ( m_pLeftPart->Get_Relaod() && m_pRightPart->Get_Reload() && m_pLeftPart->Get_ActionAble() && m_pRightPart->Get_ActionAble() && !m_pMiddlePart->Get_ActionAble(IDLE))
 			Change_State(RELOAD);
 		return;
 	}
@@ -642,7 +645,7 @@ void CPlayer::CheckPickedMonster()
 void CPlayer::CheckKickedMonster(COLLIDER_TAG eTag, _float fAttack)
 {
 	list<pair<_float, CCollider*>> pickedList;
-	CollisionInfo info = { NULL, {0,0,0}, fAttack, eTag };
+	CollisionInfo info = { this, {0,0,0}, fAttack, eTag };
 	_vec3	vLook, vPos;
 	_float cosFov = cosf(D3DXToRadian(60.f));
 	vLook = *m_pTransformCom->Get_Info(INFO_LOOK);
@@ -679,6 +682,37 @@ void CPlayer::CheckKickedMonster(COLLIDER_TAG eTag, _float fAttack)
 			{
 				if (fDot >= cosFov)
 					pickedList.push_back({ iter->second->Get_ViewZ() ,pairCollider.second });
+			}
+		}
+	}
+
+
+	pLayer = CManagement::GetInstance()->Get_Layer(L"Environment_Layer");
+	pairIter = pLayer->Get_Objects(OBJ_VENDINGMACHINE);
+
+	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
+	{
+		CCollision* pCollision = static_cast<CCollision*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+		CTransform* pTransform = static_cast<CTransform*>(iter->second->Get_Component(ID_STATIC, L"Com_Transform"));
+
+		if (!pCollision) continue;
+		if (!pTransform) continue;
+
+		_vec3 vDir = *pTransform->Get_Info(INFO_POS) - vPos;
+		D3DXVec3Normalize(&vDir, &vDir);
+
+		_float fDot = D3DXVec3Dot(&vLook, &vDir);
+
+		auto& mapCollider = pCollision->GetColliderMap();
+		if (mapCollider.empty()) continue;
+		//몬스터의 CollisionCom에 있는 전체 Collider 
+		for (auto& pairCollider : mapCollider)
+		{
+			bool bPicked = CCollision::CheckCollision(m_pKickCollider, pairCollider.second);
+			if (bPicked)
+			{
+				//if (fDot >= cosFov)
+				pickedList.push_back({ iter->second->Get_ViewZ() ,pairCollider.second });
 			}
 		}
 	}
@@ -841,7 +875,7 @@ _bool CPlayer::CheckOnFloor(const _float& fTimeDelta,_float* pHeight)
 
 	_float	fMaxY = -FLT_MAX;
 	_bool	bFound = false;
-
+	COLLIDER_TAG eSaveTag;
 	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
 	{
 		CTransform* pTransform = static_cast<CTransform*>(iter->second->Get_Component(ID_STATIC, L"Com_Transform"));
@@ -858,49 +892,49 @@ _bool CPlayer::CheckOnFloor(const _float& fTimeDelta,_float* pHeight)
 				{
 					fMaxY = fCurrentFloorY;
 					bFound = true;
+					eSaveTag = eTag;
+
 				}
 			}
 		}
 		else if (eTag == TAG_SLOPE)
 		{
+			CRcTexUp* pRcTex = static_cast<CRcTexUp*>(iter->second->Get_Component(ID_STATIC, L"Com_Buffer"));
+			_vec3 vPickPos;
+			if (Picking_OnFloor(&vPickPos, pRcTex, pTransform))
 			{
-				CRcTexUp* pRcTex = static_cast<CRcTexUp*>(iter->second->Get_Component(ID_STATIC, L"Com_Buffer"));
-				_vec3 vPickPos;
-				if (Picking_OnFloor(&vPickPos, pRcTex, pTransform))
+				_vec3 vNormal = { 0.f, 0.f, -1.f };
+				_matrix matWorld = *pTransform->Get_World();
+				D3DXVec3TransformNormal(&vNormal, &vNormal, &matWorld);
+				D3DXVec3Normalize(&vNormal, &vNormal);
+
+				_vec3 vLook = *m_pTransformCom->Get_Info(INFO_LOOK);
+				D3DXVec3Normalize(&vLook, &vLook);
+
+				_float fDot = D3DXVec3Dot(&vLook, &vNormal);
+				
+				m_bPoison = false;
+				if (fDot < 0.f)
 				{
-					_vec3 vNormal = { 0.f, 0.f, -1.f };
-					_matrix matWorld = *pTransform->Get_World();
-					D3DXVec3TransformNormal(&vNormal, &vNormal, &matWorld);
-					D3DXVec3Normalize(&vNormal, &vNormal);
-
-					_vec3 vLook = *m_pTransformCom->Get_Info(INFO_LOOK);
-					D3DXVec3Normalize(&vLook, &vLook);
-
-					_float fDot = D3DXVec3Dot(&vLook, &vNormal);
-
-
-					if (fDot < 0.f) 
-					{
-						m_bSlope = false;
-						*pHeight = vPickPos.y;
-					}
-					else if (fDot > 0.f) 
-					{
-						m_bSlope = true;
-						_vec3 vSlopeDir;
-						_float fSlopeInclination = D3DXVec3Dot(&vLook, &vNormal);
-						vSlopeDir = vLook - (vNormal * fSlopeInclination);
-						D3DXVec3Normalize(&vSlopeDir, &vSlopeDir);
-
-						_vec3 vPos = m_pTransformCom->m_vInfo[INFO_POS];
-						vPos += vSlopeDir * m_fMoveSpeed * fTimeDelta;
-
-						vPos.y = vPickPos.y;
-
-						m_pTransformCom->Set_Pos(vPos);
-					}					
-					return true;
+					m_bSlope = false;
+					*pHeight = vPickPos.y;
 				}
+				else if (fDot > 0.f)
+				{
+					m_bSlope = true;
+					_vec3 vSlopeDir;
+					_float fSlopeInclination = D3DXVec3Dot(&vLook, &vNormal);
+					vSlopeDir = vLook - (vNormal * fSlopeInclination);
+					D3DXVec3Normalize(&vSlopeDir, &vSlopeDir);
+
+					_vec3 vPos = m_pTransformCom->m_vInfo[INFO_POS];
+					vPos += vSlopeDir * m_fMoveSpeed * fTimeDelta;
+
+					vPos.y = vPickPos.y;
+
+					m_pTransformCom->Set_Pos(vPos);
+				}
+				return true;
 			}
 		}
 			
@@ -910,6 +944,7 @@ _bool CPlayer::CheckOnFloor(const _float& fTimeDelta,_float* pHeight)
 	{
 		m_bSlope = false;
 		*pHeight = fMaxY;
+		m_bPoison = eSaveTag == TAG_ACID;
 		return true;
 	}
 
@@ -920,6 +955,7 @@ _bool CPlayer::CheckOnFloor(const _float& fTimeDelta,_float* pHeight)
 		return true;
 	}
 
+	m_bPoison = false;
 	return false;
 }
 
@@ -1140,6 +1176,7 @@ void CPlayer::Update_SideDash(const _float& fTimeDelta)
 		m_fJumpStartY = m_pTransformCom->m_vInfo[INFO_POS].y;
 		CUIManager::GetInstance()->Set_OnDashUI(false);
 		m_bJump = true;
+		//CSoundMgr::GetInstance()->StopGroupSound(SOUND_PLAYER_BGM);
 	}
 
 }
@@ -1197,6 +1234,7 @@ void CPlayer::Reload_Func()
 /// </summary>
 void CPlayer::Kick_Func()
 {
+	CSoundMgr::GetInstance()->PlayPlayerSound(szKickSFX.c_str(), 1.f);
 	m_pKickCollider->OnCollision();
 	CheckKickedMonster(TAG_KICK, m_fKickAttack);
 }
@@ -1225,7 +1263,7 @@ void CPlayer::Drink_Func()
 	if(m_pSodaUI) m_pSodaUI->Reset();
 	Add_HP(m_fMaxHP);
 
-	if (m_eNowState == IDLE)
+	if (m_eNowState == IDLE && m_pMiddlePart->Get_ActionAble(DRINK))
 		Change_State(DRINK);
 }
 
@@ -1242,6 +1280,8 @@ void CPlayer::TakeDown_Func()
 		m_bMoveStop = true;
 		CUIManager::GetInstance()->Set_OnSlotUI(false);
 		m_bAbleTakeDown = false;
+
+		CSoundMgr::GetInstance()->PlayPlayerSound(szTakeDownSFX.c_str(), 0.5f);
 	}
 }
 
@@ -1250,8 +1290,8 @@ void CPlayer::Change_State(_uint eState)
 	if (eState == m_eNowState)
 		return;
 
-	if (--m_mapCallCnt[eState] > 0)
-		return;
+	/*if (--m_mapCallCnt[eState] > 0)
+		return;*/
 
 	if (m_eNowState != MAIN_END)
 		State_Exit();
@@ -1534,10 +1574,11 @@ void CPlayer::Reload_Enter()
 
 		break;
 	case WEAPON_PISTOL:
-		m_mapCallCnt[RELOAD] = 2;
+		m_mapCallCnt[RELOAD] = 0;
 		m_mapWeapon[m_eWeaponState]->Set_ShootAble(false);
 		m_pLeftPart->ChangeState(GetStateID(RELOAD, m_eWeaponState));
 		m_pRightPart->ChangeState(GetStateID(RELOAD, m_eWeaponState));
+		CSoundMgr::GetInstance()->PlayWeaponSound(CPistol::szPistolReloadSFX.c_str());
 		break;
 	case WEAPON_SHOTGUN:
 		break;
@@ -1664,6 +1705,8 @@ void CPlayer::Slide_Enter()
 	m_mapCallCnt[SLIDE] = 1;
 	m_pMiddlePart->ChangeState(SLIDE);
 	CUIManager::GetInstance()->Set_OnDashUI(true);
+	CSoundMgr::GetInstance()->StopGroupSound(SOUND_PLAYER_BGM);
+	CSoundMgr::GetInstance()->PlayPlayerBGMSound(szSlideBGM.c_str(), 1.0f);
 }
 
 void CPlayer::Slide_Update(const _float& fTimeDelta)
@@ -1684,6 +1727,7 @@ void CPlayer::Slide_Exit()
 {
 	m_pMiddlePart->ChangeState(IDLE);
 	CUIManager::GetInstance()->Set_OnDashUI(false);
+	CSoundMgr::GetInstance()->StopGroupSound(SOUND_PLAYER_BGM);
 }
 
 void CPlayer::Shop_Enter()
@@ -1906,6 +1950,7 @@ void CPlayer::OnCollision(CollisionInfo info)
 			CUIManager::GetInstance()->Set_OnDashUI(true);
 			m_bJump = false;
 			m_bFall = false;
+
 		}		
 	}
 
@@ -1928,7 +1973,8 @@ void CPlayer::OnAttackCollision(CollisionInfo info)
 {
 	if (info.pTarget->GetOBJID() == OBJ_DOOR || info.pTarget->GetOBJID() == OBJ_VENDINGMACHINE)
 	{
-		Change_State(KICK);
+		if(!m_pMiddlePart->Get_ActionAble(IDLE))
+			Change_State(KICK);
 	}
 }
 
@@ -1991,6 +2037,11 @@ void CPlayer::Get_Hit(_float fDamage)
 {
 	Add_HP(-fDamage);
 	// Effect
+}
+
+CWeapon* CPlayer::Get_Weapon()
+{
+	return m_mapWeapon[m_eWeaponState];
 }
 
 void CPlayer::Free()

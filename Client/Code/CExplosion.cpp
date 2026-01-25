@@ -2,8 +2,10 @@
 #include "CRenderer.h"
 #include "CProtoMgr.h"
 #include "CExplosion.h"
+#include "CSoundMgr.h"
 
 TextureSource CExplosion::m_TextureSource = { 0, L"../Bin/Resource/Texture/Effect/Exp1.dds", true,3,3,3 };
+wstring		  CExplosion::szExplosiveSFX = L"Explosive_SFX.wav";
 
 CExplosion::CExplosion(IDirect3DDevice9* device)
 	:CParticleEmitter(device, 10)
@@ -136,7 +138,8 @@ void CExplosion::Reset()
 		ResetParticle(&(*iter), idx);
 		idx++;
 	}
-
+	//CSoundMgr::GetInstance()->PlaySFXSound(szExplosiveSFX.c_str(), 0.8f);
+	CSoundMgr::GetInstance()->PlaySFXSound(szExplosiveSFX.c_str(), 0.4f);
 }
 
 HRESULT CExplosion::Add_Component()

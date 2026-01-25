@@ -110,7 +110,9 @@ private :
 	//πÊΩ¬»Ò ¿Ã∆Â∆Æ √ﬂ∞° 
 	CTrail* m_pTrail = nullptr;
 
+public:
 	static wstring  szKatanaIntroSFX;
+	static wstring  szKatanaAttackSFX;
 	
 };
 

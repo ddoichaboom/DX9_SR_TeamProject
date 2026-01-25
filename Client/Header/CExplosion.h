@@ -51,5 +51,8 @@ protected:
 	_vec2 vGraySizeXOffset = { 15.f, 25.f };
 	_vec2 vGraySpeedOffset = { 2.f, 3.f };
 
+public :
+	static wstring szExplosiveSFX;
+
 };
 

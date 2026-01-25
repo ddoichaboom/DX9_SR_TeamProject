@@ -9,6 +9,7 @@
 #include "CPoolMgr.h"
 #include "CManagement.h"
 
+
 vector<TextureSource> CRightPart::m_vTextureSource =
 {
 	{ GetStateID(IDLE,WEAPON_PISTOL),	L"../Bin/Resource/Texture/Player/Right_Hand_Idle_P.dds" },
@@ -82,6 +83,13 @@ CRightPart* CRightPart::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 _bool CRightPart::Get_ActionAble()
 {
 	return m_pAnimationCom->CanEnd();
+}
+
+_bool CRightPart::Get_Reload()
+{
+	_uint iA = m_pAnimationCom->Get_State();
+	_uint iB = GetStateID(RELOAD, WEAPON_PISTOL);
+	return iA != iB;
 }
 
 HRESULT CRightPart::Ready_GameObject()
@@ -176,18 +184,9 @@ void CRightPart::Begin_Attack()
 
 
 	m_pTransformCom->Set_Scale(m_vConvertScale * 0.5f);
-	m_pTransformCom->Set_Pos(m_vConvertPos.x - WINCX * 0.5f, -m_vConvertPos.y + WINCY * 0.5f, 0.f);
+	m_pTransformCom->Set_Pos(m_vConvertPos.x - WINCX * 0.5f, -m_vConvertPos.y + WINCY * 0.5f, 0.f);	
 
-
-	CFlare* flare = CPoolMgr::GetInstance()->Get_Object<CFlare>();
-	if (flare)
-	{
-		CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(flare);
-		_vec3 FlarePos = *m_pTransformCom->Get_Info(INFO_POS) + m_vFlarePosOffset; 
-		flare->SetPos(FlarePos);
-		flare->Reset();
-
-	}
+	
 }
 
 void CRightPart::Attack()

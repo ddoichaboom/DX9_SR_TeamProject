@@ -12,6 +12,8 @@
 #include "CExplosion.h"
 #include "CEventMgr.h"
 #include "CBossHPUI.h"
+#include "CSoundMgr.h"
+#include "CFlare.h"
 
 //-------------------------------------------------------------------------
 // Texture , Animation Data
@@ -367,6 +369,7 @@ void CBoss::OnBodyCollision(CollisionInfo info)
 	if (exp)
 	{
 		exp->SetPos(*m_pTransformCom->Get_Info(INFO_POS));
+		exp->SetSize({ 1.5f, 1.5f });
 		exp->Reset();
 		CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(exp);
 	}
@@ -429,7 +432,22 @@ void CBoss::Idle_Begin()
 {
 	m_fStateRatio = 0.f;
 	m_fSpeed = m_fIdleSpeed;
+
+	//첫 Idle 은 소리 패스 
+	if (m_talkRand == -1)
+	{
+		m_talkRand = 0; return;
+	}
+	if (CSoundMgr::GetInstance()->IsPlayingGroup(SOUND_MONSTER)) return; 
+
+	m_talkRand = rand() % 2;
+	if (m_talkRand)
+	{
+		int talkIdx = rand() % TalkCnt;
+		CSoundMgr::GetInstance()->PlayMonsterSound(m_szTalkSoundName[talkIdx].c_str(), 0.6f);
+	}
 }
+
 
 void CBoss::Idle()
 {
@@ -448,6 +466,7 @@ void CBoss::Dash_Begin()
 {
 	m_fStateRatio = 0.f;
 	m_fSpeed = m_fDashSpeed;
+	CSoundMgr::GetInstance()->PlaySFXSound(m_szDashName.c_str(), 0.3f);
 }
 
 void CBoss::Dash()
@@ -468,6 +487,7 @@ void CBoss::Attack_Idle()
 	switch (nextAttack)
 	{
 	case 0:
+		CSoundMgr::GetInstance()->PlaySFXSound (m_szBulletFireName.c_str(), 0.3f);
 		ChangeState(MS_ATTACK);
 		break;
 	case 1 :
@@ -547,6 +567,7 @@ void CBoss::Reset_Beam()
 	}
 	m_fTime = 0.f;
 	m_bBeamCollision = false;
+	CSoundMgr::GetInstance()->PlaySFXSound(m_szBeamName.c_str(),0.3f);
 }
 
 void CBoss::Run_Beam(_float _ratio)

@@ -195,6 +195,9 @@ public:
 
 	void			Get_Hit(_float fDamage);
 
+	CWeapon* Get_Weapon();
+	
+
 
 protected:
 	virtual void	Free();
@@ -252,6 +255,7 @@ private:
 	_float	m_fMoveSpeed;
 	_float	m_fKickAttack;	
 	_bool	m_bOnCollision;
+	_bool	m_bPoison;
 
 	map<_uint, _int> m_mapCallCnt = {};
 
@@ -277,13 +281,19 @@ private:
 	_int		m_iFootStep;
 
 
+public:
 	static wstring	szTutorialBGM;
 	static wstring	szStageBGM;
 	static wstring	szBossBGM;
 	static wstring	szClearSFX;
 	static wstring	szHowlSFX;
-	
-	static vector<wstring> vecFootSteps;
+	static wstring	szSlideBGM;
+	static wstring	szKickSFX;
+	static wstring	szDashSFX;
+	static wstring	szJumpSFX;
+	static wstring	szAcidSFX;
+	static wstring	szTakeDownSFX;
+
 	
 };
 

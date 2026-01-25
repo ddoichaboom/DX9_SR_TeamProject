@@ -29,11 +29,15 @@ void CSoundMgr::Ready_Sound()
 	FMOD_System_CreateChannelGroup(m_pSystem, "BGM", &m_pChannelGroup[SOUND_BGM]);
 	FMOD_System_CreateChannelGroup(m_pSystem, "MONSTER", &m_pChannelGroup[SOUND_MONSTER]);
 	FMOD_System_CreateChannelGroup(m_pSystem, "PLAYER", &m_pChannelGroup[SOUND_PLAYER]);
+	FMOD_System_CreateChannelGroup(m_pSystem, "WEAPON", &m_pChannelGroup[SOUND_WEAPON]);
+	FMOD_System_CreateChannelGroup(m_pSystem, "PLAYER_BGM", &m_pChannelGroup[SOUND_PLAYER_BGM]);
 
 	FMOD_ChannelGroup_AddGroup(m_pChannelGroup[SOUND_MASTER], m_pChannelGroup[SOUND_SFX], false, nullptr);
 	FMOD_ChannelGroup_AddGroup(m_pChannelGroup[SOUND_MASTER], m_pChannelGroup[SOUND_BGM], false, nullptr);
 	FMOD_ChannelGroup_AddGroup(m_pChannelGroup[SOUND_MASTER], m_pChannelGroup[SOUND_MONSTER], false, nullptr);
 	FMOD_ChannelGroup_AddGroup(m_pChannelGroup[SOUND_MASTER], m_pChannelGroup[SOUND_PLAYER], false, nullptr);
+	FMOD_ChannelGroup_AddGroup(m_pChannelGroup[SOUND_MASTER], m_pChannelGroup[SOUND_WEAPON], false, nullptr);
+	FMOD_ChannelGroup_AddGroup(m_pChannelGroup[SOUND_MASTER], m_pChannelGroup[SOUND_PLAYER_BGM], false, nullptr);
 	LoadSoundFile();
 }
 
@@ -107,6 +111,33 @@ void CSoundMgr::PlayPlayerSound(const TCHAR* pSoundKey, float fVolume)
 
 	FMOD_System_PlaySound(m_pSystem, iter->second, m_pChannelGroup[SOUND_PLAYER], FALSE, nullptr);
 	FMOD_ChannelGroup_SetVolume(m_pChannelGroup[SOUND_PLAYER], fVolume);
+	FMOD_System_Update(m_pSystem);
+}
+
+void CSoundMgr::PlayPlayerBGMSound(const TCHAR* pSoundKey, float fVolume)
+{
+	wstring key(pSoundKey);
+	auto iter = m_mapSound.find(key);
+
+	if (iter == m_mapSound.end())
+		return;
+
+	FMOD_Sound_SetMode(iter->second, FMOD_LOOP_NORMAL);
+	FMOD_System_PlaySound(m_pSystem, iter->second, m_pChannelGroup[SOUND_PLAYER_BGM], FALSE, nullptr);
+	FMOD_ChannelGroup_SetVolume(m_pChannelGroup[SOUND_PLAYER_BGM], fVolume);
+	FMOD_System_Update(m_pSystem);
+}
+
+void CSoundMgr::PlayWeaponSound(const TCHAR* pSoundKey, float fVolume)
+{
+	wstring key(pSoundKey);
+	auto iter = m_mapSound.find(key);
+
+	if (iter == m_mapSound.end())
+		return;
+	
+	FMOD_System_PlaySound(m_pSystem, iter->second, m_pChannelGroup[SOUND_WEAPON], FALSE, nullptr);
+	FMOD_ChannelGroup_SetVolume(m_pChannelGroup[SOUND_WEAPON], fVolume);
 	FMOD_System_Update(m_pSystem);
 }
 

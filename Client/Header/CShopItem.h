@@ -63,10 +63,9 @@ protected:
 	_bool		m_bSelect;
 	_bool		m_bPick;
 
+public :
 	static	wstring	 szItemHoverSFX;
-	static	wstring	 szItemSelectSFX;
-
-	
+	static	wstring	 szItemSelectSFX;	
 	static	wstring	 szMascottCloseSFX;
 	
 

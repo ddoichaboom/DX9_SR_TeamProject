@@ -28,7 +28,7 @@ public:
 
 public:
 	virtual void	ChangeState(_uint nextStateID) PURE;
-	virtual _bool	Get_ActionAble()	PURE;
+	virtual _bool	Get_ActionAble() { return true; }
 
 
 public:

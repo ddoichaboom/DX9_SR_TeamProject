@@ -4,12 +4,18 @@
 #include "CRenderer.h"
 #include "Engine_Enum.h"
 #include "CSoda.h"
+#include "CPoolMgr.h"
+#include "CManagement.h"
+#include "CSoundMgr.h"
+
 
 vector<TextureSource> CVendingMachine::m_vTextureSource =
 {
     {0, L"../Bin/Resource/Texture/Terrain/Object/SODAMACHINE.dds", false, 0, 0, 0, {1.f, 1.f}},
     {1, L"../Bin/Resource/Texture/Terrain/Object/SODAMACHINE_BROKEN.dds", false, 0, 0, 0, {1.f, 1.f}}
 };
+
+wstring CVendingMachine::szSodaMakeSFX = L"Soda_Make_SFX.wav";
 
 CVendingMachine::CVendingMachine(LPDIRECT3DDEVICE9 pGraphicDev)
     :CGameObject(pGraphicDev)
@@ -20,6 +26,9 @@ CVendingMachine::CVendingMachine(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_pCollider(nullptr)
     , m_pSoda(nullptr)
     , m_vColliderScale(1.f, 1.f, 1.f)
+    , m_bDispens(false)
+    , m_fTime(0.f)
+    , m_iCount(0)
 {
     m_eOBJ_ID = OBJ_VENDINGMACHINE;
     m_iID = Make_ID();
@@ -33,6 +42,9 @@ CVendingMachine::CVendingMachine(const CVendingMachine& rhs)
     , m_pCollisionCom(rhs.m_pCollisionCom)
     , m_pCollider(rhs.m_pCollider)
     , m_pSoda(rhs.m_pSoda)
+    , m_bDispens(false)
+    , m_fTime(0.f)
+    , m_iCount(0)
 {
     m_eOBJ_ID = rhs.m_eOBJ_ID;
     m_iID = Make_ID();
@@ -40,6 +52,7 @@ CVendingMachine::CVendingMachine(const CVendingMachine& rhs)
 
 CVendingMachine::~CVendingMachine()
 {
+
 }
 
 HRESULT CVendingMachine::Ready_GameObject()
@@ -87,6 +100,21 @@ _int CVendingMachine::Update_GameObject(const _float& fTimeDelta)
 
     CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA, this);
 
+    if (m_bDispens && m_iCount)
+    {
+        m_fTime += fTimeDelta;
+
+        if (m_fTime > 0.02f)
+        {
+            CreateSoda();
+            m_fTime = 0.f;
+            m_iCount--;
+            if (m_iCount <= 0)
+                m_pTextureCom->Change_Texture(1);
+        }
+    }
+    
+
     return iExit;
 }
 
@@ -124,7 +152,26 @@ void CVendingMachine::Render_GameObject()
 
 void CVendingMachine::Dispense()
 {
-    // TODO 소다 배출로직 
+    // TODO 소다 배출로직     
+    m_vDispensPos = *m_pTransformCom->Get_Info(INFO_POS);
+    m_fTime = 0.f;
+    m_iCount = 5;
+    m_bDispens = true;      
+}
+
+void CVendingMachine::CreateSoda()
+{
+    CSoda* pSoda = CPoolMgr::GetInstance()->Get_Object<CSoda>();
+    if (!pSoda)
+        return;
+    m_vDispensPos.y += 2.5f;
+    pSoda->SetPos(m_vDispensPos);
+    pSoda->Set_JumpDir();
+
+    CLayer* layer = CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer");
+    if (!layer) pSoda->ReturnToPool();
+    else layer->Add_GameObject(pSoda);
+    CSoundMgr::GetInstance()->PlaySFXSound(szSodaMakeSFX.c_str(), 0.8f);
 }
 
 HRESULT CVendingMachine::Add_Component()
@@ -166,8 +213,9 @@ HRESULT CVendingMachine::Add_Component()
 void	CVendingMachine::OnCollision(CollisionInfo info)
 {
     // TODO: 조건 작성 
-
-    Dispense();
+    
+    if(!m_bDispens)
+        Dispense();
 }
 
 void    CVendingMachine::Set_ColliderScale(_vec3 _scale)
@@ -202,6 +250,9 @@ void CVendingMachine::Free()
 void CVendingMachine::Activate()
 {
     CGameObject::Activate();
+    m_bDispens = false;
+    m_fTime = 0.f;
+    m_iCount = 0;
 
     m_pTextureCom->Change_Texture(0);
 }

@@ -9,7 +9,7 @@
 #include "CExplosion.h"
 #include "CBeamFlare.h"
 #include "CBodyEmit.h"
-
+#include "CSoundMgr.h"
 //-------------------------------------------------------------------------
 // Texture , Animation Data
 //-------------------------------------------------------------------------
@@ -29,6 +29,8 @@ vector<AnimationSource> CBeamMon::m_vAnimSource =
 	,{ MS_ATTACK_IDLE,2,1,1, true, 0.13f}			
 	,{ MS_ATTACK,1,3,2, false, 0.03f}					
 };
+
+wstring  CBeamMon::szBeamSFX = L"Monster_Beam_SFX.wav";
 
 
 CBeamMon::CBeamMon(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -90,6 +92,7 @@ HRESULT CBeamMon::Ready_GameObject()
 	if (FAILED(Add_Component())) return E_FAIL;
 
 	m_fAttackableDist = 80.f;
+	m_fTargetLoseDist = 150.f;
 	m_pTransformCom->m_vScale = { 8.f, 6.f  ,1.f };
 	m_pAnimationCom->Bind_OnChangedFunc([&](_float _aspect) { OnAnimationChange(_aspect); });
 
@@ -129,7 +132,17 @@ _int CBeamMon::Update_GameObject(const _float& fTimeDelta)
 
 		if (m_fAttackableDist >= distLen) ChangeState(MS_ATTACK);
 	}
-	// Beam Mon은 TargetLoseDist 설정 안함
+	else if (m_pStateCom->GetCurrentStateID() == MS_ATTACK)
+	{
+		if (FAILED(GetDistVecToPlayer(vDist))) return RET_NONE;
+		_float distLen = D3DXVec3Length(&vDist);
+		D3DXVec3Normalize(&m_vDir, &vDist);
+
+		if (m_fTargetLoseDist <= distLen)
+		{
+			ChangeState(MS_IDLE);
+		}
+	}
 
 	if (m_bShooting)
 	{
@@ -220,6 +233,7 @@ void CBeamMon::Attack_Idle()
 {
 	if (m_fTime >= m_fAttackDelayTime)
 	{
+		CSoundMgr::GetInstance()->PlayMonsterSound(szBeamSFX.c_str(),0.45f);
 		ChangeState(MS_ATTACK);
 	}
 }
@@ -237,7 +251,7 @@ void CBeamMon::Attack()
 
 void CBeamMon::Dead()
 {
-	CExplosion * exp = CPoolMgr::GetInstance()->Get_Object<CExplosion>();
+	CExplosion* exp = CPoolMgr::GetInstance()->Get_Object<CExplosion>();
 	CBodyEmit* bodyEmit = CPoolMgr::GetInstance()->Get_Object<CBodyEmit>();
 	if (exp)
 	{

@@ -106,7 +106,7 @@ protected:
 	//bool			m_bDash;
 
 	_float			m_fDashSpeed = 800.f;
-	_float			m_fIdleSpeed = 200.f;
+	_float			m_fIdleSpeed = 300.f;
 	_float			m_fBaseSpeed = 50.f;
 
 	_vec3			m_vScale;
@@ -155,5 +155,17 @@ protected:
 	CBossTrail*		m_pBossTrail;
 	CBossHPUI*		m_pBossHPUI;
 
+
+	//Sound
+	enum { TalkCnt = 4 };
+	const wstring m_szTalkSoundName[TalkCnt] =
+	{
+		L"BossTalk1.wav", L"BossTalk2.wav", L"BossTalk3.wav",L"BossTalk4.wav"
+	};
+	_int m_talkRand = -1;
+
+	const wstring m_szBulletFireName = L"BossBulletLoop_CutFade.wav";
+	const wstring m_szDashName = L"BossDash.wav";
+	const wstring m_szBeamName = L"Laser.wav";
 };
 

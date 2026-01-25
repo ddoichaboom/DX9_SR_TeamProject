@@ -34,6 +34,7 @@ vector<AnimationSource>  CKatana::m_vAnimSource =
 };
 
 wstring CKatana::szKatanaIntroSFX = L"Katana_Intro_SFX.wav";
+wstring CKatana::szKatanaAttackSFX = L"Katana_Attack_SFX.wav";
 
 
 CKatana::CKatana(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -317,6 +318,7 @@ void CKatana::Begin_Attack1()
 		CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(m_pTrail);
 	}
 	m_pTrail->SetSize({ 80.f,3000.f });
+	CSoundMgr::GetInstance()->PlaySoundByID(szKatanaAttackSFX.c_str(), SOUND_WEAPON, 0.35f);
 }
 
 void CKatana::Begin_Attack2()
@@ -343,7 +345,7 @@ void CKatana::Begin_Attack2()
 		CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(m_pTrail);
 	}
 	m_pTrail->SetSize({ 80.f,4000.f });
-
+	CSoundMgr::GetInstance()->PlaySoundByID(szKatanaAttackSFX.c_str(), SOUND_WEAPON, 0.35f);
 
 }
 
@@ -372,6 +374,7 @@ void CKatana::Begin_Attack3()
 	}
 
 	m_pTrail->SetSize({ 80.f,3000.f });
+	CSoundMgr::GetInstance()->PlaySoundByID(szKatanaAttackSFX.c_str(), SOUND_WEAPON, 0.35f);
 }
 
 void CKatana::Attack()
