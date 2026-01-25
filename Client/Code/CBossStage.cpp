@@ -55,6 +55,7 @@
 #include "CToonFlash.h"
 #include "CToonFog.h"
 #include "CBossTrail.h"
+#include "CBossHPUI.h"
 
 #include "CLoadingEX.h"
 
@@ -402,6 +403,11 @@ HRESULT CBossStage::Ready_CharacterTextureProto()
     //BossTrail Texture
     pCom_Texture = CTexture::Create(m_pGraphicDev, CBossTrail::GetTextureSource());
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_BossTrail_Texture", pCom_Texture)))
+        return E_FAIL;
+
+    //BossHPUI Texture
+    pCom_Texture = CTexture::Create(m_pGraphicDev, CBossHPUI::GetTextureSource());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_BOSSHPUI_Texture", pCom_Texture)))
         return E_FAIL;
 
     return S_OK;

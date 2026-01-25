@@ -9,6 +9,8 @@ namespace Engine
 
 class CBeam;
 class CBossTrail;
+class CBossHPUI;
+
 class CBoss :
     public CMonster
 {
@@ -151,6 +153,7 @@ protected:
 
 	//Effect
 	CBossTrail*		m_pBossTrail;
+	CBossHPUI*		m_pBossHPUI;
 
 };
 

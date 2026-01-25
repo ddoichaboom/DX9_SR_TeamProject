@@ -38,6 +38,10 @@ public:
 	_int								GetRoomIndex() { return m_iRoomIndex; }
 	void								SetRoomIndex(_int _idx) { m_iRoomIndex = _idx; }
 
+	//HP Bar 호환용. Character이하에서 재정희하기
+	virtual	_float						GetHP() { return 0.f; }
+	virtual _float						GetMaxHP() { return 0.f; }
+
 	OBJ_ID								GetOBJID()		{ return m_eOBJ_ID; }
 	_uint								GetID()			{ return m_iID; }
 

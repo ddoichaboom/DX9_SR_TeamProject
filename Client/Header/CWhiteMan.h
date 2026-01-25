@@ -96,6 +96,7 @@ protected:
 	void			OnHeadCollision(CollisionInfo info);
 	void			OnBodyCollision(CollisionInfo info);
 
+	void			CreateBloodAndExp();
 protected:
 	//State Function 
 	void			Idle();
@@ -109,9 +110,9 @@ protected:
 	void			Launch() override;
 	void			Dead();
 
+	void			Explore();
 	void			Elect();
 	void			Slice();
-	void			Bomb();
 
 	void			FlyBack_Begin();
 	void			FlyBack();
@@ -130,7 +131,8 @@ protected:
 protected:
 	_float			m_fAttackDelayTime = 3.0f;
 
-	_float			m_fFlyBackTime = 0.5f;
+	//_float			m_fFlyBackTime = 0.5f;
+	_float			m_fFlyBackTime = 1.f;
 	_float			m_fFlyBackSpeed= 4.f;
 	_vec3			m_FlyDir = {};
 	_float			m_fHeadPosOffset = -5.f;
@@ -143,6 +145,7 @@ protected:
 	static _uint ID_SLICE_DEAD;
 	static _uint ID_ELECT_DEAD;
 	static _uint ID_HEAD_DEAD;
+	static _uint ID_EXP_DEAD;
 
 	static _uint ID_FLYBACK_BEGIN;
 	static _uint ID_FLYBACK_END_WALL;

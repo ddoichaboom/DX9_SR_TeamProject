@@ -201,6 +201,7 @@ void CRocket::Explosion()
 		CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(exp);
 		_vec3 pos = *m_pTransformCom->Get_Info(INFO_POS) - m_vDir * 5.f;
 		exp->SetPos(pos);
+		exp->SetSize({ 1.5f, 1.5f });
 		exp->Reset();
 	}
 }

@@ -17,6 +17,7 @@
 #include "CToonFog.h"
 #include "CBossTrail.h"
 #include "CSodaUI.h"
+#include "CBossHPUI.h"
 
 CEffectScene::CEffectScene(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CEditorScene(pGraphicDev), m_pCurParticle(nullptr)
@@ -53,8 +54,9 @@ HRESULT CEffectScene::Ready_Scene()
     m_mapParticle[EF_TOONFLASH] = CToonFlash::Create(m_pGraphicDev);
     m_mapParticle[EF_TOONFOG] = CToonFog::Create(m_pGraphicDev);
     m_mapParticle[EF_SODAUI] = CSodaUI::Create(m_pGraphicDev);
+    m_mapParticle[EF_BOSSHPUI] = CBossHPUI::Create(m_pGraphicDev,nullptr);
 
-    m_pCurParticle = m_mapParticle[EF_SODAUI];
+    m_pCurParticle = m_mapParticle[EF_BOSSHPUI];
 
     m_pFloor = CEditorFloor::Create(m_pGraphicDev, { 0,0,0 });
     return S_OK;
