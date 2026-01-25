@@ -588,6 +588,9 @@
     <ClInclude Include="..\Header\CBossStage.h">
       <Filter>01. Scene\01. Stage\02. BossStage</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CVendingMachine.h">
+      <Filter>02. GameObject\03.MapObject\02.VendingMachine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -856,6 +859,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CDoor.cpp">
       <Filter>02. GameObject\99. Environment\01. Object\00. Door</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CVendingMachine.cpp">
+      <Filter>02. GameObject\03.MapObject\02.VendingMachine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

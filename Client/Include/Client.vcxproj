@@ -227,6 +227,7 @@
     <ClInclude Include="..\Header\CTrail.h" />
     <ClInclude Include="..\Header\CTrigger.h" />
     <ClInclude Include="..\Header\CUIManager.h" />
+    <ClInclude Include="..\Header\CVendingMachine.h" />
     <ClInclude Include="..\Header\CWall.h" />
     <ClInclude Include="..\Header\CWeapon.h" />
     <ClInclude Include="..\Header\CWhiteMan.h" />
@@ -321,6 +322,7 @@
     <ClCompile Include="..\Code\CTrail.cpp" />
     <ClCompile Include="..\Code\CTrigger.cpp" />
     <ClCompile Include="..\Code\CUIManager.cpp" />
+    <ClCompile Include="..\Code\CVendingMachine.cpp" />
     <ClCompile Include="..\Code\CWall.cpp" />
     <ClCompile Include="..\Code\CWeapon.cpp" />
     <ClCompile Include="..\Code\CWhiteMan.cpp" />
