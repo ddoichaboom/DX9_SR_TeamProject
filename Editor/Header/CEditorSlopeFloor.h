@@ -34,6 +34,7 @@ public:
     //  좌표 계산 헬퍼 함수 
     // 반대쪽 끝점 위치 (경사 각도/방향에 따라 계산)
     _vec3           Get_OppositeEndPosition();
+    _vec3           Get_OppositeEndPosition(const _vec3& vDupDir);
 
 protected:
     _float          m_fSlopeAngle;          // 경사 각도 (0 ~ 89도)

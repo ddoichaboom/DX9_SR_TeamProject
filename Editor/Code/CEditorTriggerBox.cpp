@@ -61,6 +61,11 @@ _int CEditorTriggerBox::Update_GameObject(const _float& fTimeDelta)
 
     Engine::CRenderer::GetInstance()->Add_RenderGroup(Engine::RENDER_DEBUG, this);
 
+    if (m_pCollider)
+    {
+        m_pCollider->Set_Selected(m_bSelected);
+    }
+
     return 0;
 }
 
@@ -76,11 +81,6 @@ void CEditorTriggerBox::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CEditorTriggerBox::Render_GameObject()
 {
-    // CCollider에 렌더링 위임
-    if (m_pCollider)
-    {
-        m_pCollider->Render_GameObject();
-    }
 }
 
 HRESULT CEditorTriggerBox::Add_Component()

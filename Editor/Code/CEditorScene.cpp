@@ -292,7 +292,7 @@ void CEditorScene::Handle_Duplicate()
                     SLOPE_DIR eSlopeDir = pSlopeFloor->Get_SlopeDirection();
                     iRoomIndex = pSlopeFloor->Get_RoomIndex();
 
-                    vPos = pSlopeFloor->Get_OppositeEndPosition();
+                    vPos = pSlopeFloor->Get_OppositeEndPosition(m_vDupplicateDir);
 
                     pNewObj = CEditorSlopeFloor::Create(m_pGraphicDev, vPos, vScale,
                                                         iType, fSlopeAngle, eSlopeDir);

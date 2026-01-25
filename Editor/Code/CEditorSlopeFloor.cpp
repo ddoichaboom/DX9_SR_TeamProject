@@ -286,22 +286,6 @@ _vec3 CEditorSlopeFloor::Get_OppositeEndPosition()
 
     _vec3 vOffset(0.f, 0.f, 0.f);
 
-    //switch (m_eSlopeDir)
-    //{
-    //case SLOPE_POSITIVE_X:  // +X 방향으로 올라감
-    //    vOffset = _vec3(fHorizontalDist, fVerticalDist, 0.f);
-    //    break;
-    //case SLOPE_NEGATIVE_X:  // -X 방향으로 올라감
-    //    vOffset = _vec3(-fHorizontalDist, fVerticalDist, 0.f);
-    //    break;
-    //case SLOPE_POSITIVE_Z:  // +Z 방향으로 올라감
-    //    vOffset = _vec3(0.f, fVerticalDist, fHorizontalDist);
-    //    break;
-    //case SLOPE_NEGATIVE_Z:  // -Z 방향으로 올라감
-    //    vOffset = _vec3(0.f, fVerticalDist, -fHorizontalDist);
-    //    break;
-    //}
-
     switch (m_eSlopeDir)
     {
     case SLOPE_POSITIVE_X:  // X축 회전 → Z+ 방향으로 올라감
@@ -316,6 +300,98 @@ _vec3 CEditorSlopeFloor::Get_OppositeEndPosition()
     case SLOPE_NEGATIVE_Z:  // X축 회전 + Y 90도 → X- 방향으로 올라감
         vOffset = _vec3(fHorizontalDist, fVerticalDist, 0.f);
         break;
+    }
+
+    return vPivotPos + vOffset;
+}
+
+_vec3 CEditorSlopeFloor::Get_OppositeEndPosition(const _vec3& vDupDir)
+{
+    _vec3 vPivotPos = Get_Position();
+    _vec3 vScale = Get_Scale();
+
+    // RcTexUp 기본 길이: 2 단위 (Y: 0 ~ +2)
+    _float fLength = 2.f * vScale.y;
+    _float fRadian = D3DXToRadian(m_fSlopeAngle);
+
+    // 경사 적용 후 변위
+    _float fHorizontalDist = fLength * cosf(fRadian);
+    _float fVerticalDist = fLength * sinf(fRadian);
+
+    _vec3 vOffset(0.f, 0.f, 0.f);
+
+    if (vDupDir.z > 0.f)
+    {
+        switch (m_eSlopeDir)
+        {
+        case SLOPE_POSITIVE_X:  // X축 회전 → Z+ 방향으로 올라감
+            vOffset = _vec3(0.f, fVerticalDist, fHorizontalDist);
+            break;
+        case SLOPE_NEGATIVE_X:  // X축 회전 + Y 180도 → Z- 방향으로 올라감
+            vOffset = _vec3(0.f, -fVerticalDist, fHorizontalDist);
+            break;
+        case SLOPE_POSITIVE_Z:  // X축 회전 + Y -90도 → X+ 방향으로 올라감
+            vOffset = vDupDir * 32.f;
+            break;
+        case SLOPE_NEGATIVE_Z:  // X축 회전 + Y 90도 → X- 방향으로 올라감
+            vOffset = vDupDir * 32.f;
+            break;
+        }
+    }
+    else if (vDupDir.z < 0.f)
+    {
+        switch (m_eSlopeDir)
+        {
+        case SLOPE_POSITIVE_X:  // X축 회전 → Z+ 방향으로 올라감
+            vOffset = _vec3(0.f, -fVerticalDist, -fHorizontalDist);
+            break;
+        case SLOPE_NEGATIVE_X:  // X축 회전 + Y 180도 → Z- 방향으로 올라감
+            vOffset = _vec3(0.f, fVerticalDist, -fHorizontalDist);
+            break;
+        case SLOPE_POSITIVE_Z:  // X축 회전 + Y -90도 → X+ 방향으로 올라감
+            vOffset = vDupDir * 32.f;
+            break;
+        case SLOPE_NEGATIVE_Z:  // X축 회전 + Y 90도 → X- 방향으로 올라감
+            vOffset = vDupDir * 32.f;
+            break;
+        }
+    }
+    
+    if (vDupDir.x > 0.f)
+    {
+        switch (m_eSlopeDir)
+        {
+        case SLOPE_POSITIVE_X:  // X축 회전 → Z+ 방향으로 올라감
+            vOffset = vDupDir * 32.f;;
+            break;
+        case SLOPE_NEGATIVE_X:  // X축 회전 + Y 180도 → Z- 방향으로 올라감
+            vOffset = vDupDir * 32.f;
+            break;
+        case SLOPE_POSITIVE_Z:  // X축 회전 + Y -90도 → X+ 방향으로 올라감
+            vOffset = _vec3(-fHorizontalDist, fVerticalDist, 0.f);
+            break;
+        case SLOPE_NEGATIVE_Z:  // X축 회전 + Y 90도 → X- 방향으로 올라감
+            vOffset = _vec3(-fHorizontalDist, -fVerticalDist, 0.f);
+            break;
+        }
+    }
+    else if (vDupDir.x < 0.f)
+    {
+        switch (m_eSlopeDir)
+        {
+        case SLOPE_POSITIVE_X:  // X축 회전 → Z+ 방향으로 올라감
+            vOffset = vDupDir * 32.f;
+            break;
+        case SLOPE_NEGATIVE_X:  // X축 회전 + Y 180도 → Z- 방향으로 올라감
+            vOffset = vDupDir * 32.f;
+            break;
+        case SLOPE_POSITIVE_Z:  // X축 회전 + Y -90도 → X+ 방향으로 올라감
+            vOffset = _vec3(fHorizontalDist, -fVerticalDist, 0.f);
+            break;
+        case SLOPE_NEGATIVE_Z:  // X축 회전 + Y 90도 → X- 방향으로 올라감
+            vOffset = _vec3(fHorizontalDist, fVerticalDist, 0.f);
+            break;
+        }
     }
 
     return vPivotPos + vOffset;

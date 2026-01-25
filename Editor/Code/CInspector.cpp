@@ -463,7 +463,8 @@ void CInspector::Render_MapColliderProperties(CEditorMapCollider* pCollider)
         "TAG_NONE",
         "TAG_SIDE_DASH_X",
         "TAG_SIDE_DASH_Z",
-        "TAG_FAN"
+        "TAG_FAN",
+        "TAG_ELECTRIC"
     };
 
     int iSelectedTag(0);
@@ -481,8 +482,13 @@ void CInspector::Render_MapColliderProperties(CEditorMapCollider* pCollider)
         break;
     case TAG_FAN:
         iSelectedTag = 3;
+        break;
+    case TAG_ELECTRIC:
+        iSelectedTag = 4;
+        break;
     default:
         iSelectedTag = 0;
+        break;
     }
 
     if (ImGui::Combo("Collider Tag", &iSelectedTag, szColliderTags, IM_ARRAYSIZE(szColliderTags)))
@@ -500,6 +506,9 @@ void CInspector::Render_MapColliderProperties(CEditorMapCollider* pCollider)
             break;
         case 3:
             pCollider->Set_ColliderTag(TAG_FAN);
+            break;
+        case 4:
+            pCollider->Set_ColliderTag(TAG_ELECTRIC);
             break;
         }
     }

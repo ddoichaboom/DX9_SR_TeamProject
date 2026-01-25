@@ -289,9 +289,9 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iBulletCount = 20;
 	_uint iBossBulletCount = 30;
 	_uint iBossRocketCount = 30;
-	_uint iWhiteManCount = 6;
-	_uint iBeamMonCount = 6;
-	_uint iFlyMonCount = 6;
+	_uint iWhiteManCount = 20;
+	_uint iBeamMonCount = 10;
+	_uint iFlyMonCount = 10;
 
 	// 문 관련 오브젝트 풀 사이즈 등록 ( 좌측/우측 파츠는 본체인 문과 개수 동일함 )
 	_uint iMaxDoorCount(0);

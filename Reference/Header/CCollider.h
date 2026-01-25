@@ -56,6 +56,7 @@ public:
 	bool				CanCollision() { return m_bCanCollision; }
 	void				OnCollision() { m_bCanCollision = true; }
 	void				OffCollision() { m_bCanCollision = false; }
+	void				Set_Selected(_bool bSelected) { m_bSelected = bSelected; }
 
 	static CCollider*	Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _owner);
 
@@ -72,6 +73,7 @@ protected:
 	//부모 행렬에 의해 회전을 할건지 
 	//주의. 콜라이더 대 콜라이더 충돌을 하는 콜라이더면 회전하면 안됨 (OBB 구현 x) 
 	bool				m_bRotToPrt;
+	_bool				m_bSelected = false;
 };
 
 END

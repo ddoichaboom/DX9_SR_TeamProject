@@ -75,8 +75,33 @@ void CCollider::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CCollider::Render_GameObject()
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, &m_matWorld);
-	m_pBufferCom->Render_Buffer();
+
+	// 선택 시 색상 변경
+	if (m_bSelected)
+	{
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, &m_matWorld);
+
+		DWORD dOldTextureFactor, dOldColorOP, dOldColorARG1;
+		m_pGraphicDev->GetRenderState(D3DRS_TEXTUREFACTOR, &dOldTextureFactor);
+		m_pGraphicDev->GetTextureStageState(0, D3DTSS_COLOROP, &dOldColorOP);
+		m_pGraphicDev->GetTextureStageState(0, D3DTSS_COLORARG1, &dOldColorARG1);
+
+		m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR,
+			D3DCOLOR_ARGB(255, 0, 255, 0));  // 초록색
+		m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
+		m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TFACTOR);
+
+		m_pBufferCom->Render_Buffer();
+
+		m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, dOldTextureFactor);
+		m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, dOldColorOP);
+		m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, dOldColorARG1);
+	}
+	else
+	{
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, &m_matWorld);
+		m_pBufferCom->Render_Buffer();
+	}
 }
 
 HRESULT	CCollider::Add_Component()

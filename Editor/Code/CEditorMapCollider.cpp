@@ -64,6 +64,12 @@ _int CEditorMapCollider::Update_GameObject(const _float& fTimeDelta)
     // Alpha 그룹에서 렌더링 (항상 보이도록)
     Engine::CRenderer::GetInstance()->Add_RenderGroup(Engine::RENDER_DEBUG, this);
 
+
+    if (m_pCollider)
+    {
+        m_pCollider->Set_Selected(m_bSelected);
+    }
+
     return 0;
 }
 
@@ -86,12 +92,7 @@ void CEditorMapCollider::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CEditorMapCollider::Render_GameObject()
 {
-    // CCollider에 렌더링 위임 (Client 구조와 동일)
-    // CCollider 내부에서 CCubeCol로 와이어프레임 렌더링
-    if (m_pCollider)
-    {
-        m_pCollider->Render_GameObject();
-    }
+
 }
 
 HRESULT CEditorMapCollider::Add_Component()
