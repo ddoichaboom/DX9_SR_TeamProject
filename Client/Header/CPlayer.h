@@ -273,5 +273,12 @@ private:
 	_float		m_fDelayTime;
 
 	_bool		m_bBossStage;
+
+
+	static wstring	szTutorialBGM;
+	static wstring	szStageBGM;
+	static wstring	szBossBGM;
+	static wstring	szClearSFX;
+	
 };
 

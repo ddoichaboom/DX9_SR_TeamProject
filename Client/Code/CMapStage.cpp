@@ -132,7 +132,7 @@ _int CMapStage::Update_Scene(const _float& fTimeDelta)
         //TODO : 사운드 매니저 예시. 제거하기 
         if (m_pLoadingEX->IsEnd())
         {
-            CSoundMgr::GetInstance()->PlayBGM(szMap1BGM.c_str());
+            //CSoundMgr::GetInstance()->PlayBGM(szMap1BGM.c_str());
         }
         return 0;
     }
@@ -155,7 +155,7 @@ _int CMapStage::Update_Scene(const _float& fTimeDelta)
     {
         //TODO : 사운드 매니저 예시. 제거하기 
         //주소, 볼륨 - 현재 삽입하는 채널그룹의 전체 볼륨이 다같이 조정됨 
-        CSoundMgr::GetInstance()->PlayPlayerSound(szPlayerShoot.c_str(), 0.8f);
+        //SoundMgr::GetInstance()->PlayPlayerSound(szPlayerShoot.c_str(), 0.8f);
     }
 
     return iExit;

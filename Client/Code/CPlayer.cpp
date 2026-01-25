@@ -28,6 +28,17 @@
 #include "CSoda.h"
 #include "CAxe.h"
 #include "CExtinguisher.h"
+#include "CSoundMgr.h"
+
+// STAGE BGM
+wstring CPlayer::szTutorialBGM	= L"Stage_01_BGM.wav";
+wstring CPlayer::szStageBGM		= L"Stage_02_BGM.wav";
+wstring CPlayer::szBossBGM		= L"Stage_Boss_BGM.wav";
+wstring CPlayer::szClearSFX		= L"Stage_Clear_SFX.wav";
+
+
+
+
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCharacter(pGraphicDev, 15.f)
@@ -84,6 +95,8 @@ void CPlayer::OnEvent(EVENT_TYPE _type, EventData* _pData)
 
 	else if (_type == EVENT_STAGE_END)
 	{
+		CSoundMgr::GetInstance()->StopGroupSound(SOUND_BGM);		
+		CSoundMgr::GetInstance()->PlaySFXSound(szClearSFX.c_str(), 1.f);
 		m_bStage = false;
 		CManagement::GetInstance()->Set_CountTime(false);
 		m_bDelay = true;
@@ -1376,11 +1389,16 @@ void CPlayer::Intro_Enter()
 	switch (m_eWeaponState)
 	{
 	case WEAPON_NONE:
-		//m_iCallCnt = 1;
-		m_mapCallCnt[INTRO] = 1;
-		m_pMiddlePart->ChangeState(GetStateID(INTRO, WEAPON_PISTOL));
+		////m_iCallCnt = 1;
+		//m_mapCallCnt[INTRO] = 1;
+		//m_pMiddlePart->ChangeState(GetStateID(INTRO, WEAPON_PISTOL));
 		break;
 	case WEAPON_PISTOL:
+		if (m_bStage == false)
+		{
+
+		}
+
 		m_mapCallCnt[INTRO] = 1;
 		m_pMiddlePart->ChangeState(GetStateID(INTRO, WEAPON_PISTOL));
 		break;
@@ -1440,8 +1458,28 @@ void CPlayer::Intro_LateUpdate(const _float& fTimeDelta)
 
 void CPlayer::Intro_Exit()
 {
-	if(m_bStage == false)
+	if (m_bStage == false)
+	{
+		_uint iNumber = CManagement::GetInstance()->Get_FloorNumber();
+		wstring stageBGM;
+		switch(iNumber)
+		{
+		case 1:
+			stageBGM = szTutorialBGM;
+			break;
+		case 2:
+			stageBGM = szStageBGM;
+			break;
+		case 3:
+			stageBGM = szBossBGM;
+			break;		
+		}
+
+		CSoundMgr::GetInstance()->StopGroupSound(SOUND_BGM);
+		CSoundMgr::GetInstance()->PlayBGM(stageBGM.c_str(), 0.5f);
 		CEventMgr::GetInstance()->Broadcast(EVENT_STAGE_START, nullptr);
+	}
+		
 }
 
 void CPlayer::Idle_Enter()

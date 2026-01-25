@@ -101,7 +101,7 @@ HRESULT CInfoUI::Ready_GameObject()
     m_fSizeX = 1100.f;
     m_fSizeY = 100.f;
 
-    m_vTimePos = { -300.f,-25.f,0.f };
+    m_vTimePos = { 0.f,0.f,0.f };
     m_vTimeScale = { 1100.f, 100.f, 0.f };
 
     SetScale(m_fSizeX, m_fSizeY);

@@ -5,6 +5,7 @@
 #include "CDInputMgr.h"
 
 #include "CPlayer.h"
+#include "CSoundMgr.h"
 
 vector<TextureSource> CMiddlePart::m_vTextureSource =
 {
@@ -31,6 +32,8 @@ vector<AnimationSource>  CMiddlePart::m_vAnimSource =
 	{ SHOP,1,0,0, true, 0.12f, 1.f},
 	{ READY_NEXT,1,0,0, true, 0.12f, 1.f},
 };
+
+wstring	CMiddlePart::szHealEffectSound = L"Heal_Effect_SFX.wav";
 
 CMiddlePart::CMiddlePart(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CPlayerPart(pGraphicDev), m_iLoopTime(3)
@@ -222,6 +225,8 @@ void CMiddlePart::Begin_Drink()
 	m_vEndPos = { m_fX, m_fY, 0.f };
 	m_pTransformCom->Set_Scale(m_fSizeX * 0.5f, m_fSizeY * 0.5f, 1.f);
 	m_pTransformCom->Set_Pos(m_fX - WINCX * 0.5f, -m_fY + WINCY * 0.5f, 0.f);
+
+	CSoundMgr::GetInstance()->PlaySFXSound(szHealEffectSound.c_str(), 1.f);
 }
 
 void CMiddlePart::Drink()

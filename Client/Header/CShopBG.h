@@ -80,6 +80,8 @@ protected:
 	void	Begin_OnPage();
 	void	OnPage();
 
+	void	Play_MascottSound();
+
 protected:
 	static vector<TextureSource>	m_vTextureSource;
 	static vector<AnimationSource>	m_vAnimSource;
@@ -103,5 +105,15 @@ protected :
 	CNoise* m_pNoise;
 	_bool	m_bRender;
 	_bool	m_bStop;
+	_int	m_iMascottNumber;
+
+	static	wstring	szNoiseBGM;
+	static	wstring	szShopBGM;
+	static	wstring	szMascottOpenSFX;
+	static	wstring	szMasCottFirstSFX;
+	static	wstring	szMasCottSecondSFX;
+	static	wstring	szMasCottThirdSFX;
+	static	wstring	szMasCottFourthSFX;
+	static	wstring	szMasCottFifthSFX;
 };
 

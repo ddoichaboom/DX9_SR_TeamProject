@@ -226,13 +226,13 @@ HRESULT CMainApp::Ready_DefaultProto()
 
 
 	//Font
-	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Number", L"DS-Digital", 40, 40, FW_BOLD, false, true)))
+	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Number", L"DS-Digital", 30, 40, FW_BOLD, false, true)))
 		return E_FAIL;
 
 	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_SmallNumber", L"DS-Digital", 35, 35, FW_BOLD, false, true)))
 		return E_FAIL;
 
-	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_LargeNumber", L"DS-Digital", 50, 50, FW_DONTCARE, false, false)))
+	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_LargeNumber", L"DS-Digital", 40, 50, FW_DONTCARE, false, true)))
 		return E_FAIL;
 
 	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Default", L"∞ﬂ∏Ì¡∂", 15, 15, FW_HEAVY,false, false)))

@@ -8,6 +8,8 @@
 #include "CNoise.h"
 #include "CEventMgr.h"
 
+#include "CSoundMgr.h"
+
 vector<TextureSource> CShopBG::m_vTextureSource =
 {
 	{ SHOP,  L"../Bin/Resource/Texture/UI/Shop_Loading_Begin.dds" },
@@ -18,16 +20,27 @@ vector<TextureSource> CShopBG::m_vTextureSource =
 vector<AnimationSource>  CShopBG::m_vAnimSource =
 {
 	{ SHOP,1,2,2, true, 0.12f},
-	{ NOISE,1,2,2, true, 0.12f, 1.f},
+	{ NOISE,1,2,2, true, 0.12f},
 	{ ONPAGE,1,0,0, true, 0.12f}
 };
+
+wstring CShopBG::szNoiseBGM = L"Noise_BGM.wav";
+wstring CShopBG::szShopBGM = L"Shop_BGM.wav";
+wstring CShopBG::szMascottOpenSFX = L"Mascott_Clear_SFX.wav";
+
+wstring CShopBG::szMasCottFirstSFX = L"Mascott_01_SFX.wav";
+wstring CShopBG::szMasCottSecondSFX = L"Mascott_02_SFX.wav";
+wstring CShopBG::szMasCottThirdSFX = L"Mascott_03_SFX.wav";
+wstring CShopBG::szMasCottFourthSFX = L"Mascott_04_SFX.wav";
+wstring CShopBG::szMasCottFifthSFX = L"Mascott_05_SFX.wav";
+
 
 CShopBG::CShopBG(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CBaseUI(pGraphicDev)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
 	, m_pAnimationCom(nullptr), m_pStateCom(nullptr)
 	, m_fTime(0.f), m_fDelayTime(0.f), m_bDelay(false), m_bStateStop(false)
-	, m_bRender(false), m_bStop(false), m_pNoise(nullptr)
+	, m_bRender(false), m_bStop(false), m_pNoise(nullptr), m_iMascottNumber(0)
 {	
 	ZeroMemory(m_pItem, sizeof(m_pItem));
 	m_iOrder = 0;
@@ -38,7 +51,7 @@ CShopBG::CShopBG(const CShopBG& rhs)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
 	, m_pAnimationCom(nullptr), m_pStateCom(nullptr)
 	, m_fTime(0.f), m_fDelayTime(0.f), m_bDelay(false), m_bStateStop(false)
-	, m_bRender(false), m_bStop(false), m_pNoise(nullptr)
+	, m_bRender(false), m_bStop(false), m_pNoise(nullptr), m_iMascottNumber(0)
 {
 	ZeroMemory(m_pItem, sizeof(m_pItem));
 	m_iOrder = 0;
@@ -268,6 +281,7 @@ void CShopBG::Begin_Idle()
 	m_fDelayTime = 0.f;
 	SetPos(m_vStartPos);
 	m_pTransformCom->Set_Scale(m_vStartScale);
+	CSoundMgr::GetInstance()->PlaySFXSound(szMascottOpenSFX.c_str(), 1.f);
 }
 
 void CShopBG::Idle()
@@ -313,11 +327,15 @@ void CShopBG::Idle()
 void CShopBG::Begin_Noise()
 {
 	m_bRender = false;
+	CSoundMgr::GetInstance()->StopGroupSound(SOUND_BGM);
+	//CSoundMgr::GetInstance()->StopGroupSound(SOUND_SFX);
+	CSoundMgr::GetInstance()->PlayBGM(szNoiseBGM.c_str(),0.3f);
+
 }
 
 void CShopBG::Noise()
 {
-	if (m_pAnimationCom->CanEnd())
+	if (m_fTime > 1.5f)
 	{
 		ChangeState(ONPAGE);
 		return;
@@ -328,10 +346,47 @@ void CShopBG::Noise()
 void CShopBG::Begin_OnPage()
 {
 	// 아이템 3개 생성 혹은 초기화
+	CSoundMgr::GetInstance()->StopGroupSound(SOUND_BGM);	
+	CSoundMgr::GetInstance()->PlayBGM(szShopBGM.c_str(), 0.5f);
+
 	m_bRender = true;
+	m_fTime = 0.f;
 }
 
 void CShopBG::OnPage()
 {
+	if (m_fTime > 5.f)
+	{
+		Play_MascottSound();
+		m_fTime = 0.f;
+	}
+
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
+}
+
+void CShopBG::Play_MascottSound()
+{
+	m_iMascottNumber++;
+	m_iMascottNumber %= 5;
+	
+	if (m_iMascottNumber == 0)
+	{
+		CSoundMgr::GetInstance()->PlaySFXSound(szMasCottFirstSFX.c_str(), 1.f);
+	}
+	else if (m_iMascottNumber == 1)
+	{
+		CSoundMgr::GetInstance()->PlaySFXSound(szMasCottSecondSFX.c_str(), 1.f);
+	}
+	else if (m_iMascottNumber == 2)
+	{
+		CSoundMgr::GetInstance()->PlaySFXSound(szMasCottThirdSFX.c_str(), 1.f);
+	}
+	else if (m_iMascottNumber == 3)
+	{
+		CSoundMgr::GetInstance()->PlaySFXSound(szMasCottFourthSFX.c_str(), 1.f);
+	}
+	else if (m_iMascottNumber == 4)
+	{
+		CSoundMgr::GetInstance()->PlaySFXSound(szMasCottFifthSFX.c_str(), 1.f);
+	}
 }
