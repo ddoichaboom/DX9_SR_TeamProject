@@ -92,6 +92,7 @@ HRESULT CBeamMon::Ready_GameObject()
 	if (FAILED(Add_Component())) return E_FAIL;
 
 	m_fAttackableDist = 80.f;
+	m_fTargetLoseDist = 150.f;
 	m_pTransformCom->m_vScale = { 8.f, 6.f  ,1.f };
 	m_pAnimationCom->Bind_OnChangedFunc([&](_float _aspect) { OnAnimationChange(_aspect); });
 
@@ -131,7 +132,17 @@ _int CBeamMon::Update_GameObject(const _float& fTimeDelta)
 
 		if (m_fAttackableDist >= distLen) ChangeState(MS_ATTACK);
 	}
-	// Beam Mon은 TargetLoseDist 설정 안함
+	else if (m_pStateCom->GetCurrentStateID() == MS_ATTACK)
+	{
+		if (FAILED(GetDistVecToPlayer(vDist))) return RET_NONE;
+		_float distLen = D3DXVec3Length(&vDist);
+		D3DXVec3Normalize(&m_vDir, &vDist);
+
+		if (m_fTargetLoseDist <= distLen)
+		{
+			ChangeState(MS_IDLE);
+		}
+	}
 
 	if (m_bShooting)
 	{
