@@ -35,6 +35,7 @@ protected:
 public:
 	static wstring	szPistolReloadSFX;
 	static wstring	szPistolShotSFX;
+	static wstring	szBulletFallSFX;
 
 protected :
 	_vec3	m_vPos;

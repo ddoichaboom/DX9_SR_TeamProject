@@ -9,6 +9,7 @@
 
 wstring CPistol::szPistolReloadSFX	= L"Pistol_Reload_SFX.wav";
 wstring CPistol::szPistolShotSFX	= L"Pistol_Shot_SFX.wav";
+wstring CPistol::szBulletFallSFX	= L"Bullet_Fall_SFX.wav";
 
 CPistol::CPistol(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CWeapon(pGraphicDev)
@@ -96,7 +97,8 @@ _bool CPistol::Can_Fire()
 
 void CPistol::Fire()
 {	
-	CSoundMgr::GetInstance()->PlayWeaponSound(CPistol::szPistolShotSFX.c_str());
+	CSoundMgr::GetInstance()->PlayWeaponSound(CPistol::szPistolShotSFX.c_str(),0.8f);
+	
 	m_fTime = 0.f;
 	m_iNowBullet--;
 
@@ -114,7 +116,7 @@ void CPistol::Fire()
 		flare->SetPos(FlarePos);
 		flare->Reset();
 	}
-
+	CSoundMgr::GetInstance()->PlayWeaponSound(CPistol::szBulletFallSFX.c_str());
 }
 
 void CPistol::Reload()

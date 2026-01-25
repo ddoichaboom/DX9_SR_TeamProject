@@ -616,26 +616,6 @@ void CPlayer::CheckPickedMonster()
 		}
 	}
 
-	pairIter = pLayer->Get_Objects(OBJ_VENDINGMACHINE);
-	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
-	{
-		CCollision* pCollision = static_cast<CCollision*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
-		if (!pCollision) continue;
-
-		auto& mapCollider = pCollision->GetColliderMap();
-		if (mapCollider.empty()) continue;
-		//몬스터의 CollisionCom에 있는 전체 Collider 
-		for (auto& pairCollider : mapCollider)
-		{
-			bool bPicked = CCollision::Collision_Mouse(g_hWnd, m_pGraphicDev, pairCollider.second);
-			if (bPicked)
-			{
-				pickedList.push_back({ iter->second->Get_ViewZ() ,pairCollider.second });
-			}
-		}
-	}
-
-
 	if (pickedList.empty()) return;
 	//카메라 거리순 정렬
 	pickedList.sort([&](auto& _First, auto& _Second)
