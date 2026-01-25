@@ -88,6 +88,8 @@ protected:
 
 	_bool	m_bStateStop;
 
+public:
 	static wstring	szHealEffectSound;
 	static wstring	szPistolIntroSFX;
+	static wstring	szKnocklelIntroSFX;
 };

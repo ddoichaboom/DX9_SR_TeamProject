@@ -2,6 +2,7 @@
 #include "CWeapon.h"
 
 class CPlayerPart;
+class CFlare;
 
 class CPistol : public CWeapon
 {
@@ -30,5 +31,14 @@ public:
 protected:
 	virtual		HRESULT		Add_Component();
 	virtual		void		Free();
+
+public:
+	static wstring	szPistolReloadSFX;
+	static wstring	szPistolShotSFX;
+
+protected :
+	_vec3	m_vPos;
+	CFlare* m_pFlare = nullptr;
+	_vec3 m_vFlarePosOffset = { -100.f, 185.f, 0.1f };
 };
 

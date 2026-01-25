@@ -2,7 +2,7 @@
 #include "CPlayerPart.h"
 
 class CPlayer;
-class CFlare;
+//class CFlare;
 
 class CRightPart : public CPlayerPart
 {
@@ -26,7 +26,7 @@ public:
 
 public:
 	virtual _bool	Get_ActionAble() override;
-	virtual	_bool	Get_Reload() { return m_bReload; }
+	virtual	_bool	Get_Reload();
 
 public:
 	HRESULT		Ready_GameObject() override;
@@ -69,6 +69,5 @@ protected:
 
 protected:
 	//πÊΩ¬»Ò ¿Ã∆Â∆Æ √ﬂ∞° 
-	CFlare* m_pFlare = nullptr;
-	_vec3 m_vFlarePosOffset = {-100.f, 185.f, 0.1f};
+	
 };

@@ -107,6 +107,7 @@ protected :
 	_bool	m_bStop;
 	_int	m_iMascottNumber;
 
+public :
 	static	wstring	szNoiseBGM;
 	static	wstring	szShopBGM;
 	static	wstring	szMascottOpenSFX;

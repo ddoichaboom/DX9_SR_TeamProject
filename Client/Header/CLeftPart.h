@@ -25,7 +25,7 @@ public:
 
 public:
 	virtual _bool	Get_ActionAble() override;
-	virtual _bool	Get_Relaod() { return m_bReload; }
+	virtual _bool	Get_Relaod();
 
 public:
 	HRESULT		Ready_GameObject() override;

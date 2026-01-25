@@ -76,6 +76,14 @@ _bool CLeftPart::Get_ActionAble()
 	return !m_bReload;
 }
 
+_bool CLeftPart::Get_Relaod()
+{
+	_uint iA = m_pAnimationCom->Get_State();
+	_uint iB = GetStateID(RELOAD, WEAPON_PISTOL);
+
+	return iA != iB;
+}
+
 HRESULT CLeftPart::Ready_GameObject()
 {
 	if (FAILED(Add_Component()))

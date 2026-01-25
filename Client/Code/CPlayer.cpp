@@ -36,16 +36,10 @@ wstring CPlayer::szStageBGM		= L"Stage_02_BGM.wav";
 wstring CPlayer::szBossBGM		= L"Stage_Boss_BGM.wav";
 wstring CPlayer::szClearSFX		= L"Stage_Clear_SFX.wav";
 wstring CPlayer::szHowlSFX		= L"Player_Intro_SFX.wav";
-
-vector<wstring> CPlayer::vecFootSteps =
-{
-	L"FootStep_01_SFX.wav",
-	L"FootStep_02_SFX.wav",
-	L"FootStep_03_SFX.wav",
-	L"FootStep_04_SFX.wav",
-	L"FootStep_05_SFX.wav"
-};
-
+wstring CPlayer::szSlideBGM		= L"Player_Slide_BGM.wav";
+wstring CPlayer::szKickSFX		= L"Player_Kick_SFX.wav";
+wstring CPlayer::szDashSFX		= L"Player_Dash_SFX.wav";
+wstring CPlayer::szJumpSFX		= L"Player_Jump_SFX.wav";
 
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -290,13 +284,6 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 	if (m_eNowState != SHOP && m_eNowState != READY_NEXT)
 		m_mapWeapon[m_eWeaponState]->LateUpdate_GameObject(fTimeDelta);
 
-	if (CDInputMgr::GetInstance()->Get_Direction() != DIR_NONE && !m_bJump && !m_bFall && !m_bDash)
-	{
-		if(CSoundMgr::GetInstance()->IsPlayingGroup(SOUND_PLAYER) == false)
-			CSoundMgr::GetInstance()->PlayPlayerSound(vecFootSteps[m_iFootStep++].c_str(), 0.3f);
-		m_iFootStep %= vecFootSteps.size();
-	}
-
 	State_LateUpdate(fTimeDelta);
 }
 
@@ -451,6 +438,7 @@ void CPlayer::Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _v
 		m_vDashDir.y = 0.f;
 		m_bDash = true;
 		CUIManager::GetInstance()->Set_OnDashUI(true);
+		CSoundMgr::GetInstance()->PlayPlayerSound(szDashSFX.c_str());
 		return;
 	}
 
@@ -461,6 +449,7 @@ void CPlayer::Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _v
 		m_fVelocity = 0.f;
 		m_fJumpStartY = m_pTransformCom->m_vInfo[INFO_POS].y;
 		m_bJump = true;
+		CSoundMgr::GetInstance()->PlayPlayerSound(szJumpSFX.c_str());
 		return;
 	}
 }
@@ -472,7 +461,7 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 	//
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_R))
 	{
-		if (m_eNowState == IDLE && !m_pLeftPart->Get_Relaod() && !m_pRightPart->Get_Reload())
+		if ( m_pLeftPart->Get_Relaod() && m_pRightPart->Get_Reload() && m_pLeftPart->Get_ActionAble() && m_pRightPart->Get_ActionAble() )
 			Change_State(RELOAD);
 		return;
 	}
@@ -1197,6 +1186,7 @@ void CPlayer::Reload_Func()
 /// </summary>
 void CPlayer::Kick_Func()
 {
+	CSoundMgr::GetInstance()->PlayPlayerSound(szKickSFX.c_str(), 1.f);
 	m_pKickCollider->OnCollision();
 	CheckKickedMonster(TAG_KICK, m_fKickAttack);
 }
@@ -1250,8 +1240,8 @@ void CPlayer::Change_State(_uint eState)
 	if (eState == m_eNowState)
 		return;
 
-	if (--m_mapCallCnt[eState] > 0)
-		return;
+	/*if (--m_mapCallCnt[eState] > 0)
+		return;*/
 
 	if (m_eNowState != MAIN_END)
 		State_Exit();
@@ -1534,10 +1524,11 @@ void CPlayer::Reload_Enter()
 
 		break;
 	case WEAPON_PISTOL:
-		m_mapCallCnt[RELOAD] = 2;
+		m_mapCallCnt[RELOAD] = 0;
 		m_mapWeapon[m_eWeaponState]->Set_ShootAble(false);
 		m_pLeftPart->ChangeState(GetStateID(RELOAD, m_eWeaponState));
 		m_pRightPart->ChangeState(GetStateID(RELOAD, m_eWeaponState));
+		CSoundMgr::GetInstance()->PlayWeaponSound(CPistol::szPistolReloadSFX.c_str());
 		break;
 	case WEAPON_SHOTGUN:
 		break;
@@ -1664,6 +1655,7 @@ void CPlayer::Slide_Enter()
 	m_mapCallCnt[SLIDE] = 1;
 	m_pMiddlePart->ChangeState(SLIDE);
 	CUIManager::GetInstance()->Set_OnDashUI(true);
+	CSoundMgr::GetInstance()->PlayPlayerBGMSound(szSlideBGM.c_str(), 1.0f);
 }
 
 void CPlayer::Slide_Update(const _float& fTimeDelta)
@@ -1684,6 +1676,7 @@ void CPlayer::Slide_Exit()
 {
 	m_pMiddlePart->ChangeState(IDLE);
 	CUIManager::GetInstance()->Set_OnDashUI(false);
+	CSoundMgr::GetInstance()->StopGroupSound(SOUND_PLAYER_BGM);
 }
 
 void CPlayer::Shop_Enter()
@@ -1991,6 +1984,11 @@ void CPlayer::Get_Hit(_float fDamage)
 {
 	Add_HP(-fDamage);
 	// Effect
+}
+
+CWeapon* CPlayer::Get_Weapon()
+{
+	return m_mapWeapon[m_eWeaponState];
 }
 
 void CPlayer::Free()

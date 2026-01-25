@@ -86,5 +86,8 @@ private:
     _vec3       m_vScale;
     _float      m_fDoorGap;         // 두 문 사이 간격
     DOOR_TYPE   m_eDoorType;
+
+public:
+    static wstring szDoorOpen;
 };
 

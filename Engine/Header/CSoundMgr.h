@@ -29,6 +29,8 @@ public:
 	void PlayBGM(const TCHAR* pSoundKey, float fVolume = 1.0f);
 	void PlayMonsterSound(const TCHAR* pSoundKey, float fVolume = 1.0f);
 	void PlayPlayerSound(const TCHAR* pSoundKey, float fVolume = 1.0f);
+	void PlayPlayerBGMSound(const TCHAR* pSoundKey, float fVolume = 1.0f);
+	void PlayWeaponSound(const TCHAR* pSoundKey, float fVolume = 1.0f);
 
 	void StopSound(CHANNELID eID);
 	void StopGroupSound(CHANNELID eID);

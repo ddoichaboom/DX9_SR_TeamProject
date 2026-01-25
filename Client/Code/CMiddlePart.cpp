@@ -35,6 +35,7 @@ vector<AnimationSource>  CMiddlePart::m_vAnimSource =
 
 wstring	CMiddlePart::szHealEffectSound = L"Heal_Effect_SFX.wav";
 wstring CMiddlePart::szPistolIntroSFX = L"Pistol_Intro_SFX.wav";
+wstring CMiddlePart::szKnocklelIntroSFX = L"Player_Intro2_SFX.wav";
 
 
 CMiddlePart::CMiddlePart(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -281,10 +282,22 @@ void CMiddlePart::Begin_Intro()
 	m_vEndPos = { m_fX, m_fY, 0.f };
 	m_pTransformCom->Set_Scale(m_fSizeX * 0.5f, m_fSizeY * 0.5f, 1.f);
 	m_pTransformCom->Set_Pos(m_fX - WINCX * 0.5f, -m_fY + WINCY * 0.5f, 0.f);
+	m_fTime = 0.f;
+	m_bDelay = true;
 }
 
 void CMiddlePart::Intro()
 {
+	if (m_bDelay)
+	{
+		if (m_fTime > 0.5f)
+		{
+			CSoundMgr::GetInstance()->PlayPlayerSound(szKnocklelIntroSFX.c_str());
+			m_bDelay = false;
+		}
+	}
+
+
 	if (m_pAnimationCom->CanEnd())
 	{		
 		

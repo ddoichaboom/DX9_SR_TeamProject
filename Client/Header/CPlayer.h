@@ -195,6 +195,9 @@ public:
 
 	void			Get_Hit(_float fDamage);
 
+	CWeapon* Get_Weapon();
+	
+
 
 protected:
 	virtual void	Free();
@@ -277,13 +280,17 @@ private:
 	_int		m_iFootStep;
 
 
+public:
 	static wstring	szTutorialBGM;
 	static wstring	szStageBGM;
 	static wstring	szBossBGM;
 	static wstring	szClearSFX;
 	static wstring	szHowlSFX;
-	
-	static vector<wstring> vecFootSteps;
+	static wstring	szSlideBGM;
+	static wstring	szKickSFX;
+	static wstring	szDashSFX;
+	static wstring	szJumpSFX;
+
 	
 };
 
