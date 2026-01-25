@@ -109,14 +109,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;ENGINE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../Header;../../Base;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Header;../../Base;$(SolutionDir)_Library\FMOD\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;dinput8.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;dinput8.lib;fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)_Library\FMOD\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>cd /d $(SolutionDir)
@@ -137,6 +138,7 @@ call Copy.bat</Command>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -177,6 +179,7 @@ call Copy.bat</Command>
     <ClInclude Include="..\Header\CRenderStateGuard.h" />
     <ClInclude Include="..\Header\CScene.h" />
     <ClInclude Include="..\Header\CScrollTexture.h" />
+    <ClInclude Include="..\Header\CSoundMgr.h" />
     <ClInclude Include="..\Header\CState.h" />
     <ClInclude Include="..\Header\CStateComponent.h" />
     <ClInclude Include="..\Header\CTerrainTex.h" />
@@ -186,6 +189,7 @@ call Copy.bat</Command>
     <ClInclude Include="..\Header\CTimerMgr.h" />
     <ClInclude Include="..\Header\CTransform.h" />
     <ClInclude Include="..\Header\CVIBuffer.h" />
+    <ClInclude Include="..\Header\CVideoMgr.h" />
     <ClInclude Include="..\Header\Engine_Define.h" />
     <ClInclude Include="..\Header\Engine_Enum.h" />
     <ClInclude Include="..\Header\Engine_Function.h" />
@@ -229,6 +233,7 @@ call Copy.bat</Command>
     <ClCompile Include="..\Code\CRenderStateGuard.cpp" />
     <ClCompile Include="..\Code\CScene.cpp" />
     <ClCompile Include="..\Code\CScrollTexture.cpp" />
+    <ClCompile Include="..\Code\CSoundMgr.cpp" />
     <ClCompile Include="..\Code\CStateComponent.cpp" />
     <ClCompile Include="..\Code\CTerrainTex.cpp" />
     <ClCompile Include="..\Code\CTerrainTexture.cpp" />
@@ -237,6 +242,7 @@ call Copy.bat</Command>
     <ClCompile Include="..\Code\CTimerMgr.cpp" />
     <ClCompile Include="..\Code\CTransform.cpp" />
     <ClCompile Include="..\Code\CVIBuffer.cpp" />
+    <ClCompile Include="..\Code\CVideoMgr.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

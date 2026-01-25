@@ -311,6 +311,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\CEditorDoor.h">
       <Filter>04. Object\09. EditorDoor</Filter>
+	</ClInclude>
+    <ClInclude Include="..\Header\CSodaUI.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -454,6 +457,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CEditorDoor.cpp">
       <Filter>04. Object\09. EditorDoor</Filter>
+	</ClCompile>
+	<ClCompile Include="..\Code\CSodaUI.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

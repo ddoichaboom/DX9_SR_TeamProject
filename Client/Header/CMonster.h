@@ -59,6 +59,7 @@ protected:
 	CCollision*		m_pPlayerCollisionCom;
 
 	_float			m_fAttackableDist; 
+	_float			m_fTargetLoseDist;
 	_vec3			m_vDir;
 	_float			 m_fSpeed;
 

@@ -309,6 +309,18 @@
     </Filter>
     <Filter Include="02. GameObject\99. Environment\01. Object\00. Door\DoorRight">
       <UniqueIdentifier>{365bff0c-da8b-4aea-a55e-0ac05e75ca56}</UniqueIdentifier>
+	</Filter>
+	<Filter Include="04.UI\01.StaticUI\14.StageInfo_UI">
+      <UniqueIdentifier>{4445672d-c988-4e69-8bf4-2bab20b9d751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\11. SodaUI">
+      <UniqueIdentifier>{f304972e-13f1-4c77-a2b2-f6465196219e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\03. Logo">
+      <UniqueIdentifier>{129feed1-1a87-48b0-8ec7-3f57460d1f60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\04. Ending">
+      <UniqueIdentifier>{78f20e5d-5d36-4802-9eca-5394c9607f44}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -578,7 +590,7 @@
     </ClInclude>
     <ClInclude Include="..\Header\CDoorLeft.h">
       <Filter>02. GameObject\99. Environment\01. Object\00. Door\DoorLeft</Filter>
-    </ClInclude>
+	</ClInclude>
     <ClInclude Include="..\Header\CDoorRight.h">
       <Filter>02. GameObject\99. Environment\01. Object\00. Door\DoorRight</Filter>
     </ClInclude>
@@ -590,6 +602,18 @@
     </ClInclude>
     <ClInclude Include="..\Header\CVendingMachine.h">
       <Filter>02. GameObject\03.MapObject\02.VendingMachine</Filter>
+	</ClInclude>
+	<ClInclude Include="..\Header\CInfoUI.h">
+      <Filter>04.UI\01.StaticUI\14.StageInfo_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSodaUI.h">
+      <Filter>02. GameObject\13. Effect\11. SodaUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CLogo.h">
+      <Filter>01. Scene\03. Logo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEnding.h">
+      <Filter>01. Scene\04. Ending</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -862,6 +886,18 @@
     </ClCompile>
     <ClCompile Include="..\Code\CVendingMachine.cpp">
       <Filter>02. GameObject\03.MapObject\02.VendingMachine</Filter>
+	</ClCompile>
+    <ClCompile Include="..\Code\CInfoUI.cpp">
+      <Filter>04.UI\01.StaticUI\14.StageInfo_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSodaUI.cpp">
+      <Filter>02. GameObject\13. Effect\11. SodaUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLogo.cpp">
+      <Filter>01. Scene\03. Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEnding.cpp">
+      <Filter>01. Scene\04. Ending</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

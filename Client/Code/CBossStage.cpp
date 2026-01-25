@@ -5,6 +5,8 @@
 #include "CPoolMgr.h"
 #include "CManagement.h"
 #include "CDInputMgr.h"
+#include "CVideoMgr.h"
+#include "CSoundMgr.h"
 
 // 환경 오브젝트 (필터링용, 실제 생성은 CMapLoader가 담당)
 #include "CFloor.h"
@@ -101,6 +103,8 @@ HRESULT CBossStage::Ready_Scene()
     //7단계 맵 - 게임로직 로드 
     m_pLoadingEX->AddTask(CLoadingEX::Lv7_MAP_GAME_LOAD, [this]() { this->Ready_GameLogic_Layer(L"GameLogic_Layer"); });
 
+    CEventMgr::GetInstance()->Subscribe(EVENT_ENDING, this);
+
     return S_OK;
 }
 
@@ -110,27 +114,58 @@ _int CBossStage::Update_Scene(const _float& fTimeDelta)
     {
         m_pBackGround->Update_GameObject(fTimeDelta);
         m_pLoadingEX->Update_Loading();
-        return 0;
+        if (m_pLoadingEX->IsEnd())
+        {
+            if (FAILED(CVideoMgr::GetInstance()->ReadyVideo(g_hWnd, m_BossVideoName.c_str())))
+            {
+                CVideoMgr::GetInstance()->SetPlayFlag(false);
+            }
+            else
+            {
+                CVideoMgr::GetInstance()->Play();
+                CSoundMgr::GetInstance()->PlaySFXSound(m_BossSoundName.c_str());
+            }
+        }
+        return RET_NONE;
+    }
+    else if (CVideoMgr::GetInstance()->IsPlaying())
+    {
+        if (CDInputMgr::GetInstance()->Key_Down(DIK_P) || CVideoMgr::GetInstance()->IsFinished())
+        {
+            CVideoMgr::GetInstance()->SetPlayFlag(false);
+            CVideoMgr::GetInstance()->Cleanup();
+            //CSoundMgr::GetInstance()->StopAll();
+        }
+        else return 0;
+    }
+
+    if (m_bStageEnd)
+    {
+        return RET_DEAD;
     }
 
     int iExit = CStage::Update_Scene(fTimeDelta);
+
     //UI 업데이트
     CUIManager::GetInstance()->Update_GameObject(fTimeDelta);
+
+
     return iExit;
 }
 
 void CBossStage::LateUpdate_Scene(const _float& fTimeDelta)
 {
+    if (CVideoMgr::GetInstance()->IsPlaying() || m_pLoadingEX->IsEnd() == false) return;
     CStage::LateUpdate_Scene(fTimeDelta);
 
     //UI 업데이트
     CUIManager::GetInstance()->LateUpdate_GameObject(fTimeDelta);
-
-    if (m_pLoadingEX->IsEnd()) Check_Collision();
+    Check_Collision();
 }
 
 void CBossStage::Render_Scene()
 {
+    if (CVideoMgr::GetInstance()->IsPlaying()) return;
     if (m_pLoadingEX->IsEnd() == false)
     {
         m_pBackGround->Render_GameObject();
@@ -329,15 +364,6 @@ HRESULT CBossStage::Ready_ObjectPool_Effect()
     return S_OK;
 }
 
-//HRESULT CBossStage::Ready_Prototype_OnlyTexture()
-//{
-//    if (FAILED(Ready_MonsterTextureProto())) return E_FAIL;
-//    if (FAILED(Ready_TerrainTextureProto())) return E_FAIL;
-//    if (FAILED(Ready_UITextureProto())) return E_FAIL;
-//    if (FAILED(Ready_EffectTextureProto())) return E_FAIL;
-//    return S_OK;
-//}
-
 HRESULT CBossStage::Ready_CharacterTextureProto()
 {
     CTexture* pCom_Texture = nullptr;
@@ -423,6 +449,16 @@ void CBossStage::Check_Collision()
         pPlayerCollider = cPlayer->GetCollider(); // Main Collider 만 받아옴 
     }
 
+    //Player- Bullet 충돌
+    for (multimap<OBJ_ID, CGameObject*>::iterator it_bullet = iter_Map_Bullet.first; it_bullet != iter_Map_Bullet.second; it_bullet++)
+    {
+        CCollision* mapBul_Collision = static_cast<CCollision*>(it_bullet->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+        CCollider* mapCollider = mapBul_Collision->GetCollider();
+        if (!mapCollider) continue;
+
+        CCollision::Collision_Base(pPlayerCollider, mapCollider);
+    }
+
     //Player, Monster - 맵 콜라이더 충돌
     for (multimap<OBJ_ID, CGameObject*>::iterator it_col = iter_Map_Col.first; it_col != iter_Map_Col.second; it_col++)
     {
@@ -446,19 +482,15 @@ void CBossStage::Check_Collision()
 
     }
 
-    //Player- Bullet 충돌
-    for (multimap<OBJ_ID, CGameObject*>::iterator it_bullet = iter_Map_Bullet.first; it_bullet != iter_Map_Bullet.second; it_bullet++)
-    {
-        CCollision* mapBul_Collision = static_cast<CCollision*>(it_bullet->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
-        CCollider* mapCollider = mapBul_Collision->GetCollider();
-        if (!mapCollider) continue;
 
-        CCollision::Collision_Base(pPlayerCollider, mapCollider);
-    }
 }
 
 void CBossStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
 {
+    if (_type == EVENT_ENDING)
+    {
+        m_bStageEnd = true;
+    }
 }
 
 CBossStage* CBossStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -481,4 +513,5 @@ void CBossStage::Free()
     Safe_Release(m_pBackGround);
     Safe_Release(m_pLoadingEX);
     CScene::Free();
+    //CVideoMgr::GetInstance()->Cleanup();
 }

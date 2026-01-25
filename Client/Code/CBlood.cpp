@@ -26,6 +26,7 @@ CBlood::CBlood(IDirect3DDevice9* devices)
 	m_vPos = m_vOrigin;
 	m_iBatchSize = 1;
 	m_bLoop = false;
+	m_vSize = { 1.f,1.f };
 }
 
 CBlood::~CBlood()
@@ -129,6 +130,12 @@ void CBlood::SetPostRenderState()
 }
 
 
+void CBlood::Deactivate()
+{
+	CParticleEmitter::Deactivate();
+	m_vSize = { 1.f, 1.f };
+}
+
 HRESULT CBlood::Add_Component()
 {
 	//Vertex
@@ -164,7 +171,7 @@ void CBlood::ResetParticle(Particle* particle)
 	particle->vStartUV = { 0,0 };
 	if (m_pTextureDesc) particle->vEndUV = m_pTextureDesc->vUVoffset;
 	else particle->vEndUV = { 1.f,1.f };
-	particle->vSize = m_ParticleInfo[m_iState].vSize;
+	particle->vSize = { m_ParticleInfo[m_iState].vSize.x * m_vSize.x ,m_ParticleInfo[m_iState].vSize.y * m_vSize.y };
 	particle->vSize.x *= m_fRand;
 	particle->fAge = 0.f;
 	particle->fLifeTime = m_ParticleInfo[m_iState].fLifeTime;

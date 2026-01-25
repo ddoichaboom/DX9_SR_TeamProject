@@ -21,6 +21,7 @@
 #include "CUIManager.h"
 #include "CMapCollider.h"
 #include "CMonster.h"
+#include "CSodaUI.h"
 
 
 //Test
@@ -39,8 +40,9 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_eNowState(MAIN_END), m_bOnCollision(false), m_pHitUI(nullptr)
 	, m_fHP(20.f), m_fMaxHP(20.f), m_fTime(0.f), m_fStageTime(0.f), m_bStage(false)
 	, m_bSlope(false), m_bSideDash(false)
-	, m_pColHitObj(nullptr),m_pTakeDownObject(nullptr), m_pTakeDownCollider(nullptr)
-	, m_bMoveStop(false), m_bAbleTakeDown(false)
+	, m_pColHitObj(nullptr), m_pTakeDownObject(nullptr), m_pTakeDownCollider(nullptr)
+	, m_bMoveStop(false), m_bAbleTakeDown(false), m_bDelay(false), m_fDelayTime(0.f)
+	, m_bBossStage(true), m_pSodaUI(nullptr)
 {
 
 	m_eOBJ_ID = OBJ_PLAYER;
@@ -59,7 +61,8 @@ CPlayer::CPlayer(const CPlayer& rhs)
 	, m_fHP(20.f), m_fMaxHP(20.f), m_fTime(0.f), m_fStageTime(0.f), m_bStage(false)
 	, m_bSlope(false), m_bSideDash(false)
 	, m_pColHitObj(nullptr), m_pTakeDownObject(nullptr), m_pTakeDownCollider(nullptr)
-	, m_bMoveStop(false), m_bAbleTakeDown(false)
+	, m_bMoveStop(false), m_bAbleTakeDown(false), m_bDelay(false), m_fDelayTime(0.f)
+	, m_bBossStage(true), m_pSodaUI(nullptr)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
 	m_iID = 0;
@@ -82,11 +85,15 @@ void CPlayer::OnEvent(EVENT_TYPE _type, EventData* _pData)
 	else if (_type == EVENT_STAGE_END)
 	{
 		m_bStage = false;
-		Change_State(SHOP);
+		CManagement::GetInstance()->Set_CountTime(false);
+		m_bDelay = true;
+		m_fDelayTime = 0.f;
+		Change_State(TAKEDOWN);
 	}
 
 	else if (_type == EVENT_READY_NEXT_STAGE)
 	{
+		CUIManager::GetInstance()->Set_OnShopUI(false);
 		Change_State(READY_NEXT);
 	}
 
@@ -152,7 +159,11 @@ HRESULT CPlayer::Ready_GameObject()
 
 	Change_State(INTRO);
 
-	if (m_pHitUI) return E_FAIL;
+	m_pHitUI = CHitUI::Create(m_pGraphicDev);
+	m_pHitUI->SetDead();
+
+	m_pSodaUI = CSodaUI::Create(m_pGraphicDev);
+	m_pSodaUI->SetDead();
 
 	return S_OK;
 }
@@ -166,13 +177,30 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 
 	if (m_bStage)
 	{
-		m_fTime += fTimeDelta;
-		m_fStageTime += fTimeDelta;
-
-		if (m_fTime >= 1.f)
+		if (m_bBossStage == false)
 		{
-			Add_HP(-1.f);
-			m_fTime = 0.f;
+			m_fTime += fTimeDelta;			
+
+			if (m_fTime >= 1.f)
+			{
+				Add_HP(-1.f);
+				m_fTime = 0.f;
+			}
+		}		
+	}
+	else
+	{
+		if (m_bDelay)
+		{
+			m_fDelayTime += fTimeDelta;
+
+			if (m_fDelayTime > 2.5f)
+			{
+				Change_State(SHOP);				
+				CUIManager::GetInstance()->Set_OnShopUI(true);
+				m_bDelay = false;
+				m_fDelayTime = 0.f;
+			}
 		}
 	}
 
@@ -201,6 +229,15 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 
 	State_Update(fTimeDelta);
 
+	if (m_pHitUI && m_pHitUI->IsDead() == false)
+	{
+		m_pHitUI->Update_GameObject(fTimeDelta);
+	}
+
+	if (m_pSodaUI&& m_pSodaUI->IsDead() == false)
+	{
+		m_pSodaUI->Update_GameObject(fTimeDelta);
+	}
 	return iExit;
 }
 
@@ -469,8 +506,8 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 	}
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_2))
 	{
-		//CEventMgr::GetInstance()->Broadcast(EVENT_STAGE_END, nullptr);
-		Add_Item(TAG_AXE);
+		CEventMgr::GetInstance()->Broadcast(EVENT_STAGE_END, nullptr);
+		//Add_Item(TAG_AXE);
 		return;
 	}
 
@@ -1152,6 +1189,7 @@ void CPlayer::Shop_Func()
 /// </summary>
 void CPlayer::Drink_Func()
 {
+	if(m_pSodaUI) m_pSodaUI->Reset();
 	Add_HP(m_fMaxHP);
 
 	if (m_eNowState == IDLE)
@@ -1402,7 +1440,8 @@ void CPlayer::Intro_LateUpdate(const _float& fTimeDelta)
 
 void CPlayer::Intro_Exit()
 {
-	CEventMgr::GetInstance()->Broadcast(EVENT_STAGE_START, nullptr);
+	if(m_bStage == false)
+		CEventMgr::GetInstance()->Broadcast(EVENT_STAGE_START, nullptr);
 }
 
 void CPlayer::Idle_Enter()
@@ -1632,7 +1671,7 @@ void CPlayer::Next_LateUpdate(const _float& fTimeDelta)
 }
 
 void CPlayer::Next_Exit()
-{
+{	
 	CEventMgr::GetInstance()->Broadcast(EVENT_NEXT_STAGE, nullptr);
 }
 
@@ -1819,12 +1858,11 @@ void CPlayer::OnCollision(CollisionInfo info)
 	//TODO : Damage에 따라 상태 변경 또는 함수 호출하기. 
 	if (info.fDamage > 0.f)
 	{
-		if (m_pHitUI==nullptr || m_pHitUI->IsDead())
+		if (m_pHitUI->IsDead())
 		{
-			m_pHitUI = CPoolMgr::GetInstance()->Get_Object<CHitUI>();
 			m_pHitUI->Reset();
-			CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(m_pHitUI);
 		}
+		Add_HP(-1.f);
 	}
 
 }
@@ -1896,6 +1934,8 @@ void CPlayer::Free()
 	Safe_Release(m_pLeftPart);
 	Safe_Release(m_pRightPart);
 	Safe_Release(m_pMiddlePart);	
+	Safe_Release(m_pSodaUI);
+	Safe_Release(m_pHitUI);
 	for_each(m_mapWeapon.begin(), m_mapWeapon.end(), CDeleteMap());
 	m_mapWeapon.clear();
 }

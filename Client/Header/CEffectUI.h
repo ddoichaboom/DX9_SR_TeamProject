@@ -24,7 +24,8 @@ public:
 
 	void		Set_Text(const wstring& wDeadTime);
 
-	void		Init();
+	void		Init(_bool bRandomColor);
+	void		Init(D3DXCOLOR eColor);
 
 protected:
 	virtual		HRESULT		Add_Component();
@@ -50,6 +51,13 @@ protected:
 	CFontUI* m_pEffectText;
 
 	_float	m_fTime = 0.f;
+
+	_bool	m_bRandomColor;
+
+	_vec3   m_vEffectPos;
+	_vec3	m_vClearPos;
+
+	_float  m_fDuration;
 
 };
 

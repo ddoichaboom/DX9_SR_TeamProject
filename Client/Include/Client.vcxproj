@@ -168,6 +168,7 @@
     <ClInclude Include="..\Header\CDoorRight.h" />
     <ClInclude Include="..\Header\CRoomTrigger.h" />
     <ClInclude Include="..\Header\CEffectUI.h" />
+    <ClInclude Include="..\Header\CEnding.h" />
     <ClInclude Include="..\Header\CExtinguisher.h" />
     <ClInclude Include="..\Header\CFontUI.h" />
     <ClInclude Include="..\Header\CExplosion.h" />
@@ -177,8 +178,10 @@
     <ClInclude Include="..\Header\CHitUI.h" />
     <ClInclude Include="..\Header\CHPUI.h" />
     <ClInclude Include="..\Header\CHudUI.h" />
+    <ClInclude Include="..\Header\CInfoUI.h" />
     <ClInclude Include="..\Header\CInteractObject.h" />
     <ClInclude Include="..\Header\CLoadingEX.h" />
+    <ClInclude Include="..\Header\CLogo.h" />
     <ClInclude Include="..\Header\CMapCollider.h" />
     <ClInclude Include="..\Header\CDynamicCeiling.h" />
     <ClInclude Include="..\Header\CDynamicFloor.h" />
@@ -212,6 +215,7 @@
     <ClInclude Include="..\Header\CSkyBox.h" />
     <ClInclude Include="..\Header\CSlopeFloor.h" />
     <ClInclude Include="..\Header\CSlotUI.h" />
+    <ClInclude Include="..\Header\CSodaUI.h" />
     <ClInclude Include="..\Header\CSoda.h" />
     <ClInclude Include="..\Header\CStageBG.h" />
     <ClInclude Include="..\Header\CStageEndTrigger.h" />
@@ -263,6 +267,7 @@
     <ClCompile Include="..\Code\CDoorRight.cpp" />
     <ClCompile Include="..\Code\CRoomTrigger.cpp" />
     <ClCompile Include="..\Code\CEffectUI.cpp" />
+    <ClCompile Include="..\Code\CEnding.cpp" />
     <ClCompile Include="..\Code\CExtinguisher.cpp" />
     <ClCompile Include="..\Code\CFontUI.cpp" />
     <ClCompile Include="..\Code\CExplosion.cpp" />
@@ -272,8 +277,10 @@
     <ClCompile Include="..\Code\CHitUI.cpp" />
     <ClCompile Include="..\Code\CHPUI.cpp" />
     <ClCompile Include="..\Code\CHudUI.cpp" />
+    <ClCompile Include="..\Code\CInfoUI.cpp" />
     <ClCompile Include="..\Code\CInteractObject.cpp" />
     <ClCompile Include="..\Code\CLoadingEX.cpp" />
+    <ClCompile Include="..\Code\CLogo.cpp" />
     <ClCompile Include="..\Code\CMapCollider.cpp" />
     <ClCompile Include="..\Code\CDynamicCeiling.cpp" />
     <ClCompile Include="..\Code\CDynamicFloor.cpp" />
@@ -306,6 +313,7 @@
     <ClCompile Include="..\Code\CSkyBox.cpp" />
     <ClCompile Include="..\Code\CSlopeFloor.cpp" />
     <ClCompile Include="..\Code\CSlotUI.cpp" />
+    <ClCompile Include="..\Code\CSodaUI.cpp" />
     <ClCompile Include="..\Code\CSoda.cpp" />
     <ClCompile Include="..\Code\CStageBG.cpp" />
     <ClCompile Include="..\Code\CStageEndTrigger.cpp" />

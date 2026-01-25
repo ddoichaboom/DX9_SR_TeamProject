@@ -49,6 +49,7 @@ public:
         return m_fAttackDamage;
     }
 protected:
+    void                    Explosion();
     HRESULT                 Add_Component() override;
     virtual void	        Free();
     void                    SetBillboard();

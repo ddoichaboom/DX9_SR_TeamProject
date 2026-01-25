@@ -111,6 +111,7 @@ HRESULT CBeamMon::Ready_GameObject()
 		});
 
 	m_fAttackDamage = 5.f;
+
 	return S_OK;
 }
 
@@ -119,15 +120,17 @@ _int CBeamMon::Update_GameObject(const _float& fTimeDelta)
 	if (IsDead()) return RET_DEAD;
 
 	if (CCharacter::Update_GameObject(fTimeDelta) == RET_DEAD) return RET_DEAD;
+	_vec3 vDist{};
 	if (m_pStateCom->GetCurrentStateID() == MS_IDLE)
 	{
-		_vec3 vDist;
 		if (FAILED(GetDistVecToPlayer(vDist))) return RET_NONE;
 		_float distLen = D3DXVec3Length(&vDist);
 		D3DXVec3Normalize(&m_vDir, &vDist);
 
 		if (m_fAttackableDist >= distLen) ChangeState(MS_ATTACK);
 	}
+	// Beam Mon은 TargetLoseDist 설정 안함
+
 	if (m_bShooting)
 	{
 		m_pBeam->Update_GameObject(fTimeDelta);
@@ -149,8 +152,6 @@ void CBeamMon::LateUpdate_GameObject(const _float& fTimeDelta)
 	if (m_bShooting)
 	{
 		m_pBeam->LateUpdate_GameObject(fTimeDelta);
-		//TODO : 플레이어에 콜라이더 생성되면 주석 풀기 
-		//CollisionBeam();
 
 		bool bBeamEnd = RunBeam(fTimeDelta);
 		if (bBeamEnd) m_bShooting = false;
@@ -288,14 +289,19 @@ bool CBeamMon::RunBeam(const _float& fTimeDelta)
 	if (!m_pBeam) return true;
 	if (m_fTime >= m_fBeamTime)
 	{
-		m_pBeamFlare->SetDead();
-		m_pBeamFlare = nullptr;
+		if (m_pBeamFlare)
+		{
+			m_pBeamFlare->SetDead();
+			m_pBeamFlare = nullptr;
+		}
 		return true;
 	}
 
 	D3DXVec3Lerp(&m_vShootDir, &m_vStartDir, &m_vEndDir, m_fTime / m_fBeamTime);
 	D3DXVec3Normalize(&m_vShootDir, &m_vShootDir);
 	m_pBeam->SetShootDir(m_vShootDir);
+	
+	m_pBeam->SetScale(ROT_Y, 1500.f);
 	CollisionBeam();
 
 	return false;
@@ -303,18 +309,54 @@ bool CBeamMon::RunBeam(const _float& fTimeDelta)
 
 void CBeamMon::CollisionBeam()
 {
-	if (m_bBeamCollision) return;
+	//if (m_bBeamCollision) return;
 	CCollision* playerCollision = GetPlayerCollision();
 	if (!playerCollision) return;
 
 	CCollider * collider = playerCollision->GetCollider();
 	if (!collider) return;
+	
+	CCollider* finalCollider = nullptr;
+	_float CollisionTime = 0.f, finalTime = 1500.f;
+	_vec3 CollisionPos{}, finalPos{};
 
-	bool bCollision = m_pBeam->CheckCollision(collider);
-	if (bCollision)
+	//플레이어 충돌검사 
+	bool bCollision = m_pBeam->CheckCollision(collider, &CollisionTime, &CollisionPos);
+	if (bCollision && CollisionTime >= 0.f && CollisionTime <= finalTime)
 	{
-		m_bBeamCollision = bCollision;
-		collider->Collision({ this,_vec3(),m_fAttackDamage });
+		finalCollider = collider;
+		finalTime = CollisionTime;
+		finalPos = CollisionPos;
+	}
+
+
+	//지형 충돌 검사 
+	CLayer* pLayer = CManagement::GetInstance()->Get_Layer(L"Environment_Layer");
+	if (!pLayer) return;
+
+	auto pairIter = pLayer->Get_Objects(OBJ_COL);
+	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
+	{
+		CCollision* pCollision = static_cast<CCollision*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+		if (!pCollision) continue;
+
+		CCollider * collider = pCollision->GetCollider();
+		bCollision = m_pBeam->CheckCollision(collider, &CollisionTime, &CollisionPos);
+
+		if (bCollision && CollisionTime >= 0.f && CollisionTime < finalTime)
+		{
+			finalCollider = collider;
+			finalTime = CollisionTime;
+			finalPos = CollisionPos;
+		}
+	}
+
+	if (finalCollider)
+	{
+		if(!m_bBeamCollision)
+			finalCollider->Collision({ this,_vec3(),m_fAttackDamage });
+		m_bBeamCollision = true;
+		m_pBeam->SetScale(ROT_Y, finalTime);
 	}
 
 }

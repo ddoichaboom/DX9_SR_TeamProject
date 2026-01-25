@@ -61,7 +61,7 @@ public:
 	static bool			Collision_Mouse(HWND hWnd, LPDIRECT3DDEVICE9 _pGraphicDev, CCollider* _col);
 
 	//콜라이더와 선 충돌 탐지 함수
-	static bool			Collision_Ray(CCollider* _col, _vec3 _RayPos, _vec3 _RayDir);
+	static bool			Collision_Ray(CCollider* _col, _vec3 _RayPos, _vec3 _RayDir, _float* pOutCollisionTime = nullptr);
 
 	//마우스 좌표값에 대한 Ray를 반환
 	static void			GetRay(HWND hWnd,LPDIRECT3DDEVICE9 _pGraphicDev, _vec3* pOutRayWorldPos, _vec3* pOutRayWorldDir);

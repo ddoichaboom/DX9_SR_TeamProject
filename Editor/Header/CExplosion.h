@@ -24,6 +24,7 @@ protected:
 	void		AddParticle() override;
 	void		ResetParticle(Particle* particle, int idx);
 	void		ResetParticle(Particle* particle) override;
+
 public:
 	static CExplosion* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	static vector<TextureSource>& GetTextureSources()
@@ -41,6 +42,18 @@ protected:
 	_int		m_iColorIdx;
 	D3DXCOLOR	m_RedColor = { 0.9f, 0.3f, 0.1f, 0.1f };
 	D3DXCOLOR	m_GrayColor = { 0.2f, 0.2f, 0.2f, 0.6f };
+
+public:
+	_vec2 vRedPosXOffset = { -1,1 };
+	_vec2 vRedPosYOffset = { -1,1 };
+	_vec2 vRedSizeXOffset = { 3.f, 6.f };
+	_vec2 vRedSpeedOffset = {0.5f, 1.f };
+
+	_vec2 vGrayPosXOffset = { -2.f, 2.f };
+	_vec2 vGrayPosYOffset = { -2.f, 2.f };
+	_vec2 vGraySizeXOffset = { 5.f, 10.f };
+	_vec2 vGraySpeedOffset = { 2.f, 3.f };
+
 
 };
 

@@ -50,6 +50,7 @@ HRESULT CBossBullet::Ready_GameObject()
 	if (!m_pCollider) return E_FAIL;
 	m_pCollider->BindFuncToCollision([&](CollisionInfo info)
 		{
+			if (info.pTarget->GetOBJID() == OBJ_COL) Explosion();
 			SetDead();
 		});
 

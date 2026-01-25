@@ -4,6 +4,9 @@
 #include "CRenderer.h"
 #include "CToonFlash.h"
 #include "CToonFog.h"
+#include "CExplosion.h"
+#include "CManagement.h"
+#include "CPoolMgr.h"
 
 TextureSource CRocket::m_textureSource =
 {
@@ -62,6 +65,7 @@ HRESULT CRocket::Ready_GameObject()
 	m_pCollider->Set_Scale({ 7.f, 7.f, 7.f });
 	m_pCollider->BindFuncToCollision([&](CollisionInfo info)
 		{
+			Explosion();
 			SetDead();
 		});
 
@@ -76,6 +80,7 @@ HRESULT CRocket::Ready_GameObject()
 	m_pToonFog = CToonFog::Create(m_pGraphicDev);
 	m_pToonFog->SetOwnerTransform(m_pTransformCom);
 
+	m_fAttackDamage = 5.f;
 
 	return S_OK;
 }
@@ -186,6 +191,18 @@ HRESULT CRocket::Add_Component()
 
 	m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
 	return S_OK;
+}
+
+void CRocket::Explosion()
+{
+	CExplosion* exp = CPoolMgr::GetInstance()->Get_Object<CExplosion>();
+	if (exp)
+	{
+		CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(exp);
+		_vec3 pos = *m_pTransformCom->Get_Info(INFO_POS) - m_vDir * 5.f;
+		exp->SetPos(pos);
+		exp->Reset();
+	}
 }
 
 

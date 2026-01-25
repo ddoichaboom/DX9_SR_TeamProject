@@ -141,6 +141,11 @@ void CPhoneBG::Render_GameObject()
 	m_pBufferCom->Render_Buffer();
 }
 
+void CPhoneBG::Set_On()
+{
+	m_pHpUI->Check_Stage();
+}
+
 void CPhoneBG::Rotate(ROTATION eType, const _float& fAngle)
 {
 	m_pTransformCom->Rotation(eType, fAngle);

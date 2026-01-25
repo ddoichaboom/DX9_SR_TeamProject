@@ -34,6 +34,7 @@ public :
 	void		Set_Scale(const _vec3& vScale)	{ m_vScale = vScale; }
 	void		Set_Text(const wstring& wText) { m_tData.pString = wText; }
 	void		Set_Parent(CBaseUI* pParent);
+	void		Set_FontType(FONT_TYPE eType);
 
 	void		Set_Color(D3DXCOLOR eColor) { m_tData.Color = eColor; }
 

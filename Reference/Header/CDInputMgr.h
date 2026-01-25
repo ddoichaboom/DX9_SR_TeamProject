@@ -55,7 +55,7 @@ private :
 	
 private:
 	const _ubyte			m_byDebugKey = DIK_G;
-	_bool					m_bDebug = true;
+	_bool					m_bDebug = false;
 	LPDIRECTINPUT8			m_pInputSDK = nullptr;
 
 private:

@@ -59,12 +59,15 @@
 #include "CBodyEmit.h"
 #include "CHitUI.h"
 #include "CTakeDownBlood.h"
+#include "CSodaUI.h"
 
 #include "CLoadingEX.h"
 
 #include "CCursor.h"
 #include "CTextBG.h"
 #include "CTextUI.h"
+
+#include "CSoundMgr.h"
 
 CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
 {
@@ -125,13 +128,19 @@ _int CMapStage::Update_Scene(const _float& fTimeDelta)
     {
         m_pBackGround->Update_GameObject(fTimeDelta);
         m_pLoadingEX->Update_Loading();
+
+        //TODO : 사운드 매니저 예시. 제거하기 
+        if (m_pLoadingEX->IsEnd())
+        {
+            CSoundMgr::GetInstance()->PlayBGM(szMap1BGM.c_str());
+        }
         return 0;
     }
     int iExit = CStage::Update_Scene(fTimeDelta);
     //UI 업데이트
     CUIManager::GetInstance()->Update_GameObject(fTimeDelta);
 
-    if (m_bStageEnd || (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_P)))
+    if (m_bStageEnd || (CDInputMgr::GetInstance()->Key_Down(DIK_P)))
     {
         return RET_DEAD;
     }
@@ -140,6 +149,13 @@ _int CMapStage::Update_Scene(const _float& fTimeDelta)
     if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_K))
     {
         CUIManager::GetInstance()->Change_UIState(UI_TAKEDOWN);
+    }
+
+    if (CDInputMgr::GetInstance()->Mouse_Down(DIM_LB))
+    {
+        //TODO : 사운드 매니저 예시. 제거하기 
+        //주소, 볼륨 - 현재 삽입하는 채널그룹의 전체 볼륨이 다같이 조정됨 
+        CSoundMgr::GetInstance()->PlayPlayerSound(szPlayerShoot.c_str(), 0.8f);
     }
 
     return iExit;
@@ -660,7 +676,13 @@ HRESULT CMapStage::Ready_EffectTextureProto()
         return E_FAIL;
     }
 
-
+    //SodaUI
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CSodaUI::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_SodaUI_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto SodaUI Ready Failed");
+        return E_FAIL;
+    }
 
     return S_OK;
 }

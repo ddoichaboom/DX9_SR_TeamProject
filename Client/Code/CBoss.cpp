@@ -9,6 +9,8 @@
 #include "CBeam.h"
 #include "CRocket.h"
 #include "CBossTrail.h"
+#include "CExplosion.h"
+#include "CEventMgr.h"
 
 //-------------------------------------------------------------------------
 // Texture , Animation Data
@@ -34,7 +36,7 @@ vector<AnimationSource> CBoss::m_vAnimSource =
 {
 	{  MS_IDLE ,1,2,2, true, 0.12f}					//IDLE
 	,{  MS_WALK ,1,2,2, true, 0.12f}				//DASH
-	,{ CStateComponent::MakeStateID(MS_ATTACK, SUB_BEGIN),1,2,2, false, 0.03f, 1.f, true}
+	, { CStateComponent::MakeStateID(MS_ATTACK, SUB_BEGIN),1,2,2, false, 0.03f, 1.f, true }
 	,{ MS_ATTACK,1,2,2, true, 0.09f}	//Bullet Shoot
 
 	,{ CStateComponent::MakeStateID(MS_ATTACK2, SUB_BEGIN),2,3,1, false, 0.04f, 1.f, true}
@@ -164,6 +166,8 @@ HRESULT CBoss::Ready_GameObject()
 
 	m_fAttackDamage = 5.f;
 	//m_fSpeed = m_fBaseSpeed;
+	//m_fHP = 100.f;
+	m_fHP = 20.f;
 	return S_OK;
 }
 
@@ -199,7 +203,8 @@ CBoss* CBoss::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
 
 _int CBoss::Update_GameObject(const _float& fTimeDelta)
 {
-	int iExit = CMonster::Update_GameObject(fTimeDelta);
+	if (IsDead()) return RET_DEAD;
+	int iExit = CCharacter::Update_GameObject(fTimeDelta);
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA_QUALITY, this);
 
 	Move(fTimeDelta, m_fDirAngle, m_fStateRatio);
@@ -341,7 +346,6 @@ void CBoss::Collision_Beam()
 		}
 		return;
 	}
-
 }
 
 
@@ -349,10 +353,18 @@ void CBoss::Collision_Beam()
 void CBoss::OnBodyCollision(CollisionInfo info)
 {
 	m_fHP -= info.fDamage;
+	CExplosion* exp = CPoolMgr::GetInstance()->Get_Object<CExplosion>();
+	if (exp)
+	{
+		exp->SetPos(*m_pTransformCom->Get_Info(INFO_POS));
+		exp->Reset();
+		CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(exp);
+	}
 	if (m_fHP <= 0.f)
 	{
 		if (m_pBodyCollider) m_pBodyCollider->OffCollision();
 		ChangeState(MS_DEAD);
+		CEventMgr::GetInstance()->Broadcast(EVENT_ENDING, nullptr);
 	}
 }
 

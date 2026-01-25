@@ -3,6 +3,8 @@
 #include "CProtoMgr.h"
 #include "CRenderer.h"
 
+#include "CManagement.h"
+
 vector<TextureSource> CStageBG::m_vTextureSource =
 {
     {1, L"../Bin/Resource/Texture/UI/STAGE_UI_FLOOR1.dds"},
@@ -122,6 +124,12 @@ void CStageBG::Render_GameObject()
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
     m_pTextureCom->Render_Texture();
     m_pBufferCom->Render_Buffer();
+}
+
+void CStageBG::Set_On()
+{
+    _uint iFloorNumber = CManagement::GetInstance()->Get_FloorNumber();
+    m_pTextureCom->Change_Texture(iFloorNumber);
 }
 
 void CStageBG::Rotate(ROTATION eType, const _float& fAngle)

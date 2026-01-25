@@ -162,16 +162,11 @@ HRESULT CShopBG::Ready_GameObject()
 
 	CreateStateData();
 
-	CEventMgr::GetInstance()->Subscribe(EVENT_READY_NEXT_STAGE, this);
-
     return S_OK;
 }
 
 _int CShopBG::Update_GameObject(const _float& fTimeDelta)
 {
-	if (m_bStop)
-		return 0;
-
 	int iExit = CBaseUI::Update_GameObject(fTimeDelta);
 	m_fTime += fTimeDelta;
 
@@ -192,9 +187,6 @@ _int CShopBG::Update_GameObject(const _float& fTimeDelta)
 
 void CShopBG::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-	if (m_bStop)
-		return;
-
 	CBaseUI::LateUpdate_GameObject(fTimeDelta);
 	m_pAnimationCom->Update_State(m_pStateCom->GetCurrentStateID());
 	if (m_bRender)
@@ -239,18 +231,25 @@ void CShopBG::ChangeState(_uint nextStateID)
 
 void CShopBG::OnEvent(EVENT_TYPE _type, EventData* _pData)
 {
-	if (EVENT_READY_NEXT_STAGE == _type)
-	{
-		m_bStop = true;
-	}
+
 }
 
 void CShopBG::Set_On()
-{
-	m_bStop = false;
+{	
 	ChangeState(SHOP);
 	for (_int i = 0; i < 3; ++i)
 		m_pItem[i]->Set_On();
+}
+
+void CShopBG::Activate()
+{
+	CGameObject::Activate();
+	Set_On();
+}
+
+void CShopBG::DeActivate()
+{
+	
 }
 
 void CShopBG::Begin_Idle()

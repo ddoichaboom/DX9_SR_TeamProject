@@ -183,6 +183,7 @@
     <ClInclude Include="..\Header\CMainMenuBar.h" />
     <ClInclude Include="..\Header\CMousePicker.h" />
     <ClInclude Include="..\Header\CSelectionMgr.h" />
+    <ClInclude Include="..\Header\CSodaUI.h" />
     <ClInclude Include="..\Header\CTakeDownBlood.h" />
     <ClInclude Include="..\Header\CToolBar.h" />
     <ClInclude Include="..\Header\CToonFlash.h" />
@@ -245,6 +246,7 @@
     <ClCompile Include="..\Code\CMainMenuBar.cpp" />
     <ClCompile Include="..\Code\CMousePicker.cpp" />
     <ClCompile Include="..\Code\CSelectionMgr.cpp" />
+    <ClCompile Include="..\Code\CSodaUI.cpp" />
     <ClCompile Include="..\Code\CTakeDownBlood.cpp" />
     <ClCompile Include="..\Code\CToolBar.cpp" />
     <ClCompile Include="..\Code\CToonFlash.cpp" />

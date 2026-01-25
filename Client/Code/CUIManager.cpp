@@ -25,6 +25,7 @@
 #include "CEventMgr.h"
 #include "CSlotUI.h"
 #include "CHudUI.h"
+#include "CInfoUI.h"
 
 IMPLEMENT_SINGLETON(CUIManager)
 
@@ -33,6 +34,7 @@ CUIManager::CUIManager()
 	, m_pEffectUI(nullptr), m_bRenderEffectUI(false)
 	, m_pDashUI(nullptr),m_bDash(false)
 	, m_pSlotUI(nullptr), m_bSlot(false)
+	, m_pShopUI(nullptr), m_bShop(false)
 {	
 }
 
@@ -55,6 +57,7 @@ void CUIManager::Free()
 	Safe_Release(m_pEffectUI);	
 	Safe_Release(m_pDashUI);
 	Safe_Release(m_pSlotUI);
+	Safe_Release(m_pShopUI);
 }
 
 HRESULT CUIManager::Ready_GameObject(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -77,6 +80,10 @@ HRESULT CUIManager::Ready_GameObject(LPDIRECT3DDEVICE9 pGraphicDev)
 	m_pSlotUI = CSlotUI::Create(pGraphicDev);
 	if (m_pSlotUI == nullptr)
 		return E_FAIL;
+
+	m_pShopUI = CShopBG::Create(pGraphicDev);
+	if (nullptr == m_pShopUI)
+		return E_FAIL;	
 
 	CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_END, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_ROOM_CHANGE, this);
@@ -150,22 +157,29 @@ void CUIManager::Update_GameObject(const _float& fTimeDelta)
 		else iter++;
 	}
 
+	if (m_eNowState == UI_DEFAULT)
+	{	
+		if (m_bDash)
+		{
+			_int iResult = m_pDashUI->Update_GameObject(fTimeDelta);
+			if (iResult == RET_DEAD)
+				m_bDash = false;
+		}
+
+		if (m_bSlot)
+		{
+			m_pSlotUI->Update_GameObject(fTimeDelta);
+		}
+	}
 
 	if (m_bRenderEffectUI)
 	{
 		m_pEffectUI->Update_GameObject(fTimeDelta);
 	}
 
-	if (m_bDash)
+	if (m_bShop)
 	{
-		_int iResult = m_pDashUI->Update_GameObject(fTimeDelta);
-		if (iResult == RET_DEAD)
-			m_bDash = false;
-	}
-
-	if (m_bSlot)
-	{
-		m_pSlotUI->Update_GameObject(fTimeDelta);
+		m_pShopUI->Update_GameObject(fTimeDelta);
 	}
 }
 
@@ -179,19 +193,31 @@ void CUIManager::LateUpdate_GameObject(const _float& fTimeDelta)
 		pUI->LateUpdate_GameObject(fTimeDelta);
 	};
 	
+
+	if (m_eNowState == UI_DEFAULT)
+	{
+		
+
+		if (m_bDash)
+		{
+			m_pDashUI->LateUpdate_GameObject(fTimeDelta);
+		}
+
+		if (m_bSlot)
+		{
+			m_pSlotUI->LateUpdate_GameObject(fTimeDelta);
+		}
+	}
+
 	if (m_bRenderEffectUI)
 	{
 		m_pEffectUI->LateUpdate_GameObject(fTimeDelta);
 	}
+	
 
-	if (m_bDash)
+	if (m_bShop)
 	{
-		m_pDashUI->LateUpdate_GameObject(fTimeDelta);
-	}
-
-	if (m_bSlot)
-	{
-		m_pSlotUI->LateUpdate_GameObject(fTimeDelta);
+		m_pShopUI->LateUpdate_GameObject(fTimeDelta);
 	}
 }
 
@@ -314,6 +340,10 @@ HRESULT CUIManager::Add_ProtoType(LPDIRECT3DDEVICE9 pGraphicDev)
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_HudUITexture", pCom_Texture)))
 		return E_FAIL;
 
+	pCom_Texture = Engine::CTexture::Create(pGraphicDev, CInfoUI::GetTextureSource());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_InfoUITexture", pCom_Texture)))
+		return E_FAIL;
+
 	return S_OK;
 }
 
@@ -329,14 +359,6 @@ HRESULT CUIManager::Add_UI(LPDIRECT3DDEVICE9 pGraphicDev)
 	// UI_STAGE_CLEAR
 	
 	eState = UI_STAGE_CLEAR;
-
-	// SHOP BG
-	pUI = CShopBG::Create(pGraphicDev);
-
-	if (nullptr == pUI)
-		return E_FAIL;
-
-	vUI.push_back(pUI);
 
 	// STAGE BG
 	pUI = CStageBG::Create(pGraphicDev);
@@ -395,6 +417,14 @@ HRESULT CUIManager::Add_UI(LPDIRECT3DDEVICE9 pGraphicDev)
 
 	vUI.push_back(pUI);
 
+
+	pUI = CInfoUI::Create(pGraphicDev);
+
+	if (nullptr == pUI)
+		return E_FAIL;
+
+	vUI.push_back(pUI);
+
 	m_mapUI.insert({ eState, vUI });
 
 	Sort_UI(eState);
@@ -417,13 +447,34 @@ void CUIManager::Sort_UI(UI_STATE eState)
 		});
 }
 
-void CUIManager::Set_OnEffectUI(_bool bDrink)
-{		
-	wstring wText = bDrink ? L"생명 소다" : L"즉결 처형";	
-	m_pEffectUI->Init();
-	m_pEffectUI->Set_Text(wText);	
+void CUIManager::Set_OnEffectUI(EFFECT_STATE eState)
+{
+
+	wstring wText;
+
+	switch (eState)
+	{
+	case CUIManager::ES_DRINK:
+		wText = L"생명 소다";
+		m_pEffectUI->Init(false);
+		m_pEffectUI->Set_Text(wText);
+		break;
+	case CUIManager::ES_TAKEDOWN:
+		wText = L"즉결 처형";
+		m_pEffectUI->Init(false);
+		m_pEffectUI->Set_Text(wText);
+		break;
+	case CUIManager::ES_CLEAR:
+		wText = L"클리어";
+		m_pEffectUI->Init(D3DXCOLOR(0.f, 0.f, 0.f, 1.f));
+		m_pEffectUI->Set_Text(wText);
+		break;
+	default:
+		break;
+	}
 
 	m_bRenderEffectUI = true;
+	
 }
 
 void CUIManager::Set_OnDashUI(_bool bDash)
@@ -451,6 +502,19 @@ void CUIManager::Set_OnSlotUI(_bool bSlot)
 	else
 	{
 		m_bSlot = false;
+	}
+}
+
+void CUIManager::Set_OnShopUI(_bool bShop)
+{
+	if (bShop)
+	{
+		m_pShopUI->Activate();
+		m_bShop = true;
+	}
+	else
+	{
+		m_bShop = false;
 	}
 }
 
@@ -521,7 +585,7 @@ void CUIManager::OnEvent(EVENT_TYPE _type, EventData* _pData)
 	{
 	case Engine::EVENT_DRINK:
 	{
-		Set_OnEffectUI(true);
+		Set_OnEffectUI(ES_DRINK);
 		break;
 	}		
 	case Engine::EVENT_ROOM_CHANGE:
@@ -531,12 +595,14 @@ void CUIManager::OnEvent(EVENT_TYPE _type, EventData* _pData)
 		break;
 	case Engine::EVENT_STAGE_END:
 		Change_UIState(UI_STAGE_CLEAR);
+
 		break;		
 	case Engine::EVENT_NEXT_STAGE:
+		Set_OnShopUI(false);
 		Change_UIState(UI_DEFAULT);
 		break;
 	case Engine::EVENT_TAKEDOWN:
-		Set_OnEffectUI(false);
+		Set_OnEffectUI(ES_TAKEDOWN);
 		break;
 	default:
 		break;

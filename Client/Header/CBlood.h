@@ -19,6 +19,7 @@ public:
 	{
 		return (_uint)m_TextureSources.size();
 	}
+	void		Deactivate() override;
 protected:
 	HRESULT		Add_Component() override;
 	void		ResetParticle(Particle* particle) override;

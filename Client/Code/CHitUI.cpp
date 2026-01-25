@@ -14,7 +14,8 @@ CHitUI::CHitUI(IDirect3DDevice9* device)
 	m_fAnimSpeed = 0.07f;
 	m_iMaxParticle = 1;
 	m_iBatchSize = 1;
-
+	//m_fLifeTime = m_fAnimSpeed * 9;
+	m_fLifeTime = 1000;
 	m_bLoop = false;
 }
 
@@ -36,20 +37,28 @@ HRESULT CHitUI::Ready_GameObject()
 
 _int CHitUI::Update_GameObject(const _float& fTimeDelta)
 {
-	if (IsDead()) return RET_DEAD;
-
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 	for (auto iter = m_ActiveList.begin(); iter != m_ActiveList.end(); iter++)
 	{
 		if ((*iter)->bIsAlive)
 		{
 			(*iter)->fAnimTime += fTimeDelta;
+			(*iter)->fAge += fTimeDelta;
 			if ((*iter)->fAnimSpeed <= (*iter)->fAnimTime)
 			{
 				(*iter)->fAnimTime = 0.f;
 				bool IsEnd = SetNextFrame(*iter, m_vCurFrame);
 				if (IsEnd) (*iter)->bIsAlive = false;
 			}
+			if ((*iter)->fAge >= (*iter)->fLifeTime)
+			{
+				(*iter)->bIsAlive = false;
+
+			}
+		}
+		if ((*iter)->bIsAlive == false)
+		{
+			m_bDead = true;
 		}
 	}
 
@@ -68,14 +77,21 @@ void CHitUI::Render_GameObject()
 
 void CHitUI::SetPreRenderState()
 {
+
 }
 
 void CHitUI::SetPostRenderState()
 {
+	m_pGraphicDev->SetTexture(1, NULL);
+	//텍스쳐 색을 쓰기
+	m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
+	m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+	m_pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTA_TEXTURE);
 }
 
 void CHitUI::Reset()
 {
+	m_bDead = false;
 	m_vCurFrame = { 0,0 };
 	CParticleEmitter::Reset();
 }
@@ -106,7 +122,7 @@ void CHitUI::ResetParticle(Particle* particle)
 	particle->vEndUV = m_pTextureDesc->vUVoffset;
 	particle->vSize = m_vSize;
 	particle->fAge = 0.f;
-	particle->fLifeTime = 0.f;
+	particle->fLifeTime = m_fLifeTime;
 }
 
 CHitUI* CHitUI::Create(LPDIRECT3DDEVICE9 pGraphicDev)

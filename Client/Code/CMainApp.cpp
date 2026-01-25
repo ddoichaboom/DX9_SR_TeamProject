@@ -6,9 +6,13 @@
 #include "CPoolMgr.h"
 #include "CMapStage.h"
 #include "CBossStage.h"
+#include "CLogo.h"
+#include "CEnding.h"
+
 #include "CMapLoader.h"
 #include "CEventMgr.h"
 #include "CFontMgr.h"
+#include "CSoundMgr.h"
 
 #include <ctime>
 
@@ -43,6 +47,7 @@
 #include "CTrigger.h"
 #include "CUIManager.h"
 
+
 //Effect
 #include "CBlood.h"
 #include "CTrail.h"
@@ -55,6 +60,7 @@
 #include "CToonFlash.h"
 #include "CToonFog.h"
 
+#include "CVideoMgr.h"
 
 CMainApp::CMainApp() : m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
 , m_pManagementClass(CManagement::GetInstance()), m_eCurSceneType(SCENE_NONE)
@@ -87,6 +93,7 @@ HRESULT CMainApp::Ready_MainApp()
 int CMainApp::Update_MainApp(const float& fTimeDelta)
 {
 	CDInputMgr::GetInstance()->Update_InputDev();
+	CSoundMgr::GetInstance()->Update_Sound();
 	_int iExit = m_pManagementClass->Update_Scene(fTimeDelta);
 	if (iExit == RET_DEAD) SetNextScene();
 	return 0;
@@ -99,6 +106,8 @@ void CMainApp::LateUpdate_MainApp(const float& fTimeDelta)
 
 void CMainApp::Render_MainApp()
 {
+	if (CVideoMgr::GetInstance()->IsPlaying()) return; 
+
 	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f, 0.f, 0.f, 1.f));
 	m_pManagementClass->Render_Scene(m_pGraphicDev);
 	m_pDeviceClass->Render_End();
@@ -124,6 +133,8 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 
 	if (FAILED(CDInputMgr::GetInstance()->Ready_InputDev(g_hInst, g_hWnd)))
 		return E_FAIL;
+	
+	CSoundMgr::GetInstance()->Ready_Sound();
 
 	(*ppGraphicDev)->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_CLAMP);
 	(*ppGraphicDev)->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP);
@@ -218,6 +229,12 @@ HRESULT CMainApp::Ready_DefaultProto()
 	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Number", L"DS-Digital", 40, 40, FW_BOLD, false, true)))
 		return E_FAIL;
 
+	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_SmallNumber", L"DS-Digital", 35, 35, FW_BOLD, false, true)))
+		return E_FAIL;
+
+	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_LargeNumber", L"DS-Digital", 50, 50, FW_DONTCARE, false, false)))
+		return E_FAIL;
+
 	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Default", L"견명조", 15, 15, FW_HEAVY,false, false)))
 		return E_FAIL;
 
@@ -234,8 +251,9 @@ HRESULT CMainApp::Ready_DefaultProto()
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	//Engine::CScene* pInitScene = CTestStage::Create(pGraphicDev);
-	Engine::CScene* pInitScene = CMapStage::Create(pGraphicDev);
-	m_eCurSceneType = SCENE_BATTLE;
+	//Engine::CScene* pInitScene = CMapStage::Create(pGraphicDev);
+	Engine::CScene* pInitScene = CLogo::Create(pGraphicDev);
+	m_eCurSceneType = SCENE_LOGO;
 	//Engine::CScene* pInitScene = CBossTestStage::Create(pGraphicDev);
 
 	if (nullptr == pInitScene)
@@ -248,6 +266,8 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 		return E_FAIL;
 	}
 
+	m_pManagementClass->Set_CurrSceneType(m_eCurSceneType);
+	m_pManagementClass->Reset_CountTime();
 	return S_OK;
 }
 
@@ -285,7 +305,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iExplosionCount = 6;
 	_uint iBeamFlareCount = 6;
 	_uint iBodyEmitCount = 6;
-	_uint iHitUICount = 2;
+	//_uint iHitUICount = 2;
 
 	for (auto& wstrFile : CMapLoader::GetInstance()->Get_MapFiles())
 	{
@@ -353,7 +373,8 @@ HRESULT CMainApp::Ready_ObjectPool()
 	CPoolMgr::GetInstance()->SetPoolSize<CExplosion>(iExplosionCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CBeamFlare>(iBeamFlareCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CBodyEmit>(iBodyEmitCount);
-	CPoolMgr::GetInstance()->SetPoolSize<CHitUI>(iHitUICount);
+	//CPoolMgr::GetInstance()->SetPoolSize<CHitUI>(iHitUICount);
+
 	return S_OK;
 }
 
@@ -363,30 +384,42 @@ HRESULT CMainApp::SetNextScene()
 	if (nextSceneType == SCENE_END) return E_FAIL;
 	CScene* nextScene = nullptr;
 
+	//Event Mgr 구독 전체 초기화
+	//위치 주의! 다음 스테이지 Create-Ready에서 구독하므로 Create전에 구독값,사운드 지워주기 
+	CEventMgr::GetInstance()->ClearAllSubscribe();
+	CSoundMgr::GetInstance()->StopAll();
+
 	switch (nextSceneType)
-	{
-	case CMainApp::SCENE_NONE: return E_FAIL;
-	case CMainApp::SCENE_MENU:
+	{	
+	case SCENE_LOGO:
+		nextScene = CLogo::Create(m_pGraphicDev);
 		break;
-	case CMainApp::SCENE_TUTORIAL:
+	case SCENE_TUTORIAL:
+		nextSceneType = SCENE_BATTLE;
+	case SCENE_BATTLE:
+		nextScene = CMapStage::Create(m_pGraphicDev);		
 		break;
-	case CMainApp::SCENE_BATTLE:
-		nextScene = CMapStage::Create(m_pGraphicDev);
-		break;
-	case CMainApp::SCENE_BOSS:
+	case SCENE_BOSS:
 		nextScene = CBossStage::Create(m_pGraphicDev);
+		break;
+	case SCENE_ENDING:
+		nextScene = CEnding::Create(m_pGraphicDev);
 		break;
 	default:
 		return E_FAIL;
 	}
-	//Event Mgr 구독 전체 초기화
-	CEventMgr::GetInstance()->ClearAllSubscribe();
+
 	if (FAILED(CManagement::GetInstance()->Set_Scene(nextScene)))
 	{
 		Safe_Release(nextScene);
 		MSG_BOX("Next Scene Setting Failed");
 		return E_FAIL;
 	}
+
+	m_eCurSceneType = nextSceneType;
+	m_pManagementClass->Set_CurrSceneType(m_eCurSceneType);
+	m_pManagementClass->Reset_CountTime();
+
 	return S_OK;
 }
 
@@ -442,6 +475,8 @@ void CMainApp::Free()
 	CEventMgr::DestroyInstance();
 	CUIManager::DestroyInstance();
 	CFontMgr::DestroyInstance();
+	CSoundMgr::DestroyInstance();
+	CVideoMgr::DestroyInstance();
 
 	m_pDeviceClass->DestroyInstance();
 }
