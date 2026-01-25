@@ -13,7 +13,7 @@
 #include "CDynamicCeiling.h"
 #include "CWall.h"
 #include "CDynamicWall.h"
-#include "CObstacle.h"
+#include "CVendingMachine.h"
 #include "CSlopeFloor.h"
 #include "CMapCollider.h"
 #include "CRoomTrigger.h"
@@ -144,8 +144,8 @@ HRESULT CMapLoader::Preload_AllMapData(const wstring& wstrPath)
                 roomMap[iRoomIndex].iWallCount++;
             else if (objData.sType == "DynamicWall")
                 roomMap[iRoomIndex].iDynamicWallCount++;
-            else if (objData.sType == "Cube")
-                roomMap[iRoomIndex].iObstacleCount++;
+            else if (objData.sType == "VendingMachine")
+                roomMap[iRoomIndex].iVendingMachineCount++;
             else if (objData.sType == "MapCollider")
                 roomMap[iRoomIndex].iMapColliderCount++;
             else if (objData.sType == "RoomTriggerBox")
@@ -226,7 +226,7 @@ HRESULT CMapLoader::Load_Room(const wstring& wstrPath, _int iRoomIndex, CLayer* 
                 if (objData.sType == "Floor" || objData.sType == "DynamicFloor" ||
                     objData.sType == "SlopeFloor" || objData.sType == "Ceiling" ||
                     objData.sType == "DynamicCeiling" || objData.sType == "Wall" || 
-                    objData.sType == "DynamicWall" || objData.sType == "Cube" || 
+                    objData.sType == "DynamicWall" || objData.sType == "VendingMachine" || 
                     objData.sType == "MapCollider" || objData.sType == "RoomTriggerBox" ||
                     objData.sType == "Door")
                 {
@@ -384,7 +384,7 @@ HRESULT CMapLoader::Unload_Room(const wstring& wstrPath, _int iRoomIndex, CLayer
     _uint iUnloadedCount = 0;
 
     OBJ_ID objIDs[] = {
-        OBJ_FLOOR, OBJ_CEILING, OBJ_WALL, OBJ_OBSTACLE, OBJ_COL, OBJ_TRIGGER, OBJ_DOOR,  // Environment
+        OBJ_FLOOR, OBJ_CEILING, OBJ_WALL, OBJ_VENDINGMACHINE, OBJ_COL, OBJ_TRIGGER, OBJ_DOOR,  // Environment
         OBJ_MONSTER                                                             // GameLogic
     };
 
@@ -478,8 +478,8 @@ _uint CMapLoader::Get_MaxObjectCount(const wstring& wstrPath, const string& obje
                 iSum += roomData.iWallCount;
             else if (objectType == "DynamicWall")
                 iSum += roomData.iDynamicWallCount;
-            else if (objectType == "Cube")
-                iSum += roomData.iObstacleCount;
+            else if (objectType == "VendingMachine")
+                iSum += roomData.iVendingMachineCount;
             else if (objectType == "MapCollider")
                 iSum += roomData.iMapColliderCount;
             else if (objectType == "RoomTriggerBox")
@@ -671,16 +671,17 @@ CGameObject* CMapLoader::Get_GameObject_FromPool(const ObjectData& objData, LPDI
             pGameObject = pDynamicWall;
         }
     }
-    else if (objData.sType == "Cube")
+    else if (objData.sType == "VendingMachine")
     {
-        CObstacle* pObstacle = Engine::CPoolMgr::GetInstance()->Get_Object<CObstacle>();
-        if (pObstacle)
+        CVendingMachine* pVendingMachine = Engine::CPoolMgr::GetInstance()->Get_Object<CVendingMachine>();
+        if (pVendingMachine)
         {
-            pObstacle->SetPos(objData.vPos);
-            pObstacle->SetAngle(objData.vRot);
-            pObstacle->SetScale(objData.vScale);
-            pObstacle->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
-            pGameObject = pObstacle;
+            pVendingMachine->SetPos(objData.vPos);
+            pVendingMachine->SetAngle(objData.vRot);
+            pVendingMachine->SetScale(objData.vScale);
+            pVendingMachine->Set_ColliderScale(objData.vScale);
+            pVendingMachine->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
+            pGameObject = pVendingMachine;
         }
     }
     else if (objData.sType == "MapCollider")

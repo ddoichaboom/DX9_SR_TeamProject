@@ -21,7 +21,7 @@ enum OBJECT_TYPE
 {
 	OBJ_FLOOR,       // 바닥 (Tile 대체)
 	OBJ_CEILING,     // 천장 
-	OBJ_CUBE,        // 오브젝트
+	OBJ_VENDINGMACHINE,        // 오브젝트
 	OBJ_WALL,        // 벽 
 	OBJ_SPAWNPOINT,  // 스폰 지점 
 

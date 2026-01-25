@@ -1919,7 +1919,7 @@ void CPlayer::OnCollision(CollisionInfo info)
 
 void CPlayer::OnAttackCollision(CollisionInfo info)
 {
-	if (info.pTarget->GetOBJID() == OBJ_DOOR || info.pTarget->GetOBJID() == OBJ_OBSTACLE)
+	if (info.pTarget->GetOBJID() == OBJ_DOOR || info.pTarget->GetOBJID() == OBJ_VENDINGMACHINE)
 	{
 		Change_State(KICK);
 	}

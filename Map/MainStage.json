@@ -1,4 +1,5 @@
 {
+  "VendingMachineCount": 6,
   "ceilingCount": 624,
   "doorCount": 12,
   "dynamicFloorCount": 60,
@@ -10871,46 +10872,6 @@
       ],
       "textureIdx": 6,
       "type": "Floor"
-    },
-    {
-      "name": "Cube",
-      "position": [
-        -32.0,
-        12.0,
-        180.0
-      ],
-      "roomIndex": 0,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        8.0,
-        12.0,
-        4.0
-      ],
-      "type": "Cube"
-    },
-    {
-      "name": "Cube",
-      "position": [
-        80.0,
-        12.0,
-        180.0
-      ],
-      "roomIndex": 0,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        8.0,
-        12.0,
-        4.0
-      ],
-      "type": "Cube"
     },
     {
       "monsterKey": "WhiteMan",
@@ -25232,26 +25193,6 @@
       "type": "Floor"
     },
     {
-      "name": "Cube",
-      "position": [
-        -8.0,
-        76.0,
-        660.0
-      ],
-      "roomIndex": 2,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        8.0,
-        12.0,
-        4.0
-      ],
-      "type": "Cube"
-    },
-    {
       "name": "Wall",
       "position": [
         8.0,
@@ -34198,26 +34139,6 @@
       "type": "Wall",
       "wallDirection": 3,
       "wallType": 3
-    },
-    {
-      "name": "Cube",
-      "position": [
-        24.0,
-        -244.0,
-        2362.0
-      ],
-      "roomIndex": 5,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        8.0,
-        12.0,
-        4.0
-      ],
-      "type": "Cube"
     },
     {
       "name": "Wall",
@@ -46398,26 +46319,6 @@
       "wallType": 3
     },
     {
-      "name": "Cube",
-      "position": [
-        404.0,
-        -244.0,
-        2590.0
-      ],
-      "roomIndex": 5,
-      "rotation": [
-        0.0,
-        90.0,
-        0.0
-      ],
-      "scale": [
-        8.0,
-        12.0,
-        4.0
-      ],
-      "type": "Cube"
-    },
-    {
       "monsterKey": "FlyMon",
       "name": "MonsterSpawn",
       "position": [
@@ -46438,26 +46339,6 @@
       ],
       "spawnType": "Monster",
       "type": "SpawnPoint"
-    },
-    {
-      "name": "Cube",
-      "position": [
-        616.0,
-        -244.0,
-        2410.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        8.0,
-        12.0,
-        4.0
-      ],
-      "type": "Cube"
     },
     {
       "monsterKey": "WhiteMan",
@@ -47389,9 +47270,9 @@
       "position": [
         24.0,
         13.0,
-        72.0
+        137.3000030517578
       ],
-      "roomIndex": 0,
+      "roomIndex": 1,
       "rotation": [
         0.0,
         0.0,
@@ -47425,9 +47306,128 @@
         4.0
       ],
       "type": "MapCollider"
+    },
+    {
+      "name": "VendingMachine",
+      "position": [
+        -8.0,
+        76.0,
+        660.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        180.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        12.0,
+        4.0
+      ],
+      "type": "VendingMachine"
+    },
+    {
+      "name": "VendingMachine",
+      "position": [
+        80.0,
+        12.0,
+        180.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        180.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        12.0,
+        4.0
+      ],
+      "type": "VendingMachine"
+    },
+    {
+      "name": "VendingMachine",
+      "position": [
+        24.0,
+        12.0,
+        60.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        180.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        12.0,
+        4.0
+      ],
+      "type": "VendingMachine"
+    },
+    {
+      "name": "VendingMachine",
+      "position": [
+        24.0,
+        -244.0,
+        2362.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        180.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        12.0,
+        4.0
+      ],
+      "type": "VendingMachine"
+    },
+    {
+      "name": "VendingMachine",
+      "position": [
+        396.0,
+        -244.0,
+        2590.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        270.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        12.0,
+        4.0
+      ],
+      "type": "VendingMachine"
+    },
+    {
+      "name": "VendingMachine",
+      "position": [
+        608.0,
+        -244.0,
+        2410.0
+      ],
+      "roomIndex": 6,
+      "rotation": [
+        0.0,
+        180.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        12.0,
+        4.0
+      ],
+      "type": "VendingMachine"
     }
   ],
-  "obstacleCount": 6,
   "triggerBoxCount": 6,
   "version": 4,
   "wallCount": 446
