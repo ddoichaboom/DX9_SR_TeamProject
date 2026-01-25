@@ -47,5 +47,9 @@ protected:
 
 private:
     virtual void Free();
+
+private:
+    wstring m_BossVideoName = L"EnterBoss.wmv";
+    wstring m_BossSoundName = L"EnterBossSound.wav";
 };
 

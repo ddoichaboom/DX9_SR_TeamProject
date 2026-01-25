@@ -310,6 +310,12 @@
     <Filter Include="02. GameObject\13. Effect\11. SodaUI">
       <UniqueIdentifier>{f304972e-13f1-4c77-a2b2-f6465196219e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\03. Logo">
+      <UniqueIdentifier>{129feed1-1a87-48b0-8ec7-3f57460d1f60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\04. Ending">
+      <UniqueIdentifier>{78f20e5d-5d36-4802-9eca-5394c9607f44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -585,6 +591,12 @@
     <ClInclude Include="..\Header\CSodaUI.h">
       <Filter>02. GameObject\13. Effect\11. SodaUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CLogo.h">
+      <Filter>01. Scene\03. Logo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEnding.h">
+      <Filter>01. Scene\04. Ending</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -850,6 +862,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CSodaUI.cpp">
       <Filter>02. GameObject\13. Effect\11. SodaUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLogo.cpp">
+      <Filter>01. Scene\03. Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEnding.cpp">
+      <Filter>01. Scene\04. Ending</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

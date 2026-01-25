@@ -6,6 +6,9 @@
 #include "CPoolMgr.h"
 #include "CMapStage.h"
 #include "CBossStage.h"
+#include "CLogo.h"
+#include "CEnding.h"
+
 #include "CMapLoader.h"
 #include "CEventMgr.h"
 #include "CFontMgr.h"
@@ -41,6 +44,7 @@
 #include "CTrigger.h"
 #include "CUIManager.h"
 
+
 //Effect
 #include "CBlood.h"
 #include "CTrail.h"
@@ -53,6 +57,7 @@
 #include "CToonFlash.h"
 #include "CToonFog.h"
 
+#include "CVideoMgr.h"
 
 CMainApp::CMainApp() : m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
 , m_pManagementClass(CManagement::GetInstance()), m_eCurSceneType(SCENE_NONE)
@@ -98,6 +103,8 @@ void CMainApp::LateUpdate_MainApp(const float& fTimeDelta)
 
 void CMainApp::Render_MainApp()
 {
+	if (CVideoMgr::GetInstance()->IsPlaying()) return; 
+
 	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f, 0.f, 0.f, 1.f));
 	m_pManagementClass->Render_Scene(m_pGraphicDev);
 	m_pDeviceClass->Render_End();
@@ -238,8 +245,9 @@ HRESULT CMainApp::Ready_DefaultProto()
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	//Engine::CScene* pInitScene = CTestStage::Create(pGraphicDev);
-	Engine::CScene* pInitScene = CMapStage::Create(pGraphicDev);
-	m_eCurSceneType = SCENE_BATTLE;
+	//Engine::CScene* pInitScene = CMapStage::Create(pGraphicDev);
+	Engine::CScene* pInitScene = CLogo::Create(pGraphicDev);
+	m_eCurSceneType = SCENE_LOGO;
 	//Engine::CScene* pInitScene = CBossTestStage::Create(pGraphicDev);
 
 	if (nullptr == pInitScene)
@@ -288,7 +296,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iExplosionCount = 6;
 	_uint iBeamFlareCount = 6;
 	_uint iBodyEmitCount = 6;
-	_uint iHitUICount = 2;
+	//_uint iHitUICount = 2;
 
 	for (auto& wstrFile : CMapLoader::GetInstance()->Get_MapFiles())
 	{
@@ -348,7 +356,8 @@ HRESULT CMainApp::Ready_ObjectPool()
 	CPoolMgr::GetInstance()->SetPoolSize<CExplosion>(iExplosionCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CBeamFlare>(iBeamFlareCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CBodyEmit>(iBodyEmitCount);
-	CPoolMgr::GetInstance()->SetPoolSize<CHitUI>(iHitUICount);
+	//CPoolMgr::GetInstance()->SetPoolSize<CHitUI>(iHitUICount);
+
 	return S_OK;
 }
 
@@ -358,23 +367,31 @@ HRESULT CMainApp::SetNextScene()
 	if (nextSceneType == SCENE_END) return E_FAIL;
 	CScene* nextScene = nullptr;
 
+	//Event Mgr 구독 전체 초기화
+	//위치 주의! 다음 스테이지 Create-Ready에서 구독하므로 Create전에 구독값,사운드 지워주기 
+	CEventMgr::GetInstance()->ClearAllSubscribe();
+	CSoundMgr::GetInstance()->StopAll();
+
 	switch (nextSceneType)
 	{	
-	case SCENE_MENU:
+	case SCENE_LOGO:
+		nextScene = CLogo::Create(m_pGraphicDev);
 		break;
 	case SCENE_TUTORIAL:
-		break;
+		nextSceneType = SCENE_BATTLE;
 	case SCENE_BATTLE:
 		nextScene = CMapStage::Create(m_pGraphicDev);		
 		break;
 	case SCENE_BOSS:
 		nextScene = CBossStage::Create(m_pGraphicDev);
 		break;
+	case SCENE_ENDING:
+		nextScene = CEnding::Create(m_pGraphicDev);
+		break;
 	default:
 		return E_FAIL;
 	}
-	//Event Mgr 구독 전체 초기화
-	CEventMgr::GetInstance()->ClearAllSubscribe();
+
 	if (FAILED(CManagement::GetInstance()->Set_Scene(nextScene)))
 	{
 		Safe_Release(nextScene);
@@ -442,6 +459,7 @@ void CMainApp::Free()
 	CUIManager::DestroyInstance();
 	CFontMgr::DestroyInstance();
 	CSoundMgr::DestroyInstance();
+	CVideoMgr::DestroyInstance();
 
 	m_pDeviceClass->DestroyInstance();
 }

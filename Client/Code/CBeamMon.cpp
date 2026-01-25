@@ -300,6 +300,8 @@ bool CBeamMon::RunBeam(const _float& fTimeDelta)
 	D3DXVec3Lerp(&m_vShootDir, &m_vStartDir, &m_vEndDir, m_fTime / m_fBeamTime);
 	D3DXVec3Normalize(&m_vShootDir, &m_vShootDir);
 	m_pBeam->SetShootDir(m_vShootDir);
+	
+	m_pBeam->SetScale(ROT_Y, 1500.f);
 	CollisionBeam();
 
 	return false;
@@ -307,7 +309,7 @@ bool CBeamMon::RunBeam(const _float& fTimeDelta)
 
 void CBeamMon::CollisionBeam()
 {
-	if (m_bBeamCollision) return;
+	//if (m_bBeamCollision) return;
 	CCollision* playerCollision = GetPlayerCollision();
 	if (!playerCollision) return;
 
@@ -351,11 +353,11 @@ void CBeamMon::CollisionBeam()
 
 	if (finalCollider)
 	{
+		if(!m_bBeamCollision)
+			finalCollider->Collision({ this,_vec3(),m_fAttackDamage });
 		m_bBeamCollision = true;
-		m_pBeam->SetScale(ROT_Y, finalTime*2.f);
-		finalCollider->Collision({ this,_vec3(),m_fAttackDamage });
+		m_pBeam->SetScale(ROT_Y, finalTime);
 	}
-	else m_pBeam->SetScale(ROT_Y, 1500.f);
 
 }
 

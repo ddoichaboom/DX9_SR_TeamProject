@@ -165,6 +165,7 @@
     <ClInclude Include="..\Header\CDashUI.h" />
     <ClInclude Include="..\Header\CDoorTrigger.h" />
     <ClInclude Include="..\Header\CEffectUI.h" />
+    <ClInclude Include="..\Header\CEnding.h" />
     <ClInclude Include="..\Header\CExtinguisher.h" />
     <ClInclude Include="..\Header\CFontUI.h" />
     <ClInclude Include="..\Header\CExplosion.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="..\Header\CInfoUI.h" />
     <ClInclude Include="..\Header\CInteractObject.h" />
     <ClInclude Include="..\Header\CLoadingEX.h" />
+    <ClInclude Include="..\Header\CLogo.h" />
     <ClInclude Include="..\Header\CMapCollider.h" />
     <ClInclude Include="..\Header\CDynamicCeiling.h" />
     <ClInclude Include="..\Header\CDynamicFloor.h" />
@@ -258,6 +260,7 @@
     <ClCompile Include="..\Code\CDashUI.cpp" />
     <ClCompile Include="..\Code\CDoorTrigger.cpp" />
     <ClCompile Include="..\Code\CEffectUI.cpp" />
+    <ClCompile Include="..\Code\CEnding.cpp" />
     <ClCompile Include="..\Code\CExtinguisher.cpp" />
     <ClCompile Include="..\Code\CFontUI.cpp" />
     <ClCompile Include="..\Code\CExplosion.cpp" />
@@ -270,6 +273,7 @@
     <ClCompile Include="..\Code\CInfoUI.cpp" />
     <ClCompile Include="..\Code\CInteractObject.cpp" />
     <ClCompile Include="..\Code\CLoadingEX.cpp" />
+    <ClCompile Include="..\Code\CLogo.cpp" />
     <ClCompile Include="..\Code\CMapCollider.cpp" />
     <ClCompile Include="..\Code\CDynamicCeiling.cpp" />
     <ClCompile Include="..\Code\CDynamicFloor.cpp" />

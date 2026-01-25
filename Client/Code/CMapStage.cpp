@@ -138,7 +138,7 @@ _int CMapStage::Update_Scene(const _float& fTimeDelta)
     //UI 업데이트
     CUIManager::GetInstance()->Update_GameObject(fTimeDelta);
 
-    if (m_bStageEnd || (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_P)))
+    if (m_bStageEnd || (CDInputMgr::GetInstance()->Key_Down(DIK_P)))
     {
         return RET_DEAD;
     }

@@ -23,17 +23,17 @@ void CSoundMgr::Ready_Sound()
 	FMOD_System_Create(&m_pSystem, FMOD_VERSION);
 	FMOD_System_Init(m_pSystem, 64, FMOD_INIT_NORMAL, nullptr);
 
-	FMOD_System_GetMasterChannelGroup(m_pSystem, &master);
+	FMOD_System_GetMasterChannelGroup(m_pSystem, &m_pChannelGroup[SOUND_MASTER]);
 
-	FMOD_System_CreateChannelGroup(m_pSystem, "SFX", &gSFXGroup);
-	FMOD_System_CreateChannelGroup(m_pSystem, "BGM", &gBGMGroup);
-	FMOD_System_CreateChannelGroup(m_pSystem, "MONSTER", &gMonsterGroup);
-	FMOD_System_CreateChannelGroup(m_pSystem, "PLAYER", &gPlayerGroup);
+	FMOD_System_CreateChannelGroup(m_pSystem, "SFX", &m_pChannelGroup[SOUND_SFX]);
+	FMOD_System_CreateChannelGroup(m_pSystem, "BGM", &m_pChannelGroup[SOUND_BGM]);
+	FMOD_System_CreateChannelGroup(m_pSystem, "MONSTER", &m_pChannelGroup[SOUND_MONSTER]);
+	FMOD_System_CreateChannelGroup(m_pSystem, "PLAYER", &m_pChannelGroup[SOUND_PLAYER]);
 
-	FMOD_ChannelGroup_AddGroup(master, gSFXGroup, false, nullptr);
-	FMOD_ChannelGroup_AddGroup(master, gBGMGroup, false, nullptr);
-	FMOD_ChannelGroup_AddGroup(master, gMonsterGroup, false, nullptr);
-	FMOD_ChannelGroup_AddGroup(master, gPlayerGroup, false, nullptr);
+	FMOD_ChannelGroup_AddGroup(m_pChannelGroup[SOUND_MASTER], m_pChannelGroup[SOUND_SFX], false, nullptr);
+	FMOD_ChannelGroup_AddGroup(m_pChannelGroup[SOUND_MASTER], m_pChannelGroup[SOUND_BGM], false, nullptr);
+	FMOD_ChannelGroup_AddGroup(m_pChannelGroup[SOUND_MASTER], m_pChannelGroup[SOUND_MONSTER], false, nullptr);
+	FMOD_ChannelGroup_AddGroup(m_pChannelGroup[SOUND_MASTER], m_pChannelGroup[SOUND_PLAYER], false, nullptr);
 	LoadSoundFile();
 }
 
@@ -65,8 +65,8 @@ void CSoundMgr::PlaySFXSound(const TCHAR* pSoundKey, float fVolume)
 	if (iter == m_mapSound.end())
 		return;
 
-	FMOD_System_PlaySound(m_pSystem, iter->second, gSFXGroup, FALSE, nullptr);
-	FMOD_ChannelGroup_SetVolume(gSFXGroup, fVolume);
+	FMOD_System_PlaySound(m_pSystem, iter->second, m_pChannelGroup[SOUND_SFX], FALSE, nullptr);
+	FMOD_ChannelGroup_SetVolume(m_pChannelGroup[SOUND_SFX], fVolume);
 	FMOD_System_Update(m_pSystem);
 }
 
@@ -79,8 +79,8 @@ void CSoundMgr::PlayBGM(const TCHAR* pSoundKey, float fVolume)
 		return;
 
 	FMOD_Sound_SetMode(iter->second, FMOD_LOOP_NORMAL);
-	FMOD_System_PlaySound(m_pSystem, iter->second, gBGMGroup, FALSE, nullptr);
-	FMOD_ChannelGroup_SetVolume(gBGMGroup, fVolume);
+	FMOD_System_PlaySound(m_pSystem, iter->second, m_pChannelGroup[SOUND_BGM], FALSE, &m_pChannelArr[SOUND_BGM]);
+	FMOD_ChannelGroup_SetVolume(m_pChannelGroup[SOUND_BGM], fVolume);
 	FMOD_System_Update(m_pSystem);
 }
 
@@ -92,8 +92,8 @@ void CSoundMgr::PlayMonsterSound(const TCHAR* pSoundKey, float fVolume)
 	if (iter == m_mapSound.end())
 		return;
 
-	FMOD_System_PlaySound(m_pSystem, iter->second, gMonsterGroup, FALSE, nullptr);
-	FMOD_ChannelGroup_SetVolume(gMonsterGroup, fVolume);
+	FMOD_System_PlaySound(m_pSystem, iter->second, m_pChannelGroup[SOUND_MONSTER], FALSE, nullptr);
+	FMOD_ChannelGroup_SetVolume(m_pChannelGroup[SOUND_MONSTER], fVolume);
 	FMOD_System_Update(m_pSystem);
 }
 
@@ -105,26 +105,32 @@ void CSoundMgr::PlayPlayerSound(const TCHAR* pSoundKey, float fVolume)
 	if (iter == m_mapSound.end())
 		return;
 
-	FMOD_System_PlaySound(m_pSystem, iter->second, gPlayerGroup, FALSE, nullptr);
-	FMOD_ChannelGroup_SetVolume(gPlayerGroup, fVolume);
+	FMOD_System_PlaySound(m_pSystem, iter->second, m_pChannelGroup[SOUND_PLAYER], FALSE, nullptr);
+	FMOD_ChannelGroup_SetVolume(m_pChannelGroup[SOUND_PLAYER], fVolume);
 	FMOD_System_Update(m_pSystem);
 }
 
+//단일 채널 - 내가 따로 보관했다면 사용 가능 (ex) BGM
 void CSoundMgr::StopSound(CHANNELID eID)
 {
-	FMOD_BOOL bIsPlay = false;
 	FMOD_Channel_Stop(m_pChannelArr[eID]);
+}
+
+//그룹전체 정지
+void CSoundMgr::StopGroupSound(CHANNELID eID)
+{
+	FMOD_ChannelGroup_Stop(m_pChannelGroup[eID]);
 }
 
 void CSoundMgr::StopAll()
 {
 	for (int i = 0; i < SOUND_END; ++i)
-		FMOD_Channel_Stop(m_pChannelArr[i]);
+		FMOD_ChannelGroup_Stop(m_pChannelGroup[i]);
 }
 
 void CSoundMgr::SetChannelVolume(CHANNELID eID, float fVolume)
 {
-	FMOD_Channel_SetVolume(m_pChannelArr[eID], fVolume);
+	FMOD_ChannelGroup_SetVolume(m_pChannelGroup[eID], fVolume);
 }
 
 void CSoundMgr::LoadSoundFile()
@@ -186,11 +192,18 @@ void CSoundMgr::LoadSoundFile()
 
 void CSoundMgr::Free()
 {
+	StopAll();
 	for (auto& Mypair : m_mapSound)
 	{
 		FMOD_Sound_Release(Mypair.second);
 	}
 	m_mapSound.clear();
+
+	for (int i = 0; i < SOUND_END; ++i)
+	{
+		if (m_pChannelGroup[i]) 
+			FMOD_ChannelGroup_Release(m_pChannelGroup[i]);
+	}
 
 	FMOD_System_Close(m_pSystem);
 	FMOD_System_Release(m_pSystem);
