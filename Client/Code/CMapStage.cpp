@@ -827,6 +827,7 @@ void CMapStage::Check_Collision()
    auto iter_Map_Col = m_mapLayer[L"Environment_Layer"]->Get_Objects(OBJ_COL);
    auto iter_Map_Trigger = m_mapLayer[L"Environment_Layer"]->Get_Objects(OBJ_TRIGGER);
    auto iter_Map_Door = m_mapLayer[L"Environment_Layer"]->Get_Objects(OBJ_DOOR);  // 추가
+   auto iter_Map_Vending = m_mapLayer[L"Environment_Layer"]->Get_Objects(OBJ_VENDINGMACHINE);  // 추가
    auto iter_Map_Bullet = m_mapLayer[L"GameLogic_Layer"]->Get_Objects(OBJ_BULLET);
    auto iter_Map_Mon = m_mapLayer[L"GameLogic_Layer"]->Get_Objects(OBJ_MONSTER);
    auto iter_Map_Item = m_mapLayer[L"GameLogic_Layer"]->Get_Objects(OBJ_ITEM);
@@ -931,41 +932,60 @@ void CMapStage::Check_Collision()
        }
    }
 
-   for (auto it_door = iter_Map_Door.first; it_door != iter_Map_Door.second; it_door++)
+
+   for (multimap<OBJ_ID, CGameObject*>::iterator it_door = iter_Map_Door.first; it_door != iter_Map_Door.second; it_door++)
    {
-       CCollision* pDoorCollision = static_cast<CCollision*>(
-           it_door->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+       CCollision* mapItem_Collision = static_cast<CCollision*>(it_door->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+       CCollider* mapCollider = mapItem_Collision->GetCollider();
+       if (!mapCollider) continue;
 
-       if (!pDoorCollision)
+       CCollision::Collision_Base(pPlayerKickCollider, mapCollider);
+   }
+
+
+   for (multimap<OBJ_ID, CGameObject*>::iterator it_mon = iter_Map_Mon.first; it_mon != iter_Map_Mon.second; it_mon++)
+   {
+       CCollision* mapMon_Collision = static_cast<CCollision*>(it_mon->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+       CCollider* pMonCollider = mapMon_Collision->GetCollider();
+       if (!pMonCollider)
            continue;
 
-       CCollider* pDoorCollider = pDoorCollision->GetCollider();
-       if (!pDoorCollider)
-           continue;
+      
 
-       // 1. Monster - Door 충돌
-       for (auto it_mon = iter_Map_Mon.first; it_mon != iter_Map_Mon.second; it_mon++)
+       for (multimap<OBJ_ID, CGameObject*>::iterator it_door = iter_Map_Door.first; it_door != iter_Map_Door.second; it_door++)
        {
-           CCharacter* pMonster = static_cast<CCharacter*>(it_mon->second);
-           CCollider* pMonCollider = pMonster->GetCollider();
-           if (!pMonCollider)
+           CCollision* pDoorCollision = static_cast<CCollision*>(
+               it_door->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+
+           if (!pDoorCollision)
+               continue;
+
+           CCollider* pDoorCollider = pDoorCollision->GetCollider();
+           if (!pDoorCollider)
                continue;
 
            CCollision::Collision_Base(pMonCollider, pDoorCollider);
        }
 
-       // 2. Player Main Collider (ColMain) - Door 충돌
-       //if (pPlayerCollider)
+       
+       //for (multimap<OBJ_ID, CGameObject*>::iterator it_vend = iter_Map_Vending.first; it_vend != iter_Map_Vending.second; it_vend++)
        //{
-       //    CCollision::Collision_Base(pPlayerCollider, pDoorCollider);
+       //    CCollision* pVendCollision = static_cast<CCollision*>(
+       //        it_vend->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+       //
+       //    if (!pVendCollision)
+       //        continue;
+       //
+       //    CCollider* pVenCollider = pVendCollision->GetCollider();
+       //    if (!pVenCollider)
+       //        continue;
+       //
+       //    CCollision::Collision_Base(pMonCollider, pVenCollider);
        //}
-
-       // 3. Player Kick Collider (ColKick) - Door 충돌 (Kick + Katana 공용)
-       if (pPlayerKickCollider)
-       {
-           CCollision::Collision_Base(pPlayerKickCollider, pDoorCollider);
-       }
+       
    }
+
+  
 }
 
 void CMapStage::OnEvent(EVENT_TYPE _type, EventData* _pData)

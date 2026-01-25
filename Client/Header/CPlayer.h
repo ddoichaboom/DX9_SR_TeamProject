@@ -255,6 +255,7 @@ private:
 	_float	m_fMoveSpeed;
 	_float	m_fKickAttack;	
 	_bool	m_bOnCollision;
+	_bool	m_bPoison;
 
 	map<_uint, _int> m_mapCallCnt = {};
 
@@ -290,6 +291,8 @@ public:
 	static wstring	szKickSFX;
 	static wstring	szDashSFX;
 	static wstring	szJumpSFX;
+	static wstring	szAcidSFX;
+	static wstring	szTakeDownSFX;
 
 	
 };

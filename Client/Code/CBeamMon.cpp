@@ -9,7 +9,7 @@
 #include "CExplosion.h"
 #include "CBeamFlare.h"
 #include "CBodyEmit.h"
-
+#include "CSoundMgr.h"
 //-------------------------------------------------------------------------
 // Texture , Animation Data
 //-------------------------------------------------------------------------
@@ -29,6 +29,8 @@ vector<AnimationSource> CBeamMon::m_vAnimSource =
 	,{ MS_ATTACK_IDLE,2,1,1, true, 0.13f}			
 	,{ MS_ATTACK,1,3,2, false, 0.03f}					
 };
+
+wstring  CBeamMon::szBeamSFX = L"Monster_Beam_SFX.wav";
 
 
 CBeamMon::CBeamMon(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -220,6 +222,7 @@ void CBeamMon::Attack_Idle()
 {
 	if (m_fTime >= m_fAttackDelayTime)
 	{
+		CSoundMgr::GetInstance()->PlayMonsterSound(szBeamSFX.c_str(),0.45f);
 		ChangeState(MS_ATTACK);
 	}
 }
@@ -237,7 +240,7 @@ void CBeamMon::Attack()
 
 void CBeamMon::Dead()
 {
-	CExplosion * exp = CPoolMgr::GetInstance()->Get_Object<CExplosion>();
+	CExplosion* exp = CPoolMgr::GetInstance()->Get_Object<CExplosion>();
 	CBodyEmit* bodyEmit = CPoolMgr::GetInstance()->Get_Object<CBodyEmit>();
 	if (exp)
 	{

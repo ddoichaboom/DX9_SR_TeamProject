@@ -112,6 +112,7 @@ private :
 
 public:
 	static wstring  szKatanaIntroSFX;
+	static wstring  szKatanaAttackSFX;
 	
 };
 

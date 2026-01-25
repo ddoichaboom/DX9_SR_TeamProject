@@ -9,11 +9,14 @@
 #include "CManagement.h"
 #include "CPlayer.h"
 #include "CFloor.h"
+#include "CSoundMgr.h"
 
 TextureSource CAxe::m_vTextureSource =
 {
     0, L"../Bin/Resource/Texture/Object/Axe.dds"
 };
+
+wstring CAxe::szItemLootSFX = L"Item_Loot_SFX.wav";
 
 
 CAxe::CAxe(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -155,6 +158,7 @@ void CAxe::OnCollision(CollisionInfo info)
 {
     if (info.pTarget->GetOBJID() == OBJ_PLAYER)
     {
+        CSoundMgr::GetInstance()->PlaySFXSound(szItemLootSFX.c_str(), 0.3f);
         static_cast<CPlayer*>(info.pTarget)->Add_Item(TAG_AXE);
         m_bDead = true;
     }

@@ -61,5 +61,8 @@ protected:
 	_float	m_fJumpTime;
 	_float	m_fJumpDuration;
 	_float	m_fJumpHeight;
+
+public :
+	static wstring szItemLootSFX;
 };
 

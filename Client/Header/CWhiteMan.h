@@ -153,5 +153,11 @@ protected:
 	
 	bool m_bLaunchEnd = false;
 
+public :
+	static wstring szWhiteManDead;
+	static wstring szWhiteManBody;
+	static wstring szWhiteManHead;
+	static wstring szWhiteManShot;
+
 };
 

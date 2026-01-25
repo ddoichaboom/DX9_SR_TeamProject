@@ -8,6 +8,7 @@
 #include "CPoolMgr.h"
 #include "CBlood.h"
 #include "CExplosion.h"
+#include "CSoundMgr.h"
 
 _uint CWhiteMan::ID_SLICE_DEAD = CStateComponent::MakeStateID(MS_DEAD, SUB_NONE, SLICE);
 _uint CWhiteMan::ID_ELECT_DEAD = CStateComponent::MakeStateID(MS_DEAD, SUB_NONE, ELECT);
@@ -65,6 +66,11 @@ vector<AnimationSource> CWhiteMan::m_vAnimSource =
 
 	,{ MS_DEAD,6,3,2, false, 0.06f, 1.f, true}			//Dead
 };
+
+wstring CWhiteMan::szWhiteManDead = L"Monster_Dead_SFX.wav";
+wstring CWhiteMan::szWhiteManBody = L"Monster_Pistol_Shoot_SFX.wav";
+wstring CWhiteMan::szWhiteManHead = L"Monster_HeadShot_SFX.wav";
+wstring CWhiteMan::szWhiteManShot = L"Monster_Shot_SFX.wav";
 
 CWhiteMan::CWhiteMan(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CMonster(pGraphicDev), m_pHeadCollider(nullptr), m_pBodyCollider(nullptr)
@@ -299,17 +305,18 @@ void CWhiteMan::OnHeadCollision(CollisionInfo info)
 	if (info.eTag == TAG_KATANA)
 	{
 		ChangeState(ID_SLICE_DEAD);
-		blood->ChangeState(1);
+		blood->ChangeState(1);		
 	}
 	else
 	{
 		ChangeState(ID_HEAD_DEAD);
 		blood->ChangeState(1);
-
+		CSoundMgr::GetInstance()->PlayMonsterSound(szWhiteManHead.c_str(), 1.f);
 		// Test
 		//wstring text = L"Çìµå¼¦";
 		//Make_DeadText(TAG_HEAD, 2);
 	}
+	CSoundMgr::GetInstance()->PlayMonsterSound(szWhiteManDead.c_str(), 0.5f);
 	_vec3 pos = m_pHeadCollider->Get_WorldPos();
 	pos.y += m_fHeadPosOffset;
 	blood->SetPos(pos);
@@ -332,6 +339,7 @@ void CWhiteMan::OnBodyCollision(CollisionInfo info)
 		else return; 
 
 		m_fHP = 0.f;
+		CSoundMgr::GetInstance()->PlayMonsterSound(szWhiteManDead.c_str(), 0.5f);
 		if (info.eTag == TAG_ELECTRIC) ChangeState(ID_ELECT_DEAD);
 		else if (info.eTag == TAG_FAN) ChangeState(ID_EXP_DEAD);
 		return;
@@ -355,6 +363,7 @@ void CWhiteMan::OnBodyCollision(CollisionInfo info)
 		if (m_pBodyCollider) m_pBodyCollider->OffCollision();
 		m_fHP = 0.f;
 		ChangeState(MS_FLYBACK);
+		CSoundMgr::GetInstance()->PlayMonsterSound(szWhiteManDead.c_str(), 0.5f);
 		return;
 	}
 
@@ -383,6 +392,7 @@ void CWhiteMan::OnBodyCollision(CollisionInfo info)
 			blood->ChangeState(0);
 			ChangeState(MS_DEAD);
 		}
+		CSoundMgr::GetInstance()->PlayMonsterSound(szWhiteManDead.c_str(), 0.5f);
 	}
 	else if (info.eTag == TAG_KICK)
 	{
@@ -391,6 +401,7 @@ void CWhiteMan::OnBodyCollision(CollisionInfo info)
 	}
 	else
 	{
+		CSoundMgr::GetInstance()->PlayMonsterSound(szWhiteManBody.c_str(), 1.f);
 		blood = CPoolMgr::GetInstance()->Get_Object<CBlood>();
 		ChangeState(MS_HIT);
 		blood->ChangeState(0);
@@ -477,6 +488,8 @@ void CWhiteMan::Shoot()
 	if (!layer) pBullet->ReturnToPool();
 	else layer->Add_GameObject(pBullet);
 
+	CSoundMgr::GetInstance()->PlayMonsterSound(szWhiteManShot.c_str(), 0.5f);
+
 }
 
 void CWhiteMan::Hit()
@@ -529,8 +542,9 @@ void CWhiteMan::Launch()
 
 void CWhiteMan::Dead()
 {
+	
 	if (m_pAnimationCom->IsEnd())
-	{
+	{		
 		SetDead();
 	}
 }

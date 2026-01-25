@@ -40,6 +40,8 @@ wstring CPlayer::szSlideBGM		= L"Player_Slide_BGM.wav";
 wstring CPlayer::szKickSFX		= L"Player_Kick_SFX.wav";
 wstring CPlayer::szDashSFX		= L"Player_Dash_SFX.wav";
 wstring CPlayer::szJumpSFX		= L"Player_Jump_SFX.wav";
+wstring CPlayer::szAcidSFX		= L"Player_Acid_SFX.wav";
+wstring CPlayer::szTakeDownSFX		= L"Player_TakeDown_SFX.wav";
 
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -55,7 +57,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_bSlope(false), m_bSideDash(false)
 	, m_pColHitObj(nullptr), m_pTakeDownObject(nullptr), m_pTakeDownCollider(nullptr)
 	, m_bMoveStop(false), m_bAbleTakeDown(false), m_bDelay(false), m_fDelayTime(0.f)
-	, m_bBossStage(true), m_pSodaUI(nullptr), m_iFootStep(0), m_bTakeDown(false)
+	, m_bBossStage(true), m_pSodaUI(nullptr), m_iFootStep(0), m_bTakeDown(false), m_bPoison(false)
 {
 
 	m_eOBJ_ID = OBJ_PLAYER;
@@ -75,7 +77,7 @@ CPlayer::CPlayer(const CPlayer& rhs)
 	, m_bSlope(false), m_bSideDash(false)
 	, m_pColHitObj(nullptr), m_pTakeDownObject(nullptr), m_pTakeDownCollider(nullptr)
 	, m_bMoveStop(false), m_bAbleTakeDown(false), m_bDelay(false), m_fDelayTime(0.f)
-	, m_bBossStage(true), m_pSodaUI(nullptr), m_iFootStep(0), m_bTakeDown(false)
+	, m_bBossStage(true), m_pSodaUI(nullptr), m_iFootStep(0), m_bTakeDown(false), m_bPoison(false)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
 	m_iID = 0;
@@ -200,11 +202,23 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 		if (m_bBossStage == false)
 		{
 			m_fTime += fTimeDelta;			
+			
 
 			if (m_fTime >= 1.f)
 			{
 				Add_HP(-1.f);
-				m_fTime = 0.f;
+				m_fTime = 0.f;				
+			}
+
+			if (m_bPoison)
+			{
+				m_fStageTime += fTimeDelta;
+				if (m_fStageTime >= 0.5f)
+				{
+					Add_HP(-0.5f);					
+					CSoundMgr::GetInstance()->PlayPlayerSound(szAcidSFX.c_str(), 0.5f);
+					m_fStageTime = 0.f;
+				}								
 			}
 		}		
 	}
@@ -697,8 +711,8 @@ void CPlayer::CheckKickedMonster(COLLIDER_TAG eTag, _float fAttack)
 			bool bPicked = CCollision::CheckCollision(m_pKickCollider, pairCollider.second);
 			if (bPicked)
 			{
-				if (fDot >= cosFov)
-					pickedList.push_back({ iter->second->Get_ViewZ() ,pairCollider.second });
+				//if (fDot >= cosFov)
+				pickedList.push_back({ iter->second->Get_ViewZ() ,pairCollider.second });
 			}
 		}
 	}
@@ -861,7 +875,7 @@ _bool CPlayer::CheckOnFloor(const _float& fTimeDelta,_float* pHeight)
 
 	_float	fMaxY = -FLT_MAX;
 	_bool	bFound = false;
-
+	COLLIDER_TAG eSaveTag;
 	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
 	{
 		CTransform* pTransform = static_cast<CTransform*>(iter->second->Get_Component(ID_STATIC, L"Com_Transform"));
@@ -878,49 +892,49 @@ _bool CPlayer::CheckOnFloor(const _float& fTimeDelta,_float* pHeight)
 				{
 					fMaxY = fCurrentFloorY;
 					bFound = true;
+					eSaveTag = eTag;
+
 				}
 			}
 		}
 		else if (eTag == TAG_SLOPE)
 		{
+			CRcTexUp* pRcTex = static_cast<CRcTexUp*>(iter->second->Get_Component(ID_STATIC, L"Com_Buffer"));
+			_vec3 vPickPos;
+			if (Picking_OnFloor(&vPickPos, pRcTex, pTransform))
 			{
-				CRcTexUp* pRcTex = static_cast<CRcTexUp*>(iter->second->Get_Component(ID_STATIC, L"Com_Buffer"));
-				_vec3 vPickPos;
-				if (Picking_OnFloor(&vPickPos, pRcTex, pTransform))
+				_vec3 vNormal = { 0.f, 0.f, -1.f };
+				_matrix matWorld = *pTransform->Get_World();
+				D3DXVec3TransformNormal(&vNormal, &vNormal, &matWorld);
+				D3DXVec3Normalize(&vNormal, &vNormal);
+
+				_vec3 vLook = *m_pTransformCom->Get_Info(INFO_LOOK);
+				D3DXVec3Normalize(&vLook, &vLook);
+
+				_float fDot = D3DXVec3Dot(&vLook, &vNormal);
+				
+				m_bPoison = false;
+				if (fDot < 0.f)
 				{
-					_vec3 vNormal = { 0.f, 0.f, -1.f };
-					_matrix matWorld = *pTransform->Get_World();
-					D3DXVec3TransformNormal(&vNormal, &vNormal, &matWorld);
-					D3DXVec3Normalize(&vNormal, &vNormal);
-
-					_vec3 vLook = *m_pTransformCom->Get_Info(INFO_LOOK);
-					D3DXVec3Normalize(&vLook, &vLook);
-
-					_float fDot = D3DXVec3Dot(&vLook, &vNormal);
-
-
-					if (fDot < 0.f) 
-					{
-						m_bSlope = false;
-						*pHeight = vPickPos.y;
-					}
-					else if (fDot > 0.f) 
-					{
-						m_bSlope = true;
-						_vec3 vSlopeDir;
-						_float fSlopeInclination = D3DXVec3Dot(&vLook, &vNormal);
-						vSlopeDir = vLook - (vNormal * fSlopeInclination);
-						D3DXVec3Normalize(&vSlopeDir, &vSlopeDir);
-
-						_vec3 vPos = m_pTransformCom->m_vInfo[INFO_POS];
-						vPos += vSlopeDir * m_fMoveSpeed * fTimeDelta;
-
-						vPos.y = vPickPos.y;
-
-						m_pTransformCom->Set_Pos(vPos);
-					}					
-					return true;
+					m_bSlope = false;
+					*pHeight = vPickPos.y;
 				}
+				else if (fDot > 0.f)
+				{
+					m_bSlope = true;
+					_vec3 vSlopeDir;
+					_float fSlopeInclination = D3DXVec3Dot(&vLook, &vNormal);
+					vSlopeDir = vLook - (vNormal * fSlopeInclination);
+					D3DXVec3Normalize(&vSlopeDir, &vSlopeDir);
+
+					_vec3 vPos = m_pTransformCom->m_vInfo[INFO_POS];
+					vPos += vSlopeDir * m_fMoveSpeed * fTimeDelta;
+
+					vPos.y = vPickPos.y;
+
+					m_pTransformCom->Set_Pos(vPos);
+				}
+				return true;
 			}
 		}
 			
@@ -930,6 +944,7 @@ _bool CPlayer::CheckOnFloor(const _float& fTimeDelta,_float* pHeight)
 	{
 		m_bSlope = false;
 		*pHeight = fMaxY;
+		m_bPoison = eSaveTag == TAG_ACID;
 		return true;
 	}
 
@@ -940,6 +955,7 @@ _bool CPlayer::CheckOnFloor(const _float& fTimeDelta,_float* pHeight)
 		return true;
 	}
 
+	m_bPoison = false;
 	return false;
 }
 
@@ -1160,6 +1176,7 @@ void CPlayer::Update_SideDash(const _float& fTimeDelta)
 		m_fJumpStartY = m_pTransformCom->m_vInfo[INFO_POS].y;
 		CUIManager::GetInstance()->Set_OnDashUI(false);
 		m_bJump = true;
+		//CSoundMgr::GetInstance()->StopGroupSound(SOUND_PLAYER_BGM);
 	}
 
 }
@@ -1263,6 +1280,8 @@ void CPlayer::TakeDown_Func()
 		m_bMoveStop = true;
 		CUIManager::GetInstance()->Set_OnSlotUI(false);
 		m_bAbleTakeDown = false;
+
+		CSoundMgr::GetInstance()->PlayPlayerSound(szTakeDownSFX.c_str(), 0.5f);
 	}
 }
 
@@ -1686,6 +1705,7 @@ void CPlayer::Slide_Enter()
 	m_mapCallCnt[SLIDE] = 1;
 	m_pMiddlePart->ChangeState(SLIDE);
 	CUIManager::GetInstance()->Set_OnDashUI(true);
+	CSoundMgr::GetInstance()->StopGroupSound(SOUND_PLAYER_BGM);
 	CSoundMgr::GetInstance()->PlayPlayerBGMSound(szSlideBGM.c_str(), 1.0f);
 }
 
@@ -1930,6 +1950,7 @@ void CPlayer::OnCollision(CollisionInfo info)
 			CUIManager::GetInstance()->Set_OnDashUI(true);
 			m_bJump = false;
 			m_bFall = false;
+
 		}		
 	}
 
