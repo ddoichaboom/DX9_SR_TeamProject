@@ -2,7 +2,7 @@
 #include "CSelectionMgr.h"
 #include "CEditorObject.h"
 #include <CEditorSpawnPoint.h>
-#include <CEditorCube.h>
+#include <CEditorVendingMachine.h>
 #include <CEditorWall.h>
 #include <CEditorFloor.h>
 #include <CEditorCeiling.h>
@@ -367,8 +367,8 @@ _int CSelectionMgr::GetPickingPriority(CEditorObject* pObj)
     if (dynamic_cast<CEditorSpawnPoint*>(pObj))
         return 100;     // SpawnPoint 최우선
 
-    if (dynamic_cast<CEditorCube*>(pObj))
-        return 80;      // Cube 높은 우선순위
+    if (dynamic_cast<CEditorVendingMachine*>(pObj))
+        return 80;      // VendingMachine 높은 우선순위
 
     if (dynamic_cast<CEditorWall*>(pObj))
         return 60;      // Wall 중간 우선순위

@@ -31,13 +31,13 @@
 #include "CDynamicFloor.h"
 #include "CDynamicCeiling.h"
 #include "CDynamicWall.h"
-#include "CObstacle.h"
 #include "CSlopeFloor.h"
 #include "CRoomTrigger.h"
 #include "CMapCollider.h"
 #include "CDoor.h"
 #include "CDoorLeft.h"
 #include "CDoorRight.h"
+#include "CVendingMachine.h"
 
 #include "CLeftPart.h"
 #include "CRightPart.h"
@@ -284,7 +284,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 
 	// 타입별 최대값 초기화
 	_uint iMaxFloor(0), iMaxDynamicFloor(0),iMaxCeiling(0), iMaxDynamicCeiling(0), iMaxWall(0), iMaxDynamicWall(0), iMaxSlopeFloor(0);
-	_uint iMaxObstacle(0);
+	_uint iMaxVendingMachine(0);
 	_uint iMaxMapCollider(0), iMaxRoomTrigger(0);
 	_uint iBulletCount = 20;
 	_uint iBossBulletCount = 30;
@@ -327,8 +327,8 @@ HRESULT CMainApp::Ready_ObjectPool()
 		iMaxDynamicWall = max(iMaxDynamicWall,
 			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "DynamicWall"));
 
-		iMaxObstacle = max(iMaxObstacle,
-			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "Cube"));
+		iMaxVendingMachine = max(iMaxVendingMachine,
+			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "VendingMachine"));
 
 		iMaxMapCollider = max(iMaxMapCollider,
 			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "MapCollider"));
@@ -356,7 +356,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 	CPoolMgr::GetInstance()->SetPoolSize<CDoorRight>(iMaxDoorCount);
 
 
-	CPoolMgr::GetInstance()->SetPoolSize<CObstacle>(iMaxObstacle);
+	CPoolMgr::GetInstance()->SetPoolSize<CVendingMachine>(iMaxVendingMachine);
 
 	CPoolMgr::GetInstance()->SetPoolSize<CBullet>(iBulletCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CBossBullet>(iBossBulletCount);

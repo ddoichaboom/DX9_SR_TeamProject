@@ -7,7 +7,7 @@
 #include "CEditorObject.h"
 #include "CEditorFloor.h"
 #include "CEditorSlopeFloor.h"
-#include "CEditorCube.h"
+#include "CEditorVendingMachine.h"
 #include "CEditorCeiling.h"
 #include "CEditorWall.h"
 #include "CEditorSpawnPoint.h"
@@ -316,13 +316,12 @@ void CEditorScene::Handle_Duplicate()
                     vPos += m_vDupplicateDir * 16.f;
                     pNewObj = CEditorCeiling::Create(m_pGraphicDev, vPos, vRot, vScale, iType, iIdx);
                 }
-                else if (CEditorCube* pCube =  dynamic_cast<CEditorCube*>(pSelectedObj))
+                else if (CEditorVendingMachine* pMachine =  dynamic_cast<CEditorVendingMachine*>(pSelectedObj))
                 {
-                    iRoomIndex = pCube->Get_RoomIndex();
+                    iRoomIndex = pMachine->Get_RoomIndex();
 
-                    // TODO 자판기 구현 완료시 구현
                     vPos += m_vDupplicateDir * 16.f;
-                    pNewObj = CEditorCube::Create(m_pGraphicDev, vPos, vRot, vScale);
+                    pNewObj = CEditorVendingMachine::Create(m_pGraphicDev, vPos, vRot, vScale);
                     pNewObj->Set_RoomIndex(iRoomIndex);
                 }
                 else if (CEditorDynamicWall* pDynamicWall = dynamic_cast<CEditorDynamicWall*>(pSelectedObj))
@@ -491,7 +490,7 @@ void CEditorScene::Handle_Left_Click()
         _vec3 vRayDir = m_pMousePicker->Get_RayDir();
 
         if (eMode == MODE_PLACE_FLOOR || eMode == MODE_PLACE_DYNAMIC_FLOOR || 
-            eMode == MODE_PLACE_CEILING || eMode == MODE_PLACE_CUBE || 
+            eMode == MODE_PLACE_CEILING || eMode == MODE_PLACE_VENDINGMACHINE || 
             eMode == MODE_PLACE_WALL || eMode == MODE_PLACE_SPAWN_PLAYER || 
             eMode == MODE_PLACE_SPAWN_MONSTER || eMode == MODE_PLACE_SLOPE_FLOOR ||
             eMode == MODE_PLACE_MAPCOLLIDER || eMode == MODE_PLACE_TRIGGERBOX ||
@@ -511,8 +510,8 @@ void CEditorScene::Handle_Left_Click()
                 Place_Dynamic_Floor(vPos);
             else if (eMode == MODE_PLACE_CEILING)
                 Place_Ceiling(vPos);
-            else if (eMode == MODE_PLACE_CUBE)
-                Place_Cube(vPos);
+            else if (eMode == MODE_PLACE_VENDINGMACHINE)
+                Place_VendingMachine(vPos);
             else if (eMode == MODE_PLACE_WALL)
                 Place_Wall(vPos);
             else if (eMode == MODE_PLACE_DYNAMIC_WALL)
@@ -875,18 +874,18 @@ void CEditorScene::Place_TriggerBox(const _vec3& vPos)
     }
 }
 
-void CEditorScene::Place_Cube(const _vec3& vPos)
+void CEditorScene::Place_VendingMachine(const _vec3& vPos)
 {
-    CEditorCube* pCube = CEditorCube::Create(m_pGraphicDev, vPos);
+    CEditorVendingMachine* pMachine = CEditorVendingMachine::Create(m_pGraphicDev, vPos);
 
-    if (pCube)
+    if (pMachine)
     {
         _vec3 vAdjustedPos = vPos;
         vAdjustedPos.y = vPos.y + 12.0f;    // 설정된 Scale만큼
-        pCube->Set_Position(vAdjustedPos);
+        pMachine->Set_Position(vAdjustedPos);
 
-        Add_Object(pCube);
-        Safe_Release(pCube);
+        Add_Object(pMachine);
+        Safe_Release(pMachine);
     }
 }
 

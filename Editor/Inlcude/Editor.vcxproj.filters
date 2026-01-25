@@ -64,9 +64,6 @@
     <Filter Include="04. Object\01. EditorTile">
       <UniqueIdentifier>{41776c57-6177-429b-8193-b4ca49bc7618}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. Object\02. EditorCube">
-      <UniqueIdentifier>{1d564abe-65a6-40f6-b3b5-caf177d508d0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="05. Picking\00. MousePicker">
       <UniqueIdentifier>{3f8edbc1-9878-4c70-b1fc-485cc02b4b61}</UniqueIdentifier>
     </Filter>
@@ -154,6 +151,9 @@
     <Filter Include="04. Object\09. EditorDoor">
       <UniqueIdentifier>{ab90666c-d360-4663-a450-08fe4e326e1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Object\02. EditorVendingMachine">
+      <UniqueIdentifier>{1d564abe-65a6-40f6-b3b5-caf177d508d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -225,8 +225,8 @@
     <ClInclude Include="..\Header\CEditorTile.h">
       <Filter>04. Object\01. EditorTile</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CEditorCube.h">
-      <Filter>04. Object\02. EditorCube</Filter>
+    <ClInclude Include="..\Header\CEditorVendingMachine.h">
+      <Filter>04. Object\02. EditorVendingMachine</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CMousePicker.h">
       <Filter>05. Picking\00. MousePicker</Filter>
@@ -311,7 +311,7 @@
     </ClInclude>
     <ClInclude Include="..\Header\CEditorDoor.h">
       <Filter>04. Object\09. EditorDoor</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="..\Header\CSodaUI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -374,8 +374,8 @@
     <ClCompile Include="..\Code\CEditorTile.cpp">
       <Filter>04. Object\01. EditorTile</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CEditorCube.cpp">
-      <Filter>04. Object\02. EditorCube</Filter>
+    <ClCompile Include="..\Code\CEditorVendingMachine.cpp">
+      <Filter>04. Object\02. EditorVendingMachine</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CMousePicker.cpp">
       <Filter>05. Picking\00. MousePicker</Filter>
@@ -457,8 +457,8 @@
     </ClCompile>
     <ClCompile Include="..\Code\CEditorDoor.cpp">
       <Filter>04. Object\09. EditorDoor</Filter>
-	</ClCompile>
-	<ClCompile Include="..\Code\CSodaUI.cpp">
+    </ClCompile>
+    <ClCompile Include="..\Code\CSodaUI.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

@@ -16,7 +16,7 @@
 #include "CFileIO.h"
 #include "CEditorScene.h"
 #include "CEditorObject.h"
-#include "CEditorCube.h"
+#include "CEditorVendingMachine.h"
 #include "CEditorFloor.h"
 #include "CEditorDynamicFloor.h"
 #include "CEditorSlopeFloor.h"
@@ -135,7 +135,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
         _uint iCeilingCount = 0;
         _uint iWallCount = 0;
         _uint iDynamicWallCount = 0;
-        _uint iObstacleCount = 0;
+        _uint iVendingMachineCount = 0;
         _uint iMapColliderCount = 0;
         _uint iTriggerBoxCount = 0;
         _uint iDoorCount = 0;
@@ -208,14 +208,13 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                 SaveTransformData(jObj, pObj);
                 SaveTextureData(jObj, pObj);
             }
-            else if (dynamic_cast<CEditorCube*>(pObj))
+            else if (dynamic_cast<CEditorVendingMachine*>(pObj))
             {
-                iObstacleCount++;
-                jObj["type"] = "Cube";
+                iVendingMachineCount++;
+                jObj["type"] = "VendingMachine";
 
                 jObj["roomIndex"] = pObj->Get_RoomIndex();
                 SaveTransformData(jObj, pObj);
-                //SaveTextureData(jObj, pObj);
             }
             else if (CEditorSpawnPoint* pSpawn = dynamic_cast<CEditorSpawnPoint*>(pObj))
             {
@@ -314,7 +313,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
         jMap["ceilingCount"] = iCeilingCount;
         jMap["wallCount"] = iWallCount;
         jMap["dynamicWallCount"] = iDynamicWallCount;
-        jMap["obstacleCount"] = iObstacleCount;
+        jMap["VendingMachineCount"] = iVendingMachineCount;
         jMap["mapColliderCount"] = iMapColliderCount;      
         jMap["triggerBoxCount"] = iTriggerBoxCount;
         jMap["doorCount"] = iDoorCount;
@@ -548,9 +547,9 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
                     }
                 }
             }
-            else if (strType == "Cube")
+            else if (strType == "VendingMachine")
             {
-                pObj = CEditorCube::Create(pGraphicDev, vPos, vRot, vScale);
+                pObj = CEditorVendingMachine::Create(pGraphicDev, vPos, vRot, vScale);
             }
             else if (strType == "SpawnPoint")
             {

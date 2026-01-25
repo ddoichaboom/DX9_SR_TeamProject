@@ -13,7 +13,7 @@ protected:
 	explicit						CSoda(const CSoda& rhs);
 	virtual							~CSoda();
 
-public :
+public:
 	static		CSoda*				Create(PDIRECT3DDEVICE9 pGraphicDev);	
 	static		TextureSource&		GetTextureSources(){ return m_vTextureSource; }
 	

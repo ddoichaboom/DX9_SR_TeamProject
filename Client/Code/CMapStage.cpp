@@ -13,13 +13,12 @@
 #include "CDynamicCeiling.h"
 #include "CWall.h"
 #include "CDynamicWall.h"
-#include "CObstacle.h"
 #include "CRoomTrigger.h"
 #include "CSlopeFloor.h"
 #include "CDoor.h"
 #include "CDoorLeft.h"
 #include "CDoorRight.h"
-
+#include "CVendingMachine.h"
 #include "CDisplayObject.h"
 
 // 게임 로직 오브젝트
@@ -306,11 +305,11 @@ HRESULT CMapStage::Ready_ObjectPool_Terrain()
         }
     }
 
-    if (!Engine::CPoolMgr::GetInstance()->HasPool<CObstacle>())
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CVendingMachine>())
     {
-        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CObstacle>(m_pGraphicDev)))
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CVendingMachine>(m_pGraphicDev)))
         {
-            MSG_BOX("Obstacle Pool Create Failed");
+            MSG_BOX("VendingMachine Pool Create Failed");
             return E_FAIL;
         }
     }
@@ -583,7 +582,12 @@ HRESULT CMapStage::Ready_TerrainTextureProto()
         Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CDynamicCeiling::GetAnimSources()))))
         return E_FAIL;
 
+    CCubeTexture* pCom_Cube_Texture = nullptr;
 
+    // Obstacle(VendingMachine) Proto 
+    pCom_Cube_Texture = Engine::CCubeTexture::Create(m_pGraphicDev, CVendingMachine::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_VendingMachine_Texture", pCom_Cube_Texture)))
+        return E_FAIL;
 
     //Display
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CDisplayObject::GetTextureSources());

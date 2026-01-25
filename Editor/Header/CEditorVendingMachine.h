@@ -1,11 +1,11 @@
 #pragma once
 #include "CEditorObject.h"
 
-class CEditorCube : public CEditorObject
+class CEditorVendingMachine : public CEditorObject
 {
 private:
-    explicit            CEditorCube(LPDIRECT3DDEVICE9 pGraphicDev);
-    virtual             ~CEditorCube();
+    explicit            CEditorVendingMachine(LPDIRECT3DDEVICE9 pGraphicDev);
+    virtual             ~CEditorVendingMachine();
 
 public:
     virtual HRESULT     Ready_GameObject() override;
@@ -17,8 +17,8 @@ private:
     HRESULT             Add_Component();
 
 public:
-    static CEditorCube* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos);
-    static CEditorCube* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale);
+    static CEditorVendingMachine* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos);
+    static CEditorVendingMachine* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale);
 
 private:
     virtual void        Free() override;

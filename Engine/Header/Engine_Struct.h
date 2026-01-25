@@ -184,7 +184,7 @@ namespace Engine
 		_uint iDynamicCeilingCount;
 		_uint iWallCount;
 		_uint iDynamicWallCount;
-		_uint iObstacleCount;
+		_uint iVendingMachineCount;
 		_uint iDoorCount;
 
 		_uint iMapColliderCount;
@@ -193,7 +193,7 @@ namespace Engine
 
 		tagRoomData()
 			: iRoomIdx(-1), iFloorCount(0), iDynamicFloorCount(0), iCeilingCount(0),
-			iDynamicCeilingCount(0), iWallCount(0), iDynamicWallCount(0), iObstacleCount(0)
+			iDynamicCeilingCount(0), iWallCount(0), iDynamicWallCount(0), iVendingMachineCount(0)
 			, iSlopeFloorCount(0), iMapColliderCount(0), iRoomTriggerBoxCount(0), iEventTriggerBoxCount(0)
 			, iDoorCount(0)
 		{}

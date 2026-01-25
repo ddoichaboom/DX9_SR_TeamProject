@@ -15,6 +15,7 @@
 #include "CEditorTriggerBox.h"
 #include "CSelectionMgr.h"
 #include "CEditorDoor.h"
+#include "CEditorVendingMachine.h"
 
 
 CInspector::CInspector()

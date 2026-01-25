@@ -1,32 +1,32 @@
 #include "pch.h"
-#include "CEditorCube.h"
+#include "CEditorVendingMachine.h"
 
 #include "CProtoMgr.h"
 #include "CTransform.h"
 #include "CCubeTex.h"
 #include "CRenderer.h"
 
-CEditorCube::CEditorCube(LPDIRECT3DDEVICE9 pGraphicDev)
+CEditorVendingMachine::CEditorVendingMachine(LPDIRECT3DDEVICE9 pGraphicDev)
     : CEditorObject(pGraphicDev)
 {
 }
 
-CEditorCube::~CEditorCube()
+CEditorVendingMachine::~CEditorVendingMachine()
 {
 }
 
-HRESULT CEditorCube::Ready_GameObject()
+HRESULT CEditorVendingMachine::Ready_GameObject()
 {
     FAILED_CHECK_RETURN(CEditorObject::Ready_GameObject(), E_FAIL);
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
     if (m_pTextureCom) m_pTextureCom->Change_Texture(0);
-    m_wstrName = L"Cube";
+    m_wstrName = L"VendingMachine";
 
     return S_OK;
 }
 
-_int CEditorCube::Update_GameObject(const _float& fTimeDelta)
+_int CEditorVendingMachine::Update_GameObject(const _float& fTimeDelta)
 {
     CEditorObject::Update_GameObject(fTimeDelta);
 
@@ -35,12 +35,12 @@ _int CEditorCube::Update_GameObject(const _float& fTimeDelta)
     return 0;
 }
 
-void CEditorCube::LateUpdate_GameObject(const _float& fTimeDelta)
+void CEditorVendingMachine::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     CEditorObject::LateUpdate_GameObject(fTimeDelta);
 }
 
-void CEditorCube::Render_GameObject()
+void CEditorVendingMachine::Render_GameObject()
 {
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 
@@ -81,7 +81,7 @@ void CEditorCube::Render_GameObject()
     m_pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, dOldAlphaTest);
 }
 
-HRESULT CEditorCube::Add_Component()
+HRESULT CEditorVendingMachine::Add_Component()
 {
     Engine::CComponent* pComponent = nullptr;
 
@@ -100,31 +100,31 @@ HRESULT CEditorCube::Add_Component()
     return S_OK;
 }
 
-CEditorCube* CEditorCube::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
+CEditorVendingMachine* CEditorVendingMachine::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
 {
-    CEditorCube* pInstance = new CEditorCube(pGraphicDev);
+    CEditorVendingMachine* pInstance = new CEditorVendingMachine(pGraphicDev);
 
     if (FAILED(pInstance->Ready_GameObject()))
     {
         Safe_Release(pInstance);
-        MSG_BOX("CEditorCube Create Failed");
+        MSG_BOX("CEditorVendingMachine Create Failed");
         return nullptr;
     }
 
     pInstance->Set_Position(vPos);
     pInstance->Set_Scale(_vec3(8.f, 12.f, 4.f));
-
+    pInstance->Set_Rotation(_vec3(0.f, 180.f, 0.f));        // 앞면이 -Z 축으로 가게 기본 회전 
     return pInstance;
 }
 
-CEditorCube* CEditorCube::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale)
+CEditorVendingMachine* CEditorVendingMachine::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, _vec3 vScale)
 {
-    CEditorCube* pInstance = new CEditorCube(pGraphicDev);
+    CEditorVendingMachine* pInstance = new CEditorVendingMachine(pGraphicDev);
 
     if (FAILED(pInstance->Ready_GameObject()))
     {
         Safe_Release(pInstance);
-        MSG_BOX("CEditorCube Create Failed");
+        MSG_BOX("CEditorVendingMachine Create Failed");
         return nullptr;
     }
 
@@ -135,7 +135,7 @@ CEditorCube* CEditorCube::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec
     return pInstance;
 }
 
-void CEditorCube::Free()
+void CEditorVendingMachine::Free()
 {
     CEditorObject::Free();
 }

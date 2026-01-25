@@ -68,12 +68,15 @@ HRESULT CDoor::Ready_GameObject()
     vColliderScale.x *= 1.0f;
     vColliderScale.z *= 4.0f;
 
+
     // Collider 생성 및 설정
     m_pCollider = m_pCollisionCom->CreateCollider(this, m_szColliderName);
-    m_pCollider->Set_Scale(vColliderScale);
-
+    
     if (nullptr == m_pCollider)
         return E_FAIL;
+
+    m_pCollider->Set_Scale(vColliderScale);
+
 
     // 부모의 회전을 Collider에 적용 
     //m_pCollider->Set_RotToPrt();
@@ -108,23 +111,9 @@ _int CDoor::Update_GameObject(const _float& fTimeDelta)
 
     if (m_pDoorLeft)
         m_pDoorLeft->Update_GameObject(fTimeDelta);
-    //else
-    //{
-    //    m_pDoorLeft = CPoolMgr::GetInstance()->Get_Object<CDoorLeft>();
-    //    if (m_pDoorLeft)
-    //        Update_DoorPositions();
-    //    m_pDoorLeft->Set_DoorType(m_eDoorType);
-    //}
 
     if (m_pDoorRight)
         m_pDoorRight->Update_GameObject(fTimeDelta);
-    //else
-    //{
-    //    m_pDoorRight = CPoolMgr::GetInstance()->Get_Object<CDoorRight>();
-    //    if (m_pDoorRight)
-    //        Update_DoorPositions();
-    //    m_pDoorRight->Set_DoorType(m_eDoorType);
-    //}
 
     return iExit;
 }
@@ -145,22 +134,10 @@ void CDoor::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CDoor::Render_GameObject()
 {
-    m_pCollider->Render_GameObject();
 }
 
 void CDoor::OnCollision(CollisionInfo info)
 {
-    // Collider 위치 확인
-    _matrix matWorld = m_pCollider->GetWorldMatrix();
-    char szDebug[512];
-    sprintf_s(szDebug, "CDoor::OnCollision - DoorID: %d, this: %p, IsOpen: %d\n"
-        "  Collider Pos: (%.1f, %.1f, %.1f)\n"
-        "  Door Pos: (%.1f, %.1f, %.1f)\n",
-        m_iDoorID, this, m_bIsOpen,
-        matWorld._41, matWorld._42, matWorld._43,
-        m_vPosition.x, m_vPosition.y, m_vPosition.z);
-    OutputDebugStringA(szDebug);
-
     if (m_bIsOpen)
         return;
 
@@ -282,11 +259,6 @@ void CDoor::Update_DoorPositions()
 
 void CDoor::Open()
 {
-    char szDebug[256];
-    sprintf_s(szDebug, "CDoor::Open - DoorID: %d, this: %p, DoorLeft: %p, DoorRight: %p\n",
-        m_iDoorID, this, m_pDoorLeft, m_pDoorRight);
-    OutputDebugStringA(szDebug);
-
     if (m_bIsOpen)
         return;
 

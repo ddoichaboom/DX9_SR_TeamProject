@@ -46,7 +46,7 @@ void CToolBar::Render_ToolBar()
           "Place Dynamic Floor",
           "Place Slope Floor",
           "Place Ceiling",
-          "Place Cube",
+          "Place VendingMachine",
           "Place Wall",
           "Place Dynamic Wall",
           "Spawn Player",

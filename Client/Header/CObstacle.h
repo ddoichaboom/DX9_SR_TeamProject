@@ -5,7 +5,7 @@ namespace Engine
 {
     class CCubeTex;
     class CTransform;
-    class CTexture;
+    class CCubeTexture;
 }
 
 class CObstacle : public CGameObject
@@ -14,6 +14,12 @@ private:
     explicit CObstacle(LPDIRECT3DDEVICE9 pGraphicDev);
     explicit CObstacle(const CObstacle& rhs);
     virtual ~CObstacle();
+
+public:
+    static vector<TextureSource>& GetTextureSources()
+    {
+        return m_vTextureSource;
+    }
 
 public:
     virtual HRESULT     Ready_GameObject() override;
@@ -33,7 +39,7 @@ private:
 private:
     Engine::CCubeTex* m_pBufferCom;
     Engine::CTransform* m_pTransformCom;
-    Engine::CTexture* m_pTextureCom;
+    Engine::CCubeTexture* m_pTextureCom;
 
 public:
     // 기본 생성 
@@ -48,5 +54,8 @@ public:
 
 private:
     virtual void Free() override;
+
+private:
+    static vector<TextureSource>    m_vTextureSource;
 };
 

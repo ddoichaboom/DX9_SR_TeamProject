@@ -3,13 +3,19 @@
 #include "CProtoMgr.h"
 #include "CRenderer.h"
 
+vector<TextureSource> CObstacle::m_vTextureSource =
+{
+    {0, L"../Bin/Resource/Texture/Terrain/Object/SODAMACHINE.dds", false, 0, 0, 0, {1.f, 1.f}},
+    {1, L"../Bin/Resource/Texture/Terrain/Object/SODAMACHINE_BROKEN.dds", false, 0, 0, 0, {1.f, 1.f}}
+};
+ 
 CObstacle::CObstacle(LPDIRECT3DDEVICE9 pGraphicDev)
     : CGameObject(pGraphicDev)
     , m_pBufferCom(nullptr)
     , m_pTransformCom(nullptr)
     , m_pTextureCom(nullptr)
 {
-    m_eOBJ_ID = OBJ_OBSTACLE;
+    m_eOBJ_ID = OBJ_VENDINGMACHINE;
     m_iID = Make_ID();
 }
 
@@ -31,6 +37,11 @@ HRESULT CObstacle::Ready_GameObject()
 {
     if (FAILED(Add_Component()))
         return E_FAIL;
+
+    if (m_pTextureCom)
+    {
+        m_pTextureCom->Change_Texture(1);
+    }
 
     return S_OK;
 }
@@ -54,21 +65,29 @@ void CObstacle::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CObstacle::Render_GameObject()
 {
-    //m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-    m_pGraphicDev->SetTexture(0, nullptr);
+    DWORD dOldCullMode, dwOldTTF;
+    m_pGraphicDev->GetRenderState(D3DRS_CULLMODE, &dOldCullMode);
+    m_pGraphicDev->GetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, &dwOldTTF);
+
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
+    m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
     if (FAILED(Ready_Material()))
         return;
 
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT3);
+
     // 텍스처가 있으면 렌더링 
-    //if (m_pTextureCom)
-    //    m_pTextureCom->Set_Texture(0);    
+    if (m_pTextureCom)
+        m_pTextureCom->Render_Texture();
 
     m_pBufferCom->Render_Buffer();
 
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, dwOldTTF);
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
+    m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, dOldCullMode);
+    m_pGraphicDev->SetTexture(0, nullptr);
 }
 
 void CObstacle::SetPos(_vec3 _pos)
@@ -120,11 +139,11 @@ HRESULT CObstacle::Add_Component()
 
     m_mapComponent[ID_STATIC].insert({ L"Com_Transform", pComponent });
 
-    // Texture (선택사항 - Phase 7에서 추가)
-    // pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>
-    //     (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_ObstacleTexture"));
-    // m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
-
+        // Texture 
+    pComponent = m_pTextureCom = dynamic_cast<Engine::CCubeTexture*>(
+            Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_VendingMachine_Texture"));
+    NULL_CHECK_RETURN(pComponent, E_FAIL);
+    m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
     return S_OK;
 }
 
@@ -155,7 +174,7 @@ HRESULT CObstacle::Ready_Material()
     tMtrl.Ambient = D3DXCOLOR(0.3f, 0.1f, 0.1f, 1.f);
 
     // Emissive: 발광 (자체 발광 없음)
-    tMtrl.Emissive = D3DXCOLOR(0.8f, 0.3f, 0.3f, 1.f);
+    //tMtrl.Emissive = D3DXCOLOR(0.8f, 0.3f, 0.3f, 1.f);
 
     // Power: 반사광 강도 (0 = 무광택)
     tMtrl.Power = 0.f;
