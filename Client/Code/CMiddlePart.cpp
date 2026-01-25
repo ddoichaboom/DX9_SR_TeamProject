@@ -34,6 +34,8 @@ vector<AnimationSource>  CMiddlePart::m_vAnimSource =
 };
 
 wstring	CMiddlePart::szHealEffectSound = L"Heal_Effect_SFX.wav";
+wstring CMiddlePart::szPistolIntroSFX = L"Pistol_Intro_SFX.wav";
+
 
 CMiddlePart::CMiddlePart(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CPlayerPart(pGraphicDev), m_iLoopTime(3)
@@ -285,6 +287,7 @@ void CMiddlePart::Intro()
 {
 	if (m_pAnimationCom->CanEnd())
 	{		
+		
 		ChangeState(INTRO);		
 		return;
 	}
@@ -293,6 +296,8 @@ void CMiddlePart::Intro()
 
 void CMiddlePart::Begin_Intro2()
 {
+	m_fTime = 0.f;
+	m_bDelay = true;
 	m_fSizeX = 1024.f;
 	m_fSizeY = 512.f;
 	m_fX = WINCX * 0.5f;
@@ -301,13 +306,22 @@ void CMiddlePart::Begin_Intro2()
 	m_vEndPos = { m_fX, m_fY, 0.f };
 	m_pTransformCom->Set_Scale(m_fSizeX * 0.5f, m_fSizeY * 0.5f, 1.f);
 	m_pTransformCom->Set_Pos(m_fX - WINCX * 0.5f, -m_fY + WINCY * 0.5f, 0.f);
+
 }
 
 void CMiddlePart::Intro2()
 {
-	if (m_pAnimationCom->CanEnd())
+	if (m_bDelay)
 	{
-		//ChangeState(IDLE);
+		if (m_fTime > 0.2f)
+		{
+			CSoundMgr::GetInstance()->PlaySoundByID(szPistolIntroSFX.c_str(), SOUND_WEAPON, 1.f);
+			m_bDelay = false;
+		}
+	}
+
+	if (m_pAnimationCom->CanEnd())
+	{								
 		m_pPlayer->Change_State(IDLE);
 		return;
 	}

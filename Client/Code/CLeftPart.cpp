@@ -227,7 +227,7 @@ void CLeftPart::Begin_Intro()
 {
 
 	m_vStartPos = { 250.f, WINCY - 200.f, 0.f };
-	m_vEndPos = { -700.f, WINCY - 200.f, 0.f };
+	m_vEndPos = { -1000.f, WINCY - 200.f, 0.f };
 
 	m_vConvertScale = { 1024.f, 512.f, 1.f };
 

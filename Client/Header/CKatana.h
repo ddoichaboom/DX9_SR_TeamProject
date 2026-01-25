@@ -109,5 +109,8 @@ private :
 	_float m_fAniSpeed;
 	//πÊΩ¬»Ò ¿Ã∆Â∆Æ √ﬂ∞° 
 	CTrail* m_pTrail = nullptr;
+
+	static wstring  szKatanaIntroSFX;
+	
 };
 

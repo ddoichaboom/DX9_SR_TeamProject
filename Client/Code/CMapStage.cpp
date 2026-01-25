@@ -951,10 +951,10 @@ void CMapStage::Check_Collision()
        }
 
        // 2. Player Main Collider (ColMain) - Door 충돌
-       if (pPlayerCollider)
-       {
-           CCollision::Collision_Base(pPlayerCollider, pDoorCollider);
-       }
+       //if (pPlayerCollider)
+       //{
+       //    CCollision::Collision_Base(pPlayerCollider, pDoorCollider);
+       //}
 
        // 3. Player Kick Collider (ColKick) - Door 충돌 (Kick + Katana 공용)
        if (pPlayerKickCollider)

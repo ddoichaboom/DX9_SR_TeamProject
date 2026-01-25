@@ -35,8 +35,16 @@ wstring CPlayer::szTutorialBGM	= L"Stage_01_BGM.wav";
 wstring CPlayer::szStageBGM		= L"Stage_02_BGM.wav";
 wstring CPlayer::szBossBGM		= L"Stage_Boss_BGM.wav";
 wstring CPlayer::szClearSFX		= L"Stage_Clear_SFX.wav";
+wstring CPlayer::szHowlSFX		= L"Player_Intro_SFX.wav";
 
-
+vector<wstring> CPlayer::vecFootSteps =
+{
+	L"FootStep_01_SFX.wav",
+	L"FootStep_02_SFX.wav",
+	L"FootStep_03_SFX.wav",
+	L"FootStep_04_SFX.wav",
+	L"FootStep_05_SFX.wav"
+};
 
 
 
@@ -53,7 +61,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_bSlope(false), m_bSideDash(false)
 	, m_pColHitObj(nullptr), m_pTakeDownObject(nullptr), m_pTakeDownCollider(nullptr)
 	, m_bMoveStop(false), m_bAbleTakeDown(false), m_bDelay(false), m_fDelayTime(0.f)
-	, m_bBossStage(true), m_pSodaUI(nullptr)
+	, m_bBossStage(true), m_pSodaUI(nullptr), m_iFootStep(0), m_bTakeDown(false)
 {
 
 	m_eOBJ_ID = OBJ_PLAYER;
@@ -73,7 +81,7 @@ CPlayer::CPlayer(const CPlayer& rhs)
 	, m_bSlope(false), m_bSideDash(false)
 	, m_pColHitObj(nullptr), m_pTakeDownObject(nullptr), m_pTakeDownCollider(nullptr)
 	, m_bMoveStop(false), m_bAbleTakeDown(false), m_bDelay(false), m_fDelayTime(0.f)
-	, m_bBossStage(true), m_pSodaUI(nullptr)
+	, m_bBossStage(true), m_pSodaUI(nullptr), m_iFootStep(0), m_bTakeDown(false)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
 	m_iID = 0;
@@ -91,6 +99,7 @@ void CPlayer::OnEvent(EVENT_TYPE _type, EventData* _pData)
 		m_fTime = 0.f;
 		m_fStageTime = 0.f;
 		m_bStage = true;
+		CSoundMgr::GetInstance()->PlaySFXSound(szHowlSFX.c_str());
 	}
 
 	else if (_type == EVENT_STAGE_END)
@@ -164,6 +173,10 @@ HRESULT CPlayer::Ready_GameObject()
 
 
 	m_pKickCollider = m_pCollisionCom->CreateCollider(this, m_szKickColliderName);
+	m_pKickCollider->BindFuncToCollision([&](CollisionInfo info)
+		{
+			OnAttackCollision(info);
+		});
 	m_pKickCollider->Set_Scale(_vec3(15.f, 15.f, 15.f));
 	//m_pKickCollider->OffCollision();	
 
@@ -276,6 +289,13 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 
 	if (m_eNowState != SHOP && m_eNowState != READY_NEXT)
 		m_mapWeapon[m_eWeaponState]->LateUpdate_GameObject(fTimeDelta);
+
+	if (CDInputMgr::GetInstance()->Get_Direction() != DIR_NONE && !m_bJump && !m_bFall && !m_bDash)
+	{
+		if(CSoundMgr::GetInstance()->IsPlayingGroup(SOUND_PLAYER) == false)
+			CSoundMgr::GetInstance()->PlayPlayerSound(vecFootSteps[m_iFootStep++].c_str(), 0.3f);
+		m_iFootStep %= vecFootSteps.size();
+	}
 
 	State_LateUpdate(fTimeDelta);
 }
@@ -1389,16 +1409,10 @@ void CPlayer::Intro_Enter()
 	switch (m_eWeaponState)
 	{
 	case WEAPON_NONE:
-		////m_iCallCnt = 1;
-		//m_mapCallCnt[INTRO] = 1;
-		//m_pMiddlePart->ChangeState(GetStateID(INTRO, WEAPON_PISTOL));
+		
 		break;
 	case WEAPON_PISTOL:
-		if (m_bStage == false)
-		{
-
-		}
-
+		if (m_bStage == false)		
 		m_mapCallCnt[INTRO] = 1;
 		m_pMiddlePart->ChangeState(GetStateID(INTRO, WEAPON_PISTOL));
 		break;
@@ -1407,10 +1421,29 @@ void CPlayer::Intro_Enter()
 	case WEAPON_KATANA:
 		m_mapCallCnt[INTRO] = 1;
 		m_pRightPart->ChangeState(GetStateID(INTRO, WEAPON_KATANA));
-		m_pLeftPart->ChangeState(GetStateID(INTRO, WEAPON_KATANA));
+		m_pLeftPart->ChangeState(GetStateID(INTRO, WEAPON_KATANA));		
 		break;
 	case WEAPON_END:
 		break;
+	}
+	_uint iNumber = CManagement::GetInstance()->Get_FloorNumber();
+	wstring stageBGM;
+	switch (iNumber)
+	{
+	case 1:
+		stageBGM = szTutorialBGM;
+		break;
+	case 2:
+		stageBGM = szStageBGM;
+		break;
+	case 3:
+		stageBGM = szBossBGM;
+		break;
+	}
+	if (m_bStage == false)
+	{
+		CSoundMgr::GetInstance()->StopGroupSound(SOUND_BGM);
+		CSoundMgr::GetInstance()->PlayBGM(stageBGM.c_str(), 0.3f);
 	}
 }
 
@@ -1459,24 +1492,8 @@ void CPlayer::Intro_LateUpdate(const _float& fTimeDelta)
 void CPlayer::Intro_Exit()
 {
 	if (m_bStage == false)
-	{
-		_uint iNumber = CManagement::GetInstance()->Get_FloorNumber();
-		wstring stageBGM;
-		switch(iNumber)
-		{
-		case 1:
-			stageBGM = szTutorialBGM;
-			break;
-		case 2:
-			stageBGM = szStageBGM;
-			break;
-		case 3:
-			stageBGM = szBossBGM;
-			break;		
-		}
-
-		CSoundMgr::GetInstance()->StopGroupSound(SOUND_BGM);
-		CSoundMgr::GetInstance()->PlayBGM(stageBGM.c_str(), 0.5f);
+	{		
+		
 		CEventMgr::GetInstance()->Broadcast(EVENT_STAGE_START, nullptr);
 	}
 		
@@ -1892,6 +1909,8 @@ void CPlayer::OnCollision(CollisionInfo info)
 		}		
 	}
 
+
+
 	//방승희 추가. 이펙트 용 임시 코드
 	//TODO : Damage에 따라 상태 변경 또는 함수 호출하기. 
 	if (info.fDamage > 0.f)
@@ -1903,6 +1922,14 @@ void CPlayer::OnCollision(CollisionInfo info)
 		Add_HP(-1.f);
 	}
 
+}
+
+void CPlayer::OnAttackCollision(CollisionInfo info)
+{
+	if (info.pTarget->GetOBJID() == OBJ_DOOR || info.pTarget->GetOBJID() == OBJ_OBSTACLE)
+	{
+		Change_State(KICK);
+	}
 }
 
 /// <summary>
