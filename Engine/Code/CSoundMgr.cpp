@@ -201,7 +201,7 @@ void CSoundMgr::Free()
 
 	for (int i = 0; i < SOUND_END; ++i)
 	{
-		if (m_pChannelGroup[i]) 
+		if (m_pChannelGroup[i])
 			FMOD_ChannelGroup_Release(m_pChannelGroup[i]);
 	}
 
