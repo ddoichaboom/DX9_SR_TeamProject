@@ -21,6 +21,8 @@
 #include "CEditorWall.h"
 #include "CEditorDynamicFloor.h"
 #include "CEditorSlopeFloor.h"
+#include "CEditorDynamicWall.h"
+#include "CEditorDoor.h"
 
 #include "CEffectScene.h"
 #include "CEffectToolBar.h"
@@ -284,8 +286,8 @@ HRESULT CEditorApp::Ready_Scene()
 {
     // EditorScene 생성
     m_pCurrentScene = CEditorScene::Create(m_pGraphicDev);
-    CEffectScene* scene;
-    m_pCurrentScene = scene = CEffectScene::Create(m_pGraphicDev);
+    //CEffectScene* scene;
+   // m_pCurrentScene = scene = CEffectScene::Create(m_pGraphicDev);
 
     if (nullptr == m_pCurrentScene)
     {
@@ -333,12 +335,12 @@ HRESULT CEditorApp::Ready_Scene()
         return E_FAIL;
     }
 
-    m_pEffectToolBar = CEffectToolBar::Create(scene);
-    if (nullptr == m_pEffectToolBar)
-    {
-        MSG_BOX("EffectToolBar Create Failed");
-        return E_FAIL;
-    }
+    //m_pEffectToolBar = CEffectToolBar::Create(scene);
+    //if (nullptr == m_pEffectToolBar)
+    //{
+    //    MSG_BOX("EffectToolBar Create Failed");
+    //    return E_FAIL;
+    //}
 
 
     return S_OK;
@@ -383,6 +385,21 @@ HRESULT CEditorApp::Ready_Texture_Prototype()
     //  Wall 텍스처  
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CEditorWall::GetTextureSources());
     if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Static_WallTexture", pCom_Texture)))
+    {
+        MSG_BOX("Proto_Static_WallTexture Ready Failed");
+        return E_FAIL;
+    }
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CEditorDynamicWall::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Dynamic_WallTexture", pCom_Texture)))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WallAnimation",
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CEditorDynamicWall::GetAnimSources()))))
+        return E_FAIL;
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CEditorDoor::GetTextureSources());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Door_Texture", pCom_Texture)))
     {
         MSG_BOX("Proto_Static_WallTexture Ready Failed");
         return E_FAIL;

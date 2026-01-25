@@ -47,6 +47,8 @@ public:
 
 	void						Set_SelectedObject(CEditorObject* pObj);
 	CEditorObject*				Get_SelectedObject() const;
+	
+	list<CEditorObject*>&		Get_SelectedObjects();
 
 	void						Add_SelectedObject(CEditorObject* pObj);
 	void						Remove_SelectedObject(CEditorObject* pObj);
@@ -61,6 +63,8 @@ public:
 	void                        Place_Cube(const _vec3& vPos);
 	void                        Place_Ceiling(const _vec3& vPos);
 	void                        Place_Wall(const _vec3& vPos);
+	void						Place_Dynamic_Wall(const _vec3& vPos);
+	void						Place_Door(const _vec3& vPos);
 	void                        Place_SpawnPlayer(const _vec3& vPos);
 	void                        Place_SpawnMonster(const _vec3& vPos);
 	void						Place_SpawnBossMonster(const _vec3& vPos);

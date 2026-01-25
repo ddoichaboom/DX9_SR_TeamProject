@@ -11,7 +11,7 @@ CEditorTriggerBox::CEditorTriggerBox(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_pCollisionCom(nullptr)
     , m_pCollider(nullptr)
     , m_vColliderScale(8.f, 8.f, 8.f)
-    , m_eTriggerType(TRIGGER_DOOR)
+    , m_eTriggerType(TRIGGER_ROOM_CHANGE)
 {
 }
 
@@ -20,7 +20,7 @@ CEditorTriggerBox::CEditorTriggerBox(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, 
     , m_pCollisionCom(nullptr)
     , m_pCollider(nullptr)
     , m_vColliderScale(vScale)
-    , m_eTriggerType(TRIGGER_DOOR)
+    , m_eTriggerType(TRIGGER_ROOM_CHANGE)
 {
 }
 
@@ -111,17 +111,8 @@ void CEditorTriggerBox::Set_ColliderScale(_vec3 vScale)
     if (m_pCollider)
     {
         m_pCollider->Set_Scale(vScale);
+    }
 
-        // 디버그: Scale이 실제로 설정되었는지 확인
-        char szDebug[256];
-        sprintf_s(szDebug, "Set_ColliderScale: (%.2f, %.2f, %.2f)\n",
-            vScale.x, vScale.y, vScale.z);
-        OutputDebugStringA(szDebug);
-    }
-    else
-    {
-        OutputDebugStringA("Set_ColliderScale: m_pCollider is nullptr!\n");
-    }
 }
 
 CEditorTriggerBox* CEditorTriggerBox::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
@@ -137,7 +128,7 @@ CEditorTriggerBox* CEditorTriggerBox::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec
 
     pInstance->Set_Position(vPos);
     pInstance->Set_ColliderScale(_vec3(8.f, 8.f, 8.f));
-    pInstance->Set_TriggerType(TRIGGER_DOOR);
+    pInstance->Set_TriggerType(TRIGGER_ROOM_CHANGE);
 
     return pInstance;
 }

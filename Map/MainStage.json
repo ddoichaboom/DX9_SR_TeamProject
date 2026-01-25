@@ -1,9 +1,11 @@
 {
   "ceilingCount": 624,
+  "doorCount": 12,
   "dynamicFloorCount": 60,
+  "dynamicWallCount": 7,
   "floorCount": 761,
-  "mapColliderCount": 56,
-  "objectCount": 2082,
+  "mapColliderCount": 57,
+  "objectCount": 2096,
   "objects": [
     {
       "floorType": 0,
@@ -13860,29 +13862,6 @@
       "wallType": 5
     },
     {
-      "name": "Wall",
-      "position": [
-        56.0,
-        80.0,
-        664.0
-      ],
-      "roomIndex": 2,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Wall",
-      "wallDirection": 0,
-      "wallType": 5
-    },
-    {
       "floorType": 0,
       "isDynamic": false,
       "name": "Floor",
@@ -21410,53 +21389,7 @@
     {
       "name": "Wall",
       "position": [
-        -8.0,
-        48.0,
-        1048.0
-      ],
-      "roomIndex": 3,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Wall",
-      "wallDirection": 0,
-      "wallType": 2
-    },
-    {
-      "name": "Wall",
-      "position": [
         24.0,
-        48.0,
-        1048.0
-      ],
-      "roomIndex": 3,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Wall",
-      "wallDirection": 0,
-      "wallType": 2
-    },
-    {
-      "name": "Wall",
-      "position": [
-        56.0,
         48.0,
         1048.0
       ],
@@ -21525,29 +21458,6 @@
     {
       "name": "Wall",
       "position": [
-        56.0,
-        48.0,
-        1080.0
-      ],
-      "roomIndex": 3,
-      "rotation": [
-        180.0,
-        0.0,
-        180.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Wall",
-      "wallDirection": 1,
-      "wallType": 2
-    },
-    {
-      "name": "Wall",
-      "position": [
         88.0,
         48.0,
         1080.0
@@ -21572,29 +21482,6 @@
       "name": "Wall",
       "position": [
         -8.0,
-        48.0,
-        952.0
-      ],
-      "roomIndex": 3,
-      "rotation": [
-        180.0,
-        0.0,
-        180.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Wall",
-      "wallDirection": 1,
-      "wallType": 2
-    },
-    {
-      "name": "Wall",
-      "position": [
-        24.0,
         48.0,
         952.0
       ],
@@ -22313,29 +22200,6 @@
       "name": "Wall",
       "position": [
         -8.0,
-        48.0,
-        1176.0
-      ],
-      "roomIndex": 3,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Wall",
-      "wallDirection": 0,
-      "wallType": 2
-    },
-    {
-      "name": "Wall",
-      "position": [
-        24.0,
         48.0,
         1176.0
       ],
@@ -25366,29 +25230,6 @@
       ],
       "textureIdx": 7,
       "type": "Floor"
-    },
-    {
-      "name": "Wall",
-      "position": [
-        -8.0,
-        48.0,
-        1080.0
-      ],
-      "roomIndex": 3,
-      "rotation": [
-        180.0,
-        0.0,
-        180.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Wall",
-      "wallDirection": 1,
-      "wallType": 2
     },
     {
       "name": "Cube",
@@ -47099,7 +46940,7 @@
     {
       "name": "TriggerBox_0",
       "position": [
-        720.0,
+        730.0,
         -240.0,
         2334.0
       ],
@@ -47116,10 +46957,478 @@
       ],
       "triggerType": 1,
       "type": "TriggerBox"
+    },
+    {
+      "name": "DynamicWall",
+      "position": [
+        56.0,
+        80.0,
+        664.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DynamicWall",
+      "wallDirection": 0,
+      "wallType": 0
+    },
+    {
+      "name": "DynamicWall",
+      "position": [
+        -8.0,
+        48.0,
+        1048.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DynamicWall",
+      "wallDirection": 0,
+      "wallType": 0
+    },
+    {
+      "name": "DynamicWall",
+      "position": [
+        56.0,
+        48.0,
+        1048.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DynamicWall",
+      "wallDirection": 0,
+      "wallType": 0
+    },
+    {
+      "name": "DynamicWall",
+      "position": [
+        56.0,
+        48.0,
+        1080.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DynamicWall",
+      "wallDirection": 1,
+      "wallType": 0
+    },
+    {
+      "name": "DynamicWall",
+      "position": [
+        -8.0,
+        48.0,
+        1080.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DynamicWall",
+      "wallDirection": 1,
+      "wallType": 0
+    },
+    {
+      "name": "DynamicWall",
+      "position": [
+        24.0,
+        48.0,
+        1176.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DynamicWall",
+      "wallDirection": 0,
+      "wallType": 0
+    },
+    {
+      "name": "DynamicWall",
+      "position": [
+        24.0,
+        48.0,
+        952.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DynamicWall",
+      "wallDirection": 1,
+      "wallType": 0
+    },
+    {
+      "doorID": 1,
+      "doorType": 0,
+      "name": "Door_1",
+      "position": [
+        24.0,
+        15.999998092651367,
+        216.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "type": "Door"
+    },
+    {
+      "doorID": 2,
+      "doorType": 1,
+      "name": "Door_2",
+      "position": [
+        24.0,
+        80.0,
+        504.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "type": "Door"
+    },
+    {
+      "doorID": 3,
+      "doorType": 1,
+      "name": "Door",
+      "position": [
+        24.0,
+        80.0,
+        664.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "type": "Door"
+    },
+    {
+      "doorID": 4,
+      "doorType": 2,
+      "name": "Door_3",
+      "position": [
+        24.0,
+        16.0,
+        760.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "type": "Door"
+    },
+    {
+      "doorID": 5,
+      "doorType": 0,
+      "name": "Door",
+      "position": [
+        24.0,
+        16.0,
+        920.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "type": "Door"
+    },
+    {
+      "doorID": 6,
+      "doorType": 0,
+      "name": "Door_4",
+      "position": [
+        24.0,
+        16.0,
+        1240.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "type": "Door"
+    },
+    {
+      "doorID": 7,
+      "doorType": 0,
+      "name": "Door",
+      "position": [
+        24.0,
+        16.0,
+        1272.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "type": "Door"
+    },
+    {
+      "doorID": 8,
+      "doorType": 0,
+      "name": "Door",
+      "position": [
+        24.0,
+        -240.0,
+        1906.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "type": "Door"
+    },
+    {
+      "doorID": 9,
+      "doorType": 0,
+      "name": "Door",
+      "position": [
+        504.0,
+        -240.0,
+        2334.0
+      ],
+      "roomIndex": 6,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "type": "Door"
+    },
+    {
+      "doorID": 10,
+      "doorType": 2,
+      "name": "Door",
+      "position": [
+        712.0,
+        -240.0,
+        2334.0
+      ],
+      "roomIndex": 6,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "type": "Door"
+    },
+    {
+      "doorID": 11,
+      "doorType": 3,
+      "name": "Door",
+      "position": [
+        744.0,
+        -240.0,
+        2334.0
+      ],
+      "roomIndex": 6,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "type": "Door"
+    },
+    {
+      "doorID": 0,
+      "doorType": 0,
+      "name": "Door_0",
+      "position": [
+        24.0,
+        16.0,
+        88.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "type": "Door"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        24.0,
+        13.0,
+        72.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "colliderTag": 15,
+      "name": "MapCollider_0",
+      "position": [
+        56.0,
+        80.0,
+        664.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        4.0
+      ],
+      "type": "MapCollider"
     }
   ],
   "obstacleCount": 6,
   "triggerBoxCount": 6,
   "version": 4,
-  "wallCount": 453
+  "wallCount": 446
 }

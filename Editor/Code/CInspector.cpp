@@ -4,6 +4,7 @@
 #include "CEditorScene.h"
 #include "CEditorObject.h"
 #include "CEditorWall.h"
+#include "CEditorDynamicWall.h"
 #include "CEditorSpawnPoint.h"
 #include "CEditorFloor.h"
 #include "CEditorSlopeFloor.h"
@@ -12,6 +13,8 @@
 #include "CTexture.h"
 #include "CEditorMapCollider.h"
 #include "CEditorTriggerBox.h"
+#include "CSelectionMgr.h"
+#include "CEditorDoor.h"
 
 
 CInspector::CInspector()
@@ -335,59 +338,100 @@ void CInspector::Render_CeilingTextureUI(CEditorCeiling* pCeiling)
 
 void CInspector::Render_WallTextureUI(CEditorWall* pWall)
 {
+    if (!pWall)
+        return;
+
     ImGui::Text("Wall Texture");
     ImGui::Separator();
 
-    // Wall Type 콤보박스 (STATIC_WALL_1 ~ STATIC_WALL_10)
-    _uint iWallType = pWall->Get_WallType();
-    const char* szWallTypes[] = {
-        "STATIC_WALL_1",
-        "STATIC_WALL_2",
-        "STATIC_WALL_3",
-        "STATIC_WALL_4",
-        "STATIC_WALL_5",
-        "STATIC_WALL_6",
-        "STATIC_WALL_7",
-        "STATIC_WALL_8",
-        "STATIC_WALL_9",
-        "STATIC_WALL_10",
-        "STATIC_WALL_WATER",
-        "STATIC_WALL_LAVA",
-        "STATIC_WALL_ACID",
-        "STATIC_WALL_FENCE",
-        "STATIC_WALL_SIDEDASH"
-    };
+    // DynamicWall인지 먼저 확인
+    CEditorDynamicWall * pDynamicWall = dynamic_cast<CEditorDynamicWall*>(pWall);
 
-    int iSelectedType = iWallType;  // STATIC_WALL_1 = 0, STATIC_WALL_2 = 1, ...
-
-    if (ImGui::Combo("Wall Type", &iSelectedType, szWallTypes, IM_ARRAYSIZE(szWallTypes)))
+    if (pDynamicWall)
     {
-        pWall->Set_WallType(iSelectedType);
-    }
+        // ========== Dynamic Wall UI ==========
+        ImGui::TextColored(ImVec4(1.0f, 0.5f, 0.0f, 1.0f), "Dynamic Wall (Animated)");
+        ImGui::Separator();
 
-    // Texture Index 슬라이더 (0 ~ 2, 3x3 아틀라스의 행)
-    _int iTextureIdx = pWall->Get_TextureIdx();
+        _uint iWallType = pDynamicWall->Get_WallType();
 
-    Engine::CTexture* pTextureCom = dynamic_cast<Engine::CTexture*>(
-        pWall->Get_Component(ID_DYNAMIC, L"Com_Texture"));
+        // DynamicWall 타입 목록
+        const char* szDynamicTypes[] = {
+            "FAN",
+            "FAN_BLOOD"
+        };
 
-    _int iMaxIdx(0);
+        // 현재 타입에서 콤보 인덱스 계산
+        _int iComboIdx = 0;
+        if (iWallType >= DYNAMIC_WALL_FAN)
+            iComboIdx = iWallType - DYNAMIC_WALL_FAN;
 
-    if (pTextureCom)
-    {
-        Engine::TextureDesc* pDesc = pTextureCom->GetTextureDesc(iWallType);
-        if (pDesc)
+        // 범위 체크
+        if (iComboIdx < 0 || iComboIdx >= IM_ARRAYSIZE(szDynamicTypes))
+            iComboIdx = 0;
+
+        if (ImGui::Combo("Dynamic Type", &iComboIdx, szDynamicTypes, IM_ARRAYSIZE(szDynamicTypes)))
         {
-            iMaxIdx = (_int)pDesc->vMaxIdx.x;
+            _uint eNewType = DYNAMIC_WALL_FAN + iComboIdx;
+            pDynamicWall->Set_WallType(eNewType);
         }
-    }
-    if (ImGui::SliderInt("Texture Index", &iTextureIdx, 0, iMaxIdx))
-    {
-        pWall->Set_TextureIdx(iTextureIdx);
-    }
 
-    ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),
-        "Texture Index: 0 ~ 2 (3x1 atlas row)");
+        ImGui::Spacing();
+        ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f), "Animated texture");
+    }
+    else
+    {
+        // Wall Type 콤보박스 (STATIC_WALL_1 ~ STATIC_WALL_10)
+        _uint iWallType = pWall->Get_WallType();
+        const char* szWallTypes[] = {
+            "STATIC_WALL_1",
+            "STATIC_WALL_2",
+            "STATIC_WALL_3",
+            "STATIC_WALL_4",
+            "STATIC_WALL_5",
+            "STATIC_WALL_6",
+            "STATIC_WALL_7",
+            "STATIC_WALL_8",
+            "STATIC_WALL_9",
+            "STATIC_WALL_10",
+            "STATIC_WALL_WATER",
+            "STATIC_WALL_LAVA",
+            "STATIC_WALL_ACID",
+            "STATIC_WALL_FENCE",
+            "STATIC_WALL_SIDEDASH"
+        };
+
+        int iSelectedType = iWallType;  // STATIC_WALL_1 = 0, STATIC_WALL_2 = 1, ...
+
+        if (ImGui::Combo("Wall Type", &iSelectedType, szWallTypes, IM_ARRAYSIZE(szWallTypes)))
+        {
+            pWall->Set_WallType(iSelectedType);
+        }
+
+        // Texture Index 슬라이더 (0 ~ 2, 3x3 아틀라스의 행)
+        _int iTextureIdx = pWall->Get_TextureIdx();
+
+        Engine::CTexture* pTextureCom = dynamic_cast<Engine::CTexture*>(
+            pWall->Get_Component(ID_DYNAMIC, L"Com_Texture"));
+
+        _int iMaxIdx(0);
+
+        if (pTextureCom)
+        {
+            Engine::TextureDesc* pDesc = pTextureCom->GetTextureDesc(iWallType);
+            if (pDesc)
+            {
+                iMaxIdx = (_int)pDesc->vMaxIdx.x;
+            }
+        }
+        if (ImGui::SliderInt("Texture Index", &iTextureIdx, 0, iMaxIdx))
+        {
+            pWall->Set_TextureIdx(iTextureIdx);
+        }
+
+        ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),
+            "Texture Index: 0 ~ 2 (3x1 atlas row)");
+    }
 }
 
 void CInspector::Render_MapColliderProperties(CEditorMapCollider* pCollider)
@@ -417,7 +461,8 @@ void CInspector::Render_MapColliderProperties(CEditorMapCollider* pCollider)
     const char* szColliderTags[] = {
         "TAG_NONE",
         "TAG_SIDE_DASH_X",
-        "TAG_SIDE_DASH_Z"
+        "TAG_SIDE_DASH_Z",
+        "TAG_FAN"
     };
 
     int iSelectedTag(0);
@@ -433,6 +478,8 @@ void CInspector::Render_MapColliderProperties(CEditorMapCollider* pCollider)
     case TAG_SIDE_DASH_Z:
         iSelectedTag = 2;
         break;
+    case TAG_FAN:
+        iSelectedTag = 3;
     default:
         iSelectedTag = 0;
     }
@@ -449,6 +496,9 @@ void CInspector::Render_MapColliderProperties(CEditorMapCollider* pCollider)
             break;
         case 2:
             pCollider->Set_ColliderTag(TAG_SIDE_DASH_Z);
+            break;
+        case 3:
+            pCollider->Set_ColliderTag(TAG_FAN);
             break;
         }
     }
@@ -506,12 +556,53 @@ void CInspector::Render_TriggerBoxProperties(CEditorTriggerBox* pTrigger)
     }
 }
 
+void CInspector::Render_DoorProperties(CEditorDoor* pDoor)
+{
+    if (!pDoor)
+        return;
+
+    ImGui::Spacing();
+    ImGui::Separator();
+    ImGui::Text("Door Properties");
+
+    ImGui::Spacing();
+
+    // ========== Door Type Combo ==========
+    DOOR_TYPE eDoorType = pDoor->Get_DoorType();
+    const char* szDoorTypes[] = {
+        "DOOR_1",
+        "DOOR_2",
+        "DOOR_3",
+        "DOOR_ELEVATOR"
+    };
+
+    int iCurrentType = static_cast<int>(eDoorType);
+    if (ImGui::Combo("Door Type", &iCurrentType, szDoorTypes, IM_ARRAYSIZE(szDoorTypes)))
+    {
+        pDoor->Set_DoorType(static_cast<DOOR_TYPE>(iCurrentType));
+    }
+
+    ImGui::Spacing();
+
+    // ========== Door ID Input ==========
+    _int iDoorID = pDoor->Get_DoorID();
+    if (ImGui::InputInt("Door ID", &iDoorID))
+    {
+        // 음수 방지
+        if (iDoorID >= 0)
+        {
+            pDoor->Set_DoorID(iDoorID);
+        }
+    }
+}
+
 void CInspector::Render_ObjectProperties()
 {
     if (!m_pScene)
         return;
 
     CEditorObject* pObj = m_pScene->Get_SelectedObject();
+    list<CEditorObject*>& SelectedList = m_pScene->Get_SelectedObjects();
 
     if (!pObj)
         return;
@@ -551,9 +642,39 @@ void CInspector::Render_ObjectProperties()
         pObj->Set_Scale(_vec3(fScale[0], fScale[1], fScale[2]));
     }
 
+
+    if ( vPos.x != fPos[0] || vPos.y != fPos[1] || vPos.z != fPos[2] ||
+         vRot.x != fRot[0] || vRot.y != fRot[1] || vRot.z != fRot[2] ||
+        vScale.x != fScale[0] || vScale.y != fScale[1] || vScale.z != fScale[2])
+
+    {
+        _vec3 fPosDelta = { fPos[0] - vPos.x , fPos[1] - vPos.y, fPos[2] - vPos.z };
+        _vec3 fRotDelta = { fRot[0] - vRot.x , fRot[1] - vRot.y ,fRot[2] - vRot.z };
+        _vec3 fScaleDelta = { fScale[0] - vScale.x , fScale[1] - vScale.y , fScale[2] - vScale.z };
+
+        for (auto& pSelectedObj : SelectedList)
+        {
+            if (pObj == pSelectedObj)
+                continue;
+
+            vPos = pSelectedObj->Get_Position();
+            vRot = pSelectedObj->Get_Rotation();
+            vScale = pSelectedObj->Get_Scale();
+
+            vPos += fPosDelta;
+            vRot += fRotDelta;
+            vScale += fScaleDelta;
+
+            pSelectedObj->Set_Position(vPos);
+            pSelectedObj->Set_Rotation(vRot);
+            pSelectedObj->Set_Scale(vScale);
+        }
+    }
+
+
     wstring cObjName = pObj->Get_Name();
 
-    if (cObjName == L"Wall")
+    if (cObjName == L"Wall" || cObjName == L"DynamicWall")
     {
         CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj);
         Render_WallProperties(pWall);
@@ -567,6 +688,7 @@ void CInspector::Render_ObjectProperties()
             Render_MonsterSpawnPointProperties(pSpawn);
         }
     }
+
     
     ImGui::Spacing();
 
@@ -610,6 +732,10 @@ void CInspector::Render_ObjectProperties()
     else if (CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj))
     {
         Render_WallTextureUI(pWall);
+    }
+    else if (CEditorDoor* pDoor = dynamic_cast<CEditorDoor*>(pObj))
+    {
+        Render_DoorProperties(pDoor);
     }
 
 }

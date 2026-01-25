@@ -3,15 +3,17 @@
 #include "CProtoMgr.h"
 #include "CRenderer.h"
 #include "Engine_Enum.h"
+#include "CAnimation.h"
 
 vector<TextureSource> CDynamicWall::m_vTextureSource =
 {
-	{ DYNAMIC_FLOOR_LAVA, L"../Bin/Resource/Texture/Terrain/Floor/DYNAMIC_FLOOR/LAVA.dds"}	// 임시 추가 
+	{DYNAMIC_WALL_FAN, L"../Bin/Resource/Texture/Terrain/WALL/DYNAMIC_WALL/FAN.dds"}
+	//{DYNAMIC_WALL_FAN_BLOOD, L"../Bin/Resource/Texture/Terrain/WALL/DYNAMIC_WALL/FAN_BLOOD.dds"}
 };
 
 vector<AnimationSource> CDynamicWall::m_vAnimSource =
 {
-	{ DYNAMIC_FLOOR_LAVA, 0, 4, 4, true, 0.75f}		// 임시 추가 
+	{ DYNAMIC_WALL_FAN, 0, 2, 2, true, 0.03f}		
 };
 
 CDynamicWall::CDynamicWall(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -107,6 +109,8 @@ HRESULT CDynamicWall::Add_Component()
 
 void        CDynamicWall::Set_WallType(_uint eWallType)
 {
+	m_iWallType = eWallType;
+
 	if (m_pAnimationCom)
 		m_pAnimationCom->Change_Animation(eWallType);
 }

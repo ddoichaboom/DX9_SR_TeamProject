@@ -16,8 +16,10 @@
 #include "CSelectionMgr.h"
 #include "CHierarchy.h"
 #include "CEditorDynamicFloor.h"
+#include "CEditorDynamicWall.h"
 #include "CEditorMapCollider.h"
 #include "CEditorTriggerBox.h"
+#include "CEditorDoor.h"
 
 CEditorScene::CEditorScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
@@ -181,6 +183,12 @@ CEditorObject* CEditorScene::Get_SelectedObject() const
     return nullptr;
 }
 
+list<CEditorObject*>& CEditorScene::Get_SelectedObjects()
+{
+    if (m_pSelectionMgr)
+        return m_pSelectionMgr->Get_AllSelections();
+}
+
 void CEditorScene::Add_SelectedObject(CEditorObject* pObj)
 {
     if (!pObj || !m_pSelectionMgr)
@@ -317,31 +325,21 @@ void CEditorScene::Handle_Duplicate()
                     pNewObj = CEditorCube::Create(m_pGraphicDev, vPos, vRot, vScale);
                     pNewObj->Set_RoomIndex(iRoomIndex);
                 }
+                else if (CEditorDynamicWall* pDynamicWall = dynamic_cast<CEditorDynamicWall*>(pSelectedObj))
+                {
+                    WALL_DIR eDir = pDynamicWall->Get_WallDirection();
+
+                    vPos += m_vDupplicateDir * 32.f;
+
+                    iType = pDynamicWall->Get_WallType();
+                    iIdx = pDynamicWall->Get_TextureIdx();
+                    iRoomIndex = pDynamicWall->Get_RoomIndex();
+
+                    pNewObj = CEditorDynamicWall::Create(m_pGraphicDev, vPos, vRot, vScale, eDir, iType, iIdx);
+                }
                 else if (CEditorWall* pWall = dynamic_cast<CEditorWall*>(pSelectedObj))
                 {
                     WALL_DIR eDir = pWall->Get_WallDirection();
-
-                    /*switch (eDir)
-                    {
-                    case WALL_XY_FRONT:
-                        vPos.x += 32.f;
-                        break;
-
-                    case WALL_XY_BACK:
-                        vPos.x += 32.f;
-                        break;
-
-                    case WALL_YZ_LEFT:
-                        vPos.z += 32.f;
-                        break;
-
-                    case WALL_YZ_RIGHT:
-                        vPos.z += 32.f;
-                        break;
-
-                    default:
-                        vPos.x += 32.f;
-                    }*/
 
                     vPos += m_vDupplicateDir * 32.f;
 
@@ -390,7 +388,15 @@ void CEditorScene::Handle_Duplicate()
                     vPos += m_vDupplicateDir * 16.f;
                     _vec3 vColliderScale = pMapCollider->Get_ColliderScale();
                     pNewObj = CEditorMapCollider::Create(m_pGraphicDev, vPos, vColliderScale);
-                    }
+                }
+                else if (CEditorDoor* pDoor = dynamic_cast<CEditorDoor*>(pSelectedObj))
+                {
+                    vPos += m_vDupplicateDir * 16.f;
+                    DOOR_TYPE iDoorType = pDoor->Get_DoorType();
+                    _int iDoorID = pDoor->Get_DoorID();
+                    iRoomIndex = pDoor->Get_RoomIndex();
+                    pNewObj = CEditorDoor::Create(m_pGraphicDev, vPos, vRot, vScale, iDoorType, iDoorID);
+                }
                 else if (CEditorTriggerBox* pTriggerBox = dynamic_cast<CEditorTriggerBox*>(pSelectedObj))
                 {
                     vPos += m_vDupplicateDir * 16.f;
@@ -489,7 +495,8 @@ void CEditorScene::Handle_Left_Click()
             eMode == MODE_PLACE_WALL || eMode == MODE_PLACE_SPAWN_PLAYER || 
             eMode == MODE_PLACE_SPAWN_MONSTER || eMode == MODE_PLACE_SLOPE_FLOOR ||
             eMode == MODE_PLACE_MAPCOLLIDER || eMode == MODE_PLACE_TRIGGERBOX ||
-            eMode == MODE_PLACE_SPAWN_BOSSMONSTER)
+            eMode == MODE_PLACE_SPAWN_BOSSMONSTER || eMode == MODE_PLACE_DYNAMIC_WALL ||
+            eMode == MODE_PLACE_DOOR)
         {
 
             // Ray - Plane Intersection (Y = 0 평면)
@@ -508,6 +515,8 @@ void CEditorScene::Handle_Left_Click()
                 Place_Cube(vPos);
             else if (eMode == MODE_PLACE_WALL)
                 Place_Wall(vPos);
+            else if (eMode == MODE_PLACE_DYNAMIC_WALL)
+                Place_Dynamic_Wall(vPos);
             else if (eMode == MODE_PLACE_SPAWN_PLAYER)
                 Place_SpawnPlayer(vPos);
             else if (eMode == MODE_PLACE_SPAWN_MONSTER)
@@ -518,6 +527,8 @@ void CEditorScene::Handle_Left_Click()
                 Place_TriggerBox(vPos);
             else if (eMode == MODE_PLACE_SPAWN_BOSSMONSTER)
                 Place_SpawnBossMonster(vPos);
+            else if (eMode == MODE_PLACE_DOOR)
+                Place_Door(vPos);
         }
         else if (eMode == MODE_SELECT)
         {
@@ -697,6 +708,46 @@ void CEditorScene::Place_Wall(const _vec3& vPos)
 
         Add_Object(pWall);
         Safe_Release(pWall);
+    }
+}
+
+void CEditorScene::Place_Dynamic_Wall(const _vec3& vPos)
+{
+    // 기본 XY 평면 벽 배치
+    CEditorDynamicWall* pDynamicWall = CEditorDynamicWall::Create(m_pGraphicDev, vPos, WALL_XY_FRONT);
+
+    if (pDynamicWall)
+    {
+        // Y 위치 조정 (벽 중심이 바닥보다 위)
+        _vec3 vAdjustedPos = vPos;
+        vAdjustedPos.y = vPos.y + 16.0f;
+        pDynamicWall->Set_Position(vAdjustedPos);
+
+        Add_Object(pDynamicWall);
+        Safe_Release(pDynamicWall);
+    }
+}
+
+void CEditorScene::Place_Door(const _vec3& vPos)
+{
+    // 그리드 스냅 (16 단위)
+    _vec3 vSnappedPos;
+    vSnappedPos.x = floorf(vPos.x / 16.f) * 16.f + 8.f;
+    vSnappedPos.y = vPos.y + 16.0f;  // 바닥에서 문 중심까지의 높이
+    vSnappedPos.z = floorf(vPos.z / 16.f) * 16.f + 8.f;
+
+    CEditorDoor* pDoor = CEditorDoor::Create(m_pGraphicDev, vSnappedPos);
+
+    if (pDoor)
+    {
+        // 기본 이름 설정
+        static _int s_iDoorIdx = 0;
+        wchar_t wszName[64];
+        swprintf_s(wszName, L"Door_%d", s_iDoorIdx++);
+        pDoor->Set_Name(wszName);
+
+        Add_Object(pDoor);
+        Safe_Release(pDoor);
     }
 }
 

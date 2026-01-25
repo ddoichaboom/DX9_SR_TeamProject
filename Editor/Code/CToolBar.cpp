@@ -48,10 +48,12 @@ void CToolBar::Render_ToolBar()
           "Place Ceiling",
           "Place Cube",
           "Place Wall",
+          "Place Dynamic Wall",
           "Spawn Player",
           "Spawn Monster",
           "Spawn BossMonster",
           "Place MapCollider",
+          "Place_Door",
           "Place TriggerBox"
     };
 

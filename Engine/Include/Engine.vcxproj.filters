@@ -151,7 +151,10 @@
     <Filter Include="02. ComponentEX\00. VIBuffer\03. CubeTex">
       <UniqueIdentifier>{87d6c518-0f20-4398-b275-7fc093cd0683}</UniqueIdentifier>
     </Filter>
-    <Filter Include="00. Manager\12. SoundMgr">
+    <Filter Include="02. ComponentEX\00. VIBuffer\06. RcTexSide">
+      <UniqueIdentifier>{b7aead63-21af-4387-bfe1-152e8883b5e8}</UniqueIdentifier>
+	</Filter>
+	<Filter Include="00. Manager\12. SoundMgr">
       <UniqueIdentifier>{daf79db8-c01b-4288-8537-743b2191ce65}</UniqueIdentifier>
     </Filter>
     <Filter Include="00. Manager\13. VideoMgr">
@@ -312,7 +315,10 @@
     <ClInclude Include="..\Header\CDVIBuffer.h">
       <Filter>02. ComponentEX\07. DVIBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CSoundMgr.h">
+    <ClInclude Include="..\Header\CRcTexSide.h">
+      <Filter>02. ComponentEX\00. VIBuffer\06. RcTexSide</Filter>
+	</ClInclude>
+	<ClInclude Include="..\Header\CSoundMgr.h">
       <Filter>00. Manager\12. SoundMgr</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CVideoMgr.h">
@@ -446,7 +452,10 @@
     <ClCompile Include="..\Code\CDVIBuffer.cpp">
       <Filter>02. ComponentEX\07. DVIBuffer</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CSoundMgr.cpp">
+    <ClCompile Include="..\Code\CRcTexSide.cpp">
+      <Filter>02. ComponentEX\00. VIBuffer\06. RcTexSide</Filter>
+	</ClCompile>
+	<ClCompile Include="..\Code\CSoundMgr.cpp">
       <Filter>00. Manager\12. SoundMgr</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CVideoMgr.cpp">

@@ -4,6 +4,7 @@
 #include "CTransform.h"
 #include "CPoolMgr.h"
 #include "CManagement.h"
+#include "CCollision.h"
 
 // 환경 오브젝트
 #include "CFloor.h"
@@ -15,8 +16,9 @@
 #include "CObstacle.h"
 #include "CSlopeFloor.h"
 #include "CMapCollider.h"
-#include "CDoorTrigger.h"
+#include "CRoomTrigger.h"
 #include "CStageEndTrigger.h"
+#include "CDoor.h"
 
 // 캐릭터,몬스터 (SpawnPoint 처리용)
 #include "CPlayer.h"
@@ -146,8 +148,10 @@ HRESULT CMapLoader::Preload_AllMapData(const wstring& wstrPath)
                 roomMap[iRoomIndex].iObstacleCount++;
             else if (objData.sType == "MapCollider")
                 roomMap[iRoomIndex].iMapColliderCount++;
-            else if (objData.sType == "DoorTriggerBox")
-                roomMap[iRoomIndex].iDoorTriggerBoxCount++;
+            else if (objData.sType == "RoomTriggerBox")
+                roomMap[iRoomIndex].iRoomTriggerBoxCount++;
+            else if (objData.sType == "Door")
+                roomMap[iRoomIndex].iDoorCount++;
         }
 
         // ========== 5단계: 로그 출력 ==========
@@ -223,7 +227,8 @@ HRESULT CMapLoader::Load_Room(const wstring& wstrPath, _int iRoomIndex, CLayer* 
                     objData.sType == "SlopeFloor" || objData.sType == "Ceiling" ||
                     objData.sType == "DynamicCeiling" || objData.sType == "Wall" || 
                     objData.sType == "DynamicWall" || objData.sType == "Cube" || 
-                    objData.sType == "MapCollider" || objData.sType == "DoorTriggerBox")
+                    objData.sType == "MapCollider" || objData.sType == "RoomTriggerBox" ||
+                    objData.sType == "Door")
                 {
                     // GameObject 획득 (풀에서)
                     CGameObject* pGameObject = Get_GameObject_FromPool(objData, pGraphicDev);
@@ -379,7 +384,7 @@ HRESULT CMapLoader::Unload_Room(const wstring& wstrPath, _int iRoomIndex, CLayer
     _uint iUnloadedCount = 0;
 
     OBJ_ID objIDs[] = {
-        OBJ_FLOOR, OBJ_CEILING, OBJ_WALL, OBJ_OBSTACLE, OBJ_COL, OBJ_TRIGGER,  // Environment
+        OBJ_FLOOR, OBJ_CEILING, OBJ_WALL, OBJ_OBSTACLE, OBJ_COL, OBJ_TRIGGER, OBJ_DOOR,  // Environment
         OBJ_MONSTER                                                             // GameLogic
     };
 
@@ -477,8 +482,10 @@ _uint CMapLoader::Get_MaxObjectCount(const wstring& wstrPath, const string& obje
                 iSum += roomData.iObstacleCount;
             else if (objectType == "MapCollider")
                 iSum += roomData.iMapColliderCount;
-            else if (objectType == "DoorTriggerBox")
-                iSum += roomData.iDoorTriggerBoxCount;
+            else if (objectType == "RoomTriggerBox")
+                iSum += roomData.iRoomTriggerBoxCount;
+            else if (objectType == "Door")
+                iSum += roomData.iDoorCount;
         }
 
         if (iSum > iMaxCount)
@@ -498,11 +505,11 @@ ObjectData CMapLoader::Parse_ObjectData_FromJSON(const json& jObj)
     {
         objData.iTriggerType = jObj["triggerType"];
 
-        if (objData.iTriggerType == TRIGGER_DOOR)
+        if (objData.iTriggerType == TRIGGER_ROOM_CHANGE)
         {
-            objData.sType = "DoorTriggerBox";
+            objData.sType = "RoomTriggerBox";
             if (jObj.contains("name"))
-                objData.sName = "DoorTriggerBox";
+                objData.sName = "RoomTriggerBox";
         }
         else if (objData.iTriggerType == TRIGGER_STAGE_END)
         {
@@ -542,6 +549,10 @@ ObjectData CMapLoader::Parse_ObjectData_FromJSON(const json& jObj)
         objData.iCeilingType = jObj["ceilingType"];
     if (jObj.contains("wallType"))
         objData.iWallType = jObj["wallType"];
+    if (jObj.contains("doorType"))
+        objData.iDoorType = jObj["doorType"];
+    if (jObj.contains("doorID"))
+        objData.iDoorID = jObj["doorID"];
 
     if (jObj.contains("SlopeDirection"))
         objData.eSlopeDir = jObj["SlopeDirection"];
@@ -553,6 +564,7 @@ ObjectData CMapLoader::Parse_ObjectData_FromJSON(const json& jObj)
         objData.sMonsterKey = jObj["monsterKey"];
     if (jObj.contains("colliderTag"))
         objData.eColliderTag = jObj["colliderTag"];
+
 
     return objData;
 }
@@ -653,7 +665,7 @@ CGameObject* CMapLoader::Get_GameObject_FromPool(const ObjectData& objData, LPDI
             pDynamicWall->SetPos(objData.vPos);
             pDynamicWall->SetAngle(objData.vRot);
             pDynamicWall->SetScale(objData.vScale);
-            pDynamicWall->Set_TextureIdx(objData.iTextureIdx);       // 동적 -> 정적 텍스처 변환 했을 때 사용할 텍스처 인덱스 
+            pDynamicWall->Set_TextureIdx(objData.iTextureIdx);
             pDynamicWall->Set_WallType(objData.iWallType);
             pDynamicWall->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
             pGameObject = pDynamicWall;
@@ -686,20 +698,42 @@ CGameObject* CMapLoader::Get_GameObject_FromPool(const ObjectData& objData, LPDI
         }
 
     }
-    else if (objData.sType == "DoorTriggerBox")
+    else if (objData.sType == "RoomTriggerBox")
     {
-        // DoorTriggerBox 
-            CDoorTrigger* pDoorTrigger = Engine::CPoolMgr::GetInstance()->Get_Object<CDoorTrigger>();
-            if (pDoorTrigger)
+        // RoomTriggerBox 
+            CRoomTrigger* pRoomTrigger = Engine::CPoolMgr::GetInstance()->Get_Object<CRoomTrigger>();
+            if (pRoomTrigger)
             {
-                pDoorTrigger->SetPos(objData.vPos);
-                pDoorTrigger->Set_ColliderScale(objData.vScale);
-                pDoorTrigger->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
-                pDoorTrigger->Activate();
-                pGameObject = pDoorTrigger;
+                pRoomTrigger->SetPos(objData.vPos);
+                pRoomTrigger->Set_ColliderScale(objData.vScale);
+                pRoomTrigger->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
+                pRoomTrigger->Activate();
+                pGameObject = pRoomTrigger;
             }
     }
+    else if (objData.sType == "Door")
+    {
+        CDoor* pDoor = Engine::CPoolMgr::GetInstance()->Get_Object<CDoor>();
+        if (pDoor)
+        {
+            pDoor->Set_Position(objData.vPos);
+            pDoor->Set_Scale(objData.vScale);
+            pDoor->Set_Rotation(objData.vRot);
+            pDoor->Set_DoorType(objData.iDoorType);
+            pDoor->Set_DoorID(objData.iDoorID);
 
+            // Transform 즉시 업데이트
+            pDoor->Get_Component(ID_DYNAMIC, L"Com_Transform")->Update_Component(0.f);
+
+            // Collider Transform도 즉시 업데이트
+            Engine::CCollision* pCollision = static_cast<Engine::CCollision*>(
+                pDoor->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+            if (pCollision)
+                pCollision->LateUpdate_Component();
+
+            pGameObject = pDoor;
+        }
+    }
 
     return pGameObject;
 }

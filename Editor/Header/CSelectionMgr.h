@@ -14,6 +14,8 @@ public:
     void                    Set_Selection(CEditorObject* pObj);
     CEditorObject*          Get_Selection() const;
 
+    list<CEditorObject*>&   Get_Selections() { return m_SelectedObjects;  }
+
     void                    Add_Selection(CEditorObject* pObj);
     void                    Remove_Selection(CEditorObject* pObj);
     void                    Clear_Selection();

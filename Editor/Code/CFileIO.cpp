@@ -23,8 +23,10 @@
 #include "CEditorCeiling.h"
 #include "CEditorSpawnPoint.h"
 #include "CEditorWall.h"
+#include "CEditorDynamicWall.h"
 #include "CEditorMapCollider.h"
 #include "CEditorTriggerBox.h"
+#include "CEditorDoor.h"
 
 using namespace std;
 using namespace Engine;
@@ -132,9 +134,11 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
         _uint iSlopeFloorCount = 0;
         _uint iCeilingCount = 0;
         _uint iWallCount = 0;
+        _uint iDynamicWallCount = 0;
         _uint iObstacleCount = 0;
         _uint iMapColliderCount = 0;
         _uint iTriggerBoxCount = 0;
+        _uint iDoorCount = 0;
 
 
         auto& objectList = pScene->Get_ObjectList();
@@ -182,12 +186,20 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                 SaveTransformData(jObj, pObj);
                 SaveTextureData(jObj, pObj);
             }
-            else if (dynamic_cast<CEditorWall*>(pObj))
+            else if (CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj))
             {
-                CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj);
+                CEditorDynamicWall* pDynamicWall = dynamic_cast<CEditorDynamicWall*>(pObj);
 
-                iWallCount++;
-                jObj["type"] = "Wall";
+                if (pDynamicWall)
+                {
+                    iDynamicWallCount++;
+                    jObj["type"] = "DynamicWall";
+                }
+                else
+                {
+                    iWallCount++;
+                    jObj["type"] = "Wall";
+                }
 
                 // Wall 전용 필드
                 jObj["wallDirection"] = static_cast<_int>(pWall->Get_WallDirection());
@@ -274,6 +286,19 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                 // TriggerBox 전용 필드
                 jObj["triggerType"] = static_cast<_int>(pTriggerBox->Get_TriggerType());
             }
+            else if (CEditorDoor* pDoor = dynamic_cast<CEditorDoor*>(pObj))
+            {
+                iDoorCount++;
+                jObj["type"] = "Door";
+                jObj["roomIndex"] = pObj->Get_RoomIndex();
+
+                // Transform 저장
+                SaveTransformData(jObj, pObj);
+
+                // Door 전용 필드 저장
+                jObj["doorType"] = static_cast<_int>(pDoor->Get_DoorType());
+                jObj["doorID"] = pDoor->Get_DoorID();
+            }
             else
             {
                 continue;  // 알 수 없는 타입 - 건너뜀
@@ -288,9 +313,11 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
         jMap["dynamicFloorCount"] = iDynamicFloorCount;
         jMap["ceilingCount"] = iCeilingCount;
         jMap["wallCount"] = iWallCount;
+        jMap["dynamicWallCount"] = iDynamicWallCount;
         jMap["obstacleCount"] = iObstacleCount;
         jMap["mapColliderCount"] = iMapColliderCount;      
         jMap["triggerBoxCount"] = iTriggerBoxCount;
+        jMap["doorCount"] = iDoorCount;
 
         jMap["objects"] = jObjects;
         jMap["objectCount"] = jObjects.size();
@@ -487,15 +514,25 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
                     }
                 }
             }
-            else if (strType == "Wall")
+            else if (strType == "Wall" || strType == "DynamicWall")
             {
-                // Wall 방향 읽기
-                int iWallDir = jObj["wallDirection"];
-                WALL_DIR eDir = static_cast<WALL_DIR>(iWallDir);
+                WALL_DIR eDir = WALL_XY_FRONT;
+                if (jObj.contains("wallDirection"))
+                {
+                    int iWallDir = jObj["wallDirection"];
+                    eDir = static_cast<WALL_DIR>(iWallDir);
+                }
 
-                pObj = CEditorWall::Create(pGraphicDev, vPos, vRot, vScale, eDir);
+                if (strType == "DynamicWall")
+                {
+                    pObj = CEditorDynamicWall::Create(pGraphicDev, vPos, vRot, vScale, eDir);
+                }
+                else
+                {
+                    pObj = CEditorWall::Create(pGraphicDev, vPos, vRot, vScale, eDir);
+                }
 
-                if (iVersion >= 4 && jObj.contains("wallType"))
+                if (pObj)
                 {
                     CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj);
                     if (pWall)
@@ -554,7 +591,7 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
             else if (strType == "TriggerBox")
             {
                 // TriggerBox 전용 필드 읽기
-                TRIGGER_TYPE eTriggerType = TRIGGER_DOOR;
+                TRIGGER_TYPE eTriggerType = TRIGGER_ROOM_CHANGE;
 
                 if (jObj.contains("triggerType"))
                     eTriggerType = static_cast<TRIGGER_TYPE>((_int)jObj["triggerType"]);
@@ -562,6 +599,31 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
 
                 pObj = CEditorTriggerBox::Create(pGraphicDev, vPos, vScale,
                     eTriggerType);
+            }
+            else if (strType == "Door")
+            {
+                pObj = CEditorDoor::Create(pGraphicDev, vPos, vRot, vScale);
+
+                if (pObj)
+                {
+                    CEditorDoor* pDoor = dynamic_cast<CEditorDoor*>(pObj);
+                    if (pDoor)
+                    {
+                        // Door Type 로드
+                        if (jObj.contains("doorType"))
+                        {
+                            DOOR_TYPE eDoorType = jObj["doorType"];
+                            pDoor->Set_DoorType(eDoorType);
+                        }
+
+                        // Door ID 로드
+                        if (jObj.contains("doorID"))
+                        {
+                            _int iDoorID = jObj["doorID"];
+                            pDoor->Set_DoorID(iDoorID);
+                        }
+                    }
+                }
             }
 
             if (!pObj)

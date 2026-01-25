@@ -56,14 +56,6 @@ void CCollider::LateUpdate_GameObject(const _float& fTimeDelta)
 	m_matWorld._42 += prtWorld->_42;
 	m_matWorld._43 += prtWorld->_43;
 
-	// 디버그: Scale 확인
-	char szDebug[256];
-	sprintf_s(szDebug, "Collider Scale: (%.2f, %.2f, %.2f)\n",
-		m_pTransformCom->m_vScale.x,
-		m_pTransformCom->m_vScale.y,
-		m_pTransformCom->m_vScale.z);
-	OutputDebugStringA(szDebug);
-
 	//회전 적용 
 	if (m_bRotToPrt)
 	{

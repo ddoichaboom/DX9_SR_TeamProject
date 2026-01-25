@@ -12,6 +12,7 @@ class CEditorCeiling;
 class CEditorSlopeFloor;
 class CEditorMapCollider;
 class CEditorTriggerBox;
+class CEditorDoor;
 
 class CInspector : public CBase
 {
@@ -31,6 +32,7 @@ private:
     void    Render_WallTextureUI(CEditorWall* pWall);
     void    Render_MapColliderProperties(CEditorMapCollider* pCollider);
     void    Render_TriggerBoxProperties(CEditorTriggerBox* pTrigger);
+    void    Render_DoorProperties(CEditorDoor* pDoor);
 
 
 private:

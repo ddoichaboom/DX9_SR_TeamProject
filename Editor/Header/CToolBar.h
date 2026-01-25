@@ -13,10 +13,12 @@ enum EDITOR_MODE
     MODE_PLACE_CEILING,        // 천장 배치 (새로 추가)
     MODE_PLACE_CUBE,           // 큐브 배치
     MODE_PLACE_WALL,           // 벽 배치 (새로 추가)
+    MODE_PLACE_DYNAMIC_WALL,
     MODE_PLACE_SPAWN_PLAYER,   // 플레이어 스폰 배치 (새로 추가)
     MODE_PLACE_SPAWN_MONSTER,  // 몬스터 스폰 배치 (새로 추가)
     MODE_PLACE_SPAWN_BOSSMONSTER,
     MODE_PLACE_MAPCOLLIDER,
+    MODE_PLACE_DOOR,
     MODE_PLACE_TRIGGERBOX,
     MODE_END
 };
