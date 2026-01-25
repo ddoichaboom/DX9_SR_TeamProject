@@ -22,7 +22,7 @@ public:
 	static CMiddlePart* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 public:
-	virtual _bool	Get_ActionAble() override;
+	virtual _bool	Get_ActionAble(PLAYER_STATE eState);	
 
 public:
 	HRESULT		Ready_GameObject() override;

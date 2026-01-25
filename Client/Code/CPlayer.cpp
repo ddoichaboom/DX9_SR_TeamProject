@@ -461,7 +461,7 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 	//
 	if (CDInputMgr::GetInstance()->Key_Down(DIK_R))
 	{
-		if ( m_pLeftPart->Get_Relaod() && m_pRightPart->Get_Reload() && m_pLeftPart->Get_ActionAble() && m_pRightPart->Get_ActionAble() )
+		if ( m_pLeftPart->Get_Relaod() && m_pRightPart->Get_Reload() && m_pLeftPart->Get_ActionAble() && m_pRightPart->Get_ActionAble() && !m_pMiddlePart->Get_ActionAble(IDLE))
 			Change_State(RELOAD);
 		return;
 	}
@@ -616,6 +616,26 @@ void CPlayer::CheckPickedMonster()
 		}
 	}
 
+	pairIter = pLayer->Get_Objects(OBJ_VENDINGMACHINE);
+	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
+	{
+		CCollision* pCollision = static_cast<CCollision*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+		if (!pCollision) continue;
+
+		auto& mapCollider = pCollision->GetColliderMap();
+		if (mapCollider.empty()) continue;
+		//몬스터의 CollisionCom에 있는 전체 Collider 
+		for (auto& pairCollider : mapCollider)
+		{
+			bool bPicked = CCollision::Collision_Mouse(g_hWnd, m_pGraphicDev, pairCollider.second);
+			if (bPicked)
+			{
+				pickedList.push_back({ iter->second->Get_ViewZ() ,pairCollider.second });
+			}
+		}
+	}
+
+
 	if (pickedList.empty()) return;
 	//카메라 거리순 정렬
 	pickedList.sort([&](auto& _First, auto& _Second)
@@ -631,7 +651,7 @@ void CPlayer::CheckPickedMonster()
 void CPlayer::CheckKickedMonster(COLLIDER_TAG eTag, _float fAttack)
 {
 	list<pair<_float, CCollider*>> pickedList;
-	CollisionInfo info = { NULL, {0,0,0}, fAttack, eTag };
+	CollisionInfo info = { this, {0,0,0}, fAttack, eTag };
 	_vec3	vLook, vPos;
 	_float cosFov = cosf(D3DXToRadian(60.f));
 	vLook = *m_pTransformCom->Get_Info(INFO_LOOK);
@@ -649,6 +669,37 @@ void CPlayer::CheckKickedMonster(COLLIDER_TAG eTag, _float fAttack)
 	{
 		CCollision* pCollision = static_cast<CCollision*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
 		CTransform* pTransform = static_cast<CTransform*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Transform"));
+
+		if (!pCollision) continue;
+		if (!pTransform) continue;
+
+		_vec3 vDir = *pTransform->Get_Info(INFO_POS) - vPos;
+		D3DXVec3Normalize(&vDir, &vDir);
+
+		_float fDot = D3DXVec3Dot(&vLook, &vDir);
+
+		auto& mapCollider = pCollision->GetColliderMap();
+		if (mapCollider.empty()) continue;
+		//몬스터의 CollisionCom에 있는 전체 Collider 
+		for (auto& pairCollider : mapCollider)
+		{
+			bool bPicked = CCollision::CheckCollision(m_pKickCollider, pairCollider.second);
+			if (bPicked)
+			{
+				if (fDot >= cosFov)
+					pickedList.push_back({ iter->second->Get_ViewZ() ,pairCollider.second });
+			}
+		}
+	}
+
+
+	pLayer = CManagement::GetInstance()->Get_Layer(L"Environment_Layer");
+	pairIter = pLayer->Get_Objects(OBJ_VENDINGMACHINE);
+
+	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
+	{
+		CCollision* pCollision = static_cast<CCollision*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+		CTransform* pTransform = static_cast<CTransform*>(iter->second->Get_Component(ID_STATIC, L"Com_Transform"));
 
 		if (!pCollision) continue;
 		if (!pTransform) continue;
@@ -1215,7 +1266,7 @@ void CPlayer::Drink_Func()
 	if(m_pSodaUI) m_pSodaUI->Reset();
 	Add_HP(m_fMaxHP);
 
-	if (m_eNowState == IDLE)
+	if (m_eNowState == IDLE && m_pMiddlePart->Get_ActionAble(DRINK))
 		Change_State(DRINK);
 }
 
@@ -1921,7 +1972,8 @@ void CPlayer::OnAttackCollision(CollisionInfo info)
 {
 	if (info.pTarget->GetOBJID() == OBJ_DOOR || info.pTarget->GetOBJID() == OBJ_VENDINGMACHINE)
 	{
-		Change_State(KICK);
+		if(!m_pMiddlePart->Get_ActionAble(IDLE))
+			Change_State(KICK);
 	}
 }
 

@@ -102,9 +102,11 @@ CMiddlePart* CMiddlePart::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	return pMiddlePart;
 }
 
-_bool CMiddlePart::Get_ActionAble()
+_bool CMiddlePart::Get_ActionAble(PLAYER_STATE eState)
 {
-	return true;
+	_uint iA = eState;
+	_uint iB = m_pAnimationCom->Get_State();
+	return iA != iB;
 }
 
 HRESULT CMiddlePart::Ready_GameObject()

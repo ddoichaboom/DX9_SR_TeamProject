@@ -33,6 +33,7 @@ public:
 				void				OnCollision(CollisionInfo info);
 
 				void				Dispense();		// Soda 배출		
+				void				CreateSoda();
 protected:
 	virtual		HRESULT				Add_Component() override;
 	virtual		void				Free() override;
@@ -60,7 +61,14 @@ private:
 	_vec3					m_vColliderScale;		// 콜라이더 스케일
 	_vec3					m_vDispensPos;			// 소다 배출 위치
 
+	_bool					m_bDispens;
+	_float					m_fTime;
+	_uint					m_iCount;
+
 private:
 	static vector<TextureSource>    m_vTextureSource;
+
+public :
+	static wstring	szSodaMakeSFX;
 };
 
