@@ -55,7 +55,7 @@ vector<AnimationSource> CWhiteMan::m_vAnimSource =
 	,{ MS_LAUNCH,1,2,1, false, 0.06f, 1.f, true}		//Launch
 
 	,{ ID_SLICE_DEAD ,3,4,4, false, 0.11f, 1.f, true}	//Slice Dead
-	,{ ID_ELECT_DEAD ,3,3,2, false, 0.06f, 1.f, true}	//Elect Dead
+	,{ ID_ELECT_DEAD ,3,3,2, false, 0.05f, 1.f, true}	//Elect Dead
 	,{ ID_HEAD_DEAD,5,3,1, false, 0.10f, 1.f, true}		//Head Dead
 
 	,{ MS_FLYBACK,1,3,2, true, 0.04f}						//Fly Back
@@ -279,7 +279,7 @@ void CWhiteMan::ChangeState(_uint nextStateID)
 	m_pStateCom->ChangeState<CWhiteMan>(nextStateID);
 
 	if (ID_HEAD_DEAD == nextStateID) Make_DeadText(TAG_HEAD, 2);
-	else if(ID_ELECT_DEAD == nextStateID) Make_DeadText(TAG_ELECTRIC, 2);
+	else if (ID_ELECT_DEAD == nextStateID) Make_DeadText(TAG_ELECTRIC, 2);
 	else if (MS_FLYBACK == nextStateID) Make_DeadText(TAG_KICK, 2);
 	else if (ID_SLICE_DEAD == nextStateID) Make_DeadText(TAG_KATANA, 2);
 	else if (MS_DEAD == nextStateID) Make_DeadText(TAG_NONE, 2);
@@ -321,8 +321,16 @@ void CWhiteMan::OnBodyCollision(CollisionInfo info)
 {
 	if (info.eTag == TAG_ELECTRIC || info.eTag == TAG_FAN)
 	{
-		if (m_pHeadCollider) m_pHeadCollider->OffCollision();
-		if (m_pBodyCollider) m_pBodyCollider->OffCollision();
+		//Collision Diff 는 콜리전 On/Off를 체크하지않아 맵콜라이더도 연속으로 들어옴 
+		//떄문에 이 곳에만 추가 적으로 충돌 on/off 체크함. 처음 들어오면 진행 
+		if (m_pBodyCollider->CanCollision() || m_pHeadCollider->CanCollision())
+		{
+			m_pBodyCollider->OffCollision();
+			m_pHeadCollider->OffCollision();
+		}
+		//충돌이 꺼져있다면 (이미 죽음) 
+		else return; 
+
 		m_fHP = 0.f;
 		if (info.eTag == TAG_ELECTRIC) ChangeState(ID_ELECT_DEAD);
 		else if (info.eTag == TAG_FAN) ChangeState(ID_EXP_DEAD);
