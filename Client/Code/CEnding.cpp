@@ -24,7 +24,7 @@ HRESULT CEnding::Ready_Scene()
 	else
 	{
 		CVideoMgr::GetInstance()->Play();
-		CSoundMgr::GetInstance()->PlayBGM(m_endingSoundName.c_str());
+		CSoundMgr::GetInstance()->PlayBGM(m_endingSoundName.c_str(),1.8f);
 	}
 	return S_OK;
 }

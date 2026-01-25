@@ -44,12 +44,13 @@ protected:
     //메세지 Mgr에 구독한 이벤트에 대한 기능 정의 
     void        OnEvent(EVENT_TYPE _type, EventData* _pData) override;
 
-
+    void        StartMapSound();
 private:
     virtual void Free();
 
 private:
-    wstring m_BossVideoName = L"EnterBoss.wmv";
-    wstring m_BossSoundName = L"EnterBossSound.wav";
+    const wstring m_BossVideoName = L"EnterBoss.wmv";
+    const wstring m_BossSoundName = L"EnterBossSound.wav";
+    const wstring m_BossBGMName = L"BossMapBGM_Low.wav";
 };
 

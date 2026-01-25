@@ -43,7 +43,7 @@ protected:
 
 	_int 		m_CurCnt = 15;
 
-	_float		m_fEffectTime = 0.15;
+	_float		m_fEffectTime = 0.15f;
 	_float		m_fTime = 0.f;
 
 	_vec3 randMove{};

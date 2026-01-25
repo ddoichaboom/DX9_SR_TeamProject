@@ -135,7 +135,9 @@ _int CBossStage::Update_Scene(const _float& fTimeDelta)
         {
             CVideoMgr::GetInstance()->SetPlayFlag(false);
             CVideoMgr::GetInstance()->Cleanup();
-            //CSoundMgr::GetInstance()->StopAll();
+            CSoundMgr::GetInstance()->StopAll();
+
+            StartMapSound();
         }
         else return 0;
     }
@@ -497,6 +499,11 @@ void CBossStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
     {
         m_bStageEnd = true;
     }
+}
+
+void CBossStage::StartMapSound()
+{
+    CSoundMgr::GetInstance()->PlayBGM(m_BossBGMName.c_str(),1.6f);
 }
 
 CBossStage* CBossStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)

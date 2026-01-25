@@ -138,7 +138,8 @@ void CExplosion::Reset()
 		ResetParticle(&(*iter), idx);
 		idx++;
 	}
-	CSoundMgr::GetInstance()->PlaySFXSound(szExplosiveSFX.c_str(), 0.8f);
+	//CSoundMgr::GetInstance()->PlaySFXSound(szExplosiveSFX.c_str(), 0.8f);
+	CSoundMgr::GetInstance()->PlaySFXSound(szExplosiveSFX.c_str(), 0.4f);
 }
 
 HRESULT CExplosion::Add_Component()
