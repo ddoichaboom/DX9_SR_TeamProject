@@ -26,6 +26,7 @@
 #include "CEditorDynamicWall.h"
 #include "CEditorMapCollider.h"
 #include "CEditorTriggerBox.h"
+#include "CEditorDoor.h"
 
 using namespace std;
 using namespace Engine;
@@ -137,6 +138,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
         _uint iObstacleCount = 0;
         _uint iMapColliderCount = 0;
         _uint iTriggerBoxCount = 0;
+        _uint iDoorCount = 0;
 
 
         auto& objectList = pScene->Get_ObjectList();
@@ -284,6 +286,19 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                 // TriggerBox 전용 필드
                 jObj["triggerType"] = static_cast<_int>(pTriggerBox->Get_TriggerType());
             }
+            else if (CEditorDoor* pDoor = dynamic_cast<CEditorDoor*>(pObj))
+            {
+                iDoorCount++;
+                jObj["type"] = "Door";
+                jObj["roomIndex"] = pObj->Get_RoomIndex();
+
+                // Transform 저장
+                SaveTransformData(jObj, pObj);
+
+                // Door 전용 필드 저장
+                jObj["doorType"] = static_cast<_int>(pDoor->Get_DoorType());
+                jObj["doorID"] = pDoor->Get_DoorID();
+            }
             else
             {
                 continue;  // 알 수 없는 타입 - 건너뜀
@@ -302,6 +317,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
         jMap["obstacleCount"] = iObstacleCount;
         jMap["mapColliderCount"] = iMapColliderCount;      
         jMap["triggerBoxCount"] = iTriggerBoxCount;
+        jMap["doorCount"] = iDoorCount;
 
         jMap["objects"] = jObjects;
         jMap["objectCount"] = jObjects.size();
@@ -575,7 +591,7 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
             else if (strType == "TriggerBox")
             {
                 // TriggerBox 전용 필드 읽기
-                TRIGGER_TYPE eTriggerType = TRIGGER_DOOR;
+                TRIGGER_TYPE eTriggerType = TRIGGER_ROOM_CHANGE;
 
                 if (jObj.contains("triggerType"))
                     eTriggerType = static_cast<TRIGGER_TYPE>((_int)jObj["triggerType"]);
@@ -583,6 +599,31 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
 
                 pObj = CEditorTriggerBox::Create(pGraphicDev, vPos, vScale,
                     eTriggerType);
+            }
+            else if (strType == "Door")
+            {
+                pObj = CEditorDoor::Create(pGraphicDev, vPos, vRot, vScale);
+
+                if (pObj)
+                {
+                    CEditorDoor* pDoor = dynamic_cast<CEditorDoor*>(pObj);
+                    if (pDoor)
+                    {
+                        // Door Type 로드
+                        if (jObj.contains("doorType"))
+                        {
+                            DOOR_TYPE eDoorType = jObj["doorType"];
+                            pDoor->Set_DoorType(eDoorType);
+                        }
+
+                        // Door ID 로드
+                        if (jObj.contains("doorID"))
+                        {
+                            _int iDoorID = jObj["doorID"];
+                            pDoor->Set_DoorID(iDoorID);
+                        }
+                    }
+                }
             }
 
             if (!pObj)

@@ -151,6 +151,9 @@
     <Filter Include="02. ComponentEX\00. VIBuffer\03. CubeTex">
       <UniqueIdentifier>{87d6c518-0f20-4398-b275-7fc093cd0683}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. ComponentEX\00. VIBuffer\06. RcTexSide">
+      <UniqueIdentifier>{b7aead63-21af-4387-bfe1-152e8883b5e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -306,6 +309,9 @@
     <ClInclude Include="..\Header\CDVIBuffer.h">
       <Filter>02. ComponentEX\07. DVIBuffer</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CRcTexSide.h">
+      <Filter>02. ComponentEX\00. VIBuffer\06. RcTexSide</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -433,6 +439,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CDVIBuffer.cpp">
       <Filter>02. ComponentEX\07. DVIBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CRcTexSide.cpp">
+      <Filter>02. ComponentEX\00. VIBuffer\06. RcTexSide</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

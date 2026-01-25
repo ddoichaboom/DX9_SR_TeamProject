@@ -22,6 +22,7 @@
 #include "CEditorDynamicFloor.h"
 #include "CEditorSlopeFloor.h"
 #include "CEditorDynamicWall.h"
+#include "CEditorDoor.h"
 
 #include "CEffectScene.h"
 #include "CEffectToolBar.h"
@@ -395,6 +396,13 @@ HRESULT CEditorApp::Ready_Texture_Prototype()
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WallAnimation",
         Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CEditorDynamicWall::GetAnimSources()))))
         return E_FAIL;
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CEditorDoor::GetTextureSources());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Door_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto_Static_WallTexture Ready Failed");
+        return E_FAIL;
+    }
 
     //Blood Texture
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBlood::GetTextureSources());

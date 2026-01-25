@@ -53,6 +53,7 @@ void CToolBar::Render_ToolBar()
           "Spawn Monster",
           "Spawn BossMonster",
           "Place MapCollider",
+          "Place_Door",
           "Place TriggerBox"
     };
 

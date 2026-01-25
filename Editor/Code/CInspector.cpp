@@ -14,6 +14,7 @@
 #include "CEditorMapCollider.h"
 #include "CEditorTriggerBox.h"
 #include "CSelectionMgr.h"
+#include "CEditorDoor.h"
 
 
 CInspector::CInspector()
@@ -460,7 +461,8 @@ void CInspector::Render_MapColliderProperties(CEditorMapCollider* pCollider)
     const char* szColliderTags[] = {
         "TAG_NONE",
         "TAG_SIDE_DASH_X",
-        "TAG_SIDE_DASH_Z"
+        "TAG_SIDE_DASH_Z",
+        "TAG_FAN"
     };
 
     int iSelectedTag(0);
@@ -476,6 +478,8 @@ void CInspector::Render_MapColliderProperties(CEditorMapCollider* pCollider)
     case TAG_SIDE_DASH_Z:
         iSelectedTag = 2;
         break;
+    case TAG_FAN:
+        iSelectedTag = 3;
     default:
         iSelectedTag = 0;
     }
@@ -492,6 +496,9 @@ void CInspector::Render_MapColliderProperties(CEditorMapCollider* pCollider)
             break;
         case 2:
             pCollider->Set_ColliderTag(TAG_SIDE_DASH_Z);
+            break;
+        case 3:
+            pCollider->Set_ColliderTag(TAG_FAN);
             break;
         }
     }
@@ -546,6 +553,46 @@ void CInspector::Render_TriggerBoxProperties(CEditorTriggerBox* pTrigger)
     if (ImGui::Button("Large (32x32x32)"))
     {
         pTrigger->Set_ColliderScale(_vec3(32.f, 32.f, 32.f));
+    }
+}
+
+void CInspector::Render_DoorProperties(CEditorDoor* pDoor)
+{
+    if (!pDoor)
+        return;
+
+    ImGui::Spacing();
+    ImGui::Separator();
+    ImGui::Text("Door Properties");
+
+    ImGui::Spacing();
+
+    // ========== Door Type Combo ==========
+    DOOR_TYPE eDoorType = pDoor->Get_DoorType();
+    const char* szDoorTypes[] = {
+        "DOOR_1",
+        "DOOR_2",
+        "DOOR_3",
+        "DOOR_ELEVATOR"
+    };
+
+    int iCurrentType = static_cast<int>(eDoorType);
+    if (ImGui::Combo("Door Type", &iCurrentType, szDoorTypes, IM_ARRAYSIZE(szDoorTypes)))
+    {
+        pDoor->Set_DoorType(static_cast<DOOR_TYPE>(iCurrentType));
+    }
+
+    ImGui::Spacing();
+
+    // ========== Door ID Input ==========
+    _int iDoorID = pDoor->Get_DoorID();
+    if (ImGui::InputInt("Door ID", &iDoorID))
+    {
+        // 음수 방지
+        if (iDoorID >= 0)
+        {
+            pDoor->Set_DoorID(iDoorID);
+        }
     }
 }
 
@@ -641,6 +688,7 @@ void CInspector::Render_ObjectProperties()
             Render_MonsterSpawnPointProperties(pSpawn);
         }
     }
+
     
     ImGui::Spacing();
 
@@ -684,6 +732,10 @@ void CInspector::Render_ObjectProperties()
     else if (CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj))
     {
         Render_WallTextureUI(pWall);
+    }
+    else if (CEditorDoor* pDoor = dynamic_cast<CEditorDoor*>(pObj))
+    {
+        Render_DoorProperties(pDoor);
     }
 
 }

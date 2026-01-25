@@ -163,7 +163,10 @@
     <ClInclude Include="..\Header\CChat.h" />
     <ClInclude Include="..\Header\CCursor.h" />
     <ClInclude Include="..\Header\CDashUI.h" />
-    <ClInclude Include="..\Header\CDoorTrigger.h" />
+    <ClInclude Include="..\Header\CDoor.h" />
+    <ClInclude Include="..\Header\CDoorLeft.h" />
+    <ClInclude Include="..\Header\CDoorRight.h" />
+    <ClInclude Include="..\Header\CRoomTrigger.h" />
     <ClInclude Include="..\Header\CEffectUI.h" />
     <ClInclude Include="..\Header\CExtinguisher.h" />
     <ClInclude Include="..\Header\CFontUI.h" />
@@ -254,7 +257,10 @@
     <ClCompile Include="..\Code\CChat.cpp" />
     <ClCompile Include="..\Code\CCursor.cpp" />
     <ClCompile Include="..\Code\CDashUI.cpp" />
-    <ClCompile Include="..\Code\CDoorTrigger.cpp" />
+    <ClCompile Include="..\Code\CDoor.cpp" />
+    <ClCompile Include="..\Code\CDoorLeft.cpp" />
+    <ClCompile Include="..\Code\CDoorRight.cpp" />
+    <ClCompile Include="..\Code\CRoomTrigger.cpp" />
     <ClCompile Include="..\Code\CEffectUI.cpp" />
     <ClCompile Include="..\Code\CExtinguisher.cpp" />
     <ClCompile Include="..\Code\CFontUI.cpp" />

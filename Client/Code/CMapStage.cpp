@@ -14,8 +14,11 @@
 #include "CWall.h"
 #include "CDynamicWall.h"
 #include "CObstacle.h"
-#include "CDoorTrigger.h"
+#include "CRoomTrigger.h"
 #include "CSlopeFloor.h"
+#include "CDoor.h"
+#include "CDoorLeft.h"
+#include "CDoorRight.h"
 
 #include "CDisplayObject.h"
 
@@ -110,8 +113,7 @@ HRESULT CMapStage::Ready_Scene()
 
     
     //메세지 구독 신청
-    CEventMgr::GetInstance()->Subscribe(EVENT_DOOR_IN, this);
-    CEventMgr::GetInstance()->Subscribe(EVENT_DOOR_OUT, this);
+    CEventMgr::GetInstance()->Subscribe(EVENT_ROOM_CHANGE, this);
     CEventMgr::GetInstance()->Subscribe(EVENT_NEXT_STAGE, this);
 
     return S_OK;
@@ -306,14 +308,42 @@ HRESULT CMapStage::Ready_ObjectPool_Terrain()
         }
     }
 
-    if (!Engine::CPoolMgr::GetInstance()->HasPool<CDoorTrigger>())
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CRoomTrigger>())
     {
-        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CDoorTrigger>(m_pGraphicDev)))
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CRoomTrigger>(m_pGraphicDev)))
         {
-            MSG_BOX("DoorTrigger Pool Create Failed");
+            MSG_BOX("RoomTrigger Pool Create Failed");
             return E_FAIL;
         }
-    }    
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CDoorLeft>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CDoorLeft>(m_pGraphicDev)))
+        {
+            MSG_BOX("DoorLeft Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CDoorRight>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CDoorRight>(m_pGraphicDev)))
+        {
+            MSG_BOX("DoorRight Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CDoor>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CDoor>(m_pGraphicDev)))
+        {
+            MSG_BOX("Door Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
 
     //if (!Engine::CPoolMgr::GetInstance()->HasPool<CDisplayObject>())
     //{
@@ -550,6 +580,15 @@ HRESULT CMapStage::Ready_TerrainTextureProto()
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_ExtinguisherTexture", pCom_Texture)))
         return E_FAIL;
 
+    // DoorLeft Texture Proto 
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CDoorLeft::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_DoorLeft_Texture_Door", pCom_Texture)))
+        return E_FAIL;
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CDoorRight::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_DoorRight_Texture_Door", pCom_Texture)))
+        return E_FAIL;
+
     return S_OK;
 }
 
@@ -671,6 +710,7 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
         m_setLoadedRooms.insert(1);
     }
 
+
     m_mapLayer.insert({ pLayerTag, pLayer });
 
     m_pEnvironment_Layer = pLayer;
@@ -760,16 +800,17 @@ void CMapStage::Check_Collision()
 {
    auto iter_Map_Col = m_mapLayer[L"Environment_Layer"]->Get_Objects(OBJ_COL);
    auto iter_Map_Trigger = m_mapLayer[L"Environment_Layer"]->Get_Objects(OBJ_TRIGGER);
+   auto iter_Map_Door = m_mapLayer[L"Environment_Layer"]->Get_Objects(OBJ_DOOR);  // 추가
    auto iter_Map_Bullet = m_mapLayer[L"GameLogic_Layer"]->Get_Objects(OBJ_BULLET);
    auto iter_Map_Mon = m_mapLayer[L"GameLogic_Layer"]->Get_Objects(OBJ_MONSTER);
    auto iter_Map_Item = m_mapLayer[L"GameLogic_Layer"]->Get_Objects(OBJ_ITEM);
-   CGameObject* player = m_mapLayer[L"GameLogic_Layer"]->Get_Object(OBJ_PLAYER);
+   CGameObject* pLayer = m_mapLayer[L"GameLogic_Layer"]->Get_Object(OBJ_PLAYER);
 
    //vector<CCollider*> PlayerColliders;
    CCollider* pPlayerCollider = nullptr;
-   if (player) 
+   if (pLayer) 
    {
-       CCharacter * cPlayer = static_cast<CCharacter*>(player);
+       CCharacter * cPlayer = static_cast<CCharacter*>(pLayer);
        pPlayerCollider = cPlayer->GetCollider(); // Main Collider 만 받아옴 
    }
 
@@ -849,12 +890,61 @@ void CMapStage::Check_Collision()
        CCollision::Collision_Base(pPlayerCollider, mapCollider);
    }
    
-   // Player 충돌 End
+   // Door 충돌 처리 
+   // Player의 Collision 컴포넌트 가져오기
+   CCollision* pPlayerCollision = nullptr;
+   CCollider* pPlayerKickCollider = nullptr;
+   if (pLayer)
+   {
+       pPlayerCollision = static_cast<CCollision*>(
+           pLayer->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+
+       if (pPlayerCollision)
+       {
+           pPlayerKickCollider = pPlayerCollision->GetCollider(L"ColKick");
+       }
+   }
+
+   for (auto it_door = iter_Map_Door.first; it_door != iter_Map_Door.second; it_door++)
+   {
+       CCollision* pDoorCollision = static_cast<CCollision*>(
+           it_door->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+
+       if (!pDoorCollision)
+           continue;
+
+       CCollider* pDoorCollider = pDoorCollision->GetCollider();
+       if (!pDoorCollider)
+           continue;
+
+       // 1. Monster - Door 충돌
+       for (auto it_mon = iter_Map_Mon.first; it_mon != iter_Map_Mon.second; it_mon++)
+       {
+           CCharacter* pMonster = static_cast<CCharacter*>(it_mon->second);
+           CCollider* pMonCollider = pMonster->GetCollider();
+           if (!pMonCollider)
+               continue;
+
+           CCollision::Collision_Base(pMonCollider, pDoorCollider);
+       }
+
+       // 2. Player Main Collider (ColMain) - Door 충돌
+       if (pPlayerCollider)
+       {
+           CCollision::Collision_Base(pPlayerCollider, pDoorCollider);
+       }
+
+       // 3. Player Kick Collider (ColKick) - Door 충돌 (Kick + Katana 공용)
+       if (pPlayerKickCollider)
+       {
+           CCollision::Collision_Base(pPlayerKickCollider, pDoorCollider);
+       }
+   }
 }
 
 void CMapStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
 {
-    if (_type == EVENT_DOOR_IN)
+    if (_type == EVENT_ROOM_CHANGE)
     {
         Change_Room(m_iCurrentRoomIndex + 1);
     }

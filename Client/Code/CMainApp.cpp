@@ -29,8 +29,11 @@
 #include "CDynamicWall.h"
 #include "CObstacle.h"
 #include "CSlopeFloor.h"
-#include "CDoorTrigger.h"
+#include "CRoomTrigger.h"
 #include "CMapCollider.h"
+#include "CDoor.h"
+#include "CDoorLeft.h"
+#include "CDoorRight.h"
 
 #include "CLeftPart.h"
 #include "CRightPart.h"
@@ -151,6 +154,9 @@ HRESULT CMainApp::Ready_DefaultProto()
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcTex", Engine::CRcTex::Create(m_pGraphicDev))))
 		return E_FAIL;
 
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcTexSide", Engine::CRcTexSide::Create(m_pGraphicDev))))
+		return E_FAIL;
+
 	// CubeTex (CObstacle에서 사용)
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_CubeTex", Engine::CCubeTex::Create(m_pGraphicDev))))
 		return E_FAIL;
@@ -259,13 +265,16 @@ HRESULT CMainApp::Ready_ObjectPool()
 	// 타입별 최대값 초기화
 	_uint iMaxFloor(0), iMaxDynamicFloor(0),iMaxCeiling(0), iMaxDynamicCeiling(0), iMaxWall(0), iMaxDynamicWall(0), iMaxSlopeFloor(0);
 	_uint iMaxObstacle(0);
-	_uint iMaxMapCollider(0), iMaxDoorTrigger(0);
+	_uint iMaxMapCollider(0), iMaxRoomTrigger(0);
 	_uint iBulletCount = 20;
 	_uint iBossBulletCount = 30;
 	_uint iBossRocketCount = 30;
 	_uint iWhiteManCount = 6;
 	_uint iBeamMonCount = 6;
 	_uint iFlyMonCount = 6;
+
+	// 문 관련 오브젝트 풀 사이즈 등록 ( 좌측/우측 파츠는 본체인 문과 개수 동일함 )
+	_uint iMaxDoorCount(0);
 	
 
 
@@ -304,8 +313,11 @@ HRESULT CMainApp::Ready_ObjectPool()
 		iMaxMapCollider = max(iMaxMapCollider,
 			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "MapCollider"));
 
-		iMaxDoorTrigger = max(iMaxDoorTrigger,
-			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "DoorTriggerBox"));
+		iMaxRoomTrigger = max(iMaxRoomTrigger,
+			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "RoomTriggerBox"));
+
+		iMaxDoorCount = max(iMaxDoorCount,
+			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "Door"));
 	}
 
 	// 풀 크기 설정 
@@ -319,6 +331,11 @@ HRESULT CMainApp::Ready_ObjectPool()
 	CPoolMgr::GetInstance()->SetPoolSize<CWall>(iMaxWall);
 	CPoolMgr::GetInstance()->SetPoolSize<CDynamicWall>(iMaxDynamicWall);
 
+	CPoolMgr::GetInstance()->SetPoolSize<CDoor>(iMaxDoorCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CDoorLeft>(iMaxDoorCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CDoorRight>(iMaxDoorCount);
+
+
 	CPoolMgr::GetInstance()->SetPoolSize<CObstacle>(iMaxObstacle);
 
 	CPoolMgr::GetInstance()->SetPoolSize<CBullet>(iBulletCount);
@@ -328,7 +345,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 	CPoolMgr::GetInstance()->SetPoolSize<CBeamMon>(iBeamMonCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CFlyMon>(iFlyMonCount);
 
-	CPoolMgr::GetInstance()->SetPoolSize<CDoorTrigger>(iMaxDoorTrigger);
+	CPoolMgr::GetInstance()->SetPoolSize<CRoomTrigger>(iMaxRoomTrigger);
 
 	CPoolMgr::GetInstance()->SetPoolSize<CBlood>(iBloodCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CTrail>(iTrailCount);

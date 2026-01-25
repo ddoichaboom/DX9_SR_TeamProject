@@ -14,7 +14,7 @@
 #include "CWall.h"
 #include "CDynamicWall.h"
 #include "CObstacle.h"
-#include "CDoorTrigger.h"
+#include "CRoomTrigger.h"
 #include "CSlopeFloor.h"
 
 // 게임 로직 오브젝트

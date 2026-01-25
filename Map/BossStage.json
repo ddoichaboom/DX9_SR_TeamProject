@@ -3,8 +3,8 @@
   "dynamicFloorCount": 0,
   "dynamicWallCount": 0,
   "floorCount": 2132,
-  "mapColliderCount": 13,
-  "objectCount": 2311,
+  "mapColliderCount": 14,
+  "objectCount": 2312,
   "objects": [
     {
       "monsterKey": "",
@@ -53130,6 +53130,27 @@
       ],
       "textureIdx": 4,
       "type": "Floor"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider_0",
+      "position": [
+        8.0,
+        -16.0,
+        8.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        368.0,
+        16.0,
+        368.0
+      ],
+      "type": "MapCollider"
     }
   ],
   "obstacleCount": 0,

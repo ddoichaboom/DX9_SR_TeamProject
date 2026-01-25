@@ -157,9 +157,6 @@
     <Filter Include="02. GameObject\99. Environment\00. Terrain\02. Wall\DynamicWall">
       <UniqueIdentifier>{7213c873-2075-4cae-8f68-4fad555388d4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\12. Trigger\DoorTrigger">
-      <UniqueIdentifier>{d4792a02-de85-4862-aa33-963f1ea9731c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\12. Trigger\StageEndTrigger">
       <UniqueIdentifier>{b457a555-07c9-4099-85f4-2704782f1090}</UniqueIdentifier>
     </Filter>
@@ -238,9 +235,6 @@
     <Filter Include="01. Scene\02. Loading\00. LoadingEX">
       <UniqueIdentifier>{e0cc82bb-2528-4e70-95c7-4844d96bef68}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\99. Environment\00. Terrain\02. Wall\SideDashWall">
-      <UniqueIdentifier>{3a9e2c78-4499-4c73-a0df-3dba8718faef}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04.UI\01.StaticUI\06.Text_UI">
       <UniqueIdentifier>{a8b151c9-1b54-4de5-9cc5-5b868ed5f68e}</UniqueIdentifier>
     </Filter>
@@ -303,6 +297,18 @@
     </Filter>
     <Filter Include="02. GameObject\03.MapObject\05.Extinguisher">
       <UniqueIdentifier>{e07de885-8743-4e17-ad6f-09ecac3dd9e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. Trigger\RoomTrigger">
+      <UniqueIdentifier>{d4792a02-de85-4862-aa33-963f1ea9731c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Environment\01. Object\00. Door">
+      <UniqueIdentifier>{ec74351d-3786-4996-8405-8de8a6249d34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Environment\01. Object\00. Door\DoorLeft">
+      <UniqueIdentifier>{5989d400-0b6f-46f0-b3d3-a6e7e791138f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Environment\01. Object\00. Door\DoorRight">
+      <UniqueIdentifier>{365bff0c-da8b-4aea-a55e-0ac05e75ca56}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -441,8 +447,8 @@
     <ClInclude Include="..\Header\CTrigger.h">
       <Filter>02. GameObject\12. Trigger</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CDoorTrigger.h">
-      <Filter>02. GameObject\12. Trigger\DoorTrigger</Filter>
+    <ClInclude Include="..\Header\CRoomTrigger.h">
+      <Filter>02. GameObject\12. Trigger\RoomTrigger</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CShopBG.h">
       <Filter>04.UI\02.DynamicUI\01.Shop_BG</Filter>
@@ -503,9 +509,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\CBodyEmit.h">
       <Filter>02. GameObject\13. Effect\05. BodyEmit</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CBossStage.h">
-      <Filter>01. Scene\01. Stage\02. BossStage</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CLoadingEX.h">
       <Filter>01. Scene\02. Loading\00. LoadingEX</Filter>
@@ -572,6 +575,18 @@
     </ClInclude>
     <ClInclude Include="..\Header\CExtinguisher.h">
       <Filter>02. GameObject\03.MapObject\05.Extinguisher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDoorLeft.h">
+      <Filter>02. GameObject\99. Environment\01. Object\00. Door\DoorLeft</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDoorRight.h">
+      <Filter>02. GameObject\99. Environment\01. Object\00. Door\DoorRight</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDoor.h">
+      <Filter>02. GameObject\99. Environment\01. Object\00. Door</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossStage.h">
+      <Filter>01. Scene\01. Stage\02. BossStage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -701,8 +716,8 @@
     <ClCompile Include="..\Code\CTrigger.cpp">
       <Filter>02. GameObject\12. Trigger</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CDoorTrigger.cpp">
-      <Filter>02. GameObject\12. Trigger\DoorTrigger</Filter>
+    <ClCompile Include="..\Code\CRoomTrigger.cpp">
+      <Filter>02. GameObject\12. Trigger\RoomTrigger</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CShopBG.cpp">
       <Filter>04.UI\02.DynamicUI\01.Shop_BG</Filter>
@@ -832,6 +847,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\CExtinguisher.cpp">
       <Filter>02. GameObject\03.MapObject\05.Extinguisher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDoorLeft.cpp">
+      <Filter>02. GameObject\99. Environment\01. Object\00. Door\DoorLeft</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDoorRight.cpp">
+      <Filter>02. GameObject\99. Environment\01. Object\00. Door\DoorRight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDoor.cpp">
+      <Filter>02. GameObject\99. Environment\01. Object\00. Door</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

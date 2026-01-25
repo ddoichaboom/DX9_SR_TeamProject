@@ -79,7 +79,7 @@ HRESULT CUIManager::Ready_GameObject(LPDIRECT3DDEVICE9 pGraphicDev)
 		return E_FAIL;
 
 	CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_END, this);
-	CEventMgr::GetInstance()->Subscribe(EVENT_DOOR_IN, this);
+	CEventMgr::GetInstance()->Subscribe(EVENT_ROOM_CHANGE, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_NEXT_STAGE, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_DRINK, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_TAKEDOWN, this);
@@ -524,10 +524,10 @@ void CUIManager::OnEvent(EVENT_TYPE _type, EventData* _pData)
 		Set_OnEffectUI(true);
 		break;
 	}		
-	case Engine::EVENT_DOOR_IN:
+	case Engine::EVENT_ROOM_CHANGE:
 		
 		break;
-	case Engine::EVENT_DOOR_OUT:
+	case Engine::EVENT_DOOR_OPEN:
 		break;
 	case Engine::EVENT_STAGE_END:
 		Change_UIState(UI_STAGE_CLEAR);

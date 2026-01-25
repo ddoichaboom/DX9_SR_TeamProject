@@ -64,6 +64,7 @@ public:
 	void                        Place_Ceiling(const _vec3& vPos);
 	void                        Place_Wall(const _vec3& vPos);
 	void						Place_Dynamic_Wall(const _vec3& vPos);
+	void						Place_Door(const _vec3& vPos);
 	void                        Place_SpawnPlayer(const _vec3& vPos);
 	void                        Place_SpawnMonster(const _vec3& vPos);
 	void						Place_SpawnBossMonster(const _vec3& vPos);

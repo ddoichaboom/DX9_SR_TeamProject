@@ -171,6 +171,7 @@ call Copy.bat</Command>
     <ClInclude Include="..\Header\CProtoMgr.h" />
     <ClInclude Include="..\Header\CRcCol.h" />
     <ClInclude Include="..\Header\CRcTex.h" />
+    <ClInclude Include="..\Header\CRcTexSide.h" />
     <ClInclude Include="..\Header\CRcTexUp.h" />
     <ClInclude Include="..\Header\CRenderer.h" />
     <ClInclude Include="..\Header\CRenderStateGuard.h" />
@@ -222,6 +223,7 @@ call Copy.bat</Command>
     <ClCompile Include="..\Code\CProtoMgr.cpp" />
     <ClCompile Include="..\Code\CRcCol.cpp" />
     <ClCompile Include="..\Code\CRcTex.cpp" />
+    <ClCompile Include="..\Code\CRcTexSide.cpp" />
     <ClCompile Include="..\Code\CRcTexUp.cpp" />
     <ClCompile Include="..\Code\CRenderer.cpp" />
     <ClCompile Include="..\Code\CRenderStateGuard.cpp" />

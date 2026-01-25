@@ -122,7 +122,7 @@ HRESULT CPlayer::Ready_GameObject()
 	if (FAILED(Add_PlayerPart()))
 		return E_FAIL;
 
-	CEventMgr::GetInstance()->Subscribe(EVENT_DOOR_IN, this);
+	CEventMgr::GetInstance()->Subscribe(EVENT_ROOM_CHANGE, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_MONSTER_DEAD, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_START, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_END, this);

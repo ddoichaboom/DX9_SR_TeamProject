@@ -150,8 +150,10 @@ namespace Engine
 		_uint	iFloorType;			// STATIC/DYNAMIC_FLOOR_TYPE enum
 		_uint	iCeilingType;		// STATIC/DYNAMIC_CEILING_TYPE enum
 		_uint	iWallType;			// STATIC/DYNAMIC_WALL_TYPE enum
+		_int	iDoorID;
 
-		SLOPE_DIR eSlopeDir;
+		DOOR_TYPE	iDoorType;
+		SLOPE_DIR	eSlopeDir;
 
 		// SpawnPoint 전용
 		std::string sSpawnType;           // "Player", "Monster", "BossMonster"
@@ -165,7 +167,7 @@ namespace Engine
 			vPos(0, 0, 0), vRot(0, 0, 0), vScale(1, 1, 1),
 			iTextureIdx(0), iFloorType(0), iCeilingType(0), iWallType(0),
 			sSpawnType(""), sMonsterKey(""), eSlopeDir(SLOPE_DIR_END),
-			iTriggerType(TT_END), eColliderTag(TAG_NONE)
+			iTriggerType(TT_END), eColliderTag(TAG_NONE), iDoorType(DT_END), iDoorID(-1)
 		{}
 
 	}ObjectData;
@@ -183,17 +185,18 @@ namespace Engine
 		_uint iWallCount;
 		_uint iDynamicWallCount;
 		_uint iObstacleCount;
+		_uint iDoorCount;
 
 		_uint iMapColliderCount;
-		_uint iDoorTriggerBoxCount;
+		_uint iRoomTriggerBoxCount;
 		_uint iEventTriggerBoxCount;
 
 		tagRoomData()
 			: iRoomIdx(-1), iFloorCount(0), iDynamicFloorCount(0), iCeilingCount(0),
 			iDynamicCeilingCount(0), iWallCount(0), iDynamicWallCount(0), iObstacleCount(0)
-			, iSlopeFloorCount(0), iMapColliderCount(0), iDoorTriggerBoxCount(0), iEventTriggerBoxCount(0)
+			, iSlopeFloorCount(0), iMapColliderCount(0), iRoomTriggerBoxCount(0), iEventTriggerBoxCount(0)
+			, iDoorCount(0)
 		{}
-
 	}RoomData;
 
 	// 추가 데이터가 필요한경우 여기에 추가하거나, EventData를 상속받아 만들어서 EventData로 전달하기
@@ -261,6 +264,17 @@ namespace Engine
 		std::wstring wText;
 		COLLIDER_TAG eTag;
 	}MonsterData;
+
+	typedef struct tagDoorData : public EventData
+	{
+		_int iDoorID;			// 열고자 하는 문의 ID ( 문의 iRoomIndex 사용, -1이면 모든 문 열기 )
+		_bool bOpen;			// true :  열기, false : 닫기
+
+		tagDoorData()
+			: iDoorID(-1), bOpen(true) {}
+		tagDoorData(_int _id, _bool _bOpen = true)
+			: iDoorID(_id), bOpen(_bOpen) {}
+	}DoorData;
 }
 
 

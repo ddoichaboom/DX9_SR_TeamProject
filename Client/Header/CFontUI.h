@@ -1,6 +1,7 @@
 #pragma once
 #include "CBase.h"
 #include "Engine_Define.h"
+#include "CDoorLeft.h"
 
 class CBaseUI;
 
@@ -29,6 +30,7 @@ public :
 
 public :
 	void		Set_Position(const _vec3& vPos) { m_vPosition = vPos; }
+
 	void		Set_Scale(const _vec3& vScale)	{ m_vScale = vScale; }
 	void		Set_Text(const wstring& wText) { m_tData.pString = wText; }
 	void		Set_Parent(CBaseUI* pParent);

@@ -144,12 +144,15 @@
     </Filter>
     <Filter Include="04. Object\03. EditorWall\DynamicWall">
       <UniqueIdentifier>{fc4b4b76-49ff-4491-9e1f-1597048c5874}</UniqueIdentifier>
-	</Filter>
-	<Filter Include="07. Effect\09. ToonFlash">
+    </Filter>
+    <Filter Include="07. Effect\09. ToonFlash">
       <UniqueIdentifier>{799b6730-6cc3-4593-a688-6f2cc7f9c7e3}</UniqueIdentifier>
     </Filter>
     <Filter Include="07. Effect\10. ToonFog">
       <UniqueIdentifier>{f81cc1b8-57b4-4105-b977-ddfc141e24ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\09. EditorDoor">
+      <UniqueIdentifier>{ab90666c-d360-4663-a450-08fe4e326e1c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -299,12 +302,15 @@
     </ClInclude>
     <ClInclude Include="..\Header\CEditorDynamicWall.h">
       <Filter>04. Object\03. EditorWall\DynamicWall</Filter>
-	</ClInclude>
-	<ClInclude Include="..\Header\CToonFlash.h">
+    </ClInclude>
+    <ClInclude Include="..\Header\CToonFlash.h">
       <Filter>07. Effect\09. ToonFlash</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CToonFog.h">
       <Filter>07. Effect\10. ToonFog</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEditorDoor.h">
+      <Filter>04. Object\09. EditorDoor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -439,12 +445,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\CEditorDynamicWall.cpp">
       <Filter>04. Object\03. EditorWall\DynamicWall</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="..\Code\CToonFlash.cpp">
       <Filter>07. Effect\09. ToonFlash</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CToonFog.cpp">
       <Filter>07. Effect\10. ToonFog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorDoor.cpp">
+      <Filter>04. Object\09. EditorDoor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
