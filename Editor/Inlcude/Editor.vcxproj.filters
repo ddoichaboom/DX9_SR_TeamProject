@@ -154,6 +154,12 @@
     <Filter Include="04. Object\09. EditorDoor">
       <UniqueIdentifier>{ab90666c-d360-4663-a450-08fe4e326e1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07. Effect\11. BossHPUI">
+      <UniqueIdentifier>{9503a0b2-d26a-4aa7-8f86-21ea756ddde5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Effect\12. SodaUI">
+      <UniqueIdentifier>{b7549046-d283-4417-8e4d-f6ef3387a57d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -311,9 +317,12 @@
     </ClInclude>
     <ClInclude Include="..\Header\CEditorDoor.h">
       <Filter>04. Object\09. EditorDoor</Filter>
-	</ClInclude>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossHPUI.h">
+      <Filter>07. Effect\11. BossHPUI</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\CSodaUI.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>07. Effect\12. SodaUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -457,9 +466,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CEditorDoor.cpp">
       <Filter>04. Object\09. EditorDoor</Filter>
-	</ClCompile>
-	<ClCompile Include="..\Code\CSodaUI.cpp">
-      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossHPUI.cpp">
+      <Filter>07. Effect\11. BossHPUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSodaUI.cpp">
+      <Filter>07. Effect\12. SodaUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

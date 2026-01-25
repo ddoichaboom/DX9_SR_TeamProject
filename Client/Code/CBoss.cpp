@@ -11,6 +11,7 @@
 #include "CBossTrail.h"
 #include "CExplosion.h"
 #include "CEventMgr.h"
+#include "CBossHPUI.h"
 
 //-------------------------------------------------------------------------
 // Texture , Animation Data
@@ -70,6 +71,7 @@ CBoss::CBoss(const CBoss& rhs)
 	ZeroMemory(m_vBeamStartPos, sizeof(_vec3) * MON_END_HAND);
 	ZeroMemory(m_vBeamEndPos, sizeof(_vec3) * MON_END_HAND);
 	ZeroMemory(m_vHandPos, sizeof(_vec3) * MON_END_HAND);
+
 }
 
 CBoss::~CBoss()
@@ -160,14 +162,20 @@ HRESULT CBoss::Ready_GameObject()
 	GetHandWorldPos(MON_LEFT_HAND);
 	GetHandWorldPos(MON_RIGHT_HAND);
 
-	//Effect
-	m_pBossTrail = CBossTrail::Create(m_pGraphicDev);
-	m_pBossTrail->SetOwnerTransform(m_pTransformCom);
+
 
 	m_fAttackDamage = 5.f;
 	//m_fSpeed = m_fBaseSpeed;
 	//m_fHP = 100.f;
-	m_fHP = 20.f;
+	m_fHP = 30.f;
+	m_fMaxHP = 30.f;
+
+	//Effect
+	m_pBossTrail = CBossTrail::Create(m_pGraphicDev);
+	m_pBossTrail->SetOwnerTransform(m_pTransformCom);
+
+	m_pBossHPUI = CBossHPUI::Create(m_pGraphicDev, this);
+
 	return S_OK;
 }
 
@@ -206,6 +214,8 @@ _int CBoss::Update_GameObject(const _float& fTimeDelta)
 	if (IsDead()) return RET_DEAD;
 	int iExit = CCharacter::Update_GameObject(fTimeDelta);
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA_QUALITY, this);
+
+	m_pBossHPUI->Update_GameObject(fTimeDelta);
 
 	Move(fTimeDelta, m_fDirAngle, m_fStateRatio);
 
@@ -647,6 +657,7 @@ void CBoss::Activate()
 
 void CBoss::Free()
 {
+	Safe_Release(m_pBossHPUI);
 	Safe_Release(m_pBossTrail);
 	Safe_Release(m_pBeam[MON_LEFT_HAND]);
 	Safe_Release(m_pBeam[MON_RIGHT_HAND]);
