@@ -858,7 +858,7 @@ void CMapStage::Check_Collision()
            CCollider* monCollider = monster->GetCollider();
            if (!monCollider) continue;
            //주의 맵을 마지막 인자로 들어가기 
-           CCollision::Collision_Diff(monCollider, mapCollider);
+           CCollision::Collision_Diff(monCollider, mapCollider, eMapColliderTag);
        }
        //플레이어 
        //플레이어한테만 태그 전달 

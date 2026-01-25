@@ -14,7 +14,7 @@ protected:
 
 	enum MONSTER_DEAD_TYPE :_byte
 	{
-		NONE, SLICE, BOMB, ELECT, HEAD, DEAD_END
+		NONE, SLICE, BOMB, ELECT, HEAD, EXP, DEAD_END
 	};
 protected:
 	explicit		CMonster(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -63,7 +63,8 @@ protected:
 	_vec3			m_vDir;
 	_float			 m_fSpeed;
 
-	const _float		m_fLaunchTime = 0.2f;
+	//const _float		m_fLaunchTime = 0.2f;
+	const _float		m_fLaunchTime = 0.4f;
 	_float			m_fLaunchSpeed = 2.f;
 
 	_vec3			m_vHitPos {};
