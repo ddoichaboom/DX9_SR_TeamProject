@@ -286,9 +286,9 @@ HRESULT CEditorApp::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
 HRESULT CEditorApp::Ready_Scene()
 {
     // EditorScene »ý¼º
-    m_pCurrentScene = CEditorScene::Create(m_pGraphicDev);
-    //CEffectScene* scene;
-    //m_pCurrentScene = scene = CEffectScene::Create(m_pGraphicDev);
+   // m_pCurrentScene = CEditorScene::Create(m_pGraphicDev);
+    CEffectScene* scene;
+    m_pCurrentScene = scene = CEffectScene::Create(m_pGraphicDev);
 
     if (nullptr == m_pCurrentScene)
     {
@@ -336,12 +336,12 @@ HRESULT CEditorApp::Ready_Scene()
         return E_FAIL;
     }
 
-    //m_pEffectToolBar = CEffectToolBar::Create(scene);
-    //if (nullptr == m_pEffectToolBar)
-    //{
-    //    MSG_BOX("EffectToolBar Create Failed");
-    //    return E_FAIL;
-    //}
+    m_pEffectToolBar = CEffectToolBar::Create(scene);
+    if (nullptr == m_pEffectToolBar)
+    {
+        MSG_BOX("EffectToolBar Create Failed");
+        return E_FAIL;
+    }
 
 
     return S_OK;

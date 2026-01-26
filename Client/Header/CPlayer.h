@@ -225,8 +225,8 @@ private:
 	const	_tchar*		m_szKickColliderName = L"ColKick";
 
 
-	_float	m_fHP;
-	_float	m_fMaxHP;
+	//_float	m_fHP;
+	//_float	m_fMaxHP;
 
 	_bool	m_bSlope;
 	_bool	m_bSideDash;

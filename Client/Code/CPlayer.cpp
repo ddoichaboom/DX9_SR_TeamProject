@@ -53,7 +53,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_bDash(false), m_fDashTime(0.f), m_fDashDuration(0.3f), m_fDashDistance(80.f)
 	, m_fKickAttack(1.f), m_pKickCollider(nullptr), m_pMainCollider(nullptr)
 	, m_eNowState(MAIN_END), m_bOnCollision(false), m_pHitUI(nullptr)
-	, m_fHP(20.f), m_fMaxHP(20.f), m_fTime(0.f), m_fStageTime(0.f), m_bStage(false)
+	, m_fTime(0.f), m_fStageTime(0.f), m_bStage(false)
 	, m_bSlope(false), m_bSideDash(false)
 	, m_pColHitObj(nullptr), m_pTakeDownObject(nullptr), m_pTakeDownCollider(nullptr)
 	, m_bMoveStop(false), m_bAbleTakeDown(false), m_bDelay(false), m_fDelayTime(0.f)
@@ -62,6 +62,8 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 
 	m_eOBJ_ID = OBJ_PLAYER;
 	m_iID = 0;
+	m_fHP = 20.f;
+	m_fMaxHP = 20.f;
 }
 
 CPlayer::CPlayer(const CPlayer& rhs)
@@ -73,7 +75,7 @@ CPlayer::CPlayer(const CPlayer& rhs)
 	, m_bDash(false), m_fDashTime(0.f), m_fDashDuration(0.3f), m_fDashDistance(80.f)
 	, m_fKickAttack(1.f), m_pKickCollider(nullptr), m_pMainCollider(nullptr)
 	, m_eNowState(MAIN_END), m_bOnCollision(false), m_pHitUI(nullptr)
-	, m_fHP(20.f), m_fMaxHP(20.f), m_fTime(0.f), m_fStageTime(0.f), m_bStage(false)
+	, m_fTime(0.f), m_fStageTime(0.f), m_bStage(false)
 	, m_bSlope(false), m_bSideDash(false)
 	, m_pColHitObj(nullptr), m_pTakeDownObject(nullptr), m_pTakeDownCollider(nullptr)
 	, m_bMoveStop(false), m_bAbleTakeDown(false), m_bDelay(false), m_fDelayTime(0.f)
@@ -81,6 +83,8 @@ CPlayer::CPlayer(const CPlayer& rhs)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
 	m_iID = 0;
+	m_fHP = 20.f;
+	m_fMaxHP = 20.f;
 }
 
 CPlayer::~CPlayer()

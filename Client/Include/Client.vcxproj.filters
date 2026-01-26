@@ -325,6 +325,9 @@
     <Filter Include="02. GameObject\13. Effect\12. BossHPUI">
       <UniqueIdentifier>{c1693fc9-8335-40fb-b54f-129f7a50c815}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\13. Effect\13.PhoneHPUI">
+      <UniqueIdentifier>{c5009c51-f625-4b8a-896e-3eb8785109cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -621,6 +624,9 @@
     <ClInclude Include="..\Header\CBossHPUI.h">
       <Filter>02. GameObject\13. Effect\12. BossHPUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CPhoneHPUI.h">
+      <Filter>02. GameObject\13. Effect\13.PhoneHPUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -907,6 +913,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CBossHPUI.cpp">
       <Filter>02. GameObject\13. Effect\12. BossHPUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPhoneHPUI.cpp">
+      <Filter>02. GameObject\13. Effect\13.PhoneHPUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
