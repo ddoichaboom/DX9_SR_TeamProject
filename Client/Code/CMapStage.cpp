@@ -1057,7 +1057,8 @@ void CMapStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
                     m_setLoadedRooms.insert(iRoomToLoad);
                 }
             }
-
+            CManagement::GetInstance()->Set_FloorNumber(m_iFileIndex + 1);
+            
         }
         else
             m_bStageEnd = true;
