@@ -68,7 +68,9 @@
 
 #include "CSoundMgr.h"
 
-CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
+CMapStage::CMapStage(LPDIRECT3DDEVICE9 pGraphicDev) 
+    : CStage(pGraphicDev)
+    , m_iFileIndex(0)
 {
 }
 
@@ -81,6 +83,13 @@ HRESULT CMapStage::Ready_Scene()
 {
     m_pBackGround = CBackGround::Create(m_pGraphicDev);
     m_pLoadingEX = CLoadingEX::Create(m_pGraphicDev);
+
+    const vector<wstring>& vecMapFiles = CMapLoader::GetInstance()->Get_MapFiles();
+
+    if (!vecMapFiles.empty())
+        m_wstrCurrentMapFile = vecMapFiles[m_iFileIndex];
+    else
+        return E_FAIL;
 
     if (!m_pLoadingEX) return E_FAIL;
     //1단계
@@ -697,14 +706,6 @@ HRESULT CMapStage::Ready_Environment_Layer(const _tchar* pLayerTag)
     if (nullptr == pLayer)
         return E_FAIL;
 
-    const vector<wstring>& vecMapFiles = CMapLoader::GetInstance()->Get_MapFiles();
-
-    if (!vecMapFiles.empty())
-        m_wstrCurrentMapFile = vecMapFiles[1];      // TODO : Tutorial Map의 끝 Trigger Box에 닿으면 다음 맵 Loading호출
-    else
-        return E_FAIL;
-
-
     // 0번방 로드 
     if (FAILED(CMapLoader::GetInstance()->Load_Room(
         m_wstrCurrentMapFile,
@@ -996,7 +997,70 @@ void CMapStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
     }
     else if (_type == EVENT_NEXT_STAGE)
     {
-        m_bStageEnd = true;
+        const vector<wstring>& vecMapFiles = CMapLoader::GetInstance()->Get_MapFiles();
+
+        if (m_iFileIndex == 0)
+        {
+            set<_int> roomsToUnload;
+            for (_int iLoadedRoom : m_setLoadedRooms)
+            {
+                roomsToUnload.insert(iLoadedRoom);
+            }
+
+            for (_int iRoomToUnload : roomsToUnload)
+            {
+                // Environment_Layer 언로드
+                CMapLoader::GetInstance()->Unload_Room(
+                    m_wstrCurrentMapFile,
+                    iRoomToUnload,
+                    m_pEnvironment_Layer);
+
+                // GameLogic_Layer 언로드
+                CMapLoader::GetInstance()->Unload_Room(
+                    m_wstrCurrentMapFile,
+                    iRoomToUnload,
+                    m_pGameLogic_Layer);
+
+                m_setLoadedRooms.erase(iRoomToUnload);
+            }
+
+            m_iCurrentRoomIndex = 0;
+            m_iFileIndex++;
+            m_wstrCurrentMapFile = vecMapFiles[m_iFileIndex];
+
+            for (_int iRoomToLoad = 0; iRoomToLoad < 2; iRoomToLoad++)
+            {
+                _bool bSuccess = true;
+
+                if (FAILED(CMapLoader::GetInstance()->Load_Room(
+                    m_wstrCurrentMapFile,
+                    iRoomToLoad,
+                    m_pEnvironment_Layer,
+                    m_pGraphicDev,
+                    L"Environment_Layer")))
+                {
+                    bSuccess = false;
+                }
+
+                if (FAILED(CMapLoader::GetInstance()->Load_Room(
+                    m_wstrCurrentMapFile,
+                    iRoomToLoad,
+                    m_pGameLogic_Layer,
+                    m_pGraphicDev,
+                    L"GameLogic_Layer")))
+                {
+                    bSuccess = false;
+                }
+
+                if (bSuccess)
+                {
+                    m_setLoadedRooms.insert(iRoomToLoad);
+                }
+            }
+
+        }
+        else
+            m_bStageEnd = true;
     }
 }
 
