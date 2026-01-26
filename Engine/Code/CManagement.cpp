@@ -5,7 +5,7 @@
 
 IMPLEMENT_SINGLETON(CManagement)
 
-CManagement::CManagement() : m_pScene(nullptr), m_eCurrSceneType(SCENE_NONE)
+CManagement::CManagement() : m_pScene(nullptr), m_eCurrSceneType(SCENE_NONE), m_iFloorNum(1)
 {
 }
 
@@ -68,27 +68,6 @@ void CManagement::Free()
     Safe_Release(m_pScene);
 }
 
-_uint CManagement::Get_FloorNumber()
-{
-    _uint iNumber = 1;
-
-    switch (m_eCurrSceneType)
-    {
-    case Engine::SCENE_TUTORIAL:
-        iNumber = 1;
-        break;
-    case Engine::SCENE_BATTLE:
-        iNumber = 2;
-        break;
-    case Engine::SCENE_BOSS:
-        iNumber = 3;
-        break;
-    default:
-        break;
-    }
-
-    return iNumber;
-}
 
 wstring CManagement::Convert_PlayTime()
 {    
@@ -110,12 +89,12 @@ wstring CManagement::Convert_StageInfo()
 {
     wstring wText;
 
-    switch (m_eCurrSceneType)
+    switch (m_iFloorNum)
     {
-    case Engine::SCENE_TUTORIAL:
+    case 1:
         wText = L"FLOOR 1";
         break;
-    case Engine::SCENE_BATTLE:
+    case 2:
         wText = L"FLOOR 2";
         break;
     case Engine::SCENE_BOSS:
