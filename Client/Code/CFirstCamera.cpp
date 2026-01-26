@@ -260,6 +260,7 @@ void CFirstCamera::OnEvent(EVENT_TYPE _type, EventData* _pData)
 	if (_type == EVENT_STAGE_END)
 	{
 		m_bFix = false;
+		m_bStage = false;
 	}
 
 	if (_type == EVENT_NEXT_STAGE)
