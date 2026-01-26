@@ -177,7 +177,7 @@ HRESULT CPlayer::Ready_GameObject()
 		{
 			OnAttackCollision(info);
 		});
-	m_pKickCollider->Set_Scale(_vec3(15.f, 15.f, 15.f));
+	m_pKickCollider->Set_Scale(_vec3(18.f, 15.f, 18.f));
 	//m_pKickCollider->OffCollision();	
 
 	m_eWeaponState = WEAPON_PISTOL;
@@ -651,7 +651,7 @@ void CPlayer::CheckKickedMonster(COLLIDER_TAG eTag, _float fAttack)
 	list<pair<_float, CCollider*>> pickedList;
 	CollisionInfo info = { this, {0,0,0}, fAttack, eTag };
 	_vec3	vLook, vPos;
-	_float cosFov = cosf(D3DXToRadian(60.f));
+	_float cosFov = cosf(D3DXToRadian(90.f));
 	vLook = *m_pTransformCom->Get_Info(INFO_LOOK);
 	vPos = *m_pTransformCom->Get_Info(INFO_POS);
 
