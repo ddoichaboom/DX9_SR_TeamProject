@@ -97,19 +97,19 @@ HRESULT CEditorSlopeFloor::Add_Component()
     Engine::CComponent* pComponent = nullptr;
 
     // Transform
-    pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>(
+    pComponent = m_pTransformCom = static_cast<Engine::CTransform*>(
         Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[Engine::ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
     // ========== Buffer (RcTexUp) - 피벗이 하단에 있어 경사 배치에 유리 ==========
-    pComponent = m_pBufferCom = dynamic_cast<Engine::CVIBuffer*>(
+    pComponent = m_pBufferCom = static_cast<Engine::CVIBuffer*>(
         Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_RcTexUp"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[Engine::ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
     // Texture - 경사 바닥용 (없으면 Static_FloorTexture 사용)
-    pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>(
+    pComponent = m_pTextureCom = static_cast<Engine::CTexture*>(
         Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Slope_FloorTexture"));
 
     NULL_CHECK_RETURN(pComponent, E_FAIL);

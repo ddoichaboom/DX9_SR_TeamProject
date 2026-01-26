@@ -82,6 +82,7 @@ public:
 
 public :
 	void				Change_State(_uint eState);
+	void				Change_InstantStage(_uint eState);
 	
 private :
 	void				State_Enter();

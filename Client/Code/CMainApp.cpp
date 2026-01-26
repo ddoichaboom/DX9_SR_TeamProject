@@ -289,7 +289,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iBulletCount = 20;
 	_uint iBossBulletCount = 30;
 	_uint iBossRocketCount = 30;
-	_uint iWhiteManCount = 20;
+	_uint iWhiteManCount = 6;
 	_uint iBeamMonCount = 10;
 	_uint iFlyMonCount = 10;
 

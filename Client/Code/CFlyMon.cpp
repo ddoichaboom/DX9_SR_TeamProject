@@ -153,7 +153,7 @@ HRESULT CFlyMon::Add_Component()
 	Engine::CComponent* pComponent = nullptr;
 
 	// Animation
-	pComponent = m_pAnimationCom = dynamic_cast<Engine::CAnimation*>
+	pComponent = m_pAnimationCom = static_cast<Engine::CAnimation*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_FlyMonAnimation"));
 
 	if (nullptr == pComponent)

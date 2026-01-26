@@ -83,10 +83,10 @@ void CFileIO::SaveTransformData(json& jObj, CEditorObject* pObj)
 void CFileIO::SaveTextureData(json& jObj, CEditorObject* pObj)
 {
     // Floor 객체
-    if (CEditorFloor* pFloor = dynamic_cast<CEditorFloor*>(pObj))
+    if (CEditorFloor* pFloor = static_cast<CEditorFloor*>(pObj))
     {
         // Dynamic Floor 확인
-        if (CEditorDynamicFloor* pDynamicFloor = dynamic_cast<CEditorDynamicFloor*>(pObj))
+        if (CEditorDynamicFloor* pDynamicFloor = static_cast<CEditorDynamicFloor*>(pObj))
         {
             jObj["isDynamic"] = true;
             jObj["floorType"] = pDynamicFloor->Get_FloorType();
@@ -99,13 +99,13 @@ void CFileIO::SaveTextureData(json& jObj, CEditorObject* pObj)
         }
     }
     // Ceiling 객체
-    else if (CEditorCeiling* pCeiling = dynamic_cast<CEditorCeiling*>(pObj))
+    else if (CEditorCeiling* pCeiling = static_cast<CEditorCeiling*>(pObj))
     {
         jObj["ceilingType"] = pCeiling->Get_CeilingType();
         jObj["textureIdx"] = pCeiling->Get_TextureIdx();
     }
     // Wall 객체
-    else if (CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj))
+    else if (CEditorWall* pWall = static_cast<CEditorWall*>(pObj))
     {
         jObj["wallType"] = pWall->Get_WallType();
         jObj["textureIdx"] = pWall->Get_TextureIdx();
@@ -153,14 +153,14 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
             json jObj;
 
             // 타입 판별 및 저장
-            if (CEditorFloor* pFloor = dynamic_cast<CEditorFloor*>(pObj))
+            if (CEditorFloor* pFloor = static_cast<CEditorFloor*>(pObj))
             {
-                if (dynamic_cast<CEditorDynamicFloor*>(pObj))
+                if (static_cast<CEditorDynamicFloor*>(pObj))
                 {
                     iDynamicFloorCount++;
                     jObj["type"] = "DynamicFloor";  
                 }
-                else if (CEditorSlopeFloor* pSlopeFloor = dynamic_cast<CEditorSlopeFloor*>(pObj))
+                else if (CEditorSlopeFloor* pSlopeFloor = static_cast<CEditorSlopeFloor*>(pObj))
                 {
                     iSlopeFloorCount++;
                     jObj["type"] = "SlopeFloor";
@@ -177,7 +177,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                 SaveTransformData(jObj, pObj);
                 SaveTextureData(jObj, pObj);
             }
-            else if (dynamic_cast<CEditorCeiling*>(pObj))
+            else if (static_cast<CEditorCeiling*>(pObj))
             {
                 iCeilingCount++;
                 jObj["type"] = "Ceiling";
@@ -186,9 +186,9 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                 SaveTransformData(jObj, pObj);
                 SaveTextureData(jObj, pObj);
             }
-            else if (CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj))
+            else if (CEditorWall* pWall = static_cast<CEditorWall*>(pObj))
             {
-                CEditorDynamicWall* pDynamicWall = dynamic_cast<CEditorDynamicWall*>(pObj);
+                CEditorDynamicWall* pDynamicWall = static_cast<CEditorDynamicWall*>(pObj);
 
                 if (pDynamicWall)
                 {
@@ -208,7 +208,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                 SaveTransformData(jObj, pObj);
                 SaveTextureData(jObj, pObj);
             }
-            else if (dynamic_cast<CEditorVendingMachine*>(pObj))
+            else if (static_cast<CEditorVendingMachine*>(pObj))
             {
                 iVendingMachineCount++;
                 jObj["type"] = "VendingMachine";
@@ -216,7 +216,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                 jObj["roomIndex"] = pObj->Get_RoomIndex();
                 SaveTransformData(jObj, pObj);
             }
-            else if (CEditorSpawnPoint* pSpawn = dynamic_cast<CEditorSpawnPoint*>(pObj))
+            else if (CEditorSpawnPoint* pSpawn = static_cast<CEditorSpawnPoint*>(pObj))
             {
                 jObj["type"] = "SpawnPoint";
 
@@ -234,7 +234,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                 // Transform 데이터 저장 (동일)
                 SaveTransformData(jObj, pObj);
             }
-            else if (CEditorMapCollider* pMapCollider = dynamic_cast<CEditorMapCollider*>(pObj))
+            else if (CEditorMapCollider* pMapCollider = static_cast<CEditorMapCollider*>(pObj))
             {
                 iMapColliderCount++;
                 jObj["type"] = "MapCollider";
@@ -259,7 +259,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
 
                 jObj["colliderTag"] = pMapCollider->Get_ColliderTag();
             }
-            else if (CEditorTriggerBox* pTriggerBox = dynamic_cast<CEditorTriggerBox*>(pObj))
+            else if (CEditorTriggerBox* pTriggerBox = static_cast<CEditorTriggerBox*>(pObj))
             {
                 iTriggerBoxCount++;
                 jObj["type"] = "TriggerBox";
@@ -285,7 +285,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                 // TriggerBox 전용 필드
                 jObj["triggerType"] = static_cast<_int>(pTriggerBox->Get_TriggerType());
             }
-            else if (CEditorDoor* pDoor = dynamic_cast<CEditorDoor*>(pObj))
+            else if (CEditorDoor* pDoor = static_cast<CEditorDoor*>(pObj))
             {
                 iDoorCount++;
                 jObj["type"] = "Door";
@@ -436,7 +436,7 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
                 // 텍스처 데이터 복원 (v4)
                 if (iVersion >= 4 && jObj.contains("floorType"))
                 {
-                    CEditorDynamicFloor* pDynamicFloor = dynamic_cast<CEditorDynamicFloor*>(pObj);
+                    CEditorDynamicFloor* pDynamicFloor = static_cast<CEditorDynamicFloor*>(pObj);
                     if (pDynamicFloor)
                     {
                         _uint iFloorType = jObj["floorType"];
@@ -450,7 +450,7 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
 
                 if (iVersion >= 4 && jObj.contains("floorType"))
                 {
-                    CEditorSlopeFloor* pSlopeFloor = dynamic_cast<CEditorSlopeFloor*>(pObj);
+                    CEditorSlopeFloor* pSlopeFloor = static_cast<CEditorSlopeFloor*>(pObj);
                     if (pSlopeFloor)
                     {
                         _uint iFloorType = jObj["floorType"];
@@ -478,7 +478,7 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
 
                 if (iVersion >= 4 && jObj.contains("floorType"))
                 {
-                    CEditorFloor* pFloor = dynamic_cast<CEditorFloor*>(pObj);
+                    CEditorFloor* pFloor = static_cast<CEditorFloor*>(pObj);
                     if (pFloor)
                     {
                         _uint iFloorType = jObj["floorType"];
@@ -499,7 +499,7 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
 
                 if (iVersion >= 4 && jObj.contains("ceilingType"))
                 {
-                    CEditorCeiling* pCeiling = dynamic_cast<CEditorCeiling*>(pObj);
+                    CEditorCeiling* pCeiling = static_cast<CEditorCeiling*>(pObj);
                     if (pCeiling)
                     {
                         _uint iCeilingType = jObj["ceilingType"];
@@ -533,7 +533,7 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
 
                 if (pObj)
                 {
-                    CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj);
+                    CEditorWall* pWall = static_cast<CEditorWall*>(pObj);
                     if (pWall)
                     {
                         _uint iWallType = jObj["wallType"];
@@ -579,7 +579,7 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
                 pObj = CEditorMapCollider::Create(pGraphicDev, vPos, vScale);
                 if (pObj && jObj.contains("colliderTag"))
                 {
-                    CEditorMapCollider* pMapCollider = dynamic_cast<CEditorMapCollider*>(pObj);
+                    CEditorMapCollider* pMapCollider = static_cast<CEditorMapCollider*>(pObj);
                     if (pMapCollider)
                     {
                         COLLIDER_TAG  eTag = static_cast<COLLIDER_TAG>((_int)jObj["colliderTag"]);
@@ -605,7 +605,7 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
 
                 if (pObj)
                 {
-                    CEditorDoor* pDoor = dynamic_cast<CEditorDoor*>(pObj);
+                    CEditorDoor* pDoor = static_cast<CEditorDoor*>(pObj);
                     if (pDoor)
                     {
                         // Door Type 로드

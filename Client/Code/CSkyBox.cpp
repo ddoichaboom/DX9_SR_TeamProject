@@ -71,7 +71,7 @@ HRESULT CSkyBox::Add_Component()
 	Engine::CComponent* pComponent = nullptr;
 
 	// CubeTex
-	pComponent = m_pBufferCom = dynamic_cast<Engine::CCubeTex*>
+	pComponent = m_pBufferCom = static_cast<Engine::CCubeTex*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_CubeTex"));
 
 	if (nullptr == pComponent)
@@ -80,7 +80,7 @@ HRESULT CSkyBox::Add_Component()
 	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
 	// Transform
-	pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>
+	pComponent = m_pTransformCom = static_cast<Engine::CTransform*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
 
 	if (nullptr == pComponent)
@@ -89,7 +89,7 @@ HRESULT CSkyBox::Add_Component()
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
 	// Texture
-	pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>
+	pComponent = m_pTextureCom = static_cast<Engine::CTexture*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_SkyTexture"));
 
 	if (nullptr == pComponent)

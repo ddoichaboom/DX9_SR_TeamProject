@@ -100,13 +100,13 @@ HRESULT CEditorMapCollider::Add_Component()
     Engine::CComponent* pComponent = nullptr;
 
     // Transform
-    pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>(
+    pComponent = m_pTransformCom = static_cast<Engine::CTransform*>(
         Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[Engine::ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
     // Collision 컴포넌트 추가 (ID_DYNAMIC)
-    pComponent = m_pCollisionCom = dynamic_cast<Engine::CCollision*>(
+    pComponent = m_pCollisionCom = static_cast<Engine::CCollision*>(
         Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Collision"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[Engine::ID_DYNAMIC].insert({ L"Com_Collision", pComponent });

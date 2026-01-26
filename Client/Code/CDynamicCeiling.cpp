@@ -92,7 +92,7 @@ HRESULT CDynamicCeiling::Add_Component()
 	Engine::CComponent* pComponent = nullptr;
 
 	// Texture
-	pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>
+	pComponent = m_pTextureCom = static_cast<Engine::CTexture*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Dynamic_CeilingTexture"));
 
 	if (nullptr == pComponent)
@@ -101,7 +101,7 @@ HRESULT CDynamicCeiling::Add_Component()
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Texture", pComponent });
 
 	// Animation
-	pComponent = m_pAnimationCom = dynamic_cast<Engine::CAnimation*>
+	pComponent = m_pAnimationCom = static_cast<Engine::CAnimation*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_CeilingAnimation"));
 
 	if (nullptr == pComponent)

@@ -170,7 +170,7 @@ CWhiteMan* CWhiteMan::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
 		return nullptr;
 	}
 
-	CTransform* pTransform = dynamic_cast<Engine::CTransform*>(
+	CTransform* pTransform = static_cast<Engine::CTransform*>(
 		pWhite->Get_Component(ID_DYNAMIC, L"Com_Transform"));
 	pTransform->Set_Pos(vPos);
 	pTransform->Update_Component(0.f);
@@ -265,7 +265,7 @@ HRESULT CWhiteMan::Add_Component()
 	Engine::CComponent* pComponent = nullptr;
 
 	// Animation
-	pComponent = m_pAnimationCom = dynamic_cast<Engine::CAnimation*>
+	pComponent = m_pAnimationCom = static_cast<Engine::CAnimation*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_WhiteManAnimation"));
 
 	if (nullptr == pComponent)

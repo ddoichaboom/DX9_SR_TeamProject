@@ -128,7 +128,7 @@ HRESULT CFlare::Add_Component()
 	if (m_pBufferCom == nullptr) return E_FAIL;
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Buffer", m_pBufferCom });
 
-	m_pTextureCom = dynamic_cast<CTexture*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Effect_Flare_Texture"));
+	m_pTextureCom = static_cast<CTexture*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Effect_Flare_Texture"));
 	if (m_pTextureCom == nullptr) return E_FAIL;
 	m_mapComponent[ID_STATIC].insert({ L"Com_Texture", m_pTextureCom });
 

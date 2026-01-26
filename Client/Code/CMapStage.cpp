@@ -785,7 +785,7 @@ HRESULT CMapStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
     if (nullptr == pPlayerObj)
         return E_FAIL;
 
-    CTransform* pTransform = dynamic_cast<CTransform*>(pPlayerObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
+    CTransform* pTransform = static_cast<CTransform*>(pPlayerObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
 
     if (nullptr == pTransform)
         return E_FAIL;
@@ -1058,6 +1058,12 @@ void CMapStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
                 }
             }
 
+            CGameObject* pPlayer = Get_Layer(L"GameLogic_Layer")->Get_Object(OBJ_PLAYER);
+
+            if (pPlayer == nullptr)
+                return;
+
+            static_cast<CPlayer*>(pPlayer)->Change_Weapon(WEAPON_KATANA);
         }
         else
             m_bStageEnd = true;

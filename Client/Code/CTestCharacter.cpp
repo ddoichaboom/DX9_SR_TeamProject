@@ -67,7 +67,7 @@ HRESULT CTestCharacter::Add_Component()
 	Engine::CComponent* pComponent = nullptr;
 
 	// Animation
-	//pComponent = m_pAnimationCom = dynamic_cast<Engine::CAnimation*>
+	//pComponent = m_pAnimationCom = static_cast<Engine::CAnimation*>
 	//	(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_TestAnimation"));
 
 	//if (nullptr == pComponent)
@@ -75,7 +75,7 @@ HRESULT CTestCharacter::Add_Component()
 
 	//m_mapComponent[ID_DYNAMIC].insert({ L"Com_Animation", pComponent });
 
-	pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>
+	pComponent = m_pTextureCom = static_cast<Engine::CTexture*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_TestTexture"));
 
 	if (nullptr == pComponent)

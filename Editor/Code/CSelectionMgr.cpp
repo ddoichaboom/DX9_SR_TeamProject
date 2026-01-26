@@ -364,16 +364,16 @@ _int CSelectionMgr::GetPickingPriority(CEditorObject* pObj)
     // 작은 오브젝트 > 큰 오브젝트
     // 특수 타입 > 일반 타입
 
-    if (dynamic_cast<CEditorSpawnPoint*>(pObj))
+    if (static_cast<CEditorSpawnPoint*>(pObj))
         return 100;     // SpawnPoint 최우선
 
-    if (dynamic_cast<CEditorVendingMachine*>(pObj))
+    if (static_cast<CEditorVendingMachine*>(pObj))
         return 80;      // VendingMachine 높은 우선순위
 
-    if (dynamic_cast<CEditorWall*>(pObj))
+    if (static_cast<CEditorWall*>(pObj))
         return 60;      // Wall 중간 우선순위
 
-    if (dynamic_cast<CEditorFloor*>(pObj) || dynamic_cast<CEditorCeiling*>(pObj))
+    if (static_cast<CEditorFloor*>(pObj) || static_cast<CEditorCeiling*>(pObj))
         return 40;      // Floor/Ceiling 낮은 우선순위
 
     return 50;          // 기타 오브젝트

@@ -83,7 +83,7 @@ HRESULT CDynamicFloor::Add_Component()
 	Engine::CComponent* pComponent = nullptr;
 
 	// Texture
-	pComponent = m_pScrollTextureCom = dynamic_cast<Engine::CScrollTexture*>
+	pComponent = m_pScrollTextureCom = static_cast<Engine::CScrollTexture*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Dynamic_FloorTexture"));
 
 	if (nullptr == pComponent)

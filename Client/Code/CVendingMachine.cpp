@@ -179,7 +179,7 @@ HRESULT CVendingMachine::Add_Component()
     Engine::CComponent* pComponent = nullptr;
 
     // CubeTex
-    pComponent = m_pBufferCom = dynamic_cast<Engine::CCubeTex*>
+    pComponent = m_pBufferCom = static_cast<Engine::CCubeTex*>
         (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_CubeTex"));
 
     if (nullptr == pComponent)
@@ -188,7 +188,7 @@ HRESULT CVendingMachine::Add_Component()
     m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
     // Transform
-    pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>
+    pComponent = m_pTransformCom = static_cast<Engine::CTransform*>
         (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
 
     if (nullptr == pComponent)
@@ -197,13 +197,13 @@ HRESULT CVendingMachine::Add_Component()
     m_mapComponent[ID_STATIC].insert({ L"Com_Transform", pComponent });
 
     // Texture 
-    pComponent = m_pTextureCom = dynamic_cast<Engine::CCubeTexture*>(
+    pComponent = m_pTextureCom = static_cast<Engine::CCubeTexture*>(
         Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_VendingMachine_Texture"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
 
     // Collision Ãß°¡ 
-    pComponent = m_pCollisionCom = dynamic_cast<Engine::CCollision*>(
+    pComponent = m_pCollisionCom = static_cast<Engine::CCollision*>(
         Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Collision"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collision", pComponent });

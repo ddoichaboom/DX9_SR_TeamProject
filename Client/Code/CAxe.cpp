@@ -121,7 +121,7 @@ HRESULT CAxe::Add_Component()
 {
     Engine::CComponent* pComponent = nullptr;
     //Texutre - 자식 클래스에서 생성
-    pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>
+    pComponent = m_pTextureCom = static_cast<Engine::CTexture*>
         (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_AxeTexture"));
 
     if (nullptr == pComponent)
@@ -295,7 +295,7 @@ void CAxe::Set_JumpDir()
     if (nullptr == pPlayerObj)
         return;
 
-    CTransform* pTransform = dynamic_cast<CTransform*>(pPlayerObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
+    CTransform* pTransform = static_cast<CTransform*>(pPlayerObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
 
     if (nullptr == pTransform)
         return;

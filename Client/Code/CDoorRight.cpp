@@ -110,21 +110,21 @@ HRESULT CDoorRight::Add_Component()
     Engine::CComponent* pComponent = nullptr;
 
     // Transform
-    pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>(
+    pComponent = m_pTransformCom = static_cast<Engine::CTransform*>(
         Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
 
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
     // Buffer - RcTexSide
-    pComponent = m_pBufferCom = dynamic_cast<Engine::CRcTexSide*>(
+    pComponent = m_pBufferCom = static_cast<Engine::CRcTexSide*>(
         Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_RcTexSide"));
 
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
     // Texture 
-    pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>(
+    pComponent = m_pTextureCom = static_cast<Engine::CTexture*>(
         Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_DoorRight_Texture_Door"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });

@@ -177,7 +177,7 @@ HRESULT CPlayer::Ready_GameObject()
 		{
 			OnAttackCollision(info);
 		});
-	m_pKickCollider->Set_Scale(_vec3(18.f, 15.f, 18.f));
+	m_pKickCollider->Set_Scale(_vec3(15.f, 15.f, 15.f));
 	//m_pKickCollider->OffCollision();	
 
 	m_eWeaponState = WEAPON_PISTOL;
@@ -356,8 +356,8 @@ HRESULT CPlayer::Add_PlayerPart()
 
 void CPlayer::Key_Input(const _float& fTimeDelta)
 {
-	//Engine::CTransform* pTransform = dynamic_cast<CTransform*>(Engine::CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"Environment_Layer", OBJ_CAM, L"Com_Transform"));
-	Engine::CTransform* pTransform = dynamic_cast<CTransform*>(Engine::CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_CAM, L"Com_Transform"));
+	//Engine::CTransform* pTransform = static_cast<CTransform*>(Engine::CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"Environment_Layer", OBJ_CAM, L"Com_Transform"));
+	Engine::CTransform* pTransform = static_cast<CTransform*>(Engine::CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_CAM, L"Com_Transform"));
 	_vec3 vLook, vRight;
 	pTransform->Get_Info(INFO_LOOK, &vLook);
 
@@ -1304,6 +1304,12 @@ void CPlayer::Change_State(_uint eState)
 	State_Enter();
 }
 
+void CPlayer::Change_InstantStage(_uint eState)
+{
+	m_eNowState = (PLAYER_STATE)eState;
+	State_Enter();
+}
+
 void CPlayer::State_Enter()
 {
 	switch (m_eNowState)
@@ -1537,7 +1543,6 @@ void CPlayer::Intro_Exit()
 {
 	if (m_bStage == false)
 	{		
-		
 		CEventMgr::GetInstance()->Broadcast(EVENT_STAGE_START, nullptr);
 	}
 		
@@ -1803,7 +1808,7 @@ CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRot, 
 		return nullptr;
 	}
 
-	CTransform* pTransform = dynamic_cast<Engine::CTransform*>(
+	CTransform* pTransform = static_cast<Engine::CTransform*>(
 		pPlayer->Get_Component(ID_DYNAMIC, L"Com_Transform"));
 
 	pTransform->Set_Pos(vPos);
@@ -1837,7 +1842,7 @@ void CPlayer::Change_Weapon(_byte eWeaponTag)
 	m_eWeaponState = (WEAPON_STATE)eWeaponTag;
 	m_mapWeapon[m_eWeaponState]->Set_Select(true);
 
-	Change_State(INTRO);
+	Change_InstantStage(INTRO);
 }
 
 void CPlayer::Set_LeftPart(CLeftPart* pLeft)
