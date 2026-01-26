@@ -41,7 +41,7 @@ wstring CPlayer::szKickSFX		= L"Player_Kick_SFX.wav";
 wstring CPlayer::szDashSFX		= L"Player_Dash_SFX.wav";
 wstring CPlayer::szJumpSFX		= L"Player_Jump_SFX.wav";
 wstring CPlayer::szAcidSFX		= L"Player_Acid_SFX.wav";
-wstring CPlayer::szTakeDownSFX		= L"Player_TakeDown_SFX.wav";
+wstring CPlayer::szTakeDownSFX	= L"Player_TakeDown_SFX.wav";
 
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -489,13 +489,13 @@ void CPlayer::Action_Input(const _float& fTimeDelta, const _vec3& vLook)
 	{
 		if (m_mapWeapon[m_eWeaponState]->Can_Fire())
 		{
-			if (m_eNowState == IDLE || m_eNowState == ATTACK)
+			if (m_eNowState == IDLE)
 			{
 				Change_State(ATTACK);
 				return;
 			}			
 		}
-		else if (m_eNowState == IDLE && !m_pLeftPart->Get_Relaod() && !m_pRightPart->Get_Reload())
+		else if (m_pLeftPart->Get_Relaod() && m_pRightPart->Get_Reload())
 		{
 			if(m_mapWeapon[m_eWeaponState]->Rest_Bullet() == false)
 				Change_State(RELOAD);
@@ -1268,7 +1268,10 @@ void CPlayer::Drink_Func()
 	Add_HP(m_fMaxHP);
 
 	if (m_eNowState == IDLE && m_pMiddlePart->Get_ActionAble(DRINK))
-		Change_State(DRINK);
+	{
+		Change_State(DRINK);		
+	}
+		
 }
 
 void CPlayer::TakeDown_Func()
@@ -1477,6 +1480,7 @@ void CPlayer::Intro_Enter()
 		break;
 	}
 	_uint iNumber = CManagement::GetInstance()->Get_FloorNumber();
+
 	wstring stageBGM;
 	switch (iNumber)
 	{
@@ -1490,7 +1494,8 @@ void CPlayer::Intro_Enter()
 		stageBGM = szBossBGM;
 		break;
 	}
-	if (m_bStage == false)
+
+	if (m_bStage == false && CManagement::GetInstance()->Get_CurrSceneType() == SCENE_BATTLE)
 	{
 		CSoundMgr::GetInstance()->StopGroupSound(SOUND_BGM);
 		CSoundMgr::GetInstance()->PlayBGM(stageBGM.c_str(), 0.3f);
@@ -1647,7 +1652,9 @@ void CPlayer::Attack_Update(const _float& fTimeDelta)
 	m_pMiddlePart->Update_GameObject(fTimeDelta);
 	if (m_eWeaponState == WEAPON_PISTOL)
 		m_pRightPart->Update_GameObject(fTimeDelta);
-	m_pLeftPart->Update_GameObject(fTimeDelta);
+
+	if(m_pMiddlePart->Get_ActionAble(DRINK))
+		m_pLeftPart->Update_GameObject(fTimeDelta);
 }
 
 void CPlayer::Attack_LateUpdate(const _float& fTimeDelta)
@@ -1655,7 +1662,9 @@ void CPlayer::Attack_LateUpdate(const _float& fTimeDelta)
 	m_pMiddlePart->LateUpdate_GameObject(fTimeDelta);
 	if (m_eWeaponState == WEAPON_PISTOL)
 		m_pRightPart->LateUpdate_GameObject(fTimeDelta);
-	m_pLeftPart->LateUpdate_GameObject(fTimeDelta);
+
+	if (m_pMiddlePart->Get_ActionAble(DRINK))
+		m_pLeftPart->LateUpdate_GameObject(fTimeDelta);
 }
 
 void CPlayer::Attack_Exit()
@@ -1689,7 +1698,6 @@ void CPlayer::Kick_Exit()
 
 void CPlayer::Drink_Enter()
 {
-	m_mapCallCnt[DRINK] = 0;
 	m_pMiddlePart->ChangeState(DRINK);
 }
 
@@ -1700,7 +1708,7 @@ void CPlayer::Drink_Update(const _float& fTimeDelta)
 }
 
 void CPlayer::Drink_LateUpdate(const _float& fTimeDelta)
-{
+{	
 	m_pMiddlePart->LateUpdate_GameObject(fTimeDelta);
 	m_pRightPart->LateUpdate_GameObject(fTimeDelta);
 }

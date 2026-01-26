@@ -125,6 +125,7 @@ HRESULT CMapStage::Ready_Scene()
     
     //메세지 구독 신청
     CEventMgr::GetInstance()->Subscribe(EVENT_ROOM_CHANGE, this);
+    CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_END, this);
     CEventMgr::GetInstance()->Subscribe(EVENT_NEXT_STAGE, this);
 
     return S_OK;
@@ -1064,9 +1065,20 @@ void CMapStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
                 return;
 
             static_cast<CPlayer*>(pPlayer)->Change_Weapon(WEAPON_KATANA);
+            CManagement::GetInstance()->Set_FloorNumber();
+            CManagement::GetInstance()->Reset_CountTime();
+            CManagement::GetInstance()->Set_CountTime(true);
         }
         else
             m_bStageEnd = true;
+    }
+    else if (_type == EVENT_STAGE_END)
+    {
+        auto iter_Map_Mon = m_mapLayer[L"GameLogic_Layer"]->Get_Objects(OBJ_MONSTER);
+        for (multimap<OBJ_ID, CGameObject*>::iterator it_mon = iter_Map_Mon.first; it_mon != iter_Map_Mon.second; it_mon++)
+        {            
+            it_mon->second->ReturnToPool();            
+        }
     }
 }
 
