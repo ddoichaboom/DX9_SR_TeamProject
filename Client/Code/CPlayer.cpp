@@ -116,14 +116,7 @@ void CPlayer::OnEvent(EVENT_TYPE _type, EventData* _pData)
 	else if (_type == EVENT_READY_NEXT_STAGE)
 	{
 		CUIManager::GetInstance()->Set_OnShopUI(false);
-		
 		Change_State(READY_NEXT);
-	}
-
-	if (_type == EVENT_NEXT_STAGE)
-	{
-		//_pData->value 
-		Change_Weapon(WEAPON_KATANA);
 	}
 
 	else if (_type == EVENT_MONSTER_DEAD)
@@ -163,7 +156,6 @@ HRESULT CPlayer::Ready_GameObject()
 	CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_START, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_STAGE_END, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_READY_NEXT_STAGE, this);
-	CEventMgr::GetInstance()->Subscribe(EVENT_NEXT_STAGE, this);
 	//CEventMgr::GetInstance()->Subscribe(EVENT_DRINK, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_TAKEDOWN_END, this);
 

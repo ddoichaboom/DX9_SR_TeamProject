@@ -1057,6 +1057,7 @@ void CMapStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
                     m_setLoadedRooms.insert(iRoomToLoad);
                 }
             }
+
             CGameObject* pPlayer = Get_Layer(L"GameLogic_Layer")->Get_Object(OBJ_PLAYER);
 
             if (pPlayer == nullptr)

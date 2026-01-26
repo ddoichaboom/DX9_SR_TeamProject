@@ -37,8 +37,7 @@ public:
 public :
 	void					Set_CurrSceneType(SCENE_TYPE eSceneType) { m_eCurrSceneType = eSceneType; }
 	SCENE_TYPE				Get_CurrSceneType() { return m_eCurrSceneType; }
-	_uint					Get_FloorNumber() { return m_iFloorNum; }
-	void					Set_FloorNumber(_uint iNum) { m_iFloorNum = iNum; }
+	_uint					Get_FloorNumber();
 
 	void					Set_CountTime(bool bCountTime) { m_bCountTime = bCountTime; }
 	void					Reset_CountTime() { m_fTime = 0.f; }
@@ -55,8 +54,6 @@ protected:
 
 	_float			m_fTime;
 	_bool			m_bCountTime;
-	_uint			m_iFloorNum;
-
 };
 
 END
