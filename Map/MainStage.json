@@ -5,8 +5,8 @@
   "dynamicFloorCount": 60,
   "dynamicWallCount": 7,
   "floorCount": 761,
-  "mapColliderCount": 58,
-  "objectCount": 2147,
+  "mapColliderCount": 64,
+  "objectCount": 2153,
   "objects": [
     {
       "floorType": 0,
@@ -47151,7 +47151,7 @@
       "name": "VendingMachine",
       "position": [
         -8.0,
-        76.0,
+        78.0,
         660.0
       ],
       "roomIndex": 2,
@@ -47162,7 +47162,7 @@
       ],
       "scale": [
         8.0,
-        12.0,
+        14.0,
         4.0
       ],
       "type": "VendingMachine"
@@ -47211,7 +47211,7 @@
       "name": "VendingMachine",
       "position": [
         24.0,
-        -244.0,
+        -242.0,
         2362.0
       ],
       "roomIndex": 5,
@@ -47222,7 +47222,7 @@
       ],
       "scale": [
         8.0,
-        12.0,
+        14.0,
         4.0
       ],
       "type": "VendingMachine"
@@ -47231,7 +47231,7 @@
       "name": "VendingMachine",
       "position": [
         396.0,
-        -244.0,
+        -242.0,
         2590.0
       ],
       "roomIndex": 5,
@@ -47242,7 +47242,7 @@
       ],
       "scale": [
         8.0,
-        12.0,
+        14.0,
         4.0
       ],
       "type": "VendingMachine"
@@ -47251,7 +47251,7 @@
       "name": "VendingMachine",
       "position": [
         608.0,
-        -244.0,
+        -242.0,
         2410.0
       ],
       "roomIndex": 6,
@@ -47262,7 +47262,7 @@
       ],
       "scale": [
         8.0,
-        12.0,
+        14.0,
         4.0
       ],
       "type": "VendingMachine"
@@ -48597,6 +48597,132 @@
       "type": "Wall",
       "wallDirection": 0,
       "wallType": 3
+    },
+    {
+      "colliderTag": 6,
+      "name": "MapCollider_0",
+      "position": [
+        24.0,
+        -242.0,
+        2362.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        14.0,
+        4.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": 6,
+      "name": "MapCollider_1",
+      "position": [
+        396.0,
+        -242.0,
+        2590.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        4.0,
+        14.0,
+        8.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": 6,
+      "name": "MapCollider",
+      "position": [
+        608.0,
+        -242.0,
+        2410.0
+      ],
+      "roomIndex": 6,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        14.0,
+        4.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": 6,
+      "name": "MapCollider_2",
+      "position": [
+        -8.0,
+        78.0,
+        660.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        14.0,
+        4.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": 6,
+      "name": "MapCollider",
+      "position": [
+        -32.0,
+        14.0,
+        180.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        14.0,
+        4.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        80.0,
+        14.0,
+        180.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        14.0,
+        4.0
+      ],
+      "type": "MapCollider"
     }
   ],
   "triggerBoxCount": 6,
