@@ -10,6 +10,7 @@ namespace Engine
 
 class CPlayer;
 class CFontUI;
+class CPhoneHPUI;
 
 class CHPUI : public CBaseUI
 {
@@ -38,6 +39,7 @@ protected:
 	virtual		void        SetPos(_vec3 _pos) override;
 	virtual		void		SetScale(_float fCX, _float fCY);
 
+	void					SetPhoneUI(CGameObject* _owner);
 public :
 	void					Check_Stage();
 
@@ -51,7 +53,7 @@ protected:
 	_vec3	m_vSize;
 	
 	CFontUI* m_pFontUI;
-
+	CPhoneHPUI* m_pPhoneHPUI;
 	_bool	m_bBossStage;
 };
 

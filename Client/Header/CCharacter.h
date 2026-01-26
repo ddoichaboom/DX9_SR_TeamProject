@@ -31,8 +31,8 @@ public:
 	//모든 콜라이더 반환
 	virtual bool		GetAllCollider(vector<CCollider*>& _OutColliders);
 
-	_float		GetHP() override { return m_fHP; }
-	_float		GetMaxHP() override { return m_fMaxHP; }
+	_float				GetHP() override { return m_fHP; }
+	_float				GetMaxHP() override { return m_fMaxHP; }
 
 protected:
 	HRESULT				Add_Component() override;

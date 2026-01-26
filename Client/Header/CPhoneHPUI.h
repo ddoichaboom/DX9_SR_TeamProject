@@ -26,7 +26,7 @@ protected:
 	void		ResetParticle(Particle* particle) override;
 public:
 	static CPhoneHPUI* Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _owner);
-
+	void		SetOwner(CGameObject* _owner);
 protected:
 	void		Free() override;
 	HP_TYPE		GetHPType(_float _hp);
@@ -34,7 +34,6 @@ protected:
 	int			m_iBatchSize = 0;
 	CGameObject* m_pOwner = nullptr;
 
-	bool		m_bDecrease = false;
 	_float		m_fOwnerHP = 0.f;
 	_float		m_fMaxHP = 0.f;
 
@@ -43,14 +42,14 @@ protected:
 	HP_TYPE		m_type = HP_END;
 	_float		m_fRatio = 1.f;
 	bool		m_bHPEmpty = false;
-	_float		m_HPMinRatio[HP_END] = { 80.f, 50.f, 20.f, 0.f, -1.f };
+	_float		m_HPMinRatio[HP_END] = { 0.8f, 0.5f, 0.2f, 0.0f, -1.f };
 	D3DXCOLOR	m_HPColors[HP_END] =
 	{
-		{0.3f, 1.0f, 0.2f, 0.8f},
-		{0.8f, 1.0f, 0.4f, 0.8f},
-		{0.9f, 1.0f, 0.45f,0.8f},
-		{1.0f, 0.7f, 0.4f, 0.8f},
-		{1.0f, 0.2f, 0.2f, 0.8f},
+		{0.3f, 0.80f, 0.2f, 0.9f},
+		{0.8f, 0.80f, 0.4f, 0.9f},
+		{0.9f, 0.80f, 0.45f,0.9f},
+		{1.f, 0.1f, 0.1f,  0.9f},
+		{0.f, 0.f, 0.f , 0.9f},
 	};
 
 };

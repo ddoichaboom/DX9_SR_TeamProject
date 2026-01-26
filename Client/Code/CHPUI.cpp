@@ -7,6 +7,7 @@
 
 #include "CPlayer.h"
 #include "CFontUI.h"
+#include "CPhoneHPUI.h"
 
 TextureSource CHPUI::m_textureSource =
 {
@@ -16,14 +17,14 @@ TextureSource CHPUI::m_textureSource =
 CHPUI::CHPUI(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CBaseUI(pGraphicDev)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
-	, m_pPlayer(nullptr), m_pFontUI(nullptr), m_bBossStage(true)
+	, m_pPlayer(nullptr), m_pFontUI(nullptr), m_bBossStage(true),m_pPhoneHPUI(nullptr)
 {
 }
 
 CHPUI::CHPUI(const CHPUI& rhs)
 	: CBaseUI(rhs)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
-	, m_pPlayer(nullptr), m_pFontUI(nullptr), m_bBossStage(true)
+	, m_pPlayer(nullptr), m_pFontUI(nullptr), m_bBossStage(true), m_pPhoneHPUI(nullptr)
 {
 
 }
@@ -81,6 +82,7 @@ HRESULT CHPUI::Add_Component()
 
 void CHPUI::Free()
 {
+	Safe_Release(m_pPhoneHPUI);
 	Safe_Release(m_pFontUI);
 	CGameObject::Free();
 }
@@ -121,6 +123,7 @@ _int CHPUI::Update_GameObject(const _float& fTimeDelta)
 	{
 		CGameObject* player = CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Get_Object(OBJ_PLAYER);
 		m_pPlayer = static_cast<CPlayer*>(player);
+		SetPhoneUI(player);
 		Check_Stage();
 	}
 
@@ -139,6 +142,7 @@ _int CHPUI::Update_GameObject(const _float& fTimeDelta)
 	
 	m_pFontUI->Set_Text(wHP);
 	
+	if (m_pPhoneHPUI) m_pPhoneHPUI->Update_GameObject(fTimeDelta);
 	return iExit;
 }
 
@@ -168,6 +172,16 @@ void CHPUI::SetPos(_vec3 _pos)
 void CHPUI::SetScale(_float fCX, _float fCY)
 {
 	m_pTransformCom->Set_Scale(fCX * 0.5f, fCY * 0.5f, 1.f);
+}
+
+void CHPUI::SetPhoneUI(CGameObject* _owner)
+{
+	if (m_pPhoneHPUI) Safe_Release(m_pPhoneHPUI);
+	m_pPhoneHPUI = CPhoneHPUI::Create(m_pGraphicDev, _owner);
+	m_pPhoneHPUI->SetSize({ m_fSizeX - 17, m_fSizeY - 15 });
+	_vec3 UIPos = { -330,-263,0 };
+	m_pPhoneHPUI->SetPos(UIPos);
+	m_pPhoneHPUI->Reset();
 }
 
 void CHPUI::Check_Stage()

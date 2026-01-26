@@ -19,7 +19,6 @@ CPhoneHPUI::CPhoneHPUI(IDirect3DDevice9* device, CGameObject* _pOwner)
 	{
 		m_fMaxHP = m_pOwner->GetMaxHP();
 	}
-	m_bDecrease = true;
 }
 
 CPhoneHPUI::~CPhoneHPUI()
@@ -48,15 +47,18 @@ _int CPhoneHPUI::Update_GameObject(const _float& fTimeDelta)
 			if (m_pOwner && !m_bHPEmpty)
 			{
 				m_fOwnerHP = m_pOwner->GetHP();
-				m_fRatio = (int)(m_fOwnerHP / m_fMaxHP);
-				m_type = GetHPType(m_fOwnerHP);
+				m_fRatio = (m_fOwnerHP / m_fMaxHP);
+				m_type = GetHPType(m_fRatio);
 
 				particle->color = m_HPColors[m_type];
-				
-				if (m_type == HP_DANAGER) particle->vSize.y = m_vSize.y;
+
+				if (m_type == HP_DANAGER || m_type == HP_DEAD)
+				{
+					particle->vSize.y = m_vSize.y;
+				}
 				else particle->vSize.y = m_vSize.y * m_fRatio;
 
-				particle->vPosition.y = m_vPos.y + particle->vSize.y;
+				particle->vPosition.y = m_vPos.y + particle->vSize.y*0.5f;
 
 				if (m_type == HP_DEAD) m_bHPEmpty = true;
 			}
@@ -91,12 +93,13 @@ void CPhoneHPUI::SetPreRenderState()
 void CPhoneHPUI::SetPostRenderState()
 {
 	m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-	m_pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTA_TEXTURE);
+	m_pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
 }
 
 void CPhoneHPUI::Reset()
 {
 	m_bDead = false;
+	m_bHPEmpty = false;
 	CParticleEmitter::Reset();
 }
 
@@ -112,6 +115,7 @@ HRESULT CPhoneHPUI::Add_Component()
 
 void CPhoneHPUI::ResetParticle(Particle* particle)
 {
+	particle->vPosition = m_vPos;
 	particle->bIsAlive = true;
 	particle->color = m_color;
 	particle->fAnimSpeed = m_fAnimSpeed;
@@ -122,7 +126,7 @@ void CPhoneHPUI::ResetParticle(Particle* particle)
 	particle->fLifeTime = m_fLifeTime;
 	particle->vStartUV = { 0,0 };
 	particle->vEndUV = { 1,1 };
-	particle->vPosition.y += m_vSize.y;
+	particle->vPosition.y += m_vSize.y*0.5f;
 
 
 }
@@ -139,6 +143,13 @@ CPhoneHPUI* CPhoneHPUI::Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _owne
 	}
 
 	return effect;
+}
+
+void CPhoneHPUI::SetOwner(CGameObject* _owner)
+{
+	if (!_owner) return;
+	m_pOwner = _owner;
+	m_fMaxHP = m_pOwner->GetMaxHP();
 }
 
 void CPhoneHPUI::Free()
