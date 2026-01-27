@@ -113,7 +113,7 @@ HRESULT CExtinguisher::Add_Component()
     Engine::CComponent* pComponent = nullptr;
 
     //VIBuffer
-    pComponent = m_pBufferCom = dynamic_cast<Engine::CRcTex*>
+    pComponent = m_pBufferCom = static_cast<Engine::CRcTex*>
         (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_RcTex"));
 
     m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
@@ -122,7 +122,7 @@ HRESULT CExtinguisher::Add_Component()
         return E_FAIL;
 
     //Transform
-    pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>
+    pComponent = m_pTransformCom = static_cast<Engine::CTransform*>
         (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
 
     if (nullptr == pComponent)
@@ -131,7 +131,7 @@ HRESULT CExtinguisher::Add_Component()
     m_mapComponent[ID_STATIC].insert({ L"Com_Transform", pComponent });
 
     //Texutre - 자식 클래스에서 생성
-    pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>
+    pComponent = m_pTextureCom = static_cast<Engine::CTexture*>
         (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_ExtinguisherTexture"));
 
     if (nullptr == pComponent)
@@ -140,7 +140,7 @@ HRESULT CExtinguisher::Add_Component()
     m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
 
     // Collision
-    pComponent = m_pCollisionCom = dynamic_cast<Engine::CCollision*>
+    pComponent = m_pCollisionCom = static_cast<Engine::CCollision*>
         (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Collision"));
 
     if (nullptr == pComponent)

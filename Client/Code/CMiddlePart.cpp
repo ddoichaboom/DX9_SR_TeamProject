@@ -25,7 +25,7 @@ vector<AnimationSource>  CMiddlePart::m_vAnimSource =
 {
 	{ IDLE,0,3,3, true, 0.08f},
 	{ KICK,0,3,3, false, 0.08f, 1.f},
-	{ DRINK,0,6,6, false, 0.15f, 1.f},
+	{ DRINK,0,6,6, false, 0.08f, 1.f},
 	{ SLIDE,1,0,0, true, 0.08f},
 	{ GetStateID(INTRO,WEAPON_PISTOL),1,2,2, false, 0.12f, 1.f},
 	{ INTRO,1,2,2, false, 0.12f, 1.f},
@@ -148,7 +148,7 @@ HRESULT CMiddlePart::Add_Component()
 
 	Engine::CComponent* pComponent = nullptr;
 
-	pComponent = m_pAnimationCom = dynamic_cast<Engine::CAnimation*>
+	pComponent = m_pAnimationCom = static_cast<Engine::CAnimation*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_MiddleAnimation"));
 
 	if (nullptr == pComponent)
@@ -237,7 +237,7 @@ void CMiddlePart::Begin_Drink()
 void CMiddlePart::Drink()
 {
 
-	if (m_pAnimationCom->CanEnd())
+	if (m_pAnimationCom->IsEnd())
 	{
 		//ChangeState(IDLE);
 		m_pPlayer->Change_State(IDLE);

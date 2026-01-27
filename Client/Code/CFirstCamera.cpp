@@ -90,7 +90,7 @@ _int CFirstCamera::Update_GameObject(const _float& fTimeDelta)
 	for (auto& pComponent : m_mapComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);
 
-	Engine::CTransform* pPlayerTransform = dynamic_cast<CTransform*>(Engine::CManagement::GetInstance()->
+	Engine::CTransform* pPlayerTransform = static_cast<CTransform*>(Engine::CManagement::GetInstance()->
 		Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_PLAYER, L"Com_Transform"));
 
 	if (pPlayerTransform == nullptr)
@@ -134,7 +134,7 @@ HRESULT CFirstCamera::Add_Component()
 {
 	Engine::CComponent* pComponent = nullptr;
 
-	pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>
+	pComponent = m_pTransformCom = static_cast<Engine::CTransform*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
 
 	if (nullptr == pComponent)
@@ -207,7 +207,7 @@ void CFirstCamera::Mouse_Fix()
 
 void CFirstCamera::Cam_Shake(const _float& fTimeDelta)
 {
-	Engine::CTransform* pPlayerTransform = dynamic_cast<CTransform*>(Engine::CManagement::GetInstance()->
+	Engine::CTransform* pPlayerTransform = static_cast<CTransform*>(Engine::CManagement::GetInstance()->
 		Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_PLAYER, L"Com_Transform"));
 
 	if (pPlayerTransform == nullptr)

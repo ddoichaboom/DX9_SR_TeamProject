@@ -75,7 +75,7 @@ HRESULT CHeightMapTerrain::Add_Component()
 	Engine::CComponent* pComponent = nullptr;
 
 	// TerrainTex
-	pComponent = m_pBufferCom = dynamic_cast<Engine::CTerrainTex*>
+	pComponent = m_pBufferCom = static_cast<Engine::CTerrainTex*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_TerrainTex"));
 
 	if (nullptr == pComponent)
@@ -84,7 +84,7 @@ HRESULT CHeightMapTerrain::Add_Component()
 	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
 	// Transform
-	pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>
+	pComponent = m_pTransformCom = static_cast<Engine::CTransform*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
 
 	if (nullptr == pComponent)
@@ -93,7 +93,7 @@ HRESULT CHeightMapTerrain::Add_Component()
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
 	// Texture
-	pComponent = m_pTextureCom = dynamic_cast<Engine::CTerrainTexture*>
+	pComponent = m_pTextureCom = static_cast<Engine::CTerrainTexture*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_TerrainTexture"));
 
 	if (nullptr == pComponent)

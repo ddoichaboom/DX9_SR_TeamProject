@@ -244,7 +244,7 @@ HRESULT CBossStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
     if (nullptr == pPlayerObj)
         return E_FAIL;
 
-    CTransform* pTransform = dynamic_cast<CTransform*>(pPlayerObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
+    CTransform* pTransform = static_cast<CTransform*>(pPlayerObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
 
     if (nullptr == pTransform)
         return E_FAIL;

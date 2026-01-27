@@ -96,7 +96,7 @@ HRESULT CBeam::Add_Component()
 {
 	Engine::CComponent* pComponent = nullptr;
 	//VIBuffer
-	pComponent = m_pBufferUpCom = dynamic_cast<Engine::CRcTexUp*>
+	pComponent = m_pBufferUpCom = static_cast<Engine::CRcTexUp*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_RcTexUp"));
 
 	if (nullptr == pComponent)
@@ -105,7 +105,7 @@ HRESULT CBeam::Add_Component()
 	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
 	// Transform
-	pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>
+	pComponent = m_pTransformCom = static_cast<Engine::CTransform*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
 
 	if (nullptr == pComponent)
@@ -114,7 +114,7 @@ HRESULT CBeam::Add_Component()
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
 	//Texture
-	pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>
+	pComponent = m_pTextureCom = static_cast<Engine::CTexture*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_BeamTexture"));
 
 	if (nullptr == pComponent)

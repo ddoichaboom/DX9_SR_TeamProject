@@ -100,18 +100,18 @@ HRESULT CEditorCeiling::Add_Component()
     Engine::CComponent* pComponent = nullptr;
 
     // Transform
-    pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>(
+    pComponent = m_pTransformCom = static_cast<Engine::CTransform*>(
         Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[Engine::ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
     // Buffer ( RcTex - Floor¿Í µ¿ÀÏ )
-    pComponent = m_pBufferCom = dynamic_cast<Engine::CVIBuffer*>(
+    pComponent = m_pBufferCom = static_cast<Engine::CVIBuffer*>(
         Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_RcTex"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[Engine::ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
-    pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>(
+    pComponent = m_pTextureCom = static_cast<Engine::CTexture*>(
         Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Static_CeilingTexture"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[Engine::ID_DYNAMIC].insert({ L"Com_Texture", pComponent });

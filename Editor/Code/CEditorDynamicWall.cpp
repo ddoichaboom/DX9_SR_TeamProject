@@ -101,19 +101,19 @@ HRESULT CEditorDynamicWall::Add_Component()
     Engine::CComponent* pComponent = nullptr;
 
     // Transform
-    pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>(
+    pComponent = m_pTransformCom = static_cast<Engine::CTransform*>(
         Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[Engine::ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
     // Buffer ( RcTex - Floor/Ceiling°ú µ¿ÀÏ )
-    pComponent = m_pBufferCom = dynamic_cast<Engine::CVIBuffer*>(
+    pComponent = m_pBufferCom = static_cast<Engine::CVIBuffer*>(
         Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_RcTex"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[Engine::ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
     // Texture
-    pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>
+    pComponent = m_pTextureCom = static_cast<Engine::CTexture*>
         (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Dynamic_WallTexture"));
 
     if (nullptr == pComponent)
@@ -122,7 +122,7 @@ HRESULT CEditorDynamicWall::Add_Component()
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Texture", pComponent });
 
     // Animation
-    pComponent = m_pAnimationCom = dynamic_cast<Engine::CAnimation*>
+    pComponent = m_pAnimationCom = static_cast<Engine::CAnimation*>
         (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_WallAnimation"));
 
     if (nullptr == pComponent)

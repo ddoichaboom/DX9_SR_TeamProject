@@ -95,7 +95,7 @@ HRESULT CShopBG::Add_Component()
 	Engine::CComponent* pComponent = nullptr;
 
 	//VIBuffer
-	pComponent = m_pBufferCom = dynamic_cast<Engine::CRcTex*>
+	pComponent = m_pBufferCom = static_cast<Engine::CRcTex*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_RcTex"));
 
 	if (nullptr == pComponent)
@@ -104,7 +104,7 @@ HRESULT CShopBG::Add_Component()
 	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
 	// Transform
-	pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>
+	pComponent = m_pTransformCom = static_cast<Engine::CTransform*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
 
 	if (nullptr == pComponent)
@@ -113,7 +113,7 @@ HRESULT CShopBG::Add_Component()
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
 	//StateComponent
-	pComponent = m_pStateCom = dynamic_cast<Engine::CStateComponent*>
+	pComponent = m_pStateCom = static_cast<Engine::CStateComponent*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_StateComponent"));
 
 	m_pStateCom->SetOnwer(this);
@@ -123,7 +123,7 @@ HRESULT CShopBG::Add_Component()
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_StateComponent", pComponent });
 
 	//Animation
-	pComponent = m_pAnimationCom = dynamic_cast<Engine::CAnimation*>
+	pComponent = m_pAnimationCom = static_cast<Engine::CAnimation*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_ShopBGAnimation"));
 
 	if (nullptr == pComponent)

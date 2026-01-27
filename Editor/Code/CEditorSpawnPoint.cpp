@@ -110,13 +110,13 @@ HRESULT CEditorSpawnPoint::Add_Component()
     Engine::CComponent* pComponent = nullptr;
 
     // Transform
-    pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>(
+    pComponent = m_pTransformCom = static_cast<Engine::CTransform*>(
         Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[Engine::ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
     // Buffer ( CubeTex )
-    pComponent = m_pBufferCom = dynamic_cast<Engine::CVIBuffer*>(
+    pComponent = m_pBufferCom = static_cast<Engine::CVIBuffer*>(
         Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_CubeTex"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[Engine::ID_STATIC].insert({ L"Com_Buffer", pComponent });

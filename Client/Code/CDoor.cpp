@@ -153,20 +153,20 @@ HRESULT CDoor::Add_Component()
     Engine::CComponent* pComponent = nullptr;
 
     // Transform
-    pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>(
+    pComponent = m_pTransformCom = static_cast<Engine::CTransform*>(
         Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
 
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
     // Buffer - RcTex ( ·»´õ¿ëÀÌ ¾Æ´Ô ) 
-    pComponent = m_pBufferCom = dynamic_cast<Engine::CRcTex*>(
+    pComponent = m_pBufferCom = static_cast<Engine::CRcTex*>(
         Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_RcTex"));
 
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
-    pComponent = m_pCollisionCom = dynamic_cast<Engine::CCollision*>
+    pComponent = m_pCollisionCom = static_cast<Engine::CCollision*>
         (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Collision"));
 
     NULL_CHECK_RETURN(pComponent, E_FAIL);

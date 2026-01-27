@@ -71,8 +71,7 @@ HRESULT CSoda::Ready_GameObject()
         {
             OnCollision(info);
         });
-
-    m_pMainCollider->OffCollision();
+    
 
     m_pTextureCom->Change_Texture(m_iTextureID);
     return S_OK;
@@ -119,7 +118,7 @@ HRESULT CSoda::Add_Component()
 {
     Engine::CComponent* pComponent = nullptr;
     //Texutre - 자식 클래스에서 생성
-    pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>
+    pComponent = m_pTextureCom = static_cast<Engine::CTexture*>
         (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_SodaTexture"));
     
     if (nullptr == pComponent)
@@ -142,8 +141,7 @@ void CSoda::Activate()
     m_bFall = false;
     m_bGround = false;
     m_fVelocity = 0.f;
-    m_fJumpTime = 0.f;    
-    m_pMainCollider->OffCollision();
+    m_fJumpTime = 0.f;       
     m_pTextureCom->Change_Texture(m_iTextureID);     
 }
 
@@ -225,8 +223,7 @@ void CSoda::Set_OnFloor(const _float& fTimeDelta)
             {
                 m_bFall = false;
                 m_bGround = true;
-                vPosition.y = fHeight + m_pMainCollider->Get_Scale().y * 0.5f;
-                m_pMainCollider->OnCollision();
+                vPosition.y = fHeight + m_pMainCollider->Get_Scale().y * 0.5f;                
             }
         }
         else
@@ -242,7 +239,6 @@ void CSoda::Set_OnFloor(const _float& fTimeDelta)
                 m_bFall = false;
                 m_bGround = true;
                 vPosition.y = fHeight +  m_pMainCollider->Get_Scale().y * 0.5f;                
-                m_pMainCollider->OnCollision();
             }
         }
     }
@@ -292,7 +288,7 @@ void CSoda::Set_JumpDir()
     if (nullptr == pPlayerObj)
         return;
 
-    CTransform* pTransform = dynamic_cast<CTransform*>(pPlayerObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
+    CTransform* pTransform = static_cast<CTransform*>(pPlayerObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
 
     if (nullptr == pTransform)
         return;

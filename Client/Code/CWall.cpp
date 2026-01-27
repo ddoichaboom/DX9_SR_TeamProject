@@ -118,7 +118,7 @@ HRESULT CWall::Add_Component()
     Engine::CComponent* pComponent = nullptr;
 
     // Texture
-    pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>
+    pComponent = m_pTextureCom = static_cast<Engine::CTexture*>
         (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Static_WallTexture"));
 
     if (nullptr == pComponent)

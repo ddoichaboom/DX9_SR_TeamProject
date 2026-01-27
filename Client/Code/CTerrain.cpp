@@ -92,7 +92,7 @@ HRESULT CTerrain::Add_Component()
     Engine::CComponent* pComponent = nullptr;
 
     // RcTex
-    pComponent = m_pBufferCom = dynamic_cast<Engine::CRcTex*>
+    pComponent = m_pBufferCom = static_cast<Engine::CRcTex*>
         (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_RcTex"));
 
     if (nullptr == pComponent)
@@ -101,7 +101,7 @@ HRESULT CTerrain::Add_Component()
     m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
     // Transform
-    pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>
+    pComponent = m_pTransformCom = static_cast<Engine::CTransform*>
         (Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
 
     if (nullptr == pComponent)
