@@ -7,7 +7,7 @@ CLoadingEX::CLoadingEX(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_iCurTaskCount(0), m_iEndTaskCount(0), m_eCurLevel(LEVEL_END), m_pLoadingBar(nullptr)
    
 {
-    fill(m_hThread, m_hThread + 4, nullptr);
+    fill(m_hThread, m_hThread + Thread_Cnt, nullptr);
     m_pGraphicDev->AddRef();
 }
 
@@ -125,7 +125,7 @@ CLoadingEX* CLoadingEX::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CLoadingEX::Free()
 {
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < Thread_Cnt; i++)
     {
         if (m_hThread[i])
         {
