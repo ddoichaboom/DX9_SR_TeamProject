@@ -4,8 +4,16 @@
 #include "CManagement.h"
 #include "CRenderer.h"
 
+vector<TextureSource> CSkyBox::m_vTextureSource =
+{
+	{0, L"../Bin/Resource/Texture/Terrain/SkyBox/SKY_BOX.dds", false, 0, 0, 0, {1.f, 1.f}}
+};
+
 CSkyBox::CSkyBox(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
+	, m_pTransformCom(nullptr)
+	, m_pBufferCom(nullptr)
+	, m_pTextureCom(nullptr)
 {
 }
 
@@ -23,8 +31,11 @@ HRESULT CSkyBox::Ready_GameObject()
 	if (FAILED(Add_Component()))
 		return E_FAIL;
 
-	m_pTransformCom->m_vScale = { 40.f, 40.f, 40.f };
-	m_pTextureCom->Change_Texture(3);
+	if (m_pTextureCom)
+		m_pTextureCom->Change_Texture(0);
+
+	// Far Plane 보다 작으면 됨 ( Far Plane > SkyBox Scale * 2)
+	m_pTransformCom->Set_Scale(_vec3(30.f, 300.f, 300.f));
 
 	return S_OK;
 }
@@ -53,17 +64,26 @@ void CSkyBox::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CSkyBox::Render_GameObject()
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
+	DWORD dOldCullMode, dOldTTF;
+	m_pGraphicDev->GetRenderState(D3DRS_CULLMODE, &dOldCullMode);
+	m_pGraphicDev->GetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, &dOldTTF);
 
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
+	//m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	m_pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+	m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT3);
 
-	m_pTextureCom->Render_Texture();
+	if (m_pTextureCom)
+		m_pTextureCom->Render_Texture();	
+
 	m_pBufferCom->Render_Buffer();
 
+	//m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 	m_pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-
+	m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, dOldTTF);
+	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, dOldCullMode);
+	m_pGraphicDev->SetTexture(0, nullptr);
 }
 
 HRESULT CSkyBox::Add_Component()
@@ -89,7 +109,7 @@ HRESULT CSkyBox::Add_Component()
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
 	// Texture
-	pComponent = m_pTextureCom = static_cast<Engine::CTexture*>
+	pComponent = m_pTextureCom = static_cast<Engine::CCubeTexture*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_SkyTexture"));
 
 	if (nullptr == pComponent)
@@ -119,7 +139,7 @@ CSkyBox* CSkyBox::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CSkyBox::Free()
 {
-	Safe_Release(m_pBufferCom);
+	//Safe_Release(m_pBufferCom);
 
 	CGameObject::Free();
 }
