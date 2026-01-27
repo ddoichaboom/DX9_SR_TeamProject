@@ -1,7 +1,6 @@
 #pragma once
 #include "CBase.h"
 #include "Engine_Define.h"
-#include "CLoadingBar.h"
 #include <atomic>
 
 using Task = std::function<void()>;
@@ -48,7 +47,7 @@ private:
 	atomic<int>				m_iEndTaskCount;
 	ELoadingLevel			m_eCurLevel;
 
-	CLoadingBar*			m_pLoadingBar;
+	//CLoadingBar*			m_pLoadingBar;
 
 	_float					m_fTotalGauge = 0.f;
 	_float					m_fCurGauge = 0.f;

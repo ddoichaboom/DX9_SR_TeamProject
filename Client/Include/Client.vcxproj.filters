@@ -331,6 +331,12 @@
     <Filter Include="01. Scene\02. Loading\01.LoadingBar">
       <UniqueIdentifier>{02324fa3-a737-4245-9786-ffe543f379a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\01. Stage\03. SniperStage">
+      <UniqueIdentifier>{7edfba06-b1e0-4d16-bd1b-4d77286f1795}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\01. Stage\NewFilter1">
+      <UniqueIdentifier>{d489d24b-3c32-4a28-8352-8419cba49da5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
