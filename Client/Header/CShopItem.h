@@ -43,6 +43,7 @@ protected:
 
 public :
 	void		Set_Render(_bool bRender) { m_bRender = bRender; }
+	void		Set_TextureID(_uint id) { m_iTextureID = id; }
 	virtual		void		Set_On();
 
 protected:

@@ -9,6 +9,7 @@
 #include "CEventMgr.h"
 
 #include "CSoundMgr.h"
+#include "CManagement.h"
 
 vector<TextureSource> CShopBG::m_vTextureSource =
 {
@@ -250,6 +251,18 @@ void CShopBG::OnEvent(EVENT_TYPE _type, EventData* _pData)
 void CShopBG::Set_On()
 {	
 	ChangeState(SHOP);
+	if (CManagement::GetInstance()->Get_FloorNumber() == 1)
+	{
+		for (_int i = 0; i < 3; ++i)
+			m_pItem[i]->Set_TextureID(i);
+	}
+	else if(CManagement::GetInstance()->Get_FloorNumber() == 2)
+	{
+		m_pItem[0]->Set_TextureID(3);
+		m_pItem[1]->Set_TextureID(1);
+		m_pItem[2]->Set_TextureID(2);
+
+	}
 	for (_int i = 0; i < 3; ++i)
 		m_pItem[i]->Set_On();
 }
