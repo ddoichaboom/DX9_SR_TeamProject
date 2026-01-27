@@ -35,7 +35,7 @@ HRESULT CSkyBox::Ready_GameObject()
 		m_pTextureCom->Change_Texture(0);
 
 	// Far Plane 보다 작으면 됨 ( Far Plane > SkyBox Scale * 2)
-	m_pTransformCom->Set_Scale(_vec3(30.f, 300.f, 300.f));
+	m_pTransformCom->Set_Scale(_vec3(300.f, 300.f, 300.f));
 
 	return S_OK;
 }
