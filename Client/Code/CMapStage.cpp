@@ -136,13 +136,7 @@ _int CMapStage::Update_Scene(const _float& fTimeDelta)
     if (m_pLoadingEX->IsEnd() == false)
     {
         m_pBackGround->Update_GameObject(fTimeDelta);
-        m_pLoadingEX->Update_Loading();
-
-        //TODO : 사운드 매니저 예시. 제거하기 
-        if (m_pLoadingEX->IsEnd())
-        {
-            //CSoundMgr::GetInstance()->PlayBGM(szMap1BGM.c_str());
-        }
+        m_pLoadingEX->Update_Loading(fTimeDelta);
         return 0;
     }
     int iExit = CStage::Update_Scene(fTimeDelta);

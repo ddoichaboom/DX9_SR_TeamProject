@@ -285,7 +285,7 @@ HRESULT CEditorApp::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CEditorApp::Ready_Scene()
 {
-    // EditorScene 持失
+    //// EditorScene 持失
     m_pCurrentScene = CEditorScene::Create(m_pGraphicDev);
     //CEffectScene* scene;
     //m_pCurrentScene = scene = CEffectScene::Create(m_pGraphicDev);

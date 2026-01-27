@@ -171,7 +171,7 @@ void CExplosion::ResetParticle(Particle* particle, int idx)
 	particle->bIsAlive = true;
 	if (idx >=6)  particle->bFlag = true;
 	else particle->bFlag = false;
-	_float randX, randY,posZ, randSizeX, randSizeY, fSpeed;
+	_float randX, randY, randSizeX, randSizeY, fSpeed;
 
 	if (particle->bFlag)
 	{

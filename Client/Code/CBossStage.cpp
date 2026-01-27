@@ -25,6 +25,8 @@
 #include "CBoss.h"
 #include "CBossBullet.h"
 #include "CRocket.h"
+#include "CSkyBox.h"
+
 //钱 昏力侩
 #include "CWhiteMan.h"
 #include "CBeamMon.h"
@@ -114,7 +116,7 @@ _int CBossStage::Update_Scene(const _float& fTimeDelta)
     if (m_pLoadingEX->IsEnd() == false)
     {
         m_pBackGround->Update_GameObject(fTimeDelta);
-        m_pLoadingEX->Update_Loading();
+        m_pLoadingEX->Update_Loading(fTimeDelta);
         if (m_pLoadingEX->IsEnd())
         {
             if (FAILED(CVideoMgr::GetInstance()->ReadyVideo(g_hWnd, m_BossVideoName.c_str())))
@@ -227,24 +229,13 @@ HRESULT CBossStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
         return E_FAIL;
     }
 
-    //CPlayer* pPlayer = nullptr;
-    //_vec3 pPlayerSpawnPos = { 0,0,0 };
-
-    //pGameObject = pPlayer = CPlayer::Create(m_pGraphicDev, pPlayerSpawnPos);
-
-    //if (nullptr == pGameObject)
-    //    return E_FAIL;
-
-    //if (FAILED(pLayer->Add_GameObject(pGameObject)))
-    //    return E_FAIL;
-
     // 墨皋扼 积己
-    CGameObject* pPlayerObj = pLayer->Get_Object(OBJ_PLAYER);
+    pGameObject = pLayer->Get_Object(OBJ_PLAYER);
 
-    if (nullptr == pPlayerObj)
+    if (nullptr == pGameObject)
         return E_FAIL;
 
-    CTransform* pTransform = static_cast<CTransform*>(pPlayerObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
+    CTransform* pTransform = static_cast<CTransform*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"));
 
     if (nullptr == pTransform)
         return E_FAIL;
@@ -256,14 +247,20 @@ HRESULT CBossStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
     _vec3 vAt = { vPlayerPos.x, vPlayerPos.y, vPlayerPos.z };
     _vec3 vUp = { 0.f, 1.f, 0.f };
 
-    CGameObject* pCamera = CFirstCamera::Create(m_pGraphicDev, &vEye, &vAt, &vUp);
+    pGameObject = CFirstCamera::Create(m_pGraphicDev, &vEye, &vAt, &vUp);
 
-    if (nullptr == pCamera)
+    if (nullptr == pGameObject)
         return E_FAIL;
 
-    if (FAILED(pLayer->Add_GameObject(pCamera)))
+    if (FAILED(pLayer->Add_GameObject(pGameObject)))
         return E_FAIL;
 
+    // SkyBox 积己 
+    pGameObject = CSkyBox::Create(m_pGraphicDev);
+    NULL_CHECK_RETURN(pGameObject, E_FAIL);
+
+    if (FAILED(pLayer->Add_GameObject(pGameObject)))
+        return E_FAIL;
 
     // 目辑 积己
     pGameObject = CCursor::Create(m_pGraphicDev);
@@ -418,16 +415,12 @@ HRESULT CBossStage::Ready_CharacterTextureProto()
 
 HRESULT CBossStage::Ready_TerrainTextureProto()
 {
-    CTexture* pCom_Texture = nullptr;
+    CCubeTexture* pCom_Cube_Texture = nullptr;
 
-    //// Floor Proto 
-    //pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CFloor::GetTextureSources());
-    //if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Static_FloorTexture", pCom_Texture)))
-    //    return E_FAIL;
-
-    //pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CWall::GetTextureSources());
-    //if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Static_WallTexture", pCom_Texture)))
-    //    return E_FAIL;
+    // Obstacle(VendingMachine) Proto 
+    pCom_Cube_Texture = Engine::CCubeTexture::Create(m_pGraphicDev, CSkyBox::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SkyTexture", pCom_Cube_Texture)))
+        return E_FAIL;
 
     return S_OK;
 }

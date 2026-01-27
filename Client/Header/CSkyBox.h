@@ -6,7 +6,7 @@ namespace Engine
 {
 	class CCubeTex;
 	class CTransform;
-	class CTexture;
+	class CCubeTexture;
 }
 
 class CSkyBox :   public CGameObject
@@ -17,23 +17,32 @@ private:
 	virtual ~CSkyBox();
 
 public:
+	static vector<TextureSource>& GetTextureSources()
+	{
+		return m_vTextureSource;
+	}
+
+public:
 	virtual			HRESULT		Ready_GameObject();
 	virtual			_int		Update_GameObject(const _float& fTimeDelta);
 	virtual			void		LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual			void		Render_GameObject();
 
-private:
-	HRESULT			Add_Component();	
+protected:
+	virtual HRESULT				Add_Component();	
+	virtual void				Free() override;
 
 private:
 	Engine::CCubeTex*			m_pBufferCom;
 	Engine::CTransform*			m_pTransformCom;
-	Engine::CTexture*			m_pTextureCom;
+	Engine::CCubeTexture*		m_pTextureCom;
 
 public:
 	static CSkyBox* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
+
+
 private:
-	virtual void Free();
+	static vector<TextureSource>    m_vTextureSource;
 };
 
