@@ -14,6 +14,7 @@ vector<TextureSource> CShopItem::m_vTextureSource =
     {0, L"../Bin/Resource/Texture/UI/SHOP_KATANA.dds"},
     {1, L"../Bin/Resource/Texture/UI/SHOP_ITEM1.dds"},
     {2, L"../Bin/Resource/Texture/UI/SHOP_ITEM2.dds"},
+    {3, L"../Bin/Resource/Texture/UI/Shop_Sniper.dds"},
 };
 
 wstring  CShopItem::szItemHoverSFX = L"Item_Hover_SFX.wav";
@@ -257,4 +258,5 @@ void CShopItem::Set_On()
     m_fTime = 0.f;
     m_fInterval = 0.f;
     m_bSelect = false;
+    m_pTextureCom->Change_Texture(m_iTextureID);
 }

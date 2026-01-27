@@ -4,9 +4,9 @@
   "doorCount": 13,
   "dynamicFloorCount": 60,
   "dynamicWallCount": 7,
-  "floorCount": 761,
-  "mapColliderCount": 64,
-  "objectCount": 2153,
+  "floorCount": 760,
+  "mapColliderCount": 66,
+  "objectCount": 2154,
   "objects": [
     {
       "floorType": 0,
@@ -5445,29 +5445,6 @@
         1.0
       ],
       "textureIdx": 4,
-      "type": "Floor"
-    },
-    {
-      "floorType": 0,
-      "isDynamic": false,
-      "name": "Floor",
-      "position": [
-        -48.0,
-        16.0,
-        336.0
-      ],
-      "roomIndex": 1,
-      "rotation": [
-        90.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        8.0,
-        8.0,
-        1.0
-      ],
-      "textureIdx": 5,
       "type": "Floor"
     },
     {
@@ -48721,6 +48698,48 @@
         8.0,
         14.0,
         4.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider_0",
+      "position": [
+        24.0,
+        7.5,
+        324.2869873046875
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        80.0,
+        7.5,
+        8.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        24.0,
+        39.5,
+        388.2869873046875
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        80.0,
+        7.5,
+        8.0
       ],
       "type": "MapCollider"
     }
