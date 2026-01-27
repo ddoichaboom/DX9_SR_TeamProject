@@ -69,7 +69,7 @@ HRESULT CLoadingBar::Add_Component()
 	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", m_pBufferCom });
 
 	// Transform
-	Engine::CComponent*  pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>
+	Engine::CComponent*  pComponent = m_pTransformCom = static_cast<Engine::CTransform*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
 
 	if (nullptr == pComponent)
