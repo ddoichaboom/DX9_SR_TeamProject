@@ -33,7 +33,6 @@ private:
 	_float				m_fSpeed = 0.1f;
 	_float				m_fLength = WINCX*0.25f;
 	bool				m_bLerp = false;
-	bool				m_bLerpRender = false;
 	_float				m_fCurPerecent = 0.f;
 	_float				m_fDestPerecent = 0.f;
 

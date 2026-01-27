@@ -48,7 +48,7 @@ _int CPhoneHPUI::Update_GameObject(const _float& fTimeDelta)
 			if (m_pOwner && !m_bHPEmpty)
 			{
 				m_fOwnerHP = m_pOwner->GetHP();
-				m_fRatio = (int)(m_fOwnerHP / m_fMaxHP);
+				m_fRatio = (m_fOwnerHP / m_fMaxHP);
 				m_type = GetHPType(m_fOwnerHP);
 
 				particle->color = m_HPColors[m_type];

@@ -24,18 +24,12 @@ public:
 	
 public:
 	HRESULT	Ready_Loading();
-	bool	Update_Loading(const _float& fTimeDelta);
+	void	Update_Loading(const _float& fTimeDelta);
 	_float	GetPercent() { return m_fPercent; }
 
 public:
 	void	AddTask(_int level, Task _task);
-	bool	IsEnd()
-	{
-		if (m_pLoadingBar)
-			return m_pLoadingBar->IsBarEnd();
-		else return false;
-		
-	}
+	bool	IsEnd();
 public:
 	static unsigned int CALLBACK Thread_Func(void* pArg);
 	static CLoadingEX* Create(LPDIRECT3DDEVICE9 pGraphicDev);
