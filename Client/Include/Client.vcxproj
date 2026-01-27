@@ -164,6 +164,7 @@
     <ClInclude Include="..\Header\CChat.h" />
     <ClInclude Include="..\Header\CCursor.h" />
     <ClInclude Include="..\Header\CDashUI.h" />
+    <ClInclude Include="..\Header\CDisplayObject.h" />
     <ClInclude Include="..\Header\CDoor.h" />
     <ClInclude Include="..\Header\CDoorLeft.h" />
     <ClInclude Include="..\Header\CDoorRight.h" />
@@ -238,7 +239,6 @@
     <ClInclude Include="..\Header\CWall.h" />
     <ClInclude Include="..\Header\CWeapon.h" />
     <ClInclude Include="..\Header\CWhiteMan.h" />
-    <ClInclude Include="CDisplayObject.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
@@ -266,6 +266,7 @@
     <ClCompile Include="..\Code\CChat.cpp" />
     <ClCompile Include="..\Code\CCursor.cpp" />
     <ClCompile Include="..\Code\CDashUI.cpp" />
+    <ClCompile Include="..\Code\CDisplayObject.cpp" />
     <ClCompile Include="..\Code\CDoor.cpp" />
     <ClCompile Include="..\Code\CDoorLeft.cpp" />
     <ClCompile Include="..\Code\CDoorRight.cpp" />
@@ -340,7 +341,6 @@
     <ClCompile Include="..\Code\CWall.cpp" />
     <ClCompile Include="..\Code\CWeapon.cpp" />
     <ClCompile Include="..\Code\CWhiteMan.cpp" />
-    <ClCompile Include="CDisplayObject.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

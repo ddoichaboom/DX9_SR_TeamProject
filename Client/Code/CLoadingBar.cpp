@@ -75,7 +75,7 @@ HRESULT CLoadingBar::Add_Component()
 	if (nullptr == pComponent)
 		return E_FAIL;
 
-	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
+	m_mapComponent[ID_STATIC].insert({ L"Com_Transform", pComponent });
 	return S_OK;
 }
 
