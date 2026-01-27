@@ -277,7 +277,7 @@ void CEditorScene::Handle_Duplicate()
                 _int iRoomIndex(0);
 
                 // 타입별 복제
-                if (CEditorDynamicFloor* pDynamicFloor = static_cast<CEditorDynamicFloor*>(pSelectedObj))
+                if (CEditorDynamicFloor* pDynamicFloor = dynamic_cast<CEditorDynamicFloor*>(pSelectedObj))
                 {
                     iType = pDynamicFloor->Get_FloorType();
                     iRoomIndex = pDynamicFloor->Get_RoomIndex();
@@ -285,7 +285,7 @@ void CEditorScene::Handle_Duplicate()
                     vPos += m_vDupplicateDir * 16.f;
                     pNewObj = CEditorDynamicFloor::Create(m_pGraphicDev, vPos, vRot, vScale, iType);
                 }
-                else if (CEditorSlopeFloor* pSlopeFloor = static_cast<CEditorSlopeFloor*>(pSelectedObj))
+                else if (CEditorSlopeFloor* pSlopeFloor = dynamic_cast<CEditorSlopeFloor*>(pSelectedObj))
                 {
                     iType = pSlopeFloor->Get_FloorType();
                     _float fSlopeAngle = pSlopeFloor->Get_SlopeAngle();
@@ -297,7 +297,7 @@ void CEditorScene::Handle_Duplicate()
                     pNewObj = CEditorSlopeFloor::Create(m_pGraphicDev, vPos, vScale,
                                                         iType, fSlopeAngle, eSlopeDir);
                 }
-                else if (CEditorFloor* pFloor = static_cast<CEditorFloor*>(pSelectedObj))
+                else if (CEditorFloor* pFloor = dynamic_cast<CEditorFloor*>(pSelectedObj))
                 {
                     iType       =  pFloor->Get_FloorType();
                     iIdx        = pFloor->Get_TextureIdx();
@@ -307,7 +307,7 @@ void CEditorScene::Handle_Duplicate()
                     pNewObj = CEditorFloor::Create(m_pGraphicDev, vPos, vRot, vScale, iType, iIdx);
                 }
                 
-                else if (CEditorCeiling* pCeiling = static_cast<CEditorCeiling*>(pSelectedObj))
+                else if (CEditorCeiling* pCeiling = dynamic_cast<CEditorCeiling*>(pSelectedObj))
                 {
                     iType   = pCeiling->Get_CeilingType();
                     iIdx    = pCeiling->Get_TextureIdx();
@@ -316,7 +316,7 @@ void CEditorScene::Handle_Duplicate()
                     vPos += m_vDupplicateDir * 16.f;
                     pNewObj = CEditorCeiling::Create(m_pGraphicDev, vPos, vRot, vScale, iType, iIdx);
                 }
-                else if (CEditorVendingMachine* pMachine =  static_cast<CEditorVendingMachine*>(pSelectedObj))
+                else if (CEditorVendingMachine* pMachine = dynamic_cast<CEditorVendingMachine*>(pSelectedObj))
                 {
                     iRoomIndex = pMachine->Get_RoomIndex();
 
@@ -324,7 +324,7 @@ void CEditorScene::Handle_Duplicate()
                     pNewObj = CEditorVendingMachine::Create(m_pGraphicDev, vPos, vRot, vScale);
                     pNewObj->Set_RoomIndex(iRoomIndex);
                 }
-                else if (CEditorDynamicWall* pDynamicWall = static_cast<CEditorDynamicWall*>(pSelectedObj))
+                else if (CEditorDynamicWall* pDynamicWall = dynamic_cast<CEditorDynamicWall*>(pSelectedObj))
                 {
                     WALL_DIR eDir = pDynamicWall->Get_WallDirection();
 
@@ -336,7 +336,7 @@ void CEditorScene::Handle_Duplicate()
 
                     pNewObj = CEditorDynamicWall::Create(m_pGraphicDev, vPos, vRot, vScale, eDir, iType, iIdx);
                 }
-                else if (CEditorWall* pWall = static_cast<CEditorWall*>(pSelectedObj))
+                else if (CEditorWall* pWall = dynamic_cast<CEditorWall*>(pSelectedObj))
                 {
                     WALL_DIR eDir = pWall->Get_WallDirection();
 
@@ -348,7 +348,7 @@ void CEditorScene::Handle_Duplicate()
 
                     pNewObj = CEditorWall::Create(m_pGraphicDev, vPos, vRot, vScale, eDir, iType, iIdx);
                 }
-                else if (CEditorSpawnPoint* pSpawn = static_cast<CEditorSpawnPoint*>(pSelectedObj))
+                else if (CEditorSpawnPoint* pSpawn = dynamic_cast<CEditorSpawnPoint*>(pSelectedObj))
                 {
                     SPAWN_TYPE eType = pSpawn->Get_SpawnType();
                     iRoomIndex = pSpawn->Get_RoomIndex();
@@ -382,13 +382,13 @@ void CEditorScene::Handle_Duplicate()
                     pNewObj = CEditorSpawnPoint::Create(m_pGraphicDev, vPos, vRot, vScale,
                         eType, strMonsterKey);
                 }
-                else if (CEditorMapCollider* pMapCollider = static_cast<CEditorMapCollider*>(pSelectedObj))
+                else if (CEditorMapCollider* pMapCollider = dynamic_cast<CEditorMapCollider*>(pSelectedObj))
                 {
                     vPos += m_vDupplicateDir * 16.f;
                     _vec3 vColliderScale = pMapCollider->Get_ColliderScale();
                     pNewObj = CEditorMapCollider::Create(m_pGraphicDev, vPos, vColliderScale);
                 }
-                else if (CEditorDoor* pDoor = static_cast<CEditorDoor*>(pSelectedObj))
+                else if (CEditorDoor* pDoor = dynamic_cast<CEditorDoor*>(pSelectedObj))
                 {
                     vPos += m_vDupplicateDir * 16.f;
                     DOOR_TYPE iDoorType = pDoor->Get_DoorType();
@@ -396,7 +396,7 @@ void CEditorScene::Handle_Duplicate()
                     iRoomIndex = pDoor->Get_RoomIndex();
                     pNewObj = CEditorDoor::Create(m_pGraphicDev, vPos, vRot, vScale, iDoorType, iDoorID);
                 }
-                else if (CEditorTriggerBox* pTriggerBox = static_cast<CEditorTriggerBox*>(pSelectedObj))
+                else if (CEditorTriggerBox* pTriggerBox = dynamic_cast<CEditorTriggerBox*>(pSelectedObj))
                 {
                     vPos += m_vDupplicateDir * 16.f;
                     _vec3 vColliderScale = pTriggerBox->Get_ColliderScale();
@@ -755,7 +755,7 @@ void CEditorScene::Place_SpawnPlayer(const _vec3& vPos)
     CEditorSpawnPoint* pExistingPlayer = nullptr;
     for (auto& pObj : m_ObjectList)
     {
-        CEditorSpawnPoint* pSpawn = static_cast<CEditorSpawnPoint*>(pObj);
+        CEditorSpawnPoint* pSpawn = dynamic_cast<CEditorSpawnPoint*>(pObj);
         if (pSpawn && pSpawn->Get_SpawnType() == SPAWN_PLAYER)
         {
             pExistingPlayer = pSpawn;

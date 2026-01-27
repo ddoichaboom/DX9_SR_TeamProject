@@ -582,9 +582,6 @@
     <ClInclude Include="..\Header\CBossTrail.h">
       <Filter>02. GameObject\13. Effect\10. BossTrail</Filter>
     </ClInclude>
-    <ClInclude Include="CDisplayObject.h">
-      <Filter>02. GameObject\03.MapObject\00.DisPlayObj</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CInteractObject.h">
       <Filter>02. GameObject\03.MapObject\01.InteractiveObj</Filter>
     </ClInclude>
@@ -632,6 +629,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\CLoadingBar.h">
       <Filter>01. Scene\02. Loading\01.LoadingBar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDisplayObject.h">
+      <Filter>02. GameObject\03.MapObject\00.DisPlayObj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -878,9 +878,6 @@
     <ClCompile Include="..\Code\CBossTrail.cpp">
       <Filter>02. GameObject\13. Effect\10. BossTrail</Filter>
     </ClCompile>
-    <ClCompile Include="CDisplayObject.cpp">
-      <Filter>02. GameObject\03.MapObject\00.DisPlayObj</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CInteractObject.cpp">
       <Filter>02. GameObject\03.MapObject\01.InteractiveObj</Filter>
     </ClCompile>
@@ -925,6 +922,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CLoadingBar.cpp">
       <Filter>01. Scene\02. Loading\01.LoadingBar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDisplayObject.cpp">
+      <Filter>02. GameObject\03.MapObject\00.DisPlayObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
