@@ -168,6 +168,9 @@ HRESULT CMainApp::Ready_DefaultProto()
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcTexSide", Engine::CRcTexSide::Create(m_pGraphicDev))))
 		return E_FAIL;
 
+	//if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcColUp", Engine::CRcColSide::Create(m_pGraphicDev))))
+	//	return E_FAIL;
+
 	// CubeTex (CObstacle에서 사용)
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_CubeTex", Engine::CCubeTex::Create(m_pGraphicDev))))
 		return E_FAIL;

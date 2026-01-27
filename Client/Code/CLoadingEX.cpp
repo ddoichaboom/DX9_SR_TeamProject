@@ -4,7 +4,8 @@
 
 CLoadingEX::CLoadingEX(LPDIRECT3DDEVICE9 pGraphicDev)
     :m_pGraphicDev(pGraphicDev), m_fPercent(0.f)
-    , m_iCurTaskCount(0), m_iEndTaskCount(0), m_eCurLevel(LEVEL_END)
+    , m_iCurTaskCount(0), m_iEndTaskCount(0), m_eCurLevel(LEVEL_END),
+    m_pLoadingBar(nullptr)
 {
     m_pGraphicDev->AddRef();
 }
@@ -15,11 +16,24 @@ CLoadingEX::~CLoadingEX()
 
 HRESULT CLoadingEX::Ready_Loading()
 {
+    //Red Loading Bar
+    m_pLoadingBar = CLoadingBar::Create(m_pGraphicDev, { 1,0,0,1 });
+    m_pLoadingBar->SetPercent(0.f);
     return S_OK;
 }
 
-bool CLoadingEX::Update_Loading()
+bool CLoadingEX::Update_Loading(const _float& fTimeDelta)
 {
+    if(m_pLoadingBar) m_pLoadingBar->Update_GameObject(fTimeDelta);
+    if (m_bEnd)
+    {
+        if (m_pLoadingBar->IsBarEnd())
+        {
+            return true;
+        }
+        return false;
+    }
+
     if (m_eCurLevel == LEVEL_END || m_iCurTaskCount == 0)
     {
         if (m_eCurLevel == LEVEL_END) m_eCurLevel = Lv1_INIT;
@@ -28,7 +42,8 @@ bool CLoadingEX::Update_Loading()
         if (m_eCurLevel == LEVEL_END)
         {
             m_bEnd = true;
-            return true;
+            m_pLoadingBar->SetPercent(1.f);
+            return false;
         }
 
         m_iCurTaskCount = 0;
@@ -45,6 +60,10 @@ bool CLoadingEX::Update_Loading()
     //스레드가 모두 완료됐다면 
     if (result == WAIT_OBJECT_0)
     {
+        m_fCurGauge += m_iCurTaskCount;
+        m_fPercent = m_fCurGauge / m_fTotalGauge;
+        m_pLoadingBar->SetPercent(m_fPercent);
+
         //스레드 초기화 
         for (int i = 0; i < m_iCurTaskCount; i++)
         {
@@ -62,7 +81,7 @@ bool CLoadingEX::Update_Loading()
         if (m_eCurLevel == LEVEL_END)
         {
             m_bEnd = true;
-            return true;
+            return false;
         }
 
         for (int i = 0; i < (_int)m_vecTasks[m_eCurLevel].size(); i++)
@@ -72,7 +91,7 @@ bool CLoadingEX::Update_Loading()
         }
     }
 
-    return m_bEnd;
+    return false;
 }
 
 void CLoadingEX::AddTask(_int level, Task _task)
@@ -82,6 +101,7 @@ void CLoadingEX::AddTask(_int level, Task _task)
         m_vecTasks.resize(level + 1);
     }
     m_vecTasks[level].push_back(_task);
+    m_fTotalGauge++;
 }
 
 unsigned int CLoadingEX::Thread_Func(void* pArg)
@@ -106,5 +126,6 @@ CLoadingEX* CLoadingEX::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CLoadingEX::Free()
 {
     Safe_Release(m_pGraphicDev);
+    Safe_Release(m_pLoadingBar);
 }
 

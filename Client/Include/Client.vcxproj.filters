@@ -328,6 +328,9 @@
     <Filter Include="02. GameObject\13. Effect\13.PhoneHPUI">
       <UniqueIdentifier>{c5009c51-f625-4b8a-896e-3eb8785109cb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\02. Loading\01.LoadingBar">
+      <UniqueIdentifier>{02324fa3-a737-4245-9786-ffe543f379a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -627,6 +630,9 @@
     <ClInclude Include="..\Header\CPhoneHPUI.h">
       <Filter>02. GameObject\13. Effect\13.PhoneHPUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CLoadingBar.h">
+      <Filter>01. Scene\02. Loading\01.LoadingBar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -916,6 +922,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CPhoneHPUI.cpp">
       <Filter>02. GameObject\13. Effect\13.PhoneHPUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLoadingBar.cpp">
+      <Filter>01. Scene\02. Loading\01.LoadingBar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

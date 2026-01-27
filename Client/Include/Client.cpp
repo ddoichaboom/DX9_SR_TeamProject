@@ -46,6 +46,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MSG msg;
     msg.message = WM_NULL;
 
+    _int iFrameCount = 0;
+    _float fFPS = 0.f;
+
+    TCHAR str[256];
+    wsprintf(str, L"FPS: %d\n", iFrameCount);
+
     CMainApp* pMainApp = CMainApp::Create();
     if (nullptr == pMainApp) return FALSE;
 
@@ -78,15 +84,28 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             CTimerMgr::GetInstance()->Set_TimeDelta(L"Timer_Immediate");
             _float fTimer_Immediate = CTimerMgr::GetInstance()->Get_TimeDelta(L"Timer_Immediate");
 
-            if (CFrameMgr::GetInstance()->IsPermit_Call(L"Frame60", fTimer_Immediate))
+            fFPS += fTimer_Immediate;
+            if (fFPS >= 1.f)
             {
+                wsprintf(str, L"FPS: %d\n", iFrameCount);
+                iFrameCount = 0;
+                fFPS = 0.f;
+            }
+
+
+            if (CFrameMgr::GetInstance()->IsPermit_Call(L"Frame60", fTimer_Immediate))
+            {   
                 CTimerMgr::GetInstance()->Set_TimeDelta(L"Timer_FPS60");
                 _float fTimer_FPS60 = CTimerMgr::GetInstance()->Get_TimeDelta(L"Timer_FPS60");
+
+                iFrameCount++;
 
                 pMainApp->Update_MainApp(fTimer_FPS60);
                 pMainApp->LateUpdate_MainApp(fTimer_FPS60);
                 pMainApp->Render_MainApp();
             }
+            
+            SetWindowText(g_hWnd, str);
         }
 
     }

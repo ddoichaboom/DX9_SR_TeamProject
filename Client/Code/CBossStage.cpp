@@ -114,7 +114,7 @@ _int CBossStage::Update_Scene(const _float& fTimeDelta)
     if (m_pLoadingEX->IsEnd() == false)
     {
         m_pBackGround->Update_GameObject(fTimeDelta);
-        m_pLoadingEX->Update_Loading();
+        m_pLoadingEX->Update_Loading(fTimeDelta);
         if (m_pLoadingEX->IsEnd())
         {
             if (FAILED(CVideoMgr::GetInstance()->ReadyVideo(g_hWnd, m_BossVideoName.c_str())))

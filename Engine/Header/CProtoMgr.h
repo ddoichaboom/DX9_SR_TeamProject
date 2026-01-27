@@ -9,6 +9,7 @@
 #include "CTerrainTex.h"
 #include "CCubeTex.h"
 #include "CDVIBuffer.h"
+#include "CRcColUp.h"
 
 #include "CTexture.h"
 #include "CAnimation.h"
