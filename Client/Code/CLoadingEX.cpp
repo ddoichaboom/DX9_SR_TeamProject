@@ -4,7 +4,7 @@
 
 CLoadingEX::CLoadingEX(LPDIRECT3DDEVICE9 pGraphicDev)
     :m_pGraphicDev(pGraphicDev), m_fPercent(0.f)
-    , m_iCurTaskCount(0), m_iEndTaskCount(0), m_eCurLevel(LEVEL_END)
+    , m_iCurTaskCount(0), m_iEndTaskCount(0), m_eCurLevel(LEVEL_END), m_pLoadingBar(nullptr)
    
 {
     m_pGraphicDev->AddRef();
@@ -17,14 +17,14 @@ CLoadingEX::~CLoadingEX()
 HRESULT CLoadingEX::Ready_Loading()
 {
     //Red Loading Bar
-    //m_pLoadingBar = CLoadingBar::Create(m_pGraphicDev, { 1,0,0,1 });
-    //m_pLoadingBar->SetPercent(0.f);
+    m_pLoadingBar = CLoadingBar::Create(m_pGraphicDev, { 1,0,0,1 });
+    m_pLoadingBar->SetPercent(0.f);
     return S_OK;
 }
 
 void CLoadingEX::Update_Loading(const _float& fTimeDelta)
 {
-  //  if(m_pLoadingBar) m_pLoadingBar->Update_GameObject(fTimeDelta);
+    if(m_pLoadingBar) m_pLoadingBar->Update_GameObject(fTimeDelta);
     if (m_bEnd) return;
 
     if (m_eCurLevel == LEVEL_END || m_iCurTaskCount == 0)
@@ -35,7 +35,7 @@ void CLoadingEX::Update_Loading(const _float& fTimeDelta)
         if (m_eCurLevel == LEVEL_END)
         {
             m_bEnd = true;
-       //     m_pLoadingBar->SetPercent(1.f);
+            m_pLoadingBar->SetPercent(1.f);
             return;
         }
 
@@ -54,7 +54,7 @@ void CLoadingEX::Update_Loading(const _float& fTimeDelta)
     {
         m_fCurGauge += m_iCurTaskCount;
         m_fPercent = m_fCurGauge / m_fTotalGauge;
-       // m_pLoadingBar->SetPercent(m_fPercent);
+        m_pLoadingBar->SetPercent(m_fPercent);
 
         //스레드 초기화 
         for (int i = 0; i < m_iCurTaskCount; i++)
@@ -98,9 +98,8 @@ void CLoadingEX::AddTask(_int level, Task _task)
 
 bool CLoadingEX::IsEnd()
 {
-    //if (m_bEnd && m_pLoadingBar && m_pLoadingBar->IsBarEnd()) return true;
-    //else return false;
-    return m_bEnd;
+    if (m_bEnd && m_pLoadingBar && m_pLoadingBar->IsBarEnd()) return true;
+    else return false;
 }
 
 
@@ -125,7 +124,15 @@ CLoadingEX* CLoadingEX::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CLoadingEX::Free()
 {
+    for (int i = 0; i < m_iCurTaskCount; i++)
+    {
+        if (m_hThread[i])
+        {
+            CloseHandle(m_hThread[i]);
+            m_hThread[i] = NULL;
+        }
+    }
+    Safe_Release(m_pLoadingBar);
     Safe_Release(m_pGraphicDev);
-   // Safe_Release(m_pLoadingBar);
 }
 
