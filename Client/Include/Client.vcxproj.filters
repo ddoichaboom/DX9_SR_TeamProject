@@ -94,9 +94,6 @@
     <Filter Include="02. GameObject\00. Character\02. Boss">
       <UniqueIdentifier>{0436d969-19c6-4403-b309-25eaa67f0dd1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Scene\01. Stage\02. BossTestStage">
-      <UniqueIdentifier>{04d88061-d5eb-4c6a-875c-49283c5875d8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\10. Bullet\BossBullet">
       <UniqueIdentifier>{e7eee20e-6188-4ddb-8e63-38c6b7f80026}</UniqueIdentifier>
     </Filter>
@@ -334,7 +331,10 @@
     <Filter Include="01. Scene\01. Stage\03. SniperStage">
       <UniqueIdentifier>{7edfba06-b1e0-4d16-bd1b-4d77286f1795}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Scene\01. Stage\NewFilter1">
+    <Filter Include="01. Scene\01. Stage\02. BossTestStage">
+      <UniqueIdentifier>{04d88061-d5eb-4c6a-875c-49283c5875d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\01. Stage\04. RoadStage">
       <UniqueIdentifier>{d489d24b-3c32-4a28-8352-8419cba49da5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -639,6 +639,12 @@
     <ClInclude Include="..\Header\CDisplayObject.h">
       <Filter>02. GameObject\03.MapObject\00.DisPlayObj</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CSniperStage.h">
+      <Filter>01. Scene\01. Stage\03. SniperStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CRoadStage.h">
+      <Filter>01. Scene\01. Stage\04. RoadStage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -931,6 +937,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CDisplayObject.cpp">
       <Filter>02. GameObject\03.MapObject\00.DisPlayObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSniperStage.cpp">
+      <Filter>01. Scene\01. Stage\03. SniperStage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CRoadStage.cpp">
+      <Filter>01. Scene\01. Stage\04. RoadStage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

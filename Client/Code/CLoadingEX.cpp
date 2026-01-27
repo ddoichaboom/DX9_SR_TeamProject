@@ -10,7 +10,7 @@ CLoadingEX::CLoadingEX(LPDIRECT3DDEVICE9 pGraphicDev)
     m_pGraphicDev->AddRef();
 }
 
-CLoadingEX::~CLoadingEX()
+CLoadingEX::~CLoadingEX() 
 {
 }
 

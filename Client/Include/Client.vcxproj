@@ -170,6 +170,7 @@
     <ClInclude Include="..\Header\CDoorRight.h" />
     <ClInclude Include="..\Header\CLoadingBar.h" />
     <ClInclude Include="..\Header\CPhoneHPUI.h" />
+    <ClInclude Include="..\Header\CRoadStage.h" />
     <ClInclude Include="..\Header\CRoomTrigger.h" />
     <ClInclude Include="..\Header\CEffectUI.h" />
     <ClInclude Include="..\Header\CEnding.h" />
@@ -219,6 +220,7 @@
     <ClInclude Include="..\Header\CSkyBox.h" />
     <ClInclude Include="..\Header\CSlopeFloor.h" />
     <ClInclude Include="..\Header\CSlotUI.h" />
+    <ClInclude Include="..\Header\CSniperStage.h" />
     <ClInclude Include="..\Header\CSodaUI.h" />
     <ClInclude Include="..\Header\CSoda.h" />
     <ClInclude Include="..\Header\CStageBG.h" />
@@ -272,6 +274,7 @@
     <ClCompile Include="..\Code\CDoorRight.cpp" />
     <ClCompile Include="..\Code\CLoadingBar.cpp" />
     <ClCompile Include="..\Code\CPhoneHPUI.cpp" />
+    <ClCompile Include="..\Code\CRoadStage.cpp" />
     <ClCompile Include="..\Code\CRoomTrigger.cpp" />
     <ClCompile Include="..\Code\CEffectUI.cpp" />
     <ClCompile Include="..\Code\CEnding.cpp" />
@@ -320,6 +323,7 @@
     <ClCompile Include="..\Code\CSkyBox.cpp" />
     <ClCompile Include="..\Code\CSlopeFloor.cpp" />
     <ClCompile Include="..\Code\CSlotUI.cpp" />
+    <ClCompile Include="..\Code\CSniperStage.cpp" />
     <ClCompile Include="..\Code\CSodaUI.cpp" />
     <ClCompile Include="..\Code\CSoda.cpp" />
     <ClCompile Include="..\Code\CStageBG.cpp" />

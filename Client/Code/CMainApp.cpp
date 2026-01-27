@@ -6,6 +6,8 @@
 #include "CPoolMgr.h"
 #include "CMapStage.h"
 #include "CBossStage.h"
+#include "CSniperStage.h"
+#include "CRoadStage.h"
 #include "CLogo.h"
 #include "CEnding.h"
 
@@ -255,8 +257,11 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	//Engine::CScene* pInitScene = CTestStage::Create(pGraphicDev);
 	//Engine::CScene* pInitScene = CMapStage::Create(pGraphicDev);
-	Engine::CScene* pInitScene = CLogo::Create(pGraphicDev);
-	m_eCurSceneType = SCENE_LOGO;
+	//Engine::CScene* pInitScene = CLogo::Create(pGraphicDev);
+	//Engine::CScene* pInitScene = CSniperStage::Create(pGraphicDev);
+	Engine::CScene* pInitScene = CRoadStage::Create(pGraphicDev);
+
+	m_eCurSceneType = SCENE_NONE;
 	//Engine::CScene* pInitScene = CBossTestStage::Create(pGraphicDev);
 
 	if (nullptr == pInitScene)
