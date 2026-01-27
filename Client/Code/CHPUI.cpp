@@ -119,6 +119,9 @@ HRESULT CHPUI::Ready_GameObject()
 
 _int CHPUI::Update_GameObject(const _float& fTimeDelta)
 {
+
+	if (IsDead()) return RET_DEAD;
+
 	if (m_pPlayer == nullptr)
 	{
 		CGameObject* player = CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Get_Object(OBJ_PLAYER);

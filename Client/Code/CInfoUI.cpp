@@ -126,6 +126,7 @@ HRESULT CInfoUI::Ready_GameObject()
 
 _int CInfoUI::Update_GameObject(const _float& fTimeDelta)
 {
+    if (IsDead()) return RET_DEAD;
     _int iExit = CGameObject::Update_GameObject(fTimeDelta);    
 
     if (m_bRender)

@@ -96,6 +96,7 @@ HRESULT CCursor::Ready_GameObject()
 
 _int CCursor::Update_GameObject(const _float& fTimeDelta)
 {
+	if (IsDead()) return RET_DEAD;
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
 	
 	return iExit;

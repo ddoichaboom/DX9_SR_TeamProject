@@ -140,6 +140,7 @@ HRESULT CEffectUI::Ready_GameObject()
 
 _int CEffectUI::Update_GameObject(const _float& fTimeDelta)
 {
+	if (IsDead()) return RET_DEAD;
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
 
 	m_fTime += fTimeDelta;

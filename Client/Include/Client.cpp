@@ -89,6 +89,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             if (fFPS >= 1.f)
             {
                 wsprintf(str, L"FPS: %d\n", iFrameCount);
+                SetWindowText(g_hWnd, str);
                 iFrameCount = 0;
                 fFPS = 0.f;
             }
@@ -105,8 +106,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                 pMainApp->LateUpdate_MainApp(fTimer_FPS60);
                 pMainApp->Render_MainApp();
             }
-            
-            SetWindowText(g_hWnd, str);
+
         }
 
     }

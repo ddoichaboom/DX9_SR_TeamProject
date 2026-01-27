@@ -110,7 +110,10 @@ void CMainApp::Render_MainApp()
 {
 	if (CVideoMgr::GetInstance()->IsPlaying()) return; 
 
-	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f, 0.f, 0.f, 1.f));
+	//TODO : 테스트맵 제작 완료되면 기존으로 돌리기. 테스트 맵 용
+	if(m_eCurSceneType == SCENE_NONE) m_pDeviceClass->Render_Begin(D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
+	else m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f, 0.f, 0.f, 1.f));
+
 	m_pManagementClass->Render_Scene(m_pGraphicDev);
 	m_pDeviceClass->Render_End();
 }
@@ -256,14 +259,15 @@ HRESULT CMainApp::Ready_DefaultProto()
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	Engine::CScene* pInitScene = CLogo::Create(pGraphicDev);
+	//기존 맵 플레이 할때는 SCENE_LOGG로 변경하고 시작하기
+	m_eCurSceneType = SCENE_LOGO;
+
 	//Engine::CScene* pInitScene = CSniperStage::Create(pGraphicDev);
 	//Engine::CScene* pInitScene = CRoadStage::Create(pGraphicDev);
 
 	//테스트 맵 SceneType
 	//m_eCurSceneType = SCENE_NONE;
 
-	//기존 맵 플레이 할때는 SCENE_LOGG로 변경하고 시작하기
-	m_eCurSceneType = SCENE_LOGO;
 	if (nullptr == pInitScene)
 		return E_FAIL;
 

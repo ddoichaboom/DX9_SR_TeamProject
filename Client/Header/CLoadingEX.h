@@ -37,11 +37,12 @@ private:
 	virtual void		Free();
 
 private:
+	enum {Thread_Cnt = 4};
 	vector<std::vector<Task>> m_vecTasks;
 
 	LPDIRECT3DDEVICE9		m_pGraphicDev;
-	HANDLE					m_hThread[4];
-
+	HANDLE					m_hThread[Thread_Cnt];
+	
 	bool					m_bEnd = false;
 
 	atomic<int>				m_iCurTaskCount;

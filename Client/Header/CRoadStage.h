@@ -1,7 +1,9 @@
 #pragma once
 #include "CStage.h"
-class CRoadStage :
-    public CStage
+#include "CEventMgr.h"
+
+
+class CRoadStage : public CStage, public IListener
 {
 protected:
     explicit        CRoadStage(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -37,8 +39,12 @@ protected:
     HRESULT        Ready_EffectTextureProto()      override;
 
     void            Check_Collision() override;
+    void            OnEvent(EVENT_TYPE _type, EventData* _pData) override;
 
 private:
     virtual void Free();
+
+private :
+    const wstring szRoadMapBGM = L"";
 };
 

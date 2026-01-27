@@ -181,6 +181,7 @@ HRESULT CShopBG::Ready_GameObject()
 
 _int CShopBG::Update_GameObject(const _float& fTimeDelta)
 {
+	if (IsDead()) return RET_DEAD;
 	int iExit = CBaseUI::Update_GameObject(fTimeDelta);
 	m_fTime += fTimeDelta;
 
