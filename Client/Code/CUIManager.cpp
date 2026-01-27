@@ -548,6 +548,9 @@ void CUIManager::Create_TextUI(LPDIRECT3DDEVICE9 pGraphicDev, COLLIDER_TAG eTag,
 	case Engine::TAG_HEAD:
 		deadSign = L"헤드샷";
 		break;
+	case Engine::TAG_FAN:
+		deadSign = L"갈갈이";
+		break;
 	default:
 		break;
 	}
