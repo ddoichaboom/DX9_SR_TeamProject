@@ -198,24 +198,24 @@ void CUIManager::LateUpdate_GameObject(const _float& fTimeDelta)
 	{
 		
 
-		if (m_bDash)
+		if (m_bDash && m_pDashUI)
 		{
 			m_pDashUI->LateUpdate_GameObject(fTimeDelta);
 		}
 
-		if (m_bSlot)
+		if (m_bSlot && m_pSlotUI)
 		{
 			m_pSlotUI->LateUpdate_GameObject(fTimeDelta);
 		}
 	}
 
-	if (m_bRenderEffectUI)
+	if (m_bRenderEffectUI && m_pEffectUI)
 	{
 		m_pEffectUI->LateUpdate_GameObject(fTimeDelta);
 	}
 	
 
-	if (m_bShop)
+	if (m_bShop && m_pShopUI)
 	{
 		m_pShopUI->LateUpdate_GameObject(fTimeDelta);
 	}
@@ -516,6 +516,19 @@ void CUIManager::Set_OnShopUI(_bool bShop)
 	{
 		m_bShop = false;
 	}
+}
+
+void CUIManager::Clear_UIGroup()
+{
+	for (auto& pair : m_mapUI)
+	{
+		for_each(pair.second.begin(), pair.second.end(), [](auto* pUI) {pUI->SetDead(); });
+		pair.second.clear();
+	}
+	Safe_Release(m_pEffectUI);
+	Safe_Release(m_pDashUI);
+	Safe_Release(m_pSlotUI);
+	Safe_Release(m_pShopUI);
 }
 
 void CUIManager::Create_TextUI(LPDIRECT3DDEVICE9 pGraphicDev, COLLIDER_TAG eTag, _int iTimes)

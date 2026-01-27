@@ -132,6 +132,7 @@ HRESULT CPhonePlayer::Ready_GameObject()
 
 _int CPhonePlayer::Update_GameObject(const _float& fTimeDelta)
 {
+	if (IsDead()) return RET_DEAD;
 	int iExit = CBaseUI::Update_GameObject(fTimeDelta);
 	return iExit;
 }

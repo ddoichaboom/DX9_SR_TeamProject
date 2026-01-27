@@ -5,7 +5,10 @@
 #include "CPoolMgr.h"
 #include "CManagement.h"
 #include "CDInputMgr.h"
+#include "CSoundMgr.h"
+#include "CUIManager.h"
 
+// 게임 오브젝트 
 #include "CFirstCamera.h"
 #include "CCursor.h"
 
@@ -21,6 +24,7 @@ HRESULT CRoadStage::Ready_Scene()
 {
 	//다른 맵과 연결하면서 로딩스레드 추가하기 전까지는 필요한 함수 직접 호출하기
 	//Ready_Prototype .. 등 
+	CUIManager::GetInstance()->Clear_UIGroup();
 
 	if (FAILED(Ready_Environment_Layer(L"Environment_Layer"))) return E_FAIL;
 	if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer"))) return E_FAIL;
@@ -62,56 +66,65 @@ HRESULT CRoadStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 
 HRESULT CRoadStage::Ready_Prototype()
 {
-	return E_NOTIMPL;
+	return S_OK;
 }
 
 HRESULT CRoadStage::Remove_PrevObjectPool()
 {
-	return E_NOTIMPL;
+
+	return S_OK;
 }
 
 HRESULT CRoadStage::Ready_ObjectPool_Character()
 {
-	return E_NOTIMPL;
+	return S_OK;
 }
 
 HRESULT CRoadStage::Ready_ObjectPool_Terrain()
 {
-	return E_NOTIMPL;
+	return S_OK;
 }
 
 HRESULT CRoadStage::Ready_ObjectPool_UI()
 {
-	return E_NOTIMPL;
+	return S_OK;
 }
 
 HRESULT CRoadStage::Ready_ObjectPool_Effect()
 {
-	return E_NOTIMPL;
+	return S_OK;
 }
 
 HRESULT CRoadStage::Ready_CharacterTextureProto()
 {
-	return E_NOTIMPL;
+	return S_OK;
 }
 
 HRESULT CRoadStage::Ready_TerrainTextureProto()
 {
-	return E_NOTIMPL;
+	return S_OK;
 }
 
 HRESULT CRoadStage::Ready_UITextureProto()
 {
-	return E_NOTIMPL;
+	return S_OK;
 }
 
 HRESULT CRoadStage::Ready_EffectTextureProto()
 {
-	return E_NOTIMPL;
+	return S_OK;
 }
 
 void CRoadStage::Check_Collision()
 {
+}
+
+void CRoadStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
+{
+	if (_type == EVENT_ENDING)
+	{
+		//m_bStageEnd = true;
+	}
 }
 
 CRoadStage* CRoadStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)

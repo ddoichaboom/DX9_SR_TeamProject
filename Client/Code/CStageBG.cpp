@@ -108,6 +108,7 @@ HRESULT CStageBG::Ready_GameObject()
 
 _int CStageBG::Update_GameObject(const _float& fTimeDelta)
 {
+    if (IsDead()) return RET_DEAD;
     _int iExit = CGameObject::Update_GameObject(fTimeDelta);
     CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA_UI, this);
 

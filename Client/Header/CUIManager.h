@@ -57,6 +57,9 @@ public :
 	void			Set_OnDashUI(_bool bDash);
 	void			Set_OnSlotUI(_bool bSlot);
 	void			Set_OnShopUI(_bool bShop);
+
+
+	void			Clear_UIGroup();
 	
 private :	
 	UI_STATE	m_eNowState;
