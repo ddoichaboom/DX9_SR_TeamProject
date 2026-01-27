@@ -52,8 +52,6 @@ void CLoadingBar::Render_GameObject()
 	m_pGraphicDev->SetTexture(0, nullptr);
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 	m_pBufferCom->Render_Buffer();
-
-	if (m_bLerpRender && !m_bLerp) m_bLerpRender = false;
 }
 
 
@@ -81,16 +79,16 @@ HRESULT CLoadingBar::Add_Component()
 
 void CLoadingBar::SetPercent(_float _percent)
 {
+	if (_percent <= 0.f) return;
 	if (_percent >= 1.f) _percent = 1.f;
 
 	m_fDestPerecent = _percent;
 	m_bLerp = true;
-	m_bLerpRender = true;
 }
 
 bool CLoadingBar::IsBarEnd()
 {
-	return (m_fCurPerecent >= 1.f && !m_bLerp && !m_bLerpRender);
+	return (m_fCurPerecent >= 1.f && !m_bLerp);
 }
 
 CLoadingBar* CLoadingBar::Create(LPDIRECT3DDEVICE9 pGraphicDev, D3DXCOLOR _color)

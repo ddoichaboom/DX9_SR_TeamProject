@@ -4,8 +4,8 @@
 
 CLoadingEX::CLoadingEX(LPDIRECT3DDEVICE9 pGraphicDev)
     :m_pGraphicDev(pGraphicDev), m_fPercent(0.f)
-    , m_iCurTaskCount(0), m_iEndTaskCount(0), m_eCurLevel(LEVEL_END),
-    m_pLoadingBar(nullptr)
+    , m_iCurTaskCount(0), m_iEndTaskCount(0), m_eCurLevel(LEVEL_END)
+   , m_pLoadingBar(nullptr)
 {
     m_pGraphicDev->AddRef();
 }
@@ -22,17 +22,10 @@ HRESULT CLoadingEX::Ready_Loading()
     return S_OK;
 }
 
-bool CLoadingEX::Update_Loading(const _float& fTimeDelta)
+void CLoadingEX::Update_Loading(const _float& fTimeDelta)
 {
     if(m_pLoadingBar) m_pLoadingBar->Update_GameObject(fTimeDelta);
-    if (m_bEnd)
-    {
-        if (m_pLoadingBar->IsBarEnd())
-        {
-            return true;
-        }
-        return false;
-    }
+    if (m_bEnd) return;
 
     if (m_eCurLevel == LEVEL_END || m_iCurTaskCount == 0)
     {
@@ -43,16 +36,15 @@ bool CLoadingEX::Update_Loading(const _float& fTimeDelta)
         {
             m_bEnd = true;
             m_pLoadingBar->SetPercent(1.f);
-            return false;
+            return;
         }
 
-        m_iCurTaskCount = 0;
         for (int i = 0; i < (_int)m_vecTasks[m_eCurLevel].size(); i++)
         {
             m_hThread[i] = (HANDLE)_beginthreadex(NULL, 0, Thread_Func, &m_vecTasks[m_eCurLevel][i], 0, NULL);
             m_iCurTaskCount++;
         }
-        return m_bEnd;
+        return;
     }
 
     _int result = WaitForMultipleObjects(m_iCurTaskCount, m_hThread, TRUE, 0);
@@ -81,7 +73,7 @@ bool CLoadingEX::Update_Loading(const _float& fTimeDelta)
         if (m_eCurLevel == LEVEL_END)
         {
             m_bEnd = true;
-            return false;
+            return;
         }
 
         for (int i = 0; i < (_int)m_vecTasks[m_eCurLevel].size(); i++)
@@ -91,7 +83,7 @@ bool CLoadingEX::Update_Loading(const _float& fTimeDelta)
         }
     }
 
-    return false;
+    return;
 }
 
 void CLoadingEX::AddTask(_int level, Task _task)
@@ -103,6 +95,14 @@ void CLoadingEX::AddTask(_int level, Task _task)
     m_vecTasks[level].push_back(_task);
     m_fTotalGauge++;
 }
+
+bool CLoadingEX::IsEnd()
+{
+    //if (m_bEnd && m_pLoadingBar && m_pLoadingBar->IsBarEnd()) return true;
+    //else return false;
+    return m_bEnd;
+}
+
 
 unsigned int CLoadingEX::Thread_Func(void* pArg)
 {
