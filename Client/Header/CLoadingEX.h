@@ -1,7 +1,6 @@
 #pragma once
 #include "CBase.h"
 #include "Engine_Define.h"
-#include "CLoadingBar.h"
 #include <atomic>
 
 using Task = std::function<void()>;
@@ -24,18 +23,12 @@ public:
 	
 public:
 	HRESULT	Ready_Loading();
-	bool	Update_Loading(const _float& fTimeDelta);
+	void	Update_Loading(const _float& fTimeDelta);
 	_float	GetPercent() { return m_fPercent; }
 
 public:
 	void	AddTask(_int level, Task _task);
-	bool	IsEnd()
-	{
-		if (m_pLoadingBar)
-			return m_pLoadingBar->IsBarEnd();
-		else return false;
-		
-	}
+	bool	IsEnd();
 public:
 	static unsigned int CALLBACK Thread_Func(void* pArg);
 	static CLoadingEX* Create(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -54,7 +47,7 @@ private:
 	atomic<int>				m_iEndTaskCount;
 	ELoadingLevel			m_eCurLevel;
 
-	CLoadingBar*			m_pLoadingBar;
+	//CLoadingBar*			m_pLoadingBar;
 
 	_float					m_fTotalGauge = 0.f;
 	_float					m_fCurGauge = 0.f;
