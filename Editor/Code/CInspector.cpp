@@ -131,7 +131,7 @@ void CInspector::Render_FloorTextureUI(CEditorFloor* pFloor)
     ImGui::Separator();
 
 
-    if (CEditorDynamicFloor* pDynamicFloor = static_cast<CEditorDynamicFloor*>(pFloor))
+    if (CEditorDynamicFloor* pDynamicFloor = dynamic_cast<CEditorDynamicFloor*>(pFloor))
     {
         ImGui::TextColored(ImVec4(1.0f, 0.5f, 0.0f, 1.0f), "Dynamic Floor (Animated)");
         ImGui::Separator();
@@ -167,7 +167,7 @@ void CInspector::Render_FloorTextureUI(CEditorFloor* pFloor)
             "Dynamic floors have animated textures");
 
     }
-    else if (CEditorSlopeFloor* pSlopeFloor = static_cast<CEditorSlopeFloor*>(pFloor))
+    else if (CEditorSlopeFloor* pSlopeFloor = dynamic_cast<CEditorSlopeFloor*>(pFloor))
     {
         ImGui::Text("Slope Floor Properties");
         ImGui::Separator();
@@ -233,7 +233,7 @@ void CInspector::Render_FloorTextureUI(CEditorFloor* pFloor)
         // Texture Index 슬라이더
         _int iTextureIdx = pSlopeFloor->Get_TextureIdx();
 
-        Engine::CTexture* pTextureCom = static_cast<Engine::CTexture*>(
+        Engine::CTexture* pTextureCom = dynamic_cast<Engine::CTexture*>(
             pSlopeFloor->Get_Component(ID_DYNAMIC, L"Com_Texture"));
 
         _int iMaxIdx(0);
@@ -275,7 +275,7 @@ void CInspector::Render_FloorTextureUI(CEditorFloor* pFloor)
 
         _int iTextureIdx = pFloor->Get_TextureIdx();
 
-        Engine::CTexture* pTextureCom = static_cast<Engine::CTexture*>(
+        Engine::CTexture* pTextureCom = dynamic_cast<Engine::CTexture*>(
             pFloor->Get_Component(ID_DYNAMIC, L"Com_Texture"));
 
         _int iMaxIdx(0);
@@ -314,7 +314,7 @@ void CInspector::Render_CeilingTextureUI(CEditorCeiling* pCeiling)
     // Texture Index 슬라이더 (0 ~ 7)
     int iTextureIdx = pCeiling->Get_TextureIdx();
 
-    Engine::CTexture* pTextureCom = static_cast<Engine::CTexture*>(
+    Engine::CTexture* pTextureCom = dynamic_cast<Engine::CTexture*>(
         pCeiling->Get_Component(ID_DYNAMIC, L"Com_Texture"));
 
     _int iMaxIdx(0);
@@ -346,7 +346,7 @@ void CInspector::Render_WallTextureUI(CEditorWall* pWall)
     ImGui::Separator();
 
     // DynamicWall인지 먼저 확인
-    CEditorDynamicWall * pDynamicWall = static_cast<CEditorDynamicWall*>(pWall);
+    CEditorDynamicWall * pDynamicWall = dynamic_cast<CEditorDynamicWall*>(pWall);
 
     if (pDynamicWall)
     {
@@ -412,7 +412,7 @@ void CInspector::Render_WallTextureUI(CEditorWall* pWall)
         // Texture Index 슬라이더 (0 ~ 2, 3x3 아틀라스의 행)
         _int iTextureIdx = pWall->Get_TextureIdx();
 
-        Engine::CTexture* pTextureCom = static_cast<Engine::CTexture*>(
+        Engine::CTexture* pTextureCom = dynamic_cast<Engine::CTexture*>(
             pWall->Get_Component(ID_DYNAMIC, L"Com_Texture"));
 
         _int iMaxIdx(0);
@@ -686,12 +686,12 @@ void CInspector::Render_ObjectProperties()
 
     if (cObjName == L"Wall" || cObjName == L"DynamicWall")
     {
-        CEditorWall* pWall = static_cast<CEditorWall*>(pObj);
+        CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj);
         Render_WallProperties(pWall);
     }
     else if (cObjName == L"MonsterSpawn")
     {
-        CEditorSpawnPoint* pSpawn = static_cast<CEditorSpawnPoint*>(pObj);
+        CEditorSpawnPoint* pSpawn = dynamic_cast<CEditorSpawnPoint*>(pObj);
         SPAWN_TYPE eType = pSpawn->Get_SpawnType();
         if (eType == SPAWN_MONSTER)
         {
@@ -720,30 +720,30 @@ void CInspector::Render_ObjectProperties()
     ImGui::Spacing();
     ImGui::Separator();
 
-    if (CEditorMapCollider* pMapCollider = static_cast<CEditorMapCollider*>(pObj))
+    if (CEditorMapCollider* pMapCollider = dynamic_cast<CEditorMapCollider*>(pObj))
     {
         Render_MapColliderProperties(pMapCollider);
     }
-    else if (CEditorTriggerBox* pTriggerBox = static_cast<CEditorTriggerBox*>(pObj))
+    else if (CEditorTriggerBox* pTriggerBox = dynamic_cast<CEditorTriggerBox*>(pObj))
     {
         Render_TriggerBoxProperties(pTriggerBox);
     }
 
     // 텍스처 
     ImGui::Text("Texture");
-    if (CEditorFloor* pFloor = static_cast<CEditorFloor*>(pObj))
+    if (CEditorFloor* pFloor = dynamic_cast<CEditorFloor*>(pObj))
     {
         Render_FloorTextureUI(pFloor);
     }
-    else if (CEditorCeiling* pCeiling = static_cast<CEditorCeiling*>(pObj))
+    else if (CEditorCeiling* pCeiling = dynamic_cast<CEditorCeiling*>(pObj))
     {
         Render_CeilingTextureUI(pCeiling);
     }
-    else if (CEditorWall* pWall = static_cast<CEditorWall*>(pObj))
+    else if (CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj))
     {
         Render_WallTextureUI(pWall);
     }
-    else if (CEditorDoor* pDoor = static_cast<CEditorDoor*>(pObj))
+    else if (CEditorDoor* pDoor = dynamic_cast<CEditorDoor*>(pObj))
     {
         Render_DoorProperties(pDoor);
     }
