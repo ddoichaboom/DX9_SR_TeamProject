@@ -21,7 +21,6 @@
 
 #include "CBullet.h"
 #include "CWhiteMan.h"
-#include "CSniperWhiteMan.h"
 #include "CBeamMon.h"
 #include "CFlyMon.h"
 #include "CBoss.h"
@@ -265,6 +264,7 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	//Engine::CScene* pInitScene = CLogo::Create(pGraphicDev);
 	//Engine::CScene* pInitScene = CSniperStage::Create(pGraphicDev);
+	//Engine::CScene* pInitScene = CRoadStage::Create(pGraphicDev);
 	Engine::CScene* pInitScene = CRoadStage::Create(pGraphicDev);
 	//Engine::CScene* pInitScene = CCredit::Create(pGraphicDev);
 
@@ -506,7 +506,6 @@ void CMainApp::Free()
 	CDataMgr<CKatana>::DestroyInstance();
 	CDataMgr<CSRightHand>::DestroyInstance();
 	CDataMgr<CSniperPlayer>::DestroyInstance();
-	CDataMgr<CSniperWhiteMan>::DestroyInstance();
 
 	// MayBe ?
 	CEventMgr::DestroyInstance();

@@ -163,6 +163,7 @@
     <ClInclude Include="..\Header\CChain.h" />
     <ClInclude Include="..\Header\CCharacter.h" />
     <ClInclude Include="..\Header\CChat.h" />
+    <ClInclude Include="..\Header\CCredit.h" />
     <ClInclude Include="..\Header\CCursor.h" />
     <ClInclude Include="..\Header\CDashUI.h" />
     <ClInclude Include="..\Header\CDisplayObject.h" />
@@ -279,6 +280,7 @@
     <ClCompile Include="..\Code\CChain.cpp" />
     <ClCompile Include="..\Code\CCharacter.cpp" />
     <ClCompile Include="..\Code\CChat.cpp" />
+    <ClCompile Include="..\Code\CCredit.cpp" />
     <ClCompile Include="..\Code\CCursor.cpp" />
     <ClCompile Include="..\Code\CDashUI.cpp" />
     <ClCompile Include="..\Code\CDisplayObject.cpp" />

@@ -373,6 +373,9 @@
     <Filter Include="02. GameObject\00. Character\01. Monster\03. SniperWhiteMan">
       <UniqueIdentifier>{2b69ec1d-c000-4885-9eea-08d183b16994}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\05.Credits">
+      <UniqueIdentifier>{a396d860-f934-43df-9812-edaa48fb793a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -717,6 +720,9 @@
     <ClInclude Include="..\Header\CSniperWhiteMan.h">
       <Filter>02. GameObject\00. Character\01. Monster\03. SniperWhiteMan</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CCredit.h">
+      <Filter>01. Scene\05.Credits</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1051,6 +1057,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CSniperWhiteMan.cpp">
       <Filter>02. GameObject\00. Character\01. Monster\03. SniperWhiteMan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCredit.cpp">
+      <Filter>01. Scene\05.Credits</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

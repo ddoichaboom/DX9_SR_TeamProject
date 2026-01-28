@@ -16,6 +16,7 @@
 #include "CSelectionMgr.h"
 #include "CEditorDoor.h"
 #include "CEditorVendingMachine.h"
+#include "CEditorInteractObject.h"
 
 
 CInspector::CInspector()
@@ -747,7 +748,10 @@ void CInspector::Render_ObjectProperties()
     {
         Render_DoorProperties(pDoor);
     }
-
+    else if (CEditorInteractObject* pInteract = dynamic_cast<CEditorInteractObject*>(pObj))
+    {
+        Render_InteractObjectProperties(pInteract);
+    }
 }
 
 void CInspector::Render_WallProperties(CEditorWall* pWall)
@@ -816,6 +820,65 @@ void CInspector::Render_MonsterSpawnPointProperties(CEditorSpawnPoint* pSpawn)
             strcpy_s(szMonsterKey, "FlyMon");
             pSpawn->Set_MonsterKey("FlyMon");
         }
+    }
+}
+
+void CInspector::Render_InteractObjectProperties(CEditorInteractObject* pInteract)
+{
+    if (!pInteract)
+        return;
+
+    ImGui::Spacing();
+    ImGui::Separator();
+    ImGui::Text("InteractObject Properties");
+
+    ImGui::Spacing();
+
+    // 아이템 타입 콤보박스
+    OBJ_ITEM_TYPE eItemType = pInteract->Get_ItemType();
+    const char* szItemTypes[] = {
+        "Extinguisher",
+        "Axe"
+    };
+
+    // OBJ_ITEM_TYPE enum에서 콤보 인덱스로 변환
+    int iSelectedType = 0;
+    if (eItemType == ITEM_EXTINGUISHER)
+        iSelectedType = 0;
+    else if (eItemType == ITEM_AXE)
+        iSelectedType = 1;
+
+    if (ImGui::Combo("Item Type", &iSelectedType, szItemTypes, IM_ARRAYSIZE(szItemTypes)))
+    {
+        OBJ_ITEM_TYPE eNewType = ITEM_EXTINGUISHER;
+        if (iSelectedType == 0)
+            eNewType = ITEM_EXTINGUISHER;
+        else if (iSelectedType == 1)
+            eNewType = ITEM_AXE;
+
+        pInteract->Set_ItemType(eNewType);
+
+        // 이름도 변경
+        if (eNewType == ITEM_AXE)
+            pInteract->Set_Name(L"Axe");
+        else
+            pInteract->Set_Name(L"Extinguisher");
+    }
+
+    ImGui::Spacing();
+
+    // 프리셋 버튼
+    ImGui::Text("Presets:");
+    if (ImGui::Button("Extinguisher"))
+    {
+        pInteract->Set_ItemType(ITEM_EXTINGUISHER);
+        pInteract->Set_Name(L"Extinguisher");
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("Axe"))
+    {
+        pInteract->Set_ItemType(ITEM_AXE);
+        pInteract->Set_Name(L"Axe");
     }
 }
 

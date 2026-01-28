@@ -54,7 +54,8 @@ void CToolBar::Render_ToolBar()
           "Spawn BossMonster",
           "Place MapCollider",
           "Place_Door",
-          "Place TriggerBox"
+          "Place TriggerBox",
+          "Place InteractObject"
     };
 
     int iCurrentMode = (int)m_eEditorMode;

@@ -66,7 +66,19 @@ HRESULT CRoadStage::Ready_Scene()
 
 _int CRoadStage::Update_Scene(const _float& fTimeDelta)
 {
+	if (m_bStageEnd)
+	{
+		return RET_DEAD;
+	}
+		
+
 	int iExit = CStage::Update_Scene(fTimeDelta);
+
+	if (CDInputMgr::GetInstance()->Key_Down(DIK_P))
+	{
+		m_bStageEnd = true;
+	}
+
 	return iExit;
 }
 

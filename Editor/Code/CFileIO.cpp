@@ -27,6 +27,7 @@
 #include "CEditorMapCollider.h"
 #include "CEditorTriggerBox.h"
 #include "CEditorDoor.h"
+#include "CEditorInteractObject.h"
 
 using namespace std;
 using namespace Engine;
@@ -139,6 +140,8 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
         _uint iMapColliderCount = 0;
         _uint iTriggerBoxCount = 0;
         _uint iDoorCount = 0;
+        _uint iExtinguisherCount = 0;
+        _uint iAxeCount = 0;
 
 
         auto& objectList = pScene->Get_ObjectList();
@@ -298,6 +301,28 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                 jObj["doorType"] = static_cast<_int>(pDoor->Get_DoorType());
                 jObj["doorID"] = pDoor->Get_DoorID();
             }
+            else if (CEditorInteractObject* pInteract = dynamic_cast<CEditorInteractObject*>(pObj))
+            {
+                OBJ_ITEM_TYPE eItemType = pInteract->Get_ItemType();
+
+                // Client CMapLoader 호환: "Extinguisher", "Axe"로 저장
+                if (eItemType == ITEM_AXE)
+                {
+                    iAxeCount++;
+                    jObj["type"] = "Axe";
+                }
+                else
+                {
+                    iExtinguisherCount++;
+                    jObj["type"] = "Extinguisher";
+                }
+
+                jObj["roomIndex"] = pObj->Get_RoomIndex();
+                SaveTransformData(jObj, pObj);
+
+                // itemType 필드 (Editor 로드 시 아이템 타입 복원용)
+                jObj["itemType"] = static_cast<_int>(eItemType);
+            }
             else
             {
                 continue;  // 알 수 없는 타입 - 건너뜀
@@ -317,6 +342,8 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
         jMap["mapColliderCount"] = iMapColliderCount;      
         jMap["triggerBoxCount"] = iTriggerBoxCount;
         jMap["doorCount"] = iDoorCount;
+        jMap["extinguisherCount"] = iExtinguisherCount;
+        jMap["axeCount"] = iAxeCount;
 
         jMap["objects"] = jObjects;
         jMap["objectCount"] = jObjects.size();
@@ -623,6 +650,25 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
                         }
                     }
                 }
+            }
+            else if (strType == "Extinguisher" || strType == "Axe")
+            {
+                // itemType 필드가 있으면 사용, 없으면 타입 문자열로 결정
+                OBJ_ITEM_TYPE eItemType = ITEM_EXTINGUISHER;
+
+                if (jObj.contains("itemType"))
+                {
+                    eItemType = static_cast<OBJ_ITEM_TYPE>((_int)jObj["itemType"]);
+                }
+                else
+                {
+                    if (strType == "Axe")
+                        eItemType = ITEM_AXE;
+                    else
+                        eItemType = ITEM_EXTINGUISHER;
+                }
+
+                pObj = CEditorInteractObject::Create(pGraphicDev, vPos, eItemType);
             }
 
             if (!pObj)
