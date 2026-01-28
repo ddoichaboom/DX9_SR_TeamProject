@@ -5,20 +5,24 @@
 #include "CDInputMgr.h"
 #include "CPoolMgr.h"
 #include "CSoundMgr.h"
+#include "CManagement.h"
 
 #include "CMinigun.h"
+#include "CPlayerBullet.h"
 
 
 CRoadPlayer::CRoadPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	:	CCharacter(pGraphicDev)
-	, m_pMainCollider(nullptr), m_pMinigun(nullptr)
+	, m_pMainCollider(nullptr), m_pMinigun(nullptr), m_fMoveSpeed(100.f)
 {
+	m_eOBJ_ID = OBJ_PLAYER;
 }
 
 CRoadPlayer::CRoadPlayer(const CRoadPlayer& rhs)
 	: CCharacter(rhs)
-	, m_pMainCollider(nullptr), m_pMinigun(nullptr)
+	, m_pMainCollider(nullptr), m_pMinigun(nullptr), m_fMoveSpeed(100.f)
 {
+	m_eOBJ_ID = OBJ_PLAYER;
 }
 
 CRoadPlayer::~CRoadPlayer()
@@ -71,11 +75,13 @@ HRESULT CRoadPlayer::Ready_GameObject()
 _int CRoadPlayer::Update_GameObject(const _float& fTimeDelta)
 {
 	if (m_bDead) return RET_DEAD;
-
+	
 	_int iExit = CCharacter::Update_GameObject(fTimeDelta);
+
+	
 	m_pMinigun->Update_GameObject(fTimeDelta);
 
-
+	
 	return iExit;
 }
 
@@ -83,6 +89,8 @@ void CRoadPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CCharacter::LateUpdate_GameObject(fTimeDelta);
 	m_pMinigun->LateUpdate_GameObject(fTimeDelta);
+
+	Key_Input(fTimeDelta);
 }
 
 void CRoadPlayer::Render_GameObject()
@@ -107,6 +115,35 @@ void CRoadPlayer::OnCollision(CollisionInfo info)
 {
 }
 
+void CRoadPlayer::Key_Input(const _float& fTimeDelta)
+{
+	Engine::CTransform* pTransform = static_cast<CTransform*>(Engine::CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_CAM, L"Com_Transform"));
+	_vec3 vLook, vRight, vLookExCludeY;
+	pTransform->Get_Info(INFO_LOOK, &vLook);
+	pTransform->Get_Info(INFO_RIGHT, &vRight);
+	D3DXVec3Normalize(&vRight, &vRight);
+
+	MOVE_DIR eDir = CDInputMgr::GetInstance()->Get_Direction();
+
+	switch (eDir)
+	{
+	case Engine::DIR_NONE:
+	case Engine::DIR_UP:
+	case Engine::DIR_DOWN:
+		break;
+	case Engine::DIR_LEFTUP:
+	case Engine::DIR_LEFT:
+	case Engine::DIR_LEFTDOWN:
+		m_pTransformCom->Move_Pos(&vRight, fTimeDelta, -m_fMoveSpeed);
+		break;
+	case Engine::DIR_RIGHTUP:
+	case Engine::DIR_RIGHT:
+	case Engine::DIR_RIGHTDOWN:
+		m_pTransformCom->Move_Pos(&vRight, fTimeDelta, m_fMoveSpeed);
+		break;
+	}
+}
+
 void CRoadPlayer::Activate()
 {
 	CCharacter::Activate();
@@ -115,4 +152,26 @@ void CRoadPlayer::Activate()
 void CRoadPlayer::Deactivate()
 {
 	CCharacter::Deactivate();
+}
+
+void CRoadPlayer::Shoot()
+{
+	CPlayerBullet* pBullet = CPoolMgr::GetInstance()->Get_Object<CPlayerBullet>();
+	if (!pBullet) return;
+
+	
+
+	Engine::CTransform* pTransform = static_cast<CTransform*>(Engine::CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_CAM, L"Com_Transform"));
+	_vec3 vLook, vRight;
+	pTransform->Get_Info(INFO_LOOK, &vLook);
+	_vec3 myPos = *m_pTransformCom->Get_Info(INFO_POS);		
+	D3DXVec3Normalize(&vLook, &vLook);
+	myPos += vLook * 8.f;
+
+	pBullet->SetPos(myPos);
+	pBullet->SetDirection(vLook);
+
+	CLayer* layer = CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer");
+	if (!layer) pBullet->ReturnToPool();
+	else layer->Add_GameObject(pBullet);
 }

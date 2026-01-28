@@ -111,5 +111,13 @@ protected:
 	_vec3	m_vScale;
 
 	_bool	m_bKeyPressing;
+
+private :
+	const wstring m_szMinigunLoop = L"Minigun_Loop_BGM.wav";
+	const wstring m_szMinigunCycle = L"Minigun_Cycle_BGM.wav";
+	const wstring m_szLoopStart = L"Minigun_Start_SFX.wav";
+	const wstring m_szLoopEnd = L"Minigun_LoopEnd_SFX.wav";
+	const wstring m_szFastEnd = L"Minigun_LoopEndFast_SFX.wav";
+	
 };
 

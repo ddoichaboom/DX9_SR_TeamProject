@@ -73,8 +73,10 @@ HRESULT CRoadCamera::Ready_GameObject(const _vec3* pEye,
 
 _int CRoadCamera::Update_GameObject(const _float& fTimeDelta)
 {
-	// Transform -> Matrix
+	D3DXMatrixPerspectiveFovLH(&m_matProj, m_fFov, m_fAspect, m_fNear, m_fFar);	
 	_int iExit = CCamera::Update_GameObject(fTimeDelta);
+	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
+
 
 	for (auto& pComponent : m_mapComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);
@@ -96,8 +98,6 @@ _int CRoadCamera::Update_GameObject(const _float& fTimeDelta)
 	m_vAt = m_vEye + vLook;
 
 	pPlayerTransform->m_vAngle.y = m_pTransformCom->m_vAngle.y;
-
-
 	return 0;
 }
 
@@ -135,12 +135,10 @@ void CRoadCamera::Key_Input(const _float& fTimeDelta)
 	if (CDInputMgr::GetInstance()->Mouse_Pressing(DIM_RB))
 	{
 		m_fFov = fmax(D3DXToRadian(30.f), m_fFov - fTimeDelta);
-		CCamera::Ready_GameObject();
 	}
 	else if(m_fFov != D3DXToRadian(60.f))
 	{
 		m_fFov = D3DXToRadian(60.f);
-		CCamera::Ready_GameObject();
 	}
 	
 }

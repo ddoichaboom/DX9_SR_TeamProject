@@ -47,7 +47,7 @@ public:
 		if (iter == m_mapPoolSize.end()) iPoolSize = m_iDefaultPoolSize; // 세팅값이 없으면 디폴트 값
 		else iPoolSize = iter->second;
 
-		IBasePool* pool = CObjectPool<T>::Create(pGraphicDev, iPoolSize);
+		IBasePool * pool = CObjectPool<T>::Create(pGraphicDev, iPoolSize);
 		if (!pool) return E_FAIL;
 
 		m_mapPool.insert({ szClassType, pool });

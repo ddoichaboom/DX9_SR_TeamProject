@@ -23,7 +23,7 @@
 
 // 게임 로직 오브젝트
 #include "CFlyMon.h"
-#include "CBullet.h"
+#include "CPlayerBullet.h"
 
 // 이펙트 로직 오브젝트
 #include "CFlare.h"
@@ -73,6 +73,8 @@ _int CRoadStage::Update_Scene(const _float& fTimeDelta)
 void CRoadStage::LateUpdate_Scene(const _float& fTimeDelta)
 {
 	CStage::LateUpdate_Scene(fTimeDelta);
+
+	Check_Collision();
 }
 
 void CRoadStage::Render_Scene()
@@ -98,6 +100,14 @@ HRESULT CRoadStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 	if (nullptr == pLayer)	return E_FAIL;
 
 	CGameObject* pGameObject = nullptr;
+
+	// 플레이어
+	pGameObject = CRoadPlayer::Create(m_pGraphicDev);
+	if (pGameObject == nullptr)
+		return E_FAIL;
+
+	if (FAILED(pLayer->Add_GameObject(pGameObject)))
+		return E_FAIL;
 
 	// 카메라
 	_vec3 vPlayerPos = { 0.f, 0.f, 0.f };
@@ -128,13 +138,17 @@ HRESULT CRoadStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 	if (FAILED(pLayer->Add_GameObject(pGameObject)))
 		return E_FAIL;
 
-	// 플레이어
-	pGameObject = CRoadPlayer::Create(m_pGraphicDev);
+
+
+
+	pGameObject = CFlyMon::Create(m_pGraphicDev);
 	if (pGameObject == nullptr)
 		return E_FAIL;
 
 	if (FAILED(pLayer->Add_GameObject(pGameObject)))
 		return E_FAIL;
+
+	pGameObject->SetPos({ 0.f, 10.f, 15.f });
 
 
 	m_mapLayer.insert({ pLayerTag, pLayer });
@@ -156,9 +170,9 @@ HRESULT CRoadStage::Remove_PrevObjectPool()
 
 HRESULT CRoadStage::Ready_ObjectPool_Character()
 {
-	if (!Engine::CPoolMgr::GetInstance()->HasPool<CBullet>())
+	if (!Engine::CPoolMgr::GetInstance()->HasPool<CPlayerBullet>())
 	{
-		if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CBullet>(m_pGraphicDev)))
+		if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CPlayerBullet>(m_pGraphicDev)))
 		{
 			MSG_BOX("Bullet Pool Create Failed");
 			return E_FAIL;
@@ -266,8 +280,10 @@ HRESULT CRoadStage::Ready_CharacterTextureProto()
 		return E_FAIL;
 
 	//Bullet Texture
-	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBullet::GetTextureSource());
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BulletTexture", pCom_Texture)))
+	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CPlayerBullet::GetTextureSource());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_PlayerBulletTexture", pCom_Texture)))
+		return E_FAIL;
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_PlayerBulletAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CPlayerBullet::GetAnimSource()))))
 		return E_FAIL;
 
 	return S_OK;
@@ -335,6 +351,34 @@ HRESULT CRoadStage::Ready_EffectTextureProto()
 
 void CRoadStage::Check_Collision()
 {
+	auto iter_Map_Mon = m_mapLayer[L"GameLogic_Layer"]->Get_Objects(OBJ_MONSTER);
+	auto iter_Map_Bullet = m_mapLayer[L"GameLogic_Layer"]->Get_Objects(OBJ_BULLET);
+
+
+	for (multimap<OBJ_ID, CGameObject*>::iterator it_Mon = iter_Map_Mon.first; it_Mon != iter_Map_Mon.second; it_Mon++)
+	{
+		CCollision* pMonCollision = static_cast<CCollision*>(
+			it_Mon->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+
+		if (!pMonCollision)
+			continue;
+
+		CCollider* pMonCollider = pMonCollision->GetCollider();
+		if (!pMonCollider)
+			continue;
+
+		for (multimap<OBJ_ID, CGameObject*>::iterator it_bullet = iter_Map_Bullet.first; it_bullet != iter_Map_Bullet.second; it_bullet++)
+		{
+			CCollision* mapBul_Collision = static_cast<CCollision*>(it_bullet->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+			CCollider* mapCollider = mapBul_Collision->GetCollider();
+			if (!mapCollider) continue;
+
+
+			CCollision::Collision_Base(pMonCollider, mapCollider);
+		}
+
+	}
+	
 }
 
 void CRoadStage::OnEvent(EVENT_TYPE _type, EventData* _pData)

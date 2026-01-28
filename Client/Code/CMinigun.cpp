@@ -25,7 +25,7 @@ vector<AnimationSource> CMinigun::m_vAnimSource =
 {
 	{ MS_IDLE,0,1,1,   true, 0.08f},
 	{ MS_START,1,1,1,  false, 0.08f, 1.f},
-	{ MS_CYCLE,1,1,1,  true, 0.05f},
+	{ MS_CYCLE,1,1,1,  true, 0.04f},
 	{ MS_ATTACK,1,1,1, true, 0.025f},
 	{ MS_ATTACK_END,1,3,3, false, 0.05f, 1.f}
 };
@@ -246,13 +246,16 @@ void CMinigun::End_Idle()
 
 void CMinigun::Begin_Start()
 {
+	CSoundMgr::GetInstance()->PlayPlayerSound(m_szLoopStart.c_str(), 0.8f);
 }
 
 void CMinigun::Start()
 {
 	if (m_bKeyPressing == false)
 	{
-		ChangeState(MS_IDLE);
+		CSoundMgr::GetInstance()->PlayPlayerSound(m_szFastEnd.c_str(), 0.8f);
+		ChangeState(MS_ATTACK_END);
+
 		return;
 	}
 
@@ -269,17 +272,20 @@ void CMinigun::End_Start()
 
 void CMinigun::Begin_Cycle()
 {
+	CSoundMgr::GetInstance()->PlayPlayerBGMSound(m_szMinigunCycle.c_str(),0.8f);
 }
 
 void CMinigun::Cycle()
 {
 	if (m_bKeyPressing == false)
 	{
-		ChangeState(MS_IDLE);
+		CSoundMgr::GetInstance()->StopGroupSound(SOUND_PLAYER_BGM);
+		CSoundMgr::GetInstance()->PlayPlayerSound(m_szFastEnd.c_str(), 0.8f);
+		ChangeState(MS_ATTACK_END);		
 		return;
 	}
 
-	if (m_fTime > 0.8f)
+	if (m_fTime > 0.5f)
 	{
 		ChangeState(MS_ATTACK);
 		return;
@@ -293,25 +299,33 @@ void CMinigun::End_Cycle()
 void CMinigun::Begin_Attack()
 {
 	m_pChain->ChangeState(1);
+	CSoundMgr::GetInstance()->StopGroupSound(SOUND_PLAYER_BGM);
+	CSoundMgr::GetInstance()->PlayPlayerBGMSound(m_szMinigunLoop.c_str(), 1.8f);
 }
 
 void CMinigun::Attack()
 {
 	if (m_bKeyPressing == false)
 	{
+		CSoundMgr::GetInstance()->StopGroupSound(SOUND_PLAYER_BGM);
 		ChangeState(MS_ATTACK_END);
+		CSoundMgr::GetInstance()->PlayPlayerSound(m_szLoopEnd.c_str(), 0.8f);
 		return;
 	}
 
-	if (m_fTime > 0.12f)
-	{		
+	if (m_fTime > 0.05f)
+	{	
+		m_fTime = 0.f;
 		// ÃÑ¾Ë »ý¼º
+		m_pParent->Shoot();
+		
 		return;
 	}
 }
 
 void CMinigun::End_Attack()
 {
+
 }
 
 void CMinigun::Begin_Attack_End()

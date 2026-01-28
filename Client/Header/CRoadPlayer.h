@@ -31,9 +31,13 @@ protected:
 
 	void				OnCollision(CollisionInfo info);
 
+	void				Key_Input(const _float& fTimeDelta);
+
 public:
 	virtual	void		Activate() override;
 	virtual	void		Deactivate() override;
+
+	void				Shoot();
 
 protected:
 	Engine::CCollider* m_pMainCollider;
@@ -42,5 +46,7 @@ protected:
 
 protected :
 	CMinigun* m_pMinigun;
+
+	_float	  m_fMoveSpeed;
 };
 

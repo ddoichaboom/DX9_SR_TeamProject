@@ -352,6 +352,9 @@
     <Filter Include="02. GameObject\01. FirstCamera\02.RoadCamera">
       <UniqueIdentifier>{819a0c18-b31b-42f1-9121-524773916c5c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\10. Bullet\PlayerBullet">
+      <UniqueIdentifier>{b87feeb9-9188-43e7-b9d8-66ac32ea1bb9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -675,6 +678,9 @@
     <ClInclude Include="..\Header\CRoadCamera.h">
       <Filter>02. GameObject\01. FirstCamera\02.RoadCamera</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CPlayerBullet.h">
+      <Filter>02. GameObject\10. Bullet\PlayerBullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -988,6 +994,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CRoadCamera.cpp">
       <Filter>02. GameObject\01. FirstCamera\02.RoadCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPlayerBullet.cpp">
+      <Filter>02. GameObject\10. Bullet\PlayerBullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
