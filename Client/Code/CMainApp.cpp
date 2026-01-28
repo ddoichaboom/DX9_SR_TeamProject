@@ -20,6 +20,7 @@
 
 #include "CBullet.h"
 #include "CWhiteMan.h"
+#include "CSniperWhiteMan.h"
 #include "CBeamMon.h"
 #include "CFlyMon.h"
 #include "CBoss.h"
@@ -259,15 +260,15 @@ HRESULT CMainApp::Ready_DefaultProto()
 
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	Engine::CScene* pInitScene = CLogo::Create(pGraphicDev);
-	//기존 맵 플레이 할때는 SCENE_LOGG로 변경하고 시작하기
-	m_eCurSceneType = SCENE_LOGO;
+	//Engine::CScene* pInitScene = CLogo::Create(pGraphicDev);
+	////기존 맵 플레이 할때는 SCENE_LOGG로 변경하고 시작하기
+	//m_eCurSceneType = SCENE_LOGO;
 
-	//Engine::CScene* pInitScene = CSniperStage::Create(pGraphicDev);
+	Engine::CScene* pInitScene = CSniperStage::Create(pGraphicDev);
 	//Engine::CScene* pInitScene = CRoadStage::Create(pGraphicDev);
 
 	//테스트 맵 SceneType
-	//m_eCurSceneType = SCENE_NONE;
+	m_eCurSceneType = SCENE_NONE;
 
 
 	if (nullptr == pInitScene)
@@ -486,6 +487,7 @@ void CMainApp::Free()
 	CDataMgr<CKatana>::DestroyInstance();
 	CDataMgr<CSRightHand>::DestroyInstance();
 	CDataMgr<CSniperPlayer>::DestroyInstance();
+	CDataMgr<CSniperWhiteMan>::DestroyInstance();
 
 	// MayBe ?
 	CEventMgr::DestroyInstance();

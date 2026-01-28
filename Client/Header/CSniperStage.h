@@ -38,7 +38,7 @@ protected:
     HRESULT        Ready_UITextureProto()          override;
     HRESULT        Ready_EffectTextureProto()      override;
 
-    void            Check_Collision() override;
+    void           Check_Collision() override;
 
 private:
     virtual void Free();

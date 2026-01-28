@@ -11,9 +11,11 @@
 //Character
 #include "CWhiteMan.h"
 #include "CSniperPlayer.h"
+#include "CSniperWhiteMan.h"
 #include "CBullet.h"
 #include "CLeftPart.h"
 #include "CSRightHand.h"
+#include "CBeam.h"
 
 //UI
 #include "CSniperUI.h"
@@ -22,6 +24,7 @@
 //Effect
 #include "CBlood.h"
 #include "CExplosion.h"
+#include "CHitUI.h"
 
 
 CSniperStage::CSniperStage(LPDIRECT3DDEVICE9 pGraphicDev) 
@@ -35,8 +38,8 @@ CSniperStage::~CSniperStage()
 
 HRESULT CSniperStage::Ready_Scene()
 {
-	if (FAILED(Ready_CharacterTextureProto())) return E_FAIL;
 	if (FAILED(Ready_EffectTextureProto())) return E_FAIL;
+	if (FAILED(Ready_CharacterTextureProto())) return E_FAIL;
 	if (FAILED(Ready_UITextureProto())) return E_FAIL;
 	if (FAILED(Ready_ObjectPool_Effect())) return E_FAIL;
 	if (FAILED(Ready_ObjectPool_Character())) return E_FAIL;
@@ -80,9 +83,13 @@ HRESULT CSniperStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 	if (m_pPlayer == nullptr) return E_FAIL;
 	if(FAILED(pLayer->Add_GameObject(m_pPlayer))) return E_FAIL;
 
-	CGameObject * whiteMan = CWhiteMan::Create(m_pGraphicDev, _vec3(0, 0, 400));
+	/*CGameObject * whiteMan = CWhiteMan::Create(m_pGraphicDev, _vec3(0, 0, 400));
 	if (whiteMan == nullptr) return E_FAIL;
-	if (FAILED(pLayer->Add_GameObject(whiteMan))) return E_FAIL;
+	if (FAILED(pLayer->Add_GameObject(whiteMan))) return E_FAIL;*/
+
+	CGameObject* SniperMan = CSniperWhiteMan::Create(m_pGraphicDev, _vec3(0, 0, 400));
+	if (SniperMan == nullptr) return E_FAIL;
+	if (FAILED(pLayer->Add_GameObject(SniperMan))) return E_FAIL;
 
 	m_mapLayer.insert({ pLayerTag, pLayer });
 	m_pGameLogic_Layer = pLayer;
@@ -103,23 +110,23 @@ HRESULT CSniperStage::Remove_PrevObjectPool()
 HRESULT CSniperStage::Ready_ObjectPool_Character()
 {
 
-	if (!Engine::CPoolMgr::GetInstance()->HasPool<CBullet>())
+	/*if (!Engine::CPoolMgr::GetInstance()->HasPool<CBullet>())
 	{
 		if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CBullet>(m_pGraphicDev)))
 		{
 			MSG_BOX("Bullet Pool Create Failed");
 			return E_FAIL;
 		}
-	}
+	}*/
 
-	if (!Engine::CPoolMgr::GetInstance()->HasPool<CWhiteMan>())
-	{
-		if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CWhiteMan>(m_pGraphicDev)))
-		{
-			MSG_BOX("WhiteMan Pool Create Failed");
-			return E_FAIL;
-		}
-	}
+	//if (!Engine::CPoolMgr::GetInstance()->HasPool<CWhiteMan>())
+	//{
+	//	if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CWhiteMan>(m_pGraphicDev)))
+	//	{
+	//		MSG_BOX("WhiteMan Pool Create Failed");
+	//		return E_FAIL;
+	//	}
+	//}
 	return S_OK;
 }
 
@@ -159,12 +166,25 @@ HRESULT CSniperStage::Ready_CharacterTextureProto()
 {
 	CTexture* pCom_Texture = nullptr;
 
+	//Beam Texture
+	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBeam::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BeamTexture", pCom_Texture)))
+		return E_FAIL;
+
 	// WhiteMan
 	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CWhiteMan::GetTextureSources());
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WhiteManTexture", pCom_Texture)))
 		return E_FAIL;
 
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WhiteManAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CWhiteMan::GetAnimSources()))))
+		return E_FAIL;
+
+	//Sniper WhiteMan
+	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CSniperWhiteMan::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SniperWhiteManTexture", pCom_Texture)))
+		return E_FAIL;
+
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SniperManAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CSniperWhiteMan::GetAnimSources()))))
 		return E_FAIL;
 
 	//Bullet Texture
@@ -219,6 +239,15 @@ HRESULT CSniperStage::Ready_EffectTextureProto()
 	if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_EXP_Texture", pCom_Texture)))
 	{
 		MSG_BOX("Proto Explosion Ready Failed");
+		return E_FAIL;
+	}
+
+
+	//HitUI
+	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CHitUI::GetTextureSource());
+	if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_HitUI_Texture", pCom_Texture)))
+	{
+		MSG_BOX("Proto HitUI Ready Failed");
 		return E_FAIL;
 	}
 	return S_OK;
