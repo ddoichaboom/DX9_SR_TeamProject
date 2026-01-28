@@ -51,6 +51,9 @@ protected:
 
 protected:
 	void			Move(const _float& fTimeDelta, _float& _dirAngle, _float ratio = 1.f);
+	void			Move_BossMap(const _float& fTimeDelta, _float& _dirAngle, _float ratio);
+	void			Move_RoadMap(const _float& fTimeDelta, _float& _dirAngle, _float ratio);
+
 	void			SetAngle(_float _degree)
 	{
 		//m_fDirAngle = D3DXToRadian(_degree);
@@ -63,7 +66,7 @@ protected:
 	void			Dash_Begin();
 	void			Dash();
 
-	void			Attack_Idle();
+	virtual void	Attack_Idle();
 
 	//Attack Beam
 	void			Attack_Beam();
@@ -90,6 +93,8 @@ protected:
 public:
 	void			Activate() override;
 	//void			Deactivate() override;
+	//로드맵 버전 보스 설정 
+	void			SetRoadVersion() { m_bRoadVersion = true; }
 
 protected:
 	static vector<TextureSource> m_vTextureSource;
@@ -167,5 +172,10 @@ protected:
 	const wstring m_szBulletFireName = L"BossBulletLoop_CutFade.wav";
 	const wstring m_szDashName = L"BossDash.wav";
 	const wstring m_szBeamName = L"Laser.wav";
+
+protected:
+	_bool	m_bRoadVersion = false;
+	_vec2	m_vWidthLimit = { -150.f , 150.f };
+	
 };
 

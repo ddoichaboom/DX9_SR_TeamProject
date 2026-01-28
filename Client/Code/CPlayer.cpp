@@ -29,6 +29,7 @@
 #include "CAxe.h"
 #include "CExtinguisher.h"
 #include "CSoundMgr.h"
+#include "CMinigun.h"
 
 // STAGE BGM
 wstring CPlayer::szTutorialBGM	= L"Stage_01_BGM.wav";
@@ -168,7 +169,6 @@ HRESULT CPlayer::Ready_GameObject()
 		{
 			OnCollision(info);
 		});
-	//TODO : 추가 (방)
 	m_pCollisionCom->SetMainCollider(m_szMainColliderName);
 
 
@@ -190,6 +190,7 @@ HRESULT CPlayer::Ready_GameObject()
 
 	m_pSodaUI = CSodaUI::Create(m_pGraphicDev);
 	m_pSodaUI->SetDead();
+
 
 	return S_OK;
 }

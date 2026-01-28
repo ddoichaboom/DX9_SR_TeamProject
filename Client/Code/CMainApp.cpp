@@ -50,7 +50,8 @@
 #include "CBackGround.h"
 #include "CTrigger.h"
 #include "CUIManager.h"
-
+#include "CSRightHand.h"
+#include "CSniperPlayer.h"
 
 //Effect
 #include "CBlood.h"
@@ -269,6 +270,7 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 
 	//Å×½ºÆ® ¸Ê SceneType
 	//m_eCurSceneType = SCENE_NONE;
+
 
 	if (nullptr == pInitScene)
 		return E_FAIL;
@@ -495,6 +497,8 @@ void CMainApp::Free()
 	CDataMgr<CRightPart>::DestroyInstance();
 	CDataMgr<CMiddlePart>::DestroyInstance();
 	CDataMgr<CKatana>::DestroyInstance();
+	CDataMgr<CSRightHand>::DestroyInstance();
+	CDataMgr<CSniperPlayer>::DestroyInstance();
 
 	// MayBe ?
 	CEventMgr::DestroyInstance();

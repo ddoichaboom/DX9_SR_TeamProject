@@ -51,7 +51,6 @@ private:
 	void				CheckPickedMonster();
 	void				CheckKickedMonster(COLLIDER_TAG eTag, _float fAttack);
 	void				CheckEnterCollider();
-	//¹æ½ÂÈñ Ãß°¡
 	bool				CheckTakeDownMonster(CMonster** _pOut, CCollider** _pOutCollider);
 	
 	void				Move_Input(const _float& fTimeDelta, const _vec3& vRight, const _vec3& vLook);
