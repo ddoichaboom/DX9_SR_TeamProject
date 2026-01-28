@@ -4,8 +4,10 @@
 #include "CProtoMgr.h"
 
 
+const _float eps = 0.001f;
+
 CSniferCamera::CSniferCamera(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _owner)
-	: CCamera(pGraphicDev), m_pTransformCom(nullptr), m_fSpeed(0.f),m_pOwner(_owner)
+	: CCamera(pGraphicDev), m_pTransformCom(nullptr),m_pOwner(_owner)
 {
 	m_eOBJ_ID = OBJ_CAM;
 	m_iID = Make_ID();
@@ -33,7 +35,6 @@ HRESULT CSniferCamera::Ready_GameObject(const _vec3* pEye,
 	m_fAspect = fAspect;
 	m_fNear = fNear;
 	m_fFar = fFar;
-	m_fSpeed = 10.f;
 
 	if (FAILED(CCamera::Ready_GameObject()))
 		return E_FAIL;
@@ -60,15 +61,51 @@ HRESULT CSniferCamera::Ready_GameObject(const _vec3* pEye,
 _int CSniferCamera::Update_GameObject(const _float& fTimeDelta)
 {
 	m_pTransformCom->Update_Component(fTimeDelta);
+
+	m_vEye = *m_pTransformCom->Get_Info(INFO_POS);
 	_vec3 vLook = *m_pTransformCom->Get_Info(INFO_LOOK);
 	m_vUp = *m_pTransformCom->Get_Info(INFO_UP);
 	m_vAt = m_vEye + vLook * m_fFar;
 
+	m_fTime += fTimeDelta;
+
+	if (m_bLerp)
+	{
+		if (m_fTime >= m_fLerpTime)
+		{
+			m_bLerp = false;
+			m_fFov = m_fDestFOV;
+			return 0 ;
+		}
+		m_fFov = m_fStartFOV + (m_fDestFOV - m_fStartFOV)* easeOutQuint(m_fTime / m_fLerpTime) ;
+	}
+	else if (m_bCameraShake)
+	{
+		_float t = m_fTime / m_fCameraShakeTime;
+		_float p = 1.0f - t;
+
+		_float randomfX = ((float)rand() / RAND_MAX) * 2.0f - 1.0f;
+		_float randomfY = ((float)rand() / RAND_MAX) * 2.0f - 1.0f;
+
+		m_fCameraShakeOffset.x = p * randomfX * m_fCameraPower.x;
+		m_fCameraShakeOffset.y = p * randomfY * m_fCameraPower.y;
+
+		m_vEye.x += m_fCameraShakeOffset.x;
+		m_vEye.y += m_fCameraShakeOffset.y;
+		m_vAt = m_vEye + vLook * m_fFar;
+
+		if (m_fTime >= m_fCameraShakeTime)
+		{
+			m_fCameraShakeOffset = { 0,0 };
+			m_bCameraShake = false;
+		}
+	}
 	return 0;
 }
 
 void CSniferCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 {
+	MouseFix();
 	D3DXMatrixLookAtLH(&m_matView, &m_vEye, &m_vAt, &m_vUp);
 	m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
 
@@ -90,6 +127,14 @@ HRESULT CSniferCamera::Add_Component()
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
 	return S_OK;
+}
+
+void CSniferCamera::MouseFix()
+{
+	POINT		ptMouse{ WINCX >> 1, WINCY >> 1 };
+
+	ClientToScreen(g_hWnd, &ptMouse);
+	SetCursorPos(ptMouse.x, ptMouse.y);
 }
 
 
@@ -116,6 +161,46 @@ void CSniferCamera::Set_AngleLimit(ROTATION rot, _float minAngle, _float maxAngl
 {
 	m_vAngleLimit[rot].x = minAngle;
 	m_vAngleLimit[rot].y = maxAngle;
+}
+
+void CSniferCamera::CameraShake()
+{
+	if (m_bCameraShake) return;
+	m_bCameraShake = true;
+	m_fTime = 0.f;
+}
+
+void CSniferCamera::ZoomIn(_float _fov)
+{
+	if (m_bZooming) return;
+	m_fTime = 0.f;
+	SaveFOV();
+	m_bLerp = true;
+	m_bZooming = true;
+
+	m_fStartFOV = m_fFov;
+	m_fDestFOV = _fov;
+}
+
+void CSniferCamera::ZoomOut()
+{
+	if (!m_bZooming) return;
+	m_fTime = 0.f;
+	m_bLerp = true;
+	m_bZooming = false;
+
+	m_fStartFOV = m_fFov;
+	m_fDestFOV = LoadFOV();
+}
+
+void CSniferCamera::SaveFOV()
+{
+	m_fSavedFOV =  m_fFov;
+}
+
+_float CSniferCamera::LoadFOV()
+{
+	return m_fSavedFOV;
 }
 
 CSniferCamera* CSniferCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _owner,

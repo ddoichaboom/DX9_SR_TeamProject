@@ -6,17 +6,23 @@
 #include "CManagement.h"
 #include "CDInputMgr.h"
 #include "CCursor.h"
+#include "CUIManager.h"
 
 //Character
 #include "CWhiteMan.h"
 #include "CSniperPlayer.h"
 #include "CBullet.h"
-#include "CSLeftHand.h"
+#include "CLeftPart.h"
 #include "CSRightHand.h"
+
+//UI
+#include "CSniperUI.h"
+#include "CPhoneBG.h"
 
 //Effect
 #include "CBlood.h"
 #include "CExplosion.h"
+
 
 CSniperStage::CSniperStage(LPDIRECT3DDEVICE9 pGraphicDev) 
 	: CStage(pGraphicDev), m_pPlayer(nullptr)
@@ -31,23 +37,28 @@ HRESULT CSniperStage::Ready_Scene()
 {
 	if (FAILED(Ready_CharacterTextureProto())) return E_FAIL;
 	if (FAILED(Ready_EffectTextureProto())) return E_FAIL;
+	if (FAILED(Ready_UITextureProto())) return E_FAIL;
 	if (FAILED(Ready_ObjectPool_Effect())) return E_FAIL;
 	if (FAILED(Ready_ObjectPool_Character())) return E_FAIL;
 
+
 	if (FAILED(Ready_Environment_Layer(L"Environment_Layer"))) return E_FAIL;
 	if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer"))) return E_FAIL;
+
 	return S_OK;
 }
 
 _int CSniperStage::Update_Scene(const _float& fTimeDelta)
 {
 	int iExit = CStage::Update_Scene(fTimeDelta);
+	CUIManager::GetInstance()->Update_GameObject(fTimeDelta);
 	return iExit;
 }
 
 void CSniperStage::LateUpdate_Scene(const _float& fTimeDelta)
 {
 	CStage::LateUpdate_Scene(fTimeDelta);
+	CUIManager::GetInstance()->LateUpdate_GameObject(fTimeDelta);
 }
 
 void CSniperStage::Render_Scene()
@@ -69,7 +80,7 @@ HRESULT CSniperStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 	if (m_pPlayer == nullptr) return E_FAIL;
 	if(FAILED(pLayer->Add_GameObject(m_pPlayer))) return E_FAIL;
 
-	CGameObject * whiteMan = CWhiteMan::Create(m_pGraphicDev, _vec3(0, 0, 100));
+	CGameObject * whiteMan = CWhiteMan::Create(m_pGraphicDev, _vec3(0, 0, 400));
 	if (whiteMan == nullptr) return E_FAIL;
 	if (FAILED(pLayer->Add_GameObject(whiteMan))) return E_FAIL;
 
@@ -169,6 +180,7 @@ HRESULT CSniperStage::Ready_CharacterTextureProto()
 	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SniperRightAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CSRightHand::GetAnimSources()))))
 		return E_FAIL;
 
+	//Left Hand 는 Main에 위치
 
 	return S_OK;
 }
@@ -180,7 +192,16 @@ HRESULT CSniperStage::Ready_TerrainTextureProto()
 
 HRESULT CSniperStage::Ready_UITextureProto()
 {
-	return E_NOTIMPL;
+	CTexture* pCom_Texture = nullptr;
+	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CSniperUI::GetTextureSource());
+	if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SniperUITexture", pCom_Texture)))
+	{
+		MSG_BOX("Sniper UI Ready Failed");
+		return E_FAIL;
+	}
+
+	CUIManager::GetInstance()->Ready_GameObject(m_pGraphicDev);
+	return S_OK;
 }
 
 HRESULT CSniperStage::Ready_EffectTextureProto()

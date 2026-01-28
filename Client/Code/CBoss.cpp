@@ -121,7 +121,6 @@ void CBoss::CreateStateData()
 HRESULT CBoss::Ready_GameObject()
 {
 	if (FAILED(Add_Component())) return E_FAIL;
-
 	m_pBeam[MON_LEFT_HAND] = CBeam::Create(m_pGraphicDev);
 	if (!m_pBeam[MON_LEFT_HAND]) return E_FAIL;
 	m_pBeam[MON_LEFT_HAND]->SetScale(ROT_X, 0.5f);
@@ -156,10 +155,8 @@ HRESULT CBoss::Ready_GameObject()
 		});
 
 	//맵 반지름 값 
-	//m_fMapRadius = 400.f;
 	m_fMapRadius = 500.f;
 	m_pTransformCom->m_vScale = m_vScale;
-	//m_pTransformCom->Set_Pos({ 0.f, 100.f ,m_fMapRadius});			// CMapLoader에서 스포너 발견시 생성
 	
 	GetHandWorldPos(MON_LEFT_HAND);
 	GetHandWorldPos(MON_RIGHT_HAND);
@@ -389,17 +386,23 @@ void CBoss::OnAnimationChange(_float _animAspect)
 
 void CBoss::Move(const _float& fTimeDelta, _float& _dirAngle, _float ratio)
 {
+	if (m_bRoadVersion) Move_RoadMap(fTimeDelta, _dirAngle, ratio);
+	else Move_BossMap(fTimeDelta, _dirAngle, ratio);
+}
+
+void CBoss::Move_BossMap(const _float& fTimeDelta, _float& _dirAngle, _float ratio)
+{
 	_vec3 dir;
 	_vec3 pos = { 0,0,0 };
 	_vec3 vUp = { 0,1,0 };
 	//맵 원점 바라보는 방향. 원점 - pos 
-	_vec3 vLook = (*m_pTransformCom->Get_Info(INFO_POS)) * -1.f; 
+	_vec3 vLook = (*m_pTransformCom->Get_Info(INFO_POS)) * -1.f;
 	_vec3 vRight;
 	D3DXVec3Cross(&vRight, &vLook, &vUp);
 	//맵을 바라봤을 때의 Right 벡터 
 	D3DXVec3Normalize(&vRight, &vRight);
 	dir = vRight;
-	
+
 	//각도 조절
 	_matrix mat;
 	//맵 원점을 바라보지않고 전방을 바라보게 다시 외적
@@ -425,6 +428,16 @@ void CBoss::Move(const _float& fTimeDelta, _float& _dirAngle, _float ratio)
 	pos = originDir * m_fMapRadius;
 
 	m_pTransformCom->Set_Pos(pos);
+}
+
+void CBoss::Move_RoadMap(const _float& fTimeDelta, _float& _dirAngle, _float ratio)
+{
+	_vec3 vPos = *m_pTransformCom->Get_Info(INFO_POS);
+	_vec3 vRight = (*m_pTransformCom->Get_Info(INFO_RIGHT));
+
+	vPos += vRight * fTimeDelta * m_fSpeed * m_fDirOffset;
+	if (vPos.x <= m_vWidthLimit.x || vPos.x >= m_vWidthLimit.y) ReverseDir();
+	m_pTransformCom->Set_Pos(vPos);
 }
 
 
@@ -483,7 +496,10 @@ void CBoss::Dash()
 
 void CBoss::Attack_Idle()
 {
-	_int nextAttack = rand() % 3;
+	_int nextAttack = 0;
+	if (m_bRoadVersion)  nextAttack = rand() % 2;
+	else nextAttack = rand() % 3;
+
 	switch (nextAttack)
 	{
 	case 0:

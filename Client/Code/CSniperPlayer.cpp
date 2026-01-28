@@ -2,26 +2,29 @@
 #include "CSniperPlayer.h"
 #include "CSniferCamera.h"
 #include "CSRightHand.h"
-#include "CSLeftHand.h"
+#include "CLeftPart.h"
 
 #include "CProtoMgr.h"
 #include "CRenderer.h"
 #include "CDInputMgr.h"
 #include "CUIManager.h"
 #include "CManagement.h"
-#include "CHitUI.h"
 #include "CPoolMgr.h"
+
+#include "CHitUI.h"
+#include "CSniperUI.h"
 
 
 CSniperPlayer::CSniperPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CCharacter(pGraphicDev, 20.f), m_pMainCollider(nullptr), m_pHitUI(nullptr), m_pCamera(nullptr)
+	: CCharacter(pGraphicDev, 20.f), m_pMainCollider(nullptr)
+	, m_pHitUI(nullptr), m_pCamera(nullptr), m_pSniperUI(nullptr)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
 	m_iID = 0;
 }
 
 CSniperPlayer::CSniperPlayer(const CSniperPlayer& rhs)
-	: CCharacter(rhs), m_pMainCollider(nullptr), m_pHitUI(nullptr), m_pCamera(nullptr)
+	: CCharacter(rhs), m_pMainCollider(nullptr), m_pHitUI(nullptr), m_pCamera(nullptr), m_pSniperUI(nullptr)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
 	m_iID = 0;
@@ -78,7 +81,8 @@ HRESULT CSniperPlayer::Ready_GameObject()
 	m_pCollisionCom->SetMainCollider(m_szMainColliderName);
 
 	//Create Hands 
-	//m_pLeftHand = CSLeftHand::Create
+	m_pLeftHand = CLeftPart::Create(m_pGraphicDev);
+	m_pLeftHand->ChangeState(IDLE);
 
 	m_pRightHand = CSRightHand::Create(m_pGraphicDev);
 
@@ -86,15 +90,36 @@ HRESULT CSniperPlayer::Ready_GameObject()
 	//m_pHitUI = CHitUI::Create(m_pGraphicDev);
 	//m_pHitUI->SetDead();
 
-	Change_State(SN_INTRO);
+	m_pSniperUI = CSniperUI::Create(m_pGraphicDev);
+	if (!m_pSniperUI) return E_FAIL;
+
+	//Set Data
+	m_fMouseSpeed = m_fBaseMouseSpeed;
+	ChangeState(SN_INTRO);
+	m_fAttackDamage = 100.f;
+
 	return S_OK;
 }
 
 _int CSniperPlayer::Update_GameObject(const _float& fTimeDelta)
 {
 	int iExit = CCharacter::Update_GameObject(fTimeDelta);
+	m_fTime += fTimeDelta;
+
 	if (m_pCamera) m_pCamera->Update_GameObject(fTimeDelta);
-	if (m_pRightHand) m_pRightHand->Update_GameObject(fTimeDelta);
+	if (m_bRenderStop)
+	{
+		if (m_pSniperUI) m_pSniperUI->Update_GameObject(fTimeDelta);
+	}
+	else
+	{
+		if (m_pRightHand) m_pRightHand->Update_GameObject(fTimeDelta);
+		if (m_pLeftHand)
+		{
+			if(m_pStateCom->GetCurrentStateID() != SN_INTRO)
+				m_pLeftHand->Update_GameObject(fTimeDelta);
+		}
+	}
 
 	Key_Input(fTimeDelta);
 
@@ -109,13 +134,26 @@ void CSniperPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CCharacter::LateUpdate_GameObject(fTimeDelta);
 	if (m_pCamera) m_pCamera->LateUpdate_GameObject(fTimeDelta);
-	if (m_pRightHand) m_pRightHand->LateUpdate_GameObject(fTimeDelta);
+	if (!m_bRenderStop)
+	{
+		if (m_pRightHand) m_pRightHand->LateUpdate_GameObject(fTimeDelta);
+		if (m_pLeftHand) m_pLeftHand->LateUpdate_GameObject(fTimeDelta);
+	}
+
+
+	//Shoot
+	if (CDInputMgr::GetInstance()->Mouse_Down(DIM_LB))
+	{
+		if (m_bRenderStop) // 조준선 UI랜더링 중 이라면 
+		{
+			Shoot();
+		}
+	}
 
 }
 
 void CSniperPlayer::Render_GameObject()
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 }
 
 HRESULT CSniperPlayer::Add_Component()
@@ -128,6 +166,7 @@ void CSniperPlayer::Key_Input(const _float& fTimeDelta)
 {
 	if (!m_bCanInput) return; 
 
+	//카메라 회전 
 	_long	dwMouseMove(0);
 	if (dwMouseMove = CDInputMgr::GetInstance()->Get_DIMouseMove(DIMS_Y))
 	{
@@ -140,24 +179,45 @@ void CSniperPlayer::Key_Input(const _float& fTimeDelta)
 		_float moveValue = D3DXToDegree(dwMouseMove * m_fMouseSpeed);
 		if (m_pCamera) m_pCamera->Set_Rot(ROT_Y, moveValue);
 	}
+
+	// 키 입력
+	//Zoom
+	if (CDInputMgr::GetInstance()->Mouse_Down(DIM_RB))
+	{
+		if(m_pStateCom->GetCurrentStateID() == SN_IDLE)
+		{
+			if(m_pRightHand->IsState_IDLE())
+				ChangeState(SN_ATTACK);
+		}
+		else
+		{
+			ChangeState(SN_IDLE);
+			m_pRightHand->SetState_IDLE();
+		}
+	}
+
 }
 
 
-void CSniperPlayer::Change_State(_uint eState)
+void CSniperPlayer::ChangeState(_uint nextStateID)
 {
 	m_fTime = 0.f;
-	m_pStateCom->ChangeState<CSniperPlayer>(eState);
+	if(m_pStateCom) m_pStateCom->ChangeState<CSniperPlayer>(nextStateID);
 }
 
 void CSniperPlayer::Intro_Begin()
 {
 	DisableInput();
-	m_pRightHand->SetState_INTRO();
+	if(m_pRightHand) m_pRightHand->SetState_INTRO();
 }
 
 void CSniperPlayer::Intro()
 {
-	if (m_pRightHand->CanAnimationEnd()) EnableInput();
+	if (m_pRightHand->CanAnimationEnd())
+	{
+		EnableInput();
+		ChangeState(SN_IDLE);
+	}
 }
 
 void CSniperPlayer::Idle()
@@ -167,20 +227,71 @@ void CSniperPlayer::Idle()
 
 void CSniperPlayer::ZoomIn()
 {
+	m_pRightHand->SetState_ATTACK();
+	m_pCamera->ZoomIn(D3DXToRadian(m_fZoomFOV));
+	m_fMouseSpeed = m_fZoomMouseSpeed;
 }
 
 void CSniperPlayer::Attack()
 {
-}
+	if (!m_bRenderStop && m_pRightHand->IsAnimationEnd())
+		m_bRenderStop = true;
+	if (m_bShoot && m_pCamera->IsCameraShaking() == false)
+	{
+		ChangeState(SN_IDLE);
+	}
+}	
 
+void CSniperPlayer::Shoot()
+{
+	if (m_bShoot) return;
+	m_bShoot = true;
+	m_pCamera->CameraShake();
+	CheckedPickedMonster();
+}
 
 void CSniperPlayer::ZoomOut()
 {
+	m_bRenderStop = false;
+	if (m_bShoot) m_pRightHand->SetState_RELOAD();
+	else m_pRightHand->SetState_IDLE();
+
+	m_bShoot = false;
+	m_pCamera->ZoomOut();
+	m_fMouseSpeed = m_fBaseMouseSpeed;
 }
 
 void CSniperPlayer::OnCollision(CollisionInfo info)
 {
 
+}
+
+void CSniperPlayer::CheckedPickedMonster()
+{
+	CollisionInfo info = { this, {0,0,0}, m_fAttackDamage };
+
+	CLayer* pLayer = CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer");
+	if (!pLayer) return;
+
+	auto pairIter = pLayer->Get_Objects(OBJ_MONSTER);
+	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
+	{
+		CCollision* pCollision = static_cast<CCollision*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+		if (!pCollision) continue;
+
+		auto& mapCollider = pCollision->GetColliderMap();
+		if (mapCollider.empty()) continue;
+		//몬스터의 CollisionCom에 있는 전체 Collider 
+		for (auto& pairCollider : mapCollider)
+		{
+			bool bPicked = CCollision::Collision_Mouse(g_hWnd, m_pGraphicDev, pairCollider.second);
+			if (bPicked)
+			{
+				pairCollider.second->Collision(info);
+				return;
+			}
+		}
+	}
 }
 
 CSniperPlayer* CSniperPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -217,6 +328,10 @@ CSniperPlayer* CSniperPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
 
 void CSniperPlayer::Free()
 {
+	Safe_Release(m_pLeftHand);
+	Safe_Release(m_pRightHand);
+	Safe_Release(m_pHitUI);
+	Safe_Release(m_pSniperUI);
 	Safe_Release(m_pCamera);
 	CCharacter::Free();
 }

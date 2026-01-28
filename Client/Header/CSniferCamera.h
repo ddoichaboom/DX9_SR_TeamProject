@@ -27,11 +27,20 @@ public:
 
 private:
 	HRESULT						Add_Component();
-
+	void						MouseFix();
 public:
 	_float						Get_Rot(ROTATION rot);
 	void						Set_Rot(ROTATION rot, _float _angle);
 	void						Set_AngleLimit(ROTATION rot, _float minAngle, _float maxAngle);
+	
+	void						CameraShake();
+	bool						IsCameraShaking() { return m_bCameraShake; }
+	void						ZoomIn(_float _fov);
+	void						ZoomOut();
+private:
+	void						SaveFOV();
+	_float						LoadFOV();
+
 public:
 	static CSniferCamera*		Create(LPDIRECT3DDEVICE9 pGraphicDev,
 		CGameObject* _owner,
@@ -49,8 +58,27 @@ private:
 	CGameObject*		m_pOwner;
 	Engine::CTransform* m_pTransformCom;
 	Engine::CTransform* m_pOwnerTransformCom;
-	_float				m_fSpeed;
 
+
+	//Zoom
+	_bool				m_bZooming = false;
+	_bool				m_bLerp = false;
 	_vec2				m_vAngleLimit[ROT_END]{};
+	_float				m_fTime = 0.f;
+	_float				m_fLerpTime = 0.2f;
+	_float				m_fSavedFOV = 0.f;
+	_float				m_fStartFOV = 0.f;
+	_float				m_fDestFOV = 0.f;
+
+	//Shake
+	_bool				m_bCameraShake = false;
+	_vec2				m_fCameraPower = { 10,10 };
+	_vec2				m_fCameraShakeOffset = { 0,0 };
+	_float				m_fShakeSpeed = 1.0f;
+	_float				m_fCameraShakeTime = 0.15f;
+
+
+
+
 };
 

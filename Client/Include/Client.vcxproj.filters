@@ -349,6 +349,12 @@
     <Filter Include="02. GameObject\00. Character\04. SniperPlayer\00. SniperCamera\01.SLeftHand">
       <UniqueIdentifier>{a1f9fe3e-6d6a-44e9-b360-91e093834070}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04.UI\01.StaticUI\15. SniperUI">
+      <UniqueIdentifier>{b6cb9ece-df87-4758-ac79-7a73ea996f44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\01. Monster\03. SniperWhiteMan">
+      <UniqueIdentifier>{2b69ec1d-c000-4885-9eea-08d183b16994}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -669,6 +675,12 @@
     <ClInclude Include="..\Header\CSLeftHand.h">
       <Filter>02. GameObject\00. Character\04. SniperPlayer\00. SniperCamera\01.SLeftHand</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CSniperUI.h">
+      <Filter>04.UI\01.StaticUI\15. SniperUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSniperWhiteMan.h">
+      <Filter>02. GameObject\00. Character\01. Monster\03. SniperWhiteMan</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -979,6 +991,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CSLeftHand.cpp">
       <Filter>02. GameObject\00. Character\04. SniperPlayer\00. SniperCamera\01.SLeftHand</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSniperUI.cpp">
+      <Filter>04.UI\01.StaticUI\15. SniperUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSniperWhiteMan.cpp">
+      <Filter>02. GameObject\00. Character\01. Monster\03. SniperWhiteMan</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

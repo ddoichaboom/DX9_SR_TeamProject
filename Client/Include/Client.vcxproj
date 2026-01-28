@@ -224,6 +224,8 @@
     <ClInclude Include="..\Header\CSniferCamera.h" />
     <ClInclude Include="..\Header\CSniperPlayer.h" />
     <ClInclude Include="..\Header\CSniperStage.h" />
+    <ClInclude Include="..\Header\CSniperUI.h" />
+    <ClInclude Include="..\Header\CSniperWhiteMan.h" />
     <ClInclude Include="..\Header\CSodaUI.h" />
     <ClInclude Include="..\Header\CSoda.h" />
     <ClInclude Include="..\Header\CSRightHand.h" />
@@ -331,6 +333,8 @@
     <ClCompile Include="..\Code\CSniferCamera.cpp" />
     <ClCompile Include="..\Code\CSniperPlayer.cpp" />
     <ClCompile Include="..\Code\CSniperStage.cpp" />
+    <ClCompile Include="..\Code\CSniperUI.cpp" />
+    <ClCompile Include="..\Code\CSniperWhiteMan.cpp" />
     <ClCompile Include="..\Code\CSodaUI.cpp" />
     <ClCompile Include="..\Code\CSoda.cpp" />
     <ClCompile Include="..\Code\CSRightHand.cpp" />

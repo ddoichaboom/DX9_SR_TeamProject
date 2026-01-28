@@ -1,11 +1,13 @@
 #pragma once
 #include "CCharacter.h"
+
 //#include "CEventMgr.h"
 
+class CSniperUI;
 class CHitUI;
 class CSniferCamera;
 class CSRightHand;
-class CSLeftHand;
+class CLeftPart;
 
 namespace Engine
 {
@@ -44,7 +46,7 @@ public:
 	void			DisableInput() { m_bCanInput = false; }
 
 protected:
-	void			Change_State(_uint eState);
+	void			ChangeState(_uint nextStateID) override;
 
 	void			Intro_Begin();
 	void			Intro();
@@ -55,27 +57,38 @@ protected:
 	void			Attack();
 	void			ZoomOut();
 
+	void			Shoot();
 protected:
 	void			Free() override;
 	void			OnCollision(CollisionInfo info);
-
+	void			CheckedPickedMonster();
 protected:
 	CSRightHand*	m_pRightHand = nullptr;
-	CSLeftHand*		m_pLeftHand = nullptr;
+	CLeftPart*		m_pLeftHand = nullptr;
+
 protected:
-	_float			m_fMouseSpeed = 0.003f;
+	_float			m_fZoomFOV = 8.f;
+
+	_float			m_fMouseSpeed = 0.f;;
+	_float			m_fBaseMouseSpeed = 0.003f;
+	_float			m_fZoomMouseSpeed = 0.003f * 0.25f;
+
 	CSniferCamera*	m_pCamera;
 	SNIFER_STATE	m_eCurState = SN_NONE;
 	CCollider*		m_pMainCollider;
 	const	_tchar* m_szMainColliderName = L"ColMain";
 
 	bool			m_bCanInput = false;
-	
+	_bool			m_bShoot = false;
 //Zoom	
 	bool			m_bZoom = false;
 
 
 protected:
-	CHitUI* m_pHitUI;
+	CHitUI*			m_pHitUI;
+	CSniperUI*		m_pSniperUI;
+
+	bool			m_bRenderStop = false;
+
 };
 

@@ -13,8 +13,7 @@ vector<TextureSource> CSRightHand::m_vTextureSource =
 		L"../Bin/Resource/Texture/Sniper/Reload_Total1_1024.dds"},
 	 { LS_INTRO,		L"../Bin/Resource/Texture/Sniper/Reload_Total2_1024.dds" },
 	 { LS_IDLE,		L"../Bin/Resource/Texture/Sniper/GunIdle_1024.dds" },
-	 { CStateComponent::MakeStateID(LS_ATTACK, SUB_BEGIN),		
-			L"../Bin/Resource/Texture/Sniper/ZoomIn_1024.dds" },
+	 { LS_ATTACK, L"../Bin/Resource/Texture/Sniper/ZoomIn_1024.dds" },
 	 { CStateComponent::MakeStateID(LS_ATTACK,SUB_END),
 			L"../Bin/Resource/Texture/Sniper/ZoomOut_1024.dds" },
 	 { LS_RELOAD,		L"../Bin/Resource/Texture/Sniper/ShootEnd_Total_1024.dds" },
@@ -26,9 +25,9 @@ vector<AnimationSource> CSRightHand::m_vAnimSource =
 	{  CStateComponent::MakeStateID(LS_INTRO,SUB_BEGIN) ,3,3,3, false, 0.06f,1.f},
 	{  LS_INTRO ,1,2,1, false, 0.07f, 1.f},
 	{  LS_IDLE ,0,1,1, true},
-	{  CStateComponent::MakeStateID(LS_ATTACK, SUB_BEGIN),1,1,1, false, 0.11f, 1.f,true},
-	{  CStateComponent::MakeStateID(LS_ATTACK, SUB_END), 1,1,1, false, 0.11f, 1.f,true},
-	{  LS_RELOAD ,2,3,2, false,0.12f, 1.f},
+	{ LS_ATTACK,1,1,1, false, 0.03f, 1.f,true},
+	{  CStateComponent::MakeStateID(LS_ATTACK, SUB_END), 1,1,1, false, 0.03f, 1.f,true},
+	{  LS_RELOAD ,2,3,2, false,0.07f, 1.f},
 };
 
 
@@ -163,8 +162,15 @@ bool CSRightHand::CanAnimationEnd()
 	return m_pAnimationCom->GetSubState() == SUB_NONE && m_pAnimationCom->CanEnd();
 }
 
+bool CSRightHand::CheckState(LEFT_STATE _state)
+{
+	if (!m_pAnimationCom) return false;
+	return m_pAnimationCom->Get_State() == _state;
+}
+
 void CSRightHand::ChangeState(_uint nextStateID)
 {
+	m_pTransformCom->Set_Pos(m_vPos);
 	m_fTime = 0.f;
 	m_pAnimationCom->Update_State(nextStateID);
 	m_pStateCom->ChangeState<CSRightHand>(nextStateID);
@@ -188,6 +194,9 @@ void CSRightHand::Intro()
 
 void CSRightHand::Idle()
 {
+	_vec3 pos = m_vPos;
+	pos.y = m_vPos.y + sinf(m_fTime*2.f) * m_fHeight;
+	m_pTransformCom->Set_Pos(pos);
 }
 
 
@@ -204,13 +213,11 @@ void CSRightHand::ZoomOut()
 {
 }
 
-void CSRightHand::Shoot()
-{
-}
-
 
 void CSRightHand::Reload()
 {
+	if (m_pAnimationCom->IsEnd())
+		Change_State(LS_IDLE);
 }
 
 

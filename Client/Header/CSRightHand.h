@@ -31,10 +31,9 @@ protected:
 	void			Intro();
 	void			Idle();
 
-	void			ZoomIn();
 	void			Attack();
+	void			ZoomIn();
 	void			ZoomOut();
-	void			Shoot();
 
 	void			Reload();
 
@@ -58,23 +57,17 @@ public:
 	bool			IsAnimationEnd();
 	bool			CanAnimationEnd();
 
+	bool			CheckState(LEFT_STATE _state);
 
-	void			SetState_INTRO()
-	{
-		Change_State(LS_INTRO);
-	}
-	void			SetState_IDLE()
-	{
-		Change_State(LS_IDLE);
-	}
-	void			SetState_ATTACK()
-	{
-		Change_State(LS_ATTACK);
-	}
-	void			SetState_RELOAD()
-	{
-		Change_State(LS_RELOAD);
-	}
+	bool			IsState_INTRO()		{ return CheckState(LS_INTRO); }
+	bool			IsState_IDLE()		{ return CheckState(LS_IDLE); }
+	bool			IsState_ATTACK()	{ return CheckState(LS_ATTACK); }
+	bool			IsState_RELOAD()	{ return CheckState(LS_RELOAD); }
+
+	void			SetState_INTRO()	{ Change_State(LS_INTRO); }
+	void			SetState_IDLE()		{ Change_State(LS_IDLE); }
+	void			SetState_ATTACK()	{ Change_State(LS_ATTACK); }
+	void			SetState_RELOAD()	{ Change_State(LS_RELOAD); }
 
 
 protected:
@@ -85,20 +78,16 @@ protected:
 	static vector<AnimationSource> m_vAnimSource;
 
 protected:
-	_vec3 m_vScale = { 700, 700, 1 };
-	_vec3 m_vIntoPos = { 100, 50, 0 };
+	_vec3 m_vScale = { 600, 600, 1 };
+	_vec3 m_vIntoPos = { 100, 0, 0 };
 	_vec3 m_vPos = { 400, 50, 0 };
-
+	_float	m_fHeight = 10.f;
 	_float m_fTime = 0.f ;
 	CRcTex* m_pBufferCom = nullptr ;
 	CTransform* m_pTransformCom = nullptr;
 	CAnimation* m_pAnimationCom = nullptr;
 	CStateComponent* m_pStateCom= nullptr;
 
-	LEFT_STATE m_eState = LS_NONE;
-
-	//State Value
-protected:
 
 };;
 
