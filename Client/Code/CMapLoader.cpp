@@ -19,6 +19,7 @@
 #include "CRoomTrigger.h"
 #include "CStageEndTrigger.h"
 #include "CDoor.h"
+#include "CExtinguisher.h"
 
 // 캐릭터,몬스터 (SpawnPoint 처리용)
 #include "CPlayer.h"
@@ -27,6 +28,7 @@
 #include "CFlyMon.h"
 #include "CTestCharacter.h"
 #include "CBoss.h"
+#include "CAxe.h"
 
 #include <fstream>
 
@@ -38,7 +40,8 @@ vector<wstring> CMapLoader::m_vecMapFiles =
 {
     {L"../../Map/TutorialStage.json"},
     {L"../../Map/MainStage.json"},
-    {L"../../Map/BossStage.json"}        
+    {L"../../Map/BossStage.json"},
+    {L"../../Map/SniperStage.json"}
 };
 
 CMapLoader::CMapLoader()
@@ -152,6 +155,11 @@ HRESULT CMapLoader::Preload_AllMapData(const wstring& wstrPath)
                 roomMap[iRoomIndex].iRoomTriggerBoxCount++;
             else if (objData.sType == "Door")
                 roomMap[iRoomIndex].iDoorCount++;
+            else if (objData.sType == "Extinguisher")
+                roomMap[iRoomIndex].iExtinguisherCount++;
+            else if (objData.sType == "Axe")
+                roomMap[iRoomIndex].iAxeCount++;
+
         }
 
         // ========== 5단계: 로그 출력 ==========
@@ -219,8 +227,7 @@ HRESULT CMapLoader::Load_Room(const wstring& wstrPath, _int iRoomIndex, CLayer* 
             // ========== Environment_Layer 처리 ==========
             if (bIsEnvironmentLayer)
             {
-                // SpawnPoint는 무시
-                if (objData.sType == "SpawnPoint")
+                if (objData.sType == "SpawnPoint" || objData.sType == "Axe")
                     continue;
 
                 if (objData.sType == "Floor" || objData.sType == "DynamicFloor" ||
@@ -228,7 +235,7 @@ HRESULT CMapLoader::Load_Room(const wstring& wstrPath, _int iRoomIndex, CLayer* 
                     objData.sType == "DynamicCeiling" || objData.sType == "Wall" || 
                     objData.sType == "DynamicWall" || objData.sType == "VendingMachine" || 
                     objData.sType == "MapCollider" || objData.sType == "RoomTriggerBox" ||
-                    objData.sType == "Door")
+                    objData.sType == "Door" || objData.sType == "Extinguisher")
                 {
                     // GameObject 획득 (풀에서)
                     CGameObject* pGameObject = Get_GameObject_FromPool(objData, pGraphicDev);
@@ -306,49 +313,40 @@ HRESULT CMapLoader::Load_Room(const wstring& wstrPath, _int iRoomIndex, CLayer* 
                     else if (objData.sSpawnType == "Monster")
                     {
                         // Monster 풀에서 획득
-                        CGameObject* pMonster = nullptr;
+                        CGameObject* pGameObject = Get_GameObject_FromPool(objData, pGraphicDev);
 
-                        if (objData.sMonsterKey == "WhiteMan")
+                        if (pGameObject)
                         {
-                            CWhiteMan* pWhiteMan = Engine::CPoolMgr::GetInstance()->Get_Object<CWhiteMan>();
-                            if (pWhiteMan)
-                            {
-                                pWhiteMan->SetPos(objData.vPos);
-                                pMonster = pWhiteMan;
-                            }
-                        }
-                        else if (objData.sMonsterKey == "BeamMon")
-                        {
-                            CBeamMon* pBeamMon = Engine::CPoolMgr::GetInstance()->Get_Object<CBeamMon>();
-                            if (pBeamMon)
-                            {
-                                pBeamMon->SetPos(objData.vPos);
-                                pMonster = pBeamMon;
-                            }
-                        }
-                        else if (objData.sMonsterKey == "FlyMon")
-                        {
-                            CFlyMon* pFlyMon = Engine::CPoolMgr::GetInstance()->Get_Object<CFlyMon>();
-                            if (pFlyMon)
-                            {
-                                pFlyMon->SetPos(objData.vPos);
-                                pMonster = pFlyMon;
-                            }
-                        }
-
-                        if (pMonster)
-                        {
-                            pMonster->Set_RoomIndex(iRoomIndex);
+                            pGameObject->Set_RoomIndex(iRoomIndex);
 
                             // Layer에 추가
-                            if (FAILED(pLayer->Add_GameObject(pMonster)))
+                            if (FAILED(pLayer->Add_GameObject(pGameObject)))
                             {
-                                pMonster->ReturnToPool();
+                                pGameObject->ReturnToPool();
                             }
                             else
                             {
                                 iLoadedCount++;
                             }
+                        }
+                    }
+                }
+                else if (objData.sType == "Axe")
+                {
+                    CGameObject* pGameObject = Get_GameObject_FromPool(objData, pGraphicDev);
+
+                    if (pGameObject)
+                    {
+                        pGameObject->Set_RoomIndex(iRoomIndex);
+
+                        // Layer에 추가
+                        if (FAILED(pLayer->Add_GameObject(pGameObject)))
+                        {
+                            pGameObject->ReturnToPool();
+                        }
+                        else
+                        {
+                            iLoadedCount++;
                         }
                     }
                 }
@@ -385,7 +383,7 @@ HRESULT CMapLoader::Unload_Room(const wstring& wstrPath, _int iRoomIndex, CLayer
 
     OBJ_ID objIDs[] = {
         OBJ_FLOOR, OBJ_CEILING, OBJ_WALL, OBJ_VENDINGMACHINE, OBJ_COL, OBJ_TRIGGER, OBJ_DOOR,  // Environment
-        OBJ_MONSTER                                                             // GameLogic
+        OBJ_MONSTER, OBJ_ITEM                                                            // GameLogic
     };
 
     for (OBJ_ID objID : objIDs)
@@ -486,6 +484,10 @@ _uint CMapLoader::Get_MaxObjectCount(const wstring& wstrPath, const string& obje
                 iSum += roomData.iRoomTriggerBoxCount;
             else if (objectType == "Door")
                 iSum += roomData.iDoorCount;
+            else if (objectType == "Extinguisher")
+                iSum += roomData.iExtinguisherCount;
+            else if (objectType == "Axe")
+                iSum += roomData.iAxeCount;
         }
 
         if (iSum > iMaxCount)
@@ -735,6 +737,58 @@ CGameObject* CMapLoader::Get_GameObject_FromPool(const ObjectData& objData, LPDI
             pGameObject = pDoor;
         }
     }
+    else if ((objData.sType == "SpawnPoint") && (objData.sSpawnType == "Monster"))
+    {
+        if (objData.sMonsterKey == "WhiteMan")
+        {
+            CWhiteMan* pWhiteMan = Engine::CPoolMgr::GetInstance()->Get_Object<CWhiteMan>();
+            if (pWhiteMan)
+            {
+                pWhiteMan->SetPos(objData.vPos);
+                pGameObject = pWhiteMan;
+            }
+        }
+        else if (objData.sMonsterKey == "BeamMon")
+        {
+            CBeamMon* pBeamMon = Engine::CPoolMgr::GetInstance()->Get_Object<CBeamMon>();
+            if (pBeamMon)
+            {
+                pBeamMon->SetPos(objData.vPos);
+                pGameObject = pBeamMon;
+            }
+        }
+        else if (objData.sMonsterKey == "FlyMon")
+        {
+            CFlyMon* pFlyMon = Engine::CPoolMgr::GetInstance()->Get_Object<CFlyMon>();
+            if (pFlyMon)
+            {
+                pFlyMon->SetPos(objData.vPos);
+                pGameObject = pFlyMon;
+            }
+        }
+    }
+    else if (objData.sType == "Extinguisher")
+    {
+        CExtinguisher* pExting = CPoolMgr::GetInstance()->Get_Object<CExtinguisher>();
+        if (pExting)
+        {
+            pExting->SetPos(objData.vPos);
+            pExting->SetTransformMatrix();
+            pGameObject = pExting;
+        }
+    }
+    else if (objData.sType == "Axe")
+    {
+        CAxe* pAxe = CPoolMgr::GetInstance()->Get_Object<CAxe>();
+        if (pAxe)
+        {
+            pAxe->SetPos(objData.vPos);
+            //pAxe->Activate();
+            //pAxe->SetTransformMatrix();
+            pGameObject = pAxe;
+        }
+    }
+
 
     return pGameObject;
 }

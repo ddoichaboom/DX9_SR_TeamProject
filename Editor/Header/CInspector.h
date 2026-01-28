@@ -13,6 +13,7 @@ class CEditorSlopeFloor;
 class CEditorMapCollider;
 class CEditorTriggerBox;
 class CEditorDoor;
+class CEditorInteractObject;
 
 class CInspector : public CBase
 {
@@ -33,7 +34,7 @@ private:
     void    Render_MapColliderProperties(CEditorMapCollider* pCollider);
     void    Render_TriggerBoxProperties(CEditorTriggerBox* pTrigger);
     void    Render_DoorProperties(CEditorDoor* pDoor);
-
+    void    Render_InteractObjectProperties(CEditorInteractObject* pInteract);
 
 private:
     void    Render_ObjectProperties();

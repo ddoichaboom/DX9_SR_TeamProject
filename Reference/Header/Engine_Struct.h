@@ -155,6 +155,7 @@ namespace Engine
 		DOOR_TYPE	iDoorType;
 		SLOPE_DIR	eSlopeDir;
 
+
 		// SpawnPoint Àü¿ë
 		std::string sSpawnType;           // "Player", "Monster", "BossMonster"
 		std::string sMonsterKey;          // "WhiteMan", "BeamMon" µî
@@ -186,6 +187,8 @@ namespace Engine
 		_uint iDynamicWallCount;
 		_uint iVendingMachineCount;
 		_uint iDoorCount;
+		_uint iExtinguisherCount;
+		_uint iAxeCount;
 
 		_uint iMapColliderCount;
 		_uint iRoomTriggerBoxCount;
@@ -195,7 +198,7 @@ namespace Engine
 			: iRoomIdx(-1), iFloorCount(0), iDynamicFloorCount(0), iCeilingCount(0),
 			iDynamicCeilingCount(0), iWallCount(0), iDynamicWallCount(0), iVendingMachineCount(0)
 			, iSlopeFloorCount(0), iMapColliderCount(0), iRoomTriggerBoxCount(0), iEventTriggerBoxCount(0)
-			, iDoorCount(0)
+			, iDoorCount(0), iExtinguisherCount(0), iAxeCount(0)
 		{}
 	}RoomData;
 

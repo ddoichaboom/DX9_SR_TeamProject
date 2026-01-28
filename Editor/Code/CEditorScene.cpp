@@ -20,6 +20,7 @@
 #include "CEditorMapCollider.h"
 #include "CEditorTriggerBox.h"
 #include "CEditorDoor.h"
+#include "CEditorInteractObject.h"
 
 CEditorScene::CEditorScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
@@ -386,6 +387,7 @@ void CEditorScene::Handle_Duplicate()
                 {
                     vPos += m_vDupplicateDir * 16.f;
                     _vec3 vColliderScale = pMapCollider->Get_ColliderScale();
+                    iRoomIndex = pMapCollider->Get_RoomIndex();
                     pNewObj = CEditorMapCollider::Create(m_pGraphicDev, vPos, vColliderScale);
                 }
                 else if (CEditorDoor* pDoor = dynamic_cast<CEditorDoor*>(pSelectedObj))
@@ -401,8 +403,16 @@ void CEditorScene::Handle_Duplicate()
                     vPos += m_vDupplicateDir * 16.f;
                     _vec3 vColliderScale = pTriggerBox->Get_ColliderScale();
                     TRIGGER_TYPE eType = pTriggerBox->Get_TriggerType();
+                    iRoomIndex = pTriggerBox->Get_RoomIndex();
                     pNewObj = CEditorTriggerBox::Create(m_pGraphicDev, vPos, vColliderScale, eType);
-                    }
+                }
+                else if (CEditorInteractObject* pInteract = dynamic_cast<CEditorInteractObject*>(pSelectedObj))
+                {
+                    vPos += m_vDupplicateDir * 4.f;
+                    OBJ_ITEM_TYPE eItemType = pInteract->Get_ItemType();
+                    iRoomIndex = pInteract->Get_RoomIndex();
+                    pNewObj = CEditorInteractObject::Create(m_pGraphicDev, vPos, eItemType);
+                }
 
 
                 if (pNewObj)
@@ -495,7 +505,7 @@ void CEditorScene::Handle_Left_Click()
             eMode == MODE_PLACE_SPAWN_MONSTER || eMode == MODE_PLACE_SLOPE_FLOOR ||
             eMode == MODE_PLACE_MAPCOLLIDER || eMode == MODE_PLACE_TRIGGERBOX ||
             eMode == MODE_PLACE_SPAWN_BOSSMONSTER || eMode == MODE_PLACE_DYNAMIC_WALL ||
-            eMode == MODE_PLACE_DOOR)
+            eMode == MODE_PLACE_DOOR || eMode == MODE_PLACE_INTERACTOBJECT)
         {
 
             // Ray - Plane Intersection (Y = 0 평면)
@@ -528,6 +538,8 @@ void CEditorScene::Handle_Left_Click()
                 Place_SpawnBossMonster(vPos);
             else if (eMode == MODE_PLACE_DOOR)
                 Place_Door(vPos);
+            else if (eMode == MODE_PLACE_INTERACTOBJECT)
+                Place_InteractObject(vPos);
         }
         else if (eMode == MODE_SELECT)
         {
@@ -590,6 +602,8 @@ void CEditorScene::Handle_Arrow()
         m_eDupplicateDir = POSITIVE_Z;
     else if (CDInputMgr::GetInstance()->Key_Down(DIK_LEFT))
         m_eDupplicateDir = NEGATIVE_Z;
+    else if (CDInputMgr::GetInstance()->Key_Down(DIK_SPACE))
+        m_eDupplicateDir = (m_eDupplicateDir == POSITIVE_Y) ? NEGATIVE_Y : (POSITIVE_Y);
 
     switch (m_eDupplicateDir)
     {
@@ -604,6 +618,12 @@ void CEditorScene::Handle_Arrow()
         break;
     case NEGATIVE_Z:
         m_vDupplicateDir = { 0.f, 0.f, -1.f };
+        break;
+    case POSITIVE_Y:
+        m_vDupplicateDir = { 0.f, 1.f, 0.f };
+        break;
+    case NEGATIVE_Y:
+        m_vDupplicateDir = { 0.f, -1.f , 0.f };
         break;
     default:
         m_vDupplicateDir = { 1.f, 0.f, 0.f };
@@ -886,6 +906,28 @@ void CEditorScene::Place_VendingMachine(const _vec3& vPos)
 
         Add_Object(pMachine);
         Safe_Release(pMachine);
+    }
+}
+
+void CEditorScene::Place_InteractObject(const _vec3& vPos)
+{
+    CEditorInteractObject* pInteract = CEditorInteractObject::Create(m_pGraphicDev, vPos);
+
+    if (pInteract)
+    {
+        // Y 위치 조정 (빌보드이므로 바닥 위로 올림)
+        _vec3 vAdjustedPos = vPos;
+        vAdjustedPos.y = vPos.y + 4.0f;
+        pInteract->Set_Position(vAdjustedPos);
+
+        // 기본 이름 설정
+        static _int s_iInteractIdx = 0;
+        wchar_t wszName[64];
+        swprintf_s(wszName, L"Extinguisher_%d", s_iInteractIdx++);
+        pInteract->Set_Name(wszName);
+
+        Add_Object(pInteract);
+        Safe_Release(pInteract);
     }
 }
 

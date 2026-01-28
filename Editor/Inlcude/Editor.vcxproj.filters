@@ -163,6 +163,9 @@
     <Filter Include="07. Effect\13. PhoneHPUI">
       <UniqueIdentifier>{52e70447-d82d-439e-b570-669331b79978}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Object\10. EditorInteractObject">
+      <UniqueIdentifier>{c51eb1f6-b73f-470a-aa67-d39e51e9d8cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -330,6 +333,9 @@
     <ClInclude Include="..\Header\CPhoneHPUI.h">
       <Filter>07. Effect\13. PhoneHPUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CEditorInteractObject.h">
+      <Filter>04. Object\10. EditorInteractObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -481,6 +487,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CPhoneHPUI.cpp">
       <Filter>07. Effect\13. PhoneHPUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorInteractObject.cpp">
+      <Filter>04. Object\10. EditorInteractObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
