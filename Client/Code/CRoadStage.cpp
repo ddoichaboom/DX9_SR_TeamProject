@@ -9,9 +9,12 @@
 #include "CUIManager.h"
 
 // 필수 게임 오브젝트 
-#include "CFirstCamera.h"
+#include "CRoadCamera.h"
 #include "CCursor.h"
 #include "CRoadPlayer.h"
+
+//스카이 박스
+#include "CSkyBox.h"
 
 //미니건 관련
 #include "CMinigun.h"
@@ -99,9 +102,9 @@ HRESULT CRoadStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 	// 카메라
 	_vec3 vPlayerPos = { 0.f, 0.f, 0.f };
 	_vec3 vEye = vPlayerPos;
-	_vec3 vAt = { vPlayerPos.x, vPlayerPos.y, vPlayerPos.z };
+	_vec3 vAt = { vPlayerPos.x, vPlayerPos.y, vPlayerPos.z +10.f };
 	_vec3 vUp = { 0.f, 1.f, 0.f };
-	pGameObject = CFirstCamera::Create(m_pGraphicDev, &vEye, &vAt, &vUp);
+	pGameObject = CRoadCamera::Create(m_pGraphicDev, &vEye, &vAt, &vUp);
 
 	if (nullptr == pGameObject)
 		return E_FAIL;
@@ -109,6 +112,13 @@ HRESULT CRoadStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 	if (FAILED(pLayer->Add_GameObject(pGameObject)))
 		return E_FAIL;
 
+	// 스카이 박스
+	pGameObject = CSkyBox::Create(m_pGraphicDev);
+	if (nullptr == pGameObject)
+		return E_FAIL;
+
+	if (FAILED(pLayer->Add_GameObject(pGameObject)))
+		return E_FAIL;
 
 	// 커서
 	pGameObject = CCursor::Create(m_pGraphicDev);
@@ -265,6 +275,14 @@ HRESULT CRoadStage::Ready_CharacterTextureProto()
 
 HRESULT CRoadStage::Ready_TerrainTextureProto()
 {
+	// ㅣ필수 삭제 ㅣ
+	CCubeTexture* pCom_Cube_Texture = nullptr;
+
+	// Obstacle(VendingMachine) Proto 
+	pCom_Cube_Texture = Engine::CCubeTexture::Create(m_pGraphicDev, CSkyBox::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SkyTexture", pCom_Cube_Texture)))
+		return E_FAIL;
+
 	return S_OK;
 }
 

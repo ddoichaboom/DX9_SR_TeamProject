@@ -18,7 +18,7 @@ vector<TextureSource> CChain::m_vTextureSource =
 vector<AnimationSource> CChain::m_vAnimSource =
 {
 	{ MS_IDLE,1,1,1,true, 0.08f},
-	{ MS_ATTACK,1,1,0,true, 0.08f}
+	{ MS_ATTACK,1,1,0,true, 0.03f}
 };
 
 CChain::CChain(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -75,7 +75,7 @@ HRESULT CChain::Ready_GameObject()
 	CreateStateData();
 
 	m_vScale = { 500.f, 250.f, 1.f };
-	m_vPosition = { WINCX - 300.f, WINCY - 20.f, 0.f };
+	m_vPosition = { WINCX - 350.f, WINCY, 0.f };
 
 
 	SetPos(m_vPosition);

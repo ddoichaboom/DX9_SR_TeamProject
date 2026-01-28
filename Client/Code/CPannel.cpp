@@ -70,7 +70,7 @@ HRESULT CPannel::Ready_GameObject()
 	CreateStateData();
 
 	m_vScale =	{ 700, 350.f, 1.f };
-	m_vPosition = { WINCX * 0.5f, WINCY + 80.f, 0.f };
+	m_vPosition = { WINCX * 0.5f, WINCY + 100.f, 0.f };
 
 
 	SetPos(m_vPosition);

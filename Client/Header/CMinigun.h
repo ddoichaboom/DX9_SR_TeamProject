@@ -12,6 +12,7 @@ namespace Engine
 	class CAnimation;
 }
 
+class CRoadPlayer;
 class CPannel;
 class CChain;
 
@@ -59,6 +60,9 @@ protected:
 	virtual	void		Free();
 
 
+	void				Key_Input(const _float& fTimeDelta);
+
+
 protected:
 	void				Begin_Idle();
 	void				Idle();
@@ -82,9 +86,12 @@ protected:
 	void				End_Attack_End();
 
 protected:
-	virtual		void        Rotate(ROTATION eType, const _float& fAngle);
-	virtual		void        SetPos(_vec3 _pos);
-	virtual		void		SetScale(_vec3 _scale);
+	virtual		void    Rotate(ROTATION eType, const _float& fAngle);
+	virtual		void    SetPos(_vec3 _pos);
+	virtual		void	SetScale(_vec3 _scale);
+
+public :
+	void				Set_Parent(CRoadPlayer* pPlayer);
 
 protected:
 	static vector<TextureSource>	m_vTextureSource;
@@ -95,11 +102,14 @@ protected:
 	Engine::CStateComponent* m_pStateCom;
 	Engine::CAnimation* m_pAnimationCom;
 
+	CRoadPlayer* m_pParent;
 	CPannel*	m_pPannel;
 	CChain*		m_pChain;
 
 	_float	m_fTime = 0.f;
 	_vec3	m_vPosition;
 	_vec3	m_vScale;
+
+	_bool	m_bKeyPressing;
 };
 

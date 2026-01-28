@@ -349,6 +349,9 @@
     <Filter Include="02. GameObject\00. Character\04. RoadPlayer\05.Minigun\Chain">
       <UniqueIdentifier>{e20715c5-ccd5-40c6-ba3b-2ba981524830}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\01. FirstCamera\02.RoadCamera">
+      <UniqueIdentifier>{819a0c18-b31b-42f1-9121-524773916c5c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -669,6 +672,9 @@
     <ClInclude Include="..\Header\CChain.h">
       <Filter>02. GameObject\00. Character\04. RoadPlayer\05.Minigun\Chain</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CRoadCamera.h">
+      <Filter>02. GameObject\01. FirstCamera\02.RoadCamera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -979,6 +985,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CChain.cpp">
       <Filter>02. GameObject\00. Character\04. RoadPlayer\05.Minigun\Chain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CRoadCamera.cpp">
+      <Filter>02. GameObject\01. FirstCamera\02.RoadCamera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

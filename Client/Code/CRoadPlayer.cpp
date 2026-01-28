@@ -43,6 +43,7 @@ HRESULT CRoadPlayer::Ready_GameObject()
 {
 	if (FAILED(Add_Component())) return E_FAIL;	
 
+	m_pTransformCom->Set_Pos({ 0.f,0.f,0.f });
 	m_pTransformCom->m_vScale = { 5.f, 8.f  ,1.f };
 
 	m_pMainCollider = m_pCollisionCom->CreateCollider(this, m_szMainColliderName);
@@ -62,6 +63,7 @@ HRESULT CRoadPlayer::Ready_GameObject()
 	if (m_pMinigun == nullptr)
 		return E_FAIL;
 	
+	m_pMinigun->Set_Parent(this);
 
 	return S_OK;
 }
@@ -92,9 +94,6 @@ HRESULT CRoadPlayer::Add_Component()
 {
 	if (FAILED(CCharacter::Add_Component())) return E_FAIL;
 	
-
-
-
 	return S_OK;
 }
 
@@ -110,8 +109,10 @@ void CRoadPlayer::OnCollision(CollisionInfo info)
 
 void CRoadPlayer::Activate()
 {
+	CCharacter::Activate();
 }
 
 void CRoadPlayer::Deactivate()
 {
+	CCharacter::Deactivate();
 }

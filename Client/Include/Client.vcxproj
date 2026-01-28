@@ -173,6 +173,7 @@
     <ClInclude Include="..\Header\CMinigun.h" />
     <ClInclude Include="..\Header\CPannel.h" />
     <ClInclude Include="..\Header\CPhoneHPUI.h" />
+    <ClInclude Include="..\Header\CRoadCamera.h" />
     <ClInclude Include="..\Header\CRoadPlayer.h" />
     <ClInclude Include="..\Header\CRoadStage.h" />
     <ClInclude Include="..\Header\CRoomTrigger.h" />
@@ -281,6 +282,7 @@
     <ClCompile Include="..\Code\CMinigun.cpp" />
     <ClCompile Include="..\Code\CPannel.cpp" />
     <ClCompile Include="..\Code\CPhoneHPUI.cpp" />
+    <ClCompile Include="..\Code\CRoadCamera.cpp" />
     <ClCompile Include="..\Code\CRoadPlayer.cpp" />
     <ClCompile Include="..\Code\CRoadStage.cpp" />
     <ClCompile Include="..\Code\CRoomTrigger.cpp" />

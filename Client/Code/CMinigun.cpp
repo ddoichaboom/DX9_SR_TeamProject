@@ -6,8 +6,8 @@
 #include "CPoolMgr.h"
 #include "CSoundMgr.h"
 
-#include "CBullet.h"
 
+#include "CRoadPlayer.h"
 #include "CPannel.h"
 #include "CChain.h"
 
@@ -24,9 +24,9 @@ vector<TextureSource> CMinigun::m_vTextureSource =
 vector<AnimationSource> CMinigun::m_vAnimSource =
 {
 	{ MS_IDLE,0,1,1,   true, 0.08f},
-	{ MS_START,1,1,1,  false, 0.08f},
+	{ MS_START,1,1,1,  false, 0.08f, 1.f},
 	{ MS_CYCLE,1,1,1,  true, 0.05f},
-	{ MS_ATTACK,1,1,1, true, 0.04f},
+	{ MS_ATTACK,1,1,1, true, 0.025f},
 	{ MS_ATTACK_END,1,3,3, false, 0.05f, 1.f}
 };
 
@@ -34,8 +34,8 @@ CMinigun::CMinigun(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
 	, m_pStateCom(nullptr), m_pAnimationCom(nullptr)
-	, m_pPannel(nullptr), m_pChain(nullptr)
-	, m_fTime(0.f)
+	, m_pParent(nullptr), m_pPannel(nullptr), m_pChain(nullptr)
+	, m_fTime(0.f), m_bKeyPressing(false)
 {
 
 }
@@ -44,8 +44,8 @@ CMinigun::CMinigun(const CMinigun& rhs)
 	: CGameObject(rhs)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
 	, m_pStateCom(nullptr), m_pAnimationCom(nullptr)
-	, m_pPannel(nullptr), m_pChain(nullptr)
-	, m_fTime(0.f)
+	, m_pParent(nullptr), m_pPannel(nullptr), m_pChain(nullptr)
+	, m_fTime(0.f), m_bKeyPressing(false)
 {
 }
 
@@ -93,7 +93,7 @@ HRESULT CMinigun::Ready_GameObject()
 	if (FAILED(Add_Component())) return E_FAIL;
 	CreateStateData();
 	
-	m_vScale = { 500.f, 500.f, 1.f };
+	m_vScale = { 450.f, 450.f, 1.f };
 	m_vPosition = { WINCX * 0.5f, WINCY - 200.f, 0.f };
 
 
@@ -117,8 +117,9 @@ HRESULT CMinigun::Ready_GameObject()
 _int CMinigun::Update_GameObject(const _float& fTimeDelta)
 {
 	if (m_bDead) return RET_DEAD;
-
+	m_fTime += fTimeDelta;
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
+	Key_Input(fTimeDelta);
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 	m_pChain->Update_GameObject(fTimeDelta);
 	m_pPannel->Update_GameObject(fTimeDelta);
@@ -213,18 +214,30 @@ void CMinigun::Free()
 	CGameObject::Free();
 }
 
+void CMinigun::Key_Input(const _float& fTimeDelta)
+{
+	if (CDInputMgr::GetInstance()->Mouse_Pressing(DIM_LB))
+	{
+		m_bKeyPressing = true;
+	}
+	else
+	{
+		m_bKeyPressing = false;
+	}
+}
+
 void CMinigun::Begin_Idle()
 {
-	//m_vScale = { 512.f, 512.f, 1.f };
-	//m_vPosition = { WINCX * 0.5f, WINCY - 256.f, 0.f };
-	//
-	//
-	//SetPos(m_vPosition);
-	//SetScale(m_vScale);
+	
 }
 
 void CMinigun::Idle()
 {
+	if (m_bKeyPressing)
+	{
+		ChangeState(MS_START);
+		return;
+	}
 }
 
 void CMinigun::End_Idle()
@@ -237,6 +250,17 @@ void CMinigun::Begin_Start()
 
 void CMinigun::Start()
 {
+	if (m_bKeyPressing == false)
+	{
+		ChangeState(MS_IDLE);
+		return;
+	}
+
+	if (m_pAnimationCom->CanEnd())
+	{
+		ChangeState(MS_CYCLE);
+		return;
+	}
 }
 
 void CMinigun::End_Start()
@@ -249,6 +273,17 @@ void CMinigun::Begin_Cycle()
 
 void CMinigun::Cycle()
 {
+	if (m_bKeyPressing == false)
+	{
+		ChangeState(MS_IDLE);
+		return;
+	}
+
+	if (m_fTime > 0.8f)
+	{
+		ChangeState(MS_ATTACK);
+		return;
+	}
 }
 
 void CMinigun::End_Cycle()
@@ -257,10 +292,22 @@ void CMinigun::End_Cycle()
 
 void CMinigun::Begin_Attack()
 {
+	m_pChain->ChangeState(1);
 }
 
 void CMinigun::Attack()
 {
+	if (m_bKeyPressing == false)
+	{
+		ChangeState(MS_ATTACK_END);
+		return;
+	}
+
+	if (m_fTime > 0.12f)
+	{		
+		// ÃÑ¾Ë »ý¼º
+		return;
+	}
 }
 
 void CMinigun::End_Attack()
@@ -269,10 +316,16 @@ void CMinigun::End_Attack()
 
 void CMinigun::Begin_Attack_End()
 {
+	m_pChain->ChangeState(0);
 }
 
 void CMinigun::Attack_End()
 {
+	if (m_pAnimationCom->CanEnd())
+	{
+		ChangeState(MS_IDLE);
+		return;
+	}
 }
 
 void CMinigun::End_Attack_End()
@@ -292,4 +345,9 @@ void CMinigun::SetPos(_vec3 _pos)
 void CMinigun::SetScale(_vec3 _scale)
 {
 	m_pTransformCom->Set_Scale(_scale.x * 0.5f, _scale.y * 0.5f, 1.f);
+}
+
+void CMinigun::Set_Parent(CRoadPlayer* pPlayer)
+{	
+	m_pParent = pPlayer;
 }

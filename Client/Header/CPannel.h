@@ -45,9 +45,8 @@ public:
 
 	virtual	void		Activate() override;
 	virtual	void		Deactivate() override;
-
-protected:
 	virtual	void		ChangeState(_uint nextStateID);
+protected:	
 	virtual	HRESULT		Add_Component() override;
 	virtual	void		Free();
 
