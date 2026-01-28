@@ -10,6 +10,7 @@
 #include "CRoadStage.h"
 #include "CLogo.h"
 #include "CEnding.h"
+#include "CCredit.h"
 
 #include "CMapLoader.h"
 #include "CEventMgr.h"
@@ -260,7 +261,8 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	//Engine::CScene* pInitScene = CLogo::Create(pGraphicDev);
 	//Engine::CScene* pInitScene = CSniperStage::Create(pGraphicDev);
-	Engine::CScene* pInitScene = CRoadStage::Create(pGraphicDev);
+	//Engine::CScene* pInitScene = CRoadStage::Create(pGraphicDev);
+	Engine::CScene* pInitScene = CCredit::Create(pGraphicDev);
 
 	//Å×½ºÆ® ¸Ê SceneType
 	m_eCurSceneType = SCENE_NONE;
@@ -416,6 +418,8 @@ HRESULT CMainApp::SetNextScene()
 	case SCENE_ENDING:
 		nextScene = CEnding::Create(m_pGraphicDev);
 		break;
+	case SCENE_CREDIT:
+		nextScene = CCredit::Create(m_pGraphicDev);
 	default:
 		return E_FAIL;
 	}
