@@ -783,8 +783,8 @@ CGameObject* CMapLoader::Get_GameObject_FromPool(const ObjectData& objData, LPDI
         if (pAxe)
         {
             pAxe->SetPos(objData.vPos);
-            //pAxe->Activate();
-            //pAxe->SetTransformMatrix();
+            pAxe->SetTransformMatrix();
+            pAxe->Activate();
             pGameObject = pAxe;
         }
     }

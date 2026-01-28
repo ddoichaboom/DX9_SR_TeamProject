@@ -166,6 +166,9 @@
     <Filter Include="04. Object\10. EditorInteractObject">
       <UniqueIdentifier>{c51eb1f6-b73f-470a-aa67-d39e51e9d8cc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Object\11. EditorDisplayObject">
+      <UniqueIdentifier>{640e5861-c529-4daa-81a3-c9be27d69718}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
