@@ -160,6 +160,7 @@
     <ClInclude Include="..\Header\CBossTrail.h" />
     <ClInclude Include="..\Header\CCeiling.h" />
     <ClInclude Include="..\Header\CBullet.h" />
+    <ClInclude Include="..\Header\CChain.h" />
     <ClInclude Include="..\Header\CCharacter.h" />
     <ClInclude Include="..\Header\CChat.h" />
     <ClInclude Include="..\Header\CCursor.h" />
@@ -169,7 +170,10 @@
     <ClInclude Include="..\Header\CDoorLeft.h" />
     <ClInclude Include="..\Header\CDoorRight.h" />
     <ClInclude Include="..\Header\CLoadingBar.h" />
+    <ClInclude Include="..\Header\CMinigun.h" />
+    <ClInclude Include="..\Header\CPannel.h" />
     <ClInclude Include="..\Header\CPhoneHPUI.h" />
+    <ClInclude Include="..\Header\CRoadPlayer.h" />
     <ClInclude Include="..\Header\CRoadStage.h" />
     <ClInclude Include="..\Header\CRoomTrigger.h" />
     <ClInclude Include="..\Header\CEffectUI.h" />
@@ -264,6 +268,7 @@
     <ClCompile Include="..\Code\CBossTrail.cpp" />
     <ClCompile Include="..\Code\CCeiling.cpp" />
     <ClCompile Include="..\Code\CBullet.cpp" />
+    <ClCompile Include="..\Code\CChain.cpp" />
     <ClCompile Include="..\Code\CCharacter.cpp" />
     <ClCompile Include="..\Code\CChat.cpp" />
     <ClCompile Include="..\Code\CCursor.cpp" />
@@ -273,7 +278,10 @@
     <ClCompile Include="..\Code\CDoorLeft.cpp" />
     <ClCompile Include="..\Code\CDoorRight.cpp" />
     <ClCompile Include="..\Code\CLoadingBar.cpp" />
+    <ClCompile Include="..\Code\CMinigun.cpp" />
+    <ClCompile Include="..\Code\CPannel.cpp" />
     <ClCompile Include="..\Code\CPhoneHPUI.cpp" />
+    <ClCompile Include="..\Code\CRoadPlayer.cpp" />
     <ClCompile Include="..\Code\CRoadStage.cpp" />
     <ClCompile Include="..\Code\CRoomTrigger.cpp" />
     <ClCompile Include="..\Code\CEffectUI.cpp" />

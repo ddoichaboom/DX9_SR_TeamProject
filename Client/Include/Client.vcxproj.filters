@@ -337,6 +337,18 @@
     <Filter Include="01. Scene\01. Stage\04. RoadStage">
       <UniqueIdentifier>{d489d24b-3c32-4a28-8352-8419cba49da5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\00. Character\04. RoadPlayer">
+      <UniqueIdentifier>{62c493bc-7e15-4a53-9fed-3f1dff882399}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\04. RoadPlayer\05.Minigun">
+      <UniqueIdentifier>{eed551ef-dab3-4dcf-b6d3-cddce0a88605}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\04. RoadPlayer\05.Minigun\Pannel">
+      <UniqueIdentifier>{97653dd2-cbe3-46ad-baed-08c7b6b7bfba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\04. RoadPlayer\05.Minigun\Chain">
+      <UniqueIdentifier>{e20715c5-ccd5-40c6-ba3b-2ba981524830}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -645,6 +657,18 @@
     <ClInclude Include="..\Header\CRoadStage.h">
       <Filter>01. Scene\01. Stage\04. RoadStage</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CRoadPlayer.h">
+      <Filter>02. GameObject\00. Character\04. RoadPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMinigun.h">
+      <Filter>02. GameObject\00. Character\04. RoadPlayer\05.Minigun</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPannel.h">
+      <Filter>02. GameObject\00. Character\04. RoadPlayer\05.Minigun\Pannel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CChain.h">
+      <Filter>02. GameObject\00. Character\04. RoadPlayer\05.Minigun\Chain</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -943,6 +967,18 @@
     </ClCompile>
     <ClCompile Include="..\Code\CRoadStage.cpp">
       <Filter>01. Scene\01. Stage\04. RoadStage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CRoadPlayer.cpp">
+      <Filter>02. GameObject\00. Character\04. RoadPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMinigun.cpp">
+      <Filter>02. GameObject\00. Character\04. RoadPlayer\05.Minigun</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPannel.cpp">
+      <Filter>02. GameObject\00. Character\04. RoadPlayer\05.Minigun\Pannel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CChain.cpp">
+      <Filter>02. GameObject\00. Character\04. RoadPlayer\05.Minigun\Chain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
