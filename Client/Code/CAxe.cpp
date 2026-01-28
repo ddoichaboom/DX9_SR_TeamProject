@@ -145,7 +145,9 @@ void CAxe::Activate()
     m_bGround = false;
     m_fVelocity = 0.f;
     m_fJumpTime = 0.f;
-    m_pMainCollider->OffCollision();
+    m_vJumpStartPos = *m_pTransformCom->Get_Info(INFO_POS);
+    m_vJumpDir = { 0.f, 1.f, 0.f };
+    m_pMainCollider->OnCollision();
     m_pTextureCom->Change_Texture(m_iTextureID);
 }
 

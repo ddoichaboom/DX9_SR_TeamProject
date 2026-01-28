@@ -465,6 +465,7 @@ void CWhiteMan::End_Attack()
 {
 }
 
+
 void CWhiteMan::Shoot()
 {
 	m_pAnimationCom->PlayOnce(MS_ATTACK);

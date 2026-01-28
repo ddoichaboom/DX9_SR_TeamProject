@@ -30,7 +30,7 @@ HRESULT CLogo::Ready_Scene()
 
 _int CLogo::Update_Scene(const _float& fTimeDelta)
 {
-	if (CDInputMgr::GetInstance()->Key_Down(DIK_P) ||CVideoMgr::GetInstance()->IsFinished())
+	if (CDInputMgr::GetInstance()->Key_Down(DIK_P) || CVideoMgr::GetInstance()->IsFinished())
 	{
 		CVideoMgr::GetInstance()->SetPlayFlag(false);
 		CVideoMgr::GetInstance()->Cleanup();

@@ -41,6 +41,8 @@
 #include "CDoorLeft.h"
 #include "CDoorRight.h"
 #include "CVendingMachine.h"
+#include "CExtinguisher.h"
+#include "CAxe.h"
 
 #include "CLeftPart.h"
 #include "CRightPart.h"
@@ -49,7 +51,8 @@
 #include "CBackGround.h"
 #include "CTrigger.h"
 #include "CUIManager.h"
-
+#include "CSRightHand.h"
+#include "CSniperPlayer.h"
 
 //Effect
 #include "CBlood.h"
@@ -261,14 +264,15 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	//Engine::CScene* pInitScene = CLogo::Create(pGraphicDev);
 	//Engine::CScene* pInitScene = CSniperStage::Create(pGraphicDev);
+	//Engine::CScene* pInitScene = CRoadStage::Create(pGraphicDev);
 	Engine::CScene* pInitScene = CRoadStage::Create(pGraphicDev);
 	//Engine::CScene* pInitScene = CCredit::Create(pGraphicDev);
 
 	//테스트 맵 SceneType
+	//m_eCurSceneType = SCENE_NONE;
 	m_eCurSceneType = SCENE_ROAD;
 
-	//기존 맵 플레이 할때는 SCENE_LOGG로 변경하고 시작하기
-	//m_eCurSceneType = SCENE_LOGO;
+
 	if (nullptr == pInitScene)
 		return E_FAIL;
 
@@ -305,6 +309,8 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iWhiteManCount = 6;
 	_uint iBeamMonCount = 10;
 	_uint iFlyMonCount = 10;
+	_uint iMaxExtinguisher(0);
+	_uint iMaxAxe(0);
 
 	// 문 관련 오브젝트 풀 사이즈 등록 ( 좌측/우측 파츠는 본체인 문과 개수 동일함 )
 	_uint iMaxDoorCount(0);
@@ -351,6 +357,13 @@ HRESULT CMainApp::Ready_ObjectPool()
 
 		iMaxDoorCount = max(iMaxDoorCount,
 			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "Door"));
+
+		iMaxExtinguisher = max(iMaxExtinguisher,
+			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "Extinguisher"));
+
+		iMaxAxe = max(iMaxAxe,
+			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "Axe"));
+
 	}
 
 	// 풀 크기 설정 
@@ -367,6 +380,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 	CPoolMgr::GetInstance()->SetPoolSize<CDoor>(iMaxDoorCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CDoorLeft>(iMaxDoorCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CDoorRight>(iMaxDoorCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CExtinguisher>(iMaxExtinguisher);
 
 
 	CPoolMgr::GetInstance()->SetPoolSize<CVendingMachine>(iMaxVendingMachine);
@@ -377,6 +391,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 	CPoolMgr::GetInstance()->SetPoolSize<CWhiteMan>(iWhiteManCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CBeamMon>(iBeamMonCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CFlyMon>(iFlyMonCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CAxe>(iMaxAxe + 5);
 
 	CPoolMgr::GetInstance()->SetPoolSize<CRoomTrigger>(iMaxRoomTrigger);
 
@@ -489,6 +504,8 @@ void CMainApp::Free()
 	CDataMgr<CRightPart>::DestroyInstance();
 	CDataMgr<CMiddlePart>::DestroyInstance();
 	CDataMgr<CKatana>::DestroyInstance();
+	CDataMgr<CSRightHand>::DestroyInstance();
+	CDataMgr<CSniperPlayer>::DestroyInstance();
 
 	// MayBe ?
 	CEventMgr::DestroyInstance();

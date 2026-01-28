@@ -1,12 +1,14 @@
 {
   "VendingMachineCount": 2,
+  "axeCount": 1,
   "ceilingCount": 588,
   "doorCount": 12,
   "dynamicFloorCount": 104,
   "dynamicWallCount": 8,
+  "extinguisherCount": 1,
   "floorCount": 484,
   "mapColliderCount": 43,
-  "objectCount": 1494,
+  "objectCount": 1496,
   "objects": [
     {
       "floorType": 0,
@@ -33550,6 +33552,48 @@
       ],
       "textureIdx": 5,
       "type": "Floor"
+    },
+    {
+      "itemType": 4,
+      "name": "Extinguisher_1",
+      "position": [
+        32.0,
+        4.0,
+        48.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        2.0,
+        4.0,
+        1.0
+      ],
+      "type": "Extinguisher"
+    },
+    {
+      "itemType": 3,
+      "name": "Axe",
+      "position": [
+        -24.74136734008789,
+        8.0,
+        39.628990173339844
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        4.0,
+        2.0,
+        1.0
+      ],
+      "type": "Axe"
     }
   ],
   "triggerBoxCount": 5,

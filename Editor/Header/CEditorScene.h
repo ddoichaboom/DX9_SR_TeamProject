@@ -18,6 +18,8 @@ enum DUPPLICATE_DIR
 	NEGATIVE_X,
 	POSITIVE_Z,
 	NEGATIVE_Z,
+	POSITIVE_Y,
+	NEGATIVE_Y,
 	DD_END
 };
 
@@ -68,6 +70,7 @@ public:
 	void                        Place_SpawnPlayer(const _vec3& vPos);
 	void                        Place_SpawnMonster(const _vec3& vPos);
 	void						Place_SpawnBossMonster(const _vec3& vPos);
+	void						Place_InteractObject(const _vec3& vPos);
 
 	void                        Place_MapCollider(const _vec3& vPos);
 	void                        Place_TriggerBox(const _vec3& vPos);

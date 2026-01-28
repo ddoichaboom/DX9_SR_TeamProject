@@ -169,7 +169,6 @@ HRESULT CPlayer::Ready_GameObject()
 		{
 			OnCollision(info);
 		});
-	//TODO : 추가 (방)
 	m_pCollisionCom->SetMainCollider(m_szMainColliderName);
 
 
