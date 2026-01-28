@@ -263,14 +263,15 @@ HRESULT CMainApp::Ready_DefaultProto()
 
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	//Engine::CScene* pInitScene = CLogo::Create(pGraphicDev);
-	//Engine::CScene* pInitScene = CSniperStage::Create(pGraphicDev);
-	Engine::CScene* pInitScene = CRoadStage::Create(pGraphicDev);
+	Engine::CScene* pInitScene = CLogo::Create(pGraphicDev);
+	m_eCurSceneType = SCENE_LOGO;
+	
+	//Engine::CScene* pInitScene = CRoadStage::Create(pGraphicDev);
 	//Engine::CScene* pInitScene = CCredit::Create(pGraphicDev);
 
 	//Å×½ºÆ® ¸Ê SceneType
 	//m_eCurSceneType = SCENE_NONE;
-	m_eCurSceneType = SCENE_ROAD;
+	//m_eCurSceneType = SCENE_ROAD;
 
 
 	if (nullptr == pInitScene)
@@ -307,6 +308,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iBossBulletCount = 30;
 	_uint iBossRocketCount = 30;
 	_uint iWhiteManCount = 6;
+	_uint iSniperWhiteManCount = 6;
 	_uint iBeamMonCount = 10;
 	_uint iFlyMonCount = 10;
 	_uint iMaxExtinguisher(0);
@@ -389,6 +391,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 	CPoolMgr::GetInstance()->SetPoolSize<CBossBullet>(iBossBulletCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CRocket>(iBossRocketCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CWhiteMan>(iWhiteManCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CSniperWhiteMan>(iSniperWhiteManCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CBeamMon>(iBeamMonCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CFlyMon>(iFlyMonCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CAxe>(iMaxAxe + 5);
@@ -422,10 +425,14 @@ HRESULT CMainApp::SetNextScene()
 	case SCENE_LOGO:
 		nextScene = CLogo::Create(m_pGraphicDev);
 		break;
-	case SCENE_TUTORIAL:
-		nextSceneType = SCENE_BATTLE;
+	//case SCENE_TUTORIAL:
+	//	nextSceneType = SCENE_BATTLE;
 	case SCENE_BATTLE:
 		nextScene = CMapStage::Create(m_pGraphicDev);		
+		break;
+
+	case SCENE_SNIPER:
+		nextScene = CSniperStage::Create(m_pGraphicDev);
 		break;
 	case SCENE_BOSS:
 		nextScene = CBossStage::Create(m_pGraphicDev);

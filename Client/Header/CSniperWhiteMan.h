@@ -88,7 +88,7 @@ protected:
 	_bool			m_bTrace = false;
 	_bool			m_bFirstFrame = false;
 	_float			m_fLerpTime = 0.5f;
-	_vec3			m_vHandPos = { -0.5f,7.f,0.f };
+	_vec3			m_vHandPos = { -0.5f,6.5f,0.f };
 
 	_float			m_fStartAngle = 0.f;
 	_float			m_fEndAngle = 0.f;

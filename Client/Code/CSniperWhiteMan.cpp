@@ -119,7 +119,7 @@ HRESULT CSniperWhiteMan::Ready_GameObject()
 
 	m_pCollisionCom->SetMainCollider(m_szBodyColliderName);
 	m_pBodyCollider->Set_RelativePos(_vec3(0, 0, 0));
-	m_pBodyCollider->Set_Scale(_vec3(4, 21, 4));
+	m_pBodyCollider->Set_Scale(_vec3(4, 13, 4));
 	m_pBodyCollider->BindFuncToCollision([&](CollisionInfo info)
 		{
 			OnBodyCollision(info);
@@ -141,10 +141,9 @@ _int CSniperWhiteMan::Update_GameObject(const _float& fTimeDelta)
 {
 	if (IsDead()) return RET_DEAD;
 
-	int iExit = CMonster::Update_GameObject(fTimeDelta);
+	int iExit = CCharacter::Update_GameObject(fTimeDelta);
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA_QUALITY, this);
-	//빔 갱신 후 첫 프레임엔 무시함
-	if (!m_bFirstFrame) m_pBeam->Update_GameObject(fTimeDelta);
+
 
 	m_fTime += fTimeDelta;
 
@@ -154,6 +153,9 @@ _int CSniperWhiteMan::Update_GameObject(const _float& fTimeDelta)
 
 	if (m_bTrace || m_bTargeting || m_bShoot)
 	{
+		//빔 갱신 후 첫 프레임엔 무시함
+		if (!m_bFirstFrame) m_pBeam->Update_GameObject(fTimeDelta);
+
 		if (m_bShoot)
 		{
 			if (m_fTime > m_fLerpTime)
@@ -276,6 +278,10 @@ void CSniperWhiteMan::OnBodyCollision(CollisionInfo info)
 
 	CSoundMgr::GetInstance()->PlayMonsterSound(szWhiteManDead.c_str(), 0.3f);
 	CSoundMgr::GetInstance()->PlayMonsterSound(szWhiteManBody.c_str(), 1.f);
+
+	m_bTrace = false;
+	m_bTargeting = false;
+	m_bShoot = false;
 }
 
 void CSniperWhiteMan::Idle()
@@ -334,7 +340,12 @@ void CSniperWhiteMan::OnAnimationChange(_float _animAspect)
 void CSniperWhiteMan::Activate()
 {
 	CMonster::Activate();
-	ChangeState(MS_IDLE);
+	ChangeState(MS_ATTACK_IDLE);
+	m_bShoot = false;
+	m_bTargeting = false;
+	m_bTrace = false;
+	m_bAngleReverse = false;
+	m_fHP = m_fMaxHP;
 }
 
 void CSniperWhiteMan::Free()

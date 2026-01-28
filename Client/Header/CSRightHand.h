@@ -83,6 +83,7 @@ protected:
 	_vec3 m_vPos = { 400, 50, 0 };
 	_float	m_fHeight = 10.f;
 	_float m_fTime = 0.f ;
+
 	CRcTex* m_pBufferCom = nullptr ;
 	CTransform* m_pTransformCom = nullptr;
 	CAnimation* m_pAnimationCom = nullptr;
