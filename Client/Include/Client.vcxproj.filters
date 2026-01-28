@@ -337,6 +337,24 @@
     <Filter Include="01. Scene\01. Stage\04. RoadStage">
       <UniqueIdentifier>{d489d24b-3c32-4a28-8352-8419cba49da5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\00. Character\04. RoadPlayer">
+      <UniqueIdentifier>{62c493bc-7e15-4a53-9fed-3f1dff882399}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\04. RoadPlayer\05.Minigun">
+      <UniqueIdentifier>{eed551ef-dab3-4dcf-b6d3-cddce0a88605}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\04. RoadPlayer\05.Minigun\Pannel">
+      <UniqueIdentifier>{97653dd2-cbe3-46ad-baed-08c7b6b7bfba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\04. RoadPlayer\05.Minigun\Chain">
+      <UniqueIdentifier>{e20715c5-ccd5-40c6-ba3b-2ba981524830}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. FirstCamera\02.RoadCamera">
+      <UniqueIdentifier>{819a0c18-b31b-42f1-9121-524773916c5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Bullet\PlayerBullet">
+      <UniqueIdentifier>{b87feeb9-9188-43e7-b9d8-66ac32ea1bb9}</UniqueIdentifier>
+    </Filter>
     <Filter Include="02. GameObject\00. Character\04. SniperPlayer">
       <UniqueIdentifier>{3a246dbd-0e26-4f22-b931-8a4b524ce7ca}</UniqueIdentifier>
     </Filter>
@@ -663,6 +681,24 @@
     <ClInclude Include="..\Header\CRoadStage.h">
       <Filter>01. Scene\01. Stage\04. RoadStage</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CRoadPlayer.h">
+      <Filter>02. GameObject\00. Character\04. RoadPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMinigun.h">
+      <Filter>02. GameObject\00. Character\04. RoadPlayer\05.Minigun</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPannel.h">
+      <Filter>02. GameObject\00. Character\04. RoadPlayer\05.Minigun\Pannel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CChain.h">
+      <Filter>02. GameObject\00. Character\04. RoadPlayer\05.Minigun\Chain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CRoadCamera.h">
+      <Filter>02. GameObject\01. FirstCamera\02.RoadCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPlayerBullet.h">
+      <Filter>02. GameObject\10. Bullet\PlayerBullet</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\CSniperPlayer.h">
       <Filter>02. GameObject\00. Character\04. SniperPlayer</Filter>
     </ClInclude>
@@ -979,6 +1015,24 @@
     </ClCompile>
     <ClCompile Include="..\Code\CRoadStage.cpp">
       <Filter>01. Scene\01. Stage\04. RoadStage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CRoadPlayer.cpp">
+      <Filter>02. GameObject\00. Character\04. RoadPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMinigun.cpp">
+      <Filter>02. GameObject\00. Character\04. RoadPlayer\05.Minigun</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPannel.cpp">
+      <Filter>02. GameObject\00. Character\04. RoadPlayer\05.Minigun\Pannel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CChain.cpp">
+      <Filter>02. GameObject\00. Character\04. RoadPlayer\05.Minigun\Chain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CRoadCamera.cpp">
+      <Filter>02. GameObject\01. FirstCamera\02.RoadCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPlayerBullet.cpp">
+      <Filter>02. GameObject\10. Bullet\PlayerBullet</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CSniperPlayer.cpp">
       <Filter>02. GameObject\00. Character\04. SniperPlayer</Filter>
