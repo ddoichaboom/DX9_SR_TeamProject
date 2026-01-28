@@ -1,5 +1,7 @@
 #pragma once
 #include "CStage.h"
+
+class CSniperPlayer;
 class CSniperStage :
     public CStage
 {
@@ -40,5 +42,8 @@ protected:
 
 private:
     virtual void Free();
+
+private:
+    CSniperPlayer* m_pPlayer;
 };
 

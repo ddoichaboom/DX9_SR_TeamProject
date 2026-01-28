@@ -337,6 +337,18 @@
     <Filter Include="01. Scene\01. Stage\04. RoadStage">
       <UniqueIdentifier>{d489d24b-3c32-4a28-8352-8419cba49da5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\00. Character\04. SniperPlayer">
+      <UniqueIdentifier>{3a246dbd-0e26-4f22-b931-8a4b524ce7ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\04. SniperPlayer\00. SniperCamera">
+      <UniqueIdentifier>{353c387a-657b-4cc4-8150-622644fb59df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\04. SniperPlayer\00. SniperCamera\00.SRightHand">
+      <UniqueIdentifier>{61ec68e1-16f4-44ef-9b08-965d9a043f34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\04. SniperPlayer\00. SniperCamera\01.SLeftHand">
+      <UniqueIdentifier>{a1f9fe3e-6d6a-44e9-b360-91e093834070}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -645,6 +657,18 @@
     <ClInclude Include="..\Header\CRoadStage.h">
       <Filter>01. Scene\01. Stage\04. RoadStage</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CSniperPlayer.h">
+      <Filter>02. GameObject\00. Character\04. SniperPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSniferCamera.h">
+      <Filter>02. GameObject\00. Character\04. SniperPlayer\00. SniperCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSRightHand.h">
+      <Filter>02. GameObject\00. Character\04. SniperPlayer\00. SniperCamera\00.SRightHand</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSLeftHand.h">
+      <Filter>02. GameObject\00. Character\04. SniperPlayer\00. SniperCamera\01.SLeftHand</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -943,6 +967,18 @@
     </ClCompile>
     <ClCompile Include="..\Code\CRoadStage.cpp">
       <Filter>01. Scene\01. Stage\04. RoadStage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSniperPlayer.cpp">
+      <Filter>02. GameObject\00. Character\04. SniperPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSniferCamera.cpp">
+      <Filter>02. GameObject\00. Character\04. SniperPlayer\00. SniperCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSRightHand.cpp">
+      <Filter>02. GameObject\00. Character\04. SniperPlayer\00. SniperCamera\00.SRightHand</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSLeftHand.cpp">
+      <Filter>02. GameObject\00. Character\04. SniperPlayer\00. SniperCamera\01.SLeftHand</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

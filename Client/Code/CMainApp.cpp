@@ -258,15 +258,15 @@ HRESULT CMainApp::Ready_DefaultProto()
 
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	Engine::CScene* pInitScene = CLogo::Create(pGraphicDev);
-	//기존 맵 플레이 할때는 SCENE_LOGG로 변경하고 시작하기
-	m_eCurSceneType = SCENE_LOGO;
-
-	//Engine::CScene* pInitScene = CSniperStage::Create(pGraphicDev);
-	//Engine::CScene* pInitScene = CRoadStage::Create(pGraphicDev);
+	//Engine::CScene* pInitScene = CLogo::Create(pGraphicDev);
+	////기존 맵 플레이 할때는 SCENE_LOGG로 변경하고 시작하기
+	//m_eCurSceneType = SCENE_LOGO;
 
 	//테스트 맵 SceneType
-	//m_eCurSceneType = SCENE_NONE;
+	m_eCurSceneType = SCENE_NONE;
+	Engine::CScene* pInitScene = CSniperStage::Create(pGraphicDev);
+	//Engine::CScene* pInitScene = CRoadStage::Create(pGraphicDev);
+
 
 	if (nullptr == pInitScene)
 		return E_FAIL;

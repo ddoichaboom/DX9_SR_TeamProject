@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -218,11 +218,15 @@
     <ClInclude Include="..\Header\CShopBG.h" />
     <ClInclude Include="..\Header\CShopItem.h" />
     <ClInclude Include="..\Header\CSkyBox.h" />
+    <ClInclude Include="..\Header\CSLeftHand.h" />
     <ClInclude Include="..\Header\CSlopeFloor.h" />
     <ClInclude Include="..\Header\CSlotUI.h" />
+    <ClInclude Include="..\Header\CSniferCamera.h" />
+    <ClInclude Include="..\Header\CSniperPlayer.h" />
     <ClInclude Include="..\Header\CSniperStage.h" />
     <ClInclude Include="..\Header\CSodaUI.h" />
     <ClInclude Include="..\Header\CSoda.h" />
+    <ClInclude Include="..\Header\CSRightHand.h" />
     <ClInclude Include="..\Header\CStageBG.h" />
     <ClInclude Include="..\Header\CStageEndTrigger.h" />
     <ClInclude Include="..\Header\CTakeDown.h" />
@@ -321,11 +325,15 @@
     <ClCompile Include="..\Code\CShopBG.cpp" />
     <ClCompile Include="..\Code\CShopItem.cpp" />
     <ClCompile Include="..\Code\CSkyBox.cpp" />
+    <ClCompile Include="..\Code\CSLeftHand.cpp" />
     <ClCompile Include="..\Code\CSlopeFloor.cpp" />
     <ClCompile Include="..\Code\CSlotUI.cpp" />
+    <ClCompile Include="..\Code\CSniferCamera.cpp" />
+    <ClCompile Include="..\Code\CSniperPlayer.cpp" />
     <ClCompile Include="..\Code\CSniperStage.cpp" />
     <ClCompile Include="..\Code\CSodaUI.cpp" />
     <ClCompile Include="..\Code\CSoda.cpp" />
+    <ClCompile Include="..\Code\CSRightHand.cpp" />
     <ClCompile Include="..\Code\CStageBG.cpp" />
     <ClCompile Include="..\Code\CStageEndTrigger.cpp" />
     <ClCompile Include="..\Code\CTakeDown.cpp" />
