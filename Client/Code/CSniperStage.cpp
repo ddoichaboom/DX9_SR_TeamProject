@@ -11,6 +11,7 @@
 #include "CLoadingEX.h"
 #include "CBackGround.h"
 #include "CUIManager.h"
+#include "CSoundMgr.h"
 
 //Character
 #include "CWhiteMan.h"
@@ -97,6 +98,12 @@ _int CSniperStage::Update_Scene(const _float& fTimeDelta)
 		m_pBackGround->Update_GameObject(fTimeDelta);
 		m_pLoadingEX->Update_Loading(fTimeDelta);
 		return 0;
+	}
+	else if (!m_bStartSound)
+	{
+		CSoundMgr::GetInstance()->StopAll();
+		CSoundMgr::GetInstance()->PlayBGM(CSniperPlayer::szSniperMapBGM.c_str(), 0.4f);
+		m_bStartSound = true;
 	}
 	
 	if (m_bStageEnd || (CDInputMgr::GetInstance()->Key_Down(DIK_P)))

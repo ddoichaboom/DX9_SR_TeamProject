@@ -72,6 +72,7 @@ wstring CWhiteMan::szWhiteManDead = L"Monster_Dead_SFX.wav";
 wstring CWhiteMan::szWhiteManBody = L"Monster_Pistol_Shoot_SFX.wav";
 wstring CWhiteMan::szWhiteManHead = L"Monster_HeadShot_SFX.wav";
 wstring CWhiteMan::szWhiteManShot = L"Monster_Shot_SFX.wav";
+wstring CWhiteMan::szWhiteManElectric = L"Monster_Electric_SFX.wav";
 
 CWhiteMan::CWhiteMan(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CMonster(pGraphicDev), m_pHeadCollider(nullptr), m_pBodyCollider(nullptr)
@@ -345,6 +346,7 @@ void CWhiteMan::OnBodyCollision(CollisionInfo info)
 		{			
 			CollisionInfo m_info = { nullptr, {0,0,0}, 1.f , TAG_KICK };
 			static_cast<CVendingMachine*>(info.pTarget)->OnCollision(m_info);
+			CSoundMgr::GetInstance()->PlaySFXSound(szWhiteManElectric.c_str());
 			ChangeState(ID_ELECT_DEAD);
 		}			
 		else if (info.eTag == TAG_FAN) ChangeState(ID_EXP_DEAD);

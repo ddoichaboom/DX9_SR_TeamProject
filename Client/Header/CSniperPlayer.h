@@ -92,5 +92,12 @@ protected:
 
 	bool			m_bRenderStop = false;
 
+public:
+	static wstring szReloadSFX;
+	static wstring szShotSFX;
+	static wstring szSniperMapBGM;
+	
+
+
 };
 

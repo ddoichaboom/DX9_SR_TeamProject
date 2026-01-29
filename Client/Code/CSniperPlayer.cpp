@@ -13,6 +13,12 @@
 
 #include "CHitUI.h"
 #include "CSniperUI.h"
+#include "CSoundMgr.h"
+
+wstring CSniperPlayer::szSniperMapBGM = L"SniperMap_BGM.wav";
+wstring CSniperPlayer::szReloadSFX = L"Sniper_Reload_SFX.wav";
+wstring CSniperPlayer::szShotSFX = L"Sniper_Shot_SFX.wav";
+
 
 
 CSniperPlayer::CSniperPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -100,6 +106,8 @@ HRESULT CSniperPlayer::Ready_GameObject()
 	m_fMouseSpeed = m_fBaseMouseSpeed;
 	ChangeState(SN_INTRO);
 	m_fAttackDamage = 100.f;
+
+
 
 	return S_OK;
 }
@@ -217,6 +225,8 @@ void CSniperPlayer::Intro_Begin()
 {
 	DisableInput();
 	if(m_pRightHand) m_pRightHand->SetState_INTRO();
+	
+	
 }
 
 void CSniperPlayer::Intro()
@@ -224,7 +234,7 @@ void CSniperPlayer::Intro()
 	if (m_pRightHand->CanAnimationEnd())
 	{
 		EnableInput();
-		ChangeState(SN_IDLE);
+		ChangeState(SN_IDLE);		
 	}
 }
 
@@ -246,7 +256,8 @@ void CSniperPlayer::Attack()
 		m_bRenderStop = true;
 	if (m_bShoot && m_pCamera->IsCameraShaking() == false)
 	{
-		//ChangeState(SN_IDLE);
+		ChangeState(SN_IDLE);
+		CSoundMgr::GetInstance()->PlayPlayerSound(szReloadSFX.c_str(), 2.5f);
 	}
 }	
 
@@ -257,6 +268,7 @@ void CSniperPlayer::Shoot()
 	m_pCamera->CameraShake();
 	CheckedPickedMonster();
 	CheckedPicked(L"Environment_Layer", OBJ_ITEM);
+	CSoundMgr::GetInstance()->PlayPlayerSound(szShotSFX.c_str(), 1.f);
 }
 
 void CSniperPlayer::ZoomOut()

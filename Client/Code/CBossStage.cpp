@@ -149,6 +149,12 @@ _int CBossStage::Update_Scene(const _float& fTimeDelta)
         return RET_DEAD;
     }
 
+    //TEST
+    if (CDInputMgr::GetInstance()->Key_Down(DIK_P))
+    {
+        m_bStageEnd = true;
+    }
+
     int iExit = CStage::Update_Scene(fTimeDelta);
 
     //UI 업데이트

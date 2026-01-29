@@ -75,5 +75,8 @@ protected:
 	const _tchar* m_szMainColliderName = L"ColMain";
 
 	_float	m_fTime = 0.f;
+
+public :
+	static wstring szWindowDeadSFX;
 };
 

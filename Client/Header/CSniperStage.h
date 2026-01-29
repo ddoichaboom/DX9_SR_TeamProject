@@ -59,5 +59,7 @@ private:
     _float      m_fMinTime = 2.0f;
 
     _bool       m_bFirstSpawn = true;
+
+    _bool       m_bStartSound = false;
 };
 

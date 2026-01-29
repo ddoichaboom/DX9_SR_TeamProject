@@ -5,7 +5,7 @@
 #include "CRenderer.h"
 #include "CEventMgr.h"
 #include "CManagement.h"
-
+#include "CSoundMgr.h"
 vector<TextureSource> CWindow::m_vTextureSource =
 {
     { GLASS_IDLE,  L"../Bin/Resource/Texture/Object/Window_Idle.dds" },
@@ -20,7 +20,7 @@ vector<AnimationSource>  CWindow::m_vAnimSource =
 
 };
 
-
+wstring CWindow::szWindowDeadSFX = L"Glass_Dead_SFX.wav";
 
 CWindow::CWindow(LPDIRECT3DDEVICE9 pGraphicDev)
     : CInteractObject(pGraphicDev)
@@ -202,6 +202,7 @@ void CWindow::OnCollision(CollisionInfo info)
     if (info.fDamage > 0.f && m_pAnimationCom->Get_State() == GLASS_IDLE)
     {
         ChangeState(GLASS_DEAD);
+        CSoundMgr::GetInstance()->PlaySFXSound(szWindowDeadSFX.c_str(), 2.5f);
     }
 }
 
