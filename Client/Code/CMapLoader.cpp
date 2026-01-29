@@ -44,8 +44,8 @@ vector<wstring> CMapLoader::m_vecMapFiles =
     {L"../../Map/MainStage.json"},
     {L"../../Map/BossStage.json"},
     {L"../../Map/SniperStage.json"},
-    {L"../../Map/RoadMap_Proto.json"}
-    {L"../../Map/SniperStage_Test.json"}
+    {L"../../Map/RoadMap_Proto.json"},
+    //{L"../../Map/SniperStage_2.json"}     // 유리창 없는 파일
 };
 
 CMapLoader::CMapLoader()
