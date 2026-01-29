@@ -373,7 +373,10 @@
     <Filter Include="02. GameObject\00. Character\01. Monster\03. SniperWhiteMan">
       <UniqueIdentifier>{2b69ec1d-c000-4885-9eea-08d183b16994}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Scene\05.Credits">
+    <Filter Include="02. GameObject\03.MapObject\00.DisPlayObj\DisplayCubeObj">
+      <UniqueIdentifier>{23c08983-8a7a-4ba9-b56e-6672238d9c46}</UniqueIdentifier>
+    </Filter>
+	<Filter Include="01. Scene\05.Credits">
       <UniqueIdentifier>{a396d860-f934-43df-9812-edaa48fb793a}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\03.MapObject\06. Window">
@@ -729,7 +732,10 @@
     <ClInclude Include="..\Header\CSniperWhiteMan.h">
       <Filter>02. GameObject\00. Character\01. Monster\03. SniperWhiteMan</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CCredit.h">
+    <ClInclude Include="..\Header\CDisplayCubeObject.h">
+      <Filter>02. GameObject\03.MapObject\00.DisPlayObj\DisplayCubeObj</Filter>
+    </ClInclude>
+	<ClInclude Include="..\Header\CCredit.h">
       <Filter>01. Scene\05.Credits</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CWindow.h">
@@ -1073,7 +1079,10 @@
     <ClCompile Include="..\Code\CSniperWhiteMan.cpp">
       <Filter>02. GameObject\00. Character\01. Monster\03. SniperWhiteMan</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CCredit.cpp">
+    <ClCompile Include="..\Code\CDisplayCubeObject.cpp">
+      <Filter>02. GameObject\03.MapObject\00.DisPlayObj\DisplayCubeObj</Filter>
+    </ClCompile>
+	<ClCompile Include="..\Code\CCredit.cpp">
       <Filter>01. Scene\05.Credits</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CWindow.cpp">

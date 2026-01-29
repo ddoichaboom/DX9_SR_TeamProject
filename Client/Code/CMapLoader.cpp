@@ -20,6 +20,7 @@
 #include "CStageEndTrigger.h"
 #include "CDoor.h"
 #include "CExtinguisher.h"
+#include "CDisplayObject.h"
 #include "CWindow.h"
 
 // 캐릭터,몬스터 (SpawnPoint 처리용)
@@ -42,7 +43,9 @@ vector<wstring> CMapLoader::m_vecMapFiles =
     {L"../../Map/TutorialStage.json"},
     {L"../../Map/MainStage.json"},
     {L"../../Map/BossStage.json"},
-    {L"../../Map/SniperStage_Test.json"}
+    {L"../../Map/SniperStage.json"},
+    {L"../../Map/RoadMap_Proto.json"},
+    //{L"../../Map/SniperStage_2.json"}     // 유리창 없는 파일
 };
 
 CMapLoader::CMapLoader()
@@ -160,7 +163,8 @@ HRESULT CMapLoader::Preload_AllMapData(const wstring& wstrPath)
                 roomMap[iRoomIndex].iExtinguisherCount++;
             else if (objData.sType == "Axe")
                 roomMap[iRoomIndex].iAxeCount++;
-
+            else if (objData.sType == "DisplayObject")
+                roomMap[iRoomIndex].iDisplayObjectCount++;
         }
 
         // ========== 5단계: 로그 출력 ==========
@@ -237,7 +241,7 @@ HRESULT CMapLoader::Load_Room(const wstring& wstrPath, _int iRoomIndex, CLayer* 
                     objData.sType == "DynamicWall" || objData.sType == "VendingMachine" || 
                     objData.sType == "MapCollider" || objData.sType == "RoomTriggerBox" ||
                     objData.sType == "Door" || objData.sType == "Extinguisher" ||
-                    objData.sType == "Window")
+                    objData.sType == "DisplayObject" || objData.sType == "Window")
                 {
                     // GameObject 획득 (풀에서)
                     CGameObject* pGameObject = Get_GameObject_FromPool(objData, pGraphicDev);
@@ -384,7 +388,7 @@ HRESULT CMapLoader::Unload_Room(const wstring& wstrPath, _int iRoomIndex, CLayer
     _uint iUnloadedCount = 0;
 
     OBJ_ID objIDs[] = {
-        OBJ_FLOOR, OBJ_CEILING, OBJ_WALL, OBJ_VENDINGMACHINE, OBJ_COL, OBJ_TRIGGER, OBJ_DOOR,  // Environment
+        OBJ_FLOOR, OBJ_CEILING, OBJ_WALL, OBJ_VENDINGMACHINE, OBJ_COL, OBJ_TRIGGER, OBJ_DOOR, OBJ_DISPLAY,  // Environment
         OBJ_MONSTER, OBJ_ITEM                                                            // GameLogic
     };
 
@@ -490,6 +494,8 @@ _uint CMapLoader::Get_MaxObjectCount(const wstring& wstrPath, const string& obje
                 iSum += roomData.iExtinguisherCount;
             else if (objectType == "Axe")
                 iSum += roomData.iAxeCount;
+            else if (objectType == "DisplayObject")
+                iSum += roomData.iDisplayObjectCount;
         }
 
         if (iSum > iMaxCount)
@@ -624,6 +630,8 @@ ObjectData CMapLoader::Parse_ObjectData_FromJSON(const json& jObj)
         objData.iDoorType = jObj["doorType"];
     if (jObj.contains("doorID"))
         objData.iDoorID = jObj["doorID"];
+    if (jObj.contains("displayObjectType"))
+        objData.eObjectType = static_cast<DISPLAY_OBJECT_TYPE>(jObj["displayObjectType"]);
 
     if (jObj.contains("SlopeDirection"))
         objData.eSlopeDir = jObj["SlopeDirection"];
@@ -855,6 +863,19 @@ CGameObject* CMapLoader::Get_GameObject_FromPool(const ObjectData& objData, LPDI
             pAxe->SetTransformMatrix();
             pAxe->Activate();
             pGameObject = pAxe;
+        }
+    }
+    else if (objData.sType == "DisplayObject")
+    {
+        CDisplayObject* pDisplay = CPoolMgr::GetInstance()->Get_Object<CDisplayObject>();
+        if (pDisplay)
+        {
+            pDisplay->SetPos(objData.vPos);
+            pDisplay->Set_Angle(objData.vRot);
+            pDisplay->SetScale(objData.vScale);
+            pDisplay->Set_DisplayObjectType(objData.eObjectType, objData.iTextureIdx);
+            pDisplay->SetTransformMatrix();
+            pGameObject = pDisplay;
         }
     }
     else if (objData.sType == "Window")

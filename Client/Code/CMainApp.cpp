@@ -44,6 +44,7 @@
 #include "CVendingMachine.h"
 #include "CExtinguisher.h"
 #include "CAxe.h"
+#include "CDisplayObject.h"
 
 #include "CLeftPart.h"
 #include "CRightPart.h"
@@ -313,6 +314,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iFlyMonCount = 10;
 	_uint iMaxExtinguisher(0);
 	_uint iMaxAxe(0);
+	_uint iMaxDisplayObject(0);
 
 	// 문 관련 오브젝트 풀 사이즈 등록 ( 좌측/우측 파츠는 본체인 문과 개수 동일함 )
 	_uint iMaxDoorCount(0);
@@ -366,6 +368,9 @@ HRESULT CMainApp::Ready_ObjectPool()
 		iMaxAxe = max(iMaxAxe,
 			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "Axe"));
 
+		iMaxDisplayObject = max(iMaxDisplayObject,
+			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "DisplayObject")); 
+
 	}
 
 	// 풀 크기 설정 
@@ -383,7 +388,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 	CPoolMgr::GetInstance()->SetPoolSize<CDoorLeft>(iMaxDoorCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CDoorRight>(iMaxDoorCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CExtinguisher>(iMaxExtinguisher);
-
+	CPoolMgr::GetInstance()->SetPoolSize<CDisplayObject>(iMaxDisplayObject);
 
 	CPoolMgr::GetInstance()->SetPoolSize<CVendingMachine>(iMaxVendingMachine);
 

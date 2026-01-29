@@ -28,6 +28,7 @@
 #include "CEditorTriggerBox.h"
 #include "CEditorDoor.h"
 #include "CEditorInteractObject.h"
+#include "CEditorDisplayObject.h"
 
 using namespace std;
 using namespace Engine;
@@ -142,6 +143,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
         _uint iDoorCount = 0;
         _uint iExtinguisherCount = 0;
         _uint iAxeCount = 0;
+        _uint iDisplayObjectCount = 0;
 
 
         auto& objectList = pScene->Get_ObjectList();
@@ -323,6 +325,18 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                 // itemType 필드 (Editor 로드 시 아이템 타입 복원용)
                 jObj["itemType"] = static_cast<_int>(eItemType);
             }
+            else if (CEditorDisplayObject* pDisplay = dynamic_cast<CEditorDisplayObject*>(pObj))
+            {
+                iDisplayObjectCount++;
+                jObj["type"] = "DisplayObject";
+                jObj["roomIndex"] = pObj->Get_RoomIndex();
+
+                SaveTransformData(jObj, pObj);
+
+                // DisplayObject 전용 필드 (Client CMapLoader 호환)
+                jObj["displayObjectType"] = static_cast<_int>(pDisplay->Get_DisplayObjectType());
+                jObj["textureIdx"] = static_cast<_int>(pDisplay->Get_TextureIdx());
+              }
             else
             {
                 continue;  // 알 수 없는 타입 - 건너뜀
@@ -344,6 +358,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
         jMap["doorCount"] = iDoorCount;
         jMap["extinguisherCount"] = iExtinguisherCount;
         jMap["axeCount"] = iAxeCount;
+        jMap["displayObjectCount"] = iDisplayObjectCount;
 
         jMap["objects"] = jObjects;
         jMap["objectCount"] = jObjects.size();
@@ -670,6 +685,27 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
 
                 pObj = CEditorInteractObject::Create(pGraphicDev, vPos, eItemType);
             }
+            else if (strType == "DisplayObject")
+            {
+                // displayObjectType 필드 읽기
+                DISPLAY_OBJECT_TYPE eDisplayType = JUMP_BORDER;
+                _uint iTextureId = 0;
+
+                if (jObj.contains("displayObjectType"))
+                    eDisplayType = static_cast<DISPLAY_OBJECT_TYPE>((_int)jObj["displayObjectType"]);
+
+                if (jObj.contains("textureIdx"))
+                    iTextureId = static_cast<_uint>((_int)jObj["textureIdx"]);
+
+                pObj = CEditorDisplayObject::Create(pGraphicDev, vPos, vRot, vScale, eDisplayType, iTextureId);
+
+                // 회전과 스케일 적용
+                if (pObj)
+                {
+                    pObj->Set_Rotation(vRot);
+                    pObj->Set_Scale(vScale);
+                }
+                }
 
             if (!pObj)
                 continue;

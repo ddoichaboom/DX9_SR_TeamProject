@@ -24,6 +24,7 @@
 #include "CEditorDynamicWall.h"
 #include "CEditorDoor.h"
 #include "CEditorInteractObject.h"
+#include "CEditorDisplayObject.h"
 
 #include "CEffectScene.h"
 #include "CEffectToolBar.h"
@@ -412,6 +413,13 @@ HRESULT CEditorApp::Ready_Texture_Prototype()
     if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_InteractObject_Texture", pCom_Texture)))
     {
         MSG_BOX("Proto_InteractObject_Texture Ready Failed");
+        return E_FAIL;
+    }
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CEditorDisplayObject::GetTextureSources());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_DisplayObject_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto_DisplayObject_Texture Ready Failed");
         return E_FAIL;
     }
     

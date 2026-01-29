@@ -21,6 +21,7 @@
 #include "CEditorTriggerBox.h"
 #include "CEditorDoor.h"
 #include "CEditorInteractObject.h"
+#include "CEditorDisplayObject.h"
 
 CEditorScene::CEditorScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
@@ -284,6 +285,7 @@ void CEditorScene::Handle_Duplicate()
                     iRoomIndex = pDynamicFloor->Get_RoomIndex();
                     
                     vPos += m_vDupplicateDir * 16.f;
+
                     pNewObj = CEditorDynamicFloor::Create(m_pGraphicDev, vPos, vRot, vScale, iType);
                 }
                 else if (CEditorSlopeFloor* pSlopeFloor = dynamic_cast<CEditorSlopeFloor*>(pSelectedObj))
@@ -304,7 +306,13 @@ void CEditorScene::Handle_Duplicate()
                     iIdx        = pFloor->Get_TextureIdx();
                     iRoomIndex  = pFloor->Get_RoomIndex();
 
-                    vPos += m_vDupplicateDir * 16.f;
+                    if (iType == static_cast<_uint>(STATIC_FLOOR_ROAD))
+                    {
+                        vPos += m_vDupplicateDir * 64.f;
+                    }
+                    else
+                        vPos += m_vDupplicateDir * 16.f;
+
                     pNewObj = CEditorFloor::Create(m_pGraphicDev, vPos, vRot, vScale, iType, iIdx);
                 }
                 
@@ -380,6 +388,7 @@ void CEditorScene::Handle_Duplicate()
 
                     // Monster 타입만 복제 허용
                     const string& strMonsterKey = pSpawn->Get_MonsterKey();
+                    vPos += m_vDupplicateDir * 96.f;
                     pNewObj = CEditorSpawnPoint::Create(m_pGraphicDev, vPos, vRot, vScale,
                         eType, strMonsterKey);
                 }
@@ -412,6 +421,14 @@ void CEditorScene::Handle_Duplicate()
                     OBJ_ITEM_TYPE eItemType = pInteract->Get_ItemType();
                     iRoomIndex = pInteract->Get_RoomIndex();
                     pNewObj = CEditorInteractObject::Create(m_pGraphicDev, vPos, eItemType);
+                }
+                else if (CEditorDisplayObject* pDisplay = dynamic_cast<CEditorDisplayObject*>(pSelectedObj))
+                {
+                    vPos += m_vDupplicateDir * 32.f;
+                    DISPLAY_OBJECT_TYPE eType = pDisplay->Get_DisplayObjectType();
+                    _uint iTextureId = pDisplay->Get_TextureIdx();
+                    iRoomIndex = pDisplay->Get_RoomIndex();
+                    pNewObj = CEditorDisplayObject::Create(m_pGraphicDev, vPos, vRot, vScale, eType, iTextureId);
                 }
 
 
@@ -505,7 +522,8 @@ void CEditorScene::Handle_Left_Click()
             eMode == MODE_PLACE_SPAWN_MONSTER || eMode == MODE_PLACE_SLOPE_FLOOR ||
             eMode == MODE_PLACE_MAPCOLLIDER || eMode == MODE_PLACE_TRIGGERBOX ||
             eMode == MODE_PLACE_SPAWN_BOSSMONSTER || eMode == MODE_PLACE_DYNAMIC_WALL ||
-            eMode == MODE_PLACE_DOOR || eMode == MODE_PLACE_INTERACTOBJECT)
+            eMode == MODE_PLACE_DOOR || eMode == MODE_PLACE_INTERACTOBJECT ||
+            eMode == MODE_PLACE_DISPLAYOBJECT)
         {
 
             // Ray - Plane Intersection (Y = 0 평면)
@@ -540,6 +558,8 @@ void CEditorScene::Handle_Left_Click()
                 Place_Door(vPos);
             else if (eMode == MODE_PLACE_INTERACTOBJECT)
                 Place_InteractObject(vPos);
+            else if (eMode == MODE_PLACE_DISPLAYOBJECT)
+                Place_DisplayObject(vPos);
         }
         else if (eMode == MODE_SELECT)
         {
@@ -928,6 +948,28 @@ void CEditorScene::Place_InteractObject(const _vec3& vPos)
 
         Add_Object(pInteract);
         Safe_Release(pInteract);
+    }
+}
+
+void CEditorScene::Place_DisplayObject(const _vec3& vPos)
+{
+    CEditorDisplayObject* pDisplay = CEditorDisplayObject::Create(m_pGraphicDev, vPos);
+
+    if (pDisplay)
+    {
+        // Y 위치 조정 (바닥보다 살짝 위로)
+        _vec3 vAdjustedPos = vPos;
+        vAdjustedPos.y = vPos.y + 4.0f;
+        pDisplay->Set_Position(vAdjustedPos);
+
+        // 기본 이름 설정
+        static _int s_iDisplayIdx = 0;
+        wchar_t wszName[64];
+        swprintf_s(wszName, L"DisplayObject_%d", s_iDisplayIdx++);
+        pDisplay->Set_Name(wszName);
+
+        Add_Object(pDisplay);
+        Safe_Release(pDisplay);
     }
 }
 

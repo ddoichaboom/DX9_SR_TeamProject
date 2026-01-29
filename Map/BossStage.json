@@ -1,7 +1,12 @@
 {
+  "VendingMachineCount": 0,
+  "axeCount": 0,
   "ceilingCount": 0,
+  "displayObjectCount": 0,
+  "doorCount": 0,
   "dynamicFloorCount": 0,
   "dynamicWallCount": 0,
+  "extinguisherCount": 0,
   "floorCount": 2132,
   "mapColliderCount": 14,
   "objectCount": 2312,
@@ -11,8 +16,8 @@
       "name": "PlayerSpawn",
       "position": [
         -8.0,
-        52.0,
-        24.0
+        20.0,
+        -160.0
       ],
       "roomIndex": 0,
       "rotation": [
@@ -53153,7 +53158,6 @@
       "type": "MapCollider"
     }
   ],
-  "obstacleCount": 0,
   "triggerBoxCount": 0,
   "version": 4,
   "wallCount": 164

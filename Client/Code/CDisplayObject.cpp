@@ -5,21 +5,28 @@
 
 vector<TextureSource> CDisplayObject::m_vTextureSource =
 {
-    {0, L"../Bin/Resource/Texture/UI/STAGE_UI_FLOOR1.dds"},
+    {JUMP_BORDER, L"../Bin/Resource/Texture/Object/DisplayObject/JUMP_BORDER.dds"},
+    {CABLES, L"../Bin/Resource/Texture/Object/DisplayObject/CABLES.dds", true, 0, 3, 3, {1.f, 1.f}},
+    {PALMS, L"../Bin/Resource/Texture/Object/DisplayObject/PALMS.dds"},
+    {PASSARELA, L"../Bin/Resource/Texture/Object/DisplayObject/PASSARELA.dds"},
+    {RUG, L"../Bin/Resource/Texture/Object/DisplayObject/RUG.dds", true, 0, 3, 3, {1.f, 1.f}},
+    {SIGNS, L"../Bin/Resource/Texture/Object/DisplayObject/SIGNS.dds", true, 0, 6, 6, {1.f, 1.f}},
 };
 
 CDisplayObject::CDisplayObject(LPDIRECT3DDEVICE9 pGraphicDev)
     :   CGameObject(pGraphicDev)
     ,   m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
-    ,   m_eItemType(ITEM_NONE), m_iTextureID(0)
+    ,   m_eObjectType(DOT_END), m_iTextureID(0)
 {
+    m_eOBJ_ID = OBJ_DISPLAY;
 }
 
 CDisplayObject::CDisplayObject(const CDisplayObject& rhs)
     :   CGameObject(rhs)
     ,   m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
-    ,   m_eItemType(ITEM_NONE), m_iTextureID(0)
+    ,   m_eObjectType(DOT_END), m_iTextureID(0)
 {
+    m_eOBJ_ID = rhs.m_eOBJ_ID;
 }
 
 CDisplayObject::~CDisplayObject()
@@ -45,8 +52,6 @@ HRESULT CDisplayObject::Ready_GameObject()
     if (FAILED(Add_Component()))
         return E_FAIL;
 
-    m_pTextureCom->Change_Texture(0);    
-
     return S_OK;
 }
 
@@ -54,6 +59,7 @@ _int CDisplayObject::Update_GameObject(const _float& fTimeDelta)
 {
     if (IsDead())
         return RET_DEAD;
+
     int iExit = CGameObject::Update_GameObject(fTimeDelta);
     CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA, this);
 
@@ -66,15 +72,26 @@ _int CDisplayObject::Update_GameObject(const _float& fTimeDelta)
 
 void CDisplayObject::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-    SetBillBoard();
+    //SetBillBoard();
     CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
 void CDisplayObject::Render_GameObject()
 {
+    DWORD dOldCullMode;
+    m_pGraphicDev->GetRenderState(D3DRS_CULLMODE, &dOldCullMode);
+    m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+
     m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
-    m_pTextureCom->Render_Texture();
+
+    if (m_pTextureCom)
+        m_pTextureCom->Render_Texture();
+
+    if (m_pBufferCom)
     m_pBufferCom->Render_Buffer();
+
+    m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, dOldCullMode);
+    m_pGraphicDev->SetTexture(0, nullptr);
 }
 
 HRESULT CDisplayObject::Add_Component()
@@ -145,6 +162,23 @@ void CDisplayObject::SetTransformMatrix()
 {
     if (!m_pTransformCom) return;
     m_pTransformCom->Update_Component(0.f);
+}
+
+void CDisplayObject::Set_Angle(const _vec3& vRot)
+{
+    if (!m_pTransformCom) return;
+    m_pTransformCom->Set_Angle(vRot);
+}
+
+void CDisplayObject::Set_DisplayObjectType(DISPLAY_OBJECT_TYPE eObjectType, _uint iTextureId)
+{
+    m_eObjectType = eObjectType;
+
+    if (m_pTextureCom)
+    {
+        m_pTextureCom->Change_Texture(static_cast<_int>(m_eObjectType));
+        m_pTextureCom->Set_Frame(_vec2(iTextureId, 0));
+    }
 }
 
 void CDisplayObject::Activate()
