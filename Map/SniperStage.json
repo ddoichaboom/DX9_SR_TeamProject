@@ -1,12 +1,15 @@
 {
   "VendingMachineCount": 0,
+  "axeCount": 0,
   "ceilingCount": 0,
+  "displayObjectCount": 0,
   "doorCount": 0,
   "dynamicFloorCount": 0,
   "dynamicWallCount": 0,
+  "extinguisherCount": 0,
   "floorCount": 3615,
   "mapColliderCount": 0,
-  "objectCount": 4510,
+  "objectCount": 4580,
   "objects": [
     {
       "floorType": 0,
@@ -92467,28 +92470,6 @@
       "type": "SpawnPoint"
     },
     {
-      "monsterKey": "WhiteMan",
-      "name": "MonsterSpawn",
-      "position": [
-        56.0,
-        589.0,
-        508.0
-      ],
-      "roomIndex": 0,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        5.0,
-        5.0,
-        5.0
-      ],
-      "spawnType": "Monster",
-      "type": "SpawnPoint"
-    },
-    {
       "name": "Wall",
       "position": [
         8.0,
@@ -103734,6 +103715,1568 @@
       "type": "Wall",
       "wallDirection": 3,
       "wallType": 9
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -40.0,
+        685.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -40.0,
+        781.0,
+        504.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        152.0,
+        781.0,
+        504.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        344.0,
+        781.0,
+        504.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -136.0,
+        781.0,
+        504.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -328.0,
+        781.0,
+        504.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -232.0,
+        685.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        152.0,
+        685.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        344.0,
+        685.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        344.0,
+        589.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        152.0,
+        589.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -136.0,
+        589.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -232.0,
+        589.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -328.0,
+        589.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -328.0,
+        685.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -232.0,
+        781.0,
+        504.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        56.0,
+        781.0,
+        504.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        248.0,
+        781.0,
+        504.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        248.0,
+        685.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        56.0,
+        685.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -136.0,
+        685.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        56.0,
+        589.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        248.0,
+        589.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        344.0,
+        493.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        248.0,
+        493.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        152.0,
+        493.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        56.0,
+        493.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -40.0,
+        493.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -136.0,
+        493.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -232.0,
+        493.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -328.0,
+        493.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -328.0,
+        397.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -328.0,
+        301.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -328.0,
+        205.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -328.0,
+        109.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -328.0,
+        13.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -232.0,
+        13.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -232.0,
+        109.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -232.0,
+        205.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -232.0,
+        301.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -232.0,
+        397.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -136.0,
+        13.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -136.0,
+        109.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -136.0,
+        205.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -136.0,
+        301.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -136.0,
+        397.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -40.0,
+        13.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -40.0,
+        109.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -40.0,
+        205.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -40.0,
+        301.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        -40.0,
+        397.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        56.0,
+        13.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        56.0,
+        109.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        56.0,
+        205.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        56.0,
+        301.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        56.0,
+        397.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        152.0,
+        13.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        152.0,
+        109.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        152.0,
+        205.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        152.0,
+        301.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        152.0,
+        397.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        248.0,
+        13.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        248.0,
+        109.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        248.0,
+        205.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        248.0,
+        301.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        248.0,
+        397.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        344.0,
+        13.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        344.0,
+        109.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        344.0,
+        205.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        344.0,
+        301.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        344.0,
+        397.0,
+        508.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
     }
   ],
   "triggerBoxCount": 0,

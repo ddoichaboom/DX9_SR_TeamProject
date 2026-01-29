@@ -293,8 +293,8 @@ HRESULT CBossStage::Remove_PrevObjectPool()
     //Effect Pool
     CPoolMgr::GetInstance()->DeletePool<CBeamFlare>();
     CPoolMgr::GetInstance()->DeletePool<CBodyEmit>();
-
     // TODO : CMapStage에서 오브젝트 풀 생성했던거 여기서 안쓰면 해제하기 (아직 미정)
+  
     return S_OK;
 }
 

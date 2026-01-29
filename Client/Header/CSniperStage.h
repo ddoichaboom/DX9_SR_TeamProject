@@ -51,7 +51,7 @@ private:
 
     _float      m_fTime = 0.f;
     _float      m_fSpawnTime = 3.f;
-    _float      m_fOriginSpawnTime = 10.f;
+   _float      m_fOriginSpawnTime = 7.f;
     _float      m_fOffsetTime = 0.5f;
     _float      m_fMinTime = 2.0f;
 

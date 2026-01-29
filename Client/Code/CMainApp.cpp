@@ -411,14 +411,15 @@ HRESULT CMainApp::Ready_ObjectPool()
 
 HRESULT CMainApp::SetNextScene()
 {
-	SCENE_TYPE nextSceneType = SCENE_TYPE((_int)m_eCurSceneType + 1);
-	if (nextSceneType == SCENE_END) return E_FAIL;
-	CScene* nextScene = nullptr;
-
 	//Event Mgr 구독 전체 초기화
 	//위치 주의! 다음 스테이지 Create-Ready에서 구독하므로 Create전에 구독값,사운드 지워주기 
 	CEventMgr::GetInstance()->ClearAllSubscribe();
 	CSoundMgr::GetInstance()->StopAll();
+
+	SCENE_TYPE nextSceneType = SCENE_TYPE((_int)m_eCurSceneType + 1);
+	if (nextSceneType == SCENE_END) return E_FAIL;
+	CScene* nextScene = nullptr;
+
 
 	switch (nextSceneType)
 	{	
@@ -430,7 +431,6 @@ HRESULT CMainApp::SetNextScene()
 	case SCENE_BATTLE:
 		nextScene = CMapStage::Create(m_pGraphicDev);		
 		break;
-
 	case SCENE_SNIPER:
 		nextScene = CSniperStage::Create(m_pGraphicDev);
 		break;

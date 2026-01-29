@@ -178,7 +178,7 @@ void CSniperPlayer::Key_Input(const _float& fTimeDelta)
 	}
 
 	if (dwMouseMove = CDInputMgr::GetInstance()->Get_DIMouseMove(DIMS_X))
-	{
+	{ 
 		_float moveValue = D3DXToDegree(dwMouseMove * m_fMouseSpeed);
 		if (m_pCamera) m_pCamera->Set_Rot(ROT_Y, moveValue);
 	}

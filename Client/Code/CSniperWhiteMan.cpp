@@ -345,6 +345,8 @@ void CSniperWhiteMan::Activate()
 	m_bTargeting = false;
 	m_bTrace = false;
 	m_bAngleReverse = false;
+	m_fBeamAngle = 0.f;
+	m_fRotSpeed = 1.f;
 	m_fHP = m_fMaxHP;
 }
 

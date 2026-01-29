@@ -8,7 +8,7 @@
 #include "CCursor.h"
 #include "CUIManager.h"
 #include "CFontMgr.h"
-
+#include "CRenderer.h"
 #include "CLoadingEX.h"
 #include "CBackGround.h"
 
@@ -162,8 +162,8 @@ HRESULT CSniperStage::Ready_Environment_Layer(const _tchar* pLayerTag)
 	m_iCurrentRoomIndex = 0;
 
 	m_mapLayer.insert({ pLayerTag, pLayer });
-
 	m_pEnvironment_Layer = pLayer;
+
 	return S_OK;
 }
 
@@ -197,12 +197,12 @@ HRESULT CSniperStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 
 HRESULT CSniperStage::Ready_Prototype()
 {
-	return E_NOTIMPL;
+	return S_OK;
 }
 
 HRESULT CSniperStage::Remove_PrevObjectPool()
 {
-	return E_NOTIMPL;
+	return S_OK;
 }
 
 HRESULT CSniperStage::Ready_ObjectPool_Character()
@@ -230,23 +230,23 @@ HRESULT CSniperStage::Ready_ObjectPool_UI()
 
 HRESULT CSniperStage::Ready_ObjectPool_Effect()
 {
-	//if (!Engine::CPoolMgr::GetInstance()->HasPool<CBlood>())
-	//{
-	//	if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CBlood>(m_pGraphicDev)))
-	//	{
-	//		MSG_BOX("Effect Blood Pool Create Failed");
-	//		return E_FAIL;
-	//	}
-	//}
+	if (!Engine::CPoolMgr::GetInstance()->HasPool<CBlood>())
+	{
+		if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CBlood>(m_pGraphicDev)))
+		{
+			MSG_BOX("Effect Blood Pool Create Failed");
+			return E_FAIL;
+		}
+	}
 
-	//if (!Engine::CPoolMgr::GetInstance()->HasPool<CExplosion>())
-	//{
-	//	if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CExplosion>(m_pGraphicDev)))
-	//	{
-	//		MSG_BOX("Effect Explosion Pool Create Failed");
-	//		return E_FAIL;
-	//	}
-	//}
+	if (!Engine::CPoolMgr::GetInstance()->HasPool<CExplosion>())
+	{
+		if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CExplosion>(m_pGraphicDev)))
+		{
+			MSG_BOX("Effect Explosion Pool Create Failed");
+			return E_FAIL;
+		}
+	}
 	return S_OK;
 }
 
@@ -301,7 +301,7 @@ HRESULT CSniperStage::Ready_UITextureProto()
 
 HRESULT CSniperStage::Ready_EffectTextureProto()
 {
-	//CTexture* pCom_Texture = nullptr;
+	CTexture* pCom_Texture = nullptr;
 	////Blood Texture
 	//pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBlood::GetTextureSources());
 	//if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_Blood_Texture", pCom_Texture)))
