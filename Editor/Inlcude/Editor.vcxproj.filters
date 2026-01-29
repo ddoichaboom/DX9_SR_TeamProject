@@ -339,6 +339,9 @@
     <ClInclude Include="..\Header\CEditorInteractObject.h">
       <Filter>04. Object\10. EditorInteractObject</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CEditorDisplayObject.h">
+      <Filter>04. Object\11. EditorDisplayObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -493,6 +496,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CEditorInteractObject.cpp">
       <Filter>04. Object\10. EditorInteractObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorDisplayObject.cpp">
+      <Filter>04. Object\11. EditorDisplayObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

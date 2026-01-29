@@ -147,7 +147,6 @@ void CVendingMachine::Render_GameObject()
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, dOldCullMode);
     m_pGraphicDev->SetTexture(0, nullptr);
-
 }
 
 void CVendingMachine::Dispense()

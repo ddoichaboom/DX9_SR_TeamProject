@@ -13,7 +13,7 @@
 
 TextureSource CAxe::m_vTextureSource =
 {
-    0, L"../Bin/Resource/Texture/Object/Axe.dds"
+    0, L"../Bin/Resource/Texture/Object/InteractObject/Axe.dds"
 };
 
 wstring CAxe::szItemLootSFX = L"Item_Loot_SFX.wav";

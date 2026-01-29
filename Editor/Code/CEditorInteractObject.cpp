@@ -2,12 +2,11 @@
 #include "CEditorInteractObject.h"
 #include "CRenderer.h"
 #include "CProtoMgr.h"
-#include "CTexture.h"
 
 vector<TextureSource> CEditorInteractObject::m_vTextureSource =
 {
-    {0, L"../Bin/Resource/Texture/Object/Extinguisher.dds"},
-    {1, L"../Bin/Resource/Texture/Object/Axe.dds"}
+    {0, L"../Bin/Resource/Texture/Object/InteractObject/Extinguisher.dds"},
+    {1, L"../Bin/Resource/Texture/Object/InteractObject/Axe.dds"}
 };
 
 

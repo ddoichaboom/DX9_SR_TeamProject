@@ -17,11 +17,13 @@
 #include "CEditorDoor.h"
 #include "CEditorVendingMachine.h"
 #include "CEditorInteractObject.h"
+#include "CEditorDisplayObject.h"
 
 
 CInspector::CInspector()
     : m_pCamera(nullptr)
     , m_iSelectedType(0)
+
 {
 }
 
@@ -206,7 +208,7 @@ void CInspector::Render_FloorTextureUI(CEditorFloor* pFloor)
         const char* szSlopeFloorTypes[] = {
             "STATIC_FLOOR",
             "STATIC_FLOOR_FLUID",
-            "STATIC_FLOOR_SLOPE"
+            "STATIC_FLOOR_SLOPE",
         };
 
         _int iTypeIdx(0);
@@ -264,7 +266,9 @@ void CInspector::Render_FloorTextureUI(CEditorFloor* pFloor)
         _uint iFloorType = pFloor->Get_FloorType();
         const char* szFloorTypes[] = { 
             "STATIC_FLOOR",
-            "STATIC_FLOOR_FLUID"
+            "STATIC_FLOOR_FLUID",
+            "STATIC_FLOOR_SLOPE",
+            "STATIC_FLOOR_ROAD"
         };
 
         _int iSelectedType = iFloorType;
@@ -465,7 +469,8 @@ void CInspector::Render_MapColliderProperties(CEditorMapCollider* pCollider)
         "TAG_SIDE_DASH_X",
         "TAG_SIDE_DASH_Z",
         "TAG_FAN",
-        "TAG_ELECTRIC"
+        "TAG_ELECTRIC",
+        "TAG_ROAD_END"
     };
 
     int iSelectedTag(0);
@@ -486,6 +491,9 @@ void CInspector::Render_MapColliderProperties(CEditorMapCollider* pCollider)
         break;
     case TAG_ELECTRIC:
         iSelectedTag = 4;
+        break;
+    case TAG_ROAD_END:
+        iSelectedTag = 5;
         break;
     default:
         iSelectedTag = 0;
@@ -510,6 +518,9 @@ void CInspector::Render_MapColliderProperties(CEditorMapCollider* pCollider)
             break;
         case 4:
             pCollider->Set_ColliderTag(TAG_ELECTRIC);
+            break;
+        case 5:
+            pCollider->Set_ColliderTag(TAG_ROAD_END);
             break;
         }
     }
@@ -617,6 +628,8 @@ void CInspector::Render_ObjectProperties()
 
     if (!pObj)
         return;
+
+
 
     // 이름
     wstring wstrName = pObj->Get_Name();
@@ -752,6 +765,10 @@ void CInspector::Render_ObjectProperties()
     {
         Render_InteractObjectProperties(pInteract);
     }
+    else if (CEditorDisplayObject* pDisplay = dynamic_cast<CEditorDisplayObject*>(pObj))
+    {
+        Render_DisplayObjectProperties(pDisplay);
+    }
 }
 
 void CInspector::Render_WallProperties(CEditorWall* pWall)
@@ -879,6 +896,100 @@ void CInspector::Render_InteractObjectProperties(CEditorInteractObject* pInterac
     {
         pInteract->Set_ItemType(ITEM_AXE);
         pInteract->Set_Name(L"Axe");
+    }
+}
+
+void CInspector::Render_DisplayObjectProperties(CEditorDisplayObject* pDisplay)
+{
+    if (!pDisplay)
+        return;
+
+    ImGui::Spacing();
+    ImGui::Separator();
+    ImGui::Text("DisplayObject Properties");
+
+    ImGui::Spacing();
+
+    // DisplayObject 타입 콤보박스
+    DISPLAY_OBJECT_TYPE eType = pDisplay->Get_DisplayObjectType();
+    const char* szDisplayTypes[] = {
+        "JUMP_BORDER",
+        "CABLES",
+        "PALMS",
+        "PASSARELA",
+        "RUG",
+        "SIGNS"
+    };
+
+    int iSelectedType = static_cast<int>(eType);
+    if (ImGui::Combo("Display Type", &iSelectedType, szDisplayTypes, IM_ARRAYSIZE(szDisplayTypes)))
+    {
+        DISPLAY_OBJECT_TYPE eNewType = static_cast<DISPLAY_OBJECT_TYPE>(iSelectedType);
+        pDisplay->Set_DisplayObjectType(eNewType, 0);  // textureIdx 초기화
+    }
+
+    ImGui::Spacing();
+
+    // Texture Index 선택 (해당 타입에 여러 텍스처가 있는 경우)
+    _uint iTextureId = pDisplay->Get_TextureIdx();
+
+    // 타입별 최대 텍스처 인덱스 설정
+    Engine::CTexture* pTextureCom = dynamic_cast<Engine::CTexture*>(
+        pDisplay->Get_Component(ID_STATIC, L"Com_Texture"));
+
+    _int iMaxIdx(0);
+
+    if (pTextureCom)
+    {
+        Engine::TextureDesc* pDesc = pTextureCom->GetTextureDesc(iSelectedType);
+        if (pDesc)
+        {
+            iMaxIdx = (_int)pDesc->vMaxIdx.x;
+        }
+    }
+
+    if (iMaxIdx > 0)
+    {
+        _int iIdx = static_cast<_int>(iTextureId);
+        if (ImGui::SliderInt("Texture Index", &iIdx, 0, iMaxIdx))
+        {
+            pDisplay->Set_TextureIdx(iIdx);
+            pDisplay->Set_DisplayObjectType(eType, static_cast<_uint>(iIdx));
+        }
+    }
+
+    ImGui::Spacing();
+
+    // 프리셋 버튼
+    ImGui::Text("Presets:");
+    if (ImGui::Button("JUMP_BORDER"))
+    {
+        pDisplay->Set_DisplayObjectType(JUMP_BORDER, 0);
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("CABLES"))
+    {
+        pDisplay->Set_DisplayObjectType(CABLES, 0);
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("PALMS"))
+    {
+        pDisplay->Set_DisplayObjectType(PALMS, 0);
+    }
+
+    if (ImGui::Button("PASSARELA"))
+    {
+        pDisplay->Set_DisplayObjectType(PASSARELA, 0);
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("RUG"))
+    {
+        pDisplay->Set_DisplayObjectType(RUG, 0);
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("SIGNS"))
+    {
+        pDisplay->Set_DisplayObjectType(SIGNS, 0);
     }
 }
 

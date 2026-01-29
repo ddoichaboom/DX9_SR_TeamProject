@@ -12,7 +12,7 @@
 
 TextureSource CSoda::m_vTextureSource =
 {
-    0, L"../Bin/Resource/Texture/Object/Soda.dds"
+    0, L"../Bin/Resource/Texture/Object/InteractObject/Soda.dds"
 };
 
 

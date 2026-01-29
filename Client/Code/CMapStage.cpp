@@ -364,14 +364,14 @@ HRESULT CMapStage::Ready_ObjectPool_Terrain()
     }
 
 
-    //if (!Engine::CPoolMgr::GetInstance()->HasPool<CDisplayObject>())
-    //{
-    //    if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CDisplayObject>(m_pGraphicDev)))
-    //    {
-    //        MSG_BOX("Display Pool Create Failed");
-    //        return E_FAIL;
-    //    }
-    //}
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CDisplayObject>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CDisplayObject>(m_pGraphicDev)))
+        {
+            MSG_BOX("DisplayObject Pool Create Failed");
+            return E_FAIL;
+        }
+    }
 
     if (!Engine::CPoolMgr::GetInstance()->HasPool<CExtinguisher>())
     {

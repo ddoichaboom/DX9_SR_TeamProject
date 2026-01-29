@@ -71,6 +71,7 @@ public:
 	void                        Place_SpawnMonster(const _vec3& vPos);
 	void						Place_SpawnBossMonster(const _vec3& vPos);
 	void						Place_InteractObject(const _vec3& vPos);
+	void						Place_DisplayObject(const _vec3& vPos);
 
 	void                        Place_MapCollider(const _vec3& vPos);
 	void                        Place_TriggerBox(const _vec3& vPos);

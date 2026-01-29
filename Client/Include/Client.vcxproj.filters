@@ -373,6 +373,12 @@
     <Filter Include="02. GameObject\00. Character\01. Monster\03. SniperWhiteMan">
       <UniqueIdentifier>{2b69ec1d-c000-4885-9eea-08d183b16994}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\03.MapObject\00.DisPlayObj\DisplayCubeObj">
+      <UniqueIdentifier>{23c08983-8a7a-4ba9-b56e-6672238d9c46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. Environment\00. Terrain\03. Glass">
+      <UniqueIdentifier>{83dc73d7-3f43-4a6a-b97d-83e8adf1ddb0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -717,6 +723,12 @@
     <ClInclude Include="..\Header\CSniperWhiteMan.h">
       <Filter>02. GameObject\00. Character\01. Monster\03. SniperWhiteMan</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CDisplayCubeObject.h">
+      <Filter>02. GameObject\03.MapObject\00.DisPlayObj\DisplayCubeObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CGlass.h">
+      <Filter>02. GameObject\99. Environment\00. Terrain\03. Glass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1051,6 +1063,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CSniperWhiteMan.cpp">
       <Filter>02. GameObject\00. Character\01. Monster\03. SniperWhiteMan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDisplayCubeObject.cpp">
+      <Filter>02. GameObject\03.MapObject\00.DisPlayObj\DisplayCubeObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CGlass.cpp">
+      <Filter>02. GameObject\99. Environment\00. Terrain\03. Glass</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
