@@ -982,20 +982,20 @@ void CMapStage::Check_Collision()
        }
 
        
-       //for (multimap<OBJ_ID, CGameObject*>::iterator it_vend = iter_Map_Vending.first; it_vend != iter_Map_Vending.second; it_vend++)
-       //{
-       //    CCollision* pVendCollision = static_cast<CCollision*>(
-       //        it_vend->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
-       //
-       //    if (!pVendCollision)
-       //        continue;
-       //
-       //    CCollider* pVenCollider = pVendCollision->GetCollider();
-       //    if (!pVenCollider)
-       //        continue;
-       //
-       //    CCollision::Collision_Base(pMonCollider, pVenCollider);
-       //}
+       for (multimap<OBJ_ID, CGameObject*>::iterator it_vend = iter_Map_Vending.first; it_vend != iter_Map_Vending.second; it_vend++)
+       {
+           CCollision* pVendCollision = static_cast<CCollision*>(
+               it_vend->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+       
+           if (!pVendCollision)
+               continue;
+       
+           CCollider* pVenCollider = pVendCollision->GetCollider();
+           if (!pVenCollider)
+               continue;
+       
+           CCollision::Collision_Diff(pMonCollider, pVenCollider , TAG_ELECTRIC);
+       }
        
    }
 
