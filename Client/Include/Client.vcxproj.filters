@@ -376,9 +376,6 @@
     <Filter Include="02. GameObject\03.MapObject\00.DisPlayObj\DisplayCubeObj">
       <UniqueIdentifier>{23c08983-8a7a-4ba9-b56e-6672238d9c46}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\99. Environment\00. Terrain\03. Glass">
-      <UniqueIdentifier>{83dc73d7-3f43-4a6a-b97d-83e8adf1ddb0}</UniqueIdentifier>
-	</Filter>
 	<Filter Include="01. Scene\05.Credits">
       <UniqueIdentifier>{a396d860-f934-43df-9812-edaa48fb793a}</UniqueIdentifier>
     </Filter>
@@ -732,9 +729,6 @@
     <ClInclude Include="..\Header\CDisplayCubeObject.h">
       <Filter>02. GameObject\03.MapObject\00.DisPlayObj\DisplayCubeObj</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CGlass.h">
-      <Filter>02. GameObject\99. Environment\00. Terrain\03. Glass</Filter>
-	</ClInclude>
 	<ClInclude Include="..\Header\CCredit.h">
       <Filter>01. Scene\05.Credits</Filter>
     </ClInclude>
@@ -1079,9 +1073,6 @@
     <ClCompile Include="..\Code\CDisplayCubeObject.cpp">
       <Filter>02. GameObject\03.MapObject\00.DisPlayObj\DisplayCubeObj</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CGlass.cpp">
-      <Filter>02. GameObject\99. Environment\00. Terrain\03. Glass</Filter>
-	</ClCompile>
 	<ClCompile Include="..\Code\CCredit.cpp">
       <Filter>01. Scene\05.Credits</Filter>
     </ClCompile>
