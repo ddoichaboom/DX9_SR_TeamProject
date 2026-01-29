@@ -241,7 +241,7 @@ void CSniperPlayer::Attack()
 		m_bRenderStop = true;
 	if (m_bShoot && m_pCamera->IsCameraShaking() == false)
 	{
-		ChangeState(SN_IDLE);
+		//ChangeState(SN_IDLE);
 	}
 }	
 
@@ -251,6 +251,7 @@ void CSniperPlayer::Shoot()
 	m_bShoot = true;
 	m_pCamera->CameraShake();
 	CheckedPickedMonster();
+	CheckedPicked(L"Environment_Layer", OBJ_ITEM);
 }
 
 void CSniperPlayer::ZoomOut()
@@ -286,6 +287,34 @@ void CSniperPlayer::CheckedPickedMonster()
 	if (!pLayer) return;
 
 	auto pairIter = pLayer->Get_Objects(OBJ_MONSTER);
+	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
+	{
+		CCollision* pCollision = static_cast<CCollision*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+		if (!pCollision) continue;
+
+		auto& mapCollider = pCollision->GetColliderMap();
+		if (mapCollider.empty()) continue;
+		//몬스터의 CollisionCom에 있는 전체 Collider 
+		for (auto& pairCollider : mapCollider)
+		{
+			bool bPicked = CCollision::Collision_Mouse(g_hWnd, m_pGraphicDev, pairCollider.second);
+			if (bPicked)
+			{
+				pairCollider.second->Collision(info);
+				return;
+			}
+		}
+	}
+}
+
+void CSniperPlayer::CheckedPicked(const _tchar* layerName, OBJ_ID eID)
+{
+	CollisionInfo info = { this, {0,0,0}, m_fAttackDamage };
+
+	CLayer* pLayer = CManagement::GetInstance()->Get_Layer(layerName);
+	if (!pLayer) return;
+
+	auto pairIter = pLayer->Get_Objects(eID);
 	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
 	{
 		CCollision* pCollision = static_cast<CCollision*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));

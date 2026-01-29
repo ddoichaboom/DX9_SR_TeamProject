@@ -16,7 +16,7 @@ vector<TextureSource> CWindow::m_vTextureSource =
 vector<AnimationSource>  CWindow::m_vAnimSource =
 {
     { GLASS_IDLE,1,1,1, true, 0.4f},
-    { GLASS_DEAD,1,1,1, false, 0.8f, 1.f},
+    { GLASS_DEAD,1,1,1, false, 0.08f, 1.f},
 
 };
 
@@ -201,7 +201,6 @@ void CWindow::OnCollision(CollisionInfo info)
 {
     if (info.fDamage > 0.f && m_pAnimationCom->Get_State() == GLASS_IDLE)
     {
-        //DeadAction();
         ChangeState(GLASS_DEAD);
     }
 }
@@ -226,5 +225,10 @@ void CWindow::Begin_Dead()
 
 void CWindow::Dead()
 {
+
+    if (m_pAnimationCom->IsEnd())
+    {
+        DeadAction();
+    }
 }
 
