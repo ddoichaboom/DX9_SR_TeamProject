@@ -20,6 +20,7 @@
 #include "CDoorRight.h"
 #include "CVendingMachine.h"
 #include "CDisplayObject.h"
+#include "CWindow.h"
 
 // 게임 로직 오브젝트
 #include "CPlayer.h"
@@ -382,6 +383,15 @@ HRESULT CMapStage::Ready_ObjectPool_Terrain()
         }
     }
 
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CWindow>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CWindow>(m_pGraphicDev)))
+        {
+            MSG_BOX("Window Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
     return S_OK;
 }
 
@@ -611,6 +621,14 @@ HRESULT CMapStage::Ready_TerrainTextureProto()
 
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CDoorRight::GetTextureSources());
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_DoorRight_Texture_Door", pCom_Texture)))
+        return E_FAIL;
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CWindow::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WindowTexture_Door", pCom_Texture)))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WindowAnimation",
+        Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CWindow::GetAnimSources()))))
         return E_FAIL;
 
     return S_OK;

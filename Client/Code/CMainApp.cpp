@@ -262,15 +262,15 @@ HRESULT CMainApp::Ready_DefaultProto()
 
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	//Engine::CScene* pInitScene = CLogo::Create(pGraphicDev);
+	Engine::CScene* pInitScene = CLogo::Create(pGraphicDev);
 	//Engine::CScene* pInitScene = CSniperStage::Create(pGraphicDev);
 	//Engine::CScene* pInitScene = CRoadStage::Create(pGraphicDev);
-	Engine::CScene* pInitScene = CRoadStage::Create(pGraphicDev);
+	//Engine::CScene* pInitScene = CRoadStage::Create(pGraphicDev);
 	//Engine::CScene* pInitScene = CCredit::Create(pGraphicDev);
 
 	//Å×½ºÆ® ¸Ê SceneType
-	//m_eCurSceneType = SCENE_NONE;
-	m_eCurSceneType = SCENE_ROAD;
+	m_eCurSceneType = SCENE_NONE;
+	//m_eCurSceneType = SCENE_ROAD;
 
 
 	if (nullptr == pInitScene)

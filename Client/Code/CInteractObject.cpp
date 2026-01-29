@@ -114,6 +114,14 @@ void CInteractObject::Rotate(ROTATION _Axis, _float _degree)
     m_pTransformCom->Rotation(_Axis, _degree);
 }
 
+void CInteractObject::SetAngle(_vec3 _rot)
+{
+    if (nullptr == m_pTransformCom)
+        return;
+
+    m_pTransformCom->Set_Angle(_rot);
+}
+
 void CInteractObject::SetScale(_vec3 _scale)
 {
     if (!m_pTransformCom) return;

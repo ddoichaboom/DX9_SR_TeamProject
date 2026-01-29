@@ -20,6 +20,7 @@
 #include "CStageEndTrigger.h"
 #include "CDoor.h"
 #include "CExtinguisher.h"
+#include "CWindow.h"
 
 // 캐릭터,몬스터 (SpawnPoint 처리용)
 #include "CPlayer.h"
@@ -41,7 +42,7 @@ vector<wstring> CMapLoader::m_vecMapFiles =
     {L"../../Map/TutorialStage.json"},
     {L"../../Map/MainStage.json"},
     {L"../../Map/BossStage.json"},
-    {L"../../Map/SniperStage.json"}
+    {L"../../Map/SniperStage_Test.json"}
 };
 
 CMapLoader::CMapLoader()
@@ -235,7 +236,8 @@ HRESULT CMapLoader::Load_Room(const wstring& wstrPath, _int iRoomIndex, CLayer* 
                     objData.sType == "DynamicCeiling" || objData.sType == "Wall" || 
                     objData.sType == "DynamicWall" || objData.sType == "VendingMachine" || 
                     objData.sType == "MapCollider" || objData.sType == "RoomTriggerBox" ||
-                    objData.sType == "Door" || objData.sType == "Extinguisher")
+                    objData.sType == "Door" || objData.sType == "Extinguisher" ||
+                    objData.sType == "Window")
                 {
                     // GameObject 획득 (풀에서)
                     CGameObject* pGameObject = Get_GameObject_FromPool(objData, pGraphicDev);
@@ -786,6 +788,18 @@ CGameObject* CMapLoader::Get_GameObject_FromPool(const ObjectData& objData, LPDI
             pAxe->SetTransformMatrix();
             pAxe->Activate();
             pGameObject = pAxe;
+        }
+    }
+    else if (objData.sType == "Window")
+    {
+        CWindow* pWindow = Engine::CPoolMgr::GetInstance()->Get_Object<CWindow>();
+        if (pWindow)
+        {
+            pWindow->SetPos(objData.vPos);
+            pWindow->SetAngle(objData.vRot);
+            pWindow->SetScale(objData.vScale);
+            pWindow->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
+            pGameObject = pWindow;
         }
     }
 
