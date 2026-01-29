@@ -6,7 +6,6 @@
 #include "CManagement.h"
 #include "CDInputMgr.h"
 #include "CCursor.h"
-#include "CUIManager.h"
 #include "CFontMgr.h"
 #include "CRenderer.h"
 #include "CLoadingEX.h"
@@ -101,7 +100,6 @@ _int CSniperStage::Update_Scene(const _float& fTimeDelta)
 	}
 
 	int iExit = CStage::Update_Scene(fTimeDelta);
-	CUIManager::GetInstance()->Update_GameObject(fTimeDelta);
 	
 	//스폰할 몬스터도 없고 맵에도 몬스터가 없다면 종료 
 	if (m_qMonsterSpawnPoses.empty() && m_pGameLogic_Layer->Get_Object(OBJ_MONSTER) == nullptr)
@@ -135,7 +133,6 @@ _int CSniperStage::Update_Scene(const _float& fTimeDelta)
 void CSniperStage::LateUpdate_Scene(const _float& fTimeDelta)
 {
 	CStage::LateUpdate_Scene(fTimeDelta);
-	CUIManager::GetInstance()->LateUpdate_GameObject(fTimeDelta);
 }
 
 void CSniperStage::Render_Scene()
@@ -295,36 +292,12 @@ HRESULT CSniperStage::Ready_UITextureProto()
 		return E_FAIL;
 	}
 
-	CUIManager::GetInstance()->Ready_GameObject(m_pGraphicDev);
 	return S_OK;
 }
 
 HRESULT CSniperStage::Ready_EffectTextureProto()
 {
 	CTexture* pCom_Texture = nullptr;
-	////Blood Texture
-	//pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBlood::GetTextureSources());
-	//if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_Blood_Texture", pCom_Texture)))
-	//{
-	//	MSG_BOX("Proto Blood Ready Failed");
-	//	return E_FAIL;
-	//}
-	////Explosion
-	//pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CExplosion::GetTextureSource());
-	//if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_EXP_Texture", pCom_Texture)))
-	//{
-	//	MSG_BOX("Proto Explosion Ready Failed");
-	//	return E_FAIL;
-	//}
-
-
-	////HitUI
-	//pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CHitUI::GetTextureSource());
-	//if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_HitUI_Texture", pCom_Texture)))
-	//{
-	//	MSG_BOX("Proto HitUI Ready Failed");
-	//	return E_FAIL;
-	//}
 	return S_OK;
 }
 

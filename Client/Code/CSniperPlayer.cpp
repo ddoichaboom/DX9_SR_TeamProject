@@ -273,6 +273,8 @@ void CSniperPlayer::OnCollision(CollisionInfo info)
 			m_pHitUI->Reset();
 		}
 		m_fHP -= info.fDamage;
+		if (m_fHP < 0.f) m_fHP = 0.f;
+		//Dead 처리 안함
 	}
 }
 
