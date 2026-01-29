@@ -1,6 +1,8 @@
 #include "CScene.h"
 #include "CSoundMgr.h"
 #include "CEventMgr.h"
+#include "CRenderer.h"
+
 CScene::CScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : m_pGraphicDev(pGraphicDev)
 {

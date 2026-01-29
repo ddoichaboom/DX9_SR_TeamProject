@@ -27,7 +27,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     //_CrtSetBreakAlloc(763257);       // Transform 누수 때문에 체크용도
-
+  //  _CrtSetBreakAlloc(1552531);
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 

@@ -61,6 +61,7 @@ HRESULT CSniferCamera::Ready_GameObject(const _vec3* pEye,
 _int CSniferCamera::Update_GameObject(const _float& fTimeDelta)
 {
 	m_pTransformCom->Update_Component(fTimeDelta);
+	m_pTransformCom->Set_Pos(*m_pOwnerTransformCom->Get_Info(INFO_POS));
 
 	m_vEye = *m_pTransformCom->Get_Info(INFO_POS);
 	_vec3 vLook = *m_pTransformCom->Get_Info(INFO_LOOK);

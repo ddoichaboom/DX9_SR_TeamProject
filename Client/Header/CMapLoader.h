@@ -49,6 +49,13 @@ public:
 	_uint Get_MaxObjectCount(const wstring& wstrPath,
 							const string& objectType);
 
+	//WhiteMan Monster 전용 스폰위치 저장 - Sniper용으로 구현 
+	HRESULT Get_MonsterSpawnPoses(const wstring& wstrPath,
+		_int iRoomIndex,
+		CLayer* pLayer,
+		LPDIRECT3DDEVICE9 pGraphicDev,
+		const wstring& pLayerTag, queue<_vec3>& _qSpawnPoses);
+
 private:
 	// ObjectData  생성
 	ObjectData Parse_ObjectData_FromJSON(const json& jObj);
