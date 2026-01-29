@@ -11,6 +11,7 @@ class CCursor;
 class CDashUI;
 class CSlotUI;
 class CShopBG;
+class CTargetUI;
 
 
 class CUIManager : public CBase, public IListener
@@ -58,8 +59,11 @@ public :
 	void			Set_OnSlotUI(_bool bSlot);
 	void			Set_OnShopUI(_bool bShop);
 
+	void			Set_VecTargetUI(LPDIRECT3DDEVICE9 pGraphicDev);
+	void			Add_TargetUI();
 
 	void			Clear_UIGroup();
+	void			Clear_SniperUI();
 	
 private :	
 	UI_STATE	m_eNowState;
@@ -78,5 +82,11 @@ private :
 
 	CShopBG*	m_pShopUI;
 	_bool		m_bShop;
+
+
+	vector<CTargetUI*> m_vTargetUI;
+	_int	m_iTargetIndex;
+	_int	m_iTargetCount;
+	_bool	m_bSnipermap;
 };
 

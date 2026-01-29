@@ -379,6 +379,12 @@
     <Filter Include="02. GameObject\03.MapObject\06. Window">
       <UniqueIdentifier>{cff36c49-c73e-4858-ab3a-fc6f09d9ef41}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04.UI\01.StaticUI\16.SniperTargets">
+      <UniqueIdentifier>{006fb594-5521-45b7-a99c-bf41eb7477cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\01.StaticUI\16.SniperTargets\TargetUI">
+      <UniqueIdentifier>{0bac2cde-9138-4dc9-830c-b06f0f3e3618}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -729,6 +735,9 @@
     <ClInclude Include="..\Header\CWindow.h">
       <Filter>02. GameObject\03.MapObject\06. Window</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CTargetUI.h">
+      <Filter>04.UI\01.StaticUI\16.SniperTargets\TargetUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1069,6 +1078,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CWindow.cpp">
       <Filter>02. GameObject\03.MapObject\06. Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTargetUI.cpp">
+      <Filter>04.UI\01.StaticUI\16.SniperTargets\TargetUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

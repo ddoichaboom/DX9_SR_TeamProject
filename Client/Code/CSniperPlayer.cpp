@@ -202,6 +202,11 @@ void CSniperPlayer::Key_Input(const _float& fTimeDelta)
 }
 
 
+bool CSniperPlayer::Get_IsAimState()
+{
+	return m_pStateCom->GetCurrentStateID() == SN_ATTACK;
+}
+
 void CSniperPlayer::ChangeState(_uint nextStateID)
 {
 	m_fTime = 0.f;

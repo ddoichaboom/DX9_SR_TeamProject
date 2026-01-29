@@ -240,6 +240,7 @@
     <ClInclude Include="..\Header\CStageEndTrigger.h" />
     <ClInclude Include="..\Header\CTakeDown.h" />
     <ClInclude Include="..\Header\CTakeDownBlood.h" />
+    <ClInclude Include="..\Header\CTargetUI.h" />
     <ClInclude Include="..\Header\CTerrain.h" />
     <ClInclude Include="..\Header\CStage.h" />
     <ClInclude Include="..\Header\CTestCharacter.h" />
@@ -357,6 +358,7 @@
     <ClCompile Include="..\Code\CStageEndTrigger.cpp" />
     <ClCompile Include="..\Code\CTakeDown.cpp" />
     <ClCompile Include="..\Code\CTakeDownBlood.cpp" />
+    <ClCompile Include="..\Code\CTargetUI.cpp" />
     <ClCompile Include="..\Code\CTerrain.cpp" />
     <ClCompile Include="..\Code\CStage.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />

@@ -44,6 +44,7 @@ public:
 	bool			CanInput() { return m_bCanInput; }
 	void			EnableInput() { m_bCanInput = true; }
 	void			DisableInput() { m_bCanInput = false; }
+	bool			Get_IsAimState();
 
 protected:
 	void			ChangeState(_uint nextStateID) override;
