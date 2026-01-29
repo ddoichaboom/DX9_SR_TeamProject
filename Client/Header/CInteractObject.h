@@ -32,6 +32,7 @@ protected:
 public:
 	virtual		void	SetPos(_vec3 _pos);
 	virtual		void	Rotate(ROTATION _Axis, _float _degree);
+	virtual		void	SetAngle(_vec3 _rot);
 	virtual		void	SetScale(_vec3 _scale);
 	virtual		void	SetTexture(_uint iTextureID);
 	virtual		void	SetTransformMatrix();

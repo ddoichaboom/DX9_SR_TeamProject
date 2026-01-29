@@ -43,7 +43,7 @@ HRESULT CMapCollider::Ready_GameObject()
 	m_pCollider->Set_Scale(m_vScale);
 
 	//Transform -Static 
-	m_pTransformCom->Update_Component(0.f);
+
 
 	return S_OK;
 }
@@ -108,6 +108,12 @@ void CMapCollider::Set_ColliderScale(_vec3 _scale)
 void CMapCollider::Activate()
 {
 	CGameObject::Activate();
+
+	m_pTransformCom->Update_Component(0.f);
+
+	_vec3 info;
+	m_pTransformCom->Get_Info(INFO_POS, &info);
+	Compute_ViewZ(&info);
 }
 
 void CMapCollider::Deactivate()

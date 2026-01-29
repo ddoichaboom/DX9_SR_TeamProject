@@ -21,6 +21,7 @@
 #include "CDoor.h"
 #include "CExtinguisher.h"
 #include "CDisplayObject.h"
+#include "CWindow.h"
 
 // 캐릭터,몬스터 (SpawnPoint 처리용)
 #include "CPlayer.h"
@@ -44,6 +45,7 @@ vector<wstring> CMapLoader::m_vecMapFiles =
     {L"../../Map/BossStage.json"},
     {L"../../Map/SniperStage.json"},
     {L"../../Map/RoadMap_Proto.json"}
+    {L"../../Map/SniperStage_Test.json"}
 };
 
 CMapLoader::CMapLoader()
@@ -239,7 +241,7 @@ HRESULT CMapLoader::Load_Room(const wstring& wstrPath, _int iRoomIndex, CLayer* 
                     objData.sType == "DynamicWall" || objData.sType == "VendingMachine" || 
                     objData.sType == "MapCollider" || objData.sType == "RoomTriggerBox" ||
                     objData.sType == "Door" || objData.sType == "Extinguisher" ||
-                    objData.sType == "DisplayObject")
+                    objData.sType == "DisplayObject" || objData.sType == "Window")
                 {
                     // GameObject 획득 (풀에서)
                     CGameObject* pGameObject = Get_GameObject_FromPool(objData, pGraphicDev);
@@ -501,6 +503,73 @@ _uint CMapLoader::Get_MaxObjectCount(const wstring& wstrPath, const string& obje
     }
 
     return iMaxCount;
+}
+
+HRESULT CMapLoader::Get_MonsterSpawnPoses(const wstring& wstrPath, _int iRoomIndex, CLayer* pLayer, LPDIRECT3DDEVICE9 pGraphicDev, const wstring& pLayerTag, queue<_vec3>& _qSpawnPoses)
+{
+    if (!pLayer || !pGraphicDev)
+    {
+        MSG_BOX("CMapLoader::Load_Room - Invalid Parameters");
+        return E_FAIL;
+    }
+
+    try
+    {
+        // ========== 1단계: 캐싱된 RoomData 가져오기 ==========
+        string strFileName = WStringToString(wstrPath);
+        size_t lastSlash = strFileName.find_last_of("/\\");
+        if (lastSlash != string::npos)
+            strFileName = strFileName.substr(lastSlash + 1);
+
+        auto iterMap = m_mapAllRooms.find(strFileName);
+        if (iterMap == m_mapAllRooms.end())
+        {
+            char szError[256];
+            sprintf_s(szError, "Map file not preloaded: %s", strFileName.c_str());
+            MessageBoxA(nullptr, szError, "Error", MB_OK);
+            return E_FAIL;
+        }
+
+        auto iterRoom = iterMap->second.find(iRoomIndex);
+        if (iterRoom == iterMap->second.end())
+        {
+            // 해당 방이 없음 (정상 종료 가능)
+            char szLog[256];
+            sprintf_s(szLog, "Room %d not found in %s (may be intended)",
+                iRoomIndex, strFileName.c_str());
+            OutputDebugStringA(szLog);
+            return S_OK;
+        }
+
+        const RoomData& roomData = iterRoom->second;
+
+        // ========== 2단계: 레이어별 오브젝트 로드 ==========
+        _uint iLoadedCount = 0;
+        bool bIsGameLogicLayer = (pLayerTag == L"GameLogic_Layer");
+        if (!bIsGameLogicLayer)  return E_FAIL;
+
+        for (const auto& objData : roomData.vObjects)
+        {
+            // SpawnPoint만 처리
+            if (objData.sType == "SpawnPoint")
+            {
+                if (objData.sSpawnType == "Monster" && objData.sMonsterKey == "WhiteMan")
+                {
+                    _qSpawnPoses.push(objData.vPos);
+                }
+            }
+        }
+       
+        return S_OK;
+    }
+    catch (const exception& e)
+    {
+        char szError[512];
+        sprintf_s(szError, "Load_Room Error: %s", e.what());
+        MessageBoxA(nullptr, szError, "Error", MB_OK);
+        return E_FAIL;
+    }
+    return S_OK;
 }
 
 
@@ -808,7 +877,18 @@ CGameObject* CMapLoader::Get_GameObject_FromPool(const ObjectData& objData, LPDI
             pDisplay->SetTransformMatrix();
             pGameObject = pDisplay;
         }
-
+    }
+    else if (objData.sType == "Window")
+    {
+        CWindow* pWindow = Engine::CPoolMgr::GetInstance()->Get_Object<CWindow>();
+        if (pWindow)
+        {
+            pWindow->SetPos(objData.vPos);
+            pWindow->SetAngle(objData.vRot);
+            pWindow->SetScale(objData.vScale);
+            pWindow->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
+            pGameObject = pWindow;
+        }
     }
 
 

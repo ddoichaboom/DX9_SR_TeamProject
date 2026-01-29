@@ -378,6 +378,12 @@
     </Filter>
     <Filter Include="02. GameObject\99. Environment\00. Terrain\03. Glass">
       <UniqueIdentifier>{83dc73d7-3f43-4a6a-b97d-83e8adf1ddb0}</UniqueIdentifier>
+	</Filter>
+	<Filter Include="01. Scene\05.Credits">
+      <UniqueIdentifier>{a396d860-f934-43df-9812-edaa48fb793a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\03.MapObject\06. Window">
+      <UniqueIdentifier>{cff36c49-c73e-4858-ab3a-fc6f09d9ef41}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -728,6 +734,12 @@
     </ClInclude>
     <ClInclude Include="..\Header\CGlass.h">
       <Filter>02. GameObject\99. Environment\00. Terrain\03. Glass</Filter>
+	</ClInclude>
+	<ClInclude Include="..\Header\CCredit.h">
+      <Filter>01. Scene\05.Credits</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CWindow.h">
+      <Filter>02. GameObject\03.MapObject\06. Window</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1069,6 +1081,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CGlass.cpp">
       <Filter>02. GameObject\99. Environment\00. Terrain\03. Glass</Filter>
+	</ClCompile>
+	<ClCompile Include="..\Code\CCredit.cpp">
+      <Filter>01. Scene\05.Credits</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CWindow.cpp">
+      <Filter>02. GameObject\03.MapObject\06. Window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -9,6 +9,7 @@
 #include "CBlood.h"
 #include "CExplosion.h"
 #include "CSoundMgr.h"
+#include "CVendingMachine.h"
 
 _uint CWhiteMan::ID_SLICE_DEAD = CStateComponent::MakeStateID(MS_DEAD, SUB_NONE, SLICE);
 _uint CWhiteMan::ID_ELECT_DEAD = CStateComponent::MakeStateID(MS_DEAD, SUB_NONE, ELECT);
@@ -340,7 +341,12 @@ void CWhiteMan::OnBodyCollision(CollisionInfo info)
 
 		m_fHP = 0.f;
 		CSoundMgr::GetInstance()->PlayMonsterSound(szWhiteManDead.c_str(), 0.5f);
-		if (info.eTag == TAG_ELECTRIC) ChangeState(ID_ELECT_DEAD);
+		if (info.eTag == TAG_ELECTRIC)
+		{			
+			CollisionInfo m_info = { nullptr, {0,0,0}, 1.f , TAG_KICK };
+			static_cast<CVendingMachine*>(info.pTarget)->OnCollision(m_info);
+			ChangeState(ID_ELECT_DEAD);
+		}			
 		else if (info.eTag == TAG_FAN) ChangeState(ID_EXP_DEAD);
 		return;
 	}

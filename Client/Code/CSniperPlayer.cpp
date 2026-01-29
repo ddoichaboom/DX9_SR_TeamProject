@@ -58,7 +58,7 @@ HRESULT CSniperPlayer::Ready_GameObject()
 
 	CreateStateData();
 
-	m_pTransformCom->m_vScale = { 1,1,1 };
+	m_pTransformCom->m_vScale = { 2,15,2 };
 	m_pTransformCom->Set_Pos(0.f, 0.f, 0.f);
 
 	//Camera
@@ -82,13 +82,16 @@ HRESULT CSniperPlayer::Ready_GameObject()
 
 	//Create Hands 
 	m_pLeftHand = CLeftPart::Create(m_pGraphicDev);
+	if (!m_pLeftHand) return E_FAIL;
 	m_pLeftHand->ChangeState(IDLE);
 
 	m_pRightHand = CSRightHand::Create(m_pGraphicDev);
+	if (!m_pRightHand) return E_FAIL;
 
 	//Effect
-	//m_pHitUI = CHitUI::Create(m_pGraphicDev);
-	//m_pHitUI->SetDead();
+	m_pHitUI = CHitUI::Create(m_pGraphicDev);
+	if(!m_pHitUI) return E_FAIL;
+	m_pHitUI->SetDead();
 
 	m_pSniperUI = CSniperUI::Create(m_pGraphicDev);
 	if (!m_pSniperUI) return E_FAIL;
@@ -175,7 +178,7 @@ void CSniperPlayer::Key_Input(const _float& fTimeDelta)
 	}
 
 	if (dwMouseMove = CDInputMgr::GetInstance()->Get_DIMouseMove(DIMS_X))
-	{
+	{ 
 		_float moveValue = D3DXToDegree(dwMouseMove * m_fMouseSpeed);
 		if (m_pCamera) m_pCamera->Set_Rot(ROT_Y, moveValue);
 	}
@@ -238,7 +241,7 @@ void CSniperPlayer::Attack()
 		m_bRenderStop = true;
 	if (m_bShoot && m_pCamera->IsCameraShaking() == false)
 	{
-		ChangeState(SN_IDLE);
+		//ChangeState(SN_IDLE);
 	}
 }	
 
@@ -248,6 +251,7 @@ void CSniperPlayer::Shoot()
 	m_bShoot = true;
 	m_pCamera->CameraShake();
 	CheckedPickedMonster();
+	CheckedPicked(L"Environment_Layer", OBJ_ITEM);
 }
 
 void CSniperPlayer::ZoomOut()
@@ -263,7 +267,16 @@ void CSniperPlayer::ZoomOut()
 
 void CSniperPlayer::OnCollision(CollisionInfo info)
 {
-
+	if (info.fDamage > 0.f)
+	{
+		if (m_pHitUI->IsDead())
+		{
+			m_pHitUI->Reset();
+		}
+		m_fHP -= info.fDamage;
+		if (m_fHP < 0.f) m_fHP = 0.f;
+		//Dead 처리 안함
+	}
 }
 
 void CSniperPlayer::CheckedPickedMonster()
@@ -274,6 +287,34 @@ void CSniperPlayer::CheckedPickedMonster()
 	if (!pLayer) return;
 
 	auto pairIter = pLayer->Get_Objects(OBJ_MONSTER);
+	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
+	{
+		CCollision* pCollision = static_cast<CCollision*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+		if (!pCollision) continue;
+
+		auto& mapCollider = pCollision->GetColliderMap();
+		if (mapCollider.empty()) continue;
+		//몬스터의 CollisionCom에 있는 전체 Collider 
+		for (auto& pairCollider : mapCollider)
+		{
+			bool bPicked = CCollision::Collision_Mouse(g_hWnd, m_pGraphicDev, pairCollider.second);
+			if (bPicked)
+			{
+				pairCollider.second->Collision(info);
+				return;
+			}
+		}
+	}
+}
+
+void CSniperPlayer::CheckedPicked(const _tchar* layerName, OBJ_ID eID)
+{
+	CollisionInfo info = { this, {0,0,0}, m_fAttackDamage };
+
+	CLayer* pLayer = CManagement::GetInstance()->Get_Layer(layerName);
+	if (!pLayer) return;
+
+	auto pairIter = pLayer->Get_Objects(eID);
 	for (auto iter = pairIter.first; iter != pairIter.second; iter++)
 	{
 		CCollision* pCollision = static_cast<CCollision*>(iter->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));

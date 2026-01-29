@@ -62,6 +62,7 @@ protected:
 	void			Free() override;
 	void			OnCollision(CollisionInfo info);
 	void			CheckedPickedMonster();
+	void			CheckedPicked(const _tchar* layerName, OBJ_ID eID);
 protected:
 	CSRightHand*	m_pRightHand = nullptr;
 	CLeftPart*		m_pLeftHand = nullptr;

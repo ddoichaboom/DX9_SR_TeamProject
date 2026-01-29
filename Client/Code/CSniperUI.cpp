@@ -99,5 +99,5 @@ HRESULT CSniperUI::Add_Component()
 
 void CSniperUI::Free()
 {
-	CGameObject::Free();
+	CBaseUI::Free();
 }

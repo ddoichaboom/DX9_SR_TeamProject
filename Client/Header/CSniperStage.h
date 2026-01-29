@@ -38,12 +38,23 @@ protected:
     HRESULT        Ready_UITextureProto()          override;
     HRESULT        Ready_EffectTextureProto()      override;
 
-    void            Check_Collision() override;
-
+    void           Check_Collision() override;
+    void           SpawnMonster();
 private:
     virtual void Free();
 
 private:
     CSniperPlayer* m_pPlayer;
+
+    queue<_vec3> m_qMonsterSpawnPoses;
+    _int        m_iFileIndex = 4;
+
+    _float      m_fTime = 0.f;
+    _float      m_fSpawnTime = 3.f;
+   _float       m_fOriginSpawnTime = 5.f;
+    _float      m_fOffsetTime = 0.5f;
+    _float      m_fMinTime = 2.0f;
+
+    _bool       m_bFirstSpawn = true;
 };
 

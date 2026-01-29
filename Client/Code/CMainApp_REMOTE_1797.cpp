@@ -21,7 +21,6 @@
 
 #include "CBullet.h"
 #include "CWhiteMan.h"
-#include "CSniperWhiteMan.h"
 #include "CBeamMon.h"
 #include "CFlyMon.h"
 #include "CBoss.h"
@@ -44,7 +43,6 @@
 #include "CVendingMachine.h"
 #include "CExtinguisher.h"
 #include "CAxe.h"
-#include "CDisplayObject.h"
 
 #include "CLeftPart.h"
 #include "CRightPart.h"
@@ -264,15 +262,15 @@ HRESULT CMainApp::Ready_DefaultProto()
 
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	Engine::CScene* pInitScene = CLogo::Create(pGraphicDev);
-	m_eCurSceneType = SCENE_LOGO;
-	
+	//Engine::CScene* pInitScene = CLogo::Create(pGraphicDev);
+	//Engine::CScene* pInitScene = CSniperStage::Create(pGraphicDev);
 	//Engine::CScene* pInitScene = CRoadStage::Create(pGraphicDev);
+	Engine::CScene* pInitScene = CRoadStage::Create(pGraphicDev);
 	//Engine::CScene* pInitScene = CCredit::Create(pGraphicDev);
 
 	//테스트 맵 SceneType
 	//m_eCurSceneType = SCENE_NONE;
-	//m_eCurSceneType = SCENE_ROAD;
+	m_eCurSceneType = SCENE_ROAD;
 
 
 	if (nullptr == pInitScene)
@@ -309,12 +307,10 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iBossBulletCount = 30;
 	_uint iBossRocketCount = 30;
 	_uint iWhiteManCount = 6;
-	_uint iSniperWhiteManCount = 6;
 	_uint iBeamMonCount = 10;
 	_uint iFlyMonCount = 10;
 	_uint iMaxExtinguisher(0);
 	_uint iMaxAxe(0);
-	_uint iMaxDisplayObject(0);
 
 	// 문 관련 오브젝트 풀 사이즈 등록 ( 좌측/우측 파츠는 본체인 문과 개수 동일함 )
 	_uint iMaxDoorCount(0);
@@ -368,9 +364,6 @@ HRESULT CMainApp::Ready_ObjectPool()
 		iMaxAxe = max(iMaxAxe,
 			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "Axe"));
 
-		iMaxDisplayObject = max(iMaxDisplayObject,
-			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "DisplayObject")); 
-
 	}
 
 	// 풀 크기 설정 
@@ -388,7 +381,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 	CPoolMgr::GetInstance()->SetPoolSize<CDoorLeft>(iMaxDoorCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CDoorRight>(iMaxDoorCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CExtinguisher>(iMaxExtinguisher);
-	CPoolMgr::GetInstance()->SetPoolSize<CDisplayObject>(iMaxDisplayObject);
+
 
 	CPoolMgr::GetInstance()->SetPoolSize<CVendingMachine>(iMaxVendingMachine);
 
@@ -396,7 +389,6 @@ HRESULT CMainApp::Ready_ObjectPool()
 	CPoolMgr::GetInstance()->SetPoolSize<CBossBullet>(iBossBulletCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CRocket>(iBossRocketCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CWhiteMan>(iWhiteManCount);
-	CPoolMgr::GetInstance()->SetPoolSize<CSniperWhiteMan>(iSniperWhiteManCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CBeamMon>(iBeamMonCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CFlyMon>(iFlyMonCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CAxe>(iMaxAxe + 5);
@@ -416,28 +408,24 @@ HRESULT CMainApp::Ready_ObjectPool()
 
 HRESULT CMainApp::SetNextScene()
 {
-	//Event Mgr 구독 전체 초기화
-	//위치 주의! 다음 스테이지 Create-Ready에서 구독하므로 Create전에 구독값,사운드 지워주기 
-	CEventMgr::GetInstance()->ClearAllSubscribe();
-	CSoundMgr::GetInstance()->StopAll();
-
 	SCENE_TYPE nextSceneType = SCENE_TYPE((_int)m_eCurSceneType + 1);
 	if (nextSceneType == SCENE_END) return E_FAIL;
 	CScene* nextScene = nullptr;
 
+	//Event Mgr 구독 전체 초기화
+	//위치 주의! 다음 스테이지 Create-Ready에서 구독하므로 Create전에 구독값,사운드 지워주기 
+	CEventMgr::GetInstance()->ClearAllSubscribe();
+	CSoundMgr::GetInstance()->StopAll();
 
 	switch (nextSceneType)
 	{	
 	case SCENE_LOGO:
 		nextScene = CLogo::Create(m_pGraphicDev);
 		break;
-	//case SCENE_TUTORIAL:
-	//	nextSceneType = SCENE_BATTLE;
+	case SCENE_TUTORIAL:
+		nextSceneType = SCENE_BATTLE;
 	case SCENE_BATTLE:
 		nextScene = CMapStage::Create(m_pGraphicDev);		
-		break;
-	case SCENE_SNIPER:
-		nextScene = CSniperStage::Create(m_pGraphicDev);
 		break;
 	case SCENE_BOSS:
 		nextScene = CBossStage::Create(m_pGraphicDev);
@@ -518,7 +506,6 @@ void CMainApp::Free()
 	CDataMgr<CKatana>::DestroyInstance();
 	CDataMgr<CSRightHand>::DestroyInstance();
 	CDataMgr<CSniperPlayer>::DestroyInstance();
-	CDataMgr<CSniperWhiteMan>::DestroyInstance();
 
 	// MayBe ?
 	CEventMgr::DestroyInstance();
