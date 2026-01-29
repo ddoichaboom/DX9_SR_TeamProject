@@ -227,6 +227,7 @@ void CFirstCamera::Cam_Shake(const _float& fTimeDelta)
 	m_vAt.y += ShakeValue;	
 }
 
+
 CFirstCamera* CFirstCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev,
 	const _vec3* pEye, const _vec3* pAt, const _vec3* pUp,
 	const _float& fFov, const _float& fAspect,
@@ -267,4 +268,9 @@ void CFirstCamera::OnEvent(EVENT_TYPE _type, EventData* _pData)
 	{
 		m_bFix = true;
 	}
+}
+
+void CFirstCamera::SetRot(ROTATION _Axis, float _degree)
+{
+	m_pTransformCom->m_vAngle[_Axis] = _degree;
 }

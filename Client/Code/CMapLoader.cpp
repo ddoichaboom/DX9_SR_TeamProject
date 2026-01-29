@@ -497,6 +497,7 @@ _uint CMapLoader::Get_MaxObjectCount(const wstring& wstrPath, const string& obje
     return iMaxCount;
 }
 
+
 HRESULT CMapLoader::Get_MonsterSpawnPoses(const wstring& wstrPath, _int iRoomIndex, CLayer* pLayer, LPDIRECT3DDEVICE9 pGraphicDev, const wstring& pLayerTag, queue<_vec3>& _qSpawnPoses)
 {
     if (!pLayer || !pGraphicDev)

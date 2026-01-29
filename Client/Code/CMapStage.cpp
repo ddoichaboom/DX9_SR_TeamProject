@@ -5,6 +5,7 @@
 #include "CPoolMgr.h"
 #include "CManagement.h"
 #include "CDInputMgr.h"
+#include "CRenderer.h"
 
 // 환경 오브젝트 (필터링용, 실제 생성은 CMapLoader가 담당)
 #include "CFloor.h"
@@ -145,7 +146,42 @@ _int CMapStage::Update_Scene(const _float& fTimeDelta)
 
     if (m_bStageEnd || (CDInputMgr::GetInstance()->Key_Down(DIK_P)))
     {
+        CEventMgr::GetInstance()->Broadcast(EVENT_VIEW_EVENT_END, nullptr);
+        CRenderer::GetInstance()->SetClearViewPortEvent(m_pGraphicDev);
         return RET_DEAD;
+    }
+    
+    if (m_bViewportLerp)
+    {
+        m_fTime += fTimeDelta;
+        if (m_fTime <= m_fLerpTime)
+        {
+            _vec2 curSize;
+            D3DXVec2Lerp(&curSize, &m_vStartViewSize, &m_vDestViewSize, m_fTime/m_fLerpTime);
+            CRenderer::GetInstance()->SetViewPortEvent(0,0, (_ulong)curSize.x, (_ulong)curSize.y);
+        }
+    }
+    else if (m_bRevViewportLerp)
+    {
+        m_fTime += fTimeDelta;
+        if (m_fTime <= m_fLerpTime)
+        {
+            _vec2 curSize;
+            D3DXVec2Lerp(&curSize, &m_vStartViewSize, &m_vDestViewSize, m_fTime / m_fLerpTime);
+            CRenderer::GetInstance()->SetViewPortEvent(0, 0, (_ulong)curSize.x, (_ulong)curSize.y);
+
+            //m_fTime == m_fLerpTime 때 한 프레임에서 (보이지 않아야 할)UI가 랜더링 되어 미리 끔 
+            if (m_fTime / m_fLerpTime >= 0.95f)
+            {
+                CEventMgr::GetInstance()->Broadcast(EVENT_VIEW_EVENT_END, nullptr);
+            }
+        }
+        else
+        {
+            m_bRevViewportLerp = false;
+            CRenderer::GetInstance()->SetClearViewPortEvent(m_pGraphicDev);
+        }
+
     }
 
 
@@ -992,6 +1028,12 @@ void CMapStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
     }
     else if (_type == EVENT_NEXT_STAGE)
     {
+        m_bViewportLerp = false;
+        m_bRevViewportLerp = true;
+        m_vStartViewSize = m_vDestViewSize;
+        m_vDestViewSize = m_vOriginViewSize;
+        m_fTime = 0.f;
+
         const vector<wstring>& vecMapFiles = CMapLoader::GetInstance()->Get_MapFiles();
 
         if (m_iFileIndex == 0)
@@ -1068,6 +1110,12 @@ void CMapStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
     }
     else if (_type == EVENT_STAGE_END)
     {
+        m_bViewportLerp = true;
+        m_bRevViewportLerp = false;
+        m_vStartViewSize = m_vOriginViewSize;
+        m_vDestViewSize = m_vEventViewSize;
+        m_fTime = 0.f;
+
         auto iter_Map_Mon = m_mapLayer[L"GameLogic_Layer"]->Get_Objects(OBJ_MONSTER);
         for (multimap<OBJ_ID, CGameObject*>::iterator it_mon = iter_Map_Mon.first; it_mon != iter_Map_Mon.second; it_mon++)
         {            

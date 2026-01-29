@@ -15,6 +15,8 @@ public:
 	virtual			_int		Update_GameObject(const _float& fTimeDelta);
 	virtual			void		LateUpdate_GameObject(const _float& fTimeDelta);
 
+public:
+	virtual void				SetRot(ROTATION _Axis, float _degree) {}
 protected:
 	_matrix			m_matView, m_matProj;
 

@@ -90,6 +90,7 @@ HRESULT CUIManager::Ready_GameObject(LPDIRECT3DDEVICE9 pGraphicDev)
 	CEventMgr::GetInstance()->Subscribe(EVENT_NEXT_STAGE, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_DRINK, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_TAKEDOWN, this);
+	CEventMgr::GetInstance()->Subscribe(EVENT_VIEW_EVENT_END, this);
 
 	return S_OK;
 }
@@ -613,7 +614,10 @@ void CUIManager::OnEvent(EVENT_TYPE _type, EventData* _pData)
 		Change_UIState(UI_STAGE_CLEAR);
 
 		break;		
-	case Engine::EVENT_NEXT_STAGE:
+	//case Engine::EVENT_NEXT_STAGE:
+		//Set_OnShopUI(false);
+		//Change_UIState(UI_DEFAULT);
+	case Engine::EVENT_VIEW_EVENT_END:
 		Set_OnShopUI(false);
 		Change_UIState(UI_DEFAULT);
 		break;

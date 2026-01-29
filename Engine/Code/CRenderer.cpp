@@ -25,11 +25,21 @@ void CRenderer::Add_RenderGroup(RENDERID eType, CGameObject* pGameObject)
 void CRenderer::Render_GameObject(LPDIRECT3DDEVICE9& pGraphicDev)
 {
 	pGraphicDev->SetTexture(0, nullptr);
+	if (m_bViewPortEvent)
+	{
+		pGraphicDev->SetViewport(&m_EventViewPort);
+	}
+
 	Render_Priority(pGraphicDev);
 	Render_NonAlpha(pGraphicDev);
 	Render_NonAlpha_WRAP(pGraphicDev);
 	Render_NonAlpha_Quality(pGraphicDev);
 	Render_Alpha(pGraphicDev);
+
+	if (m_bViewPortEvent)
+	{
+		pGraphicDev->SetViewport(&m_EventUIViewPort);
+	}
 	Render_UI(pGraphicDev);
 	Render_Alpha_UI(pGraphicDev);
 
@@ -180,6 +190,25 @@ void CRenderer::Render_DEBUG(LPDIRECT3DDEVICE9& pGraphicDev)
 	pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
 	pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
 
+}
+
+void CRenderer::SetViewPortEvent(_ulong _x, _ulong _y, _ulong _cx, _ulong _cy)
+{
+	if(!m_bViewPortEvent) m_bViewPortEvent = true;
+	m_EventViewPort = { _x, _y, _cx,_cy, 0.f, 1.f };
+
+	//뷰포트를 원상복귀 시킬때 UI를 일부만 보이게 하기위함 
+	//EventView가 m_EventMinSize 와 같을떄는 전체화면을 보이게하고 
+	//그것보다 커질 때(복구하는중)는 그 차이값만큼 UI를 덜 보이게 함 
+	m_EventUIViewPort = { 0,0,1,1,0,1 };
+	m_EventUIViewPort.Width = max(WINCX, WINCX - (m_EventMinSize.first - _cx));
+	m_EventUIViewPort.Height = max(WINCY, WINCY - (m_EventMinSize.second - _cy));
+}
+
+void CRenderer::SetClearViewPortEvent(LPDIRECT3DDEVICE9& pGraphicDev)
+{
+	m_bViewPortEvent = false;
+	pGraphicDev->SetViewport(&m_OriginViewPort);
 }
 
 

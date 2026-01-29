@@ -278,6 +278,13 @@ namespace Engine
 		tagDoorData(_int _id, _bool _bOpen = true)
 			: iDoorID(_id), bOpen(_bOpen) {}
 	}DoorData;
+
+	typedef struct tagMapEndData : public EventData
+	{
+		_vec3 pos{};
+	}MapEndData;
+
+
 }
 
 

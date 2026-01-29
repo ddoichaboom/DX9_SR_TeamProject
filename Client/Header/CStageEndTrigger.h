@@ -1,6 +1,7 @@
 #pragma once
 #include "CTrigger.h"
 
+
 class CStageEndTrigger : public CTrigger
 {
 protected:
