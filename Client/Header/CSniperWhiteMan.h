@@ -98,7 +98,7 @@ public:
 	static wstring szWhiteManDead;
 	static wstring szWhiteManBody;
 	static wstring szWhiteManHead;
-	static wstring szWhiteManShot;
+	static wstring szWhiteManShot;	
 
 };
 
