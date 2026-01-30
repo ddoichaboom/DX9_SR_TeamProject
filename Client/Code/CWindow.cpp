@@ -6,6 +6,8 @@
 #include "CEventMgr.h"
 #include "CManagement.h"
 #include "CSoundMgr.h"
+#include "CBodyEmit.h"
+
 vector<TextureSource> CWindow::m_vTextureSource =
 {
     { GLASS_IDLE,  L"../Bin/Resource/Texture/Object/Window_Idle.dds" },
@@ -87,7 +89,7 @@ HRESULT CWindow::Ready_GameObject()
             OnCollision(info);
         });
 
-    
+
     
     return S_OK;
 }
@@ -201,6 +203,7 @@ void CWindow::OnCollision(CollisionInfo info)
 {
     if (info.fDamage > 0.f && m_pAnimationCom->Get_State() == GLASS_IDLE)
     {
+        CreateEffect();
         ChangeState(GLASS_DEAD);
         CSoundMgr::GetInstance()->PlaySFXSound(szWindowDeadSFX.c_str(), 2.5f);
     }
@@ -210,6 +213,28 @@ void CWindow::DeadAction()
 {
     
     SetDead();
+}
+
+void CWindow::CreateEffect()
+{
+    CBodyEmit* emit = CPoolMgr::GetInstance()->Get_Object<CBodyEmit>();
+    if (!emit) return;
+
+    _vec3 vEffectCreatePos = *m_pTransformCom->Get_Info(INFO_POS);
+    vEffectCreatePos.y += 8.f; // 창문 크기만큼 위로 올림 
+    vEffectCreatePos.z -= 2.f;
+
+    emit->SetLifeTime(2.f);
+    emit->SetRangeX(-16.f, 16.f);
+    emit->SetSize({ 4.f, 4.f });
+    emit->SetPos(vEffectCreatePos);
+    emit->ChangeState(1); // 유리
+    emit->Reset();
+
+    CLayer* layer= CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer");
+    if (!layer) return;
+    layer->Add_GameObject(emit);
+
 }
 
 void CWindow::Begin_Idle()

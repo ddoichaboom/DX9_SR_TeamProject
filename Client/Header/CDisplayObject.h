@@ -35,6 +35,7 @@ protected:
 	void				Free() override;
 
 public :
+	virtual		_vec3	GetPos();
 	virtual		void	SetPos(_vec3 _pos);
 	virtual		void	Rotate(ROTATION _Axis, _float _degree);
 	virtual		void	SetScale(_vec3 _scale);

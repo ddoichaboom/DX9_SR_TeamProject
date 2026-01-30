@@ -133,6 +133,13 @@ void CDisplayObject::Free()
     CGameObject::Free();
 }
 
+_vec3 CDisplayObject::GetPos()
+{
+    if (!m_pTransformCom) return _vec3();
+    return *m_pTransformCom->Get_Info(INFO_POS);
+}
+
+
 void CDisplayObject::SetPos(_vec3 _pos)
 {
     if (!m_pTransformCom) return;

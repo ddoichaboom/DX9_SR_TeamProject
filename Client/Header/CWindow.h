@@ -58,7 +58,7 @@ public:
 protected:
 	void			OnCollision(CollisionInfo info);
 	void			DeadAction();
-
+	void			CreateEffect();
 protected:
 	void	Begin_Idle();
 	void	Idle();

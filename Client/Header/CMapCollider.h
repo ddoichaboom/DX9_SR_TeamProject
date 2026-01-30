@@ -29,7 +29,9 @@ protected:
 	HRESULT				Add_Component() override;
 
 public:
+	_vec3				GetPos() override;
 	void				SetPos(_vec3 _pos) override;
+	_vec3				GetScale() override;
 	void				SetScale(_vec3 _scale);
 
 	void				Activate() override;

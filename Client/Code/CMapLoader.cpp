@@ -32,6 +32,8 @@
 #include "CBoss.h"
 #include "CAxe.h"
 
+#include "CRoom.h"
+
 #include <fstream>
 
 using namespace Engine;
@@ -375,6 +377,122 @@ HRESULT CMapLoader::Load_Room(const wstring& wstrPath, _int iRoomIndex, CLayer* 
         MessageBoxA(nullptr, szError, "Error", MB_OK);
         return E_FAIL;
     }
+}
+
+HRESULT CMapLoader::Load_EnvObject_ToRoom(const wstring& wstrPath, _int iRoomIndex, CLayer* pLayer, 
+    LPDIRECT3DDEVICE9 pGraphicDev, const wstring& pLayerTag
+    , CRoom* pRoom, CGameObject** pOutEndCollider)
+{
+    if ((pLayerTag != L"Environment_Layer")) return E_FAIL;
+    if (!pLayer || !pGraphicDev)
+    {
+        MSG_BOX("CMapLoader::Load_Room - Invalid Parameters");
+        return E_FAIL;
+    }
+
+    try
+    {
+        // ========== 1단계: 캐싱된 RoomData 가져오기 ==========
+        string strFileName = WStringToString(wstrPath);
+        size_t lastSlash = strFileName.find_last_of("/\\");
+        if (lastSlash != string::npos)
+            strFileName = strFileName.substr(lastSlash + 1);
+
+        auto iterMap = m_mapAllRooms.find(strFileName);
+        if (iterMap == m_mapAllRooms.end())
+        {
+            char szError[256];
+            sprintf_s(szError, "Map file not preloaded: %s", strFileName.c_str());
+            MessageBoxA(nullptr, szError, "Error", MB_OK);
+            return E_FAIL;
+        }
+
+        auto iterRoom = iterMap->second.find(iRoomIndex);
+        if (iterRoom == iterMap->second.end())
+        {
+            // 해당 방이 없음 (정상 종료 가능)
+            char szLog[256];
+            sprintf_s(szLog, "Room %d not found in %s (may be intended)",
+                iRoomIndex, strFileName.c_str());
+            OutputDebugStringA(szLog);
+            return S_OK;
+        }
+
+        const RoomData& roomData = iterRoom->second;
+
+        // ========== 2단계: 레이어별 오브젝트 로드 ==========
+        _uint iLoadedCount = 0;
+
+        for (const auto& objData : roomData.vObjects)
+        {
+            // ========== Environment_Layer 처리 ==========
+            if (objData.sType == "SpawnPoint" || objData.sType == "Axe")
+                continue;
+
+            if (objData.sType == "Floor" || objData.sType == "DynamicFloor" ||
+                objData.sType == "SlopeFloor" || objData.sType == "Ceiling" ||
+                objData.sType == "DynamicCeiling" || objData.sType == "Wall" ||
+                objData.sType == "DynamicWall" || objData.sType == "VendingMachine" ||
+                objData.sType == "MapCollider" || objData.sType == "RoomTriggerBox" ||
+                objData.sType == "Door" || objData.sType == "Extinguisher" ||
+                objData.sType == "DisplayObject" || objData.sType == "Window")
+            {
+                // GameObject 획득 (풀에서)
+                CGameObject* pGameObject = Get_GameObject_FromPool(objData, pGraphicDev);
+
+                if (nullptr == pGameObject)
+                    return E_FAIL;
+
+                // RoomIndex 태그 설정
+                pGameObject->Set_RoomIndex(iRoomIndex);
+
+                if (pOutEndCollider && objData.sType == "MapCollider" && objData.eColliderTag == TAG_ROAD_END)
+                {
+                    *pOutEndCollider = pGameObject;
+                }
+                else
+                {
+                    iLoadedCount++;
+                    if (FAILED(pLayer->Add_GameObject(pGameObject)))
+                    {
+                        pGameObject->ReturnToPool();
+                    }
+                    else pRoom->PushObject(pGameObject);
+                }
+
+            }
+            else if (objData.sType == "StageEndTriggerBox")
+            {
+                CGameObject* pGameObject = CStageEndTrigger::Create(pGraphicDev, objData.vPos, objData.vScale);
+
+                if (nullptr == pGameObject)
+                    return E_FAIL;
+
+                pGameObject->Set_RoomIndex(iRoomIndex);
+
+                if (FAILED(pLayer->Add_GameObject(pGameObject)))
+                    return E_FAIL;
+
+            }
+        }
+
+        // ========== 3단계: 로그 출력 ==========
+        char szLog[256];
+        string strLayerTag = WStringToString(pLayerTag);
+        sprintf_s(szLog, "Room %d [%s] loaded: %d objects",
+            iRoomIndex, strLayerTag.c_str(), iLoadedCount);
+        OutputDebugStringA(szLog);
+
+        return S_OK;
+    }
+    catch (const exception& e)
+    {
+        char szError[512];
+        sprintf_s(szError, "Load_Room Error: %s", e.what());
+        MessageBoxA(nullptr, szError, "Error", MB_OK);
+        return E_FAIL;
+    }
+
 }
 
 HRESULT CMapLoader::Unload_Room(const wstring& wstrPath, _int iRoomIndex, CLayer* pLayer)

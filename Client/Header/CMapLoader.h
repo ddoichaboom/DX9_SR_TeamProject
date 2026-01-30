@@ -13,7 +13,9 @@ namespace Engine
 	class CLayer;
 }
 
+
 using json = nlohmann::json;
+class CRoom;
 
 class CMapLoader : public CBase
 {
@@ -39,6 +41,13 @@ public:
 						CLayer* pLayer,
 						LPDIRECT3DDEVICE9 pGraphicDev,
 						const wstring& pLayerTag);
+
+	HRESULT Load_EnvObject_ToRoom(const wstring& wstrPath,
+		_int iRoomIndex,
+		CLayer* pLayer,
+		LPDIRECT3DDEVICE9 pGraphicDev,
+		const wstring& pLayerTag, CRoom* pRoom, CGameObject** pOutEndCollider = nullptr);
+
 
 	// 특정 방 언로드
 	HRESULT Unload_Room(const wstring& wstrPath,
