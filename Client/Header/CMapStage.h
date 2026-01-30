@@ -2,7 +2,6 @@
 #include "CStage.h"
 #include "CEventMgr.h"
 
-class CLoading;
 class CMapStage : public CStage, public IListener
 {
 protected:

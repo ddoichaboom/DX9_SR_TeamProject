@@ -23,19 +23,27 @@
 #include "CPannel.h"
 #include "CChain.h"
 
+//환경 로직 오브젝트
+#include "CDisplayCubeObject.h"
+
 // 게임 로직 오브젝트
 #include "CFlyMon.h"
 #include "CPlayerBullet.h"
+
 
 // 이펙트 로직 오브젝트
 #include "CFlare.h"
 #include "CExplosion.h"
 #include "CBodyEmit.h"
 #include "CHitUI.h"
+#include "CMapCollider.h"
+#include "CLoadingEX.h"
+#include "CBackGround.h"
 
 wstring CRoadStage::szRoadMapBGM = L"RoadMap_BGM.wav";
 
-CRoadStage::CRoadStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
+CRoadStage::CRoadStage(LPDIRECT3DDEVICE9 pGraphicDev) 
+	: CStage(pGraphicDev), m_iFileIndex(4)
 {
 }
 
@@ -45,30 +53,76 @@ CRoadStage::~CRoadStage()
 
 HRESULT CRoadStage::Ready_Scene()
 {
-	//다른 맵과 연결하면서 로딩스레드 추가하기 전까지는 필요한 함수 직접 호출하기
-	//Ready_Prototype .. 등 
+	m_pBackGround = CBackGround::Create(m_pGraphicDev);
+	m_pLoadingEX = CLoadingEX::Create(m_pGraphicDev);
 
-	if (FAILED(Ready_CharacterTextureProto())) return E_FAIL;
-	if (FAILED(Ready_ObjectPool_Character())) return E_FAIL;
+	const vector<wstring>& vecMapFiles = CMapLoader::GetInstance()->Get_MapFiles();
+
+	if (!vecMapFiles.empty())
+		m_wstrCurrentMapFile = vecMapFiles[m_iFileIndex];
+	else
+		return E_FAIL;
+
+	if (!m_pLoadingEX) return E_FAIL;
+	//1단계
+	//이전 스테이지 이후 필요없는 오브젝트 풀 제거  
+	m_pLoadingEX->AddTask(CLoadingEX::Lv1_INIT, [this]() { this->Remove_PrevObjectPool(); });
+	//텍스쳐 제외 프로토타입 생성
+	m_pLoadingEX->AddTask(CLoadingEX::Lv1_INIT, [this]() { this->Ready_Prototype(); });
+	//캐릭터 텍스쳐 생성 
+	m_pLoadingEX->AddTask(CLoadingEX::Lv1_INIT, [this]() { this->Ready_CharacterTextureProto(); });
+
+	//2단계
+	//1단계에서 만들어진 텍스쳐로 캐릭터 오브젝트 풀 생성 
+	m_pLoadingEX->AddTask(CLoadingEX::Lv2_CHAR_RES, [this]() { this->Ready_ObjectPool_Character(); });
+	m_pLoadingEX->AddTask(CLoadingEX::Lv2_CHAR_RES, [this]() { this->Ready_TerrainTextureProto(); });
+
+	//3단계
+	m_pLoadingEX->AddTask(CLoadingEX::Lv3_TERRAIN_RES, [this]() { this->Ready_ObjectPool_Terrain(); });
+	m_pLoadingEX->AddTask(CLoadingEX::Lv3_TERRAIN_RES, [this]() { this->Ready_UITextureProto(); });
+
+	//4단계
+	m_pLoadingEX->AddTask(CLoadingEX::Lv4_UI_RES, [this]() { this->Ready_ObjectPool_UI(); });
+	m_pLoadingEX->AddTask(CLoadingEX::Lv4_UI_RES, [this]() { this->Ready_EffectTextureProto(); });
+
+	//5단계
+	m_pLoadingEX->AddTask(CLoadingEX::Lv5_EFFECT_RES, [this]() { this->Ready_ObjectPool_Effect(); });
+
+	//6단계 맵 - 환경 로드
+	m_pLoadingEX->AddTask(CLoadingEX::Lv6_MAP_ENV_LOAD, [this]() { this->Ready_Environment_Layer(L"Environment_Layer"); });
+
+	//7단계 맵 - 게임로직 로드 
+	m_pLoadingEX->AddTask(CLoadingEX::Lv7_MAP_GAME_LOAD, [this]() { this->Ready_GameLogic_Layer(L"GameLogic_Layer"); });
 
 
-	if (FAILED(Ready_TerrainTextureProto())) return E_FAIL;
-	if (FAILED(Ready_ObjectPool_Terrain())) return E_FAIL;
+	//if (FAILED(Ready_CharacterTextureProto())) return E_FAIL;
+	//if (FAILED(Ready_ObjectPool_Character())) return E_FAIL;
 
-	if (FAILED(Ready_UITextureProto())) return E_FAIL;
-	if (FAILED(Ready_ObjectPool_UI())) return E_FAIL;
 
-	if (FAILED(Ready_EffectTextureProto())) return E_FAIL;
-	if (FAILED(Ready_ObjectPool_Effect())) return E_FAIL;
+	//if (FAILED(Ready_TerrainTextureProto())) return E_FAIL;
+	//if (FAILED(Ready_ObjectPool_Terrain())) return E_FAIL;
 
-	if (FAILED(Ready_Environment_Layer(L"Environment_Layer"))) return E_FAIL;
-	if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer"))) return E_FAIL;
+	//if (FAILED(Ready_UITextureProto())) return E_FAIL;
+	//if (FAILED(Ready_ObjectPool_UI())) return E_FAIL;
+
+	//if (FAILED(Ready_EffectTextureProto())) return E_FAIL;
+	//if (FAILED(Ready_ObjectPool_Effect())) return E_FAIL;
+
+	//if (FAILED(Ready_Environment_Layer(L"Environment_Layer"))) return E_FAIL;
+	//if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer"))) return E_FAIL;
 
 	return S_OK;
 }
 
 _int CRoadStage::Update_Scene(const _float& fTimeDelta)
 {
+	if (m_pLoadingEX->IsEnd() == false)
+	{
+		m_pBackGround->Update_GameObject(fTimeDelta);
+		m_pLoadingEX->Update_Loading(fTimeDelta);
+		return 0;
+	}
+
 	if (m_bStageEnd)
 	{
 		return RET_DEAD;
@@ -95,7 +149,7 @@ void CRoadStage::LateUpdate_Scene(const _float& fTimeDelta)
 {
 	CStage::LateUpdate_Scene(fTimeDelta);
 
-	Check_Collision();
+	if (m_pLoadingEX->IsEnd()) Check_Collision();
 }
 
 void CRoadStage::Render_Scene()
@@ -109,6 +163,26 @@ HRESULT CRoadStage::Ready_Environment_Layer(const _tchar* pLayerTag)
 	if (nullptr == pLayer)
 		return E_FAIL;
 
+	for (_int idx = 0; idx < m_iRoomCnt; idx++)
+	{
+		if (FAILED(CMapLoader::GetInstance()->Load_Room(
+			m_wstrCurrentMapFile,
+			idx,  // roomIndex
+			pLayer,
+			m_pGraphicDev,
+			pLayerTag)))
+		{
+			// 1번방이 있으면 오류 체크 위해 주석 해제 
+			MSG_BOX("Road Stage Env Room Load Failed");
+			return E_FAIL;
+		}
+		else
+		{
+			m_setLoadedRooms.insert(idx);
+		}
+	}
+	
+	m_iCurrentRoomIndex = 0;
 
 	m_mapLayer.insert({ pLayerTag, pLayer });
 	m_pEnvironment_Layer = pLayer;
@@ -216,7 +290,23 @@ HRESULT CRoadStage::Ready_ObjectPool_Character()
 
 HRESULT CRoadStage::Ready_ObjectPool_Terrain()
 {
-	return S_OK;
+	if (!Engine::CPoolMgr::GetInstance()->HasPool<CDisplayObject>())
+	{
+		if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CDisplayObject>(m_pGraphicDev)))
+		{
+			MSG_BOX("DisplayObject Pool Create Failed");
+			return E_FAIL;
+		}
+	}
+
+	if (!Engine::CPoolMgr::GetInstance()->HasPool<CDisplayCubeObject>())
+	{
+		if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CDisplayCubeObject>(m_pGraphicDev)))
+		{
+			MSG_BOX("Display Cube Object Pool Create Failed");
+			return E_FAIL;
+		}
+	}
 }
 
 HRESULT CRoadStage::Ready_ObjectPool_UI()
@@ -312,13 +402,11 @@ HRESULT CRoadStage::Ready_CharacterTextureProto()
 
 HRESULT CRoadStage::Ready_TerrainTextureProto()
 {
-	// ㅣ필수 삭제 ㅣ
-	//CCubeTexture* pCom_Cube_Texture = nullptr;
-	//
-	//// Obstacle(VendingMachine) Proto 
-	//pCom_Cube_Texture = Engine::CCubeTexture::Create(m_pGraphicDev, CSkyBox::GetTextureSources());
-	//if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SkyTexture", pCom_Cube_Texture)))
-	//	return E_FAIL;
+	CCubeTexture* pCom_Cube_Texture = nullptr;
+	//Displays Cube Object 
+	pCom_Cube_Texture = Engine::CCubeTexture::Create(m_pGraphicDev, CDisplayCubeObject::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_DisplayCubeObject_Texture", pCom_Cube_Texture)))
+		return E_FAIL;
 
 	return S_OK;
 }
@@ -334,38 +422,6 @@ HRESULT CRoadStage::Ready_EffectTextureProto()
 {
 	// ㅣ필수ㅣTEST 할때 최초 세팅을 위해 생성 나중에 지워야함 
 	CTexture* pCom_Texture = nullptr;
-
-	//Flare
-	//pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CFlare::GetTextureSource());
-	//if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_Flare_Texture", pCom_Texture)))
-	//{
-	//	MSG_BOX("Proto Flare Ready Failed");
-	//	return E_FAIL;
-	//}
-	//
-	////Explosion
-	//pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CExplosion::GetTextureSource());
-	//if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_EXP_Texture", pCom_Texture)))
-	//{
-	//	MSG_BOX("Proto Explosion Ready Failed");
-	//	return E_FAIL;
-	//}
-	//
-	////BodyEmit
-	//pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBodyEmit::GetTextureSources());
-	//if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_BodyEmit_Texture", pCom_Texture)))
-	//{
-	//	MSG_BOX("Proto BodyEmit Ready Failed");
-	//	return E_FAIL;
-	//}
-	//
-	////HitUI
-	//pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CHitUI::GetTextureSource());
-	//if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_HitUI_Texture", pCom_Texture)))
-	//{
-	//	MSG_BOX("Proto HitUI Ready Failed");
-	//	return E_FAIL;
-	//}
 
 	return S_OK;
 }
@@ -426,5 +482,7 @@ CRoadStage* CRoadStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CRoadStage::Free()
 {
+	Safe_Release(m_pBackGround);
+	Safe_Release(m_pLoadingEX);
 	CScene::Free();
 }

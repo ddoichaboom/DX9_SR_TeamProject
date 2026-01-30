@@ -2,7 +2,7 @@
 #include "CStage.h"
 #include "CEventMgr.h"
 
-
+class CLoading;
 class CRoadStage : public CStage, public IListener
 {
 protected:
@@ -50,5 +50,7 @@ private :
 
 public :
     static  wstring szRoadMapBGM;
+    _int    m_iFileIndex;
+    const _int m_iRoomCnt = 2;
 };
 
