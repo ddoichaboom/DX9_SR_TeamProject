@@ -57,14 +57,13 @@ public :
     enum                { ROOM_CNT = 2 };
     CRoom*              m_pRoom[ROOM_CNT];
 
-    _float              m_fSpeed = -50.f;
+    _float              m_fSpeed = -100.f;
     const _float        m_fZHalfRadius = 160.f;
     const _vec3        m_vEndColliderZPos = { 0, -10.f, -400.f };
     CMapCollider*       m_pEndMapCollider;
 
     queue<int>          m_qRoomOrder;
 
-    static  wstring szRoadMapBGM;
    // const _int m_iRoomCnt = 2;
 
     _float  m_fTime;
