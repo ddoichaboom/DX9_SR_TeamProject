@@ -13,14 +13,14 @@
 
 CRoadPlayer::CRoadPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	:	CCharacter(pGraphicDev)
-	, m_pMainCollider(nullptr), m_pMinigun(nullptr), m_fMoveSpeed(100.f)
+	, m_pMainCollider(nullptr), m_pMinigun(nullptr), m_fMoveSpeed(100.f), m_bStageEnd(false)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
 }
 
 CRoadPlayer::CRoadPlayer(const CRoadPlayer& rhs)
 	: CCharacter(rhs)
-	, m_pMainCollider(nullptr), m_pMinigun(nullptr), m_fMoveSpeed(100.f)
+	, m_pMainCollider(nullptr), m_pMinigun(nullptr), m_fMoveSpeed(100.f), m_bStageEnd(false)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
 }
@@ -41,6 +41,14 @@ CRoadPlayer* CRoadPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	}
 
 	return pPlayer;
+}
+
+void CRoadPlayer::OnEvent(EVENT_TYPE _type, EventData* _pData)
+{
+	if (_type == EVENT_ENDING)
+	{
+		m_bStageEnd = true;
+	}
 }
 
 HRESULT CRoadPlayer::Ready_GameObject()
@@ -69,6 +77,8 @@ HRESULT CRoadPlayer::Ready_GameObject()
 	
 	m_pMinigun->Set_Parent(this);
 
+	CEventMgr::GetInstance()->Subscribe(EVENT_ENDING, this);
+
 	return S_OK;
 }
 
@@ -77,11 +87,9 @@ _int CRoadPlayer::Update_GameObject(const _float& fTimeDelta)
 	if (m_bDead) return RET_DEAD;
 	
 	_int iExit = CCharacter::Update_GameObject(fTimeDelta);
+	m_pMinigun->Update_GameObject(fTimeDelta);	
 
-	
-	m_pMinigun->Update_GameObject(fTimeDelta);
-
-	
+		
 	return iExit;
 }
 
@@ -89,6 +97,9 @@ void CRoadPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CCharacter::LateUpdate_GameObject(fTimeDelta);
 	m_pMinigun->LateUpdate_GameObject(fTimeDelta);
+
+	if (m_bStageEnd)
+		return;
 
 	Key_Input(fTimeDelta);
 }

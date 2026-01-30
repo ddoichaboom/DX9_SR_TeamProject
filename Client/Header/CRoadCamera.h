@@ -1,6 +1,7 @@
 #pragma once
 #include "CCamera.h"
 #include "Engine_Define.h"
+#include "CEventMgr.h"
 
 namespace Engine
 {
@@ -8,7 +9,7 @@ namespace Engine
 }
 
 
-class CRoadCamera : public CCamera
+class CRoadCamera : public CCamera, public IListener
 {
 private:
 	explicit CRoadCamera(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -17,6 +18,7 @@ private:
 
 public:
 	HRESULT		Set_Transform(INFO eInfo, _vec3* pVector);
+	void				OnEvent(EVENT_TYPE _type, EventData* _pData) override;
 public:
 	HRESULT		Ready_GameObject(const _vec3* pEye,
 		const _vec3* pAt,
@@ -68,6 +70,7 @@ private:
 	_float		m_fShakeTime;
 	_float		m_fShakeSpeed;
 	_float		m_fShakePower;
+	_bool	m_bStageEnd;
 
 };
 

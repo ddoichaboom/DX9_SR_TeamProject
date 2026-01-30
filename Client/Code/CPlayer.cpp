@@ -228,9 +228,13 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 			if (m_bPoison)
 			{
 				m_fStageTime += fTimeDelta;
-				if (m_fStageTime >= 0.5f)
+				if (m_fStageTime >= 1.f)
 				{
-					Add_HP(-0.5f);					
+					if (m_pHitUI->IsDead())
+					{
+						m_pHitUI->Reset();
+					}
+					Add_HP(-1.f);					
 					CSoundMgr::GetInstance()->PlayPlayerSound(szAcidSFX.c_str(), 0.5f);
 					m_fStageTime = 0.f;
 				}								

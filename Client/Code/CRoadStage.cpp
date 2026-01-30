@@ -29,6 +29,7 @@
 // 게임 로직 오브젝트
 #include "CFlyMon.h"
 #include "CPlayerBullet.h"
+#include "CBoss.h"
 
 
 // 이펙트 로직 오브젝트
@@ -42,7 +43,7 @@
 
 wstring CRoadStage::szRoadMapBGM = L"RoadMap_BGM.wav";
 
-CRoadStage::CRoadStage(LPDIRECT3DDEVICE9 pGraphicDev) 
+CRoadStage::CRoadStage(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CStage(pGraphicDev), m_iFileIndex(4)
 {
 }
@@ -111,6 +112,8 @@ HRESULT CRoadStage::Ready_Scene()
 	//if (FAILED(Ready_Environment_Layer(L"Environment_Layer"))) return E_FAIL;
 	//if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer"))) return E_FAIL;
 
+	CEventMgr::GetInstance()->Subscribe(EVENT_ENDING, this);
+
 	return S_OK;
 }
 
@@ -125,15 +128,20 @@ _int CRoadStage::Update_Scene(const _float& fTimeDelta)
 
 	if (m_bStageEnd)
 	{
-		return RET_DEAD;
+		m_fTime += fTimeDelta;
+
+		if (m_fTime > 2.f)
+		{
+			return RET_DEAD;
+		}		
 	}
 
 	if (!m_bStartSound)
-	{		
-		CSoundMgr::GetInstance()->PlayBGM(szRoadMapBGM.c_str(), 1.4f);
+	{
+		CSoundMgr::GetInstance()->PlayBGM(szRoadMapBGM.c_str(), 1.f);
 		m_bStartSound = true;
 	}
-		
+
 
 	int iExit = CStage::Update_Scene(fTimeDelta);
 
@@ -181,7 +189,7 @@ HRESULT CRoadStage::Ready_Environment_Layer(const _tchar* pLayerTag)
 			m_setLoadedRooms.insert(idx);
 		}
 	}
-	
+
 	m_iCurrentRoomIndex = 0;
 
 	m_mapLayer.insert({ pLayerTag, pLayer });
@@ -207,7 +215,7 @@ HRESULT CRoadStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 	// 카메라
 	_vec3 vPlayerPos = { 0.f, 0.f, 0.f };
 	_vec3 vEye = vPlayerPos;
-	_vec3 vAt = { vPlayerPos.x, vPlayerPos.y, vPlayerPos.z +10.f };
+	_vec3 vAt = { vPlayerPos.x, vPlayerPos.y, vPlayerPos.z + 10.f };
 	_vec3 vUp = { 0.f, 1.f, 0.f };
 	pGameObject = CRoadCamera::Create(m_pGraphicDev, &vEye, &vAt, &vUp);
 
@@ -244,6 +252,13 @@ HRESULT CRoadStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 		return E_FAIL;
 
 	pGameObject->SetPos({ 0.f, 10.f, 15.f });
+
+	CBoss* pBoss = nullptr;
+	pGameObject = pBoss = CBoss::Create(m_pGraphicDev, { 0.f, 150.f, 500.f }, 150.f);
+
+	if (nullptr == pGameObject) return E_FAIL;
+	if (FAILED(pLayer->Add_GameObject(pGameObject))) return E_FAIL;
+	pBoss->SetRoadVersion();
 
 
 	m_mapLayer.insert({ pLayerTag, pLayer });
@@ -430,7 +445,14 @@ void CRoadStage::Check_Collision()
 {
 	auto iter_Map_Mon = m_mapLayer[L"GameLogic_Layer"]->Get_Objects(OBJ_MONSTER);
 	auto iter_Map_Bullet = m_mapLayer[L"GameLogic_Layer"]->Get_Objects(OBJ_BULLET);
+	CGameObject* player = m_mapLayer[L"GameLogic_Layer"]->Get_Object(OBJ_PLAYER);
 
+	CCollider* pPlayerCollider = nullptr;
+	if (player)
+	{
+		CCharacter* cPlayer = static_cast<CCharacter*>(player);
+		pPlayerCollider = cPlayer->GetCollider(); // Main Collider 만 받아옴 
+	}
 
 	for (multimap<OBJ_ID, CGameObject*>::iterator it_Mon = iter_Map_Mon.first; it_Mon != iter_Map_Mon.second; it_Mon++)
 	{
@@ -450,19 +472,24 @@ void CRoadStage::Check_Collision()
 			CCollider* mapCollider = mapBul_Collision->GetCollider();
 			if (!mapCollider) continue;
 
+			//Bullet 소유주가 몬스터일경우 true 몬스터는 지꺼에 맞으면 안되니까 해제
+			if (static_cast<CBullet*>(it_bullet->second)->GetBulletOwner())
+			{
+				// 몬스터일경우는 플레이어 처리 
+				CCollision::Collision_Base(pPlayerCollider, mapCollider);
+				continue;
+			}
 
 			CCollision::Collision_Base(pMonCollider, mapCollider);
 		}
-
 	}
-	
 }
 
 void CRoadStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
 {
 	if (_type == EVENT_ENDING)
 	{
-		//m_bStageEnd = true;
+		m_bStageEnd = true;
 	}
 }
 

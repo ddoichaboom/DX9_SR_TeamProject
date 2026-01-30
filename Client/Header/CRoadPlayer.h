@@ -1,6 +1,7 @@
 #pragma once
 #include "CCharacter.h"
 #include "Engine_Enum.h"
+#include "CEventMgr.h"
 
 namespace Engine
 {	
@@ -9,7 +10,7 @@ namespace Engine
 
 class CMinigun;
 
-class CRoadPlayer : public CCharacter   
+class CRoadPlayer : public CCharacter, public IListener
 {
 protected:
 	explicit			CRoadPlayer(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -18,6 +19,7 @@ protected:
 
 public :
 	static CRoadPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	void				OnEvent(EVENT_TYPE _type, EventData* _pData) override;
 
 public:
 	virtual	HRESULT		Ready_GameObject() override;
@@ -48,5 +50,6 @@ protected :
 	CMinigun* m_pMinigun;
 
 	_float	  m_fMoveSpeed;
+	_bool	  m_bStageEnd;
 };
 

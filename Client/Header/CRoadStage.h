@@ -52,5 +52,7 @@ public :
     static  wstring szRoadMapBGM;
     _int    m_iFileIndex;
     const _int m_iRoomCnt = 2;
+
+    _float  m_fTime;
 };
 
