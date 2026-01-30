@@ -9,20 +9,25 @@
 
 #include "CMinigun.h"
 #include "CPlayerBullet.h"
+#include "CHitUI.h"
 
 
 CRoadPlayer::CRoadPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	:	CCharacter(pGraphicDev)
-	, m_pMainCollider(nullptr), m_pMinigun(nullptr), m_fMoveSpeed(100.f)
+	, m_pMainCollider(nullptr), m_pHitUI(nullptr)
+	,m_pMinigun(nullptr), m_fMoveSpeed(100.f), m_bStageEnd(false)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
+	m_fMaxHP = m_fHP = 100.f;
 }
 
 CRoadPlayer::CRoadPlayer(const CRoadPlayer& rhs)
 	: CCharacter(rhs)
-	, m_pMainCollider(nullptr), m_pMinigun(nullptr), m_fMoveSpeed(100.f)
+	, m_pMainCollider(nullptr), m_pHitUI(nullptr)
+	, m_pMinigun(nullptr), m_fMoveSpeed(100.f), m_bStageEnd(false)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
+	m_fMaxHP = m_fHP = 100.f;
 }
 
 CRoadPlayer::~CRoadPlayer()
@@ -41,6 +46,14 @@ CRoadPlayer* CRoadPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	}
 
 	return pPlayer;
+}
+
+void CRoadPlayer::OnEvent(EVENT_TYPE _type, EventData* _pData)
+{
+	if (_type == EVENT_ENDING)
+	{
+		m_bStageEnd = true;
+	}
 }
 
 HRESULT CRoadPlayer::Ready_GameObject()
@@ -69,6 +82,11 @@ HRESULT CRoadPlayer::Ready_GameObject()
 	
 	m_pMinigun->Set_Parent(this);
 
+	m_pHitUI = CHitUI::Create(m_pGraphicDev);
+	m_pHitUI->SetDead();
+
+	CEventMgr::GetInstance()->Subscribe(EVENT_ENDING, this);
+
 	return S_OK;
 }
 
@@ -77,11 +95,12 @@ _int CRoadPlayer::Update_GameObject(const _float& fTimeDelta)
 	if (m_bDead) return RET_DEAD;
 	
 	_int iExit = CCharacter::Update_GameObject(fTimeDelta);
-
-	
-	m_pMinigun->Update_GameObject(fTimeDelta);
-
-	
+	m_pMinigun->Update_GameObject(fTimeDelta);	
+	if (m_pHitUI && m_pHitUI->IsDead() == false)
+	{
+		m_pHitUI->Update_GameObject(fTimeDelta);
+	}
+		
 	return iExit;
 }
 
@@ -89,6 +108,9 @@ void CRoadPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CCharacter::LateUpdate_GameObject(fTimeDelta);
 	m_pMinigun->LateUpdate_GameObject(fTimeDelta);
+
+	if (m_bStageEnd)
+		return;
 
 	Key_Input(fTimeDelta);
 }
@@ -108,11 +130,19 @@ HRESULT CRoadPlayer::Add_Component()
 void CRoadPlayer::Free()
 {
 	Safe_Release(m_pMinigun);
+	Safe_Release(m_pHitUI);
 	CCharacter::Free();
 }
 
 void CRoadPlayer::OnCollision(CollisionInfo info)
 {
+	if (info.fDamage > 0.f)
+	{
+		if (m_pHitUI->IsDead())
+		{
+			m_pHitUI->Reset();
+		}
+	}
 }
 
 void CRoadPlayer::Key_Input(const _float& fTimeDelta)
@@ -120,8 +150,9 @@ void CRoadPlayer::Key_Input(const _float& fTimeDelta)
 	Engine::CTransform* pTransform = static_cast<CTransform*>(Engine::CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_CAM, L"Com_Transform"));
 	_vec3 vLook, vRight, vLookExCludeY;
 	pTransform->Get_Info(INFO_LOOK, &vLook);
-	pTransform->Get_Info(INFO_RIGHT, &vRight);
-	D3DXVec3Normalize(&vRight, &vRight);
+	//pTransform->Get_Info(INFO_RIGHT, &vRight);
+	//D3DXVec3Normalize(&vRight, &vRight);
+	vRight = {1.f, 0.f,0.f };
 
 	MOVE_DIR eDir = CDInputMgr::GetInstance()->Get_Direction();
 
@@ -133,12 +164,12 @@ void CRoadPlayer::Key_Input(const _float& fTimeDelta)
 		break;
 	case Engine::DIR_LEFTUP:
 	case Engine::DIR_LEFT:
-	case Engine::DIR_LEFTDOWN:
+	case Engine::DIR_LEFTDOWN:		
 		m_pTransformCom->Move_Pos(&vRight, fTimeDelta, -m_fMoveSpeed);
 		break;
 	case Engine::DIR_RIGHTUP:
 	case Engine::DIR_RIGHT:
-	case Engine::DIR_RIGHTDOWN:
+	case Engine::DIR_RIGHTDOWN:		
 		m_pTransformCom->Move_Pos(&vRight, fTimeDelta, m_fMoveSpeed);
 		break;
 	}

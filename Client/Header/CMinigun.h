@@ -1,6 +1,7 @@
 #pragma once
 #include "CGameObject.h"
 #include "Engine_Define.h"
+#include "CEventMgr.h"
 
 
 namespace Engine
@@ -16,7 +17,7 @@ class CRoadPlayer;
 class CPannel;
 class CChain;
 
-class CMinigun : public CGameObject    
+class CMinigun : public CGameObject, public IListener
 {
 protected:
 	enum MINIGUN_STATE : _byte
@@ -44,6 +45,8 @@ public:
 	{
 		return m_vAnimSource;
 	}
+
+	void				OnEvent(EVENT_TYPE _type, EventData* _pData) override;
 
 public:
 	HRESULT				Ready_GameObject() override;
@@ -111,6 +114,7 @@ protected:
 	_vec3	m_vScale;
 
 	_bool	m_bKeyPressing;
+	_bool	m_bStageEnd;
 
 private :
 	const wstring m_szMinigunLoop = L"Minigun_Loop_BGM.wav";

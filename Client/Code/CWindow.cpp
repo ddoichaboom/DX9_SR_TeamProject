@@ -18,7 +18,7 @@ vector<TextureSource> CWindow::m_vTextureSource =
 vector<AnimationSource>  CWindow::m_vAnimSource =
 {
     { GLASS_IDLE,1,1,1, true, 0.4f},
-    { GLASS_DEAD,1,1,1, false, 0.08f, 1.f},
+    { GLASS_DEAD,1,1,1, false, 0.06f, 1.f},
 
 };
 

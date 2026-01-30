@@ -64,5 +64,9 @@ public :
 
     queue<int>          m_qRoomOrder;
 
+    static  wstring szRoadMapBGM;
+   // const _int m_iRoomCnt = 2;
+
+    _float  m_fTime;
 };
 

@@ -35,7 +35,7 @@ CMinigun::CMinigun(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
 	, m_pStateCom(nullptr), m_pAnimationCom(nullptr)
 	, m_pParent(nullptr), m_pPannel(nullptr), m_pChain(nullptr)
-	, m_fTime(0.f), m_bKeyPressing(false)
+	, m_fTime(0.f), m_bKeyPressing(false), m_bStageEnd(false)
 {
 
 }
@@ -45,7 +45,7 @@ CMinigun::CMinigun(const CMinigun& rhs)
 	, m_pBufferCom(nullptr), m_pTransformCom(nullptr), m_pTextureCom(nullptr)
 	, m_pStateCom(nullptr), m_pAnimationCom(nullptr)
 	, m_pParent(nullptr), m_pPannel(nullptr), m_pChain(nullptr)
-	, m_fTime(0.f), m_bKeyPressing(false)
+	, m_fTime(0.f), m_bKeyPressing(false), m_bStageEnd(false)
 {
 }
 
@@ -88,6 +88,16 @@ void CMinigun::CreateStateData()
 	Mgr->AddState(MS_ATTACK_END, State);
 }
 
+void CMinigun::OnEvent(EVENT_TYPE _type, EventData* _pData)
+{
+	if (_type == EVENT_ENDING)
+	{
+		CSoundMgr::GetInstance()->StopGroupSound(SOUND_PLAYER_BGM);
+		m_bStageEnd = true;
+		m_bKeyPressing = false;		
+	}
+}
+
 HRESULT CMinigun::Ready_GameObject()
 {
 	if (FAILED(Add_Component())) return E_FAIL;
@@ -110,7 +120,7 @@ HRESULT CMinigun::Ready_GameObject()
 	m_pChain = CChain::Create(m_pGraphicDev);
 	if (m_pChain == nullptr) return E_FAIL;
 
-
+	CEventMgr::GetInstance()->Subscribe(EVENT_ENDING, this);
     return S_OK;
 }
 
@@ -118,11 +128,14 @@ _int CMinigun::Update_GameObject(const _float& fTimeDelta)
 {
 	if (m_bDead) return RET_DEAD;
 	m_fTime += fTimeDelta;
-	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
-	Key_Input(fTimeDelta);
-	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
+	_int iExit = CGameObject::Update_GameObject(fTimeDelta);	
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);	
 	m_pChain->Update_GameObject(fTimeDelta);
 	m_pPannel->Update_GameObject(fTimeDelta);
+
+	if(m_bStageEnd == false)
+		Key_Input(fTimeDelta);
+
 	return iExit;
 }
 

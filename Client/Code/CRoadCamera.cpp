@@ -11,7 +11,7 @@ CRoadCamera::CRoadCamera(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCamera(pGraphicDev), m_bFix(true), m_bCheck(true)
 	, m_pTransformCom(nullptr), m_fSpeed(0.f)
 	, m_fPitch(0.f), m_fYaw(0.f)
-	, m_fShakeTime(0.f), m_fShakeSpeed(0.5f), m_fShakePower(1.f)
+	, m_fShakeTime(0.f), m_fShakeSpeed(0.5f), m_fShakePower(1.f), m_bStageEnd(false)
 
 {
 	m_eOBJ_ID = OBJ_CAM;
@@ -22,7 +22,7 @@ CRoadCamera::CRoadCamera(const CRoadCamera& rhs)
 	: CCamera(rhs), m_bFix(true), m_bCheck(true)
 	, m_pTransformCom(nullptr), m_fSpeed(0.f)
 	, m_fPitch(0.f), m_fYaw(0.f)
-	, m_fShakeTime(0.f), m_fShakeSpeed(0.5f), m_fShakePower(1.f)
+	, m_fShakeTime(0.f), m_fShakeSpeed(0.5f), m_fShakePower(1.f), m_bStageEnd(false)
 {
 	m_eOBJ_ID = OBJ_CAM;
 	m_iID = Make_ID();
@@ -42,6 +42,16 @@ HRESULT CRoadCamera::Set_Transform(INFO eInfo, _vec3* pVector)
 
 
 	return S_OK;
+}
+
+void CRoadCamera::OnEvent(EVENT_TYPE _type, EventData* _pData)
+{
+	if (_type == EVENT_ENDING)
+	{
+		
+		m_bStageEnd = true;
+		m_bFix = false;		
+	}
 }
 
 HRESULT CRoadCamera::Ready_GameObject(const _vec3* pEye,
@@ -68,6 +78,7 @@ HRESULT CRoadCamera::Ready_GameObject(const _vec3* pEye,
 	if (FAILED(CCamera::Ready_GameObject()))
 		return E_FAIL;
 
+	CEventMgr::GetInstance()->Subscribe(EVENT_ENDING, this);
 	return S_OK;
 }
 

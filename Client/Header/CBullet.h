@@ -15,15 +15,15 @@ class CBullet :
     public CGameObject
 {
 protected:
-    enum DIR_STATE { DIR_RIGHT, DIR_LEFT, DIR_MAXLEFT, DIR_MAXRIGHT,DIR_END};
+    enum DIR_STATE { DIR_RIGHT, DIR_LEFT, DIR_MAXLEFT, DIR_MAXRIGHT, DIR_END };
 protected:
     CBullet(LPDIRECT3DDEVICE9 pGraphicDev);
     CBullet(const CBullet& rhs);
     virtual	~CBullet();
 
 public:
-    static CBullet*         Create(LPDIRECT3DDEVICE9 pGraphicDev);
-    static TextureSource&   GetTextureSource()
+    static CBullet* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+    static TextureSource& GetTextureSource()
     {
         return m_textureSource;
     }
@@ -33,12 +33,13 @@ public:
     _int			        Update_GameObject(const _float& fTimeDelta) override;
     void			        LateUpdate_GameObject(const _float& fTimeDelta) override;
     void			        Render_GameObject() override;
-   
+
 public:
     void                    SetRotation(ROTATION eType, const _float& fAngle);
     virtual void            SetPos(_vec3 _pos) override;
     virtual void            SetDirection(_vec3 dir);
     void                    SetSpeed(_float _speed) { m_fSpeed = _speed; }
+    void                    SetBulletOwner(_bool _bMonster) { m_bMonsterBullet = _bMonster; }
 
 
     void					Activate() override;
@@ -47,6 +48,10 @@ public:
     _float					GetAttackDamage() override
     {
         return m_fAttackDamage;
+    }
+    _bool                   GetBulletOwner()
+    {
+        return m_bMonsterBullet;
     }
 protected:
     void                    Explosion();
@@ -57,15 +62,15 @@ protected:
     static TextureSource    m_textureSource;
 
 protected:
-    CRcTex*                 m_pBufferCom;
-    CTransform*             m_pTransformCom;
-    CTexture*               m_pTextureCom;
-    CCollision*             m_pCollisionCom;
+    CRcTex* m_pBufferCom;
+    CTransform* m_pTransformCom;
+    CTexture* m_pTextureCom;
+    CCollision* m_pCollisionCom;
 
     _float                  m_fSpeed;
     _vec3                   m_vDir;
     DIR_STATE               m_STATE;
-    
+
     //X회전에 추가로 더할 값(윗 면이 카메라에 보이기 위한 추가 회전)
     _float                  m_RotXoffset = 110.f;
     _matrix                 m_matPreRot;
@@ -73,8 +78,12 @@ protected:
     _float                  m_fTime;
 
 
-    CCollider*              m_pCollider;
-    const _tchar*           m_szColliderName = L"ColBody";
+    //플레이어 불릿인지 확인
+    _bool                   m_bMonsterBullet = true;
+
+
+    CCollider* m_pCollider;
+    const _tchar* m_szColliderName = L"ColBody";
     _float					m_fAttackDamage;
 
 };
