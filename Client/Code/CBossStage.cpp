@@ -141,7 +141,7 @@ _int CBossStage::Update_Scene(const _float& fTimeDelta)
 
             StartMapSound();
         }
-        else return 0;
+        return 0;
     }
 
     if (m_bStageEnd)
