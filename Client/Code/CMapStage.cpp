@@ -958,6 +958,16 @@ void CMapStage::Check_Collision()
 
        CCollision::Collision_Base(pPlayerCollider, mapCollider);
    }
+   //Player - Monster 충돌 
+   for (auto it_mon = iter_Map_Mon.first; it_mon != iter_Map_Mon.second; it_mon++)
+   {
+       CCharacter* monster = static_cast<CCharacter*>(it_mon->second);
+       CCollider* monCollider = monster->GetCollider();
+       if (!monCollider) continue;
+       //주의 맵을 마지막 인자로 들어가기 
+       CCollision::Collision_Diff(pPlayerCollider, monCollider);
+   }
+
 
    //Player- Bullet 충돌
    for (multimap<OBJ_ID, CGameObject*>::iterator it_bullet = iter_Map_Bullet.first; it_bullet != iter_Map_Bullet.second; it_bullet++)
