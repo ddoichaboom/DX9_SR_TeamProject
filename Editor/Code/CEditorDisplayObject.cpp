@@ -258,9 +258,9 @@ CEditorDisplayObject* CEditorDisplayObject::Create(LPDIRECT3DDEVICE9 pGraphicDev
 
     // Transform 전체 지정 (맵 로드 시 사용)
     pInstance->Set_Position(vPos);
-    pInstance->Set_Rotation(vRot);
-    pInstance->Set_Scale(vScale);
     pInstance->Set_DisplayObjectType(iType, iTextureId);
+    pInstance->Set_Scale(vScale);
+    pInstance->Set_Rotation(vRot);
 
     return pInstance;
 }

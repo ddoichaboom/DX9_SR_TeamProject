@@ -373,6 +373,15 @@ HRESULT CMapStage::Ready_ObjectPool_Terrain()
         }
     }
 
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CDisplayCubeObject>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CDisplayCubeObject>(m_pGraphicDev)))
+        {
+            MSG_BOX("DisplayCubeObject Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
     if (!Engine::CPoolMgr::GetInstance()->HasPool<CExtinguisher>())
     {
         if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CExtinguisher>(m_pGraphicDev)))
