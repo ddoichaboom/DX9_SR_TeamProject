@@ -98,15 +98,23 @@ _int CRoadCamera::Update_GameObject(const _float& fTimeDelta)
 	if (pPlayerTransform == nullptr)
 		return 0;
 
-	_vec3 vPos, vLook;
+	_vec3 vPos, vLook, vUp;
 	pPlayerTransform->Get_Info(INFO_POS, &vPos);
 	vPos.y += 6.f;
-
+	vUp = _vec3(0.f, 1.f, 0.f);
 	m_pTransformCom->Set_Pos(vPos.x, vPos.y, vPos.z);
 
 	m_pTransformCom->Get_Info(INFO_POS, &m_vEye);
 	m_pTransformCom->Get_Info(INFO_LOOK, &vLook);
 	m_vAt = m_vEye + vLook;
+
+	_matrix matRot;
+	D3DXMatrixRotationYawPitchRoll(&matRot,
+		D3DXToRadian(m_pTransformCom->m_vAngle.y),
+		D3DXToRadian(m_pTransformCom->m_vAngle.x),
+		D3DXToRadian(m_pTransformCom->m_vAngle.z));
+
+	D3DXVec3TransformNormal(&m_vUp, &vUp, &matRot);
 
 	pPlayerTransform->m_vAngle.y = m_pTransformCom->m_vAngle.y;
 	return 0;
@@ -150,6 +158,35 @@ void CRoadCamera::Key_Input(const _float& fTimeDelta)
 	else if(m_fFov != D3DXToRadian(60.f))
 	{
 		m_fFov = D3DXToRadian(60.f);
+	}
+
+	// Z축 기울기 목표값 및 회전 속도 설정
+	_float fRollLimit = 3.0f;  // 기울기 각도
+	_float fRollSpeed = 20.0f; // 기울어지는 속도
+
+	// A 키: 왼쪽으로 기울임 (Z축 + 방향)
+	if (CDInputMgr::GetInstance()->Key_Pressing(DIK_A))
+	{
+		m_pTransformCom->m_vAngle.z += fRollSpeed * fTimeDelta;
+		if (m_pTransformCom->m_vAngle.z > fRollLimit)
+			m_pTransformCom->m_vAngle.z = fRollLimit;
+	}
+	// D 키: 오른쪽으로 기울임 (Z축 - 방향)
+	else if (CDInputMgr::GetInstance()->Key_Pressing(DIK_D))
+	{
+		m_pTransformCom->m_vAngle.z -= fRollSpeed * fTimeDelta;
+		if (m_pTransformCom->m_vAngle.z < -fRollLimit)
+			m_pTransformCom->m_vAngle.z = -fRollLimit;
+	}
+	// 아무것도 안 누르면 서서히 0으로 복귀 (복원력)
+	else
+	{
+		if (m_pTransformCom->m_vAngle.z > 0.1f)
+			m_pTransformCom->m_vAngle.z -= fRollSpeed * fTimeDelta;
+		else if (m_pTransformCom->m_vAngle.z < -0.1f)
+			m_pTransformCom->m_vAngle.z += fRollSpeed * fTimeDelta;
+		else
+			m_pTransformCom->m_vAngle.z = 0.f;
 	}
 	
 }
