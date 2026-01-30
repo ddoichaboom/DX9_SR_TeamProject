@@ -583,8 +583,7 @@ void CRoadStage::Check_Collision()
 	if (pEndCollision) pEndCol = pEndCollision->GetCollider();
 
 	_int iFrontRoom = m_qRoomOrder.front();
-
-	auto iter_Map_Col = m_pEnvironment_Layer->Get_Objects(OBJ_COL);
+	
 	for (multimap<OBJ_ID, CGameObject*>::iterator it_col = iter_Map_Col.first; it_col != iter_Map_Col.second; it_col++)
 	{
 		if (it_col->second->GetRoomIndex() != iFrontRoom) continue;
