@@ -475,11 +475,11 @@ HRESULT CRoadStage::Ready_CharacterTextureProto()
 
 HRESULT CRoadStage::Ready_TerrainTextureProto()
 {
-	CCubeTexture* pCom_Cube_Texture = nullptr;
-	//Displays Cube Object 
-	pCom_Cube_Texture = Engine::CCubeTexture::Create(m_pGraphicDev, CDisplayCubeObject::GetTextureSources());
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_DisplayCubeObject_Texture", pCom_Cube_Texture)))
-		return E_FAIL;
+	//CCubeTexture* pCom_Cube_Texture = nullptr;
+	////Displays Cube Object 
+	//pCom_Cube_Texture = Engine::CCubeTexture::Create(m_pGraphicDev, CDisplayCubeObject::GetTextureSources());
+	//if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_DisplayCubeObject_Texture", pCom_Cube_Texture)))
+	//	return E_FAIL;
 
 	return S_OK;
 }

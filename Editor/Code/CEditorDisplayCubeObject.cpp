@@ -7,7 +7,8 @@ vector<TextureSource> CEditorDisplayCubeObject::m_vTextureSource =
 {
     {BOX, L"../Bin/Resource/Texture/Object/DisplayObject/Box.dds"},
     {CONCRETE_BLOCK, L"../Bin/Resource/Texture/Object/DisplayObject/CONCRETE_BLOCK.dds"},
-    {WALL_BLOCK, L"../Bin/Resource/Texture/Object/DisplayObject/WALL_BLOCK.dds"}
+    {WALL_BLOCK, L"../Bin/Resource/Texture/Object/DisplayObject/WALL_BLOCK.dds"},
+    {BUILDING, L"../Bin/Resource/Texture/Object/DisplayObject/BUILDING.dds"}
 };
 
 CEditorDisplayCubeObject::CEditorDisplayCubeObject(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -157,6 +158,10 @@ void	CEditorDisplayCubeObject::Set_CubeObjectType(DISPLAY_CUBE_OBJECT_TYPE eType
     case WALL_BLOCK:
         m_pTransformCom->Set_Scale(_vec3(16.f, 16.f, 16.f));
         break;
+
+    case BUILDING:
+        m_pTransformCom->Set_Scale(_vec3(32.f, 32.f, 32.f));
+        break;
     }
 }
 
@@ -192,9 +197,9 @@ CEditorDisplayCubeObject* CEditorDisplayCubeObject::Create(LPDIRECT3DDEVICE9 pGr
 
     // 위치 설정
     pInstance->Set_Position(vPos);
+    pInstance->Set_CubeObjectType(eType);
     pInstance->Set_Rotation(vRot);
     pInstance->Set_Scale(vScale);
-    pInstance->Set_CubeObjectType(eType);
 
     return pInstance;
 }

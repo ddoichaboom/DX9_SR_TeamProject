@@ -218,6 +218,7 @@ namespace Engine
 		TRAFFIC_SIGN_2,
 		TRAFFIC_SIGN_3,
 		WALL_WINDOW,
+		PASSTAIRS,
 		DOT_END
 	};
 
@@ -226,6 +227,7 @@ namespace Engine
 		BOX,
 		CONCRETE_BLOCK,
 		WALL_BLOCK,
+		BUILDING,
 		DCOT_END
 	};
 }

@@ -47,7 +47,7 @@ vector<wstring> CMapLoader::m_vecMapFiles =
     {L"../../Map/MainStage.json"},
     {L"../../Map/BossStage.json"},
     {L"../../Map/SniperStage.json"},
-    {L"../../Map/RoadMap_Proto.json"},
+    {L"../../Map/RoadMap_Proto_2.json"},
     //{L"../../Map/SniperStage_2.json"}     // 유리창 없는 파일
 };
 
@@ -439,7 +439,8 @@ HRESULT CMapLoader::Load_EnvObject_ToRoom(const wstring& wstrPath, _int iRoomInd
                 objData.sType == "DynamicWall" || objData.sType == "VendingMachine" ||
                 objData.sType == "MapCollider" || objData.sType == "RoomTriggerBox" ||
                 objData.sType == "Door" || objData.sType == "Extinguisher" ||
-                objData.sType == "DisplayObject" || objData.sType == "Window")
+                objData.sType == "DisplayObject" || objData.sType == "Window" ||
+                objData.sType == "DisplayCubeObject")
             {
                 // GameObject 획득 (풀에서)
                 CGameObject* pGameObject = Get_GameObject_FromPool(objData, pGraphicDev);

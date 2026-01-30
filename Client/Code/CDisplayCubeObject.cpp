@@ -7,7 +7,8 @@ vector<TextureSource> CDisplayCubeObject::m_vTextureSource =
 {
     {BOX, L"../Bin/Resource/Texture/Object/DisplayObject/Box.dds"},
     {CONCRETE_BLOCK, L"../Bin/Resource/Texture/Object/DisplayObject/CONCRETE_BLOCK.dds"},
-    {WALL_BLOCK, L"../Bin/Resource/Texture/Object/DisplayObject/WALL_BLOCK.dds"}
+    {WALL_BLOCK, L"../Bin/Resource/Texture/Object/DisplayObject/WALL_BLOCK.dds"},
+    {BUILDING, L"../Bin/Resource/Texture/Object/DisplayObject/BUILDING.dds"}
 };
 
 CDisplayCubeObject::CDisplayCubeObject(LPDIRECT3DDEVICE9 pGraphicDev)

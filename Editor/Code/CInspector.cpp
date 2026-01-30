@@ -931,7 +931,8 @@ void CInspector::Render_DisplayObjectProperties(CEditorDisplayObject* pDisplay)
         "TRAFFIC_SIGN_1",
         "TRAFFIC_SIGN_2",
         "TRAFFIC_SIGN_3",
-        "WALL_WINDOW"
+        "WALL_WINDOW",
+        "PASSTAIRS"
     };
 
     int iSelectedType = static_cast<int>(eType);
@@ -971,6 +972,30 @@ void CInspector::Render_DisplayObjectProperties(CEditorDisplayObject* pDisplay)
         }
     }
 
+    if (WALL_WINDOW == pDisplay->Get_DisplayObjectType())
+    {
+        ImGui::Spacing();
+
+        ImGui::Text("Presets:");
+        if (ImGui::Button("SMALL"))
+        {
+            pDisplay->Set_Scale(_vec3(6.f, 6.f, 1.f));
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("MEDIUM"))
+        {
+            pDisplay->Set_Scale(_vec3(12.f, 12.f, 1.f));
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("LARGE"))
+        {
+            pDisplay->Set_Scale(_vec3(20.f, 20.f, 1.f));
+        }
+    }
+
+
+
+
 }
 
 void CInspector::Render_DisplayCubeObjectProperties(CEditorDisplayCubeObject* pDisplayCube)
@@ -989,7 +1014,8 @@ void CInspector::Render_DisplayCubeObjectProperties(CEditorDisplayCubeObject* pD
     const char* szDisplayCubeTypes[] = {
         "BOX",
         "CONCRETE_BLOCK",
-        "WALL_BLOCK"
+        "WALL_BLOCK",
+        "BUILDING"
     };
 
     int iSelectedType = static_cast<int>(eType);
@@ -1003,19 +1029,19 @@ void CInspector::Render_DisplayCubeObjectProperties(CEditorDisplayCubeObject* pD
 
     // 프리셋 버튼
     ImGui::Text("Presets:");
-    if (ImGui::Button("BOX"))
+    if (ImGui::Button("SMALL"))
     {
-        pDisplayCube->Set_CubeObjectType(BOX);
+        pDisplayCube->Set_Scale(_vec3(16.f, 16.f, 16.f));
     }
     ImGui::SameLine();
-    if (ImGui::Button("CONCRETE_BLOCK"))
+    if (ImGui::Button("MEDIUM"))
     {
-        pDisplayCube->Set_CubeObjectType(CONCRETE_BLOCK);
+        pDisplayCube->Set_Scale(_vec3(32.f, 32.f, 32.f));
     }
     ImGui::SameLine();
-    if (ImGui::Button("WALL_BLOCK"))
+    if (ImGui::Button("LARGE"))
     {
-        pDisplayCube->Set_CubeObjectType(WALL_BLOCK);
+        pDisplayCube->Set_Scale(_vec3(64.f, 64.f, 64.f));
     }
 }
 

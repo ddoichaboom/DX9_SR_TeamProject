@@ -18,7 +18,8 @@ vector<TextureSource> CEditorDisplayObject::m_vTextureSource =
     {TRAFFIC_SIGN_1, L"../Bin/Resource/Texture/Object/DisplayObject/TRAFFIC_SIGN_1.dds"},
     {TRAFFIC_SIGN_2, L"../Bin/Resource/Texture/Object/DisplayObject/TRAFFIC_SIGN_2.dds"},
     {TRAFFIC_SIGN_3, L"../Bin/Resource/Texture/Object/DisplayObject/TRAFFIC_SIGN_3.dds"},
-    {WALL_WINDOW, L"../Bin/Resource/Texture/Object/DisplayObject/WALL_WINDOW.dds"}
+    {WALL_WINDOW, L"../Bin/Resource/Texture/Object/DisplayObject/WALL_WINDOW.dds", true, 0, 1, 1, {1.f, 1.f}},
+    {PASSTAIRS, L"../Bin/Resource/Texture/Object/DisplayObject/PASSTAIRS.dds"}
 };
 
 CEditorDisplayObject::CEditorDisplayObject(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -220,8 +221,10 @@ void CEditorDisplayObject::Set_DisplayObjectType(DISPLAY_OBJECT_TYPE eObjectType
         m_pTransformCom->Set_Scale(_vec3(64.f, 8.f, 1.f));
         break;
     case WALL_WINDOW:
-        m_pTransformCom->Set_Scale(_vec3(16.f, 16.f, 1.f));
+        m_pTransformCom->Set_Scale(_vec3(12.f, 12.f, 1.f));
         break;
+    case PASSTAIRS:
+        m_pTransformCom->Set_Scale(_vec3(32.f, 32.f, 1.f));
     }
 
 }
