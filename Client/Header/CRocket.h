@@ -41,12 +41,17 @@ public:
     void                    SetPos(_vec3 _pos) override;
     void                    SetDirection(_vec3 _dir);
     void                    SetSpeed(_float _speed) { m_fSpeed = _speed; }
+    void                    SetBulletOwner(_bool _bMonster) { m_bMonsterBullet = _bMonster; }
 
     void					Activate() override;
     void					Deactivate() override;
     _float					GetAttackDamage() override
     {
         return m_fAttackDamage;
+    }
+    _bool                   GetBulletOwner()
+    {
+        return m_bMonsterBullet;
     }
 protected:
     void                    Explosion();
@@ -81,5 +86,9 @@ protected:
     _vec3                   vToonFlashLocalPos = { 0,0,-0.1f };
     CToonFog*               m_pToonFog;
     _float					m_fAttackDamage;
+
+
+    //플레이어 불릿인지 확인
+    _bool                   m_bMonsterBullet = true;
 };
 

@@ -30,6 +30,7 @@
 #include "CFlyMon.h"
 #include "CPlayerBullet.h"
 #include "CBoss.h"
+#include "CRocket.h"
 
 
 // 이펙트 로직 오브젝트
@@ -471,14 +472,28 @@ void CRoadStage::Check_Collision()
 			CCollision* mapBul_Collision = static_cast<CCollision*>(it_bullet->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
 			CCollider* mapCollider = mapBul_Collision->GetCollider();
 			if (!mapCollider) continue;
-
-			//Bullet 소유주가 몬스터일경우 true 몬스터는 지꺼에 맞으면 안되니까 해제
-			if (static_cast<CBullet*>(it_bullet->second)->GetBulletOwner())
-			{
-				// 몬스터일경우는 플레이어 처리 
-				CCollision::Collision_Base(pPlayerCollider, mapCollider);
+			CRocket* pRocket = dynamic_cast<CRocket*>(it_bullet->second);
+			CBullet* pBullet = dynamic_cast<CBullet*>(it_bullet->second);
+			
+			if (pRocket == nullptr && pBullet == nullptr)
 				continue;
+			else if (pRocket == nullptr)
+			{
+				if (pBullet->GetBulletOwner())
+				{
+					CCollision::Collision_Base(pPlayerCollider, mapCollider);
+					continue;
+				}				
 			}
+			else if (pBullet == nullptr)
+			{
+				if (pRocket->GetBulletOwner())
+				{
+					CCollision::Collision_Base(pPlayerCollider, mapCollider);
+					continue;
+				}
+			}							
+			//Bullet 소유주가 몬스터일경우 true 몬스터는 지꺼에 맞으면 안되니까 해제		
 
 			CCollision::Collision_Base(pMonCollider, mapCollider);
 		}

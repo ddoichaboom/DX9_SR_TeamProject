@@ -9,20 +9,25 @@
 
 #include "CMinigun.h"
 #include "CPlayerBullet.h"
+#include "CHitUI.h"
 
 
 CRoadPlayer::CRoadPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	:	CCharacter(pGraphicDev)
-	, m_pMainCollider(nullptr), m_pMinigun(nullptr), m_fMoveSpeed(100.f), m_bStageEnd(false)
+	, m_pMainCollider(nullptr), m_pHitUI(nullptr)
+	,m_pMinigun(nullptr), m_fMoveSpeed(100.f), m_bStageEnd(false)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
+	m_fMaxHP = m_fHP = 100.f;
 }
 
 CRoadPlayer::CRoadPlayer(const CRoadPlayer& rhs)
 	: CCharacter(rhs)
-	, m_pMainCollider(nullptr), m_pMinigun(nullptr), m_fMoveSpeed(100.f), m_bStageEnd(false)
+	, m_pMainCollider(nullptr), m_pHitUI(nullptr)
+	, m_pMinigun(nullptr), m_fMoveSpeed(100.f), m_bStageEnd(false)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
+	m_fMaxHP = m_fHP = 100.f;
 }
 
 CRoadPlayer::~CRoadPlayer()
@@ -77,6 +82,9 @@ HRESULT CRoadPlayer::Ready_GameObject()
 	
 	m_pMinigun->Set_Parent(this);
 
+	m_pHitUI = CHitUI::Create(m_pGraphicDev);
+	m_pHitUI->SetDead();
+
 	CEventMgr::GetInstance()->Subscribe(EVENT_ENDING, this);
 
 	return S_OK;
@@ -88,7 +96,10 @@ _int CRoadPlayer::Update_GameObject(const _float& fTimeDelta)
 	
 	_int iExit = CCharacter::Update_GameObject(fTimeDelta);
 	m_pMinigun->Update_GameObject(fTimeDelta);	
-
+	if (m_pHitUI && m_pHitUI->IsDead() == false)
+	{
+		m_pHitUI->Update_GameObject(fTimeDelta);
+	}
 		
 	return iExit;
 }
@@ -119,11 +130,19 @@ HRESULT CRoadPlayer::Add_Component()
 void CRoadPlayer::Free()
 {
 	Safe_Release(m_pMinigun);
+	Safe_Release(m_pHitUI);
 	CCharacter::Free();
 }
 
 void CRoadPlayer::OnCollision(CollisionInfo info)
 {
+	if (info.fDamage > 0.f)
+	{
+		if (m_pHitUI->IsDead())
+		{
+			m_pHitUI->Reset();
+		}
+	}
 }
 
 void CRoadPlayer::Key_Input(const _float& fTimeDelta)

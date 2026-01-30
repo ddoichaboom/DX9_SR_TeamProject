@@ -9,6 +9,7 @@ namespace Engine
 }
 
 class CMinigun;
+class CHitUI;
 
 class CRoadPlayer : public CCharacter, public IListener
 {
@@ -48,6 +49,7 @@ protected:
 
 protected :
 	CMinigun* m_pMinigun;
+	CHitUI* m_pHitUI;
 
 	_float	  m_fMoveSpeed;
 	_bool	  m_bStageEnd;
