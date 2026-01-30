@@ -26,6 +26,7 @@
 #include "CSlotUI.h"
 #include "CHudUI.h"
 #include "CInfoUI.h"
+#include "CTargetUI.h"
 
 IMPLEMENT_SINGLETON(CUIManager)
 
@@ -35,7 +36,9 @@ CUIManager::CUIManager()
 	, m_pDashUI(nullptr),m_bDash(false)
 	, m_pSlotUI(nullptr), m_bSlot(false)
 	, m_pShopUI(nullptr), m_bShop(false)
+	, m_iTargetIndex(-1), m_iTargetCount(0), m_bSnipermap(false)
 {	
+	
 }
 
 CUIManager::~CUIManager()
@@ -53,6 +56,9 @@ void CUIManager::Free()
 	}
 	
 	m_mapUI.clear();
+
+	for_each(m_vTargetUI.begin(), m_vTargetUI.end(), CDeleteObj());
+	m_vTargetUI.clear();
 
 	Safe_Release(m_pEffectUI);	
 	Safe_Release(m_pDashUI);
@@ -90,6 +96,7 @@ HRESULT CUIManager::Ready_GameObject(LPDIRECT3DDEVICE9 pGraphicDev)
 	CEventMgr::GetInstance()->Subscribe(EVENT_NEXT_STAGE, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_DRINK, this);
 	CEventMgr::GetInstance()->Subscribe(EVENT_TAKEDOWN, this);
+	CEventMgr::GetInstance()->Subscribe(EVENT_VIEW_EVENT_END, this);
 
 	return S_OK;
 }
@@ -98,41 +105,6 @@ void CUIManager::Update_GameObject(const _float& fTimeDelta)
 {
 	if (m_mapUI.count(m_eNowState) == 0)
 		return;
-
-	//_int result;
-	//list<CBaseUI*> listMove;
-	//for(auto* pUI : m_mapUI[m_eNowState])
-	//{
-	//	result = pUI->Update_GameObject(fTimeDelta);
-
-	//	if (result < 0)
-	//	{
-	//		listMove.push_back(pUI);
-	//	}
-	//};
-
-	//for (auto* pUI : listMove)
-	//{
-	//	auto it = find(m_mapUI[m_eNowState].begin(), m_mapUI[m_eNowState].end(), pUI);
-
-	//	if (it != m_mapUI[m_eNowState].end())
-	//	{
-
-	//		m_mapUI[m_eNowState].erase(it);			
-	//		m_mapUI[UI_DEACTIVATE].push_back(pUI);
-	//	}
-	//}
-
-	//for (auto iter = m_mapUI[m_eNowState].begin(); iter != m_mapUI[m_eNowState].end(); )
-	//{
-	//	_int result = (*iter)->Update_GameObject(fTimeDelta);
-	//	if (result < 0)
-	//	{
-	//		m_mapUI[UI_DEACTIVATE].push_back(*iter);
-	//		iter = m_mapUI[m_eNowState].erase(iter);
-	//	}
-	//	else iter++;
-	//}
 
 	for (auto iter = m_mapUI[m_eNowState].begin(); iter != m_mapUI[m_eNowState].end(); )
 	{
@@ -157,29 +129,39 @@ void CUIManager::Update_GameObject(const _float& fTimeDelta)
 		else iter++;
 	}
 
-	if (m_eNowState == UI_DEFAULT)
-	{	
-		if (m_bDash)
+	if (m_bSnipermap == false)
+	{
+		if (m_eNowState == UI_DEFAULT)
 		{
-			_int iResult = m_pDashUI->Update_GameObject(fTimeDelta);
-			if (iResult == RET_DEAD)
-				m_bDash = false;
+			if (m_bDash)
+			{
+				_int iResult = m_pDashUI->Update_GameObject(fTimeDelta);
+				if (iResult == RET_DEAD)
+					m_bDash = false;
+			}
+
+			if (m_bSlot)
+			{
+				m_pSlotUI->Update_GameObject(fTimeDelta);
+			}
 		}
 
-		if (m_bSlot)
+		if (m_bRenderEffectUI)
 		{
-			m_pSlotUI->Update_GameObject(fTimeDelta);
+			m_pEffectUI->Update_GameObject(fTimeDelta);
+		}
+
+		if (m_bShop)
+		{
+			m_pShopUI->Update_GameObject(fTimeDelta);
 		}
 	}
-
-	if (m_bRenderEffectUI)
+	else
 	{
-		m_pEffectUI->Update_GameObject(fTimeDelta);
-	}
-
-	if (m_bShop)
-	{
-		m_pShopUI->Update_GameObject(fTimeDelta);
+		for (_int i = 0; i < m_iTargetCount; ++i)
+		{
+			m_vTargetUI[i]->Update_GameObject(fTimeDelta);
+		}
 	}
 }
 
@@ -194,31 +176,42 @@ void CUIManager::LateUpdate_GameObject(const _float& fTimeDelta)
 	};
 	
 
-	if (m_eNowState == UI_DEFAULT)
+	if (m_bSnipermap == false)
 	{
-		
-
-		if (m_bDash && m_pDashUI)
+		if (m_eNowState == UI_DEFAULT)
 		{
-			m_pDashUI->LateUpdate_GameObject(fTimeDelta);
+
+
+			if (m_bDash && m_pDashUI)
+			{
+				m_pDashUI->LateUpdate_GameObject(fTimeDelta);
+			}
+
+			if (m_bSlot && m_pSlotUI)
+			{
+				m_pSlotUI->LateUpdate_GameObject(fTimeDelta);
+			}
 		}
 
-		if (m_bSlot && m_pSlotUI)
+		if (m_bRenderEffectUI && m_pEffectUI)
 		{
-			m_pSlotUI->LateUpdate_GameObject(fTimeDelta);
+			m_pEffectUI->LateUpdate_GameObject(fTimeDelta);
+		}
+
+
+		if (m_bShop && m_pShopUI)
+		{
+			m_pShopUI->LateUpdate_GameObject(fTimeDelta);
 		}
 	}
-
-	if (m_bRenderEffectUI && m_pEffectUI)
+	else
 	{
-		m_pEffectUI->LateUpdate_GameObject(fTimeDelta);
+		for (_int i = 0; i < m_iTargetCount; ++i)
+		{
+			m_vTargetUI[i]->LateUpdate_GameObject(fTimeDelta);
+		}
 	}
 	
-
-	if (m_bShop && m_pShopUI)
-	{
-		m_pShopUI->LateUpdate_GameObject(fTimeDelta);
-	}
 }
 
 HRESULT CUIManager::Add_ProtoType(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -518,6 +511,37 @@ void CUIManager::Set_OnShopUI(_bool bShop)
 	}
 }
 
+void CUIManager::Set_VecTargetUI(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+	m_vTargetUI.resize(10, nullptr);
+
+	_float fX = 420.f;
+	_float fY = WINCY - 100.f;
+	_float fOfssetX = 90.f;
+	_float fOfssetY = 100.f;
+	CTargetUI* pTarget = nullptr;
+	for (_int i = 0; i < 10; ++i)
+	{
+		_float fFixX = fX + (fOfssetX * (i % 5));
+		_float fFixY = fY - (fOfssetY * (i / 5));
+		pTarget = CTargetUI::Create(pGraphicDev, fFixX, fFixY);
+		m_vTargetUI[i] = pTarget;
+	}
+	m_bSnipermap = true;
+	m_iTargetCount = 0;
+}
+
+void CUIManager::Add_TargetUI()
+{	
+	m_iTargetIndex++;
+	if (m_iTargetIndex >= 10)
+		return;
+
+	m_iTargetCount++;
+
+	m_vTargetUI[m_iTargetIndex]->Activate();
+}
+
 void CUIManager::Clear_UIGroup()
 {
 	for (auto& pair : m_mapUI)
@@ -529,6 +553,13 @@ void CUIManager::Clear_UIGroup()
 	Safe_Release(m_pDashUI);
 	Safe_Release(m_pSlotUI);
 	Safe_Release(m_pShopUI);
+}
+
+void CUIManager::Clear_SniperUI()
+{
+	for_each(m_vTargetUI.begin(), m_vTargetUI.end(), CDeleteObj());
+	m_vTargetUI.clear();
+	m_bSnipermap = false;
 }
 
 void CUIManager::Create_TextUI(LPDIRECT3DDEVICE9 pGraphicDev, COLLIDER_TAG eTag, _int iTimes)
@@ -611,9 +642,15 @@ void CUIManager::OnEvent(EVENT_TYPE _type, EventData* _pData)
 		break;
 	case Engine::EVENT_STAGE_END:
 		Change_UIState(UI_STAGE_CLEAR);
-
 		break;		
 	case Engine::EVENT_NEXT_STAGE:
+		Set_OnDashUI(false);
+		Set_OnShopUI(false);
+		//TODO : (처치) 폰트 UI 지우기 
+		//Set_OnShopUI(false);
+		//Change_UIState(UI_DEFAULT);
+		break;
+	case Engine::EVENT_VIEW_EVENT_END:
 		Set_OnShopUI(false);
 		Change_UIState(UI_DEFAULT);
 		break;

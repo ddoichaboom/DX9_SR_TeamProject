@@ -29,7 +29,7 @@ vector<TextureSource> CBoss::m_vTextureSource =
 	,{ CStateComponent::MakeStateID(MS_ATTACK2, SUB_BEGIN),
 		L"../Bin/Resource/Texture/BOSS/Boss_Rocket_Idle_256.dds"}
 	,{ MS_ATTACK2,	L"../Bin/Resource/Texture/BOSS/Boss_Rocket_Attack_256.dds" }
-	
+
 	,{ MS_ATTACK3,	L"../Bin/Resource/Texture/BOSS/Boss_Idle_256.dds" }
 
 	,{ MS_GUARD, L"../Bin/Resource/Texture/BOSS/Boss_Shield_Begin_256.dds" }
@@ -46,7 +46,7 @@ vector<AnimationSource> CBoss::m_vAnimSource =
 	,{ MS_ATTACK2,1,2,2, true, 0.08f} // Rocket 
 	,{ MS_ATTACK3,1,2,2, true, 0.07f} // Beam 
 	,{ MS_GUARD,2,2,2, false, 0.11f, 1.f, true}
-	
+
 };
 
 _vec2	CBoss::m_vRandomRange = { 0.f, 10.f };
@@ -61,6 +61,22 @@ CBoss::CBoss(LPDIRECT3DDEVICE9 pGraphicDev)
 	ZeroMemory(m_vBeamStartPos, sizeof(_vec3) * MON_END_HAND);
 	ZeroMemory(m_vBeamEndPos, sizeof(_vec3) * MON_END_HAND);
 	ZeroMemory(m_vHandPos, sizeof(_vec3) * MON_END_HAND);
+	m_fHP = 30.f;
+	m_fMaxHP = 30.f;
+}
+
+CBoss::CBoss(LPDIRECT3DDEVICE9 pGraphicDev, _float fHP)
+	:CMonster(pGraphicDev), m_pBodyCollider(nullptr), m_fMapRadius(0.f), m_fDirOffset(1.f)
+	, m_vScale({ 50.f,50.f,1.f }), gen(rd())
+	, dis((_int)m_vRandomRange.x, (_int)m_vRandomRange.y)
+	, floatDis(m_vAngleABSRange.x, m_vAngleABSRange.y)
+{
+	fill(m_pBeam, m_pBeam + MON_END_HAND, nullptr);
+	ZeroMemory(m_vBeamStartPos, sizeof(_vec3) * MON_END_HAND);
+	ZeroMemory(m_vBeamEndPos, sizeof(_vec3) * MON_END_HAND);
+	ZeroMemory(m_vHandPos, sizeof(_vec3) * MON_END_HAND);
+	m_fHP = fHP;
+	m_fMaxHP = fHP;
 }
 
 CBoss::CBoss(const CBoss& rhs)
@@ -112,7 +128,7 @@ void CBoss::CreateStateData()
 	//Guard
 	State = new CState<CBoss>(nullptr, &CBoss::Guard, nullptr);
 	Mgr->AddState(MS_GUARD, State);
-	
+
 	//Dead
 	State = new CState<CBoss>(nullptr, &CBoss::Dead, nullptr);
 	Mgr->AddState(MS_DEAD, State);
@@ -148,7 +164,7 @@ HRESULT CBoss::Ready_GameObject()
 	if (!m_pBodyCollider) return E_FAIL;
 
 	m_pBodyCollider->Set_RotToPrt();
-	m_pBodyCollider->Set_Scale(_vec3(35,35,1.f));
+	m_pBodyCollider->Set_Scale(_vec3(35, 35, 1.f));
 	m_pBodyCollider->BindFuncToCollision([&](CollisionInfo info)
 		{
 			OnBodyCollision(info);
@@ -157,7 +173,7 @@ HRESULT CBoss::Ready_GameObject()
 	//맵 반지름 값 
 	m_fMapRadius = 500.f;
 	m_pTransformCom->m_vScale = m_vScale;
-	
+
 	GetHandWorldPos(MON_LEFT_HAND);
 	GetHandWorldPos(MON_RIGHT_HAND);
 
@@ -166,8 +182,8 @@ HRESULT CBoss::Ready_GameObject()
 	m_fAttackDamage = 5.f;
 	//m_fSpeed = m_fBaseSpeed;
 	//m_fHP = 100.f;
-	m_fHP = 30.f;
-	m_fMaxHP = 30.f;
+	//m_fHP = 30.f;
+	//m_fMaxHP = 30.f;
 
 	//Effect
 	m_pBossTrail = CBossTrail::Create(m_pGraphicDev);
@@ -195,6 +211,22 @@ CBoss* CBoss::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 CBoss* CBoss::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
 {
 	CBoss* pBoss = new CBoss(pGraphicDev);
+
+	if (FAILED(pBoss->Ready_GameObject()))
+	{
+		Safe_Release(pBoss);
+		MSG_BOX("BOSS Create Failed");
+		return nullptr;
+	}
+
+	pBoss->SetPos(vPos);
+
+	return pBoss;
+}
+
+CBoss* CBoss::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _float fHP)
+{
+	CBoss* pBoss = new CBoss(pGraphicDev, fHP);
 
 	if (FAILED(pBoss->Ready_GameObject()))
 	{
@@ -242,7 +274,7 @@ void CBoss::LateUpdate_GameObject(const _float& fTimeDelta)
 	CMonster::LateUpdate_GameObject(fTimeDelta);
 	////현재 상태에 맞는 애니메이션으로 자동 전환
 	m_pAnimationCom->Update_State(m_pStateCom->GetCurrentStateID());
-	
+
 	if (m_pStateCom->GetCurrentStateID() == MS_ATTACK2)
 	{
 		GetRocketWorldPos(MON_LEFT_HAND);
@@ -376,6 +408,10 @@ void CBoss::OnBodyCollision(CollisionInfo info)
 		ChangeState(MS_DEAD);
 		CEventMgr::GetInstance()->Broadcast(EVENT_ENDING, nullptr);
 	}
+	else if (m_bRoadVersion )
+	{
+		m_pBossHPUI->SetDecrease();
+	}
 }
 
 void CBoss::OnAnimationChange(_float _animAspect)
@@ -415,7 +451,7 @@ void CBoss::Move_BossMap(const _float& fTimeDelta, _float& _dirAngle, _float rat
 
 
 	pos = *m_pTransformCom->Get_Info(INFO_POS);
-	_float value = (ratio>= 1.f? 1.f : easeOutQuint(ratio));
+	_float value = (ratio >= 1.f ? 1.f : easeOutQuint(ratio));
 
 
 	pos += dir * fTimeDelta * m_fSpeed * value * m_fDirOffset;
@@ -451,7 +487,7 @@ void CBoss::Idle_Begin()
 	{
 		m_talkRand = 0; return;
 	}
-	if (CSoundMgr::GetInstance()->IsPlayingGroup(SOUND_MONSTER)) return; 
+	if (CSoundMgr::GetInstance()->IsPlayingGroup(SOUND_MONSTER)) return;
 
 	m_talkRand = rand() % 2;
 	if (m_talkRand)
@@ -503,10 +539,10 @@ void CBoss::Attack_Idle()
 	switch (nextAttack)
 	{
 	case 0:
-		CSoundMgr::GetInstance()->PlaySFXSound (m_szBulletFireName.c_str(), 0.3f);
+		CSoundMgr::GetInstance()->PlaySFXSound(m_szBulletFireName.c_str(), 0.3f);
 		ChangeState(MS_ATTACK);
 		break;
-	case 1 :
+	case 1:
 		ChangeState(MS_ATTACK2);
 		break;
 	case 2:
@@ -530,7 +566,7 @@ void CBoss::Attack_Bullet()
 			if (layer && playerTransform)
 			{
 				_vec3 vPos = GetHandWorldPos(MON_RIGHT_HAND);
-				_vec3 vDest= *playerTransform->Get_Info(INFO_POS);
+				_vec3 vDest = *playerTransform->Get_Info(INFO_POS);
 
 				vDest.x += (dis(gen) - m_vRandomRange.y * 0.5f);
 				vDest.z += (dis(gen) - m_vRandomRange.y * 0.5f);
@@ -578,12 +614,12 @@ void CBoss::Reset_Beam()
 		_vec3 dir = playerPos - m_vBeamStartPos[i];
 		D3DXVec3Normalize(&dir, &dir);
 		m_vBeamEndPos[i] = m_vBeamStartPos[i] + dir * m_fMapRadius * 2.f;
-		dir = { 0,-1,0};
+		dir = { 0,-1,0 };
 		m_pBeam[i]->SetShootDir(dir);
 	}
 	m_fTime = 0.f;
 	m_bBeamCollision = false;
-	CSoundMgr::GetInstance()->PlaySFXSound(m_szBeamName.c_str(),0.3f);
+	CSoundMgr::GetInstance()->PlaySFXSound(m_szBeamName.c_str(), 0.3f);
 }
 
 void CBoss::Run_Beam(_float _ratio)
@@ -592,7 +628,7 @@ void CBoss::Run_Beam(_float _ratio)
 	{
 		_vec3 pos = m_vWorldHandPos[i];
 		m_pBeam[i]->SetPos(pos);
-		
+
 		_vec3 destPos, shootDir;
 		D3DXVec3Lerp(&destPos, &m_vBeamStartPos[i], &m_vBeamEndPos[i], _ratio);
 		shootDir = destPos - pos;
@@ -644,7 +680,7 @@ void CBoss::Attack_Rocket()
 				{
 					randX = GetRandomFloat(-100.f, 100.f);
 					randY = GetRandomFloat(-30.f, 80.f);
-					
+
 					_vec3 vRocketPos = vPos + vRight * randX + vUp * randY;
 					_vec3 vDest = *playerTransform->Get_Info(INFO_POS);
 

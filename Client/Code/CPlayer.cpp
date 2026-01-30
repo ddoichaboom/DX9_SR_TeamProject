@@ -23,6 +23,7 @@
 #include "CMonster.h"
 #include "CSodaUI.h"
 
+#include "CCamera.h"
 
 //Test
 #include "CSoda.h"
@@ -105,6 +106,15 @@ void CPlayer::OnEvent(EVENT_TYPE _type, EventData* _pData)
 
 	else if (_type == EVENT_STAGE_END)
 	{
+		if (_pData)
+		{
+			MapEndData* data = static_cast<MapEndData*>(_pData);
+			_vec3 pos = data->pos;
+			_float angleY = data->angleY;
+			pos.y = m_pTransformCom->Get_Info(INFO_POS)->y;
+			ClearMovement(data->pos, angleY);
+		}
+
 		CSoundMgr::GetInstance()->StopGroupSound(SOUND_BGM);		
 		CSoundMgr::GetInstance()->PlaySFXSound(szClearSFX.c_str(), 1.f);
 		m_bStage = false;
@@ -218,9 +228,13 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 			if (m_bPoison)
 			{
 				m_fStageTime += fTimeDelta;
-				if (m_fStageTime >= 0.5f)
+				if (m_fStageTime >= 1.f)
 				{
-					Add_HP(-0.5f);					
+					if (m_pHitUI->IsDead())
+					{
+						m_pHitUI->Reset();
+					}
+					Add_HP(-1.f);					
 					CSoundMgr::GetInstance()->PlayPlayerSound(szAcidSFX.c_str(), 0.5f);
 					m_fStageTime = 0.f;
 				}								
@@ -1892,6 +1906,18 @@ void CPlayer::Add_Item(COLLIDER_TAG eColliderTag)
 		break;
 	}
 
+}
+
+void CPlayer::ClearMovement(_vec3& _pos, _float _cameraAngle)
+{
+	m_pTransformCom->Set_Pos(_pos);
+	CCamera* camera = static_cast<CCamera*>(CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Get_Object(OBJ_CAM));
+	camera->SetRot(ROT_X, 0);
+	camera->SetRot(ROT_Z, 0);
+	camera->SetRot(ROT_Y, _cameraAngle);
+
+	m_bDash = false;
+	m_bJump = false;
 }
 
 

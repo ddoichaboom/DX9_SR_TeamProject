@@ -58,7 +58,7 @@ public:
 protected:
 	void			OnCollision(CollisionInfo info);
 	void			DeadAction();
-
+	void			CreateEffect();
 protected:
 	void	Begin_Idle();
 	void	Idle();
@@ -75,5 +75,8 @@ protected:
 	const _tchar* m_szMainColliderName = L"ColMain";
 
 	_float	m_fTime = 0.f;
+
+public :
+	static wstring szWindowDeadSFX;
 };
 

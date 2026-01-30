@@ -86,6 +86,11 @@ void CBodyEmit::SetPostRenderState()
 {
 }
 
+void CBodyEmit::Reset()
+{
+	CParticleEmitter::Reset();
+}
+
 HRESULT CBodyEmit::Add_Component()
 {
 	//Vertex
@@ -110,7 +115,7 @@ void CBodyEmit::ResetParticle(Particle* particle)
 
 	if (m_iState == GLASS_PART)
 	{
-		_float randX = GetRandomFloat(-5.f, 5.f);
+		_float randX = GetRandomFloat(m_vRangeX.x, m_vRangeX.y);
 		particle->vPosition.x += randX;
 		particle->vDirection = { 0,-1,0 };
 		minDir = { -0.5f, 0, 0 };

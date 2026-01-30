@@ -276,6 +276,12 @@ void CFlyMon::Activate()
 	ChangeState(MS_IDLE);
 }
 
+void CFlyMon::Instance_Trace()
+{
+	ChangeState(MS_ATTACK_IDLE);
+	m_fTraceSpeed = 50.f;
+}
+
 void CFlyMon::Free()
 {
 	CMonster::Free();

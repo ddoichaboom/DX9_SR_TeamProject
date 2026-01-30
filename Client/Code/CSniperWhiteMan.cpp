@@ -10,11 +10,12 @@
 #include "CExplosion.h"
 #include "CSoundMgr.h"
 #include "CBeam.h"
+#include "CEventMgr.h"
 
 wstring CSniperWhiteMan::szWhiteManDead = L"Monster_Dead_SFX.wav";
 wstring CSniperWhiteMan::szWhiteManBody = L"Monster_Pistol_Shoot_SFX.wav";
 wstring CSniperWhiteMan::szWhiteManHead = L"Monster_HeadShot_SFX.wav";
-wstring CSniperWhiteMan::szWhiteManShot = L"Monster_Shot_SFX.wav";
+wstring CSniperWhiteMan::szWhiteManShot = L"Monster_Sniper_SFX.wav";
 
 //-------------------------------------------------------------------------
 // Texture , Animation Data
@@ -282,6 +283,9 @@ void CSniperWhiteMan::OnBodyCollision(CollisionInfo info)
 	m_bTrace = false;
 	m_bTargeting = false;
 	m_bShoot = false;
+
+	//Test
+	CEventMgr::GetInstance()->Broadcast(EVENT_MONSTER_DEAD, nullptr);
 }
 
 void CSniperWhiteMan::Idle()
@@ -318,6 +322,7 @@ void CSniperWhiteMan::Shoot()
 {
 	if (GetPlayerCollision())
 		GetPlayerCollision()->GetCollider()->Collision({ this,{0,0,0},m_fAttackDamage });
+	CSoundMgr::GetInstance()->PlayMonsterSound(szWhiteManShot.c_str(), 1.6f);
 	SetDead();
 }
 
@@ -325,7 +330,7 @@ void CSniperWhiteMan::Dead()
 {
 	if (m_pAnimationCom->IsEnd())
 	{
-		SetDead();
+		SetDead();		
 	}
 }
 

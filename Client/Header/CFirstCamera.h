@@ -21,7 +21,7 @@ public :
 
 	void		Set_CamSetting();
 	void		OnEvent(EVENT_TYPE _type, EventData* _pData) override;
-
+	void		SetRot(ROTATION _Axis, float _degree) override;
 
 public:
 	HRESULT		Ready_GameObject(const _vec3* pEye,

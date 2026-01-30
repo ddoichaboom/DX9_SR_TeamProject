@@ -179,6 +179,7 @@
     <ClInclude Include="..\Header\CRoadCamera.h" />
     <ClInclude Include="..\Header\CRoadPlayer.h" />
     <ClInclude Include="..\Header\CRoadStage.h" />
+    <ClInclude Include="..\Header\CRoom.h" />
     <ClInclude Include="..\Header\CRoomTrigger.h" />
     <ClInclude Include="..\Header\CEffectUI.h" />
     <ClInclude Include="..\Header\CEnding.h" />
@@ -241,6 +242,7 @@
     <ClInclude Include="..\Header\CStageEndTrigger.h" />
     <ClInclude Include="..\Header\CTakeDown.h" />
     <ClInclude Include="..\Header\CTakeDownBlood.h" />
+    <ClInclude Include="..\Header\CTargetUI.h" />
     <ClInclude Include="..\Header\CTerrain.h" />
     <ClInclude Include="..\Header\CStage.h" />
     <ClInclude Include="..\Header\CTestCharacter.h" />
@@ -298,6 +300,7 @@
     <ClCompile Include="..\Code\CRoadCamera.cpp" />
     <ClCompile Include="..\Code\CRoadPlayer.cpp" />
     <ClCompile Include="..\Code\CRoadStage.cpp" />
+    <ClCompile Include="..\Code\CRoom.cpp" />
     <ClCompile Include="..\Code\CRoomTrigger.cpp" />
     <ClCompile Include="..\Code\CEffectUI.cpp" />
     <ClCompile Include="..\Code\CEnding.cpp" />
@@ -359,6 +362,7 @@
     <ClCompile Include="..\Code\CStageEndTrigger.cpp" />
     <ClCompile Include="..\Code\CTakeDown.cpp" />
     <ClCompile Include="..\Code\CTakeDownBlood.cpp" />
+    <ClCompile Include="..\Code\CTargetUI.cpp" />
     <ClCompile Include="..\Code\CTerrain.cpp" />
     <ClCompile Include="..\Code\CStage.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />

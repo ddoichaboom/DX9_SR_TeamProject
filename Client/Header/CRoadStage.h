@@ -1,8 +1,10 @@
 #pragma once
 #include "CStage.h"
 #include "CEventMgr.h"
+#include "CRoom.h"
 
-
+class CLoading;
+class CMapCollider;
 class CRoadStage : public CStage, public IListener
 {
 protected:
@@ -41,10 +43,40 @@ protected:
     void            Check_Collision() override;
     void            OnEvent(EVENT_TYPE _type, EventData* _pData) override;
 
+    void            Move_EnvObjects(const _float& fTimeDelta);
+    void           SpawnMonster();
+
 private:
     virtual void Free();
 
 private :
-    const wstring szRoadMapBGM = L"";
+    
+    _bool               m_bStartSound = false;
+
+public :
+    static  wstring     szRoadMapBGM;
+    _int                m_iFileIndex;
+    enum                { ROOM_CNT = 2 };
+    CRoom*              m_pRoom[ROOM_CNT];
+
+    _float              m_fSpeed = -100.f;
+    const _float        m_fZHalfRadius = 160.f;
+    const _vec3        m_vEndColliderZPos = { 0, -10.f, -400.f };
+    CMapCollider*       m_pEndMapCollider;
+
+    queue<int>          m_qRoomOrder;
+
+   // const _int m_iRoomCnt = 2;
+
+    _float  m_fTime;
+
+    vector<_vec3> m_vecSpawnPoses;
+    //_float      m_fTime = 0.f;   
+    _float      m_fSpawnTime = 3.f;
+    _float       m_fOriginSpawnTime = 5.f;
+    _float      m_fOffsetTime = 0.25f;
+    _float      m_fMinTime = 2.0f;
+
+    _bool       m_bFirstSpawn = true;
 };
 

@@ -18,6 +18,7 @@ public:
 	void		Reset() override;
 	//void		Deactivate() override;
 	_uint		GetTextureCnt() override { return 1; }
+	void		SetDecrease() { m_bDecrease = true; }
 protected:
 	HRESULT		Add_Component() override;
 	void		ResetParticle(Particle* particle) override;

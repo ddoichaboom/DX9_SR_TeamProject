@@ -84,13 +84,28 @@ HRESULT CMapCollider::Add_Component()
 	return S_OK;
 }
 
+_vec3 CMapCollider::GetPos()
+{
+	if (!m_pTransformCom) return _vec3();
+	return *m_pTransformCom->Get_Info(INFO_POS);
+}
+
 void CMapCollider::SetPos(_vec3 _pos)
 {
+	if (!m_pTransformCom) return; 
 	m_pTransformCom->Set_Pos(_pos);
 	m_pTransformCom->Update_Component(1.f);
 }
+
+_vec3 CMapCollider::GetScale()
+{
+	if (!m_pTransformCom) return _vec3();
+	return m_pTransformCom->Get_Scale();
+}
+
 void CMapCollider::SetScale(_vec3 _scale)
 {
+	if (!m_pTransformCom) return;
 	m_pTransformCom->Set_Scale(_scale);
 	m_pTransformCom->Update_Component(1.f);
 }

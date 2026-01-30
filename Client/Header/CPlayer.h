@@ -155,7 +155,9 @@ public:
 
 	void				Add_Item(COLLIDER_TAG eColliderTag);
 
+	void				ClearMovement(_vec3& _pos, _float _cameraAngle);
 public:
+	void				SetNextPos(_vec3 _next) { m_vNextPos = _next; }
 	_float				Get_HP() const { return m_fHP; }
 	_float				Get_MaxHP() const { return m_fMaxHP; }
 
@@ -260,12 +262,13 @@ private:
 	map<_uint, _int> m_mapCallCnt = {};
 
 	//¹æ½ÂÈñ Ãß°¡ ÀÌÆåÆ®
-	CHitUI* m_pHitUI;
-	CSodaUI* m_pSodaUI;
+	CHitUI*		m_pHitUI;
+	CSodaUI*	m_pSodaUI;
 	//¹æ½ÂÈñ Ãß°¡ 
-	bool m_bTakeDown;
-	CMonster* m_pTakeDownObject; 
-	CCollider* m_pTakeDownCollider;
+	_vec3		m_vNextPos{};
+	bool		m_bTakeDown;
+	CMonster*	m_pTakeDownObject; 
+	CCollider*	m_pTakeDownCollider;
 
 
 	CGameObject* m_pColHitObj;

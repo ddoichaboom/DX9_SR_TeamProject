@@ -424,6 +424,7 @@ HRESULT CMainApp::SetNextScene()
 	//Event Mgr 구독 전체 초기화
 	//위치 주의! 다음 스테이지 Create-Ready에서 구독하므로 Create전에 구독값,사운드 지워주기 
 	CEventMgr::GetInstance()->ClearAllSubscribe();
+	CVideoMgr::GetInstance()->Cleanup();
 	CSoundMgr::GetInstance()->StopAll();
 
 	SCENE_TYPE nextSceneType = SCENE_TYPE((_int)m_eCurSceneType + 1);

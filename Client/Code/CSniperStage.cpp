@@ -10,6 +10,8 @@
 #include "CRenderer.h"
 #include "CLoadingEX.h"
 #include "CBackGround.h"
+#include "CUIManager.h"
+#include "CSoundMgr.h"
 
 //Character
 #include "CWhiteMan.h"
@@ -23,6 +25,7 @@
 //UI
 #include "CSniperUI.h"
 #include "CPhoneBG.h"
+#include "CTargetUI.h"
 
 //Effect
 #include "CBlood.h"
@@ -82,6 +85,9 @@ HRESULT CSniperStage::Ready_Scene()
 	//7단계 맵 - 게임로직 로드 
 	m_pLoadingEX->AddTask(CLoadingEX::Lv7_MAP_GAME_LOAD, [this]() { this->Ready_GameLogic_Layer(L"GameLogic_Layer"); });
 
+	
+	CEventMgr::GetInstance()->Subscribe(EVENT_MONSTER_DEAD, this);
+
 	return S_OK;
 }
 
@@ -93,24 +99,51 @@ _int CSniperStage::Update_Scene(const _float& fTimeDelta)
 		m_pLoadingEX->Update_Loading(fTimeDelta);
 		return 0;
 	}
+	else if (!m_bStartSound)
+	{
+		CSoundMgr::GetInstance()->StopAll();
+		CSoundMgr::GetInstance()->PlayBGM(CSniperPlayer::szSniperMapBGM.c_str(), 0.4f);
+		m_bStartSound = true;
+	}
 	
 	if (m_bStageEnd || (CDInputMgr::GetInstance()->Key_Down(DIK_P)))
 	{
+		CUIManager::GetInstance()->Clear_SniperUI();
 		return RET_DEAD;
 	}
-
-	int iExit = CStage::Update_Scene(fTimeDelta);
 	
+	int iExit = CStage::Update_Scene(fTimeDelta);
+	CUIManager::GetInstance()->Update_GameObject(fTimeDelta);
+
+	
+	//if()
+
 	//스폰할 몬스터도 없고 맵에도 몬스터가 없다면 종료 
-	if (m_qMonsterSpawnPoses.empty() && m_pGameLogic_Layer->Get_Object(OBJ_MONSTER) == nullptr)
+	//if (m_qMonsterSpawnPoses.empty() && m_pGameLogic_Layer->Get_Object(OBJ_MONSTER) == nullptr)
+	//{
+	//	m_bStageEnd = true;
+	//	return 0;
+	//}
+
+	if (m_iKillCount >= 10)
 	{
-		m_bStageEnd = true;
-		return 0;
+		m_fEndTime += fTimeDelta;
+		if (m_fEndTime > 3.f)
+		{
+			m_bStageEnd = true;
+		}
+		return iExit;
 	}
 
 	m_fTime += fTimeDelta;
 	if (m_fTime > m_fSpawnTime)
 	{
+		if (m_iSpawnCount > 10)
+		{
+			m_fTime = 0.f;
+			return iExit;
+		}
+
 		SpawnMonster();
 
 		m_fTime = 0.f;
@@ -133,6 +166,7 @@ _int CSniperStage::Update_Scene(const _float& fTimeDelta)
 void CSniperStage::LateUpdate_Scene(const _float& fTimeDelta)
 {
 	CStage::LateUpdate_Scene(fTimeDelta);
+	CUIManager::GetInstance()->LateUpdate_GameObject(fTimeDelta);
 }
 
 void CSniperStage::Render_Scene()
@@ -222,6 +256,7 @@ HRESULT CSniperStage::Ready_ObjectPool_Terrain()
 
 HRESULT CSniperStage::Ready_ObjectPool_UI()
 {
+	CUIManager::GetInstance()->Set_VecTargetUI(m_pGraphicDev);
 	return S_OK;
 }
 
@@ -292,6 +327,13 @@ HRESULT CSniperStage::Ready_UITextureProto()
 		return E_FAIL;
 	}
 
+	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CTargetUI::GetTextureSource());
+	if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TargetUITexture", pCom_Texture)))
+	{
+		MSG_BOX("Sniper UI Ready Failed");
+		return E_FAIL;
+	}
+
 	return S_OK;
 }
 
@@ -310,12 +352,14 @@ void CSniperStage::SpawnMonster()
 	if (m_qMonsterSpawnPoses.empty()) return;
 
 	_vec3 spawnPos = m_qMonsterSpawnPoses.front(); m_qMonsterSpawnPoses.pop();
+	m_qMonsterSpawnPoses.push(spawnPos);
 	CSniperWhiteMan* man = CPoolMgr::GetInstance()->Get_Object<CSniperWhiteMan>();
 	if (!man) return;
 
 	man->SetPos(spawnPos);
 	if (m_pGameLogic_Layer) m_pGameLogic_Layer->Add_GameObject(man);
 	else man->ReturnToPool();
+	m_iSpawnCount++;
 }
 
 CSniperStage* CSniperStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -330,6 +374,16 @@ CSniperStage* CSniperStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	}
 
 	return pSniperStage;
+}
+
+void CSniperStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
+{
+	if (_type == EVENT_MONSTER_DEAD)
+	{
+		CUIManager::GetInstance()->Add_TargetUI();
+		m_iKillCount++;
+		m_iSpawnCount--;
+	}
 }
 
 void CSniperStage::Free()

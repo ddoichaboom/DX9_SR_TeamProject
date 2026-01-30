@@ -12,11 +12,12 @@ class CBossTrail;
 class CBossHPUI;
 
 class CBoss :
-    public CMonster
+	public CMonster
 {
-	enum MON_HAND { MON_LEFT_HAND, MON_RIGHT_HAND, MON_END_HAND};
+	enum MON_HAND { MON_LEFT_HAND, MON_RIGHT_HAND, MON_END_HAND };
 protected:
 	explicit		CBoss(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit		CBoss(LPDIRECT3DDEVICE9 pGraphicDev, _float fHP);
 	explicit		CBoss(const CBoss& rhs);
 	virtual			~CBoss();
 public:
@@ -32,6 +33,7 @@ public:
 
 	static CBoss* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	static CBoss* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos);
+	static CBoss* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _float fHP);
 
 
 protected:
@@ -136,7 +138,7 @@ protected:
 
 	//Attack Beam
 	_float			m_fAttack_Beam_Time = 1.8f;
-	CBeam*			m_pBeam[MON_END_HAND];
+	CBeam* m_pBeam[MON_END_HAND];
 	_vec3			m_vBeamStartPos[MON_END_HAND];
 	_vec3			m_vBeamEndPos[MON_END_HAND];
 
@@ -157,8 +159,8 @@ protected:
 	static _vec2	m_vRandomRange;
 
 	//Effect
-	CBossTrail*		m_pBossTrail;
-	CBossHPUI*		m_pBossHPUI;
+	CBossTrail* m_pBossTrail;
+	CBossHPUI* m_pBossHPUI;
 
 
 	//Sound
@@ -176,6 +178,6 @@ protected:
 protected:
 	_bool	m_bRoadVersion = false;
 	_vec2	m_vWidthLimit = { -150.f , 150.f };
-	
+
 };
 

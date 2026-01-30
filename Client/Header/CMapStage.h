@@ -2,7 +2,6 @@
 #include "CStage.h"
 #include "CEventMgr.h"
 
-class CLoading;
 class CMapStage : public CStage, public IListener
 {
 protected:
@@ -51,6 +50,17 @@ private:
     wstring szMap1BGM = L"BGM_BossBGM.wav";
     //wstring szPlayerShoot = L"Hit_Monster.wav";
     _int    m_iFileIndex;
+
+    bool    m_bViewportLerp = false;
+    bool    m_bRevViewportLerp = false;
+    
+    _vec2   m_vDestViewSize{};
+    _vec2   m_vStartViewSize{};
+    const _vec2   m_vOriginViewSize = {WINCX, WINCY};
+    const _vec2   m_vEventViewSize = { 1024,576 };
+
+    _float  m_fTime = 0.f;
+    _float m_fLerpTime = 0.7f;
 
 };
 

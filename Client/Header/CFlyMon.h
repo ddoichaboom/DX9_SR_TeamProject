@@ -54,6 +54,7 @@ protected:
 public:
 	void			Activate() override;
 	//void			Deactivate() override;
+	void			Instance_Trace();
 
 protected:
 	static vector<TextureSource> m_vTextureSource;

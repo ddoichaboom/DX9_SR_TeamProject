@@ -141,12 +141,18 @@ _int CBossStage::Update_Scene(const _float& fTimeDelta)
 
             StartMapSound();
         }
-        else return 0;
+        return 0;
     }
 
     if (m_bStageEnd)
     {
         return RET_DEAD;
+    }
+
+    //TEST
+    if (CDInputMgr::GetInstance()->Key_Down(DIK_P))
+    {
+        m_bStageEnd = true;
     }
 
     int iExit = CStage::Update_Scene(fTimeDelta);
