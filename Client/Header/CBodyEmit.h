@@ -16,8 +16,14 @@ public:
 	void		SetPostRenderState() override;
 
 public:
+	void		Reset() override;
 	_uint		GetTextureCnt() override { return 1; }
 	void		SetSpeed(_float _speed) { m_fSpeed = _speed; }
+	void		SetRangeX(_float minX, _float maxX)
+	{
+		m_vRangeX = { minX, maxX };
+	}
+
 protected:
 	HRESULT		Add_Component() override;
 	void		ResetParticle(Particle* particle) override;
@@ -34,6 +40,7 @@ protected:
 	static vector<TextureSource> m_TextureSources;
 	int			m_iBatchSize = 0;
 	_float		m_fSpeed = 40.f;
+	_vec2		m_vRangeX = {-5.f, 5.f};
 	const _float m_fGravity = 5.f;
 
 };

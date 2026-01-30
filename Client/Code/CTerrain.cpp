@@ -35,12 +35,24 @@ CTerrain::~CTerrain()
 {
 }
 
+_vec3 CTerrain::GetPos()
+{
+    if (nullptr == m_pTransformCom) return _vec3();
+    return *m_pTransformCom->Get_Info(INFO_POS);
+}
+
 void CTerrain::SetPos(_vec3 _pos)
 {
     if (nullptr == m_pTransformCom)
         return;
 
     m_pTransformCom->Set_Pos(_pos);
+}
+
+_vec3 CTerrain::GetScale()
+{
+    if (nullptr == m_pTransformCom) return _vec3();
+    return m_pTransformCom->Get_Scale();
 }
 
 void CTerrain::SetAngle(_vec3 _rot)

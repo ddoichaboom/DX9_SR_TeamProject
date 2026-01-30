@@ -376,7 +376,7 @@
     <Filter Include="02. GameObject\03.MapObject\00.DisPlayObj\DisplayCubeObj">
       <UniqueIdentifier>{23c08983-8a7a-4ba9-b56e-6672238d9c46}</UniqueIdentifier>
     </Filter>
-	<Filter Include="01. Scene\05.Credits">
+    <Filter Include="01. Scene\05.Credits">
       <UniqueIdentifier>{a396d860-f934-43df-9812-edaa48fb793a}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\03.MapObject\06. Window">
@@ -387,6 +387,9 @@
     </Filter>
     <Filter Include="04.UI\01.StaticUI\16.SniperTargets\TargetUI">
       <UniqueIdentifier>{0bac2cde-9138-4dc9-830c-b06f0f3e3618}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\01. Stage\99. Room">
+      <UniqueIdentifier>{17e3a3fb-604d-45b5-a567-8dd8c64d4d46}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -735,7 +738,7 @@
     <ClInclude Include="..\Header\CDisplayCubeObject.h">
       <Filter>02. GameObject\03.MapObject\00.DisPlayObj\DisplayCubeObj</Filter>
     </ClInclude>
-	<ClInclude Include="..\Header\CCredit.h">
+    <ClInclude Include="..\Header\CCredit.h">
       <Filter>01. Scene\05.Credits</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CWindow.h">
@@ -743,6 +746,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\CTargetUI.h">
       <Filter>04.UI\01.StaticUI\16.SniperTargets\TargetUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CRoom.h">
+      <Filter>01. Scene\01. Stage\99. Room</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1082,7 +1088,7 @@
     <ClCompile Include="..\Code\CDisplayCubeObject.cpp">
       <Filter>02. GameObject\03.MapObject\00.DisPlayObj\DisplayCubeObj</Filter>
     </ClCompile>
-	<ClCompile Include="..\Code\CCredit.cpp">
+    <ClCompile Include="..\Code\CCredit.cpp">
       <Filter>01. Scene\05.Credits</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CWindow.cpp">
@@ -1090,6 +1096,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTargetUI.cpp">
       <Filter>04.UI\01.StaticUI\16.SniperTargets\TargetUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CRoom.cpp">
+      <Filter>01. Scene\01. Stage\99. Room</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

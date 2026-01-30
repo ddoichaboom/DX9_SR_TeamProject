@@ -420,14 +420,14 @@ HRESULT CMapStage::Ready_ObjectPool_Terrain()
         }
     }
 
-    if (!Engine::CPoolMgr::GetInstance()->HasPool<CWindow>())
-    {
-        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CWindow>(m_pGraphicDev)))
-        {
-            MSG_BOX("Window Pool Create Failed");
-            return E_FAIL;
-        }
-    }
+    //if (!Engine::CPoolMgr::GetInstance()->HasPool<CWindow>())
+    //{
+    //    if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CWindow>(m_pGraphicDev)))
+    //    {
+    //        MSG_BOX("Window Pool Create Failed");
+    //        return E_FAIL;
+    //    }
+    //}
 
     return S_OK;
 }
@@ -520,6 +520,17 @@ HRESULT CMapStage::Ready_ObjectPool_Effect()
             return E_FAIL;
         }
     }
+
+    //BodyEmit 텍스쳐 프로토타입 생성 후 생성되어야 해서 옮김 
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CWindow>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CWindow>(m_pGraphicDev)))
+        {
+            MSG_BOX("Window Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
     return S_OK;
 }
 

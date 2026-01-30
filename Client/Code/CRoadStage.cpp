@@ -44,9 +44,10 @@
 
 wstring CRoadStage::szRoadMapBGM = L"RoadMap_BGM.wav";
 
-CRoadStage::CRoadStage(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CStage(pGraphicDev), m_iFileIndex(4)
+CRoadStage::CRoadStage(LPDIRECT3DDEVICE9 pGraphicDev) 
+	: CStage(pGraphicDev), m_iFileIndex(4), m_pEndMapCollider(nullptr)
 {
+	fill(m_pRoom, m_pRoom + ROOM_CNT, nullptr);
 }
 
 CRoadStage::~CRoadStage()
@@ -58,6 +59,16 @@ HRESULT CRoadStage::Ready_Scene()
 	m_pBackGround = CBackGround::Create(m_pGraphicDev);
 	m_pLoadingEX = CLoadingEX::Create(m_pGraphicDev);
 
+	if (!m_pLoadingEX) return E_FAIL;
+
+	for (int i = 0; i < ROOM_CNT; i++)
+	{
+		m_pRoom[i] = new CRoom();
+		m_pRoom[i]->SetOriginZPos(m_fZHalfRadius * 2 * i + m_fZHalfRadius);
+		m_pRoom[i]->SetSize({1,1,m_fZHalfRadius});
+		m_qRoomOrder.push(i);
+	}
+
 	const vector<wstring>& vecMapFiles = CMapLoader::GetInstance()->Get_MapFiles();
 
 	if (!vecMapFiles.empty())
@@ -65,7 +76,6 @@ HRESULT CRoadStage::Ready_Scene()
 	else
 		return E_FAIL;
 
-	if (!m_pLoadingEX) return E_FAIL;
 	//1단계
 	//이전 스테이지 이후 필요없는 오브젝트 풀 제거  
 	m_pLoadingEX->AddTask(CLoadingEX::Lv1_INIT, [this]() { this->Remove_PrevObjectPool(); });
@@ -132,7 +142,13 @@ _int CRoadStage::Update_Scene(const _float& fTimeDelta)
 	{
 		m_pBackGround->Update_GameObject(fTimeDelta);
 		m_pLoadingEX->Update_Loading(fTimeDelta);
-		return 0;
+
+		if (m_pLoadingEX->IsEnd())
+		{
+			CSoundMgr::GetInstance()->PlayBGM(szRoadMapBGM.c_str(), 1.4f);
+			m_bStartSound = true;
+		}
+		else return 0;
 	}
 
 	if (m_bStageEnd)
@@ -145,12 +161,13 @@ _int CRoadStage::Update_Scene(const _float& fTimeDelta)
 		}		
 	}
 
-	if (!m_bStartSound)
+	Move_EnvObjects(fTimeDelta);
+	for (int i = 0; i < ROOM_CNT; i++)
 	{
-		CSoundMgr::GetInstance()->PlayBGM(szRoadMapBGM.c_str(), 1.f);
-		m_bStartSound = true;
+		m_pRoom[i]->Update_Room(fTimeDelta);
 	}
 
+	if (m_pEndMapCollider) m_pEndMapCollider->Update_GameObject(fTimeDelta);
 
 	int iExit = CStage::Update_Scene(fTimeDelta);
 
@@ -187,9 +204,18 @@ _int CRoadStage::Update_Scene(const _float& fTimeDelta)
 
 void CRoadStage::LateUpdate_Scene(const _float& fTimeDelta)
 {
+	if(m_pLoadingEX->IsEnd() == false) return;
+
+	for (int i = 0; i < ROOM_CNT; i++)
+	{
+		m_pRoom[i]->LateUpdate_Room(fTimeDelta);
+	}
+	if(m_pEndMapCollider) m_pEndMapCollider->LateUpdate_GameObject(fTimeDelta);
+
 	CStage::LateUpdate_Scene(fTimeDelta);
 	CUIManager::GetInstance()->LateUpdate_GameObject(fTimeDelta);
-	if (m_pLoadingEX->IsEnd()) Check_Collision();
+	Check_Collision();
+	
 }
 
 void CRoadStage::Render_Scene()
@@ -199,18 +225,23 @@ void CRoadStage::Render_Scene()
 HRESULT CRoadStage::Ready_Environment_Layer(const _tchar* pLayerTag)
 {
 	CLayer* pLayer = CLayer::Create();
-	CGameObject* pGameObject = nullptr;
-	if (nullptr == pLayer)
-		return E_FAIL;
 
-	for (_int idx = 0; idx < m_iRoomCnt; idx++)
+	if (nullptr == pLayer) return E_FAIL;
+
+	CGameObject* pGameObject = nullptr;
+	CGameObject* pEndMapCollider = nullptr; 
+
+
+	for (_int idx = 0; idx < ROOM_CNT; idx++)
 	{
-		if (FAILED(CMapLoader::GetInstance()->Load_Room(
+		if (FAILED(CMapLoader::GetInstance()->Load_EnvObject_ToRoom(
 			m_wstrCurrentMapFile,
 			idx,  // roomIndex
 			pLayer,
 			m_pGraphicDev,
-			pLayerTag)))
+			pLayerTag,
+			m_pRoom[idx], idx==0?&pEndMapCollider:nullptr			
+		)))
 		{
 			// 1번방이 있으면 오류 체크 위해 주석 해제 
 			MSG_BOX("Road Stage Env Room Load Failed");
@@ -223,9 +254,15 @@ HRESULT CRoadStage::Ready_Environment_Layer(const _tchar* pLayerTag)
 	}
 
 	m_iCurrentRoomIndex = 0;
-
 	m_mapLayer.insert({ pLayerTag, pLayer });
 	m_pEnvironment_Layer = pLayer;
+
+	if (pEndMapCollider)
+	{
+		m_pEndMapCollider = dynamic_cast<CMapCollider*>(pEndMapCollider);
+		if (!m_pEndMapCollider) return E_FAIL;
+		m_pEndMapCollider->SetPos(m_vEndColliderZPos);
+	}
 	return S_OK;
 }
 
@@ -342,6 +379,7 @@ HRESULT CRoadStage::Ready_ObjectPool_Terrain()
 			return E_FAIL;
 		}
 	}
+	return S_OK;
 }
 
 HRESULT CRoadStage::Ready_ObjectPool_UI()
@@ -535,6 +573,41 @@ void CRoadStage::Check_Collision()
 			CCollision::Collision_Base(pMonCollider, mapCollider);
 		}
 	}
+
+	// 맵 End 콜라이더랑 맨 앞 방의 콜라이더랑 충돌체크
+	if (!m_pEndMapCollider) return;
+
+	CCollision* pEndCollision = static_cast<CCollision*>(m_pEndMapCollider->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+	CCollider* pEndCol = nullptr;
+
+	if (pEndCollision) pEndCol = pEndCollision->GetCollider();
+
+	_int iFrontRoom = m_qRoomOrder.front();
+
+	auto iter_Map_Col = m_pEnvironment_Layer->Get_Objects(OBJ_COL);
+	for (multimap<OBJ_ID, CGameObject*>::iterator it_col = iter_Map_Col.first; it_col != iter_Map_Col.second; it_col++)
+	{
+		if (it_col->second->GetRoomIndex() != iFrontRoom) continue;
+
+		CCollision* mapCol_Collision = static_cast<CCollision*>(it_col->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+		CCollider* mapCollider = mapCol_Collision->GetCollider();
+		if (!mapCollider) continue;
+
+		bool bCollision = CCollision::CheckCollision(mapCollider, pEndCol);
+		if (bCollision)
+		{
+			//맨 뒤 방의 번호 
+			_int iLastRoomIdx = m_qRoomOrder.back();
+			_float iLastZPos = m_pRoom[iLastRoomIdx]->GetOriginZPos();
+			_float iLastScale = m_pRoom[iLastRoomIdx]->GetSize().z;
+			//맨 뒤 방의 다음에 붙이기 
+			m_pRoom[iFrontRoom]->Set_Pos_Room(iLastZPos + iLastScale * 2.f);
+			
+			m_qRoomOrder.pop();
+			m_qRoomOrder.push(iFrontRoom);
+			return;
+		}
+	}
 }
 
 void CRoadStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
@@ -570,6 +643,15 @@ void CRoadStage::SpawnMonster()
 	}
 }
 
+void CRoadStage::Move_EnvObjects(const _float& fTimeDelta)
+{
+	_float fDelta = m_fSpeed * fTimeDelta;
+	for (int i = 0; i < ROOM_CNT; i++)
+	{
+		m_pRoom[i]->Move_Room(fDelta);
+	}
+}
+
 CRoadStage* CRoadStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CRoadStage* pRoadStage = new CRoadStage(pGraphicDev);
@@ -586,6 +668,12 @@ CRoadStage* CRoadStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CRoadStage::Free()
 {
+	for (int i = 0; i < ROOM_CNT; i++)
+		Safe_Release(m_pRoom[i]);
+
+	m_pEndMapCollider->ReturnToPool();
+
+	m_qRoomOrder = queue<int>();
 	Safe_Release(m_pBackGround);
 	Safe_Release(m_pLoadingEX);
 	CScene::Free();

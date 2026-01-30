@@ -23,7 +23,10 @@ public:
 	COLLIDER_TAG				Get_ColliderTag() const { return m_eColliderTag; }
 	void						Set_ColliderTag(COLLIDER_TAG eColliderTag) { m_eColliderTag = eColliderTag; }
 
+	virtual	_vec3				GetPos() override;
 	virtual void				SetPos(_vec3 _pos) override;
+	virtual _vec3				GetScale() override;
+
 	void						SetAngle(_vec3 _rot);
 	void						SetScale(_vec3 _scale);
 
