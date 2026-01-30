@@ -120,8 +120,9 @@ void CRoadPlayer::Key_Input(const _float& fTimeDelta)
 	Engine::CTransform* pTransform = static_cast<CTransform*>(Engine::CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", OBJ_CAM, L"Com_Transform"));
 	_vec3 vLook, vRight, vLookExCludeY;
 	pTransform->Get_Info(INFO_LOOK, &vLook);
-	pTransform->Get_Info(INFO_RIGHT, &vRight);
-	D3DXVec3Normalize(&vRight, &vRight);
+	//pTransform->Get_Info(INFO_RIGHT, &vRight);
+	//D3DXVec3Normalize(&vRight, &vRight);
+	vRight = {1.f, 0.f,0.f };
 
 	MOVE_DIR eDir = CDInputMgr::GetInstance()->Get_Direction();
 
@@ -133,12 +134,12 @@ void CRoadPlayer::Key_Input(const _float& fTimeDelta)
 		break;
 	case Engine::DIR_LEFTUP:
 	case Engine::DIR_LEFT:
-	case Engine::DIR_LEFTDOWN:
+	case Engine::DIR_LEFTDOWN:		
 		m_pTransformCom->Move_Pos(&vRight, fTimeDelta, -m_fMoveSpeed);
 		break;
 	case Engine::DIR_RIGHTUP:
 	case Engine::DIR_RIGHT:
-	case Engine::DIR_RIGHTDOWN:
+	case Engine::DIR_RIGHTDOWN:		
 		m_pTransformCom->Move_Pos(&vRight, fTimeDelta, m_fMoveSpeed);
 		break;
 	}

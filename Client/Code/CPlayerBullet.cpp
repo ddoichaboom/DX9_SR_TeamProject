@@ -59,7 +59,7 @@ HRESULT CPlayerBullet::Ready_GameObject()
 	m_pTransformCom->Set_Scale(7.f, 7.f, 7.f);
 	m_pCollider->Set_Scale({ 5.f, 5.f, 5.f });
 	m_fSpeed = 800.f;
-	m_fLifeTime = 3.0f;
+	m_fLifeTime = 0.5f;
 
 	m_pAnimationCom->Change_Animation(0);
 
