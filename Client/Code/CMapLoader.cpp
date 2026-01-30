@@ -22,6 +22,7 @@
 #include "CExtinguisher.h"
 #include "CDisplayObject.h"
 #include "CWindow.h"
+#include "CDisplayCubeObject.h"
 
 // 캐릭터,몬스터 (SpawnPoint 처리용)
 #include "CPlayer.h"
@@ -165,6 +166,8 @@ HRESULT CMapLoader::Preload_AllMapData(const wstring& wstrPath)
                 roomMap[iRoomIndex].iAxeCount++;
             else if (objData.sType == "DisplayObject")
                 roomMap[iRoomIndex].iDisplayObjectCount++;
+            else if (objData.sType == "DisplayCubeObject")
+                roomMap[iRoomIndex].iDisplayCubeObjectCount++;
         }
 
         // ========== 5단계: 로그 출력 ==========
@@ -241,7 +244,8 @@ HRESULT CMapLoader::Load_Room(const wstring& wstrPath, _int iRoomIndex, CLayer* 
                     objData.sType == "DynamicWall" || objData.sType == "VendingMachine" || 
                     objData.sType == "MapCollider" || objData.sType == "RoomTriggerBox" ||
                     objData.sType == "Door" || objData.sType == "Extinguisher" ||
-                    objData.sType == "DisplayObject" || objData.sType == "Window")
+                    objData.sType == "DisplayObject" || objData.sType == "Window"||
+                    objData.sType == "DisplayCubeObject")
                 {
                     // GameObject 획득 (풀에서)
                     CGameObject* pGameObject = Get_GameObject_FromPool(objData, pGraphicDev);
@@ -496,6 +500,8 @@ _uint CMapLoader::Get_MaxObjectCount(const wstring& wstrPath, const string& obje
                 iSum += roomData.iAxeCount;
             else if (objectType == "DisplayObject")
                 iSum += roomData.iDisplayObjectCount;
+            else if (objectType == "DisplayCubeObject")
+                iSum += roomData.iDisplayCubeObjectCount;
         }
 
         if (iSum > iMaxCount)
@@ -632,6 +638,8 @@ ObjectData CMapLoader::Parse_ObjectData_FromJSON(const json& jObj)
         objData.iDoorID = jObj["doorID"];
     if (jObj.contains("displayObjectType"))
         objData.eObjectType = static_cast<DISPLAY_OBJECT_TYPE>(jObj["displayObjectType"]);
+    if (jObj.contains("displayCubeObjectType"))
+        objData.eCubeObjectType = static_cast<DISPLAY_CUBE_OBJECT_TYPE>(jObj["displayCubeObjectType"]);
 
     if (jObj.contains("SlopeDirection"))
         objData.eSlopeDir = jObj["SlopeDirection"];
@@ -888,6 +896,19 @@ CGameObject* CMapLoader::Get_GameObject_FromPool(const ObjectData& objData, LPDI
             pWindow->SetScale(objData.vScale);
             pWindow->Get_Component(ID_STATIC, L"Com_Transform")->Update_Component(0.f);
             pGameObject = pWindow;
+        }
+    }
+    else if (objData.sType == "DisplayCubeObject")
+    {
+        CDisplayCubeObject* pDisplayCube = Engine::CPoolMgr::GetInstance()->Get_Object<CDisplayCubeObject>();
+        if (pDisplayCube)
+        {
+            pDisplayCube->SetPos(objData.vPos);
+            pDisplayCube->Set_Angle(objData.vRot);
+            pDisplayCube->SetScale(objData.vScale);
+            pDisplayCube->Set_CubeObjectType(objData.eCubeObjectType);
+            pDisplayCube->SetTransformMatrix();
+            pGameObject = pDisplayCube;
         }
     }
 

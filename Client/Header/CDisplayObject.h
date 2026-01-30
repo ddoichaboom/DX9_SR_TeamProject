@@ -56,6 +56,7 @@ protected:
 	Engine::CTransform*				m_pTransformCom;
 	Engine::CTexture*				m_pTextureCom;
 
+private:
 	DISPLAY_OBJECT_TYPE				m_eObjectType;
 	_uint							m_iTextureID;
 

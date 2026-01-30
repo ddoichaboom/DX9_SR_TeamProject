@@ -158,6 +158,7 @@
     <ClInclude Include="..\Header\CEditorApp.h" />
     <ClInclude Include="..\Header\CEditorCamera.h" />
     <ClInclude Include="..\Header\CEditorCeiling.h" />
+    <ClInclude Include="..\Header\CEditorDisplayCubeObject.h" />
     <ClInclude Include="..\Header\CEditorDisplayObject.h" />
     <ClInclude Include="..\Header\CEditorInteractObject.h" />
     <ClInclude Include="..\Header\CEditorVendingMachine.h" />
@@ -222,6 +223,7 @@
     <ClCompile Include="..\Code\CEditorApp.cpp" />
     <ClCompile Include="..\Code\CEditorCamera.cpp" />
     <ClCompile Include="..\Code\CEditorCeiling.cpp" />
+    <ClCompile Include="..\Code\CEditorDisplayCubeObject.cpp" />
     <ClCompile Include="..\Code\CEditorDisplayObject.cpp" />
     <ClCompile Include="..\Code\CEditorInteractObject.cpp" />
     <ClCompile Include="..\Code\CEditorVendingMachine.cpp" />

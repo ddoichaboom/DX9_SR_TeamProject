@@ -209,6 +209,14 @@ namespace Engine
 		PASSARELA,
 		RUG,
 		SIGNS,
+		PLATE,
+		ROAD_CORNER,
+		ROAD_PLATE,
+		TRAFFIC_LIGHTS,
+		TRAFFIC_SIGN_1,
+		TRAFFIC_SIGN_2,
+		TRAFFIC_SIGN_3,
+		WALL_WINDOW,
 		DOT_END
 	};
 
@@ -216,6 +224,7 @@ namespace Engine
 	{
 		BOX,
 		CONCRETE_BLOCK,
+		WALL_BLOCK,
 		DCOT_END
 	};
 }

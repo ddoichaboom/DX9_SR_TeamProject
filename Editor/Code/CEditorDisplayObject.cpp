@@ -11,6 +11,14 @@ vector<TextureSource> CEditorDisplayObject::m_vTextureSource =
     {PASSARELA, L"../Bin/Resource/Texture/Object/DisplayObject/PASSARELA.dds"},
     {RUG, L"../Bin/Resource/Texture/Object/DisplayObject/RUG.dds", true, 0, 3, 3, {1.f, 1.f}},
     {SIGNS, L"../Bin/Resource/Texture/Object/DisplayObject/SIGNS.dds", true, 0, 6, 6, {1.f, 1.f}},
+    {PLATE, L"../Bin/Resource/Texture/Object/DisplayObject/PLATE.dds"},
+    {ROAD_CORNER, L"../Bin/Resource/Texture/Object/DisplayObject/ROAD_CORNER.dds"},
+    {ROAD_PLATE, L"../Bin/Resource/Texture/Object/DisplayObject/ROAD_PLATE.dds", true, 0, 3, 3, {1.f, 1.f}},
+    {TRAFFIC_LIGHTS, L"../Bin/Resource/Texture/Object/DisplayObject/TRAFFIC_LIGHTS.dds"},
+    {TRAFFIC_SIGN_1, L"../Bin/Resource/Texture/Object/DisplayObject/TRAFFIC_SIGN_1.dds"},
+    {TRAFFIC_SIGN_2, L"../Bin/Resource/Texture/Object/DisplayObject/TRAFFIC_SIGN_2.dds"},
+    {TRAFFIC_SIGN_3, L"../Bin/Resource/Texture/Object/DisplayObject/TRAFFIC_SIGN_3.dds"},
+    {WALL_WINDOW, L"../Bin/Resource/Texture/Object/DisplayObject/WALL_WINDOW.dds"}
 };
 
 CEditorDisplayObject::CEditorDisplayObject(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -141,11 +149,13 @@ void CEditorDisplayObject::Set_DisplayObjectType(DISPLAY_OBJECT_TYPE eObjectType
         m_pTextureCom->Set_Frame(_vec2(iTextureId, 0));
     }
 
+    if (!m_pTransformCom)
+        return;
+
     switch (m_eObjectType)
     {
     case JUMP_BORDER:
-        if (m_pTransformCom)
-            m_pTransformCom->Set_Scale(_vec3(16.f, 8.f, 1.f));
+        m_pTransformCom->Set_Scale(_vec3(16.f, 8.f, 1.f));
         break;
 
     case CABLES:
@@ -157,28 +167,22 @@ void CEditorDisplayObject::Set_DisplayObjectType(DISPLAY_OBJECT_TYPE eObjectType
         else
             vScale = { 16.f, 16.f, 1.f };
 
-        if (!m_pTransformCom) return;
         m_pTransformCom->Set_Scale(vScale);
 
         break;
     }
 
     case PALMS:
-        if (m_pTransformCom)
-            m_pTransformCom->Set_Scale(_vec3(8.f, 16.f, 1.f));
+        m_pTransformCom->Set_Scale(_vec3(8.f, 16.f, 1.f));
         break;
 
     case PASSARELA:
-        if (m_pTransformCom)
-            m_pTransformCom->Set_Scale(_vec3(48.f, 16.f, 1.f));
+        m_pTransformCom->Set_Scale(_vec3(48.f, 16.f, 1.f));
         break;
 
     case RUG:
-        if (m_pTransformCom)
-        {
-            m_pTransformCom->Set_Scale(_vec3(16.f, 16.f, 1.f));
-            m_pTransformCom->Set_Angle(_vec3(90.f, 0.f, 0.f));
-        }
+        m_pTransformCom->Set_Scale(_vec3(16.f, 16.f, 1.f));
+        m_pTransformCom->Set_Angle(_vec3(90.f, 0.f, 0.f));
         break;
 
     case SIGNS:
@@ -190,11 +194,34 @@ void CEditorDisplayObject::Set_DisplayObjectType(DISPLAY_OBJECT_TYPE eObjectType
         else
             vScale = { 16.f, 8.f, 1.f };
 
-        if (!m_pTransformCom) return;
         m_pTransformCom->Set_Scale(vScale);
 
         break;
     }
+    case PLATE:
+        m_pTransformCom->Set_Scale(_vec3(8.f, 64.f, 1.f));
+        break;
+    case ROAD_CORNER:
+        m_pTransformCom->Set_Scale(_vec3(16.f, 16.f, 1.f));
+        break;
+    case ROAD_PLATE:
+        m_pTransformCom->Set_Scale(_vec3(16.f, 16.f, 1.f));
+        break;
+    case TRAFFIC_LIGHTS:
+        m_pTransformCom->Set_Scale(_vec3(16.f, 8.f, 1.f));
+        break;
+    case TRAFFIC_SIGN_1:
+        m_pTransformCom->Set_Scale(_vec3(16.f, 64.f, 1.f));
+        break;
+    case TRAFFIC_SIGN_2:
+        m_pTransformCom->Set_Scale(_vec3(16.f, 64.f, 1.f));
+        break;
+    case TRAFFIC_SIGN_3:
+        m_pTransformCom->Set_Scale(_vec3(64.f, 8.f, 1.f));
+        break;
+    case WALL_WINDOW:
+        m_pTransformCom->Set_Scale(_vec3(16.f, 16.f, 1.f));
+        break;
     }
 
 }
@@ -231,6 +258,8 @@ CEditorDisplayObject* CEditorDisplayObject::Create(LPDIRECT3DDEVICE9 pGraphicDev
 
     // Transform 전체 지정 (맵 로드 시 사용)
     pInstance->Set_Position(vPos);
+    pInstance->Set_Rotation(vRot);
+    pInstance->Set_Scale(vScale);
     pInstance->Set_DisplayObjectType(iType, iTextureId);
 
     return pInstance;

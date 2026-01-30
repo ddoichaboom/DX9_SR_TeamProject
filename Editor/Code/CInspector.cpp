@@ -18,6 +18,7 @@
 #include "CEditorVendingMachine.h"
 #include "CEditorInteractObject.h"
 #include "CEditorDisplayObject.h"
+#include "CEditorDisplayCubeObject.h"
 
 
 CInspector::CInspector()
@@ -769,6 +770,10 @@ void CInspector::Render_ObjectProperties()
     {
         Render_DisplayObjectProperties(pDisplay);
     }
+    else if (CEditorDisplayCubeObject* pDisplayCube = dynamic_cast<CEditorDisplayCubeObject*>(pObj))
+    {
+        Render_DisplayCubeObjectProperties(pDisplayCube);
+    }
 }
 
 void CInspector::Render_WallProperties(CEditorWall* pWall)
@@ -918,7 +923,15 @@ void CInspector::Render_DisplayObjectProperties(CEditorDisplayObject* pDisplay)
         "PALMS",
         "PASSARELA",
         "RUG",
-        "SIGNS"
+        "SIGNS",
+        "PLATE",
+        "ROAD_CORNER",
+        "ROAD_PLATE",
+        "TRAFFIC_LIGHTS",
+        "TRAFFIC_SIGN_1",
+        "TRAFFIC_SIGN_2",
+        "TRAFFIC_SIGN_3",
+        "WALL_WINDOW"
     };
 
     int iSelectedType = static_cast<int>(eType);
@@ -958,38 +971,51 @@ void CInspector::Render_DisplayObjectProperties(CEditorDisplayObject* pDisplay)
         }
     }
 
+}
+
+void CInspector::Render_DisplayCubeObjectProperties(CEditorDisplayCubeObject* pDisplayCube)
+{
+    if (!pDisplayCube)
+        return;
+
+    ImGui::Spacing();
+    ImGui::Separator();
+    ImGui::Text("DisplayCubeObject Properties");
+
+    ImGui::Spacing();
+
+    // DisplayCubeObject 타입 콤보박스
+    DISPLAY_CUBE_OBJECT_TYPE eType = pDisplayCube->Get_CubeObjectType();
+    const char* szDisplayCubeTypes[] = {
+        "BOX",
+        "CONCRETE_BLOCK",
+        "WALL_BLOCK"
+    };
+
+    int iSelectedType = static_cast<int>(eType);
+    if (ImGui::Combo("Cube Type", &iSelectedType, szDisplayCubeTypes, IM_ARRAYSIZE(szDisplayCubeTypes)))
+    {
+        DISPLAY_CUBE_OBJECT_TYPE eNewType = static_cast<DISPLAY_CUBE_OBJECT_TYPE>(iSelectedType);
+        pDisplayCube->Set_CubeObjectType(eNewType);
+    }
+
     ImGui::Spacing();
 
     // 프리셋 버튼
     ImGui::Text("Presets:");
-    if (ImGui::Button("JUMP_BORDER"))
+    if (ImGui::Button("BOX"))
     {
-        pDisplay->Set_DisplayObjectType(JUMP_BORDER, 0);
+        pDisplayCube->Set_CubeObjectType(BOX);
     }
     ImGui::SameLine();
-    if (ImGui::Button("CABLES"))
+    if (ImGui::Button("CONCRETE_BLOCK"))
     {
-        pDisplay->Set_DisplayObjectType(CABLES, 0);
+        pDisplayCube->Set_CubeObjectType(CONCRETE_BLOCK);
     }
     ImGui::SameLine();
-    if (ImGui::Button("PALMS"))
+    if (ImGui::Button("WALL_BLOCK"))
     {
-        pDisplay->Set_DisplayObjectType(PALMS, 0);
-    }
-
-    if (ImGui::Button("PASSARELA"))
-    {
-        pDisplay->Set_DisplayObjectType(PASSARELA, 0);
-    }
-    ImGui::SameLine();
-    if (ImGui::Button("RUG"))
-    {
-        pDisplay->Set_DisplayObjectType(RUG, 0);
-    }
-    ImGui::SameLine();
-    if (ImGui::Button("SIGNS"))
-    {
-        pDisplay->Set_DisplayObjectType(SIGNS, 0);
+        pDisplayCube->Set_CubeObjectType(WALL_BLOCK);
     }
 }
 

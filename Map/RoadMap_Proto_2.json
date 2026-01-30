@@ -1,0 +1,7832 @@
+{
+  "VendingMachineCount": 0,
+  "axeCount": 0,
+  "ceilingCount": 0,
+  "displayCubeObjectCount": 2,
+  "displayObjectCount": 240,
+  "doorCount": 0,
+  "dynamicFloorCount": 0,
+  "dynamicWallCount": 0,
+  "extinguisherCount": 0,
+  "floorCount": 90,
+  "mapColliderCount": 19,
+  "objectCount": 352,
+  "objects": [
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        0.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        0.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        64.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        64.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        64.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        128.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        128.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        128.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        192.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        192.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        192.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        256.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        256.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        256.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        320.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        320.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        320.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        384.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        384.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        384.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        448.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        448.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        448.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        512.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        512.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        512.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        576.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        576.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        576.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        640.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        640.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        640.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        704.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        704.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        704.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        768.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        768.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        768.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        832.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        832.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        832.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        896.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        896.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        896.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        960.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        960.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        960.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        1024.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1024.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1024.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        1152.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1152.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1152.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        1216.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1216.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1216.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        1280.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1280.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1280.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        1344.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1344.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1344.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        1408.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1408.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1408.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        1472.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1472.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1472.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        1536.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1536.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1536.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        1600.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1600.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1600.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1664.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1664.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        1664.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1728.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1728.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        1728.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1792.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1792.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        1792.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        0.0,
+        0.0,
+        1856.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        64.0,
+        0.0,
+        1856.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "floorType": 3,
+      "isDynamic": false,
+      "name": "Floor",
+      "position": [
+        -64.0,
+        0.0,
+        1856.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Floor"
+    },
+    {
+      "monsterKey": "",
+      "name": "PlayerSpawn",
+      "position": [
+        0.0,
+        20.0,
+        0.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Player",
+      "type": "SpawnPoint"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject_0",
+      "position": [
+        -90.0,
+        16.0,
+        -16.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        16.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        48.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        80.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        112.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        144.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        176.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        208.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        240.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        272.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        -16.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        16.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        48.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        80.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        112.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        144.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        176.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        208.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        240.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        272.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        304.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        336.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        304.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        336.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        368.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        368.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        400.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        400.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        432.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        432.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        464.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        464.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        496.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        496.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        528.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        528.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        560.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        560.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        592.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        592.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        624.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        624.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        656.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        656.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        688.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        688.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        720.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        720.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        752.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        752.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        784.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        784.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        816.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        816.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        848.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        848.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        880.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        880.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        912.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        912.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        944.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        944.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        976.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        976.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1008.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1008.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1040.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1040.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1072.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1072.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1104.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1104.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1136.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1136.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1168.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1168.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1200.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1200.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1232.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1232.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1264.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 3,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1264.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 3,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1296.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 3,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1296.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 3,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1328.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 3,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1328.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 3,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1360.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 3,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1360.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 3,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1392.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 3,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1392.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 3,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1424.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 3,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1424.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 3,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1456.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 3,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1456.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 3,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1488.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 3,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1488.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 3,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1520.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 3,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1520.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 3,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1552.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 3,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1552.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 3,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1584.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1584.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1616.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1616.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1648.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1648.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1680.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1680.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1712.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1712.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1744.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1744.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1776.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1776.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1808.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1808.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1840.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1840.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        -90.0,
+        16.0,
+        1872.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 5,
+      "name": "DisplayObject",
+      "position": [
+        90.0,
+        16.0,
+        1872.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        8.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "DisplayObject"
+    },
+    {
+      "colliderTag": 16,
+      "name": "MapCollider_0",
+      "position": [
+        0.0,
+        8.0,
+        -80.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        96.0,
+        8.0,
+        32.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider_1",
+      "position": [
+        0.0,
+        -16.0,
+        128.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        96.0,
+        16.0,
+        160.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        0.0,
+        -16.0,
+        448.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        96.0,
+        16.0,
+        160.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        0.0,
+        -16.0,
+        768.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        96.0,
+        16.0,
+        160.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        0.0,
+        -16.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        96.0,
+        16.0,
+        160.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        0.0,
+        -16.0,
+        1408.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        96.0,
+        16.0,
+        160.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        0.0,
+        -16.0,
+        1728.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        96.0,
+        16.0,
+        160.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider_2",
+      "position": [
+        120.0,
+        16.0,
+        128.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        24.0,
+        16.0,
+        160.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        -120.0,
+        16.0,
+        128.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        24.0,
+        16.0,
+        160.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        -120.0,
+        16.0,
+        448.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        24.0,
+        16.0,
+        160.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        -120.0,
+        16.0,
+        768.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        24.0,
+        16.0,
+        160.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        -120.0,
+        16.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        24.0,
+        16.0,
+        160.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        -120.0,
+        16.0,
+        1408.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        24.0,
+        16.0,
+        160.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        -120.0,
+        16.0,
+        1728.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        24.0,
+        16.0,
+        160.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        120.0,
+        16.0,
+        1728.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        24.0,
+        16.0,
+        160.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        120.0,
+        16.0,
+        1408.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        24.0,
+        16.0,
+        160.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        120.0,
+        16.0,
+        1088.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        24.0,
+        16.0,
+        160.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        120.0,
+        16.0,
+        768.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        24.0,
+        16.0,
+        160.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider",
+      "position": [
+        120.0,
+        16.0,
+        448.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        24.0,
+        16.0,
+        160.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject_0",
+      "position": [
+        -96.0,
+        16.0,
+        -16.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        16.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        48.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        80.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        112.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        144.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        176.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        208.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        240.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        272.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        304.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        -16.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        16.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        48.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        80.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        112.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        144.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        176.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        208.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        240.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        272.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        304.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        336.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        336.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        368.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        368.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        400.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        400.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        432.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        432.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        464.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        464.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        496.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        496.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        528.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        528.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        560.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        560.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        592.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        592.0
+      ],
+      "roomIndex": 1,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        624.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        624.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        656.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        656.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        688.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        688.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        720.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        720.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        752.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        752.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        784.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        784.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        816.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        816.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        848.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        848.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        880.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        880.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        912.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        912.0
+      ],
+      "roomIndex": 2,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        944.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        944.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        976.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        976.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1008.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1008.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1040.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1040.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1072.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1072.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1104.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1104.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1136.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1136.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1168.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1168.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1200.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1200.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1232.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1232.0
+      ],
+      "roomIndex": 3,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1264.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1264.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1296.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1296.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1328.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1328.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1360.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1360.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1392.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1392.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1424.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1424.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1456.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1456.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1488.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1488.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1520.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1520.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1552.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1552.0
+      ],
+      "roomIndex": 4,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1584.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1584.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1616.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1616.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1648.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1648.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1680.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1680.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1712.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1712.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1744.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1744.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1776.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1776.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1808.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1808.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1840.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1840.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        -96.0,
+        16.0,
+        1872.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 7,
+      "name": "DisplayObject",
+      "position": [
+        96.0,
+        16.0,
+        1872.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayCubeObjectType": 1,
+      "name": "DisplayCubeObject_0",
+      "position": [
+        -182.0,
+        64.0,
+        79.98126220703125
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        64.0,
+        32.0
+      ],
+      "type": "DisplayCubeObject"
+    },
+    {
+      "displayCubeObjectType": 1,
+      "name": "DisplayCubeObject",
+      "position": [
+        -166.0,
+        32.0,
+        15.98126220703125
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        32.0,
+        32.0
+      ],
+      "type": "DisplayCubeObject"
+    }
+  ],
+  "triggerBoxCount": 0,
+  "version": 4,
+  "wallCount": 0
+}
