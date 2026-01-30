@@ -14,6 +14,7 @@ class CEditorMapCollider;
 class CEditorTriggerBox;
 class CEditorDoor;
 class CEditorInteractObject;
+class CEditorDisplayObject;
 
 class CInspector : public CBase
 {
@@ -35,6 +36,7 @@ private:
     void    Render_TriggerBoxProperties(CEditorTriggerBox* pTrigger);
     void    Render_DoorProperties(CEditorDoor* pDoor);
     void    Render_InteractObjectProperties(CEditorInteractObject* pInteract);
+    void    Render_DisplayObjectProperties(CEditorDisplayObject* pDisplay);
 
 private:
     void    Render_ObjectProperties();
@@ -52,8 +54,8 @@ private:
     // 선택된 오브젝트 타입 (임시)
     int             m_iSelectedType;
 
-    CEditorScene* m_pScene;
-
+    CEditorScene*   m_pScene;
+    
 private:
     virtual void Free() override;
 

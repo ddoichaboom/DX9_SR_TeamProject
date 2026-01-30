@@ -152,6 +152,8 @@ namespace Engine
 		_uint	iWallType;			// STATIC/DYNAMIC_WALL_TYPE enum
 		_int	iDoorID;
 
+		DISPLAY_OBJECT_TYPE eObjectType;		
+
 		DOOR_TYPE	iDoorType;
 		SLOPE_DIR	eSlopeDir;
 
@@ -168,7 +170,7 @@ namespace Engine
 			vPos(0, 0, 0), vRot(0, 0, 0), vScale(1, 1, 1),
 			iTextureIdx(0), iFloorType(0), iCeilingType(0), iWallType(0),
 			sSpawnType(""), sMonsterKey(""), eSlopeDir(SLOPE_DIR_END),
-			iTriggerType(TT_END), eColliderTag(TAG_NONE), iDoorType(DT_END), iDoorID(-1)
+			iTriggerType(TT_END), eColliderTag(TAG_NONE), iDoorType(DT_END), iDoorID(-1), eObjectType(DOT_END)
 		{}
 
 	}ObjectData;
@@ -189,6 +191,7 @@ namespace Engine
 		_uint iDoorCount;
 		_uint iExtinguisherCount;
 		_uint iAxeCount;
+		_uint iDisplayObjectCount;
 
 		_uint iMapColliderCount;
 		_uint iRoomTriggerBoxCount;
@@ -198,7 +201,7 @@ namespace Engine
 			: iRoomIdx(-1), iFloorCount(0), iDynamicFloorCount(0), iCeilingCount(0),
 			iDynamicCeilingCount(0), iWallCount(0), iDynamicWallCount(0), iVendingMachineCount(0)
 			, iSlopeFloorCount(0), iMapColliderCount(0), iRoomTriggerBoxCount(0), iEventTriggerBoxCount(0)
-			, iDoorCount(0), iExtinguisherCount(0), iAxeCount(0)
+			, iDoorCount(0), iExtinguisherCount(0), iAxeCount(0), iDisplayObjectCount(0)
 		{}
 	}RoomData;
 
@@ -282,6 +285,7 @@ namespace Engine
 	typedef struct tagMapEndData : public EventData
 	{
 		_vec3 pos{};
+		_float angleY = 0.f;
 	}MapEndData;
 
 

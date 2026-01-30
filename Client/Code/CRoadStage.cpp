@@ -7,6 +7,8 @@
 #include "CDInputMgr.h"
 #include "CSoundMgr.h"
 #include "CUIManager.h"
+#include "CVideoMgr.h"
+
 
 // 필수 게임 오브젝트 
 #include "CRoadCamera.h"
@@ -31,6 +33,8 @@
 #include "CBodyEmit.h"
 #include "CHitUI.h"
 
+wstring CRoadStage::szRoadMapBGM = L"RoadMap_BGM.wav";
+
 CRoadStage::CRoadStage(LPDIRECT3DDEVICE9 pGraphicDev) : CStage(pGraphicDev)
 {
 }
@@ -43,7 +47,6 @@ HRESULT CRoadStage::Ready_Scene()
 {
 	//다른 맵과 연결하면서 로딩스레드 추가하기 전까지는 필요한 함수 직접 호출하기
 	//Ready_Prototype .. 등 
-	CUIManager::GetInstance()->Clear_UIGroup();
 
 	if (FAILED(Ready_CharacterTextureProto())) return E_FAIL;
 	if (FAILED(Ready_ObjectPool_Character())) return E_FAIL;
@@ -69,6 +72,12 @@ _int CRoadStage::Update_Scene(const _float& fTimeDelta)
 	if (m_bStageEnd)
 	{
 		return RET_DEAD;
+	}
+
+	if (!m_bStartSound)
+	{		
+		CSoundMgr::GetInstance()->PlayBGM(szRoadMapBGM.c_str(), 1.4f);
+		m_bStartSound = true;
 	}
 		
 
@@ -284,12 +293,12 @@ HRESULT CRoadStage::Ready_CharacterTextureProto()
 		return E_FAIL;
 
 	// Monster
-	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CFlyMon::GetTextureSources());
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FlyMonTexture", pCom_Texture)))
-		return E_FAIL;
-
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FlyMonAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CFlyMon::GetAnimSources()))))
-		return E_FAIL;
+	//pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CFlyMon::GetTextureSources());
+	//if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FlyMonTexture", pCom_Texture)))
+	//	return E_FAIL;
+	//
+	//if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_FlyMonAnimation", Engine::CAnimation::Create(m_pGraphicDev, pCom_Texture, CFlyMon::GetAnimSources()))))
+	//	return E_FAIL;
 
 	//Bullet Texture
 	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CPlayerBullet::GetTextureSource());
@@ -304,12 +313,12 @@ HRESULT CRoadStage::Ready_CharacterTextureProto()
 HRESULT CRoadStage::Ready_TerrainTextureProto()
 {
 	// ㅣ필수 삭제 ㅣ
-	CCubeTexture* pCom_Cube_Texture = nullptr;
-
-	// Obstacle(VendingMachine) Proto 
-	pCom_Cube_Texture = Engine::CCubeTexture::Create(m_pGraphicDev, CSkyBox::GetTextureSources());
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SkyTexture", pCom_Cube_Texture)))
-		return E_FAIL;
+	//CCubeTexture* pCom_Cube_Texture = nullptr;
+	//
+	//// Obstacle(VendingMachine) Proto 
+	//pCom_Cube_Texture = Engine::CCubeTexture::Create(m_pGraphicDev, CSkyBox::GetTextureSources());
+	//if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SkyTexture", pCom_Cube_Texture)))
+	//	return E_FAIL;
 
 	return S_OK;
 }
@@ -317,7 +326,7 @@ HRESULT CRoadStage::Ready_TerrainTextureProto()
 HRESULT CRoadStage::Ready_UITextureProto()
 {
 	// ㅣ필수ㅣ TEST 할때 최초 세팅을 위해 생성 나중에 지워야함 
-	CUIManager::GetInstance()->Ready_GameObject(m_pGraphicDev);
+	//CUIManager::GetInstance()->Ready_GameObject(m_pGraphicDev);
 	return S_OK;
 }
 
@@ -327,36 +336,36 @@ HRESULT CRoadStage::Ready_EffectTextureProto()
 	CTexture* pCom_Texture = nullptr;
 
 	//Flare
-	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CFlare::GetTextureSource());
-	if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_Flare_Texture", pCom_Texture)))
-	{
-		MSG_BOX("Proto Flare Ready Failed");
-		return E_FAIL;
-	}
-
-	//Explosion
-	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CExplosion::GetTextureSource());
-	if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_EXP_Texture", pCom_Texture)))
-	{
-		MSG_BOX("Proto Explosion Ready Failed");
-		return E_FAIL;
-	}
-
-	//BodyEmit
-	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBodyEmit::GetTextureSources());
-	if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_BodyEmit_Texture", pCom_Texture)))
-	{
-		MSG_BOX("Proto BodyEmit Ready Failed");
-		return E_FAIL;
-	}
-
-	//HitUI
-	pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CHitUI::GetTextureSource());
-	if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_HitUI_Texture", pCom_Texture)))
-	{
-		MSG_BOX("Proto HitUI Ready Failed");
-		return E_FAIL;
-	}
+	//pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CFlare::GetTextureSource());
+	//if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_Flare_Texture", pCom_Texture)))
+	//{
+	//	MSG_BOX("Proto Flare Ready Failed");
+	//	return E_FAIL;
+	//}
+	//
+	////Explosion
+	//pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CExplosion::GetTextureSource());
+	//if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_EXP_Texture", pCom_Texture)))
+	//{
+	//	MSG_BOX("Proto Explosion Ready Failed");
+	//	return E_FAIL;
+	//}
+	//
+	////BodyEmit
+	//pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBodyEmit::GetTextureSources());
+	//if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_BodyEmit_Texture", pCom_Texture)))
+	//{
+	//	MSG_BOX("Proto BodyEmit Ready Failed");
+	//	return E_FAIL;
+	//}
+	//
+	////HitUI
+	//pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CHitUI::GetTextureSource());
+	//if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_HitUI_Texture", pCom_Texture)))
+	//{
+	//	MSG_BOX("Proto HitUI Ready Failed");
+	//	return E_FAIL;
+	//}
 
 	return S_OK;
 }

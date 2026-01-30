@@ -10,6 +10,7 @@
 #include "CExplosion.h"
 #include "CSoundMgr.h"
 #include "CBeam.h"
+#include "CEventMgr.h"
 
 wstring CSniperWhiteMan::szWhiteManDead = L"Monster_Dead_SFX.wav";
 wstring CSniperWhiteMan::szWhiteManBody = L"Monster_Pistol_Shoot_SFX.wav";
@@ -282,6 +283,9 @@ void CSniperWhiteMan::OnBodyCollision(CollisionInfo info)
 	m_bTrace = false;
 	m_bTargeting = false;
 	m_bShoot = false;
+
+	//Test
+	CEventMgr::GetInstance()->Broadcast(EVENT_MONSTER_DEAD, nullptr);
 }
 
 void CSniperWhiteMan::Idle()
@@ -325,7 +329,7 @@ void CSniperWhiteMan::Dead()
 {
 	if (m_pAnimationCom->IsEnd())
 	{
-		SetDead();
+		SetDead();		
 	}
 }
 

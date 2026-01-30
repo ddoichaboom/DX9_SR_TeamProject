@@ -1,9 +1,11 @@
 #pragma once
 #include "CStage.h"
+#include "CEventMgr.h"
 
 class CSniperPlayer;
+
 class CSniperStage :
-    public CStage
+    public CStage, public IListener
 {
 protected:
     explicit        CSniperStage(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -17,6 +19,7 @@ public:
 
 public:
     static CSniperStage* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+    void                OnEvent(EVENT_TYPE _type, EventData* _pData) override;
 
 protected:
     HRESULT         Ready_Environment_Layer(const _tchar* pLayerTag) override;
@@ -56,5 +59,7 @@ private:
     _float      m_fMinTime = 2.0f;
 
     _bool       m_bFirstSpawn = true;
+
+    _bool       m_bStartSound = false;
 };
 

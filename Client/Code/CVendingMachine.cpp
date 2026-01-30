@@ -68,7 +68,7 @@ HRESULT CVendingMachine::Ready_GameObject()
     if (!m_pTransformCom)
         return E_FAIL;
 
-    m_vColliderScale = m_pTransformCom->Get_Scale();
+    m_vColliderScale = m_pTransformCom->Get_Scale();    
 
     if (!m_pCollisionCom)
         return E_FAIL;
@@ -79,8 +79,6 @@ HRESULT CVendingMachine::Ready_GameObject()
         return E_FAIL;
 
     m_pCollider->Set_Scale(m_vColliderScale);
-
-
 
     // 충돌 콜백 함수 바인딩
     m_pCollider->BindFuncToCollision([this](CollisionInfo info)
@@ -147,7 +145,6 @@ void CVendingMachine::Render_GameObject()
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, dOldCullMode);
     m_pGraphicDev->SetTexture(0, nullptr);
-
 }
 
 void CVendingMachine::Dispense()
@@ -213,9 +210,11 @@ HRESULT CVendingMachine::Add_Component()
 void	CVendingMachine::OnCollision(CollisionInfo info)
 {
     // TODO: 조건 작성 
-    
-    if(!m_bDispens)
-        Dispense();
+    if (info.fDamage > 0.f)
+    {
+        if (!m_bDispens)
+            Dispense();
+    }    
 }
 
 void    CVendingMachine::Set_ColliderScale(_vec3 _scale)

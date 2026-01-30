@@ -9,6 +9,7 @@
 #include "CBlood.h"
 #include "CExplosion.h"
 #include "CSoundMgr.h"
+#include "CVendingMachine.h"
 
 _uint CWhiteMan::ID_SLICE_DEAD = CStateComponent::MakeStateID(MS_DEAD, SUB_NONE, SLICE);
 _uint CWhiteMan::ID_ELECT_DEAD = CStateComponent::MakeStateID(MS_DEAD, SUB_NONE, ELECT);
@@ -71,6 +72,7 @@ wstring CWhiteMan::szWhiteManDead = L"Monster_Dead_SFX.wav";
 wstring CWhiteMan::szWhiteManBody = L"Monster_Pistol_Shoot_SFX.wav";
 wstring CWhiteMan::szWhiteManHead = L"Monster_HeadShot_SFX.wav";
 wstring CWhiteMan::szWhiteManShot = L"Monster_Shot_SFX.wav";
+wstring CWhiteMan::szWhiteManElectric = L"Monster_Electric_SFX.wav";
 
 CWhiteMan::CWhiteMan(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CMonster(pGraphicDev), m_pHeadCollider(nullptr), m_pBodyCollider(nullptr)
@@ -340,7 +342,13 @@ void CWhiteMan::OnBodyCollision(CollisionInfo info)
 
 		m_fHP = 0.f;
 		CSoundMgr::GetInstance()->PlayMonsterSound(szWhiteManDead.c_str(), 0.5f);
-		if (info.eTag == TAG_ELECTRIC) ChangeState(ID_ELECT_DEAD);
+		if (info.eTag == TAG_ELECTRIC)
+		{			
+			CollisionInfo m_info = { nullptr, {0,0,0}, 1.f , TAG_KICK };
+			static_cast<CVendingMachine*>(info.pTarget)->OnCollision(m_info);
+			CSoundMgr::GetInstance()->PlaySFXSound(szWhiteManElectric.c_str());
+			ChangeState(ID_ELECT_DEAD);
+		}			
 		else if (info.eTag == TAG_FAN) ChangeState(ID_EXP_DEAD);
 		return;
 	}

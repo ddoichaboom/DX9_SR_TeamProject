@@ -31,12 +31,12 @@ HRESULT CEnding::Ready_Scene()
 
 _int CEnding::Update_Scene(const _float& fTimeDelta)
 {
-	if (CVideoMgr::GetInstance()->IsFinished())
+	if (CVideoMgr::GetInstance()->IsFinished() ||CDInputMgr::GetInstance()->Key_Down(DIK_P))
 	{
 		CVideoMgr::GetInstance()->SetPlayFlag(false);
 		CVideoMgr::GetInstance()->Cleanup();
 		CSoundMgr::GetInstance()->StopAll();
-		//return RET_DEAD;
+		return RET_DEAD;
 	}
 	return RET_NONE;
 }
@@ -59,7 +59,7 @@ CEnding* CEnding::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CEnding::Free()
 {
-	CVideoMgr::GetInstance()->Cleanup();
-	CSoundMgr::GetInstance()->StopAll();
+	//CVideoMgr::GetInstance()->Cleanup();
+	//CSoundMgr::GetInstance()->StopAll();
 	CScene::Free();
 }

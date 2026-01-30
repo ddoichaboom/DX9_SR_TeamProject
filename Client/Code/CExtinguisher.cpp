@@ -12,7 +12,7 @@
 
 TextureSource CExtinguisher::m_vTextureSource =
 {
-    0, L"../Bin/Resource/Texture/Object/Extinguisher.dds"
+    0, L"../Bin/Resource/Texture/Object/InteractObject/Extinguisher.dds"
 };
 
 

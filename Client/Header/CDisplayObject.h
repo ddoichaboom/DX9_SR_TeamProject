@@ -19,7 +19,10 @@ protected:
 
 public :
 	static CDisplayObject* Create(LPDIRECT3DDEVICE9 pGraphicDev);
-	static vector<TextureSource>& GetTextureSources() { return m_vTextureSource; }
+	static vector<TextureSource>& GetTextureSources()
+	{
+		return m_vTextureSource;
+	}
 
 public:
 	HRESULT				Ready_GameObject() override;
@@ -37,7 +40,10 @@ public :
 	virtual		void	SetScale(_vec3 _scale);
 	virtual		void	SetTexture(_uint iTextureID);
 	virtual		void	SetTransformMatrix();
+				void	Set_Angle(const _vec3& vRot);
 
+public:
+	void				Set_DisplayObjectType(DISPLAY_OBJECT_TYPE eObjectType, _uint iTextureId = 0);
 
 	virtual		void	Activate() override;
 	virtual		void	Deactivate() override;
@@ -46,13 +52,15 @@ protected :
 	virtual		void	SetBillBoard();
 
 protected:
-	static vector<TextureSource>	m_vTextureSource;
-	Engine::CRcTex* m_pBufferCom;
-	Engine::CTransform* m_pTransformCom;
-	Engine::CTexture* m_pTextureCom;
+	Engine::CRcTex*					m_pBufferCom;
+	Engine::CTransform*				m_pTransformCom;
+	Engine::CTexture*				m_pTextureCom;
 
-	OBJ_ITEM_TYPE	m_eItemType;
-	_uint			m_iTextureID;
+	DISPLAY_OBJECT_TYPE				m_eObjectType;
+	_uint							m_iTextureID;
+
+private:
+	static vector<TextureSource>    m_vTextureSource;
 
 };
 

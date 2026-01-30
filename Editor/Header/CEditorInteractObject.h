@@ -1,11 +1,6 @@
 #pragma once
 #include "CEditorObject.h"
 
-namespace Engine
-{
-	class CTexture;
-}
-
 class CEditorInteractObject : public CEditorObject
 {
 protected:

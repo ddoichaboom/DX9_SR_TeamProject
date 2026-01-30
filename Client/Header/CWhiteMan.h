@@ -158,6 +158,7 @@ public :
 	static wstring szWhiteManBody;
 	static wstring szWhiteManHead;
 	static wstring szWhiteManShot;
+	static wstring szWhiteManElectric;
 
 };
 

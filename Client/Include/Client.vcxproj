@@ -166,6 +166,7 @@
     <ClInclude Include="..\Header\CCredit.h" />
     <ClInclude Include="..\Header\CCursor.h" />
     <ClInclude Include="..\Header\CDashUI.h" />
+    <ClInclude Include="..\Header\CDisplayCubeObject.h" />
     <ClInclude Include="..\Header\CDisplayObject.h" />
     <ClInclude Include="..\Header\CDoor.h" />
     <ClInclude Include="..\Header\CDoorLeft.h" />
@@ -240,6 +241,7 @@
     <ClInclude Include="..\Header\CStageEndTrigger.h" />
     <ClInclude Include="..\Header\CTakeDown.h" />
     <ClInclude Include="..\Header\CTakeDownBlood.h" />
+    <ClInclude Include="..\Header\CTargetUI.h" />
     <ClInclude Include="..\Header\CTerrain.h" />
     <ClInclude Include="..\Header\CStage.h" />
     <ClInclude Include="..\Header\CTestCharacter.h" />
@@ -254,6 +256,7 @@
     <ClInclude Include="..\Header\CWall.h" />
     <ClInclude Include="..\Header\CWeapon.h" />
     <ClInclude Include="..\Header\CWhiteMan.h" />
+    <ClInclude Include="..\Header\CWindow.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
@@ -283,6 +286,7 @@
     <ClCompile Include="..\Code\CCredit.cpp" />
     <ClCompile Include="..\Code\CCursor.cpp" />
     <ClCompile Include="..\Code\CDashUI.cpp" />
+    <ClCompile Include="..\Code\CDisplayCubeObject.cpp" />
     <ClCompile Include="..\Code\CDisplayObject.cpp" />
     <ClCompile Include="..\Code\CDoor.cpp" />
     <ClCompile Include="..\Code\CDoorLeft.cpp" />
@@ -356,6 +360,7 @@
     <ClCompile Include="..\Code\CStageEndTrigger.cpp" />
     <ClCompile Include="..\Code\CTakeDown.cpp" />
     <ClCompile Include="..\Code\CTakeDownBlood.cpp" />
+    <ClCompile Include="..\Code\CTargetUI.cpp" />
     <ClCompile Include="..\Code\CTerrain.cpp" />
     <ClCompile Include="..\Code\CStage.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
@@ -371,6 +376,7 @@
     <ClCompile Include="..\Code\CWall.cpp" />
     <ClCompile Include="..\Code\CWeapon.cpp" />
     <ClCompile Include="..\Code\CWhiteMan.cpp" />
+    <ClCompile Include="..\Code\CWindow.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

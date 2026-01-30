@@ -61,7 +61,7 @@ private:
     const _vec2   m_vEventViewSize = { 1024,576 };
 
     _float  m_fTime = 0.f;
-    _float m_fLerpTime = 0.5f;
+    _float m_fLerpTime = 0.7f;
 
 };
 

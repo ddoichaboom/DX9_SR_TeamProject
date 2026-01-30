@@ -45,6 +45,10 @@ private:
     virtual void Free();
 
 private :
-    const wstring szRoadMapBGM = L"";
+    
+    _bool       m_bStartSound = false;
+
+public :
+    static  wstring szRoadMapBGM;
 };
 

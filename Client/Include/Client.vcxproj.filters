@@ -373,8 +373,20 @@
     <Filter Include="02. GameObject\00. Character\01. Monster\03. SniperWhiteMan">
       <UniqueIdentifier>{2b69ec1d-c000-4885-9eea-08d183b16994}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Scene\05.Credits">
+    <Filter Include="02. GameObject\03.MapObject\00.DisPlayObj\DisplayCubeObj">
+      <UniqueIdentifier>{23c08983-8a7a-4ba9-b56e-6672238d9c46}</UniqueIdentifier>
+    </Filter>
+	<Filter Include="01. Scene\05.Credits">
       <UniqueIdentifier>{a396d860-f934-43df-9812-edaa48fb793a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\03.MapObject\06. Window">
+      <UniqueIdentifier>{cff36c49-c73e-4858-ab3a-fc6f09d9ef41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\01.StaticUI\16.SniperTargets">
+      <UniqueIdentifier>{006fb594-5521-45b7-a99c-bf41eb7477cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.UI\01.StaticUI\16.SniperTargets\TargetUI">
+      <UniqueIdentifier>{0bac2cde-9138-4dc9-830c-b06f0f3e3618}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -720,8 +732,17 @@
     <ClInclude Include="..\Header\CSniperWhiteMan.h">
       <Filter>02. GameObject\00. Character\01. Monster\03. SniperWhiteMan</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CCredit.h">
+    <ClInclude Include="..\Header\CDisplayCubeObject.h">
+      <Filter>02. GameObject\03.MapObject\00.DisPlayObj\DisplayCubeObj</Filter>
+    </ClInclude>
+	<ClInclude Include="..\Header\CCredit.h">
       <Filter>01. Scene\05.Credits</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CWindow.h">
+      <Filter>02. GameObject\03.MapObject\06. Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTargetUI.h">
+      <Filter>04.UI\01.StaticUI\16.SniperTargets\TargetUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1058,8 +1079,17 @@
     <ClCompile Include="..\Code\CSniperWhiteMan.cpp">
       <Filter>02. GameObject\00. Character\01. Monster\03. SniperWhiteMan</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CCredit.cpp">
+    <ClCompile Include="..\Code\CDisplayCubeObject.cpp">
+      <Filter>02. GameObject\03.MapObject\00.DisPlayObj\DisplayCubeObj</Filter>
+    </ClCompile>
+	<ClCompile Include="..\Code\CCredit.cpp">
       <Filter>01. Scene\05.Credits</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CWindow.cpp">
+      <Filter>02. GameObject\03.MapObject\06. Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTargetUI.cpp">
+      <Filter>04.UI\01.StaticUI\16.SniperTargets\TargetUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

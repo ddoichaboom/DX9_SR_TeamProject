@@ -55,7 +55,8 @@ void CToolBar::Render_ToolBar()
           "Place MapCollider",
           "Place_Door",
           "Place TriggerBox",
-          "Place InteractObject"
+          "Place InteractObject",
+          "Place DisplayObject"
     };
 
     int iCurrentMode = (int)m_eEditorMode;
