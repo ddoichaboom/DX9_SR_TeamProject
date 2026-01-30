@@ -53,13 +53,15 @@ private:
     _int        m_iFileIndex = 4;
 
     _float      m_fTime = 0.f;
+    _float      m_fEndTime = 0.f;
     _float      m_fSpawnTime = 3.f;
    _float       m_fOriginSpawnTime = 5.f;
-    _float      m_fOffsetTime = 0.5f;
+    _float      m_fOffsetTime = 0.25f;
     _float      m_fMinTime = 2.0f;
+    _int        m_iKillCount = 0;
+    _int        m_iSpawnCount = 0;
 
     _bool       m_bFirstSpawn = true;
-
     _bool       m_bStartSound = false;
 };
 
