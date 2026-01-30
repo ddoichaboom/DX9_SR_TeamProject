@@ -41,6 +41,8 @@ protected:
     void            Check_Collision() override;
     void            OnEvent(EVENT_TYPE _type, EventData* _pData) override;
 
+    void           SpawnMonster();
+
 private:
     virtual void Free();
 
@@ -54,5 +56,14 @@ public :
     const _int m_iRoomCnt = 2;
 
     _float  m_fTime;
+
+    vector<_vec3> m_vecSpawnPoses;
+    //_float      m_fTime = 0.f;   
+    _float      m_fSpawnTime = 3.f;
+    _float       m_fOriginSpawnTime = 5.f;
+    _float      m_fOffsetTime = 0.25f;
+    _float      m_fMinTime = 2.0f;
+
+    _bool       m_bFirstSpawn = true;
 };
 

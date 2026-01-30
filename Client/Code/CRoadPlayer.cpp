@@ -6,6 +6,7 @@
 #include "CPoolMgr.h"
 #include "CSoundMgr.h"
 #include "CManagement.h"
+#include "CUIManager.h"
 
 #include "CMinigun.h"
 #include "CPlayerBullet.h"
@@ -54,6 +55,12 @@ void CRoadPlayer::OnEvent(EVENT_TYPE _type, EventData* _pData)
 	{
 		m_bStageEnd = true;
 	}
+
+	else if (_type == EVENT_MONSTER_DEAD)
+	{
+		MonsterData* pData = static_cast<MonsterData*>(_pData);
+		CUIManager::GetInstance()->Create_TextUI(m_pGraphicDev, pData->eTag, pData->value);
+	}
 }
 
 HRESULT CRoadPlayer::Ready_GameObject()
@@ -86,6 +93,7 @@ HRESULT CRoadPlayer::Ready_GameObject()
 	m_pHitUI->SetDead();
 
 	CEventMgr::GetInstance()->Subscribe(EVENT_ENDING, this);
+	CEventMgr::GetInstance()->Subscribe(EVENT_MONSTER_DEAD, this);
 
 	return S_OK;
 }
@@ -172,6 +180,13 @@ void CRoadPlayer::Key_Input(const _float& fTimeDelta)
 	case Engine::DIR_RIGHTDOWN:		
 		m_pTransformCom->Move_Pos(&vRight, fTimeDelta, m_fMoveSpeed);
 		break;
+	}
+
+
+	if (CDInputMgr::GetInstance()->Key_Down(DIK_G))
+	{
+		_vec3 vPos = *m_pTransformCom->Get_Info(INFO_POS);
+		vPos.y = 0;
 	}
 }
 

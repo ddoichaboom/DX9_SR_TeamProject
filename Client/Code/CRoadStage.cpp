@@ -115,6 +115,14 @@ HRESULT CRoadStage::Ready_Scene()
 
 	CEventMgr::GetInstance()->Subscribe(EVENT_ENDING, this);
 
+	m_vecSpawnPoses = 
+	{
+		{100.f, 50.f, 100.f},
+		{-100.f, 50.f, 100.f},
+		{120.f, 80.f, 150.f},
+		{-120.f, 80.f, 150.f},
+	};
+
 	return S_OK;
 }
 
@@ -151,13 +159,36 @@ _int CRoadStage::Update_Scene(const _float& fTimeDelta)
 		m_bStageEnd = true;
 	}
 
+
+	CUIManager::GetInstance()->Update_GameObject(fTimeDelta);
+
+	m_fTime += fTimeDelta;
+	if (m_fTime > m_fSpawnTime)
+	{
+		SpawnMonster();
+
+		m_fTime = 0.f;
+		if (m_bFirstSpawn)
+		{
+			m_fSpawnTime = m_fOriginSpawnTime;
+			m_bFirstSpawn = false;
+		}
+		if (m_fSpawnTime > m_fMinTime)
+		{
+			m_fSpawnTime -= m_fOffsetTime;
+			if (m_fSpawnTime < m_fMinTime) m_fSpawnTime = m_fMinTime;
+		}
+
+	}
+
+
 	return iExit;
 }
 
 void CRoadStage::LateUpdate_Scene(const _float& fTimeDelta)
 {
 	CStage::LateUpdate_Scene(fTimeDelta);
-
+	CUIManager::GetInstance()->LateUpdate_GameObject(fTimeDelta);
 	if (m_pLoadingEX->IsEnd()) Check_Collision();
 }
 
@@ -241,18 +272,6 @@ HRESULT CRoadStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 
 	if (FAILED(pLayer->Add_GameObject(pGameObject)))
 		return E_FAIL;
-
-
-
-
-	pGameObject = CFlyMon::Create(m_pGraphicDev);
-	if (pGameObject == nullptr)
-		return E_FAIL;
-
-	if (FAILED(pLayer->Add_GameObject(pGameObject)))
-		return E_FAIL;
-
-	pGameObject->SetPos({ 0.f, 10.f, 15.f });
 
 	CBoss* pBoss = nullptr;
 	pGameObject = pBoss = CBoss::Create(m_pGraphicDev, { 0.f, 150.f, 500.f }, 150.f);
@@ -505,6 +524,24 @@ void CRoadStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
 	if (_type == EVENT_ENDING)
 	{
 		m_bStageEnd = true;
+		m_fTime = 0.f;
+	}
+}
+
+void CRoadStage::SpawnMonster()
+{
+	for (_int i = 0; i < m_vecSpawnPoses.size(); ++i)
+	{
+		_vec3 spawnPos = m_vecSpawnPoses[i];
+
+		CFlyMon* pMon = CPoolMgr::GetInstance()->Get_Object<CFlyMon>();
+		if (!pMon)
+			return;
+
+		pMon->SetPos(spawnPos);
+		pMon->Instance_Trace();
+		if (m_pGameLogic_Layer) m_pGameLogic_Layer->Add_GameObject(pMon);
+		else pMon->ReturnToPool();
 	}
 }
 

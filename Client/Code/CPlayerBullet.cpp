@@ -17,15 +17,13 @@ AnimationSource CPlayerBullet::m_vAnimSource =
 CPlayerBullet::CPlayerBullet(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CBullet(pGraphicDev), m_pAnimationCom(nullptr)
 {
-	m_bMonsterBullet = false;
-	m_fAttackDamage = 1.f;
+	m_bMonsterBullet = false;	
 }
 
 CPlayerBullet::CPlayerBullet(const CPlayerBullet& rhs)
 	:CBullet(rhs), m_pAnimationCom(nullptr)
 {
-	m_bMonsterBullet = false;
-	m_fAttackDamage = 1.f;
+	m_bMonsterBullet = false;	
 }
 
 CPlayerBullet::~CPlayerBullet()
