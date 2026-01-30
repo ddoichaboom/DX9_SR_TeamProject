@@ -68,13 +68,13 @@ HRESULT CRoadPlayer::Ready_GameObject()
 	if (FAILED(Add_Component())) return E_FAIL;	
 
 	m_pTransformCom->Set_Pos({ 0.f,0.f,0.f });
-	m_pTransformCom->m_vScale = { 5.f, 8.f  ,1.f };
+	m_pTransformCom->m_vScale = { 10.f, 10.f  ,1.f };
 
 	m_pMainCollider = m_pCollisionCom->CreateCollider(this, m_szMainColliderName);
 
 	if (!m_pMainCollider) return E_FAIL;
 	
-	m_pMainCollider->Set_Scale(_vec3(5.f, 8.f, 2.f));
+	m_pMainCollider->Set_Scale(_vec3(10.f, 10.f, 2.f));
 	m_pMainCollider->BindFuncToCollision([&](CollisionInfo info)
 		{
 			OnCollision(info);
@@ -142,6 +142,7 @@ void CRoadPlayer::Free()
 	CCharacter::Free();
 }
 
+
 void CRoadPlayer::OnCollision(CollisionInfo info)
 {
 	if (info.fDamage > 0.f)
@@ -150,6 +151,11 @@ void CRoadPlayer::OnCollision(CollisionInfo info)
 		{
 			m_pHitUI->Reset();
 		}
+	}
+
+	if (info.eDir != CDIR_NONE)
+	{
+		Move_ByCollision(info.eDir, info.vDiff);
 	}
 }
 
