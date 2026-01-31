@@ -139,6 +139,7 @@ _int CBossStage::Update_Scene(const _float& fTimeDelta)
             CVideoMgr::GetInstance()->Cleanup();
             CSoundMgr::GetInstance()->StopAll();
 
+            CUIManager::GetInstance()->Clear_SniperUI();
             StartMapSound();
         }
         return 0;

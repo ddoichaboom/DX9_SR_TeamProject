@@ -101,6 +101,7 @@ _int CSniperStage::Update_Scene(const _float& fTimeDelta)
 	}
 	else if (!m_bStartSound)
 	{
+		CUIManager::GetInstance()->Clear_UIGroup();
 		CSoundMgr::GetInstance()->StopAll();
 		CSoundMgr::GetInstance()->PlayBGM(CSniperPlayer::szSniperMapBGM.c_str(), 0.4f);
 		m_bStartSound = true;

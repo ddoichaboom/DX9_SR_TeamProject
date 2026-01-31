@@ -247,6 +247,7 @@
     <ClInclude Include="..\Header\CTerrain.h" />
     <ClInclude Include="..\Header\CStage.h" />
     <ClInclude Include="..\Header\CTestCharacter.h" />
+    <ClInclude Include="..\Header\CTestScene.h" />
     <ClInclude Include="..\Header\CTextBG.h" />
     <ClInclude Include="..\Header\CTextUI.h" />
     <ClInclude Include="..\Header\CToonFlash.h" />
@@ -369,6 +370,7 @@
     <ClCompile Include="..\Code\CStage.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
     <ClCompile Include="..\Code\CTestCharacter.cpp" />
+    <ClCompile Include="..\Code\CTestScene.cpp" />
     <ClCompile Include="..\Code\CTextBG.cpp" />
     <ClCompile Include="..\Code\CTextUI.cpp" />
     <ClCompile Include="..\Code\CToonFlash.cpp" />

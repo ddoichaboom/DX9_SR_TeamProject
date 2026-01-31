@@ -11,6 +11,7 @@
 #include "CLogo.h"
 #include "CEnding.h"
 #include "CCredit.h"
+#include "CTestScene.h"
 
 #include "CMapLoader.h"
 #include "CEventMgr.h"
@@ -266,8 +267,10 @@ HRESULT CMainApp::Ready_DefaultProto()
 
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	Engine::CScene* pInitScene = CLogo::Create(pGraphicDev);
-	m_eCurSceneType = SCENE_LOGO;
+	Engine::CScene* pInitScene = CTestScene::Create(pGraphicDev);
+	m_eCurSceneType = SCENE_NONE;
+	//Engine::CScene* pInitScene = CLogo::Create(pGraphicDev);
+	//m_eCurSceneType = SCENE_LOGO;
 	
 	//Engine::CScene* pInitScene = CRoadStage::Create(pGraphicDev);
 	//Engine::CScene* pInitScene = CCredit::Create(pGraphicDev);

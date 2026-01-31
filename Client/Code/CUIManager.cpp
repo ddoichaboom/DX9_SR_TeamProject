@@ -133,25 +133,25 @@ void CUIManager::Update_GameObject(const _float& fTimeDelta)
 	{
 		if (m_eNowState == UI_DEFAULT)
 		{
-			if (m_bDash)
+			if (m_bDash && m_pDashUI)
 			{
 				_int iResult = m_pDashUI->Update_GameObject(fTimeDelta);
 				if (iResult == RET_DEAD)
 					m_bDash = false;
 			}
 
-			if (m_bSlot)
+			if (m_bSlot && m_pSlotUI)
 			{
 				m_pSlotUI->Update_GameObject(fTimeDelta);
 			}
 		}
 
-		if (m_bRenderEffectUI)
+		if (m_bRenderEffectUI && m_pEffectUI)
 		{
 			m_pEffectUI->Update_GameObject(fTimeDelta);
 		}
 
-		if (m_bShop)
+		if (m_bShop && m_pShopUI)
 		{
 			m_pShopUI->Update_GameObject(fTimeDelta);
 		}
@@ -472,7 +472,7 @@ void CUIManager::Set_OnEffectUI(EFFECT_STATE eState)
 
 void CUIManager::Set_OnDashUI(_bool bDash)
 {
-	if (bDash)
+	if (bDash && m_pDashUI)
 	{
 		m_pDashUI->Activate();
 		m_bDash = true;
@@ -487,7 +487,7 @@ void CUIManager::Set_OnDashUI(_bool bDash)
 
 void CUIManager::Set_OnSlotUI(_bool bSlot)
 {
-	if (bSlot)
+	if (bSlot&& m_pSlotUI)
 	{
 		m_pSlotUI->Activate();
 		m_bSlot = true;
@@ -500,7 +500,7 @@ void CUIManager::Set_OnSlotUI(_bool bSlot)
 
 void CUIManager::Set_OnShopUI(_bool bShop)
 {
-	if (bShop)
+	if (bShop&& m_pShopUI)
 	{
 		m_pShopUI->Activate();
 		m_bShop = true;
@@ -546,11 +546,11 @@ void CUIManager::Clear_UIGroup()
 {
 	for (auto& pair : m_mapUI)
 	{
-		for_each(pair.second.begin(), pair.second.end(), [](auto* pUI) {pUI->SetDead(); });
+		for_each(pair.second.begin(), pair.second.end(), [](auto* pUI) {Safe_Release(pUI); });
 		pair.second.clear();
 	}
 	Safe_Release(m_pEffectUI);
-	Safe_Release(m_pDashUI);
+	//Safe_Release(m_pDashUI);
 	Safe_Release(m_pSlotUI);
 	Safe_Release(m_pShopUI);
 }
