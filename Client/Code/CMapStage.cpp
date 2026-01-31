@@ -1000,6 +1000,21 @@ void CMapStage::Check_Collision()
 
        CCollision::Collision_Base(pPlayerCollider, mapCollider);
    }
+
+   for (multimap<OBJ_ID, CGameObject*>::iterator it_vend = iter_Map_Vending.first; it_vend != iter_Map_Vending.second; it_vend++)
+   {
+       CCollision* pVendCollision = static_cast<CCollision*>(
+           it_vend->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+
+       if (!pVendCollision)
+           continue;
+
+       CCollider* pVenCollider = pVendCollision->GetCollider();
+       if (!pVenCollider)
+           continue;
+
+       CCollision::Collision_Diff(pPlayerCollider, pVenCollider);
+   }
    
    // Door 충돌 처리 
    // Player의 Collision 컴포넌트 가져오기
