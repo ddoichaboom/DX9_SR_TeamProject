@@ -11,6 +11,15 @@ vector<TextureSource> CDisplayObject::m_vTextureSource =
     {PASSARELA, L"../Bin/Resource/Texture/Object/DisplayObject/PASSARELA.dds"},
     {RUG, L"../Bin/Resource/Texture/Object/DisplayObject/RUG.dds", true, 0, 3, 3, {1.f, 1.f}},
     {SIGNS, L"../Bin/Resource/Texture/Object/DisplayObject/SIGNS.dds", true, 0, 6, 6, {1.f, 1.f}},
+    {PLATE, L"../Bin/Resource/Texture/Object/DisplayObject/PLATE.dds"},
+    {ROAD_CORNER, L"../Bin/Resource/Texture/Object/DisplayObject/ROAD_CORNER.dds"},
+    {ROAD_PLATE, L"../Bin/Resource/Texture/Object/DisplayObject/ROAD_PLATE.dds", true, 0, 3, 3, {1.f, 1.f}},
+    {TRAFFIC_LIGHTS, L"../Bin/Resource/Texture/Object/DisplayObject/TRAFFIC_LIGHTS.dds"},
+    {TRAFFIC_SIGN_1, L"../Bin/Resource/Texture/Object/DisplayObject/TRAFFIC_SIGN_1.dds"},
+    {TRAFFIC_SIGN_2, L"../Bin/Resource/Texture/Object/DisplayObject/TRAFFIC_SIGN_2.dds"},
+    {TRAFFIC_SIGN_3, L"../Bin/Resource/Texture/Object/DisplayObject/TRAFFIC_SIGN_3.dds"},
+    {WALL_WINDOW, L"../Bin/Resource/Texture/Object/DisplayObject/WALL_WINDOW.dds", true, 0, 1, 1, {1.f, 1.f}},
+    {PASSTAIRS, L"../Bin/Resource/Texture/Object/DisplayObject/PASSTAIRS.dds"}
 };
 
 CDisplayObject::CDisplayObject(LPDIRECT3DDEVICE9 pGraphicDev)

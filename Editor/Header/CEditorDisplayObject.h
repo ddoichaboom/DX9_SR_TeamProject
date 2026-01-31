@@ -30,6 +30,7 @@ public:
               
     void                Set_TextureIdx(_uint iIdx) { m_iTextureID = iIdx; }
     _uint               Get_TextureIdx() const { return m_iTextureID; }
+
 public:
     // 기본 생성 (위치만)
     static CEditorDisplayObject* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos);

@@ -29,6 +29,7 @@
 #include "CEditorDoor.h"
 #include "CEditorInteractObject.h"
 #include "CEditorDisplayObject.h"
+#include "CEditorDisplayCubeObject.h"
 
 using namespace std;
 using namespace Engine;
@@ -144,6 +145,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
         _uint iExtinguisherCount = 0;
         _uint iAxeCount = 0;
         _uint iDisplayObjectCount = 0;
+        _uint iDisplayCubeObjectCount = 0;
 
 
         auto& objectList = pScene->Get_ObjectList();
@@ -336,7 +338,18 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                 // DisplayObject 전용 필드 (Client CMapLoader 호환)
                 jObj["displayObjectType"] = static_cast<_int>(pDisplay->Get_DisplayObjectType());
                 jObj["textureIdx"] = static_cast<_int>(pDisplay->Get_TextureIdx());
-              }
+            }
+            else if (CEditorDisplayCubeObject* pDisplayCube = dynamic_cast<CEditorDisplayCubeObject*>(pObj))
+            {
+                iDisplayCubeObjectCount++;
+                jObj["type"] = "DisplayCubeObject";
+                jObj["roomIndex"] = pObj->Get_RoomIndex();
+
+                SaveTransformData(jObj, pObj);
+
+                // DisplayCubeObject 전용 필드 (Client CMapLoader 호환)
+                jObj["displayCubeObjectType"] = static_cast<_int>(pDisplayCube->Get_CubeObjectType());
+            }
             else
             {
                 continue;  // 알 수 없는 타입 - 건너뜀
@@ -359,6 +372,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
         jMap["extinguisherCount"] = iExtinguisherCount;
         jMap["axeCount"] = iAxeCount;
         jMap["displayObjectCount"] = iDisplayObjectCount;
+        jMap["displayCubeObjectCount"] = iDisplayCubeObjectCount;
 
         jMap["objects"] = jObjects;
         jMap["objectCount"] = jObjects.size();
@@ -698,14 +712,17 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
                     iTextureId = static_cast<_uint>((_int)jObj["textureIdx"]);
 
                 pObj = CEditorDisplayObject::Create(pGraphicDev, vPos, vRot, vScale, eDisplayType, iTextureId);
+            }
+            else if (strType == "DisplayCubeObject")
+            {
+                // displayCubeObjectType 필드 읽기
+                DISPLAY_CUBE_OBJECT_TYPE eCubeType = BOX;
 
-                // 회전과 스케일 적용
-                if (pObj)
-                {
-                    pObj->Set_Rotation(vRot);
-                    pObj->Set_Scale(vScale);
-                }
-                }
+                if (jObj.contains("displayCubeObjectType"))
+                    eCubeType = static_cast<DISPLAY_CUBE_OBJECT_TYPE>((_int)jObj["displayCubeObjectType"]);
+
+                pObj = CEditorDisplayCubeObject::Create(pGraphicDev, vPos, vRot, vScale, eCubeType);
+            }
 
             if (!pObj)
                 continue;

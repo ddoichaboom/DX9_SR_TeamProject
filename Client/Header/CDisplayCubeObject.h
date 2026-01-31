@@ -28,6 +28,8 @@ public:
 	void							LateUpdate_GameObject(const _float& fTimeDelta) override;
 	void							Render_GameObject() override;
 
+	void							Set_CubeObjectType(DISPLAY_CUBE_OBJECT_TYPE eType);
+
 protected:
 	HRESULT							Add_Component() override;
 	void							Free() override;

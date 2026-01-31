@@ -7,11 +7,15 @@ vector<TextureSource> CDisplayCubeObject::m_vTextureSource =
 {
     {BOX, L"../Bin/Resource/Texture/Object/DisplayObject/Box.dds"},
     {CONCRETE_BLOCK, L"../Bin/Resource/Texture/Object/DisplayObject/CONCRETE_BLOCK.dds"},
+    {WALL_BLOCK, L"../Bin/Resource/Texture/Object/DisplayObject/WALL_BLOCK.dds"},
+    {BUILDING, L"../Bin/Resource/Texture/Object/DisplayObject/BUILDING.dds"}
 };
 
 CDisplayCubeObject::CDisplayCubeObject(LPDIRECT3DDEVICE9 pGraphicDev)
     : CDisplayObject(pGraphicDev)
-    , m_pCubeBufferCom(nullptr), m_pCubeTextureCom(nullptr)
+    , m_pCubeBufferCom(nullptr)
+    , m_pCubeTextureCom(nullptr)
+    , m_eObjectType(DCOT_END)
 {
     m_eOBJ_ID = OBJ_DISPLAY;
 }
@@ -20,6 +24,7 @@ CDisplayCubeObject::CDisplayCubeObject(const CDisplayCubeObject& rhs)
     : CDisplayObject(rhs)
     , m_pCubeBufferCom(rhs.m_pCubeBufferCom)
     , m_pCubeTextureCom(rhs.m_pCubeTextureCom)
+    , m_eObjectType(rhs.m_eObjectType)
 {
     m_eOBJ_ID = rhs.m_eOBJ_ID;
 }
@@ -46,7 +51,7 @@ HRESULT CDisplayCubeObject::Ready_GameObject()
 {
     if (FAILED(Add_Component()))
         return E_FAIL;
-
+    
     return S_OK;
 }
 
@@ -78,15 +83,23 @@ void CDisplayCubeObject::Render_GameObject()
     m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT3);
 
     // 텍스처가 있으면 렌더링 
-    if (m_pTextureCom)
-        m_pTextureCom->Render_Texture();
+    if (m_pCubeTextureCom)
+        m_pCubeTextureCom->Render_Texture();
 
-    m_pBufferCom->Render_Buffer();
+    m_pCubeBufferCom->Render_Buffer();
 
     m_pGraphicDev->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, dwOldTTF);
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
     m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, dOldCullMode);
     m_pGraphicDev->SetTexture(0, nullptr);
+}
+
+void CDisplayCubeObject::Set_CubeObjectType(DISPLAY_CUBE_OBJECT_TYPE eType)
+{
+    m_eObjectType = eType;
+
+    if (m_pCubeTextureCom)
+        m_pCubeTextureCom->Change_Texture(static_cast<_int>(m_eObjectType));
 }
 
 HRESULT CDisplayCubeObject::Add_Component()

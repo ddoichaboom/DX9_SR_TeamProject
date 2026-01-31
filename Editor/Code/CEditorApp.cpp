@@ -8,6 +8,7 @@
 #include "CRcTex.h"
 #include "CRcTexUp.h"
 #include "CTexture.h"
+#include "CCubeTexture.h"
 
 #include "CEditorScene.h"
 #include "CMainMenuBar.h"
@@ -25,6 +26,7 @@
 #include "CEditorDoor.h"
 #include "CEditorInteractObject.h"
 #include "CEditorDisplayObject.h"
+#include "CEditorDisplayCubeObject.h"
 
 #include "CEffectScene.h"
 #include "CEffectToolBar.h"
@@ -422,7 +424,15 @@ HRESULT CEditorApp::Ready_Texture_Prototype()
         MSG_BOX("Proto_DisplayObject_Texture Ready Failed");
         return E_FAIL;
     }
-    
+
+    Engine::CCubeTexture* pCom_Cube_Texture = nullptr;
+
+    pCom_Cube_Texture = Engine::CCubeTexture::Create(m_pGraphicDev, CEditorDisplayCubeObject::GetTextureSources());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_DisplayCubeObject_Texture", pCom_Cube_Texture)))
+    {
+        MSG_BOX("Proto_DisplayCubeObject_Texture Ready Failed");
+        return E_FAIL;
+    }
 
     //Blood Texture
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBlood::GetTextureSources());
@@ -527,7 +537,6 @@ HRESULT CEditorApp::Ready_Texture_Prototype()
     {
         MSG_BOX("Proto BOSSHPUI Ready Failed");
         return E_FAIL;
-
     }
 
     return S_OK;

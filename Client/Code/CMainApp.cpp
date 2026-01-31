@@ -45,6 +45,7 @@
 #include "CExtinguisher.h"
 #include "CAxe.h"
 #include "CDisplayObject.h"
+#include "CDisplayCubeObject.h"
 
 #include "CLeftPart.h"
 #include "CRightPart.h"
@@ -308,13 +309,14 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iBulletCount = 20;
 	_uint iBossBulletCount = 50;
 	_uint iBossRocketCount = 30;
-	_uint iWhiteManCount = 6;
-	_uint iSniperWhiteManCount = 6;
+	_uint iWhiteManCount = 15;
+	_uint iSniperWhiteManCount = 15;		
 	_uint iBeamMonCount = 10;
 	_uint iFlyMonCount = 10;
 	_uint iMaxExtinguisher(0);
 	_uint iMaxAxe(0);
 	_uint iMaxDisplayObject(0);
+	_uint iMaxDisplayCubeObject(0);
 
 	// 문 관련 오브젝트 풀 사이즈 등록 ( 좌측/우측 파츠는 본체인 문과 개수 동일함 )
 	_uint iMaxDoorCount(0);
@@ -371,6 +373,8 @@ HRESULT CMainApp::Ready_ObjectPool()
 		iMaxDisplayObject = max(iMaxDisplayObject,
 			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "DisplayObject")); 
 
+		iMaxDisplayCubeObject = max(iMaxDisplayCubeObject,
+			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "DisplayCubeObject"));
 	}
 
 	// 풀 크기 설정 
@@ -389,6 +393,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 	CPoolMgr::GetInstance()->SetPoolSize<CDoorRight>(iMaxDoorCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CExtinguisher>(iMaxExtinguisher);
 	CPoolMgr::GetInstance()->SetPoolSize<CDisplayObject>(iMaxDisplayObject);
+	CPoolMgr::GetInstance()->SetPoolSize<CDisplayCubeObject>(iMaxDisplayCubeObject);
 
 	CPoolMgr::GetInstance()->SetPoolSize<CVendingMachine>(iMaxVendingMachine);
 
@@ -398,7 +403,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 	CPoolMgr::GetInstance()->SetPoolSize<CWhiteMan>(iWhiteManCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CSniperWhiteMan>(iSniperWhiteManCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CBeamMon>(iBeamMonCount);
-	CPoolMgr::GetInstance()->SetPoolSize<CFlyMon>(iFlyMonCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CFlyMon>(iFlyMonCount + 10);
 	CPoolMgr::GetInstance()->SetPoolSize<CAxe>(iMaxAxe + 5);
 
 	CPoolMgr::GetInstance()->SetPoolSize<CRoomTrigger>(iMaxRoomTrigger);

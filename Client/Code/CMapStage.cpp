@@ -22,6 +22,7 @@
 #include "CVendingMachine.h"
 #include "CDisplayObject.h"
 #include "CWindow.h"
+#include "CDisplayCubeObject.h"
 
 // 게임 로직 오브젝트
 #include "CPlayer.h"
@@ -284,8 +285,6 @@ HRESULT CMapStage::Ready_ObjectPool_Character()
         }
     }
 
-
-
     return S_OK;
 
 
@@ -407,6 +406,15 @@ HRESULT CMapStage::Ready_ObjectPool_Terrain()
         if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CDisplayObject>(m_pGraphicDev)))
         {
             MSG_BOX("DisplayObject Pool Create Failed");
+            return E_FAIL;
+        }
+    }
+
+    if (!Engine::CPoolMgr::GetInstance()->HasPool<CDisplayCubeObject>())
+    {
+        if (FAILED(Engine::CPoolMgr::GetInstance()->CreatePool<CDisplayCubeObject>(m_pGraphicDev)))
+        {
+            MSG_BOX("DisplayCubeObject Pool Create Failed");
             return E_FAIL;
         }
     }
@@ -656,6 +664,10 @@ HRESULT CMapStage::Ready_TerrainTextureProto()
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_DisplayTexture", pCom_Texture)))
         return E_FAIL;
 
+    // DisplayCube
+    pCom_Cube_Texture = Engine::CCubeTexture::Create(m_pGraphicDev, CDisplayCubeObject::GetTextureSources());
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_DisplayCubeObject_Texture", pCom_Cube_Texture)))
+        return E_FAIL;
 
     // Extinguisher
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CExtinguisher::GetTextureSources());

@@ -56,7 +56,7 @@ private :
 public :
     static  wstring     szRoadMapBGM;
     _int                m_iFileIndex;
-    enum                { ROOM_CNT = 2 };
+    enum                { ROOM_CNT = 6 };
     CRoom*              m_pRoom[ROOM_CNT];
 
     _float              m_fSpeed = -100.f;
@@ -72,7 +72,7 @@ public :
 
     vector<_vec3> m_vecSpawnPoses;
     //_float      m_fTime = 0.f;   
-    _float      m_fSpawnTime = 3.f;
+    _float      m_fSpawnTime = 2.f;
     _float       m_fOriginSpawnTime = 5.f;
     _float      m_fOffsetTime = 0.25f;
     _float      m_fMinTime = 2.0f;

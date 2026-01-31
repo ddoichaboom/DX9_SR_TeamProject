@@ -22,6 +22,7 @@
 #include "CEditorDoor.h"
 #include "CEditorInteractObject.h"
 #include "CEditorDisplayObject.h"
+#include "CEditorDisplayCubeObject.h"
 
 CEditorScene::CEditorScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
@@ -424,11 +425,18 @@ void CEditorScene::Handle_Duplicate()
                 }
                 else if (CEditorDisplayObject* pDisplay = dynamic_cast<CEditorDisplayObject*>(pSelectedObj))
                 {
-                    vPos += m_vDupplicateDir * 32.f;
+                    vPos += m_vDupplicateDir * vScale.x * 2.f;
                     DISPLAY_OBJECT_TYPE eType = pDisplay->Get_DisplayObjectType();
                     _uint iTextureId = pDisplay->Get_TextureIdx();
                     iRoomIndex = pDisplay->Get_RoomIndex();
                     pNewObj = CEditorDisplayObject::Create(m_pGraphicDev, vPos, vRot, vScale, eType, iTextureId);
+                }
+                else if (CEditorDisplayCubeObject* pDisplayCube = dynamic_cast<CEditorDisplayCubeObject*>(pSelectedObj))
+                {
+                    vPos += m_vDupplicateDir * vScale.x * 2.f;
+                    DISPLAY_CUBE_OBJECT_TYPE eCubeType = pDisplayCube->Get_CubeObjectType();
+                    iRoomIndex = pDisplayCube->Get_RoomIndex();
+                    pNewObj = CEditorDisplayCubeObject::Create(m_pGraphicDev, vPos, vRot, vScale, eCubeType);
                 }
 
 
@@ -523,7 +531,7 @@ void CEditorScene::Handle_Left_Click()
             eMode == MODE_PLACE_MAPCOLLIDER || eMode == MODE_PLACE_TRIGGERBOX ||
             eMode == MODE_PLACE_SPAWN_BOSSMONSTER || eMode == MODE_PLACE_DYNAMIC_WALL ||
             eMode == MODE_PLACE_DOOR || eMode == MODE_PLACE_INTERACTOBJECT ||
-            eMode == MODE_PLACE_DISPLAYOBJECT)
+            eMode == MODE_PLACE_DISPLAYOBJECT || eMode == MODE_PLACE_DISPLAYCUBEOBJECT)
         {
 
             // Ray - Plane Intersection (Y = 0 평면)
@@ -560,6 +568,8 @@ void CEditorScene::Handle_Left_Click()
                 Place_InteractObject(vPos);
             else if (eMode == MODE_PLACE_DISPLAYOBJECT)
                 Place_DisplayObject(vPos);
+            else if (eMode == MODE_PLACE_DISPLAYCUBEOBJECT)
+                Place_DisplayCubeObject(vPos);
         }
         else if (eMode == MODE_SELECT)
         {
@@ -957,9 +967,10 @@ void CEditorScene::Place_DisplayObject(const _vec3& vPos)
 
     if (pDisplay)
     {
+        _vec3 _vScale = pDisplay->Get_Scale();
         // Y 위치 조정 (바닥보다 살짝 위로)
         _vec3 vAdjustedPos = vPos;
-        vAdjustedPos.y = vPos.y + 4.0f;
+        vAdjustedPos.y = vPos.y + _vScale.y;
         pDisplay->Set_Position(vAdjustedPos);
 
         // 기본 이름 설정
@@ -970,6 +981,28 @@ void CEditorScene::Place_DisplayObject(const _vec3& vPos)
 
         Add_Object(pDisplay);
         Safe_Release(pDisplay);
+    }
+}
+
+void CEditorScene::Place_DisplayCubeObject(const _vec3& vPos)
+{
+    CEditorDisplayCubeObject* pDisplayCube = CEditorDisplayCubeObject::Create(m_pGraphicDev, vPos);
+
+    if (pDisplayCube)
+    {
+        // Y 위치 조정 (바닥보다 살짝 위로)
+        _vec3 vAdjustedPos = vPos;
+        vAdjustedPos.y = vPos.y + 4.0f;
+        pDisplayCube->Set_Position(vAdjustedPos);
+
+        // 기본 이름 설정
+        static _int s_iDisplayCubeIdx = 0;
+        wchar_t wszName[64];
+        swprintf_s(wszName, L"DisplayCubeObject_%d", s_iDisplayCubeIdx++);
+        pDisplayCube->Set_Name(wszName);
+
+        Add_Object(pDisplayCube);
+        Safe_Release(pDisplayCube);
     }
 }
 

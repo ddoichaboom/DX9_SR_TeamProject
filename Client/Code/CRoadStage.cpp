@@ -42,6 +42,8 @@
 #include "CLoadingEX.h"
 #include "CBackGround.h"
 
+#include <iterator>
+
 wstring CRoadStage::szRoadMapBGM = L"RoadMap_BGM.wav";
 
 CRoadStage::CRoadStage(LPDIRECT3DDEVICE9 pGraphicDev) 
@@ -179,25 +181,27 @@ _int CRoadStage::Update_Scene(const _float& fTimeDelta)
 
 	CUIManager::GetInstance()->Update_GameObject(fTimeDelta);
 
-	m_fTime += fTimeDelta;
-	if (m_fTime > m_fSpawnTime)
+	if (m_bStageEnd == false)
 	{
-		SpawnMonster();
-
-		m_fTime = 0.f;
-		if (m_bFirstSpawn)
+		m_fTime += fTimeDelta;
+		if (m_fTime > m_fSpawnTime)
 		{
-			m_fSpawnTime = m_fOriginSpawnTime;
-			m_bFirstSpawn = false;
-		}
-		if (m_fSpawnTime > m_fMinTime)
-		{
-			m_fSpawnTime -= m_fOffsetTime;
-			if (m_fSpawnTime < m_fMinTime) m_fSpawnTime = m_fMinTime;
-		}
+			SpawnMonster();
 
-	}
+			m_fTime = 0.f;
+			if (m_bFirstSpawn)
+			{
+				m_fSpawnTime = m_fOriginSpawnTime;
+				m_bFirstSpawn = false;
+			}
+			if (m_fSpawnTime > m_fMinTime)
+			{
+				m_fSpawnTime -= m_fOffsetTime;
+				if (m_fSpawnTime < m_fMinTime) m_fSpawnTime = m_fMinTime;
+			}
 
+		}
+	}	
 
 	return iExit;
 }
@@ -475,11 +479,11 @@ HRESULT CRoadStage::Ready_CharacterTextureProto()
 
 HRESULT CRoadStage::Ready_TerrainTextureProto()
 {
-	CCubeTexture* pCom_Cube_Texture = nullptr;
-	//Displays Cube Object 
-	pCom_Cube_Texture = Engine::CCubeTexture::Create(m_pGraphicDev, CDisplayCubeObject::GetTextureSources());
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_DisplayCubeObject_Texture", pCom_Cube_Texture)))
-		return E_FAIL;
+	//CCubeTexture* pCom_Cube_Texture = nullptr;
+	////Displays Cube Object 
+	//pCom_Cube_Texture = Engine::CCubeTexture::Create(m_pGraphicDev, CDisplayCubeObject::GetTextureSources());
+	//if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_DisplayCubeObject_Texture", pCom_Cube_Texture)))
+	//	return E_FAIL;
 
 	return S_OK;
 }
@@ -615,7 +619,7 @@ void CRoadStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
 	{
 		m_bStageEnd = true;
 		m_fTime = 0.f;
-
+		
 		auto iter_Map_Mon = m_mapLayer[L"GameLogic_Layer"]->Get_Objects(OBJ_MONSTER);
 		for (multimap<OBJ_ID, CGameObject*>::iterator it_Mon = iter_Map_Mon.first; it_Mon != iter_Map_Mon.second; it_Mon++)
 		{
@@ -627,16 +631,28 @@ void CRoadStage::OnEvent(EVENT_TYPE _type, EventData* _pData)
 
 void CRoadStage::SpawnMonster()
 {
-	for (_int i = 0; i < m_vecSpawnPoses.size(); ++i)
-	{
-		_vec3 spawnPos = m_vecSpawnPoses[i];
+	auto iter_Map_Mon = m_mapLayer[L"GameLogic_Layer"]->Get_Objects(OBJ_MONSTER);	
+	_int count = distance(iter_Map_Mon.first, iter_Map_Mon.second);
 
+	if (count > 20)
+		return;
+
+	_int iPosSize = (_int)m_vecSpawnPoses.size() / 2;
+
+	_int iFirst = rand() % iPosSize;
+	_int iSecond = iFirst + 1;
+	_int iIndex[2] = { iFirst, iSecond };
+
+	for (_int i = 0; i < 2; ++i)
+	{
+		_vec3 spawnPos = m_vecSpawnPoses[iIndex[i]];
 		CFlyMon* pMon = CPoolMgr::GetInstance()->Get_Object<CFlyMon>();
 		if (!pMon)
 			return;
 
 		pMon->SetPos(spawnPos);
 		pMon->Instance_Trace();
+
 		if (m_pGameLogic_Layer) m_pGameLogic_Layer->Add_GameObject(pMon);
 		else pMon->ReturnToPool();
 	}

@@ -15,6 +15,7 @@ class CEditorTriggerBox;
 class CEditorDoor;
 class CEditorInteractObject;
 class CEditorDisplayObject;
+class CEditorDisplayCubeObject;
 
 class CInspector : public CBase
 {
@@ -37,6 +38,7 @@ private:
     void    Render_DoorProperties(CEditorDoor* pDoor);
     void    Render_InteractObjectProperties(CEditorInteractObject* pInteract);
     void    Render_DisplayObjectProperties(CEditorDisplayObject* pDisplay);
+    void    Render_DisplayCubeObjectProperties(CEditorDisplayCubeObject* pDisplayCube);
 
 private:
     void    Render_ObjectProperties();
