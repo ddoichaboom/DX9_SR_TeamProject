@@ -34,8 +34,6 @@ public:
     virtual void    Set_FloorType(_uint iType);
     _uint           Get_FloorType() const { return m_iFloorType; }
 
-    EDITOR_OBJECT_TYPE Get_ObjectType() const { return m_eObjType; }
-
 protected:
     _int            m_iTextureIdx;      // 0 ~ 7 (아틀라스 인덱스)
     _uint           m_iFloorType;       // enum 값 

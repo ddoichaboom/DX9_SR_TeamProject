@@ -3,15 +3,15 @@
   "WindowCount": 0,
   "axeCount": 0,
   "ceilingCount": 0,
-  "displayCubeObjectCount": 1,
-  "displayObjectCount": 9,
+  "displayCubeObjectCount": 5,
+  "displayObjectCount": 42,
   "doorCount": 0,
   "dynamicFloorCount": 64,
   "dynamicWallCount": 0,
   "extinguisherCount": 0,
   "floorCount": 1996,
-  "mapColliderCount": 12,
-  "objectCount": 2255,
+  "mapColliderCount": 16,
+  "objectCount": 2328,
   "objects": [
     {
       "monsterKey": "",
@@ -51008,8 +51008,8 @@
       "name": "DisplayObject",
       "position": [
         -8.0,
-        44.0,
-        -360.0
+        47.0,
+        -359.29998779296875
       ],
       "roomIndex": 0,
       "rotation": [
@@ -51018,8 +51018,8 @@
         0.0
       ],
       "scale": [
-        40.0,
-        24.0,
+        56.0,
+        48.0,
         1.0
       ],
       "textureIdx": 0,
@@ -51030,7 +51030,7 @@
       "name": "DisplayObject",
       "position": [
         48.0,
-        72.4000015258789,
+        80.0,
         -360.0
       ],
       "roomIndex": 0,
@@ -51052,7 +51052,7 @@
       "name": "DisplayObject",
       "position": [
         -64.0,
-        72.4000015258789,
+        80.0,
         -360.0
       ],
       "roomIndex": 0,
@@ -51073,7 +51073,7 @@
       "name": "Wall",
       "position": [
         -8.0,
-        72.30000305175781,
+        80.0,
         -360.0
       ],
       "roomIndex": 0,
@@ -51097,7 +51097,7 @@
       "name": "DisplayObject",
       "position": [
         -8.0,
-        126.9000015258789,
+        132.39999389648438,
         -360.0
       ],
       "roomIndex": 0,
@@ -51365,28 +51365,6 @@
       "type": "DisplayObject"
     },
     {
-      "displayObjectType": 2,
-      "name": "DisplayObject",
-      "position": [
-        -282.8999938964844,
-        48.0,
-        -281.79998779296875
-      ],
-      "roomIndex": 0,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        8.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "DisplayObject"
-    },
-    {
       "name": "Wall",
       "position": [
         -280.0,
@@ -51611,10 +51589,10 @@
         16.0,
         1.0
       ],
-      "textureIdx": 7,
+      "textureIdx": 1,
       "type": "Wall",
       "wallDirection": 1,
-      "wallType": 16
+      "wallType": 13
     },
     {
       "name": "Wall",
@@ -51634,10 +51612,10 @@
         16.0,
         1.0
       ],
-      "textureIdx": 7,
+      "textureIdx": 1,
       "type": "Wall",
       "wallDirection": 1,
-      "wallType": 16
+      "wallType": 13
     },
     {
       "name": "Wall",
@@ -51657,10 +51635,10 @@
         16.0,
         1.0
       ],
-      "textureIdx": 7,
+      "textureIdx": 1,
       "type": "Wall",
       "wallDirection": 2,
-      "wallType": 16
+      "wallType": 13
     },
     {
       "name": "Wall",
@@ -51680,10 +51658,10 @@
         16.0,
         1.0
       ],
-      "textureIdx": 7,
+      "textureIdx": 1,
       "type": "Wall",
       "wallDirection": 2,
-      "wallType": 16
+      "wallType": 13
     },
     {
       "name": "Wall",
@@ -51726,10 +51704,10 @@
         16.0,
         1.0
       ],
-      "textureIdx": 7,
+      "textureIdx": 1,
       "type": "Wall",
       "wallDirection": 0,
-      "wallType": 16
+      "wallType": 13
     },
     {
       "name": "Wall",
@@ -51749,10 +51727,10 @@
         16.0,
         1.0
       ],
-      "textureIdx": 7,
+      "textureIdx": 1,
       "type": "Wall",
       "wallDirection": 3,
-      "wallType": 16
+      "wallType": 13
     },
     {
       "name": "Wall",
@@ -51772,13 +51750,1665 @@
         16.0,
         1.0
       ],
-      "textureIdx": 7,
+      "textureIdx": 1,
       "type": "Wall",
       "wallDirection": 3,
-      "wallType": 16
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        296.0,
+        47.99999237060547,
+        -8.29998779296875
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        264.0,
+        47.99999237060547,
+        -8.29998779296875
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        312.0,
+        47.99999237060547,
+        8.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        312.0,
+        47.99999237060547,
+        40.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        264.0,
+        47.99999237060547,
+        55.70001220703125
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        296.0,
+        47.99999237060547,
+        55.70001220703125
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        248.0,
+        47.99999237060547,
+        8.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        248.0,
+        47.99999237060547,
+        40.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        248.0,
+        47.99999237060547,
+        264.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        248.0,
+        47.99999237060547,
+        296.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        264.0,
+        47.99999237060547,
+        247.70001220703125
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        296.0,
+        47.99999237060547,
+        247.70001220703125
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        296.0,
+        47.99999237060547,
+        311.70001220703125
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        264.0,
+        47.99999237060547,
+        311.70001220703125
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        312.0,
+        47.99999237060547,
+        264.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        312.0,
+        47.99999237060547,
+        296.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        8.0,
+        47.99999237060547,
+        311.70001220703125
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -24.0,
+        47.99999237060547,
+        311.70001220703125
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -40.0,
+        47.99999237060547,
+        264.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -40.0,
+        47.99999237060547,
+        296.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        24.0,
+        47.99999237060547,
+        264.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        24.0,
+        47.99999237060547,
+        296.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -24.0,
+        47.99999237060547,
+        247.70001220703125
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        8.0,
+        47.99999237060547,
+        247.70001220703125
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -280.0,
+        47.99999237060547,
+        247.70001220703125
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -248.0,
+        47.99999237060547,
+        247.70001220703125
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 0,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -232.0,
+        47.99999237060547,
+        264.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -232.0,
+        47.99999237060547,
+        296.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 2,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -296.0,
+        47.99999237060547,
+        264.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -296.0,
+        47.99999237060547,
+        296.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -280.0,
+        47.99999237060547,
+        311.70001220703125
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 13
+    },
+    {
+      "name": "Wall",
+      "position": [
+        -248.0,
+        47.99999237060547,
+        311.70001220703125
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        180.0,
+        0.0,
+        180.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "Wall",
+      "wallDirection": 1,
+      "wallType": 13
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -243.39999389648438,
+        48.0,
+        -263.3999938964844
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -243.39999389648438,
+        48.0,
+        -279.3999938964844
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -259.3999938964844,
+        48.0,
+        -279.3999938964844
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -275.3999938964844,
+        48.0,
+        -247.39999389648438
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -286.0,
+        48.0,
+        35.99997329711914
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -262.20001220703125,
+        48.0,
+        20.000011444091797
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -262.20001220703125,
+        48.0,
+        35.99997329711914
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -238.8000030517578,
+        48.0,
+        35.99997329711914
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -238.8000030517578,
+        48.0,
+        283.3999938964844
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -286.0,
+        48.0,
+        283.3999938964844
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -238.8000030517578,
+        48.0,
+        299.3999938964844
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -7.800013542175293,
+        48.0,
+        296.699951171875
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -7.800013542175293,
+        48.0,
+        280.70001220703125
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -7.800013542175293,
+        48.0,
+        264.6999206542969
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        -31.600051879882813,
+        48.0,
+        280.70001220703125
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        304.1000061035156,
+        48.0,
+        280.70001220703125
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        304.1000061035156,
+        48.0,
+        264.6999206542969
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        280.6999816894531,
+        48.0,
+        264.6999206542969
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        256.89996337890625,
+        48.0,
+        280.70001220703125
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        304.1000061035156,
+        48.0,
+        12.099906921386719
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        280.6999816894531,
+        48.0,
+        12.099906921386719
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        256.89996337890625,
+        48.0,
+        12.099906921386719
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        304.1000061035156,
+        48.0,
+        -277.60003662109375
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        280.6999816894531,
+        48.0,
+        -245.60006713867188
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        256.89996337890625,
+        48.0,
+        -245.60006713867188
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 2,
+      "name": "DisplayObject",
+      "position": [
+        256.89996337890625,
+        48.0,
+        -277.60003662109375
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayCubeObjectType": 3,
+      "name": "DisplayCubeObject_1",
+      "position": [
+        432.0,
+        80.0,
+        432.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        48.0,
+        144.0,
+        48.0
+      ],
+      "type": "DisplayCubeObject"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider_1",
+      "position": [
+        432.0,
+        80.0,
+        432.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        48.0,
+        144.0,
+        48.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "displayObjectType": 16,
+      "name": "DisplayObject_0",
+      "position": [
+        385.3789978027344,
+        80.0,
+        382.34100341796875
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        45.0,
+        0.0
+      ],
+      "scale": [
+        64.0,
+        64.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 16,
+      "name": "DisplayObject",
+      "position": [
+        385.3789978027344,
+        160.0,
+        382.34100341796875
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        45.0,
+        0.0
+      ],
+      "scale": [
+        64.0,
+        64.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 16,
+      "name": "DisplayObject",
+      "position": [
+        -368.8999938964844,
+        80.0,
+        383.5409851074219
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        -45.0,
+        0.0
+      ],
+      "scale": [
+        64.0,
+        64.0,
+        1.0
+      ],
+      "textureIdx": 6,
+      "type": "DisplayObject"
+    },
+    {
+      "displayCubeObjectType": 3,
+      "name": "DisplayCubeObject",
+      "position": [
+        -416.67901611328125,
+        80.0,
+        432.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        48.0,
+        144.0,
+        48.0
+      ],
+      "type": "DisplayCubeObject"
+    },
+    {
+      "displayObjectType": 16,
+      "name": "DisplayObject",
+      "position": [
+        -368.8999938964844,
+        160.0,
+        383.5409851074219
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        -45.0,
+        0.0
+      ],
+      "scale": [
+        64.0,
+        64.0,
+        1.0
+      ],
+      "textureIdx": 3,
+      "type": "DisplayObject"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider_2",
+      "position": [
+        -416.6789855957031,
+        80.0,
+        432.0
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        48.0,
+        144.0,
+        48.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "displayCubeObjectType": 3,
+      "name": "DisplayCubeObject",
+      "position": [
+        -416.67901611328125,
+        80.0,
+        -408.5
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        48.0,
+        144.0,
+        48.0
+      ],
+      "type": "DisplayCubeObject"
+    },
+    {
+      "displayObjectType": 16,
+      "name": "DisplayObject",
+      "position": [
+        -371.79998779296875,
+        80.0,
+        -357.20001220703125
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        225.0,
+        0.0
+      ],
+      "scale": [
+        64.0,
+        64.0,
+        1.0
+      ],
+      "textureIdx": 4,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 16,
+      "name": "DisplayObject",
+      "position": [
+        -371.79998779296875,
+        160.0,
+        -357.2000427246094
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        225.0,
+        0.0
+      ],
+      "scale": [
+        64.0,
+        64.0,
+        1.0
+      ],
+      "textureIdx": 1,
+      "type": "DisplayObject"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider_3",
+      "position": [
+        -416.6789855957031,
+        80.0,
+        -408.5
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        48.0,
+        144.0,
+        48.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "displayCubeObjectType": 3,
+      "name": "DisplayCubeObject",
+      "position": [
+        426.3789978027344,
+        80.0,
+        -408.3999938964844
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        48.0,
+        144.0,
+        48.0
+      ],
+      "type": "DisplayCubeObject"
+    },
+    {
+      "colliderTag": -842150451,
+      "name": "MapCollider_4",
+      "position": [
+        426.3789978027344,
+        80.0,
+        -408.3999938964844
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        48.0,
+        144.0,
+        48.0
+      ],
+      "type": "MapCollider"
+    },
+    {
+      "displayObjectType": 16,
+      "name": "DisplayObject",
+      "position": [
+        374.79998779296875,
+        80.0,
+        -363.3999938964844
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        135.0,
+        0.0
+      ],
+      "scale": [
+        64.0,
+        64.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "DisplayObject"
+    },
+    {
+      "displayObjectType": 16,
+      "name": "DisplayObject",
+      "position": [
+        374.79998779296875,
+        160.0,
+        -363.4000244140625
+      ],
+      "roomIndex": 0,
+      "rotation": [
+        0.0,
+        135.0,
+        0.0
+      ],
+      "scale": [
+        64.0,
+        64.0,
+        1.0
+      ],
+      "textureIdx": 3,
+      "type": "DisplayObject"
     }
   ],
   "triggerBoxCount": 0,
   "version": 4,
-  "wallCount": 171
+  "wallCount": 203
 }

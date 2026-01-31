@@ -38,6 +38,8 @@ public:
 	void				Set_Name(const wstring& wstrName) { m_wstrName = wstrName; }
 	const wstring&		Get_Name() const { return m_wstrName; }
 
+	EDITOR_OBJECT_TYPE Get_ObjectType() const { return m_eObjType; }
+
 
 	const _matrix*		Get_WorldMatrix() const;
 

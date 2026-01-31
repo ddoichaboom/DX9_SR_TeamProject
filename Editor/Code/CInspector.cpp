@@ -135,11 +135,15 @@ void CInspector::Render_FloorTextureUI(CEditorFloor* pFloor)
     ImGui::Text("Floor Texture");
     ImGui::Separator();
 
+    EDITOR_OBJECT_TYPE eType = pFloor->Get_ObjectType();
+    list<CEditorObject*>& SelectedList = m_pScene->Get_SelectedObjects();
 
-    if (CEditorDynamicFloor* pDynamicFloor = dynamic_cast<CEditorDynamicFloor*>(pFloor))
+    if (eType == EDITOR_OBJ_DYNAMIC_FLOOR)
     {
         ImGui::TextColored(ImVec4(1.0f, 0.5f, 0.0f, 1.0f), "Dynamic Floor (Animated)");
         ImGui::Separator();
+
+        CEditorDynamicFloor* pDynamicFloor = static_cast<CEditorDynamicFloor*>(pFloor);
 
         // Dynamic Floor Type 
         _uint iFloorType = pDynamicFloor->Get_FloorType();
@@ -172,10 +176,12 @@ void CInspector::Render_FloorTextureUI(CEditorFloor* pFloor)
             "Dynamic floors have animated textures");
 
     }
-    else if (CEditorSlopeFloor* pSlopeFloor = dynamic_cast<CEditorSlopeFloor*>(pFloor))
+    else if (eType == EDITOR_OBJ_SLOPE_FLOOR)
     {
         ImGui::Text("Slope Floor Properties");
         ImGui::Separator();
+
+        CEditorSlopeFloor* pSlopeFloor = static_cast<CEditorSlopeFloor*>(pFloor);
 
         // 경사 각도 슬라이더
         _float fSlopeAngle = pSlopeFloor->Get_SlopeAngle();
@@ -262,8 +268,13 @@ void CInspector::Render_FloorTextureUI(CEditorFloor* pFloor)
         ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),
             "Slope floors use rotation to create inclines");
     }
-    else if (pFloor)
+    else if (eType == EDITOR_OBJ_FLOOR)
     {
+
+        // 원본 값 저장
+        _uint iOriginalFloorType = pFloor->Get_FloorType();
+        _int iOriginalTextureIdx = pFloor->Get_TextureIdx();
+
         // Floor Type 콤보 박스    (현재는 STATIC_FLOOR만 지원)
         _uint iFloorType = pFloor->Get_FloorType();
         const char* szFloorTypes[] = { 
@@ -274,14 +285,14 @@ void CInspector::Render_FloorTextureUI(CEditorFloor* pFloor)
             "STATIC_FLOOR_UNIQUE"
         };
 
-        _int iSelectedType = iFloorType;
+        _int iSelectedType = iOriginalFloorType;
 
         if (ImGui::Combo("Floor Type", &iSelectedType, szFloorTypes, IM_ARRAYSIZE(szFloorTypes)))
         {
             pFloor->Set_FloorType(iSelectedType);
         }
 
-        _int iTextureIdx = pFloor->Get_TextureIdx();
+        _int iTextureIdx = iOriginalTextureIdx;
 
         Engine::CTexture* pTextureCom = dynamic_cast<Engine::CTexture*>(
             pFloor->Get_Component(ID_DYNAMIC, L"Com_Texture"));
@@ -290,7 +301,7 @@ void CInspector::Render_FloorTextureUI(CEditorFloor* pFloor)
 
         if (pTextureCom)
         {
-            Engine::TextureDesc* pDesc = pTextureCom->GetTextureDesc(iFloorType);
+            Engine::TextureDesc* pDesc = pTextureCom->GetTextureDesc(iSelectedType);
             if (pDesc)
             {
                 iMaxIdx = (_int)pDesc->vMaxIdx.x;
@@ -301,6 +312,27 @@ void CInspector::Render_FloorTextureUI(CEditorFloor* pFloor)
         {
             pFloor->Set_TextureIdx(iTextureIdx);
         }
+
+        // 변경 여부 검사 및 동일 타입 객체에 적용
+        if (iOriginalFloorType != iSelectedType || iOriginalTextureIdx != iTextureIdx)
+        {
+            for (auto& pSelectedObj : SelectedList)
+            {
+                if (pFloor == pSelectedObj)
+                    continue;
+
+                if (pSelectedObj->Get_ObjectType() == EDITOR_OBJ_FLOOR)
+                {
+                    CEditorFloor* pOtherFloor = static_cast<CEditorFloor*>(pSelectedObj);
+
+                    if (iOriginalFloorType != iSelectedType)
+                        pOtherFloor->Set_FloorType(iSelectedType);
+
+                    if (iOriginalTextureIdx != iTextureIdx)
+                        pOtherFloor->Set_TextureIdx(iTextureIdx);
+                }
+            }
+        }
     }
 }
 
@@ -309,8 +341,13 @@ void CInspector::Render_CeilingTextureUI(CEditorCeiling* pCeiling)
     ImGui::Text("Ceiling Texture");
     ImGui::Separator();
 
-    // Ceiling Type 콤보박스 (STATIC_CEILING만 지원)
-    _uint iCeilingType = pCeiling->Get_CeilingType();
+    list<CEditorObject*>& SelectedList = m_pScene->Get_SelectedObjects();
+
+    // 원본 값 저장
+    _uint iOriginalCeilingType = pCeiling->Get_CeilingType();
+    _int iOriginalTextureIdx = pCeiling->Get_TextureIdx();
+
+
     const char* szCeilingTypes[] = { "STATIC_CEILING" };
     int iSelectedType = 0;
 
@@ -319,8 +356,8 @@ void CInspector::Render_CeilingTextureUI(CEditorCeiling* pCeiling)
         pCeiling->Set_CeilingType(iSelectedType);
     }
 
-    // Texture Index 슬라이더 (0 ~ 7)
-    int iTextureIdx = pCeiling->Get_TextureIdx();
+    // Texture Index 슬라이더
+    int iTextureIdx = iOriginalTextureIdx;
 
     Engine::CTexture* pTextureCom = dynamic_cast<Engine::CTexture*>(
         pCeiling->Get_Component(ID_DYNAMIC, L"Com_Texture"));
@@ -329,7 +366,7 @@ void CInspector::Render_CeilingTextureUI(CEditorCeiling* pCeiling)
 
     if (pTextureCom)
     {
-        Engine::TextureDesc* pDesc = pTextureCom->GetTextureDesc(iCeilingType);
+        Engine::TextureDesc* pDesc = pTextureCom->GetTextureDesc(iOriginalCeilingType);
         if (pDesc)
         {
             iMaxIdx = (_int)pDesc->vMaxIdx.x;
@@ -339,6 +376,27 @@ void CInspector::Render_CeilingTextureUI(CEditorCeiling* pCeiling)
     if (ImGui::SliderInt("Texture Index", &iTextureIdx, 0, iMaxIdx))
     {
         pCeiling->Set_TextureIdx(iTextureIdx);
+    }
+
+    // 변경 여부 검사 및 동일 타입 객체에 적용
+    if (iOriginalCeilingType != iSelectedType || iOriginalTextureIdx != iTextureIdx)
+    {
+        for (auto& pSelectedObj : SelectedList)
+        {
+            if (pCeiling == pSelectedObj)
+                continue;
+
+            if (pSelectedObj->Get_ObjectType() == EDITOR_OBJ_CEILING)
+            {
+                CEditorCeiling* pOther = static_cast<CEditorCeiling*>(pSelectedObj);
+
+                if (iOriginalCeilingType != iSelectedType)
+                    pOther->Set_CeilingType(iSelectedType);
+
+                if (iOriginalTextureIdx != iTextureIdx)
+                    pOther->Set_TextureIdx(iTextureIdx);
+            }
+        }
     }
 
     ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),
@@ -353,31 +411,32 @@ void CInspector::Render_WallTextureUI(CEditorWall* pWall)
     ImGui::Text("Wall Texture");
     ImGui::Separator();
 
-    // DynamicWall인지 먼저 확인
-    CEditorDynamicWall * pDynamicWall = dynamic_cast<CEditorDynamicWall*>(pWall);
+    EDITOR_OBJECT_TYPE eType = pWall->Get_ObjectType();
+    list<CEditorObject*>& SelectedList = m_pScene->Get_SelectedObjects();
 
-    if (pDynamicWall)
+    if (eType == EDITOR_OBJ_DYNAMIC_WALL)
     {
-        // ========== Dynamic Wall UI ==========
+        CEditorDynamicWall* pDynamicWall = static_cast<CEditorDynamicWall*>(pWall);
+
         ImGui::TextColored(ImVec4(1.0f, 0.5f, 0.0f, 1.0f), "Dynamic Wall (Animated)");
         ImGui::Separator();
 
-        _uint iWallType = pDynamicWall->Get_WallType();
+        // 원본 값 저장
+        _uint iOriginalWallType = pDynamicWall->Get_WallType();
 
-        // DynamicWall 타입 목록
         const char* szDynamicTypes[] = {
             "FAN",
             "FAN_BLOOD"
         };
 
-        // 현재 타입에서 콤보 인덱스 계산
         _int iComboIdx = 0;
-        if (iWallType >= DYNAMIC_WALL_FAN)
-            iComboIdx = iWallType - DYNAMIC_WALL_FAN;
+        if (iOriginalWallType >= DYNAMIC_WALL_FAN)
+            iComboIdx = iOriginalWallType - DYNAMIC_WALL_FAN;
 
-        // 범위 체크
         if (iComboIdx < 0 || iComboIdx >= IM_ARRAYSIZE(szDynamicTypes))
             iComboIdx = 0;
+
+        _int iOriginalComboIdx = iComboIdx;
 
         if (ImGui::Combo("Dynamic Type", &iComboIdx, szDynamicTypes, IM_ARRAYSIZE(szDynamicTypes)))
         {
@@ -385,13 +444,33 @@ void CInspector::Render_WallTextureUI(CEditorWall* pWall)
             pDynamicWall->Set_WallType(eNewType);
         }
 
+        // 변경 여부 검사 및 동일 타입 객체에 적용
+        if (iOriginalComboIdx != iComboIdx)
+        {
+            _uint eNewType = DYNAMIC_WALL_FAN + iComboIdx;
+
+            for (auto& pSelectedObj : SelectedList)
+            {
+                if (pWall == pSelectedObj)
+                    continue;
+
+                if (pSelectedObj->Get_ObjectType() == EDITOR_OBJ_DYNAMIC_WALL)
+                {
+                    CEditorDynamicWall* pOther = static_cast<CEditorDynamicWall*>(pSelectedObj);
+                    pOther->Set_WallType(eNewType);
+                }
+            }
+        }
+
         ImGui::Spacing();
         ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f), "Animated texture");
     }
-    else
+    else if (eType == EDITOR_OBJ_WALL)
     {
-        // Wall Type 콤보박스 (STATIC_WALL_1 ~ STATIC_WALL_10)
-        _uint iWallType = pWall->Get_WallType();
+        // 원본 값 저장
+        _uint iOriginalWallType = pWall->Get_WallType();
+        _int iOriginalTextureIdx = pWall->Get_TextureIdx();
+
         const char* szWallTypes[] = {
             "STATIC_WALL_1",
             "STATIC_WALL_2",
@@ -412,15 +491,15 @@ void CInspector::Render_WallTextureUI(CEditorWall* pWall)
             "STATIC_WALL_DECO"
         };
 
-        int iSelectedType = iWallType;  // STATIC_WALL_1 = 0, STATIC_WALL_2 = 1, ...
+        int iSelectedType = iOriginalWallType;
 
         if (ImGui::Combo("Wall Type", &iSelectedType, szWallTypes, IM_ARRAYSIZE(szWallTypes)))
         {
             pWall->Set_WallType(iSelectedType);
         }
 
-        // Texture Index 슬라이더 (0 ~ 2, 3x3 아틀라스의 행)
-        _int iTextureIdx = pWall->Get_TextureIdx();
+        // Texture Index 슬라이더
+        _int iTextureIdx = iOriginalTextureIdx;
 
         Engine::CTexture* pTextureCom = dynamic_cast<Engine::CTexture*>(
             pWall->Get_Component(ID_DYNAMIC, L"Com_Texture"));
@@ -429,7 +508,7 @@ void CInspector::Render_WallTextureUI(CEditorWall* pWall)
 
         if (pTextureCom)
         {
-            Engine::TextureDesc* pDesc = pTextureCom->GetTextureDesc(iWallType);
+            Engine::TextureDesc* pDesc = pTextureCom->GetTextureDesc(iSelectedType);
             if (pDesc)
             {
                 iMaxIdx = (_int)pDesc->vMaxIdx.x;
@@ -439,6 +518,27 @@ void CInspector::Render_WallTextureUI(CEditorWall* pWall)
         if (ImGui::SliderInt("Texture Index", &iTextureIdx, 0, iMaxIdx))
         {
             pWall->Set_TextureIdx(iTextureIdx);
+        }
+
+        // 변경 여부 검사 및 동일 타입 객체에 적용
+        if (iOriginalWallType != iSelectedType || iOriginalTextureIdx != iTextureIdx)
+        {
+            for (auto& pSelectedObj : SelectedList)
+            {
+                if (pWall == pSelectedObj)
+                    continue;
+
+                if (pSelectedObj->Get_ObjectType() == EDITOR_OBJ_WALL)
+                {
+                    CEditorWall* pOtherWall = static_cast<CEditorWall*>(pSelectedObj);
+
+                    if (iOriginalWallType != iSelectedType)
+                        pOtherWall->Set_WallType(iSelectedType);
+
+                    if (iOriginalTextureIdx != iTextureIdx)
+                        pOtherWall->Set_TextureIdx(iTextureIdx);
+                }
+            }
         }
 
         ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),
@@ -701,17 +801,16 @@ void CInspector::Render_ObjectProperties()
         }
     }
 
+    EDITOR_OBJECT_TYPE eObjType = pObj->Get_ObjectType();
 
-    wstring cObjName = pObj->Get_Name();
-
-    if (cObjName == L"Wall" || cObjName == L"DynamicWall")
+    if (eObjType == EDITOR_OBJ_WALL || eObjType == EDITOR_OBJ_DYNAMIC_WALL)
     {
-        CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj);
+        CEditorWall* pWall = static_cast<CEditorWall*>(pObj);
         Render_WallProperties(pWall);
     }
-    else if (cObjName == L"MonsterSpawn")
+    else if (eObjType == EDITOR_OBJ_SPAWNPOINT)
     {
-        CEditorSpawnPoint* pSpawn = dynamic_cast<CEditorSpawnPoint*>(pObj);
+        CEditorSpawnPoint* pSpawn = static_cast<CEditorSpawnPoint*>(pObj);
         SPAWN_TYPE eType = pSpawn->Get_SpawnType();
         if (eType == SPAWN_MONSTER)
         {
@@ -719,7 +818,6 @@ void CInspector::Render_ObjectProperties()
         }
     }
 
-    
     ImGui::Spacing();
 
     // Room Settings 
@@ -740,50 +838,54 @@ void CInspector::Render_ObjectProperties()
     ImGui::Spacing();
     ImGui::Separator();
 
-    if (CEditorMapCollider* pMapCollider = dynamic_cast<CEditorMapCollider*>(pObj))
+    if (eObjType == EDITOR_OBJ_MAP_COLLIDER)
     {
+        CEditorMapCollider* pMapCollider = static_cast<CEditorMapCollider*>(pObj);
         Render_MapColliderProperties(pMapCollider);
     }
-    else if (CEditorTriggerBox* pTriggerBox = dynamic_cast<CEditorTriggerBox*>(pObj))
+    else if (eObjType == EDITOR_OBJ_TRIGGER_BOX)
     {
+        CEditorTriggerBox* pTriggerBox = static_cast<CEditorTriggerBox*>(pObj);
         Render_TriggerBoxProperties(pTriggerBox);
     }
 
     // 텍스처 
     ImGui::Text("Texture");
-    if (CEditorFloor* pFloor = dynamic_cast<CEditorFloor*>(pObj))
+    if (eObjType == EDITOR_OBJ_FLOOR || eObjType == EDITOR_OBJ_DYNAMIC_FLOOR || eObjType == EDITOR_OBJ_SLOPE_FLOOR)
     {
+        CEditorFloor* pFloor = static_cast<CEditorFloor*>(pObj);
         Render_FloorTextureUI(pFloor);
     }
-    else if (CEditorCeiling* pCeiling = dynamic_cast<CEditorCeiling*>(pObj))
+    else if (eObjType == EDITOR_OBJ_CEILING)
     {
+        CEditorCeiling* pCeiling = static_cast<CEditorCeiling*>(pObj);
         Render_CeilingTextureUI(pCeiling);
     }
-    else if (CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj))
+    else if (eObjType == EDITOR_OBJ_WALL || eObjType == EDITOR_OBJ_DYNAMIC_WALL)
     {
+        CEditorWall* pWall = static_cast<CEditorWall*>(pObj);
         Render_WallTextureUI(pWall);
     }
-    else if (CEditorDoor* pDoor = dynamic_cast<CEditorDoor*>(pObj))
+    else if (eObjType == EDITOR_OBJ_DOOR)
     {
+        CEditorDoor* pDoor = static_cast<CEditorDoor*>(pObj);
         Render_DoorProperties(pDoor);
     }
-    else if (CEditorInteractObject* pInteract = dynamic_cast<CEditorInteractObject*>(pObj))
+    else if (eObjType == EDITOR_OBJ_INTERACT)
     {
+        CEditorInteractObject* pInteract = static_cast<CEditorInteractObject*>(pObj);
         Render_InteractObjectProperties(pInteract);
     }
-    else if (CEditorDisplayObject* pDisplay = dynamic_cast<CEditorDisplayObject*>(pObj))
+    else if (eObjType == EDITOR_OBJ_DISPLAY)
     {
+        CEditorDisplayObject* pDisplay = static_cast<CEditorDisplayObject*>(pObj);
         Render_DisplayObjectProperties(pDisplay);
     }
-    else if (CEditorDisplayCubeObject* pDisplayCube = dynamic_cast<CEditorDisplayCubeObject*>(pObj))
+    else if (eObjType == EDITOR_OBJ_DISPLAY_CUBE)
     {
+        CEditorDisplayCubeObject* pDisplayCube = static_cast<CEditorDisplayCubeObject*>(pObj);
         Render_DisplayCubeObjectProperties(pDisplayCube);
     }
-    // 단일 텍스처라 필요없을 듯?
-    //else if (CEditorWindow* pWindow = dynamic_cast<CEditorWindow*>(pObj))
-    //{
-    //    Render_WindowProperties(pWindow);
-    //}
 }
 
 void CInspector::Render_WallProperties(CEditorWall* pWall)
