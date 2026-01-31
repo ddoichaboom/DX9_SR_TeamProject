@@ -308,12 +308,8 @@ void CEditorScene::Handle_Duplicate()
                     iIdx        = pFloor->Get_TextureIdx();
                     iRoomIndex  = pFloor->Get_RoomIndex();
 
-                    if (iType == static_cast<_uint>(STATIC_FLOOR_ROAD))
-                    {
-                        vPos += m_vDupplicateDir * 64.f;
-                    }
-                    else
-                        vPos += m_vDupplicateDir * 16.f;
+                    vPos += m_vDupplicateDir * vScale.x * 2.f;
+
 
                     pNewObj = CEditorFloor::Create(m_pGraphicDev, vPos, vRot, vScale, iType, iIdx);
                 }

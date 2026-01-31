@@ -14,6 +14,7 @@ CEditorInteractObject::CEditorInteractObject(LPDIRECT3DDEVICE9 pGraphicDev)
     : CEditorObject(pGraphicDev)
     , m_eObjectItemType(ITEM_EXTINGUISHER)
 {
+    m_eObjType = EDITOR_OBJ_INTERACT;
 }
 
 CEditorInteractObject::~CEditorInteractObject()

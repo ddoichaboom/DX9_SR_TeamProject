@@ -21,6 +21,7 @@ CEditorDynamicWall::CEditorDynamicWall(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_pAnimationCom(nullptr)
 {
 	m_iWallType = DYNAMIC_WALL_FAN;
+    m_eObjType = EDITOR_OBJ_DYNAMIC_WALL;
 }
 
 CEditorDynamicWall::~CEditorDynamicWall()

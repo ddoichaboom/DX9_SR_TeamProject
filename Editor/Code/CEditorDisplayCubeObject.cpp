@@ -17,6 +17,7 @@ CEditorDisplayCubeObject::CEditorDisplayCubeObject(LPDIRECT3DDEVICE9 pGraphicDev
     , m_pCubeTextureCom(nullptr)
     , m_eObjectType(BOX)
 {
+    m_eObjType = EDITOR_OBJ_DISPLAY_CUBE;
 }
 
 CEditorDisplayCubeObject::~CEditorDisplayCubeObject()

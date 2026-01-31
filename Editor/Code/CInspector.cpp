@@ -270,7 +270,8 @@ void CInspector::Render_FloorTextureUI(CEditorFloor* pFloor)
             "STATIC_FLOOR",
             "STATIC_FLOOR_FLUID",
             "STATIC_FLOOR_SLOPE",
-            "STATIC_FLOOR_ROAD"
+            "STATIC_FLOOR_ROAD",
+            "STATIC_FLOOR_UNIQUE"
         };
 
         _int iSelectedType = iFloorType;
@@ -943,7 +944,9 @@ void CInspector::Render_DisplayObjectProperties(CEditorDisplayObject* pDisplay)
         "WALL_WINDOW",
         "PASSTAIRS",
         "STREET_LIGHTS",
-        "SCREEN_DISPLAY"
+        "SCREEN_DISPLAY",
+        "NAKAMURA_TEXT",
+        "DOOR"
     };
 
     int iSelectedType = static_cast<int>(eType);

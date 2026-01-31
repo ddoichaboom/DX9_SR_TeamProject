@@ -1,6 +1,6 @@
 {
   "VendingMachineCount": 5,
-  "WindowCount": 6,
+  "WindowCount": 4,
   "axeCount": 4,
   "ceilingCount": 628,
   "displayCubeObjectCount": 734,
@@ -11,7 +11,7 @@
   "extinguisherCount": 0,
   "floorCount": 764,
   "mapColliderCount": 62,
-  "objectCount": 3185,
+  "objectCount": 3183,
   "objects": [
     {
       "floorType": 0,
@@ -43312,11 +43312,11 @@
       "type": "Floor"
     },
     {
-      "monsterKey": "FlyMon",
+      "monsterKey": "WhiteMan",
       "name": "MonsterSpawn",
       "position": [
-        394.0,
-        -230.0,
+        374.20001220703125,
+        -243.0,
         2454.699951171875
       ],
       "roomIndex": 5,
@@ -43911,7 +43911,7 @@
       "monsterKey": "WhiteMan",
       "name": "MonsterSpawn",
       "position": [
-        556.0,
+        608.0,
         -243.0,
         2390.0
       ],
@@ -43933,7 +43933,29 @@
       "monsterKey": "WhiteMan",
       "name": "MonsterSpawn",
       "position": [
-        544.0,
+        608.0,
+        -243.0,
+        2342.0
+      ],
+      "roomIndex": 6,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        608.0,
         -243.0,
         2278.0
       ],
@@ -43956,50 +43978,6 @@
       "name": "MonsterSpawn",
       "position": [
         688.0,
-        -243.0,
-        2278.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        5.0,
-        5.0,
-        5.0
-      ],
-      "spawnType": "Monster",
-      "type": "SpawnPoint"
-    },
-    {
-      "monsterKey": "WhiteMan",
-      "name": "MonsterSpawn",
-      "position": [
-        688.0,
-        -243.0,
-        2390.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        5.0,
-        5.0,
-        5.0
-      ],
-      "spawnType": "Monster",
-      "type": "SpawnPoint"
-    },
-    {
-      "monsterKey": "WhiteMan",
-      "name": "MonsterSpawn",
-      "position": [
-        616.0,
         -243.0,
         2334.0
       ],
@@ -70437,18 +70415,18 @@
     {
       "name": "Window_0",
       "position": [
-        552.0,
+        576.0,
         -224.0,
-        2366.0
+        2374.0
       ],
       "roomIndex": 6,
       "rotation": [
         0.0,
-        0.0,
+        90.0,
         0.0
       ],
       "scale": [
-        32.0,
+        40.0,
         32.0,
         1.0
       ],
@@ -70814,20 +70792,42 @@
       "type": "DisplayCubeObject"
     },
     {
-      "name": "Window",
+      "monsterKey": "FlyMon",
+      "name": "MonsterSpawn",
       "position": [
-        616.0,
-        -224.0,
-        2366.0
+        417.79998779296875,
+        -230.0,
+        2441.800048828125
       ],
-      "roomIndex": 6,
+      "roomIndex": 5,
       "rotation": [
         0.0,
         0.0,
         0.0
       ],
       "scale": [
-        32.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "name": "Window",
+      "position": [
+        576.0,
+        -224.0,
+        2294.0
+      ],
+      "roomIndex": 6,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        40.0,
         32.0,
         1.0
       ],
@@ -70837,18 +70837,18 @@
     {
       "name": "Window",
       "position": [
-        680.0,
+        656.0,
         -224.0,
-        2366.0
+        2294.0
       ],
       "roomIndex": 6,
       "rotation": [
         0.0,
-        0.0,
+        90.0,
         0.0
       ],
       "scale": [
-        32.0,
+        40.0,
         32.0,
         1.0
       ],
@@ -70858,60 +70858,18 @@
     {
       "name": "Window",
       "position": [
-        680.0,
+        656.0,
         -224.0,
-        2302.0
+        2374.0
       ],
       "roomIndex": 6,
       "rotation": [
         0.0,
-        180.0,
+        90.0,
         0.0
       ],
       "scale": [
-        32.0,
-        32.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        616.0,
-        -224.0,
-        2302.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        180.0,
-        0.0
-      ],
-      "scale": [
-        32.0,
-        32.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        552.0,
-        -224.0,
-        2302.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        180.0,
-        0.0
-      ],
-      "scale": [
-        32.0,
+        40.0,
         32.0,
         1.0
       ],

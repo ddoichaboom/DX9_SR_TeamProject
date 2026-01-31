@@ -24,6 +24,7 @@ CEditorCeiling::CEditorCeiling(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_iCeilingType(STATIC_CEILING)
     , m_iTextureIdx(0)
 {
+    m_eObjType = EDITOR_OBJ_CEILING;
 }
 
 CEditorCeiling::~CEditorCeiling()

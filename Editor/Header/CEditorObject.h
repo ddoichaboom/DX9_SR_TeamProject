@@ -50,6 +50,7 @@ protected:
 	// State
 	bool                    m_bSelected;
 	wstring                 m_wstrName;
+	EDITOR_OBJECT_TYPE		m_eObjType;
 
 protected:
 	LPDIRECT3DDEVICE9       m_pGraphicDev;

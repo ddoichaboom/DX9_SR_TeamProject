@@ -22,6 +22,7 @@ CEditorTriggerBox::CEditorTriggerBox(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, 
     , m_vColliderScale(vScale)
     , m_eTriggerType(TRIGGER_ROOM_CHANGE)
 {
+    m_eObjType = EDITOR_OBJ_TRIGGER_BOX;
 }
 
 CEditorTriggerBox::~CEditorTriggerBox()

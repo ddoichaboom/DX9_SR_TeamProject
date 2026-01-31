@@ -20,6 +20,7 @@ CEditorMapCollider::CEditorMapCollider(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos
     , m_pCollider(nullptr)
     , m_vColliderScale(vScale)
 {
+    m_eObjType = EDITOR_OBJ_MAP_COLLIDER;
 }
 
 CEditorMapCollider::~CEditorMapCollider()

@@ -11,6 +11,7 @@ CEditorSpawnPoint::CEditorSpawnPoint(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_eSpawnType(SPAWN_PLAYER)
     , m_strMonsterKey("")
 {
+    m_eObjType = EDITOR_OBJ_SPAWNPOINT;
 }
 
 CEditorSpawnPoint::~CEditorSpawnPoint()

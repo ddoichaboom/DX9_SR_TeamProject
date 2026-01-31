@@ -9,7 +9,8 @@ vector<TextureSource> CFloor::m_vTextureSource =
     { STATIC_FLOOR, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOORS.dds", true, 0, 7, 7, {2.f, 2.f}},
     { STATIC_FLOOR_FLUID, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOOR_FLUID.dds", true, 0, 2, 2, {0.f, 0.f}},
     { STATIC_FLOOR_SLOPE, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOOR_SLOPE.dds", false, 0, 0, 0, {1.f, 1.f}},
-    { STATIC_FLOOR_ROAD, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOOR_ROAD.dds", true, 0, 3, 3, {1.f, 1.f}}
+    { STATIC_FLOOR_ROAD, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOOR_ROAD.dds", true, 0, 3, 3, {1.f, 1.f}},
+    {STATIC_FLOOR_UNIQUE, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/UNIQUE_FLOOR.dds"}
 };
 
 CFloor::CFloor(LPDIRECT3DDEVICE9 pGraphicDev)

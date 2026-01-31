@@ -22,7 +22,7 @@ vector<TextureSource> CEditorWall::m_vTextureSource =
     {STATIC_WALL_WATER, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_WATER.dds", true, 0, 1, 1, {0.f, 0.f}},
     {STATIC_WALL_LAVA, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_LAVA.dds", true, 0, 1, 1, {0.f, 0.f}},
     {STATIC_WALL_ACID, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_ACID.dds", true, 0, 1, 1, {0.f, 0.f}},
-    {STATIC_WALL_FENCE, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_FENCE.dds", false, 0, 0, 0, {0.f, 0.f}},
+    {STATIC_WALL_FENCE, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_FENCE.dds", true, 0, 1, 1, {1.f, 1.f}},
     {STATIC_WALL_SIDEDASH, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/SIDE_DASH_WALL.dds", true, 0, 1, 1, {0.f, 0.f}},
     {STATIC_WALL_CORNER, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_CORNER.dds", true, 0, 7, 7, {1.f, 1.f}},
     {STATIC_WALL_DECO, L"../Bin/Resource/Texture/Terrain/Wall/STATIC_WALL/WALL_DECO.dds", true, 0, 7, 7, {1.f, 1.f}}
@@ -34,6 +34,7 @@ CEditorWall::CEditorWall(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_iTextureIdx(0)
     , m_iWallType(STATIC_WALL_1)
 {
+    m_eObjType = EDITOR_OBJ_WALL;
 }
 
 CEditorWall::~CEditorWall()

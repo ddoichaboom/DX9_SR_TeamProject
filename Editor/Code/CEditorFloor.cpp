@@ -11,7 +11,8 @@ vector<TextureSource> CEditorFloor::m_vTextureSource =
     { STATIC_FLOOR, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOORS.dds", true, 0, 7, 7, {2.f, 2.f}},
     { STATIC_FLOOR_FLUID, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOOR_FLUID.dds", true, 0, 2, 2, {0.f, 0.f}},
     { STATIC_FLOOR_SLOPE, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOOR_SLOPE.dds", false, 0, 0, 0, {1.f, 1.f}},
-    { STATIC_FLOOR_ROAD, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOOR_ROAD.dds", true, 0, 3, 3, {1.f, 1.f}}
+    { STATIC_FLOOR_ROAD, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/FLOOR_ROAD.dds", true, 0, 3, 3, {1.f, 1.f}},
+    {STATIC_FLOOR_UNIQUE, L"../Bin/Resource/Texture/Terrain/Floor/STATIC_FLOOR/UNIQUE_FLOOR.dds"}
 };
 
 CEditorFloor::CEditorFloor(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -19,6 +20,7 @@ CEditorFloor::CEditorFloor(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_iFloorType(STATIC_FLOOR)
     , m_iTextureIdx(0)
 {
+    m_eObjType = EDITOR_OBJ_FLOOR;
 }
 
 CEditorFloor::~CEditorFloor()
@@ -139,11 +141,6 @@ void   CEditorFloor::Set_FloorType(_uint iType)
         m_pTextureCom->Change_Texture(m_iFloorType);
         m_pTextureCom->Set_Frame(_vec2(m_iTextureIdx, 0));
     }
-
-    if (m_iFloorType == static_cast<_uint>(STATIC_FLOOR_ROAD))
-        Set_Scale(_vec3(32.f, 32.f, 1.f));
-    else
-        Set_Scale(_vec3(8.f, 8.f, 1.f));
 }
 
 CEditorFloor* CEditorFloor::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos)
@@ -200,10 +197,10 @@ CEditorFloor* CEditorFloor::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _v
     }
 
     // Transform 전체 지정 (맵 로드 시 사용)
+    pInstance->Set_FloorType(iType);
     pInstance->Set_Scale(vScale);
     pInstance->Set_Rotation(vRot);
     pInstance->Set_Position(vPos);
-    pInstance->Set_FloorType(iType);
     pInstance->Set_TextureIdx(iIdx);
 
     return pInstance;
