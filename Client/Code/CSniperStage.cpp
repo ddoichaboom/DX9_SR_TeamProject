@@ -104,6 +104,7 @@ _int CSniperStage::Update_Scene(const _float& fTimeDelta)
 		CSoundMgr::GetInstance()->StopAll();
 		CSoundMgr::GetInstance()->PlayBGM(CSniperPlayer::szSniperMapBGM.c_str(), 0.4f);
 		m_bStartSound = true;
+		m_pPlayer->Set_State_Intro();
 	}
 	
 	if (m_bStageEnd || (CDInputMgr::GetInstance()->Key_Down(DIK_P)))
@@ -115,22 +116,22 @@ _int CSniperStage::Update_Scene(const _float& fTimeDelta)
 	int iExit = CStage::Update_Scene(fTimeDelta);
 	CUIManager::GetInstance()->Update_GameObject(fTimeDelta);
 
-	
-	//if()
+	if (m_bEndingPos)
+	{
+		if (m_pPlayer->IsEndingEnd()) m_bStageEnd = true;
+		return RET_NONE;
+	}
 
-	//스폰할 몬스터도 없고 맵에도 몬스터가 없다면 종료 
-	//if (m_qMonsterSpawnPoses.empty() && m_pGameLogic_Layer->Get_Object(OBJ_MONSTER) == nullptr)
-	//{
-	//	m_bStageEnd = true;
-	//	return 0;
-	//}
 
 	if (m_iKillCount >= 10)
 	{
 		m_fEndTime += fTimeDelta;
 		if (m_fEndTime > 3.f)
 		{
-			m_bStageEnd = true;
+			//m_bStageEnd = true;
+			m_bEndingPos = true;
+			m_pPlayer->StartEnding();
+			
 		}
 		return iExit;
 	}

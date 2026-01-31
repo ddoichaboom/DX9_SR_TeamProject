@@ -18,7 +18,7 @@
 wstring CSniperPlayer::szSniperMapBGM = L"SniperMap_BGM.wav";
 wstring CSniperPlayer::szReloadSFX = L"Sniper_Reload_SFX.wav";
 wstring CSniperPlayer::szShotSFX = L"Sniper_Shot_SFX.wav";
-
+wstring CSniperPlayer::szSniperIntroReloadSFX = L"Sniper_Intro_Reload_Total.wav";
 
 
 CSniperPlayer::CSniperPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -104,7 +104,7 @@ HRESULT CSniperPlayer::Ready_GameObject()
 
 	//Set Data
 	m_fMouseSpeed = m_fBaseMouseSpeed;
-	ChangeState(SN_INTRO);
+	ChangeState(SN_NONE);
 	m_fAttackDamage = 100.f;
 
 
@@ -215,6 +215,23 @@ bool CSniperPlayer::Get_IsAimState()
 	return m_pStateCom->GetCurrentStateID() == SN_ATTACK;
 }
 
+void CSniperPlayer::StartEnding()
+{
+	m_bEndingPos = true;
+	ChangeState(SN_INTRO);
+}
+
+bool CSniperPlayer::IsEndingEnd()
+{
+	//return m_bEndingPos && m_pRightHand->CanAnimationEnd();
+	return m_bEndingPos && m_pStateCom->GetCurrentStateID() ==SN_IDLE && m_pRightHand->IsState_IDLE();
+}
+
+void CSniperPlayer::Set_State_Intro()
+{
+	ChangeState(SN_INTRO);
+}
+
 void CSniperPlayer::ChangeState(_uint nextStateID)
 {
 	m_fTime = 0.f;
@@ -225,7 +242,7 @@ void CSniperPlayer::Intro_Begin()
 {
 	DisableInput();
 	if(m_pRightHand) m_pRightHand->SetState_INTRO();
-	
+	CSoundMgr::GetInstance()->PlayPlayerSound(szSniperIntroReloadSFX.c_str(), 2.0f);
 	
 }
 

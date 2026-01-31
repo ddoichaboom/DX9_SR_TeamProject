@@ -37,12 +37,15 @@ protected:
 	_float		m_fOwnerHP = 0.f;
 	_float		m_fMaxHP = 0.f;
 
-	_float		m_fEffectTime = 3.f;
 	_float		m_fTime = 0.f;
 	HP_TYPE		m_type = HP_END;
 	_float		m_fRatio = 1.f;
 	bool		m_bHPEmpty = false;
-	_float		m_HPMinRatio[HP_END] = { 0.8f, 0.5f, 0.2f, 0.0f, -1.f };
+
+	_float		m_bClickTime = 0.08f;
+	bool		m_bClicker = true;
+
+	_float		m_HPMinRatio[HP_END] = { 0.8f, 0.5f, 0.25f, 0.0f, -1.f };
 	D3DXCOLOR	m_HPColors[HP_END] =
 	{
 		{0.3f, 0.80f, 0.2f, 0.9f},

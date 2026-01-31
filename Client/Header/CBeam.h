@@ -34,7 +34,7 @@ protected:
 	virtual void	Free();
 
 public:
-	bool			CheckCollision(CCollider* _pColliderm, _float* _pOutCollisionTime = nullptr, _vec3* _pOutPos = nullptr);
+	bool			CheckCollision(CCollider* _pColliderm, _float* _pOutCollisionTime = nullptr, _vec3* _pOutDistVec = nullptr);
 	_vec3			GetScale();
 	void			SetPos(_vec3 _pos) override;
 	void			SetShootDir(_vec3 _dir); 

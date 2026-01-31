@@ -172,6 +172,9 @@
     <Filter Include="04. Object\12. EditorDisplayCubeObject">
       <UniqueIdentifier>{d1517e95-8b97-4ae9-9490-e241f0226475}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07. Effect\14. TakeDownUI">
+      <UniqueIdentifier>{88b0a797-9672-4fd7-b247-63bd5d60628b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -348,6 +351,9 @@
     <ClInclude Include="..\Header\CEditorDisplayCubeObject.h">
       <Filter>04. Object\12. EditorDisplayCubeObject</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CTakeDownUI.h">
+      <Filter>07. Effect\14. TakeDownUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -508,6 +514,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CEditorDisplayCubeObject.cpp">
       <Filter>04. Object\12. EditorDisplayCubeObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTakeDownUI.cpp">
+      <Filter>07. Effect\14. TakeDownUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -52,6 +52,7 @@ public:
 	void			Deactivate() override;
 
 	bool			CanTakeDown() { return m_bCanTakeDown; }
+	MONSTER_TYPE	Get_MonsterType() { return m_eMonsterType; }
 protected:
 	CAnimation*		m_pAnimationCom;
 	CTransform*		m_pCameraTransformCom;
@@ -68,6 +69,7 @@ protected:
 	_float			m_fLaunchSpeed = 2.f;
 
 	_vec3			m_vHitPos {};
+	MONSTER_TYPE	m_eMonsterType;
 
 	bool			m_bCanTakeDown = false;
 

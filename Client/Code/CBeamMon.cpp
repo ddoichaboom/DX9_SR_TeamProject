@@ -37,12 +37,14 @@ CBeamMon::CBeamMon(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CMonster(pGraphicDev), m_pBodyCollider(nullptr), m_pBeam(nullptr)
 	, m_vShootDir({0,0,0}), m_vStartDir({0,0,0}), m_vEndDir({0,0,0}), m_bBeamCollision(false)
 {
+	m_eMonsterType = MON_BEAMMON;
 }
 
 CBeamMon::CBeamMon(const CBeamMon& rhs)
 	:CMonster(rhs), m_pBodyCollider(nullptr), m_pBeam(nullptr)
 	, m_vShootDir({ 0,0,0 }), m_vStartDir({ 0,0,0 }), m_vEndDir({ 0,0,0 }), m_bBeamCollision(false)
 {
+	m_eMonsterType = MON_BEAMMON;
 }
 
 CBeamMon::~CBeamMon()
@@ -331,15 +333,15 @@ void CBeamMon::CollisionBeam()
 	
 	CCollider* finalCollider = nullptr;
 	_float CollisionTime = 0.f, finalTime = 1500.f;
-	_vec3 CollisionPos{}, finalPos{};
+	_vec3 CollisionDist{}, finalDist{};
 
 	//플레이어 충돌검사 
-	bool bCollision = m_pBeam->CheckCollision(collider, &CollisionTime, &CollisionPos);
+	bool bCollision = m_pBeam->CheckCollision(collider, &CollisionTime, &CollisionDist);
 	if (bCollision && CollisionTime >= 0.f && CollisionTime <= finalTime)
 	{
 		finalCollider = collider;
 		finalTime = CollisionTime;
-		finalPos = CollisionPos;
+		finalDist = CollisionDist;
 	}
 
 
@@ -354,23 +356,29 @@ void CBeamMon::CollisionBeam()
 		if (!pCollision) continue;
 
 		CCollider * collider = pCollision->GetCollider();
-		bCollision = m_pBeam->CheckCollision(collider, &CollisionTime, &CollisionPos);
+		bCollision = m_pBeam->CheckCollision(collider, &CollisionTime, &CollisionDist);
 
 		if (bCollision && CollisionTime >= 0.f && CollisionTime < finalTime)
 		{
 			finalCollider = collider;
 			finalTime = CollisionTime;
-			finalPos = CollisionPos;
+			finalDist = CollisionDist;
 		}
 	}
 
 	if (finalCollider)
 	{
-		if(!m_bBeamCollision)
+		if (!m_bBeamCollision)
+		{
 			finalCollider->Collision({ this,_vec3(),m_fAttackDamage });
-		m_bBeamCollision = true;
-		if(finalCollider->Get_Owner()->GetOBJID() == OBJ_PLAYER == false)
-			m_pBeam->SetScale(ROT_Y, finalTime);
+			m_bBeamCollision = true;
+		}
+
+		if (finalCollider->Get_Owner()->GetOBJID() != OBJ_PLAYER)
+		{
+			_float len = D3DXVec3Length(&finalDist)*0.5f;
+			m_pBeam->SetScale(ROT_Y, len);
+		}
 	}
 
 }

@@ -8,6 +8,7 @@ namespace Engine
 	class CTexture;
 }
 
+class CTakeDownUI;
 class CPlusUI;
 class CFontUI;
 
@@ -48,6 +49,7 @@ protected:
 	Engine::CTransform* m_pTransformCom;
 	Engine::CTexture* m_pTextureCom;
 
+	CTakeDownUI* m_pBackUI;
 	CFontUI* m_pEffectText;
 
 	_float	m_fTime = 0.f;
@@ -58,6 +60,8 @@ protected:
 	_vec3	m_vClearPos;
 
 	_float  m_fDuration;
+
+	D3DXCOLOR m_FontColor = { 1,1,1,1 };
 
 };
 

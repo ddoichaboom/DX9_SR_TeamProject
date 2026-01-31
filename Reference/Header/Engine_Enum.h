@@ -230,5 +230,16 @@ namespace Engine
 		BUILDING,
 		DCOT_END
 	};
+
+	enum MONSTER_TYPE
+	{
+		MON_NONE,
+		MON_FLYMON,
+		MON_WHITEMAN,
+		MON_BEAMMON,
+		MON_SNIPERMAN,
+		MON_BOSS,
+		MON_END
+	};
 }
 #endif // Engine_Enum_h__

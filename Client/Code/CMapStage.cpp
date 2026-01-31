@@ -62,6 +62,7 @@
 #include "CHitUI.h"
 #include "CTakeDownBlood.h"
 #include "CSodaUI.h"
+#include "CTakeDownUI.h"
 
 #include "CLoadingEX.h"
 
@@ -696,7 +697,14 @@ HRESULT CMapStage::Ready_TerrainTextureProto()
 
 HRESULT CMapStage::Ready_UITextureProto()
 {
-    
+    CTexture* pCom_Texture = nullptr;
+    //TakeUI
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CTakeDownUI::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_TakeDownUI_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto TakeDownUI Ready Failed");
+        return E_FAIL;
+    }
 
     CUIManager::GetInstance()->Ready_GameObject(m_pGraphicDev);
 
@@ -769,6 +777,8 @@ HRESULT CMapStage::Ready_EffectTextureProto()
         MSG_BOX("Proto SodaUI Ready Failed");
         return E_FAIL;
     }
+
+
 
     return S_OK;
 }
@@ -973,7 +983,9 @@ void CMapStage::Check_Collision()
    //Player - Monster 충돌 
    for (auto it_mon = iter_Map_Mon.first; it_mon != iter_Map_Mon.second; it_mon++)
    {
-       CCharacter* monster = static_cast<CCharacter*>(it_mon->second);
+       CMonster* monster = static_cast<CMonster*>(it_mon->second);
+       if (monster->Get_MonsterType() == MON_FLYMON) continue;
+
        CCollider* monCollider = monster->GetCollider();
        if (!monCollider) continue;
        //주의 맵을 마지막 인자로 들어가기 

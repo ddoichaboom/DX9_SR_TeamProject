@@ -76,12 +76,19 @@ void CBeam::Render_GameObject()
 	m_pBufferUpCom->Render_Buffer();
 }
 
-bool CBeam::CheckCollision(CCollider* _pCollider, _float* _pOutCollisionTime, _vec3* _pOutPos)
+bool CBeam::CheckCollision(CCollider* _pCollider, _float* _pOutCollisionTime, _vec3* _pOutDistVec)
 {
-	bool bCollision = CCollision::Collision_Ray(_pCollider, m_vPos, m_vShootDir, _pOutCollisionTime);
-	if (bCollision && _pOutPos && _pOutCollisionTime)
+	_vec3 vLocalPos{};
+	bool bCollision = CCollision::Collision_Ray(_pCollider, m_vPos, m_vShootDir, _pOutCollisionTime, &vLocalPos);
+	if (bCollision)
 	{
-		*_pOutPos = m_vPos + m_vShootDir * (*_pOutCollisionTime)*10.f;
+		if (_pOutDistVec)
+		{
+			_vec3 vWorldPos{};
+			_matrix mat = _pCollider->GetWorldMatrix();
+			D3DXVec3TransformCoord(&vWorldPos, &vLocalPos, &mat);
+			*_pOutDistVec = m_vPos - vWorldPos;
+		}
 	}
 	return bCollision;
 }
