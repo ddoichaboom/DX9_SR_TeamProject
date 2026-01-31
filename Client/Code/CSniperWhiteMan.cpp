@@ -41,11 +41,13 @@ vector<AnimationSource> CSniperWhiteMan::m_vAnimSource =
 CSniperWhiteMan::CSniperWhiteMan(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CMonster(pGraphicDev), m_pBodyCollider(nullptr), m_pBeam(nullptr)
 {
+	m_eMonsterType = MON_SNIPERMAN;
 }
 
 CSniperWhiteMan::CSniperWhiteMan(const CSniperWhiteMan& rhs)
 	:CMonster(rhs), m_pBodyCollider(nullptr), m_pBeam(nullptr)
 {
+	m_eMonsterType = MON_SNIPERMAN;
 }
 
 CSniperWhiteMan::~CSniperWhiteMan()

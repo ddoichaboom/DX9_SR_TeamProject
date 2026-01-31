@@ -77,11 +77,13 @@ wstring CWhiteMan::szWhiteManElectric = L"Monster_Electric_SFX.wav";
 CWhiteMan::CWhiteMan(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CMonster(pGraphicDev), m_pHeadCollider(nullptr), m_pBodyCollider(nullptr)
 {
+	m_eMonsterType = MON_WHITEMAN;
 }
 
 CWhiteMan::CWhiteMan(const CWhiteMan& rhs)
 	:CMonster(rhs), m_pHeadCollider(nullptr), m_pBodyCollider(nullptr)
 {
+	m_eMonsterType = MON_WHITEMAN;
 }
 
 CWhiteMan::~CWhiteMan()

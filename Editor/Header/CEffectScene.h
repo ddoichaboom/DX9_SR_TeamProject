@@ -10,7 +10,8 @@ namespace Engine
 	class CParticleEmitter;
 }
 enum EFFECT_TYPE { EF_BLOOD, EF_TRAIL,EF_FLARE,EF_EXP, EF_BEAM_FLARE, EF_BODY, EF_HITUI, 
-	EF_BOSS_TRAIL, EF_TAKEDOWN,EF_TOONFLASH,EF_TOONFOG,EF_SODAUI,EF_BOSSHPUI,EF_PHONE_HP_UI, EF_END };
+	EF_BOSS_TRAIL, EF_TAKEDOWN,EF_TOONFLASH,EF_TOONFOG,EF_SODAUI,EF_BOSSHPUI
+	,EF_PHONE_HP_UI, EF_TAKEDOWN_UI, EF_END };
 
 class CEffectScene :
     public CEditorScene
@@ -18,6 +19,7 @@ class CEffectScene :
 private:
 	explicit CEffectScene(LPDIRECT3DDEVICE9 pGraphicDev);
 	virtual ~CEffectScene();
+
 
 public:
 	virtual HRESULT				Ready_Scene() override;

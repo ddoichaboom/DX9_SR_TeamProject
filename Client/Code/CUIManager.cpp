@@ -647,8 +647,7 @@ void CUIManager::OnEvent(EVENT_TYPE _type, EventData* _pData)
 		Set_OnDashUI(false);
 		Set_OnShopUI(false);
 		//TODO : (처치) 폰트 UI 지우기 
-		//Set_OnShopUI(false);
-		//Change_UIState(UI_DEFAULT);
+
 		break;
 	case Engine::EVENT_VIEW_EVENT_END:
 		Set_OnShopUI(false);

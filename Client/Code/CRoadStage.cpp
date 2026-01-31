@@ -108,23 +108,6 @@ HRESULT CRoadStage::Ready_Scene()
 	//7단계 맵 - 게임로직 로드 
 	m_pLoadingEX->AddTask(CLoadingEX::Lv7_MAP_GAME_LOAD, [this]() { this->Ready_GameLogic_Layer(L"GameLogic_Layer"); });
 
-
-	//if (FAILED(Ready_CharacterTextureProto())) return E_FAIL;
-	//if (FAILED(Ready_ObjectPool_Character())) return E_FAIL;
-
-
-	//if (FAILED(Ready_TerrainTextureProto())) return E_FAIL;
-	//if (FAILED(Ready_ObjectPool_Terrain())) return E_FAIL;
-
-	//if (FAILED(Ready_UITextureProto())) return E_FAIL;
-	//if (FAILED(Ready_ObjectPool_UI())) return E_FAIL;
-
-	//if (FAILED(Ready_EffectTextureProto())) return E_FAIL;
-	//if (FAILED(Ready_ObjectPool_Effect())) return E_FAIL;
-
-	//if (FAILED(Ready_Environment_Layer(L"Environment_Layer"))) return E_FAIL;
-	//if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer"))) return E_FAIL;
-
 	CEventMgr::GetInstance()->Subscribe(EVENT_ENDING, this);
 
 	m_vecSpawnPoses = 

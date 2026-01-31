@@ -12,7 +12,7 @@ CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CCharacter(pGraphicDev), m_pAnimationCom(nullptr)
 	,m_fAttackableDist(100.f), m_vDir({0,0,0}), m_fSpeed(10.f)
 	, m_pPlayerTransformCom(nullptr), m_pPlayerCollisionCom(nullptr), m_pCameraTransformCom(nullptr)
-	,m_fTargetLoseDist(200.f)
+	,m_fTargetLoseDist(200.f), m_eMonsterType(MON_NONE)
 {
 	m_eOBJ_ID = OBJ_MONSTER;
 	m_iID = Make_ID();	
@@ -22,7 +22,7 @@ CMonster::CMonster(const CMonster& rhs)
 	:CCharacter(rhs), m_pAnimationCom(nullptr), m_fAttackableDist(100.f)
 	, m_vDir(rhs.m_vDir), m_fSpeed(rhs.m_fSpeed)
 	, m_pPlayerTransformCom(nullptr), m_pPlayerCollisionCom(nullptr), m_pCameraTransformCom(nullptr)
-	, m_fTargetLoseDist(200.f)
+	, m_fTargetLoseDist(200.f), m_eMonsterType(MON_NONE)
 {
 	m_eOBJ_ID = OBJ_MONSTER;
 	m_iID = Make_ID();

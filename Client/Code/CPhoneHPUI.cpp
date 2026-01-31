@@ -46,21 +46,36 @@ _int CPhoneHPUI::Update_GameObject(const _float& fTimeDelta)
 		{
 			if (m_pOwner && !m_bHPEmpty)
 			{
+
 				m_fOwnerHP = m_pOwner->GetHP();
 				m_fRatio = (m_fOwnerHP / m_fMaxHP);
 				m_type = GetHPType(m_fRatio);
 
-				particle->color = m_HPColors[m_type];
-
-				if (m_type == HP_DANAGER || m_type == HP_DEAD)
+				if (m_type == HP_DANAGER)
 				{
+					m_fTime += fTimeDelta;
+					if (m_fTime >= m_bClickTime)
+					{
+						if (m_bClicker) particle->color = m_HPColors[HP_DANAGER];
+						else particle->color = { 1,1,1,1 };
+						m_bClicker = !m_bClicker;
+						m_fTime = 0.f;
+					}
 					particle->vSize.y = m_vSize.y;
 				}
-				else particle->vSize.y = m_vSize.y * m_fRatio;
+				else
+				{
+					if (m_type == HP_DEAD)
+					{
+						particle->vSize.y = m_vSize.y;
+						//체력 0 찍은 후(DEAD) 회복 불가능하게 할거면 주석 제거 
+						//m_bHPEmpty = true;
+					}
+					else particle->vSize.y = m_vSize.y * m_fRatio;
+					particle->color = m_HPColors[m_type];
+				}
 
 				particle->vPosition.y = m_vPos.y + particle->vSize.y*0.5f;
-
-				if (m_type == HP_DEAD) m_bHPEmpty = true;
 			}
 
 		}

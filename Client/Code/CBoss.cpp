@@ -63,6 +63,7 @@ CBoss::CBoss(LPDIRECT3DDEVICE9 pGraphicDev)
 	ZeroMemory(m_vHandPos, sizeof(_vec3) * MON_END_HAND);
 	m_fHP = 30.f;
 	m_fMaxHP = 30.f;
+	m_eMonsterType = MON_BOSS;
 }
 
 CBoss::CBoss(LPDIRECT3DDEVICE9 pGraphicDev, _float fHP)
@@ -77,6 +78,7 @@ CBoss::CBoss(LPDIRECT3DDEVICE9 pGraphicDev, _float fHP)
 	ZeroMemory(m_vHandPos, sizeof(_vec3) * MON_END_HAND);
 	m_fHP = fHP;
 	m_fMaxHP = fHP;
+	m_eMonsterType = MON_BOSS;
 }
 
 CBoss::CBoss(const CBoss& rhs)
@@ -89,7 +91,7 @@ CBoss::CBoss(const CBoss& rhs)
 	ZeroMemory(m_vBeamStartPos, sizeof(_vec3) * MON_END_HAND);
 	ZeroMemory(m_vBeamEndPos, sizeof(_vec3) * MON_END_HAND);
 	ZeroMemory(m_vHandPos, sizeof(_vec3) * MON_END_HAND);
-
+	m_eMonsterType = MON_BOSS;
 }
 
 CBoss::~CBoss()

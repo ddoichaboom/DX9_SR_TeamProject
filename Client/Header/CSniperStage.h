@@ -63,5 +63,7 @@ private:
 
     _bool       m_bFirstSpawn = true;
     _bool       m_bStartSound = false;
+
+    _bool       m_bEndingPos = false;
 };
 

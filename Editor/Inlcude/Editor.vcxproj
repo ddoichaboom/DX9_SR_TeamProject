@@ -191,6 +191,7 @@
     <ClInclude Include="..\Header\CSelectionMgr.h" />
     <ClInclude Include="..\Header\CSodaUI.h" />
     <ClInclude Include="..\Header\CTakeDownBlood.h" />
+    <ClInclude Include="..\Header\CTakeDownUI.h" />
     <ClInclude Include="..\Header\CToolBar.h" />
     <ClInclude Include="..\Header\CToonFlash.h" />
     <ClInclude Include="..\Header\CToonFog.h" />
@@ -260,6 +261,7 @@
     <ClCompile Include="..\Code\CSelectionMgr.cpp" />
     <ClCompile Include="..\Code\CSodaUI.cpp" />
     <ClCompile Include="..\Code\CTakeDownBlood.cpp" />
+    <ClCompile Include="..\Code\CTakeDownUI.cpp" />
     <ClCompile Include="..\Code\CToolBar.cpp" />
     <ClCompile Include="..\Code\CToonFlash.cpp" />
     <ClCompile Include="..\Code\CToonFog.cpp" />

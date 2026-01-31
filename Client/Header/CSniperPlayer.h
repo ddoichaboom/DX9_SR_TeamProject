@@ -46,6 +46,10 @@ public:
 	void			DisableInput() { m_bCanInput = false; }
 	bool			Get_IsAimState();
 
+	void			StartEnding();
+	bool			IsEndingEnd();
+
+	void			Set_State_Intro();
 protected:
 	void			ChangeState(_uint nextStateID) override;
 
@@ -64,6 +68,8 @@ protected:
 	void			OnCollision(CollisionInfo info);
 	void			CheckedPickedMonster();
 	void			CheckedPicked(const _tchar* layerName, OBJ_ID eID);
+
+
 protected:
 	CSRightHand*	m_pRightHand = nullptr;
 	CLeftPart*		m_pLeftHand = nullptr;
@@ -92,12 +98,12 @@ protected:
 
 	bool			m_bRenderStop = false;
 
+	bool			m_bEndingPos = false;
 public:
 	static wstring szReloadSFX;
 	static wstring szShotSFX;
 	static wstring szSniperMapBGM;
-	
-
+	static wstring szSniperIntroReloadSFX;
 
 };
 

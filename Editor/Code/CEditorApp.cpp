@@ -44,6 +44,7 @@
 #include "CBossTrail.h"
 #include "CSodaUI.h"
 #include "CBossHPUI.h"
+#include "CTakeDownUI.h"
 
 CEditorApp::CEditorApp()
     : m_pGraphicDev(nullptr)
@@ -291,9 +292,9 @@ HRESULT CEditorApp::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
 HRESULT CEditorApp::Ready_Scene()
 {
     //// EditorScene »ý¼º
-    m_pCurrentScene = CEditorScene::Create(m_pGraphicDev);
-    //CEffectScene* scene;
-    //m_pCurrentScene = scene = CEffectScene::Create(m_pGraphicDev);
+    //m_pCurrentScene = CEditorScene::Create(m_pGraphicDev);
+    CEffectScene* scene;
+    m_pCurrentScene = scene = CEffectScene::Create(m_pGraphicDev);
 
     if (nullptr == m_pCurrentScene)
     {
@@ -341,12 +342,12 @@ HRESULT CEditorApp::Ready_Scene()
         return E_FAIL;
     }
 
-    //m_pEffectToolBar = CEffectToolBar::Create(scene);
-    //if (nullptr == m_pEffectToolBar)
-    //{
-    //    MSG_BOX("EffectToolBar Create Failed");
-    //    return E_FAIL;
-    //}
+    m_pEffectToolBar = CEffectToolBar::Create(scene);
+    if (nullptr == m_pEffectToolBar)
+    {
+        MSG_BOX("EffectToolBar Create Failed");
+        return E_FAIL;
+    }
 
 
     return S_OK;
@@ -539,13 +540,22 @@ HRESULT CEditorApp::Ready_Texture_Prototype()
         return E_FAIL;
     }
 
-    //SodaUI Texture
+    //BOSSHPUI Texture
     pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CBossHPUI::GetTextureSource());
     if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_BOSSHPUI_Texture", pCom_Texture)))
     {
         MSG_BOX("Proto BOSSHPUI Ready Failed");
         return E_FAIL;
     }
+
+    //TakeDown UI Texture
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CTakeDownUI::GetTextureSource());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Effect_TakeDownUI_Texture", pCom_Texture)))
+    {
+        MSG_BOX("Proto TakeDown UI Ready Failed");
+        return E_FAIL;
+    }
+
 
     return S_OK;
 }

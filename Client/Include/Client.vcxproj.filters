@@ -361,12 +361,6 @@
     <Filter Include="02. GameObject\00. Character\04. SniperPlayer\00. SniperCamera">
       <UniqueIdentifier>{353c387a-657b-4cc4-8150-622644fb59df}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\00. Character\04. SniperPlayer\00. SniperCamera\00.SRightHand">
-      <UniqueIdentifier>{61ec68e1-16f4-44ef-9b08-965d9a043f34}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\00. Character\04. SniperPlayer\00. SniperCamera\01.SLeftHand">
-      <UniqueIdentifier>{a1f9fe3e-6d6a-44e9-b360-91e093834070}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04.UI\01.StaticUI\15. SniperUI">
       <UniqueIdentifier>{b6cb9ece-df87-4758-ac79-7a73ea996f44}</UniqueIdentifier>
     </Filter>
@@ -390,6 +384,15 @@
     </Filter>
     <Filter Include="01. Scene\01. Stage\99. Room">
       <UniqueIdentifier>{17e3a3fb-604d-45b5-a567-8dd8c64d4d46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\14. TakeDownUI">
+      <UniqueIdentifier>{fd6e24ac-79ff-489d-a8dc-9b2182d9da20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\04. SniperPlayer\00.SRightHand">
+      <UniqueIdentifier>{61ec68e1-16f4-44ef-9b08-965d9a043f34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\00. Character\04. SniperPlayer\01.SLeftHand">
+      <UniqueIdentifier>{a1f9fe3e-6d6a-44e9-b360-91e093834070}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -724,10 +727,10 @@
       <Filter>02. GameObject\00. Character\04. SniperPlayer\00. SniperCamera</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CSRightHand.h">
-      <Filter>02. GameObject\00. Character\04. SniperPlayer\00. SniperCamera\00.SRightHand</Filter>
+      <Filter>02. GameObject\00. Character\04. SniperPlayer\00.SRightHand</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CSLeftHand.h">
-      <Filter>02. GameObject\00. Character\04. SniperPlayer\00. SniperCamera\01.SLeftHand</Filter>
+      <Filter>02. GameObject\00. Character\04. SniperPlayer\01.SLeftHand</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CSniperUI.h">
       <Filter>04.UI\01.StaticUI\15. SniperUI</Filter>
@@ -749,6 +752,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\CRoom.h">
       <Filter>01. Scene\01. Stage\99. Room</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTakeDownUI.h">
+      <Filter>02. GameObject\13. Effect\14. TakeDownUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1074,10 +1080,10 @@
       <Filter>02. GameObject\00. Character\04. SniperPlayer\00. SniperCamera</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CSRightHand.cpp">
-      <Filter>02. GameObject\00. Character\04. SniperPlayer\00. SniperCamera\00.SRightHand</Filter>
+      <Filter>02. GameObject\00. Character\04. SniperPlayer\00.SRightHand</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CSLeftHand.cpp">
-      <Filter>02. GameObject\00. Character\04. SniperPlayer\00. SniperCamera\01.SLeftHand</Filter>
+      <Filter>02. GameObject\00. Character\04. SniperPlayer\01.SLeftHand</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CSniperUI.cpp">
       <Filter>04.UI\01.StaticUI\15. SniperUI</Filter>
@@ -1099,6 +1105,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CRoom.cpp">
       <Filter>01. Scene\01. Stage\99. Room</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTakeDownUI.cpp">
+      <Filter>02. GameObject\13. Effect\14. TakeDownUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

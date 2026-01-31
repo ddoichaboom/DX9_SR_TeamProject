@@ -32,11 +32,13 @@ vector<AnimationSource> CFlyMon::m_vAnimSource =
 CFlyMon::CFlyMon(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CMonster(pGraphicDev), m_pBodyCollider(nullptr), m_fNear(false)
 {
+	m_eMonsterType = MON_FLYMON;
 }
 
 CFlyMon::CFlyMon(const CFlyMon& rhs)
 	:CMonster(rhs), m_pBodyCollider(nullptr), m_fNear(false)
 {
+	m_eMonsterType = MON_FLYMON;
 }
 
 CFlyMon::~CFlyMon()

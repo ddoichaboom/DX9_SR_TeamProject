@@ -308,7 +308,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iMaxVendingMachine(0);
 	_uint iMaxMapCollider(0), iMaxRoomTrigger(0);
 	_uint iBulletCount = 20;
-	_uint iBossBulletCount = 30;
+	_uint iBossBulletCount = 50;
 	_uint iBossRocketCount = 30;
 	_uint iWhiteManCount = 15;
 	_uint iSniperWhiteManCount = 15;		

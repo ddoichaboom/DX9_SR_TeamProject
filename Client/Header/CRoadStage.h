@@ -59,7 +59,7 @@ public :
     enum                { ROOM_CNT = 6 };
     CRoom*              m_pRoom[ROOM_CNT];
 
-    _float              m_fSpeed = -100.f;
+    _float              m_fSpeed = -400.f;
     const _float        m_fZHalfRadius = 160.f;
     const _vec3        m_vEndColliderZPos = { 0, -10.f, -400.f };
     CMapCollider*       m_pEndMapCollider;
