@@ -30,6 +30,7 @@
 #include "CEditorInteractObject.h"
 #include "CEditorDisplayObject.h"
 #include "CEditorDisplayCubeObject.h"
+#include "CEditorWindow.h"
 
 using namespace std;
 using namespace Engine;
@@ -146,6 +147,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
         _uint iAxeCount = 0;
         _uint iDisplayObjectCount = 0;
         _uint iDisplayCubeObjectCount = 0;
+        _uint iWindowCount = 0;
 
 
         auto& objectList = pScene->Get_ObjectList();
@@ -350,6 +352,15 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                 // DisplayCubeObject 전용 필드 (Client CMapLoader 호환)
                 jObj["displayCubeObjectType"] = static_cast<_int>(pDisplayCube->Get_CubeObjectType());
             }
+            else if (CEditorWindow* pWindow = dynamic_cast<CEditorWindow*>(pObj))
+            {
+                iWindowCount++;
+                jObj["type"] = "Window";
+                jObj["roomIndex"] = pObj->Get_RoomIndex();
+                jObj["textureIdx"] = pWindow->Get_TextureIdx();
+
+                SaveTransformData(jObj, pObj);
+            }
             else
             {
                 continue;  // 알 수 없는 타입 - 건너뜀
@@ -373,6 +384,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
         jMap["axeCount"] = iAxeCount;
         jMap["displayObjectCount"] = iDisplayObjectCount;
         jMap["displayCubeObjectCount"] = iDisplayCubeObjectCount;
+        jMap["WindowCount"] = iWindowCount;
 
         jMap["objects"] = jObjects;
         jMap["objectCount"] = jObjects.size();
@@ -722,6 +734,12 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
                     eCubeType = static_cast<DISPLAY_CUBE_OBJECT_TYPE>((_int)jObj["displayCubeObjectType"]);
 
                 pObj = CEditorDisplayCubeObject::Create(pGraphicDev, vPos, vRot, vScale, eCubeType);
+            }
+            else if (strType == "Window")
+            {
+                // 텍스처 인덱스는 단일 텍스처라 지정 생략 가능
+
+                pObj = CEditorWindow::Create(pGraphicDev, vPos, vRot, vScale);
             }
 
             if (!pObj)

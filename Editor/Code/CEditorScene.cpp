@@ -23,6 +23,7 @@
 #include "CEditorInteractObject.h"
 #include "CEditorDisplayObject.h"
 #include "CEditorDisplayCubeObject.h"
+#include "CEditorWindow.h"
 
 CEditorScene::CEditorScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
@@ -438,7 +439,12 @@ void CEditorScene::Handle_Duplicate()
                     iRoomIndex = pDisplayCube->Get_RoomIndex();
                     pNewObj = CEditorDisplayCubeObject::Create(m_pGraphicDev, vPos, vRot, vScale, eCubeType);
                 }
-
+                else if (CEditorWindow* pWindow = dynamic_cast<CEditorWindow*>(pSelectedObj))
+                {
+                    vPos += m_vDupplicateDir * vScale.x * 2.f;
+                    iRoomIndex = pWindow->Get_RoomIndex();
+                    pNewObj = CEditorWindow::Create(m_pGraphicDev, vPos, vRot, vScale);
+                }
 
                 if (pNewObj)
                 {
@@ -531,7 +537,8 @@ void CEditorScene::Handle_Left_Click()
             eMode == MODE_PLACE_MAPCOLLIDER || eMode == MODE_PLACE_TRIGGERBOX ||
             eMode == MODE_PLACE_SPAWN_BOSSMONSTER || eMode == MODE_PLACE_DYNAMIC_WALL ||
             eMode == MODE_PLACE_DOOR || eMode == MODE_PLACE_INTERACTOBJECT ||
-            eMode == MODE_PLACE_DISPLAYOBJECT || eMode == MODE_PLACE_DISPLAYCUBEOBJECT)
+            eMode == MODE_PLACE_DISPLAYOBJECT || eMode == MODE_PLACE_DISPLAYCUBEOBJECT ||
+            eMode == MODE_PLACE_WINDOW)
         {
 
             // Ray - Plane Intersection (Y = 0 평면)
@@ -570,6 +577,8 @@ void CEditorScene::Handle_Left_Click()
                 Place_DisplayObject(vPos);
             else if (eMode == MODE_PLACE_DISPLAYCUBEOBJECT)
                 Place_DisplayCubeObject(vPos);
+            else if (eMode == MODE_PLACE_WINDOW)
+                Place_Window(vPos);
         }
         else if (eMode == MODE_SELECT)
         {
@@ -1003,6 +1012,27 @@ void CEditorScene::Place_DisplayCubeObject(const _vec3& vPos)
 
         Add_Object(pDisplayCube);
         Safe_Release(pDisplayCube);
+    }
+}
+
+void CEditorScene::Place_Window(const _vec3& vPos)
+{
+    CEditorWindow* pWindow = CEditorWindow::Create(m_pGraphicDev, vPos);
+
+    if (pWindow)
+    {
+        _vec3 vAdjustedPos = vPos; 
+        vAdjustedPos.y = vPos.y + pWindow->Get_Scale().y;
+        pWindow->Set_Position(vAdjustedPos);
+
+        // 기본 이름 설정
+        static _int s_iWindowIdx = 0;
+        wchar_t wszName[64];
+        swprintf_s(wszName, L"Window_%d", s_iWindowIdx++);
+        pWindow->Set_Name(wszName);
+
+        Add_Object(pWindow);
+        Safe_Release(pWindow);
     }
 }
 

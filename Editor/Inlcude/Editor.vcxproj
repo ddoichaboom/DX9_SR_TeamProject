@@ -174,6 +174,7 @@
     <ClInclude Include="..\Header\CEditorTile.h" />
     <ClInclude Include="..\Header\CEditorTriggerBox.h" />
     <ClInclude Include="..\Header\CEditorWall.h" />
+    <ClInclude Include="..\Header\CEditorWindow.h" />
     <ClInclude Include="..\Header\CEffectScene.h" />
     <ClInclude Include="..\Header\CEffectToolBar.h" />
     <ClInclude Include="..\Header\CExplosion.h" />
@@ -239,6 +240,7 @@
     <ClCompile Include="..\Code\CEditorTile.cpp" />
     <ClCompile Include="..\Code\CEditorTriggerBox.cpp" />
     <ClCompile Include="..\Code\CEditorWall.cpp" />
+    <ClCompile Include="..\Code\CEditorWindow.cpp" />
     <ClCompile Include="..\Code\CEffectScene.cpp" />
     <ClCompile Include="..\Code\CEffectToolBar.cpp" />
     <ClCompile Include="..\Code\CExplosion.cpp" />

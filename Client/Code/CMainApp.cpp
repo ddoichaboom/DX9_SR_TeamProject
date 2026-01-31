@@ -46,6 +46,7 @@
 #include "CAxe.h"
 #include "CDisplayObject.h"
 #include "CDisplayCubeObject.h"
+#include "CWindow.h"
 
 #include "CLeftPart.h"
 #include "CRightPart.h"
@@ -317,6 +318,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iMaxAxe(0);
 	_uint iMaxDisplayObject(0);
 	_uint iMaxDisplayCubeObject(0);
+	_uint iMaxWindowCount(0);
 
 	// 문 관련 오브젝트 풀 사이즈 등록 ( 좌측/우측 파츠는 본체인 문과 개수 동일함 )
 	_uint iMaxDoorCount(0);
@@ -375,6 +377,9 @@ HRESULT CMainApp::Ready_ObjectPool()
 
 		iMaxDisplayCubeObject = max(iMaxDisplayCubeObject,
 			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "DisplayCubeObject"));
+
+		iMaxWindowCount = max(iMaxWindowCount,
+			CMapLoader::GetInstance()->Get_MaxObjectCount(wstrFile, "Window"));
 	}
 
 	// 풀 크기 설정 

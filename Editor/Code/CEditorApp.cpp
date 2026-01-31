@@ -27,6 +27,7 @@
 #include "CEditorInteractObject.h"
 #include "CEditorDisplayObject.h"
 #include "CEditorDisplayCubeObject.h"
+#include "CEditorWindow.h"
 
 #include "CEffectScene.h"
 #include "CEffectToolBar.h"
@@ -431,6 +432,13 @@ HRESULT CEditorApp::Ready_Texture_Prototype()
     if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_DisplayCubeObject_Texture", pCom_Cube_Texture)))
     {
         MSG_BOX("Proto_DisplayCubeObject_Texture Ready Failed");
+        return E_FAIL;
+    }
+
+    pCom_Texture = Engine::CTexture::Create(m_pGraphicDev, CEditorWindow::GetTextureSources());
+    if (FAILED(Engine::CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_WindowTexture", pCom_Texture)))
+    {
+        MSG_BOX("Proto_WindowTexture Ready Failed");
         return E_FAIL;
     }
 

@@ -170,6 +170,8 @@ HRESULT CMapLoader::Preload_AllMapData(const wstring& wstrPath)
                 roomMap[iRoomIndex].iDisplayObjectCount++;
             else if (objData.sType == "DisplayCubeObject")
                 roomMap[iRoomIndex].iDisplayCubeObjectCount++;
+            else if (objData.sType == "Window")
+                roomMap[iRoomIndex].iWindowCount++;
         }
 
         // ========== 5단계: 로그 출력 ==========
@@ -621,6 +623,8 @@ _uint CMapLoader::Get_MaxObjectCount(const wstring& wstrPath, const string& obje
                 iSum += roomData.iDisplayObjectCount;
             else if (objectType == "DisplayCubeObject")
                 iSum += roomData.iDisplayCubeObjectCount;
+            else if (objectType == "Window")
+                iSum += roomData.iWindowCount;
         }
 
         if (iSum > iMaxCount)

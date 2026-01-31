@@ -57,7 +57,8 @@ void CToolBar::Render_ToolBar()
           "Place TriggerBox",
           "Place InteractObject",
           "Place DisplayObject",
-          "Place DisplayCubeObject"
+          "Place DisplayCubeObject",
+          "Place_Window"
     };
 
     int iCurrentMode = (int)m_eEditorMode;

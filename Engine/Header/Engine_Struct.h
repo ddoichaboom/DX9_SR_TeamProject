@@ -194,6 +194,7 @@ namespace Engine
 		_uint iAxeCount;
 		_uint iDisplayObjectCount;
 		_uint iDisplayCubeObjectCount;
+		_uint iWindowCount;
 
 		_uint iMapColliderCount;
 		_uint iRoomTriggerBoxCount;
@@ -204,6 +205,7 @@ namespace Engine
 			iDynamicCeilingCount(0), iWallCount(0), iDynamicWallCount(0), iVendingMachineCount(0)
 			, iSlopeFloorCount(0), iMapColliderCount(0), iRoomTriggerBoxCount(0), iEventTriggerBoxCount(0)
 			, iDoorCount(0), iExtinguisherCount(0), iAxeCount(0), iDisplayObjectCount(0), iDisplayCubeObjectCount(0)
+			, iWindowCount(0)
 		{}
 	}RoomData;
 

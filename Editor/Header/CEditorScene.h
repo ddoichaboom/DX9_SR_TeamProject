@@ -73,6 +73,7 @@ public:
 	void						Place_InteractObject(const _vec3& vPos);
 	void						Place_DisplayObject(const _vec3& vPos);
 	void						Place_DisplayCubeObject(const _vec3& vPos);
+	void						Place_Window(const _vec3& vPos);
 
 	void                        Place_MapCollider(const _vec3& vPos);
 	void                        Place_TriggerBox(const _vec3& vPos);

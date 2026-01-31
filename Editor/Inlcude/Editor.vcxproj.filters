@@ -172,6 +172,9 @@
     <Filter Include="04. Object\12. EditorDisplayCubeObject">
       <UniqueIdentifier>{d1517e95-8b97-4ae9-9490-e241f0226475}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Object\13. EditorWindow">
+      <UniqueIdentifier>{96d2a8ce-4aa0-4c3d-ae18-8002cb2db528}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -348,6 +351,9 @@
     <ClInclude Include="..\Header\CEditorDisplayCubeObject.h">
       <Filter>04. Object\12. EditorDisplayCubeObject</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CEditorWindow.h">
+      <Filter>04. Object\13. EditorWindow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -508,6 +514,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CEditorDisplayCubeObject.cpp">
       <Filter>04. Object\12. EditorDisplayCubeObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorWindow.cpp">
+      <Filter>04. Object\13. EditorWindow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

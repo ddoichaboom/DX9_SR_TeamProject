@@ -19,6 +19,7 @@
 #include "CEditorInteractObject.h"
 #include "CEditorDisplayObject.h"
 #include "CEditorDisplayCubeObject.h"
+#include "CEditorWindow.h"
 
 
 CInspector::CInspector()
@@ -405,7 +406,9 @@ void CInspector::Render_WallTextureUI(CEditorWall* pWall)
             "STATIC_WALL_LAVA",
             "STATIC_WALL_ACID",
             "STATIC_WALL_FENCE",
-            "STATIC_WALL_SIDEDASH"
+            "STATIC_WALL_SIDEDASH",
+            "STATIC_WALL_CORNER",
+            "STATIC_WALL_DECO"
         };
 
         int iSelectedType = iWallType;  // STATIC_WALL_1 = 0, STATIC_WALL_2 = 1, ...
@@ -431,6 +434,7 @@ void CInspector::Render_WallTextureUI(CEditorWall* pWall)
                 iMaxIdx = (_int)pDesc->vMaxIdx.x;
             }
         }
+
         if (ImGui::SliderInt("Texture Index", &iTextureIdx, 0, iMaxIdx))
         {
             pWall->Set_TextureIdx(iTextureIdx);
@@ -774,6 +778,11 @@ void CInspector::Render_ObjectProperties()
     {
         Render_DisplayCubeObjectProperties(pDisplayCube);
     }
+    // 단일 텍스처라 필요없을 듯?
+    //else if (CEditorWindow* pWindow = dynamic_cast<CEditorWindow*>(pObj))
+    //{
+    //    Render_WindowProperties(pWindow);
+    //}
 }
 
 void CInspector::Render_WallProperties(CEditorWall* pWall)
@@ -932,7 +941,9 @@ void CInspector::Render_DisplayObjectProperties(CEditorDisplayObject* pDisplay)
         "TRAFFIC_SIGN_2",
         "TRAFFIC_SIGN_3",
         "WALL_WINDOW",
-        "PASSTAIRS"
+        "PASSTAIRS",
+        "STREET_LIGHTS",
+        "SCREEN_DISPLAY"
     };
 
     int iSelectedType = static_cast<int>(eType);
@@ -1043,6 +1054,11 @@ void CInspector::Render_DisplayCubeObjectProperties(CEditorDisplayCubeObject* pD
     {
         pDisplayCube->Set_Scale(_vec3(64.f, 64.f, 64.f));
     }
+}
+
+void CInspector::Render_WindowProperties(CEditorWindow* pWindow)
+{
+    // 단일 텍스처라 구현 필요 X 
 }
 
 CInspector* CInspector::Create(CEditorCamera* pCamera, CEditorScene* pScene)

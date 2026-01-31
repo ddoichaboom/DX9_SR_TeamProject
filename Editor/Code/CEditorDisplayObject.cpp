@@ -19,7 +19,9 @@ vector<TextureSource> CEditorDisplayObject::m_vTextureSource =
     {TRAFFIC_SIGN_2, L"../Bin/Resource/Texture/Object/DisplayObject/TRAFFIC_SIGN_2.dds"},
     {TRAFFIC_SIGN_3, L"../Bin/Resource/Texture/Object/DisplayObject/TRAFFIC_SIGN_3.dds"},
     {WALL_WINDOW, L"../Bin/Resource/Texture/Object/DisplayObject/WALL_WINDOW.dds", true, 0, 1, 1, {1.f, 1.f}},
-    {PASSTAIRS, L"../Bin/Resource/Texture/Object/DisplayObject/PASSTAIRS.dds"}
+    {PASSTAIRS, L"../Bin/Resource/Texture/Object/DisplayObject/PASSTAIRS.dds"},
+    {STREET_LIGHTS, L"../Bin/Resource/Texture/Object/DisplayObject/STREET_LIGHTS.dds"},
+    {SCREEN_DISPLAY, L"../Bin/Resource/Texture/Object/DisplayObject/SCREEN_DISPLAY.dds", true, 0, 7, 7, {1.f, 1.f}}
 };
 
 CEditorDisplayObject::CEditorDisplayObject(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -225,6 +227,12 @@ void CEditorDisplayObject::Set_DisplayObjectType(DISPLAY_OBJECT_TYPE eObjectType
         break;
     case PASSTAIRS:
         m_pTransformCom->Set_Scale(_vec3(32.f, 32.f, 1.f));
+    case STREET_LIGHTS:
+        m_pTransformCom->Set_Scale(_vec3(16.f, 64.f, 1.f));
+        break;
+    case SCREEN_DISPLAY:
+        m_pTransformCom->Set_Scale(_vec3(32.f, 16.f, 1.f));
+        break;
     }
 
 }
