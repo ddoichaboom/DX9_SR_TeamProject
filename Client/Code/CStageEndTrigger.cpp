@@ -83,7 +83,8 @@ void CStageEndTrigger::OnBeginCollision()
 	}
 	else
 	{
-		endData.pos.x -= 5.f;
+		//endData.pos.x -= 5.f;
+		endData.pos.x += 15.f;
 		endData.angleY = 90.f;
 	}
 
