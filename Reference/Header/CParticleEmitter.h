@@ -47,7 +47,7 @@ protected:
 	//Padding이 있는 텍스쳐는 아래 함수로 직접 넘겨주기 
 	bool				SetNextFrame(Particle* pParticle, _vec2& _Idx);
 public:
-	virtual void		SetPos(_vec3 _pos) { m_vPos = _pos; }
+	void				SetPos(_vec3 _pos) { m_vPos = _pos; }
 	_vec3				GetPos() { return m_vPos; }
 
 	void				SetSize(_vec2 _size) { m_vSize = _size; }

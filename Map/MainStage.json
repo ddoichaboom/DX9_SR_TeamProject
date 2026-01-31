@@ -1,6 +1,6 @@
 {
   "VendingMachineCount": 5,
-  "WindowCount": 24,
+  "WindowCount": 6,
   "axeCount": 4,
   "ceilingCount": 628,
   "displayCubeObjectCount": 734,
@@ -11,7 +11,7 @@
   "extinguisherCount": 0,
   "floorCount": 764,
   "mapColliderCount": 62,
-  "objectCount": 3203,
+  "objectCount": 3185,
   "objects": [
     {
       "floorType": 0,
@@ -38904,29 +38904,6 @@
     {
       "name": "Wall",
       "position": [
-        712.0,
-        -208.0,
-        2398.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        90.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 2,
-      "type": "Wall",
-      "wallDirection": 3,
-      "wallType": 3
-    },
-    {
-      "name": "Wall",
-      "position": [
         728.0,
         -240.0,
         2318.0
@@ -50172,27 +50149,6 @@
         440.0,
         -368.1000061035156,
         2350.0
-      ],
-      "roomIndex": 5,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        16.0
-      ],
-      "type": "DisplayCubeObject"
-    },
-    {
-      "displayCubeObjectType": 2,
-      "name": "DisplayCubeObject",
-      "position": [
-        472.0,
-        -368.1000061035156,
-        2318.0
       ],
       "roomIndex": 5,
       "rotation": [
@@ -70481,8 +70437,8 @@
     {
       "name": "Window_0",
       "position": [
-        568.0,
-        -240.0,
+        552.0,
+        -224.0,
         2366.0
       ],
       "roomIndex": 6,
@@ -70492,491 +70448,8 @@
         0.0
       ],
       "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        536.0,
-        -240.0,
-        2366.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        600.0,
-        -240.0,
-        2366.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        632.0,
-        -240.0,
-        2366.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        664.0,
-        -240.0,
-        2366.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        696.0,
-        -208.0,
-        2366.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        664.0,
-        -208.0,
-        2366.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        632.0,
-        -208.0,
-        2366.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        600.0,
-        -208.0,
-        2366.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        568.0,
-        -208.0,
-        2366.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        536.0,
-        -208.0,
-        2366.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        536.0,
-        -240.0,
-        2302.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        536.0,
-        -208.0,
-        2302.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        568.0,
-        -208.0,
-        2302.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        568.0,
-        -240.0,
-        2302.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        600.0,
-        -208.0,
-        2302.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        600.0,
-        -240.0,
-        2302.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        632.0,
-        -208.0,
-        2302.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        632.0,
-        -240.0,
-        2302.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        664.0,
-        -208.0,
-        2302.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        664.0,
-        -240.0,
-        2302.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        696.0,
-        -208.0,
-        2302.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        696.0,
-        -240.0,
-        2302.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
-        1.0
-      ],
-      "textureIdx": 0,
-      "type": "Window"
-    },
-    {
-      "name": "Window",
-      "position": [
-        696.0,
-        -240.0,
-        2366.0
-      ],
-      "roomIndex": 6,
-      "rotation": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "scale": [
-        16.0,
-        16.0,
+        32.0,
+        32.0,
         1.0
       ],
       "textureIdx": 0,
@@ -71295,6 +70768,155 @@
       ],
       "textureIdx": 2,
       "type": "DisplayObject"
+    },
+    {
+      "name": "Wall",
+      "position": [
+        712.0,
+        -208.0,
+        2398.0
+      ],
+      "roomIndex": 6,
+      "rotation": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        1.0
+      ],
+      "textureIdx": 2,
+      "type": "Wall",
+      "wallDirection": 3,
+      "wallType": 3
+    },
+    {
+      "displayCubeObjectType": 2,
+      "name": "DisplayCubeObject",
+      "position": [
+        472.0,
+        -368.1000061035156,
+        2318.0
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "type": "DisplayCubeObject"
+    },
+    {
+      "name": "Window",
+      "position": [
+        616.0,
+        -224.0,
+        2366.0
+      ],
+      "roomIndex": 6,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Window"
+    },
+    {
+      "name": "Window",
+      "position": [
+        680.0,
+        -224.0,
+        2366.0
+      ],
+      "roomIndex": 6,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Window"
+    },
+    {
+      "name": "Window",
+      "position": [
+        680.0,
+        -224.0,
+        2302.0
+      ],
+      "roomIndex": 6,
+      "rotation": [
+        0.0,
+        180.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Window"
+    },
+    {
+      "name": "Window",
+      "position": [
+        616.0,
+        -224.0,
+        2302.0
+      ],
+      "roomIndex": 6,
+      "rotation": [
+        0.0,
+        180.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Window"
+    },
+    {
+      "name": "Window",
+      "position": [
+        552.0,
+        -224.0,
+        2302.0
+      ],
+      "roomIndex": 6,
+      "rotation": [
+        0.0,
+        180.0,
+        0.0
+      ],
+      "scale": [
+        32.0,
+        32.0,
+        1.0
+      ],
+      "textureIdx": 0,
+      "type": "Window"
     }
   ],
   "triggerBoxCount": 6,

@@ -310,8 +310,8 @@ HRESULT CMainApp::Ready_ObjectPool()
 	_uint iBulletCount = 20;
 	_uint iBossBulletCount = 50;
 	_uint iBossRocketCount = 30;
-	_uint iWhiteManCount = 15;
-	_uint iSniperWhiteManCount = 15;		
+	_uint iWhiteManCount = 30;
+	_uint iSniperWhiteManCount = 30;		
 	_uint iBeamMonCount = 10;
 	_uint iFlyMonCount = 10;
 	_uint iMaxExtinguisher(0);
@@ -399,6 +399,8 @@ HRESULT CMainApp::Ready_ObjectPool()
 	CPoolMgr::GetInstance()->SetPoolSize<CExtinguisher>(iMaxExtinguisher);
 	CPoolMgr::GetInstance()->SetPoolSize<CDisplayObject>(iMaxDisplayObject);
 	CPoolMgr::GetInstance()->SetPoolSize<CDisplayCubeObject>(iMaxDisplayCubeObject);
+	CPoolMgr::GetInstance()->SetPoolSize<CWindow>(iMaxWindowCount);
+
 
 	CPoolMgr::GetInstance()->SetPoolSize<CVendingMachine>(iMaxVendingMachine);
 
