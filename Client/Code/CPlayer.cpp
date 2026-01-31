@@ -174,7 +174,8 @@ HRESULT CPlayer::Ready_GameObject()
 	m_pTransformCom->Set_Pos(0.f, 0.f, 0.f);
 
 	m_pMainCollider = m_pCollisionCom->CreateCollider(this, m_szMainColliderName);
-	m_pMainCollider->Set_Scale(_vec3(4, 15, 4));
+	//m_pMainCollider->Set_Scale(_vec3(4, 15, 4));
+	m_pMainCollider->Set_Scale(_vec3(4, 15, 8));
 	m_pMainCollider->BindFuncToCollision([&](CollisionInfo info)
 		{
 			OnCollision(info);

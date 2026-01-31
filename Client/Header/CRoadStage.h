@@ -56,7 +56,7 @@ private :
 public :
     static  wstring     szRoadMapBGM;
     _int                m_iFileIndex;
-    enum                { ROOM_CNT = 2 };
+    enum                { ROOM_CNT = 6 };
     CRoom*              m_pRoom[ROOM_CNT];
 
     _float              m_fSpeed = -100.f;
