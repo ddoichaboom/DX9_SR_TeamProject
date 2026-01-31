@@ -403,7 +403,7 @@ HRESULT CMainApp::Ready_ObjectPool()
 	CPoolMgr::GetInstance()->SetPoolSize<CWhiteMan>(iWhiteManCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CSniperWhiteMan>(iSniperWhiteManCount);
 	CPoolMgr::GetInstance()->SetPoolSize<CBeamMon>(iBeamMonCount);
-	CPoolMgr::GetInstance()->SetPoolSize<CFlyMon>(iFlyMonCount);
+	CPoolMgr::GetInstance()->SetPoolSize<CFlyMon>(iFlyMonCount + 10);
 	CPoolMgr::GetInstance()->SetPoolSize<CAxe>(iMaxAxe + 5);
 
 	CPoolMgr::GetInstance()->SetPoolSize<CRoomTrigger>(iMaxRoomTrigger);
