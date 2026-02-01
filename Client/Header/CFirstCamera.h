@@ -55,6 +55,8 @@ public:
 		const _float& fNear = 0.1f,
 		const _float& fFar = 1000.f);
 
+	void Set_BossStage(_bool bBoss) { m_bBossStage = bBoss; }
+
 private:
 	virtual void Free();
 
@@ -75,6 +77,6 @@ private:
 	_float		m_fShakeTime;
 	_float		m_fShakeSpeed;
 	_float		m_fShakePower;
-
+	_bool		m_bBossStage;
 };
 

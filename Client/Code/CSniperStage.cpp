@@ -133,6 +133,11 @@ _int CSniperStage::Update_Scene(const _float& fTimeDelta)
 			//m_bStageEnd = true;
 			m_bEndingPos = true;
 			m_pPlayer->StartEnding();
+			auto iter_Map_Mon = m_mapLayer[L"GameLogic_Layer"]->Get_Objects(OBJ_MONSTER);
+			for (multimap<OBJ_ID, CGameObject*>::iterator it_mon = iter_Map_Mon.first; it_mon != iter_Map_Mon.second; it_mon++)
+			{
+				it_mon->second->SetDead();
+			}
 			
 		}
 		return iExit;

@@ -199,6 +199,8 @@ public:
 
 	CWeapon* Get_Weapon();
 	
+	_bool	Get_KickCheck() { return m_bKickCheck; }
+	void	Set_KickCheck(_bool bKickCheck) { m_bKickCheck = bKickCheck; }
 
 
 protected:
@@ -283,6 +285,7 @@ private:
 	_bool		m_bBossStage;
 	_int		m_iFootStep;
 
+	_bool		m_bKickCheck;
 
 public:
 	static wstring	szTutorialBGM;

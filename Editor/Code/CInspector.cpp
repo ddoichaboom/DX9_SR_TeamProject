@@ -1119,6 +1119,11 @@ void CInspector::Render_DisplayCubeObjectProperties(CEditorDisplayCubeObject* pD
     if (!pDisplayCube)
         return;
 
+    EDITOR_OBJECT_TYPE eType = pDisplayCube->Get_ObjectType();
+    list<CEditorObject*>& SelectedList = m_pScene->Get_SelectedObjects();
+
+    _int iOriginalCubeObjectType = static_cast<_int>(pDisplayCube->Get_CubeObjectType());
+
     ImGui::Spacing();
     ImGui::Separator();
     ImGui::Text("DisplayCubeObject Properties");
@@ -1126,7 +1131,7 @@ void CInspector::Render_DisplayCubeObjectProperties(CEditorDisplayCubeObject* pD
     ImGui::Spacing();
 
     // DisplayCubeObject 타입 콤보박스
-    DISPLAY_CUBE_OBJECT_TYPE eType = pDisplayCube->Get_CubeObjectType();
+
     const char* szDisplayCubeTypes[] = {
         "BOX",
         "CONCRETE_BLOCK",
@@ -1134,14 +1139,31 @@ void CInspector::Render_DisplayCubeObjectProperties(CEditorDisplayCubeObject* pD
         "BUILDING"
     };
 
-    int iSelectedType = static_cast<int>(eType);
+    _int iSelectedType = iOriginalCubeObjectType;
     if (ImGui::Combo("Cube Type", &iSelectedType, szDisplayCubeTypes, IM_ARRAYSIZE(szDisplayCubeTypes)))
     {
-        DISPLAY_CUBE_OBJECT_TYPE eNewType = static_cast<DISPLAY_CUBE_OBJECT_TYPE>(iSelectedType);
-        pDisplayCube->Set_CubeObjectType(eNewType);
+        pDisplayCube->Set_CubeObjectType(static_cast<DISPLAY_CUBE_OBJECT_TYPE>(iSelectedType));
     }
 
     ImGui::Spacing();
+
+    if (iOriginalCubeObjectType != iSelectedType)
+    {
+        for (auto& pSelectedObj : SelectedList)
+        {
+            if (pDisplayCube == pSelectedObj)
+                continue;
+
+            if (pSelectedObj->Get_ObjectType() == EDITOR_OBJ_DISPLAY_CUBE)
+            {
+                CEditorDisplayCubeObject* pSelectedDisplayCubeObject = static_cast<CEditorDisplayCubeObject*>(pSelectedObj);
+                pSelectedDisplayCubeObject->Set_CubeObjectType(static_cast<DISPLAY_CUBE_OBJECT_TYPE>(iSelectedType));
+            }
+        }
+    }
+
+
+    _vec3 vOriginalScale = pDisplayCube->Get_Scale();
 
     // 프리셋 버튼
     ImGui::Text("Presets:");
@@ -1159,6 +1181,24 @@ void CInspector::Render_DisplayCubeObjectProperties(CEditorDisplayCubeObject* pD
     {
         pDisplayCube->Set_Scale(_vec3(64.f, 64.f, 64.f));
     }
+
+    _vec3 vNewScale = pDisplayCube->Get_Scale();
+
+    // 스케일 변동시 다중 적용 
+    if (vOriginalScale != vNewScale)
+    {
+        for (auto& pSelectedObj : SelectedList)
+        {
+            if (pDisplayCube == pSelectedObj)
+                continue;
+
+            if (pSelectedObj->Get_ObjectType() == EDITOR_OBJ_DISPLAY_CUBE)
+            {
+                pSelectedObj->Set_Scale(vNewScale);
+            }
+        }
+    }
+
 }
 
 void CInspector::Render_WindowProperties(CEditorWindow* pWindow)

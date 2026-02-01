@@ -270,7 +270,7 @@ HRESULT CRoadStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 		return E_FAIL;
 
 	// Ä«¸Þ¶ó
-	_vec3 vPlayerPos = { 0.f, 0.f, 0.f };
+	_vec3 vPlayerPos = { 0.f,100.f,0.f };
 	_vec3 vEye = vPlayerPos;
 	_vec3 vAt = { vPlayerPos.x, vPlayerPos.y, vPlayerPos.z + 10.f };
 	_vec3 vUp = { 0.f, 1.f, 0.f };
@@ -517,6 +517,8 @@ void CRoadStage::Check_Collision()
 
 		if (pPlayerCollider) CCollision::Collision_Diff(pPlayerCollider, mapCollider, eMapColliderTag);
 	}
+
+
 
 	for (multimap<OBJ_ID, CGameObject*>::iterator it_Mon = iter_Map_Mon.first; it_Mon != iter_Map_Mon.second; it_Mon++)
 	{
