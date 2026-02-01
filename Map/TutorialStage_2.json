@@ -1,5 +1,5 @@
 {
-  "VendingMachineCount": 1,
+  "VendingMachineCount": 2,
   "WindowCount": 0,
   "axeCount": 1,
   "ceilingCount": 584,
@@ -11,7 +11,7 @@
   "extinguisherCount": 1,
   "floorCount": 484,
   "mapColliderCount": 41,
-  "objectCount": 1508,
+  "objectCount": 1509,
   "objects": [
     {
       "floorType": 0,
@@ -3346,6 +3346,14 @@
       "rotation": [0.0, 0.0, 0.0],
       "scale": [16.0, 16.0, 1.0],
       "type": "Door"
+    },
+    {
+      "name": "VendingMachine",
+      "position": [-24.0, 14.0, 1108.0],
+      "roomIndex": 3,
+      "rotation": [0.0, 180.0, 0.0],
+      "scale": [8.0, 14.0, 4.0],
+      "type": "VendingMachine"
     },
     {
       "doorID": 9,
@@ -15763,7 +15771,7 @@
     {
       "monsterKey": "WhiteMan",
       "name": "MonsterSpawn",
-      "position": [-13.0, 13.0, 1059.0],
+      "position": [0, 13.0, 1059.0],
       "roomIndex": 3,
       "rotation": [0.0, 0.0, 0.0],
       "scale": [5.0, 5.0, 5.0],

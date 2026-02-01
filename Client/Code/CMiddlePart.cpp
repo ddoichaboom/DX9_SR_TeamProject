@@ -207,7 +207,15 @@ void CMiddlePart::Kick()
 {
 	if (m_pAnimationCom->CanEnd())
 	{
-		m_pPlayer->Kick_Func();
+		if (m_pPlayer->Get_KickCheck() == false)
+		{
+			m_pPlayer->Kick_Func();
+		}
+		else
+		{
+			m_pPlayer->Set_KickCheck(false);
+		}
+		
 		//ChangeState(IDLE);
 		m_pPlayer->Change_State(IDLE);
 		return;

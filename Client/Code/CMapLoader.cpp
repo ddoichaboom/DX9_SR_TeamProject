@@ -954,6 +954,7 @@ CGameObject* CMapLoader::Get_GameObject_FromPool(const ObjectData& objData, LPDI
             if (pWhiteMan)
             {
                 pWhiteMan->SetPos(objData.vPos);
+                pWhiteMan->Activate();
                 pGameObject = pWhiteMan;
             }
         }
@@ -972,6 +973,7 @@ CGameObject* CMapLoader::Get_GameObject_FromPool(const ObjectData& objData, LPDI
             if (pFlyMon)
             {
                 pFlyMon->SetPos(objData.vPos);
+                pFlyMon->Activate();
                 pGameObject = pFlyMon;
             }
         }

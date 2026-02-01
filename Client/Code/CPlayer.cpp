@@ -60,6 +60,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_pColHitObj(nullptr), m_pTakeDownObject(nullptr), m_pTakeDownCollider(nullptr)
 	, m_bMoveStop(false), m_bAbleTakeDown(false), m_bDelay(false), m_fDelayTime(0.f)
 	, m_bBossStage(true), m_pSodaUI(nullptr), m_iFootStep(0), m_bTakeDown(false), m_bPoison(false)
+	, m_bKickCheck(false)
 {
 
 	m_eOBJ_ID = OBJ_PLAYER;
@@ -82,6 +83,7 @@ CPlayer::CPlayer(const CPlayer& rhs)
 	, m_pColHitObj(nullptr), m_pTakeDownObject(nullptr), m_pTakeDownCollider(nullptr)
 	, m_bMoveStop(false), m_bAbleTakeDown(false), m_bDelay(false), m_fDelayTime(0.f)
 	, m_bBossStage(true), m_pSodaUI(nullptr), m_iFootStep(0), m_bTakeDown(false), m_bPoison(false)
+	, m_bKickCheck(false)
 {
 	m_eOBJ_ID = OBJ_PLAYER;
 	m_iID = 0;
@@ -2014,6 +2016,7 @@ void CPlayer::OnAttackCollision(CollisionInfo info)
 {
 	if (info.pTarget->GetOBJID() == OBJ_DOOR || info.pTarget->GetOBJID() == OBJ_VENDINGMACHINE)
 	{
+		m_bKickCheck = true;
 		if(!m_pMiddlePart->Get_ActionAble(IDLE))
 			Change_State(KICK);
 	}

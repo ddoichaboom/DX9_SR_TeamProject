@@ -11,7 +11,7 @@
   "extinguisherCount": 12,
   "floorCount": 764,
   "mapColliderCount": 66,
-  "objectCount": 3218,
+  "objectCount": 3221,
   "objects": [
     {
       "floorType": 0,
@@ -42196,9 +42196,9 @@
       "monsterKey": "FlyMon",
       "name": "MonsterSpawn",
       "position": [
-        64.00399780273438,
+        -30.0,
         -220.0,
-        2180.0
+        2139.60009765625
       ],
       "roomIndex": 5,
       "rotation": [
@@ -42218,9 +42218,9 @@
       "monsterKey": "WhiteMan",
       "name": "MonsterSpawn",
       "position": [
-        24.0,
+        114.69999694824219,
         -243.0,
-        2326.0
+        2350.0
       ],
       "roomIndex": 5,
       "rotation": [
@@ -71617,6 +71617,72 @@
         8.0
       ],
       "type": "MapCollider"
+    },
+    {
+      "monsterKey": "WhiteMan",
+      "name": "MonsterSpawn",
+      "position": [
+        334.0,
+        -243.0,
+        2338.39990234375
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "FlyMon",
+      "name": "MonsterSpawn",
+      "position": [
+        79.19999694824219,
+        -230.0,
+        2227.60009765625
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
+    },
+    {
+      "monsterKey": "FlyMon",
+      "name": "MonsterSpawn",
+      "position": [
+        58.5,
+        -230.0,
+        2406.699951171875
+      ],
+      "roomIndex": 5,
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "spawnType": "Monster",
+      "type": "SpawnPoint"
     }
   ],
   "triggerBoxCount": 6,

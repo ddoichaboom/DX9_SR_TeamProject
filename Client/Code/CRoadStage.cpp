@@ -270,7 +270,7 @@ HRESULT CRoadStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 		return E_FAIL;
 
 	// 카메라
-	_vec3 vPlayerPos = { 0.f, 0.f, 0.f };
+	_vec3 vPlayerPos = { 0.f,100.f,0.f };
 	_vec3 vEye = vPlayerPos;
 	_vec3 vAt = { vPlayerPos.x, vPlayerPos.y, vPlayerPos.z + 10.f };
 	_vec3 vUp = { 0.f, 1.f, 0.f };
@@ -501,22 +501,24 @@ void CRoadStage::Check_Collision()
 		pPlayerCollider = cPlayer->GetCollider(); // Main Collider 만 받아옴 
 	}
 
-	//for (multimap<OBJ_ID, CGameObject*>::iterator it_col = iter_Map_Col.first; it_col != iter_Map_Col.second; it_col++)
-	//{
-	//	//객체 당 한번만 casting함. 
-	//	//OBJ_COL 에 들어있는 오브젝트는 모두 MapCollider만 넣는다는 전제하에 static_cast로  진행
-	//	COLLIDER_TAG eMapColliderTag = TAG_NONE;
+	for (multimap<OBJ_ID, CGameObject*>::iterator it_col = iter_Map_Col.first; it_col != iter_Map_Col.second; it_col++)
+	{
+		//객체 당 한번만 casting함. 
+		//OBJ_COL 에 들어있는 오브젝트는 모두 MapCollider만 넣는다는 전제하에 static_cast로  진행
+		COLLIDER_TAG eMapColliderTag = TAG_NONE;
 
-	//	CMapCollider* pMapCollider = static_cast<CMapCollider*>(it_col->second);
-	//	if (pMapCollider) eMapColliderTag = pMapCollider->Get_ColliderTag();
+		CMapCollider* pMapCollider = static_cast<CMapCollider*>(it_col->second);
+		if (pMapCollider) eMapColliderTag = pMapCollider->Get_ColliderTag();
 
-	//	//맵에 있는 콜라이더
-	//	CCollision* mapCol_Collision = static_cast<CCollision*>(it_col->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
-	//	CCollider* mapCollider = mapCol_Collision->GetCollider();
-	//	if (!mapCollider) continue;
+		//맵에 있는 콜라이더
+		CCollision* mapCol_Collision = static_cast<CCollision*>(it_col->second->Get_Component(ID_DYNAMIC, L"Com_Collision"));
+		CCollider* mapCollider = mapCol_Collision->GetCollider();
+		if (!mapCollider) continue;
 
-	//	if (pPlayerCollider) CCollision::Collision_Diff(pPlayerCollider, mapCollider, eMapColliderTag);
-	//}
+		if (pPlayerCollider) CCollision::Collision_Diff(pPlayerCollider, mapCollider, eMapColliderTag);
+	}
+
+
 
 	for (multimap<OBJ_ID, CGameObject*>::iterator it_Mon = iter_Map_Mon.first; it_Mon != iter_Map_Mon.second; it_Mon++)
 	{
