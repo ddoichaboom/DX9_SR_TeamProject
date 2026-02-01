@@ -119,6 +119,7 @@ HRESULT	CCollider::Add_Component()
 
 _vec3* CCollider::GetVtx()
 {
+	if (!m_pBufferCom) return nullptr;
 	return m_pBufferCom->GetVtx();
 }
 
@@ -136,11 +137,13 @@ void  CCollider::Collision(CollisionInfo info)
 
 void CCollider::Set_Scale(_vec3 _scale)
 {
+	if (!m_pTransformCom) return;
 	m_pTransformCom->m_vScale = _scale;
 }
 
 _vec3 CCollider::Get_Scale()
 {
+	if (!m_pTransformCom) return _vec3();
 	return m_pTransformCom->m_vScale;
 }
 
@@ -153,21 +156,20 @@ _vec3 CCollider::Get_WorldPos()
 
 void CCollider::Set_RelativePos(_vec3 _pos)
 {
+	if (!m_pTransformCom) return;
 	m_pTransformCom->Set_Pos(_pos);
 }
 
 _vec3 CCollider::Get_RelativePos()
 {
-	_vec3 pos;
-	m_pTransformCom->Get_Info(INFO_POS, &pos);
-	return pos;
+	if (!m_pTransformCom) return _vec3();
+	return *m_pTransformCom->Get_Info(INFO_POS);
 }
 
 _vec3 CCollider::Get_ParentPos()
 {
-	_vec3 pos;
-	m_pPrtTransformCom->Get_Info(INFO_POS, &pos);
-	return pos;
+	if (!m_pPrtTransformCom) return _vec3();
+	return *m_pPrtTransformCom->Get_Info(INFO_POS);
 }
 
 CCollider* CCollider::Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _Owner)

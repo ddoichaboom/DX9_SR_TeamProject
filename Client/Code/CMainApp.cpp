@@ -104,6 +104,12 @@ HRESULT CMainApp::Ready_MainApp()
 int CMainApp::Update_MainApp(const float& fTimeDelta)
 {
 	CDInputMgr::GetInstance()->Update_InputDev();
+
+	if (CDInputMgr::GetInstance()->Key_Down(DIK_ESCAPE))
+	{
+		DestroyWindow(g_hWnd);
+		return 0;
+	}
 	CSoundMgr::GetInstance()->Update_Sound();
 	_int iExit = m_pManagementClass->Update_Scene(fTimeDelta);
 	if (iExit == RET_DEAD) SetNextScene();

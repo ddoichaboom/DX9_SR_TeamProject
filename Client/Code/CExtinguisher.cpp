@@ -186,6 +186,7 @@ void CExtinguisher::DeadAction()
     {
         CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(exp);
         exp->SetPos(*m_pTransformCom->Get_Info(INFO_POS));
+        exp->SetSize({ 1.5f, 1.5f });
         exp->Reset();
     }
 
