@@ -422,12 +422,7 @@ HRESULT CBossStage::Ready_CharacterTextureProto()
 
 HRESULT CBossStage::Ready_TerrainTextureProto()
 {
-    CCubeTexture* pCom_Cube_Texture = nullptr;
 
-    // Obstacle(VendingMachine) Proto 
-    pCom_Cube_Texture = Engine::CCubeTexture::Create(m_pGraphicDev, CSkyBox::GetTextureSources());
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SkyTexture", pCom_Cube_Texture)))
-        return E_FAIL;
 
     return S_OK;
 }

@@ -151,7 +151,7 @@ _int CMapStage::Update_Scene(const _float& fTimeDelta)
     {
         CEventMgr::GetInstance()->Broadcast(EVENT_VIEW_EVENT_END, nullptr);
         CRenderer::GetInstance()->SetClearViewPortEvent(m_pGraphicDev);
-        //CUIManager::GetInstance()->Clear_UIGroup();
+        CUIManager::GetInstance()->Clear_UIGroup();
         return RET_DEAD;
     }
     

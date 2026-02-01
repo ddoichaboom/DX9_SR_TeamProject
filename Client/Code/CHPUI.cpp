@@ -145,14 +145,18 @@ _int CHPUI::Update_GameObject(const _float& fTimeDelta)
 	
 	m_pFontUI->Set_Text(wHP);
 	
-	if (m_pPhoneHPUI) m_pPhoneHPUI->Update_GameObject(fTimeDelta);
+	if (m_pPhoneHPUI)
+	{
+		m_pPhoneHPUI->Update_GameObject(fTimeDelta);
+		m_pFontUI->LateUpdate_GameObject(fTimeDelta);
+	}
 	return iExit;
 }
 
 void CHPUI::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
-	m_pFontUI->LateUpdate_GameObject(fTimeDelta);
+	//m_pFontUI->LateUpdate_GameObject(fTimeDelta);
 }
 
 void CHPUI::Render_GameObject()

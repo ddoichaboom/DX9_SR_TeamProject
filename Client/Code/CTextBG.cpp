@@ -194,6 +194,7 @@ _int CTextBG::Update_GameObject(const _float& fTimeDelta)
 
 void CTextBG::LateUpdate_GameObject(const _float& fTimeDelta)
 {
+	if (IsDead()) return;
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
 	m_pPlusUI->LateUpdate_GameObject(fTimeDelta);
 	m_pDeadFontUI->LateUpdate_GameObject(fTimeDelta);

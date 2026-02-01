@@ -546,8 +546,7 @@ void CUIManager::Clear_UIGroup()
 {
 	for (auto& pair : m_mapUI)
 	{
-		for_each(pair.second.begin(), pair.second.end(), [](auto* pUI) {Safe_Release(pUI); });
-		pair.second.clear();
+		for_each(pair.second.begin(), pair.second.end(), [](auto* pUI) { pUI->SetDead(); });		
 	}
 	Safe_Release(m_pEffectUI);
 	//Safe_Release(m_pDashUI);

@@ -21,6 +21,7 @@
 #include "CLeftPart.h"
 #include "CSRightHand.h"
 #include "CBeam.h"
+#include "CSkyBox.h"
 
 //UI
 #include "CSniperUI.h"
@@ -101,7 +102,7 @@ _int CSniperStage::Update_Scene(const _float& fTimeDelta)
 	}
 	else if (!m_bStartSound)
 	{
-		CUIManager::GetInstance()->Clear_UIGroup();
+		//CUIManager::GetInstance()->Clear_UIGroup();
 		CSoundMgr::GetInstance()->StopAll();
 		CSoundMgr::GetInstance()->PlayBGM(CSniperPlayer::szSniperMapBGM.c_str(), 0.4f);
 		m_bStartSound = true;
@@ -205,6 +206,13 @@ HRESULT CSniperStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 	CLayer* pLayer = CLayer::Create();
 	if (nullptr == pLayer)	return E_FAIL;
 
+	// SkyBox 积己 
+	CGameObject* pGameObject = CSkyBox::Create(m_pGraphicDev, -150.f);
+	NULL_CHECK_RETURN(pGameObject, E_FAIL);
+
+	if (FAILED(pLayer->Add_GameObject(pGameObject)))
+		return E_FAIL;
+
 	//敲饭捞绢 积己 
 	m_pPlayer = CSniperPlayer::Create(m_pGraphicDev);
 	//m_pPlayer->SetPos({ 0,720,8 }); // File - Sniper_2
@@ -220,6 +228,8 @@ HRESULT CSniperStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 		MSG_BOX("Sniper Map - Load Monster Spawn Pos Failed");
 		return E_FAIL;
 	}
+
+
 
 	m_mapLayer.insert({ pLayerTag, pLayer });
 	m_pGameLogic_Layer = pLayer;
@@ -316,6 +326,13 @@ HRESULT CSniperStage::Ready_CharacterTextureProto()
 
 HRESULT CSniperStage::Ready_TerrainTextureProto()
 {
+	CCubeTexture* pCom_Cube_Texture = nullptr;
+
+	// Obstacle(VendingMachine) Proto 
+	pCom_Cube_Texture = Engine::CCubeTexture::Create(m_pGraphicDev, CSkyBox::GetTextureSources());
+	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SkyTexture", pCom_Cube_Texture)))
+		return E_FAIL;
+
 	return S_OK;
 }
 

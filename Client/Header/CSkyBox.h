@@ -13,6 +13,7 @@ class CSkyBox :   public CGameObject
 {
 private:
 	explicit CSkyBox(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CSkyBox(LPDIRECT3DDEVICE9 pGraphicDev, _float fHeight);
 	explicit CSkyBox(const CGameObject& rhs);
 	virtual ~CSkyBox();
 
@@ -39,10 +40,12 @@ private:
 
 public:
 	static CSkyBox* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CSkyBox* Create(LPDIRECT3DDEVICE9 pGraphicDev,_float fHeight);
 
 
 
 private:
 	static vector<TextureSource>    m_vTextureSource;
+	_float	m_fHeight;
 };
 

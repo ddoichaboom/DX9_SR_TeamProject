@@ -14,6 +14,16 @@ CSkyBox::CSkyBox(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_pTransformCom(nullptr)
 	, m_pBufferCom(nullptr)
 	, m_pTextureCom(nullptr)
+	, m_fHeight(150.f)
+{
+}
+
+CSkyBox::CSkyBox(LPDIRECT3DDEVICE9 pGraphicDev, _float fHeight)
+	: CGameObject(pGraphicDev)
+	, m_pTransformCom(nullptr)
+	, m_pBufferCom(nullptr)
+	, m_pTextureCom(nullptr)
+	, m_fHeight(fHeight)
 {
 }
 
@@ -59,7 +69,7 @@ void CSkyBox::LateUpdate_GameObject(const _float& fTimeDelta)
 	D3DXMatrixInverse(&matCamWorld, 0, &matCamWorld);
 
 
-	m_pTransformCom->Set_Pos(matCamWorld._41, matCamWorld._42 + 3.f, matCamWorld._43);
+	m_pTransformCom->Set_Pos(matCamWorld._41, matCamWorld._42 + m_fHeight, matCamWorld._43);
 }
 
 void CSkyBox::Render_GameObject()
@@ -126,6 +136,20 @@ HRESULT CSkyBox::Add_Component()
 CSkyBox* CSkyBox::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CSkyBox* pPlayer = new CSkyBox(pGraphicDev);
+
+	if (FAILED(pPlayer->Ready_GameObject()))
+	{
+		Safe_Release(pPlayer);
+		MSG_BOX("pPlayer Create Failed");
+		return nullptr;
+	}
+
+	return pPlayer;
+}
+
+CSkyBox* CSkyBox::Create(LPDIRECT3DDEVICE9 pGraphicDev, _float fHeight)
+{
+	CSkyBox* pPlayer = new CSkyBox(pGraphicDev, fHeight);
 
 	if (FAILED(pPlayer->Ready_GameObject()))
 	{

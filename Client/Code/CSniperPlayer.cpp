@@ -127,7 +127,7 @@ _int CSniperPlayer::Update_GameObject(const _float& fTimeDelta)
 		if (m_pRightHand) m_pRightHand->Update_GameObject(fTimeDelta);
 		if (m_pLeftHand)
 		{
-			if(m_pStateCom->GetCurrentStateID() != SN_INTRO)
+			if(m_pStateCom->GetCurrentStateID() != SN_INTRO && m_bEndingPos == false)
 				m_pLeftHand->Update_GameObject(fTimeDelta);
 		}
 	}
