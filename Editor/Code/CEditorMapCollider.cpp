@@ -11,6 +11,7 @@ CEditorMapCollider::CEditorMapCollider(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_pCollisionCom(nullptr)
     , m_pCollider(nullptr)
     , m_vColliderScale(8.f, 8.f, 8.f)  // 기본 크기
+    , m_eColliderTag(TAG_NONE)
 {
     m_eObjType = EDITOR_OBJ_MAP_COLLIDER;
 }
@@ -20,6 +21,7 @@ CEditorMapCollider::CEditorMapCollider(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos
     , m_pCollisionCom(nullptr)
     , m_pCollider(nullptr)
     , m_vColliderScale(vScale)
+    , m_eColliderTag(TAG_NONE)
 {
     m_eObjType = EDITOR_OBJ_MAP_COLLIDER;
 }
