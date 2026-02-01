@@ -253,14 +253,16 @@ HRESULT CBossStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
     _vec3 vEye = vPlayerPos;
     _vec3 vAt = { vPlayerPos.x, vPlayerPos.y, vPlayerPos.z };
     _vec3 vUp = { 0.f, 1.f, 0.f };
+    CFirstCamera* pCam = nullptr;
+    pGameObject = pCam=CFirstCamera::Create(m_pGraphicDev, &vEye, &vAt, &vUp);
 
-    pGameObject = CFirstCamera::Create(m_pGraphicDev, &vEye, &vAt, &vUp);
 
     if (nullptr == pGameObject)
         return E_FAIL;
 
     if (FAILED(pLayer->Add_GameObject(pGameObject)))
         return E_FAIL;
+    pCam->Set_BossStage(true);
 
     // SkyBox »ý¼º 
     pGameObject = CSkyBox::Create(m_pGraphicDev);

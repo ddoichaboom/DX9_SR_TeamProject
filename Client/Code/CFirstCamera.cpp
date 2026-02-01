@@ -11,7 +11,7 @@ CFirstCamera::CFirstCamera(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCamera(pGraphicDev), m_bFix(true), m_bCheck(true)
 	, m_pTransformCom(nullptr), m_fSpeed(0.f)
 	, m_fPitch(0.f), m_fYaw(0.f)
-	, m_fShakeTime(0.f), m_fShakeSpeed(12.f), m_fShakePower(0.8f), m_bStage(false)
+	, m_fShakeTime(0.f), m_fShakeSpeed(12.f), m_fShakePower(0.8f), m_bStage(false), m_bBossStage(false)
 	
 {
 	m_eOBJ_ID = OBJ_CAM;
@@ -22,7 +22,7 @@ CFirstCamera::CFirstCamera(const CFirstCamera& rhs)
 	: CCamera(rhs), m_bFix(true), m_bCheck(true)
 	, m_pTransformCom(nullptr), m_fSpeed(0.f)
 	, m_fPitch(0.f), m_fYaw(0.f)
-	, m_fShakeTime(0.f), m_fShakeSpeed(10.f), m_fShakePower(0.8f), m_bStage(false)
+	, m_fShakeTime(0.f), m_fShakeSpeed(10.f), m_fShakePower(0.8f), m_bStage(false), m_bBossStage(false)
 {
 	m_eOBJ_ID = OBJ_CAM;
 	m_iID = Make_ID();
@@ -106,13 +106,17 @@ _int CFirstCamera::Update_GameObject(const _float& fTimeDelta)
 	m_pTransformCom->Get_Info(INFO_LOOK, &vLook);
 	m_vAt = m_vEye + vLook;
 
-	_matrix matRot;
-	D3DXMatrixRotationYawPitchRoll(&matRot,
-		D3DXToRadian(m_pTransformCom->m_vAngle.y),
-		D3DXToRadian(m_pTransformCom->m_vAngle.x),
-		D3DXToRadian(m_pTransformCom->m_vAngle.z));
+	if (m_bBossStage == false)
+	{
+		_matrix matRot;
+		D3DXMatrixRotationYawPitchRoll(&matRot,
+			D3DXToRadian(m_pTransformCom->m_vAngle.y),
+			D3DXToRadian(m_pTransformCom->m_vAngle.x),
+			D3DXToRadian(m_pTransformCom->m_vAngle.z));
 
-	D3DXVec3TransformNormal(&m_vUp, &vUp, &matRot);
+		D3DXVec3TransformNormal(&m_vUp, &vUp, &matRot);
+	}
+
 
 	pPlayerTransform->m_vAngle.y = m_pTransformCom->m_vAngle.y;
 
@@ -125,7 +129,8 @@ void CFirstCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 	CCamera::LateUpdate_GameObject(fTimeDelta);
 
 
-	Key_Input(fTimeDelta);
+	if(m_bBossStage == false)
+		Key_Input(fTimeDelta);
 
 	if (m_bFix)
 	{
