@@ -130,7 +130,8 @@ _int CRoadStage::Update_Scene(const _float& fTimeDelta)
 
 		if (m_pLoadingEX->IsEnd())
 		{
-			CSoundMgr::GetInstance()->PlayBGM(szRoadMapBGM.c_str(), 1.4f);
+			//CSoundMgr::GetInstance()->PlayBGM(szRoadMapBGM.c_str(), 1.4f);
+			CSoundMgr::GetInstance()->PlayBGM(szRoadMapBGM.c_str(), 0.7f);
 			m_bStartSound = true;
 		}
 		else return 0;

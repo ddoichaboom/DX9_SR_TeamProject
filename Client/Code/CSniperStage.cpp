@@ -207,8 +207,8 @@ HRESULT CSniperStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 
 	//플레이어 생성 
 	m_pPlayer = CSniperPlayer::Create(m_pGraphicDev);
-	m_pPlayer->SetPos({ 0,720,0 });
-
+	//m_pPlayer->SetPos({ 0,720,8 }); // File - Sniper_2
+	m_pPlayer->SetPos({ 0,620,8 });  //File - Sniper 
 	if (m_pPlayer == nullptr) return E_FAIL;
 	if(FAILED(pLayer->Add_GameObject(m_pPlayer))) return E_FAIL;
 

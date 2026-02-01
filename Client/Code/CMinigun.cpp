@@ -313,7 +313,8 @@ void CMinigun::Begin_Attack()
 {
 	m_pChain->ChangeState(1);
 	CSoundMgr::GetInstance()->StopGroupSound(SOUND_PLAYER_BGM);
-	CSoundMgr::GetInstance()->PlayPlayerBGMSound(m_szMinigunLoop.c_str(), 1.8f);
+//	CSoundMgr::GetInstance()->PlayPlayerBGMSound(m_szMinigunLoop.c_str(), 1.8f);
+	CSoundMgr::GetInstance()->PlayPlayerBGMSound(m_szMinigunLoop.c_str(), 1.f);
 }
 
 void CMinigun::Attack()
