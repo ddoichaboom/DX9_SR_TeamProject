@@ -86,12 +86,17 @@ void CFileIO::SaveTransformData(json& jObj, CEditorObject* pObj)
 
 void CFileIO::SaveTextureData(json& jObj, CEditorObject* pObj)
 {
+    EDITOR_OBJECT_TYPE eType = pObj->Get_ObjectType();
+
     // Floor 객체
-    if (CEditorFloor* pFloor = dynamic_cast<CEditorFloor*>(pObj))
+    if (eType == EDITOR_OBJ_FLOOR || eType == EDITOR_OBJ_DYNAMIC_FLOOR || eType == EDITOR_OBJ_SLOPE_FLOOR)
     {
+        CEditorFloor* pFloor = static_cast<CEditorFloor*>(pObj);
+
         // Dynamic Floor 확인
-        if (CEditorDynamicFloor* pDynamicFloor = dynamic_cast<CEditorDynamicFloor*>(pObj))
+        if (eType == EDITOR_OBJ_DYNAMIC_FLOOR)
         {
+            CEditorDynamicFloor* pDynamicFloor = static_cast<CEditorDynamicFloor*>(pObj);
             jObj["isDynamic"] = true;
             jObj["floorType"] = pDynamicFloor->Get_FloorType();
         }
@@ -103,14 +108,16 @@ void CFileIO::SaveTextureData(json& jObj, CEditorObject* pObj)
         }
     }
     // Ceiling 객체
-    else if (CEditorCeiling* pCeiling = dynamic_cast<CEditorCeiling*>(pObj))
+    else if (eType == EDITOR_OBJ_CEILING)
     {
+        CEditorCeiling* pCeiling = static_cast<CEditorCeiling*>(pObj);
         jObj["ceilingType"] = pCeiling->Get_CeilingType();
         jObj["textureIdx"] = pCeiling->Get_TextureIdx();
     }
     // Wall 객체
-    else if (CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj))
+    else if (eType == EDITOR_OBJ_WALL || eType == EDITOR_OBJ_DYNAMIC_WALL)
     {
+        CEditorWall* pWall = static_cast<CEditorWall*>(pObj);
         jObj["wallType"] = pWall->Get_WallType();
         jObj["textureIdx"] = pWall->Get_TextureIdx();
     }
@@ -161,19 +168,21 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
         {
             json jObj;
 
+            EDITOR_OBJECT_TYPE eObjType = pObj->Get_ObjectType();
+
             // 타입 판별 및 저장
-            if (CEditorFloor* pFloor = dynamic_cast<CEditorFloor*>(pObj))
+            if (eObjType == EDITOR_OBJ_FLOOR || eObjType == EDITOR_OBJ_DYNAMIC_FLOOR || eObjType == EDITOR_OBJ_SLOPE_FLOOR)
             {
-                if (dynamic_cast<CEditorDynamicFloor*>(pObj))
+                if (eObjType == EDITOR_OBJ_DYNAMIC_FLOOR)
                 {
                     iDynamicFloorCount++;
-                    jObj["type"] = "DynamicFloor";  
+                    jObj["type"] = "DynamicFloor";
                 }
-                else if (CEditorSlopeFloor* pSlopeFloor = dynamic_cast<CEditorSlopeFloor*>(pObj))
+                else if (eObjType == EDITOR_OBJ_SLOPE_FLOOR)
                 {
+                    CEditorSlopeFloor* pSlopeFloor = static_cast<CEditorSlopeFloor*>(pObj);
                     iSlopeFloorCount++;
                     jObj["type"] = "SlopeFloor";
-
                     jObj["SlopeDirection"] = pSlopeFloor->Get_SlopeDirection();
                 }
                 else
@@ -186,7 +195,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                 SaveTransformData(jObj, pObj);
                 SaveTextureData(jObj, pObj);
             }
-            else if (dynamic_cast<CEditorCeiling*>(pObj))
+            else if (eObjType == EDITOR_OBJ_CEILING)
             {
                 iCeilingCount++;
                 jObj["type"] = "Ceiling";
@@ -195,11 +204,11 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                 SaveTransformData(jObj, pObj);
                 SaveTextureData(jObj, pObj);
             }
-            else if (CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj))
+            else if (eObjType == EDITOR_OBJ_WALL || eObjType == EDITOR_OBJ_DYNAMIC_WALL)
             {
-                CEditorDynamicWall* pDynamicWall = dynamic_cast<CEditorDynamicWall*>(pObj);
+                CEditorWall* pWall = static_cast<CEditorWall*>(pObj);
 
-                if (pDynamicWall)
+                if (eObjType == EDITOR_OBJ_DYNAMIC_WALL)
                 {
                     iDynamicWallCount++;
                     jObj["type"] = "DynamicWall";
@@ -217,7 +226,7 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                 SaveTransformData(jObj, pObj);
                 SaveTextureData(jObj, pObj);
             }
-            else if (dynamic_cast<CEditorVendingMachine*>(pObj))
+            else if (eObjType == EDITOR_OBJ_VENDINGMACHINE)
             {
                 iVendingMachineCount++;
                 jObj["type"] = "VendingMachine";
@@ -225,11 +234,11 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                 jObj["roomIndex"] = pObj->Get_RoomIndex();
                 SaveTransformData(jObj, pObj);
             }
-            else if (CEditorSpawnPoint* pSpawn = dynamic_cast<CEditorSpawnPoint*>(pObj))
+            else if (eObjType == EDITOR_OBJ_SPAWNPOINT)
             {
+                CEditorSpawnPoint* pSpawn = static_cast<CEditorSpawnPoint*>(pObj);
                 jObj["type"] = "SpawnPoint";
 
-                // SpawnPoint 전용 필드
                 if (pSpawn->Get_SpawnType() == SPAWN_PLAYER)
                     jObj["spawnType"] = "Player";
                 else if (pSpawn->Get_SpawnType() == SPAWN_MONSTER)
@@ -238,80 +247,68 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
                     jObj["spawnType"] = "BossMonster";
 
                 jObj["monsterKey"] = pSpawn->Get_MonsterKey();
-
                 jObj["roomIndex"] = pObj->Get_RoomIndex();
-                // Transform 데이터 저장 (동일)
                 SaveTransformData(jObj, pObj);
             }
-            else if (CEditorMapCollider* pMapCollider = dynamic_cast<CEditorMapCollider*>(pObj))
+            else if (eObjType == EDITOR_OBJ_MAP_COLLIDER)
             {
+                CEditorMapCollider* pMapCollider = static_cast<CEditorMapCollider*>(pObj);
                 iMapColliderCount++;
                 jObj["type"] = "MapCollider";
 
                 jObj["roomIndex"] = pObj->Get_RoomIndex();
 
-                // Position (Transform에서)
                 _vec3 vPos = pObj->Get_Position();
                 jObj["position"] = { vPos.x, vPos.y, vPos.z };
-
-                // Rotation (사용하지 않지만 호환성 위해 저장)
                 jObj["rotation"] = { 0.f, 0.f, 0.f };
 
-                // Scale (Collider Scale 저장)
                 _vec3 vColliderScale = pMapCollider->Get_ColliderScale();
                 jObj["scale"] = { vColliderScale.x, vColliderScale.y, vColliderScale.z };
 
-                // 이름
                 wstring wstrName = pObj->Get_Name();
                 string strName(wstrName.begin(), wstrName.end());
                 jObj["name"] = strName;
 
                 jObj["colliderTag"] = pMapCollider->Get_ColliderTag();
             }
-            else if (CEditorTriggerBox* pTriggerBox = dynamic_cast<CEditorTriggerBox*>(pObj))
+            else if (eObjType == EDITOR_OBJ_TRIGGER_BOX)
             {
+                CEditorTriggerBox* pTriggerBox = static_cast<CEditorTriggerBox*>(pObj);
                 iTriggerBoxCount++;
                 jObj["type"] = "TriggerBox";
 
                 jObj["roomIndex"] = pObj->Get_RoomIndex();
 
-                // Position
                 _vec3 vPos = pObj->Get_Position();
                 jObj["position"] = { vPos.x, vPos.y, vPos.z };
-
-                // Rotation
                 jObj["rotation"] = { 0.f, 0.f, 0.f };
 
-                // Scale (Collider Scale)
                 _vec3 vColliderScale = pTriggerBox->Get_ColliderScale();
                 jObj["scale"] = { vColliderScale.x, vColliderScale.y, vColliderScale.z };
 
-                // 이름
                 wstring wstrName = pObj->Get_Name();
                 string strName(wstrName.begin(), wstrName.end());
                 jObj["name"] = strName;
 
-                // TriggerBox 전용 필드
                 jObj["triggerType"] = static_cast<_int>(pTriggerBox->Get_TriggerType());
             }
-            else if (CEditorDoor* pDoor = dynamic_cast<CEditorDoor*>(pObj))
+            else if (eObjType == EDITOR_OBJ_DOOR)
             {
+                CEditorDoor* pDoor = static_cast<CEditorDoor*>(pObj);
                 iDoorCount++;
                 jObj["type"] = "Door";
                 jObj["roomIndex"] = pObj->Get_RoomIndex();
 
-                // Transform 저장
                 SaveTransformData(jObj, pObj);
 
-                // Door 전용 필드 저장
                 jObj["doorType"] = static_cast<_int>(pDoor->Get_DoorType());
                 jObj["doorID"] = pDoor->Get_DoorID();
-            }
-            else if (CEditorInteractObject* pInteract = dynamic_cast<CEditorInteractObject*>(pObj))
+                }
+            else if (eObjType == EDITOR_OBJ_INTERACT)
             {
+                CEditorInteractObject* pInteract = static_cast<CEditorInteractObject*>(pObj);
                 OBJ_ITEM_TYPE eItemType = pInteract->Get_ItemType();
 
-                // Client CMapLoader 호환: "Extinguisher", "Axe"로 저장
                 if (eItemType == ITEM_AXE)
                 {
                     iAxeCount++;
@@ -325,35 +322,34 @@ HRESULT CFileIO::Save_MapData(const wstring& wstrPath, CEditorScene* pScene)
 
                 jObj["roomIndex"] = pObj->Get_RoomIndex();
                 SaveTransformData(jObj, pObj);
-
-                // itemType 필드 (Editor 로드 시 아이템 타입 복원용)
                 jObj["itemType"] = static_cast<_int>(eItemType);
-            }
-            else if (CEditorDisplayObject* pDisplay = dynamic_cast<CEditorDisplayObject*>(pObj))
+                }
+            else if (eObjType == EDITOR_OBJ_DISPLAY)
             {
+                CEditorDisplayObject* pDisplay = static_cast<CEditorDisplayObject*>(pObj);
                 iDisplayObjectCount++;
                 jObj["type"] = "DisplayObject";
                 jObj["roomIndex"] = pObj->Get_RoomIndex();
 
                 SaveTransformData(jObj, pObj);
 
-                // DisplayObject 전용 필드 (Client CMapLoader 호환)
                 jObj["displayObjectType"] = static_cast<_int>(pDisplay->Get_DisplayObjectType());
                 jObj["textureIdx"] = static_cast<_int>(pDisplay->Get_TextureIdx());
-            }
-            else if (CEditorDisplayCubeObject* pDisplayCube = dynamic_cast<CEditorDisplayCubeObject*>(pObj))
+                }
+            else if (eObjType == EDITOR_OBJ_DISPLAY_CUBE)
             {
+                CEditorDisplayCubeObject* pDisplayCube = static_cast<CEditorDisplayCubeObject*>(pObj);
                 iDisplayCubeObjectCount++;
                 jObj["type"] = "DisplayCubeObject";
                 jObj["roomIndex"] = pObj->Get_RoomIndex();
 
                 SaveTransformData(jObj, pObj);
 
-                // DisplayCubeObject 전용 필드 (Client CMapLoader 호환)
                 jObj["displayCubeObjectType"] = static_cast<_int>(pDisplayCube->Get_CubeObjectType());
-            }
-            else if (CEditorWindow* pWindow = dynamic_cast<CEditorWindow*>(pObj))
+              }
+            else if (eObjType == EDITOR_OBJ_WINDOW)
             {
+                CEditorWindow* pWindow = static_cast<CEditorWindow*>(pObj);
                 iWindowCount++;
                 jObj["type"] = "Window";
                 jObj["roomIndex"] = pObj->Get_RoomIndex();
@@ -504,7 +500,7 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
                 // 텍스처 데이터 복원 (v4)
                 if (iVersion >= 4 && jObj.contains("floorType"))
                 {
-                    CEditorDynamicFloor* pDynamicFloor = dynamic_cast<CEditorDynamicFloor*>(pObj);
+                    CEditorDynamicFloor* pDynamicFloor = static_cast<CEditorDynamicFloor*>(pObj);
                     if (pDynamicFloor)
                     {
                         _uint iFloorType = jObj["floorType"];
@@ -518,7 +514,7 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
 
                 if (iVersion >= 4 && jObj.contains("floorType"))
                 {
-                    CEditorSlopeFloor* pSlopeFloor = dynamic_cast<CEditorSlopeFloor*>(pObj);
+                    CEditorSlopeFloor* pSlopeFloor = static_cast<CEditorSlopeFloor*>(pObj);
                     if (pSlopeFloor)
                     {
                         _uint iFloorType = jObj["floorType"];
@@ -546,7 +542,7 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
 
                 if (iVersion >= 4 && jObj.contains("floorType"))
                 {
-                    CEditorFloor* pFloor = dynamic_cast<CEditorFloor*>(pObj);
+                    CEditorFloor* pFloor = static_cast<CEditorFloor*>(pObj);
                     if (pFloor)
                     {
                         _uint iFloorType = jObj["floorType"];
@@ -567,7 +563,7 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
 
                 if (iVersion >= 4 && jObj.contains("ceilingType"))
                 {
-                    CEditorCeiling* pCeiling = dynamic_cast<CEditorCeiling*>(pObj);
+                    CEditorCeiling* pCeiling = static_cast<CEditorCeiling*>(pObj);
                     if (pCeiling)
                     {
                         _uint iCeilingType = jObj["ceilingType"];
@@ -601,7 +597,7 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
 
                 if (pObj)
                 {
-                    CEditorWall* pWall = dynamic_cast<CEditorWall*>(pObj);
+                    CEditorWall* pWall = static_cast<CEditorWall*>(pObj);
                     if (pWall)
                     {
                         _uint iWallType = jObj["wallType"];
@@ -647,7 +643,7 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
                 pObj = CEditorMapCollider::Create(pGraphicDev, vPos, vScale);
                 if (pObj && jObj.contains("colliderTag"))
                 {
-                    CEditorMapCollider* pMapCollider = dynamic_cast<CEditorMapCollider*>(pObj);
+                    CEditorMapCollider* pMapCollider = static_cast<CEditorMapCollider*>(pObj);
                     if (pMapCollider)
                     {
                         COLLIDER_TAG  eTag = static_cast<COLLIDER_TAG>((_int)jObj["colliderTag"]);
@@ -673,7 +669,7 @@ HRESULT CFileIO::Load_MapData(const wstring& wstrPath,
 
                 if (pObj)
                 {
-                    CEditorDoor* pDoor = dynamic_cast<CEditorDoor*>(pObj);
+                    CEditorDoor* pDoor = static_cast<CEditorDoor*>(pObj);
                     if (pDoor)
                     {
                         // Door Type 로드

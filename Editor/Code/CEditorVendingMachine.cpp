@@ -9,6 +9,7 @@
 CEditorVendingMachine::CEditorVendingMachine(LPDIRECT3DDEVICE9 pGraphicDev)
     : CEditorObject(pGraphicDev)
 {
+    m_eObjType = EDITOR_OBJ_VENDINGMACHINE;
 }
 
 CEditorVendingMachine::~CEditorVendingMachine()

@@ -19,6 +19,7 @@ CEditorDynamicFloor::CEditorDynamicFloor(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_pScrollTextureCom(nullptr)
 {
 	m_iFloorType = DYNAMIC_FLOOR_WATER;
+	m_eObjType = EDITOR_OBJ_DYNAMIC_FLOOR;
 }
 
 CEditorDynamicFloor::~CEditorDynamicFloor()

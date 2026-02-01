@@ -1,11 +1,7 @@
 #include "pch.h"
 #include "CSelectionMgr.h"
 #include "CEditorObject.h"
-#include <CEditorSpawnPoint.h>
-#include <CEditorVendingMachine.h>
-#include <CEditorWall.h>
-#include <CEditorFloor.h>
-#include <CEditorCeiling.h>
+
 
 CSelectionMgr::CSelectionMgr()
     : m_pPrimarySelected(nullptr)
@@ -363,20 +359,22 @@ _int CSelectionMgr::GetPickingPriority(CEditorObject* pObj)
     // 높을 수록 먼저 선택
     // 작은 오브젝트 > 큰 오브젝트
     // 특수 타입 > 일반 타입
+    EDITOR_OBJECT_TYPE eType = pObj->Get_ObjectType();
 
-    if (dynamic_cast<CEditorSpawnPoint*>(pObj))
-        return 100;     // SpawnPoint 최우선
+    if (eType == EDITOR_OBJ_SPAWNPOINT)
+        return 100;
 
-    if (dynamic_cast<CEditorVendingMachine*>(pObj))
-        return 80;      // VendingMachine 높은 우선순위
+    if (eType == EDITOR_OBJ_VENDINGMACHINE)
+        return 80;
 
-    if (dynamic_cast<CEditorWall*>(pObj))
-        return 60;      // Wall 중간 우선순위
+    if (eType == EDITOR_OBJ_WALL || eType == EDITOR_OBJ_DYNAMIC_WALL)
+        return 60;
 
-    if (dynamic_cast<CEditorFloor*>(pObj) || dynamic_cast<CEditorCeiling*>(pObj))
-        return 40;      // Floor/Ceiling 낮은 우선순위
+    if (eType == EDITOR_OBJ_FLOOR || eType == EDITOR_OBJ_DYNAMIC_FLOOR ||
+        eType == EDITOR_OBJ_SLOPE_FLOOR || eType == EDITOR_OBJ_CEILING)
+        return 40;
 
-    return 50;          // 기타 오브젝트
+    return 50;
 }
 
 CSelectionMgr* CSelectionMgr::Create()

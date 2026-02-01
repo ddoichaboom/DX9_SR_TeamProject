@@ -38,6 +38,8 @@ public:
 	void				Set_Name(const wstring& wstrName) { m_wstrName = wstrName; }
 	const wstring&		Get_Name() const { return m_wstrName; }
 
+	EDITOR_OBJECT_TYPE Get_ObjectType() const { return m_eObjType; }
+
 
 	const _matrix*		Get_WorldMatrix() const;
 
@@ -50,6 +52,7 @@ protected:
 	// State
 	bool                    m_bSelected;
 	wstring                 m_wstrName;
+	EDITOR_OBJECT_TYPE		m_eObjType;
 
 protected:
 	LPDIRECT3DDEVICE9       m_pGraphicDev;

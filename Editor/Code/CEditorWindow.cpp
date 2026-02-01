@@ -12,6 +12,7 @@ CEditorWindow::CEditorWindow(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CEditorObject(pGraphicDev)
 	, m_iTextureIdx(0)
 {
+    m_eObjType = EDITOR_OBJ_WINDOW;
 }
 
 CEditorWindow::~CEditorWindow()

@@ -20,6 +20,7 @@ CEditorSlopeFloor::CEditorSlopeFloor(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_eSlopeDir(SLOPE_POSITIVE_X)
 {
     m_iFloorType = STATIC_FLOOR_SLOPE;
+    m_eObjType = EDITOR_OBJ_SLOPE_FLOOR;
 }
 
 CEditorSlopeFloor::~CEditorSlopeFloor()

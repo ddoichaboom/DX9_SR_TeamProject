@@ -21,7 +21,9 @@ vector<TextureSource> CEditorDisplayObject::m_vTextureSource =
     {WALL_WINDOW, L"../Bin/Resource/Texture/Object/DisplayObject/WALL_WINDOW.dds", true, 0, 1, 1, {1.f, 1.f}},
     {PASSTAIRS, L"../Bin/Resource/Texture/Object/DisplayObject/PASSTAIRS.dds"},
     {STREET_LIGHTS, L"../Bin/Resource/Texture/Object/DisplayObject/STREET_LIGHTS.dds"},
-    {SCREEN_DISPLAY, L"../Bin/Resource/Texture/Object/DisplayObject/SCREEN_DISPLAY.dds", true, 0, 7, 7, {1.f, 1.f}}
+    {SCREEN_DISPLAY, L"../Bin/Resource/Texture/Object/DisplayObject/SCREEN_DISPLAY.dds", true, 0, 7, 7, {1.f, 1.f}},
+    {NAKAMURA_TEXT, L"../Bin/Resource/Texture/Object/DisplayObject/NAKAMURA_PLAZA.dds"},
+    {DOOR, L"../Bin/Resource/Texture/Terrain/Door/DOOR_1.dds"}
 };
 
 CEditorDisplayObject::CEditorDisplayObject(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -29,6 +31,7 @@ CEditorDisplayObject::CEditorDisplayObject(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_eObjectType(JUMP_BORDER)
     , m_iTextureID(0)
 {
+    m_eObjType = EDITOR_OBJ_DISPLAY;
 }
 
 CEditorDisplayObject::~CEditorDisplayObject()

@@ -18,6 +18,7 @@ CEditorDoor::CEditorDoor(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_iDoorID(0)
     , m_pTextureCom(nullptr)
 {
+    m_eObjType = EDITOR_OBJ_DOOR;
 }
 
 CEditorDoor::~CEditorDoor()

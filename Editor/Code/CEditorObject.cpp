@@ -13,6 +13,7 @@ CEditorObject::CEditorObject(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_pTextureCom(nullptr)
     , m_bSelected(false)
     , m_wstrName(L"EditorObject")
+    , m_eObjType(EDITOR_OBJ_END)
 {
     m_pGraphicDev->AddRef();
     m_iRoomIndex = 0;
