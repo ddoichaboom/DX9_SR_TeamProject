@@ -260,6 +260,7 @@ void CFlyMon::Dead()
 	{
 		CManagement::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(exp);
 		exp->SetPos(*m_pTransformCom->Get_Info(INFO_POS));
+		exp->SetSize({ 0.7f, 0.7f });
 		exp->Reset();
 	}
 	if (bodyEmit)
