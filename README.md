@@ -1,4 +1,4 @@
-# DX9_2.5D_TeamProject
+# DX9_2.5D_GameProject
 
 **DirectX 9 자체 프레임워크로 만든 1인칭 액션 게임 — 「MULLET MADJACK」 모작 (3인 팀 프로젝트)**
 
